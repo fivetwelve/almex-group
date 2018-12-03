@@ -1,0 +1,16 @@
+{
+  "name": "almex-group-poc",
+  "description": "Starter kit for new Almex Group site",
+  "license": "UNLICENSED",
+  "scripts": {
+    "develop": "gatsby develop",
+    "start": "yarn develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve"
+  },
+  "dependencies": {
+    "gatsby": "^2.0.61",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3"
+  }
+}
