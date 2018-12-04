@@ -5,12 +5,23 @@
   "scripts": {
     "develop": "gatsby develop",
     "start": "yarn develop",
+    "lint": "./node_modules/.bin/eslint --cache --ext .js,.jsx --ignore-pattern public .",
     "build": "gatsby build",
     "serve": "gatsby serve"
   },
   "dependencies": {
+    "eslint-config-airbnb": "^17.1.0",
     "gatsby": "^2.0.61",
     "react": "^16.6.3",
     "react-dom": "^16.6.3"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.9.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1",
+    "prettier": "^1.15.3"
   }
 }
