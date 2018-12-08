@@ -1,3 +1,7 @@
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
+
 module.exports = {
   siteMetadata: {
     title: `Almex Group`,
@@ -5,18 +9,30 @@ module.exports = {
   },
   plugins: [
     {
-      resolve: 'gatsby-source-graphcms',
+      resolve: `gatsby-plugin-typography`,
       options: {
-        endpoint: 'https://api-useast.graphcms.com/v1/cjp38sm4l76js01dg55spmgn6/master',
-        token:
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2ZXJzaW9uIjoxLCJ0b2tlbklkIjoiYmQ4NWE4MjktNzk1YS00NzczLWFlMzUtZTg5ZWJmM2YxZGJmIn0.s-MUCKJyQbcmO7tdQjdYm8i7T3tIyJz8GNnz2qxgC_E',
+        pathToConfigModule: `src/utils/typography.js`,
+      },
+    },
+    {
+      resolve: `gatsby-source-graphql`,
+      options: {
+        url: process.env.CMS_ENDPOINT,
+        headers: {
+          authorization: `Bearer ${process.env.CMS_TOKEN}`,
+        },
         query: `{
           products {
+            title
             category
             id
             specifications
+            summary
+            pageslug
           }
         }`,
+        typeName: `GraphCMS`,
+        fieldName: `cms`,
       },
     },
   ],

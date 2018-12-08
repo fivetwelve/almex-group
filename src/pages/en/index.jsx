@@ -3,7 +3,7 @@ import { StaticQuery, graphql } from 'gatsby';
 
 const Layout = () => (
   <div>
-    Welcome to Almex!
+    Welcome to Almex Group!
     <StaticQuery
       query={graphql`
         query {
