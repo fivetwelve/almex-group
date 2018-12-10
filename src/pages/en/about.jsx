@@ -1,5 +1,6 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+import Markdown from 'react-remarkable';
 import { articleType } from '../../types';
 
 export const query = graphql`
@@ -16,7 +17,7 @@ export const query = graphql`
 const AboutPage = ({ data }) => (
   <div>
     <h2>{data.cms.articles[0].title}</h2>
-    <div>{data.cms.articles[0].body}</div>
+    <Markdown source={data.cms.articles[0].body} />
   </div>
 );
 
