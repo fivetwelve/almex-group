@@ -19,7 +19,7 @@ module.exports = {
       options: {
         url: process.env.CMS_ENDPOINT,
         headers: {
-          authorization: `Bearer ${process.env.CMS_TOKEN}`,
+          Authorization: `Bearer ${process.env.CMS_TOKEN}`,
         },
         query: `{
           products {
@@ -28,6 +28,11 @@ module.exports = {
             id
             specifications
             summary
+            pageslug
+          }
+          articles {
+            body
+            title
             pageslug
           }
         }`,
