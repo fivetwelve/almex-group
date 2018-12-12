@@ -3,17 +3,6 @@ import { graphql } from 'gatsby';
 import Markdown from 'react-remarkable';
 import { articleType } from '../../types';
 
-export const query = graphql`
-  query AboutPageQuery {
-    cms {
-      articles {
-        title
-        body
-      }
-    }
-  }
-`;
-
 const AboutPage = ({ data }) => (
   <div>
     <h2>{data.cms.articles[0].title}</h2>
@@ -30,3 +19,14 @@ AboutPage.propTypes = {
 };
 
 export default AboutPage;
+
+export const query = graphql`
+  query AboutPageQuery {
+    cms {
+      articles {
+        title
+        body
+      }
+    }
+  }
+`;
