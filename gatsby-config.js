@@ -28,12 +28,12 @@ module.exports = {
             id
             specifications
             summary
-            pageslug
+            pageSlug
           }
           articles {
             body
             title
-            pageslug
+            pageSlug
           }
         }`,
         typeName: `GraphCMS`,

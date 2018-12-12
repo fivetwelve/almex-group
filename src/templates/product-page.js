@@ -1,9 +1,8 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import Markdown from 'react-remarkable';
-// import * as log from 'loglevel';
-import Dump from '../utils/dump';
 import { productType } from '../types';
+import Dump from '../utils/dump';
 
 const ProductPage = ({ data }) => (
   <div>
@@ -26,13 +25,13 @@ export default ProductPage;
 export const query = graphql`
   query($slug: String) {
     cms {
-      products(where: { pageslug: $slug }) {
+      products(where: { pageSlug: $slug }) {
         title
         category
         id
         specifications
         summary
-        pageslug
+        pageSlug
       }
     }
   }

@@ -8,7 +8,7 @@ exports.createPages = ({ graphql, actions }) => {
       {
         cms {
           products {
-            pageslug
+            pageSlug
           }
         }
       }
@@ -16,16 +16,15 @@ exports.createPages = ({ graphql, actions }) => {
       if (result.errors) {
         reject(result.errors);
       }
-      result.data.cms.products.forEach(({ pageslug }) => {
-        // console.log(`product: ${product}`);
-        log.trace('>>>> result:', pageslug);
-        // const path = pageslug;
+      result.data.cms.products.forEach(({ pageSlug }) => {
+        log.trace('>>>> result:', pageSlug);
+        // TODO: locale needs to be dynamic, possible from the CMS.
         const locale = 'en';
         createPage({
-          path: `${locale}/${pageslug}`,
+          path: `${locale}/${pageSlug}`,
           component: path.resolve(`./src/templates/product-page.js`),
           context: {
-            slug: pageslug,
+            slug: pageSlug,
           },
         });
       });
