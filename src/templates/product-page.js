@@ -26,12 +26,12 @@ export const query = graphql`
   query($slug: String) {
     cms {
       products(where: { pageSlug: $slug }) {
-        title
+        pageSlug
         category
-        id
+        title
         specifications
         summary
-        pageSlug
+        features
       }
     }
   }

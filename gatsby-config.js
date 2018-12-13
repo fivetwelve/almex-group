@@ -23,17 +23,18 @@ module.exports = {
         },
         query: `{
           products {
-            title
+            pageSlug
             category
-            id
+            title
             specifications
             summary
-            pageSlug
+            features
           }
           articles {
-            body
-            title
             pageSlug
+            category
+            title
+            body
           }
         }`,
         typeName: `GraphCMS`,

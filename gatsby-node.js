@@ -21,7 +21,7 @@ exports.createPages = ({ graphql, actions }) => {
         // TODO: locale needs to be dynamic, possible from the CMS.
         const locale = 'en';
         createPage({
-          path: `${locale}/${pageSlug}`,
+          path: `${locale}/products/${pageSlug}`,
           component: path.resolve(`./src/templates/product-page.js`),
           context: {
             slug: pageSlug,
