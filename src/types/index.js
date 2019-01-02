@@ -1,24 +1,24 @@
-import { shape, string } from 'prop-types';
+import PropTypes from 'prop-types';
 
-const articleType = shape({
-  cms: shape({
-    articles: shape({
-      title: string.isRequired,
-      pageSlug: string.isRequired,
-      body: string.isRequired,
+const articleType = PropTypes.shape({
+  cms: PropTypes.shape({
+    articles: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      pageSlug: PropTypes.string.isRequired,
+      body: PropTypes.string.isRequired,
     }),
   }),
 });
 
-const productType = shape({
-  cms: shape({
-    products: shape({
-      title: string.isRequired,
-      category: string.isRequired,
-      id: string.isRequired,
-      specifications: string.isRequired,
-      summary: string.isRequired,
-      pageslug: string.isRequired,
+const productType = PropTypes.shape({
+  cms: PropTypes.shape({
+    products: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      category: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+      specifications: PropTypes.string.isRequired,
+      summary: PropTypes.string.isRequired,
+      pageslug: PropTypes.string.isRequired,
     }),
   }),
 });

@@ -1,12 +1,13 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import Markdown from 'react-remarkable';
-import { articleType } from '../../types';
+import Layout from '../../../components/layout';
+import { articleType } from '../../../types';
 
 const AboutPage = ({ data }) => (
-  <div>
+  <Layout activeTab="ABOUT">
     <Markdown source={data.cms.articles[0].body} />
-  </div>
+  </Layout>
 );
 
 AboutPage.defaultProps = {
@@ -20,12 +21,12 @@ AboutPage.propTypes = {
 export default AboutPage;
 
 export const query = graphql`
-  query AboutPageQuery {
+  query AboutPageQueryEN {
     cms {
       articles(where: { category: About }) {
         category
-        title
-        body
+        title(locale: EN)
+        body(locale: EN)
       }
     }
   }
