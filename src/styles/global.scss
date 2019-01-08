@@ -1,3 +1,15 @@
 html {
   background-color: #eee;
 }
+
+.pageWrapper {
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    width: 90%;
+  }
+
+  @media (min-width: 1280px) {
+    width: 1280px;
+  }
+}

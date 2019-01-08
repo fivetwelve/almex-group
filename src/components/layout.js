@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Header from './header';
 import Footer from './footer';
+import '../styles/global.scss';
 
 class Layout extends React.Component {
   shouldComponentUpdate() {
@@ -12,7 +13,7 @@ class Layout extends React.Component {
     const { children, activeTab } = this.props;
 
     return (
-      <div>
+      <div className="pageWrapper">
         <Header activeTab={activeTab} />
         <div>{children}</div>
         <Footer />

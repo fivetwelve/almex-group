@@ -25,19 +25,23 @@ module.exports = {
           Authorization: `Bearer ${process.env.CMS_TOKEN}`,
         },
         query: `{
-          products {
-            pageSlug
-            category
-            title
-            specifications
-            summary
-            features
+          productLists {
+            region
+            products {
+              pageSlug
+              category
+              title
+              specifications
+              summary
+              features
+            }
           }
           articles {
             pageSlug
             category
             title
             body
+            testImage
           }
         }`,
         typeName: `GraphCMS`,

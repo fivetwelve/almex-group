@@ -1,7 +1,7 @@
 import React from 'react';
 import { StaticQuery, graphql } from 'gatsby';
 
-const Layout = () => (
+const Home = () => (
   <div>
     Welcome to Almex Group!
     <StaticQuery
@@ -20,4 +20,4 @@ const Layout = () => (
   </div>
 );
 
-export default Layout;
+export default Home;
