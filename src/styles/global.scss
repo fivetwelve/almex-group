@@ -1,15 +1,24 @@
+@import 'include-media.scss';
+
 html {
   background-color: #eee;
 }
 
-.pageWrapper {
+.siteContainer {
   width: 100%;
+}
+.pageContainer {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
 
-  @media (min-width: 1024px) {
-    width: 90%;
+p {
+  @include media('>=phone', '<=tablet') {
+    font-size: 1.5rem;
   }
 
-  @media (min-width: 1280px) {
-    width: 1280px;
+  @include media('>tablet') {
+    font-size: 1.5rem;
   }
 }

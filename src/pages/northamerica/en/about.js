@@ -7,10 +7,6 @@ import { articleType } from '../../../types';
 const AboutPage = ({ data }) => (
   <Layout activeTab="ABOUT">
     <Markdown source={data.cms.articles[0].body} />
-    <p>
-      Test Image:
-      <img src={data.cms.articles[0].testImage.url} alt="thumbnail of press" />
-    </p>
   </Layout>
 );
 
@@ -27,13 +23,10 @@ export default AboutPage;
 export const query = graphql`
   query {
     cms {
-      articles(where: { category: About }) {
-        category
+      articles(where: { articleCategory: About }) {
+        articleCategory
         title(locale: EN)
         body(locale: EN)
-        testImage {
-          url
-        }
       }
     }
   }

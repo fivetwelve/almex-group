@@ -1,6 +1,6 @@
 import React from 'react';
-import Markdown from 'react-remarkable';
 import PropTypes from 'prop-types';
+import Markdown from 'react-remarkable';
 import { productType } from '../types';
 import Dump from '../utils/dump';
 

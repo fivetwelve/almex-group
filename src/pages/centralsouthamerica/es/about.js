@@ -23,8 +23,8 @@ export default AboutPage;
 export const query = graphql`
   query {
     cms {
-      articles(where: { category: About }) {
-        category
+      articles(where: { articleCategory: About }) {
+        articleCategory
         title(locale: ES)
         body(locale: ES)
       }

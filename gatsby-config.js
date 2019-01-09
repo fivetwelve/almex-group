@@ -38,10 +38,15 @@ module.exports = {
           }
           articles {
             pageSlug
-            category
+            articleCategory
+            navCategory
             title
             body
-            testImage
+            images {
+              url
+            }
+            imagesAlt
+            youTubeId
           }
         }`,
         typeName: `GraphCMS`,
