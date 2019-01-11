@@ -1,6 +1,7 @@
 import React from 'react';
 import PropType from 'prop-types';
 import { graphql, StaticQuery } from 'gatsby';
+import { FaBars } from 'react-icons/fa';
 import '../styles/header.scss';
 import logo from '../../static/logo-almex-vert.svg';
 
@@ -24,7 +25,7 @@ const Header = ({ activeSection }) => (
           </span>
           <div className="active-section-mobile">{nav.labels[activeSection]}</div>
           <span>
-            <i className="fas fa-bars" />
+            <FaBars />
           </span>
         </div>
       );
