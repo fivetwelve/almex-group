@@ -3,10 +3,12 @@ import { graphql } from 'gatsby';
 import Markdown from 'react-remarkable';
 import { articleType } from '../types';
 
+const allowHTML = { html: true };
+
 const NotFoundPage = ({ data }) => (
   <div>
     <h2>{data.cms.articles[0].title}</h2>
-    <Markdown source={data.cms.articles[0].body} />
+    <Markdown source={data.cms.articles[0].body[0]} options={allowHTML} />
   </div>
 );
 

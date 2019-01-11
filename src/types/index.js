@@ -11,7 +11,7 @@ const articleType = PropTypes.shape({
   }),
 });
 
-const productType = PropTypes.arrayOf({
+const productType = PropTypes.shape({
   cms: PropTypes.shape({
     products: PropTypes.shape({
       title: PropTypes.string.isRequired,

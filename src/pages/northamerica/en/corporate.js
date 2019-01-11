@@ -8,6 +8,8 @@ import Layout from '../../../components/layout';
 
 import '../../../styles/corporate.scss';
 
+const allowHTML = { html: true };
+
 const CorporatePage = ({
   data: {
     cms: { articles },
@@ -25,7 +27,7 @@ const CorporatePage = ({
       <div className="main-container">
         <div className="col-1">
           <div className="content-1">
-            <Markdown source={article.body[0]} />
+            <Markdown source={article.body[0]} options={allowHTML} />
           </div>
         </div>
         <div className="col-2">
@@ -34,7 +36,7 @@ const CorporatePage = ({
             <img src={article.images[1].url} alt={article.imageLabels[1] || ''} />
           </div>
           <div className="content-2">
-            <Markdown source={article.body[1]} />
+            <Markdown source={article.body[1]} options={allowHTML} />
           </div>
         </div>
         <div className="related">
