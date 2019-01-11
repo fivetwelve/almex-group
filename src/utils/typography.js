@@ -5,6 +5,11 @@ const typography = new Typography({
   baseLineHeight: 1,
   headerFontFamily: ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
   bodyFontFamily: ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+  overrideStyles: () => ({
+    h1: {
+      fontWeight: 100,
+    },
+  }),
 });
 
 export default typography;
