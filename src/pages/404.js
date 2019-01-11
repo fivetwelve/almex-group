@@ -23,7 +23,7 @@ export default NotFoundPage;
 export const query = graphql`
   query NotFoundPageQuery {
     cms {
-      articles(where: { articleCategory: NotFound }) {
+      articles(where: { articleType: NotFound }) {
         title
         body
       }

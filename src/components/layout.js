@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Header from './header';
 import Footer from './footer';
-import '../styles/index.scss';
 
 class Layout extends React.Component {
   shouldComponentUpdate() {
@@ -10,12 +9,12 @@ class Layout extends React.Component {
   }
 
   render() {
-    const { activeTab, children, childrenClass } = this.props;
+    const { activeSection, children, childrenClass } = this.props;
 
     return (
       <div className="siteContainer">
         <div className="pageContainer">
-          <Header activeTab={activeTab} />
+          <Header activeSection={activeSection} />
           <div className={childrenClass}>{children}</div>
           <Footer />
         </div>
@@ -25,14 +24,14 @@ class Layout extends React.Component {
 }
 
 Layout.defaultProps = {
-  activeTab: '',
+  activeSection: '',
+  children: {},
   childrenClass: '',
 };
 
 Layout.propTypes = {
-  // children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
-  activeTab: PropTypes.string,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+  activeSection: PropTypes.string,
   childrenClass: PropTypes.string,
 };
 

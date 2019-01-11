@@ -5,7 +5,7 @@ import Layout from '../../../components/layout';
 import { articleType } from '../../../types';
 
 const AboutPage = ({ data }) => (
-  <Layout activeTab="ABOUT">
+  <Layout activeSection="ABOUT">
     <Markdown source={data.cms.articles[0].body} />
   </Layout>
 );
@@ -23,8 +23,8 @@ export default AboutPage;
 export const query = graphql`
   query {
     cms {
-      articles(where: { articleCategory: About }) {
-        articleCategory
+      articles(where: { articleType: About }) {
+        articleType
         title(locale: ES)
         body(locale: ES)
       }

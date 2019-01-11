@@ -1,9 +1,24 @@
-// @import 'include-media.scss';
+@import 'include-media.scss';
 
-.header1 {
-  background-color: #c01411;
+.header {
+  height: 60px;
+  padding-left: 13px;
+  padding-right: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  img {
+    margin-bottom: 0;
+  }
+  .active-section-mobile {
+    font-size: 18px;
+    line-height: 22px;
+    color: var(--blue-astral);
+  }
 
-  // @include media('>tablet') {
-  //   background-color: #0ee;
-  // }
+  @include media('>=tablet') {
+    .active-section-mobile {
+      display: none;
+    }
+  }
 }

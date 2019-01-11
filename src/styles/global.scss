@@ -1,7 +1,7 @@
-@import 'include-media.scss';
+@import 'include-media';
 
 html {
-  background-color: #eee;
+  background-color: var(--white);
 }
 
 .siteContainer {
@@ -13,12 +13,36 @@ html {
   margin: 0 auto;
 }
 
+h1 {
+  font-family: 'Helvetica Neue';
+  font-weight: 100;
+  font-size: 1.714rem;
+  line-height: 0.9167;
+  // letter-spacing: -0.41px;
+  // font-size: 24px;
+  // line-height: 22px;
+  letter-spacing: -0.41px;
+}
+
 p {
   @include media('>=phone', '<=tablet') {
-    font-size: 1.5rem;
+    // font-size: 1.5rem;
   }
 
   @include media('>tablet') {
-    font-size: 1.5rem;
+    // font-size: 1.5rem;
+  }
+}
+
+button {
+  appearance: none;
+  background: transparent;
+  background-color: var(--blue-matisse);
+  border-radius: 5px;
+  height: 50px;
+  color: var(--white);
+  cursor: pointer;
+  &:active {
+    background-color: var(--blue-astral);
   }
 }

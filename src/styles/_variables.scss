@@ -1,0 +1,27 @@
+/* Breakpoints */
+
+// $breakpoint-sm: 360px;
+// $breakpoint-md: 768px;
+// $breakpoint-lg: 1024px;
+// $breakpoint-xl: 1280px;
+
+:root {
+  /* Greys */
+  --grey05: #f7f7f7;
+  --grey20: #e5e6e8;
+  --grey30: #d1d1d6;
+  --grey40: #c7c7cc;
+  --grey60: #8e8e93;
+  --grey70: #61616a;
+  --grey80: #35353f;
+  --grey90: #16161f;
+
+  /* Basics */
+  --black: #000;
+  --white: #fff;
+
+  /* Colour names come from 'Name that Color' http://chir.ag/projects/name-that-color */
+
+  --blue-astral: #3a6f8f;
+  --blue-matisse: #175f9c;
+}

@@ -2,15 +2,16 @@ import PropTypes from 'prop-types';
 
 const articleType = PropTypes.shape({
   cms: PropTypes.shape({
-    articles: PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      pageSlug: PropTypes.string.isRequired,
-      body: PropTypes.string.isRequired,
+    articles: PropTypes.arrayOf({
+      title: PropTypes.string,
+      pageSlug: PropTypes.string,
+      body: PropTypes.string,
+      videoId: PropTypes.array,
     }),
   }),
 });
 
-const productType = PropTypes.shape({
+const productType = PropTypes.arrayOf({
   cms: PropTypes.shape({
     products: PropTypes.shape({
       title: PropTypes.string.isRequired,

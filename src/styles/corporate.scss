@@ -1,7 +1,29 @@
+@import 'include-media';
+
 .corporate-page {
   p {
     margin-left: 20px;
     margin-right: 20px;
+  }
+  .banner-container {
+    background: url('../../static/bg-corporate-sm.png') no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 250px;
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 20px;
+    @include media('>=tablet') {
+      background: url('../../static/bg-corporate.png') no-repeat;
+      background-position: center;
+    }
+    @include media('>=tablet') {
+      height: 300px;
+    }
+    h1 {
+      color: var(--white);
+      margin: 0;
+    }
   }
   .video-container {
     position: relative;
@@ -26,6 +48,13 @@
     img {
       width: calc(50% - 5px);
       height: calc(50% - 5px);
+    }
+  }
+  .related {
+    button {
+      width: 100%;
+      border-width: 0;
+      margin-bottom: 5px;
     }
   }
 }

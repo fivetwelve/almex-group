@@ -1,25 +1,43 @@
 import React from 'react';
 import PropType from 'prop-types';
+import { graphql, StaticQuery } from 'gatsby';
 import '../styles/header.scss';
-import Dump from '../utils/dump';
+import logo from '../../static/logo-almex-vert.svg';
 
-const Header = props => {
-  const { activeTab } = props;
-  const status = `${activeTab} is the active tab`;
-  return (
-    <div className="header1">
-      {status}
-      <Dump data={activeTab} />
-    </div>
-  );
-};
+const Header = ({ activeSection }) => (
+  <StaticQuery
+    query={graphql`
+      query {
+        cms {
+          navigations {
+            labels
+          }
+        }
+      }
+    `}
+    render={({ cms: { navigations } }) => {
+      const nav = navigations[0];
+      return (
+        <div className="header">
+          <span>
+            <img src={logo} width="50px" alt="Almex Group" />
+          </span>
+          <div className="active-section-mobile">{nav.labels[activeSection]}</div>
+          <span>
+            <i className="fas fa-bars" />
+          </span>
+        </div>
+      );
+    }}
+  />
+);
 
 Header.defaultProps = {
-  activeTab: {},
+  activeSection: {},
 };
 
 Header.propTypes = {
-  activeTab: PropType.string,
+  activeSection: PropType.string,
 };
 
 export default Header;

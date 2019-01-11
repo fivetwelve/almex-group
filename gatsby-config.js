@@ -9,6 +9,13 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        // replace "UA-XXXXXXXXX-X" with your own Tracking ID
+        // trackingId: "UA-XXXXXXXXX-X",
+      },
+    },
+    {
       resolve: `gatsby-plugin-typography`,
       options: {
         pathToConfigModule: `src/utils/typography.js`,
@@ -25,6 +32,9 @@ module.exports = {
           Authorization: `Bearer ${process.env.CMS_TOKEN}`,
         },
         query: `{
+          navigations {
+            labels
+          }
           productLists {
             region
             products {
@@ -38,14 +48,15 @@ module.exports = {
           }
           articles {
             pageSlug
-            articleCategory
-            navCategory
+            articleType
+            navSection
             title
             body
+            labels
             images {
               url
             }
-            imagesAlt
+            imageLabels
             youTubeId
           }
         }`,
