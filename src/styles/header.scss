@@ -4,6 +4,7 @@
   width: 100%;
   padding-left: 13px;
   padding-right: 13px;
+  z-index: 1000;
   .contents {
     height: 60px;
     background-color: var(--white);
@@ -48,7 +49,6 @@
       padding-left: 20px;
       padding-right: 20px;
       height: 100px;
-      z-index: 1000;
       max-width: 1280px;
       .active-section-mobile {
         display: none;
