@@ -12,9 +12,10 @@ const allowHTML = { html: true };
 
 const CorporatePage = ({
   data: {
-    cms: { articles },
+    cms: { labels, articles },
   },
 }) => {
+  const label = labels[0];
   const article = articles[0];
   return (
     <Layout activeSection={article.navSection} childrenClass="corporate-page">
@@ -22,7 +23,9 @@ const CorporatePage = ({
         <h1>{article.labels.corporate}</h1>
       </div>
 
-      <div className="breadcrumb">ABOUT_US : CORPORATE</div>
+      <div className="breadcrumb">
+        {label.header[article.navSection]} : {article.labels.corporate}
+      </div>
 
       <div className="main-container">
         <div className="content">
@@ -80,6 +83,9 @@ export default CorporatePage;
 export const query = graphql`
   query {
     cms {
+      labels {
+        header
+      }
       articles(where: { articleType: Corporate }) {
         articleType
         navSection
