@@ -18,7 +18,12 @@ const CorporatePage = ({
   const label = labels[0];
   const article = articles[0];
   return (
-    <Layout activeSection={article.navSection} childrenClass="corporate-page">
+    <Layout
+      activeSection={article.navSection}
+      childrenClass="corporate-page"
+      locale="en"
+      title={article.title}
+    >
       <div className="banner-container">
         <h1>{article.labels.corporate}</h1>
       </div>

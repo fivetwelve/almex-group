@@ -9,6 +9,9 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: `gatsby-plugin-react-helmet`,
+    },
+    {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         // replace "UA-XXXXXXXXX-X" with your own Tracking ID
@@ -62,6 +65,14 @@ module.exports = {
         }`,
         typeName: `GraphCMS`,
         fieldName: `cms`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-netlify`, // Always last in the plugins array
+      options: {
+        mergeSecurityHeaders: true, // boolean to turn off the default security headers
+        mergeLinkHeaders: false, // boolean to turn off the default gatsby js headers (disabled by default, until gzip is fixed for server push)
+        mergeCachingHeaders: true, // boolean to turn off the default caching headers
       },
     },
   ],

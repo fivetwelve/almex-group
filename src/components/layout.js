@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
 import Header from './header';
 import Footer from './footer';
 import '../styles/layout.scss';
@@ -10,18 +11,48 @@ class Layout extends React.Component {
   }
 
   render() {
-    const { activeSection, children, childrenClass } = this.props;
+    const { activeSection, children, childrenClass, locale, title } = this.props;
 
     return (
-      <div className="siteContainer">
-        <div className="pageContainer">
-          <Header activeSection={activeSection} />
-          <div className="bodyClass">
-            <div className={childrenClass}>{children}</div>
+      <React.Fragment>
+        <Helmet defaultTitle={title} titleTemplate={`Almex Group | ${title}`}>
+          <html lang={locale} />
+          {/* <link rel="canonical" href={`${siteUrl}${pathname}`} /> */}
+          <meta name="docsearch:version" content="2.0" />
+          <meta
+            name="viewport"
+            content="width=device-width,initial-scale=1,shrink-to-fit=no,viewport-fit=cover"
+          />
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+          <title>{title}</title>
+          <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+          <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+          <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+          <link rel="manifest" href="/site.webmanifest" />
+          <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+          <meta name="msapplication-TileColor" content="#2b5797" />
+          <meta name="theme-color" content="#ffffff" />
+          {/* <meta property="og:url" content={siteUrl} />
+          <meta property="og:type" content="website" />
+          <meta property="og:locale" content="en" />
+          <meta property="og:site_name" content={title} />
+          <meta property="og:image" content={`${siteUrl}${gatsbyIcon}`} />
+          <meta property="og:image:width" content="512" />
+          <meta property="og:image:height" content="512" /> */}
+          {/* <meta name="twitter:card" content="summary" />
+          <meta name="twitter:site" content={twitter} /> */}
+        </Helmet>
+        <div className="siteContainer">
+          <div className="pageContainer">
+            <Header activeSection={activeSection} />
+            <div className="bodyClass">
+              <div className={childrenClass}>{children}</div>
+            </div>
+            <Footer />
           </div>
-          <Footer />
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
@@ -30,12 +61,16 @@ Layout.defaultProps = {
   activeSection: '',
   children: {},
   childrenClass: '',
+  locale: 'en',
+  title: '',
 };
 
 Layout.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   activeSection: PropTypes.string,
   childrenClass: PropTypes.string,
+  locale: PropTypes.string,
+  title: PropTypes.string,
 };
 
 export default Layout;
