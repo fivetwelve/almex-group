@@ -21,24 +21,32 @@ const CorporatePage = ({
       <div className="banner-container">
         <h1>{article.labels.corporate}</h1>
       </div>
-      <div className="video-container">
-        <YouTube videoId={article.youTubeId[0]} />
-      </div>
+
+      <div className="breadcrumb">ABOUT_US : CORPORATE</div>
+
       <div className="main-container">
-        <div className="col-1">
-          <div className="content-1">
-            <Markdown source={article.body[0]} options={allowHTML} />
+        <div className="content">
+          <div className="video-container">
+            <YouTube videoId={article.youTubeId[0]} />
+          </div>
+          <div className="col-container">
+            <div className="col-1">
+              <div className="content-1">
+                <Markdown source={article.body[0]} options={allowHTML} />
+              </div>
+            </div>
+            <div className="col-2">
+              <div className="images-container">
+                <img src={article.images[0].url} alt={article.imageLabels[0] || ''} />
+                <img src={article.images[1].url} alt={article.imageLabels[1] || ''} />
+              </div>
+              <div className="content-2">
+                <Markdown source={article.body[1]} options={allowHTML} />
+              </div>
+            </div>
           </div>
         </div>
-        <div className="col-2">
-          <div className="images-container">
-            <img src={article.images[0].url} alt={article.imageLabels[0] || ''} />
-            <img src={article.images[1].url} alt={article.imageLabels[1] || ''} />
-          </div>
-          <div className="content-2">
-            <Markdown source={article.body[1]} options={allowHTML} />
-          </div>
-        </div>
+
         <div className="related">
           <a href="http://almex.com">
             <button type="button">ALMEX LOCATIONS</button>

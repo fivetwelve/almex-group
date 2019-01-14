@@ -32,8 +32,8 @@ module.exports = {
           Authorization: `Bearer ${process.env.CMS_TOKEN}`,
         },
         query: `{
-          navigations {
-            labels
+          labels {
+            header
           }
           productLists {
             region

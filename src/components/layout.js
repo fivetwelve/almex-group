@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Header from './header';
 import Footer from './footer';
+import '../styles/layout.scss';
 
 class Layout extends React.Component {
   shouldComponentUpdate() {
@@ -15,7 +16,9 @@ class Layout extends React.Component {
       <div className="siteContainer">
         <div className="pageContainer">
           <Header activeSection={activeSection} />
-          <div className={childrenClass}>{children}</div>
+          <div className="bodyClass">
+            <div className={childrenClass}>{children}</div>
+          </div>
           <Footer />
         </div>
       </div>

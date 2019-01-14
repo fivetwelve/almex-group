@@ -1,10 +1,6 @@
 @import 'include-media';
 
 .corporate-page {
-  p {
-    margin-left: 20px;
-    margin-right: 20px;
-  }
   .banner-container {
     background: url('../../static/bg-corporate-sm.png') no-repeat;
     background-position: center;
@@ -23,38 +19,98 @@
     h1 {
       color: var(--white);
       margin: 0;
+      @include media('>=desktop') {
+        font-size: 72px;
+        letter-spacing: 0;
+      }
     }
   }
-  .video-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    padding-top: 0;
-    margin-bottom: 20px;
-    height: 0;
-    overflow: hidden;
-    & iframe,
-    & object,
-    & embed {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+
+  .breadcrumb {
+    display: none;
+    @include media('>=desktop') {
+      display: flex;
+      align-items: center;
+      height: 40px;
+      max-width: 1080px;
+      margin: 0 auto;
     }
   }
-  .images-container {
+
+  .main-container {
     display: flex;
-    justify-content: space-between;
-    img {
-      width: calc(50% - 5px);
-      height: calc(50% - 5px);
+    flex-direction: column;
+    @include media('>=tablet') {
+      max-width: 1080px;
+      margin: 0 auto;
     }
-  }
-  .related {
-    button {
+    @include media('>=desktop') {
+      flex-direction: row;
+    }
+    .content {
       width: 100%;
-      border-width: 0;
-      margin-bottom: 5px;
+      @include media('>=desktop') {
+        margin-left: 40px;
+        max-width: 770px;
+      }
+      .video-container {
+        position: relative;
+        padding-bottom: 56.25%;
+        padding-top: 0;
+        margin-bottom: 20px;
+        height: 0;
+        overflow: hidden;
+        & iframe,
+        & object,
+        & embed {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .col-container {
+        display: flex;
+        flex-direction: column;
+        padding-left: 20px;
+        padding-right: 20px;
+        @include media('>=tablet') {
+          flex-direction: row;
+          padding-left: 0;
+          padding-right: 0;
+        }
+        .col-1 {
+          @include media('>=tablet') {
+            padding-right: 10px;
+          }
+        }
+        .col-2 {
+          @include media('>=tablet') {
+            padding-left: 10px;
+          }
+        }
+        .images-container {
+          display: flex;
+          justify-content: space-between;
+          img {
+            width: calc(50% - 5px);
+            height: calc(50% - 5px);
+          }
+        }
+      }
+    }
+    .related {
+      width: 100%;
+      @include media('>=desktop') {
+        margin-left: 50px;
+        max-width: 220px;
+      }
+      button {
+        width: 100%;
+        border-width: 0;
+        margin-bottom: 5px;
+      }
     }
   }
 }

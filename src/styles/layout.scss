@@ -1,0 +1,7 @@
+@import 'include-media.scss';
+
+.bodyClass {
+  @include media('>=tablet') {
+    padding-top: 100px;
+  }
+}
