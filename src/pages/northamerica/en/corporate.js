@@ -21,7 +21,7 @@ const CorporatePage = ({
     <Layout
       activeSection={article.navSection}
       childrenClass="corporate-page"
-      locale="en"
+      lang="EN"
       title={article.title}
     >
       <div className="banner-container">
@@ -88,6 +88,10 @@ export default CorporatePage;
 export const query = graphql`
   query {
     cms {
+      navigations {
+        structure
+        language
+      }
       labels {
         header
       }

@@ -35,6 +35,10 @@ module.exports = {
           Authorization: `Bearer ${process.env.CMS_TOKEN}`,
         },
         query: `{
+          navigations {
+            structure
+            language
+          }
           labels {
             header
           }

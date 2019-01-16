@@ -11,12 +11,12 @@ class Layout extends React.Component {
   }
 
   render() {
-    const { activeSection, children, childrenClass, locale, title } = this.props;
+    const { activeSection, children, childrenClass, lang, title } = this.props;
 
     return (
       <React.Fragment>
         <Helmet defaultTitle={title} titleTemplate={`Almex Group | ${title}`}>
-          <html lang={locale} />
+          <html lang={lang} />
           {/* <link rel="canonical" href={`${siteUrl}${pathname}`} /> */}
           <meta name="docsearch:version" content="2.0" />
           <meta
@@ -45,7 +45,7 @@ class Layout extends React.Component {
         </Helmet>
         <div className="siteContainer">
           <div className="pageContainer">
-            <Header activeSection={activeSection} />
+            <Header activeSection={activeSection} lang={lang} />
             <div className="bodyClass">
               <div className={childrenClass}>{children}</div>
             </div>
@@ -61,7 +61,7 @@ Layout.defaultProps = {
   activeSection: '',
   children: {},
   childrenClass: '',
-  locale: 'en',
+  lang: 'en',
   title: '',
 };
 
@@ -69,7 +69,7 @@ Layout.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   activeSection: PropTypes.string,
   childrenClass: PropTypes.string,
-  locale: PropTypes.string,
+  lang: PropTypes.string,
   title: PropTypes.string,
 };
 
