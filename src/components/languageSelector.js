@@ -32,6 +32,7 @@ class LanguageSelector extends Component {
   render() {
     const { activeLanguage, languages, region } = this.props;
     const { clicked } = this.state;
+    const { langList, regionList } = constants;
 
     return (
       <div className="language lang-selector">
@@ -59,7 +60,7 @@ class LanguageSelector extends Component {
         <ul id="dropdown-1" role="menu" className="lang-dropdown">
           {languages.map(language => (
             <li className="nav__list">
-              <a href={`/${constants.region[region]}/${constants.lang[language]}`}>
+              <a href={`/${regionList[region]}/${langList[language]}`}>
                 <span className="nav__link">{language}</span>
               </a>
             </li>

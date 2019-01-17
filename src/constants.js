@@ -1,9 +1,9 @@
 module.exports = {
-  region: {
+  regionList: {
     NORTH_AMERICA: 'northamerica',
     SOUTH_AMERICA: 'southamerica',
   },
-  lang: {
+  langList: {
     EN: 'en',
     ES: 'es',
   },

@@ -1,6 +1,6 @@
 // const log = require('loglevel');
 const path = require('path');
-const { regions } = require('./src/constants.js');
+const { regionList } = require('./src/constants.js');
 
 exports.createPages = ({ graphql, actions }) => {
   /*
@@ -44,7 +44,7 @@ exports.createPages = ({ graphql, actions }) => {
         for (let i = 0; i < productsEN.length; i += 1) {
           const { pageSlug, category, title, specifications, summary, features } = productsEN[i];
           createPage({
-            path: `${regions[region]}/en/products/${pageSlug}`,
+            path: `${regionList[region]}/en/products/${pageSlug}`,
             component: path.resolve(`./src/templates/product-page.js`),
             context: {
               pageSlug,
@@ -59,7 +59,7 @@ exports.createPages = ({ graphql, actions }) => {
         for (let i = 0; i < productsES.length; i += 1) {
           const { pageSlug, category, title, specifications, summary, features } = productsES[i];
           createPage({
-            path: `${regions[region]}/es/products/${pageSlug}`,
+            path: `${regionList[region]}/es/products/${pageSlug}`,
             component: path.resolve(`./src/templates/product-page.js`),
             context: {
               pageSlug,
