@@ -69,12 +69,14 @@
           line-height: normal;
           .search,
           .brands,
-          .language,
           .login {
             display: flex;
             align-items: center;
             padding-left: 30px;
             padding-right: 30px;
+          }
+          .brands-icon {
+            color: var(--red-piper);
           }
           .search {
             height: 40px;
@@ -82,8 +84,7 @@
               margin-left: 10px;
             }
           }
-          .brands,
-          .language {
+          .brands {
             height: 30px;
             border-left: 1px solid var(--grey40);
           }

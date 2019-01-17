@@ -1,0 +1,102 @@
+.lang-selector {
+  position: relative;
+  display: flex;
+  align-items: center;
+  // padding-left: 30px;
+  // padding-right: 30px;
+  height: 30px;
+  border-left: 1px solid var(--grey40);
+
+  a {
+    text-decoration: none;
+  }
+  button {
+    appearance: none;
+    background: transparent;
+    border: none;
+    color: var(--grey60);
+    padding: 0 30px;
+    &:hover {
+      color: var(--red-piper);
+    }
+    &.clicked {
+      color: var(--red-piper);
+    }
+    transition-duration: 0.5s;
+  }
+  .nav__row {
+    // background-color: var(--grey20);
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+  }
+
+  li {
+    color: var(--grey60);
+    // background: var(--grey20);
+    display: block;
+    float: left;
+    position: relative;
+    text-decoration: none;
+    // transition-duration: 0.5s;
+  }
+
+  li span {
+    color: var(--grey60);
+  }
+
+  li:hover,
+  li:focus-within {
+    // background: var(--grey60);
+    cursor: pointer;
+  }
+
+  li:focus-within a {
+    outline: none;
+  }
+  .dd-text-icon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    pointer-events: none;
+
+    .dd-icon {
+      height: 20px;
+      color: var(--red-piper);
+    }
+  }
+
+  .lang-dropdown {
+    background-color: var(--white);
+    min-width: 5rem;
+    position: absolute;
+    transition: all 0.5s ease;
+    margin: 0;
+    left: 0;
+    top: 40px;
+    display: none;
+    box-shadow: 0px 20px 22px -9px rgba(0, 0, 0, 0.75);
+  }
+
+  .lang-dropdown--visible {
+    display: block;
+  }
+
+  .nav__list {
+    clear: both;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    margin: 0;
+  }
+
+  .nav__link {
+    padding-left: 30px;
+    padding-right: 50px;
+    &:hover {
+      color: var(--red-piper);
+    }
+    transition-duration: 0.5s;
+  }
+}

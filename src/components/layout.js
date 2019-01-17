@@ -11,8 +11,8 @@ class Layout extends React.Component {
   }
 
   render() {
-    const { activeSection, children, childrenClass, lang, title } = this.props;
-
+    const { activeLanguage, activeSection, children, childrenClass, region, title } = this.props;
+    const lang = activeLanguage.toLowerCase();
     return (
       <React.Fragment>
         <Helmet defaultTitle={title} titleTemplate={`Almex Group | ${title}`}>
@@ -45,7 +45,7 @@ class Layout extends React.Component {
         </Helmet>
         <div className="siteContainer">
           <div className="pageContainer">
-            <Header activeSection={activeSection} lang={lang} />
+            <Header activeSection={activeSection} activeLanguage={activeLanguage} region={region} />
             <div className="bodyClass">
               <div className={childrenClass}>{children}</div>
             </div>
@@ -58,18 +58,20 @@ class Layout extends React.Component {
 }
 
 Layout.defaultProps = {
+  activeLanguage: '',
   activeSection: '',
   children: {},
   childrenClass: '',
-  lang: 'en',
+  region: '',
   title: '',
 };
 
 Layout.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+  activeLanguage: PropTypes.string,
   activeSection: PropTypes.string,
   childrenClass: PropTypes.string,
-  lang: PropTypes.string,
+  region: PropTypes.string,
   title: PropTypes.string,
 };
 

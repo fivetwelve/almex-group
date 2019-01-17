@@ -2,12 +2,12 @@ import React from 'react';
 import PropType from 'prop-types';
 import { graphql, StaticQuery } from 'gatsby';
 import { IconContext } from 'react-icons';
-import { FaBars, FaSearch } from 'react-icons/fa';
+import { FaAngleDown, FaBars, FaSearch } from 'react-icons/fa';
 import LanguageSelector from './languageSelector';
 import '../styles/header.scss';
 import logo from '../../static/logo-almex-vert.svg';
 
-const Header = ({ data, activeLang, activeSection }) => {
+const Header = ({ data, activeLanguage, activeSection, region }) => {
   const label = data.cms.labels[0];
   const nav = data.cms.navigations[0];
   return (
@@ -23,7 +23,7 @@ const Header = ({ data, activeLang, activeSection }) => {
             <span className="sr-only">Open menu</span>
           </button>
         </IconContext.Provider>
-        <nav className="navigation" role="navigation">
+        <nav className="navigation">
           <div className="options">
             <div className="search">
               {label.header.SEARCH}
@@ -33,8 +33,20 @@ const Header = ({ data, activeLang, activeSection }) => {
                 {/* </button> */}
               </IconContext.Provider>
             </div>
-            <div className="brands">{label.header.BRANDS}</div>
-            <div className="language">{activeLang}</div>
+            <div className="brands">
+              {label.header.BRANDS}
+              <IconContext.Provider value={{ className: 'brands-icon' }}>
+                {/* <button type="button" className="mobile-menu"> */}
+                <FaAngleDown aria-hidden />
+                {/* </button> */}
+              </IconContext.Provider>
+            </div>
+            {/* <div className="language">{activeLanguage}</div> */}
+            <LanguageSelector
+              activeLanguage={activeLanguage}
+              languages={nav.language}
+              region={region}
+            />
             <div className="login">{label.header.LOGIN}</div>
           </div>
           <div className="sections">
@@ -53,7 +65,6 @@ const Header = ({ data, activeLang, activeSection }) => {
           </div>
         </nav>
       </div>
-      <LanguageSelector className="language" languages={nav.language} selectedLang={activeLang} />
     </div>
   );
 };
@@ -77,13 +88,14 @@ export default props => (
 );
 
 Header.defaultProps = {
-  activeLang: 'en',
+  activeLanguage: '',
   activeSection: '',
   data: {},
+  region: '',
 };
 
 Header.propTypes = {
-  activeLang: PropType.string,
+  activeLanguage: PropType.string,
   activeSection: PropType.string,
   data: PropType.shape({
     cms: PropType.shape({
@@ -91,4 +103,5 @@ Header.propTypes = {
       navigations: PropType.array,
     }),
   }),
+  region: PropType.string,
 };

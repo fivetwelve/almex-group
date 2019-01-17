@@ -19,9 +19,10 @@ const CorporatePage = ({
   const article = articles[0];
   return (
     <Layout
+      activeLanguage="EN"
       activeSection={article.navSection}
       childrenClass="corporate-page"
-      lang="EN"
+      region="NORTH_AMERICA"
       title={article.title}
     >
       <div className="banner-container">
