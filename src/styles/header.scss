@@ -11,6 +11,19 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    .logo {
+      .horizontal {
+        display: none;
+        @include media('>=tablet') {
+          display: block;
+        }
+      }
+      .vertical {
+        @include media('>=tablet') {
+          display: none;
+        }
+      }
+    }
     img {
       margin-bottom: 0;
     }

@@ -2,10 +2,13 @@ import React from 'react';
 import PropType from 'prop-types';
 import { graphql, StaticQuery } from 'gatsby';
 import { IconContext } from 'react-icons';
-import { FaAngleDown, FaBars, FaSearch } from 'react-icons/fa';
+import { FaBars, FaSearch } from 'react-icons/fa';
+import BrandSelector from './brandSelector';
 import LanguageSelector from './languageSelector';
 import '../styles/header.scss';
-import logo from '../../static/logo-almex-vert.svg';
+import '../styles/dropdowns.scss';
+import hLogo from '../../static/logo-almex-hori.svg';
+import vLogo from '../../static/logo-almex-vert.svg';
 
 const Header = ({ data, activeLanguage, activeSection, region }) => {
   const label = data.cms.labels[0];
@@ -13,8 +16,9 @@ const Header = ({ data, activeLanguage, activeSection, region }) => {
   return (
     <div className="header">
       <div className="contents">
-        <span>
-          <img src={logo} width="50px" alt="Almex Group" />
+        <span className="logo">
+          <img src={vLogo} width="50px" alt="Almex Group" className="vertical" />
+          <img src={hLogo} width="225px" alt="Almex Group" className="horizontal" />
         </span>
         <div className="active-section-mobile">{label.header[activeSection]}</div>
         <IconContext.Provider value={{ className: 'menu-icon' }}>
@@ -33,15 +37,13 @@ const Header = ({ data, activeLanguage, activeSection, region }) => {
                 {/* </button> */}
               </IconContext.Provider>
             </div>
-            <div className="brands">
+            {/* <div className="brands">
               {label.header.BRANDS}
               <IconContext.Provider value={{ className: 'brands-icon' }}>
-                {/* <button type="button" className="mobile-menu"> */}
                 <FaAngleDown aria-hidden />
-                {/* </button> */}
               </IconContext.Provider>
-            </div>
-            {/* <div className="language">{activeLanguage}</div> */}
+            </div> */}
+            <BrandSelector />
             <LanguageSelector
               activeLanguage={activeLanguage}
               languages={nav.language}

@@ -2,17 +2,47 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
-import * as log from 'loglevel';
 import constants from '../constants';
-import '../styles/languageSelector.scss';
+/* n.b. Shared CSS is imported in Header from dropdowns.scss */
 
 class LanguageSelector extends Component {
   constructor(props) {
     super(props);
+    this.myDropDown = React.createRef();
     this.state = {
       clicked: false,
     };
   }
+
+  // handleKeyDown = evt => {
+  //   let dropdownSibling = document.activeElement.nextElementSibling;
+  //   if (evt.keyCode == 38) {
+  //     if (dropdownSibling) {
+  //       dropdownSibling.childNodes[0].previousElementSibling.firstElementChild.focus();
+  //     } else {
+  //       dropdownSibling = document.activeElement.parentElement.previousElementSibling.firstElementChild;
+  //       dropdownSibling.focus();
+  //     }
+  //   }
+  //   if (evt.keyCode == 40) {
+  //     if (dropdownSibling) {
+  //       dropdownSibling.childNodes[0].nextElementSibling.firstElementChild.focus();
+  //     } else {
+  //       dropdownSibling = document.activeElement.parentElement.nextElementSibling.firstElementChild;
+  //       dropdownSibling.focus();
+  //     }
+  //   }
+  //   if (evt.keyCode == 27) {
+  //     evt.preventDefault();
+  //     document.activeElement.parentElement.parentElement.classList.remove('nav__dropdown--visible');
+  //     document.activeElement.parentElement.parentElement.previousElementSibling.setAttribute(
+  //       'aria-expanded',
+  //       'false'
+  //     );
+  //     // Bring focus back to top level parent
+  //     document.activeElement.parentElement.parentElement.previousElementSibling.focus();
+  //   }
+  // }
 
   handleClickDropDown = evt => {
     evt.preventDefault();
@@ -24,18 +54,13 @@ class LanguageSelector extends Component {
     });
   };
 
-  handleClickLanguage = (evt, language) => {
-    evt.preventDefault();
-    log.warn(`lang: ${language}`);
-  };
-
   render() {
     const { activeLanguage, languages, region } = this.props;
     const { clicked } = this.state;
     const { langList, regionList } = constants;
 
     return (
-      <div className="language lang-selector">
+      <div className="language lang-selector" ref={this.myDropDown}>
         <button
           type="button"
           aria-expanded="false"
@@ -44,9 +69,9 @@ class LanguageSelector extends Component {
           onClick={evt => {
             this.handleClickDropDown(evt);
           }}
-          onKeyDown={evt => {
-            this.handleClickDropDown(evt);
-          }}
+          // onKeyDown={evt => {
+          //   this.handleKeyDown(evt);
+          // }}
         >
           <span className="dd-text-icon">
             {activeLanguage}
@@ -59,7 +84,7 @@ class LanguageSelector extends Component {
         </button>
         <ul id="dropdown-1" role="menu" className="lang-dropdown">
           {languages.map(language => (
-            <li className="nav__list">
+            <li className="nav__list" key={language}>
               <a href={`/${regionList[region]}/${langList[language]}`}>
                 <span className="nav__link">{language}</span>
               </a>

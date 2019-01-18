@@ -4,7 +4,6 @@ import { graphql } from 'gatsby';
 import Markdown from 'react-remarkable';
 import YouTube from 'react-youtube';
 import Layout from '../../../components/layout';
-// import { articleType } from '../../../types';
 
 import '../../../styles/corporate.scss';
 
@@ -76,7 +75,6 @@ CorporatePage.defaultProps = {
 };
 
 CorporatePage.propTypes = {
-  // data: PropTypes.shape(articleType),
   data: PropTypes.shape({
     cms: PropTypes.shape({
       articles: PropTypes.array,
@@ -89,10 +87,6 @@ export default CorporatePage;
 export const query = graphql`
   query {
     cms {
-      navigations {
-        structure
-        language
-      }
       labels {
         header
       }
