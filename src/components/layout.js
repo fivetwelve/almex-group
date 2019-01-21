@@ -6,9 +6,34 @@ import Footer from './footer';
 import '../styles/layout.scss';
 
 class Layout extends React.Component {
+  constructor(props) {
+    super(props);
+    this.bodyElement = React.createRef();
+  }
+
+  // componentDidMount() {
+  //   document.body.addEventListener('keyup', function(e) {
+  //     if (e.which === 9) /* tab */ {
+  //       document.documentElement.classList.remove('no-focus-outline');
+  //     }
+  //   });
+  // }
+
+  // componentDidMount() {
+  //   document.body.classList.add('no-focus-outline');
+  // }
+
   shouldComponentUpdate() {
     return false;
   }
+
+  checkForTabbing = evt => {
+    // evt.preventDefault();
+    /* tab */
+    if (evt.which === 9) {
+      this.bodyElement.current.classList.remove('no-focus-outline');
+    }
+  };
 
   render() {
     const { activeLanguage, activeSection, children, childrenClass, region, title } = this.props;
@@ -42,8 +67,16 @@ class Layout extends React.Component {
           <meta property="og:image:height" content="512" /> */}
           {/* <meta name="twitter:card" content="summary" />
           <meta name="twitter:site" content={twitter} /> */}
+          <body
+            className="no-focus-outline"
+            ref={this.bodyElement}
+            onKeyUp={evt => {
+              this.checkForTabbing(evt);
+            }}
+            role="presentation"
+          />
         </Helmet>
-        <div className="siteContainer">
+        <div className="siteContainer" ref={this.siteContainer}>
           <div className="pageContainer">
             <Header activeSection={activeSection} activeLanguage={activeLanguage} region={region} />
             <div className="bodyClass">

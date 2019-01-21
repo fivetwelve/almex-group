@@ -4,10 +4,10 @@
 html {
   background-color: var(--white);
   // outline: 2px solid black;
-  &.no-focus-outline a:focus,
-  &.no-focus-outline button:focus {
-    outline: none;
-  }
+  // &.no-focus-outline a:focus,
+  // &.no-focus-outline button:focus {
+  //   outline: none;
+  // }
 }
 
 .siteContainer {
