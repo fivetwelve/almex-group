@@ -8,7 +8,7 @@ import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 class BrandSelector extends Component {
   constructor(props) {
     super(props);
-    this.myDropDown = React.createRef();
+    this.brandDropdown = React.createRef();
     this.state = {
       clicked: false,
     };
@@ -47,7 +47,9 @@ class BrandSelector extends Component {
   handleClickDropDown = evt => {
     evt.preventDefault();
     evt.target.classList.toggle('clicked');
-    evt.target.nextElementSibling.classList.toggle('lang-dropdown--visible');
+    // evt.target.nextElementSibling.classList.toggle('brand-dropdown--visible');
+    this.brandDropdown.current.classList.toggle('brand-container--visible');
+    // console.log(this.brandDropdown.current);
     this.setState(prevState => {
       const clickBool = prevState.clicked;
       return { clicked: !clickBool };
@@ -62,7 +64,7 @@ class BrandSelector extends Component {
 
     return (
       <Fragment>
-        <div className="language brand-selector" ref={this.myDropDown}>
+        <div className="language brand-selector">
           <button
             type="button"
             aria-expanded="false"
@@ -93,30 +95,56 @@ class BrandSelector extends Component {
             <li className="nav__list">Some Brand here</li>
           </ul>
         </div>
-        <div className="brand-container">
-          <div className="brand almex">
-            <a href="/">Some brand here</a>
+        <div className="brand-container" ref={this.brandDropdown}>
+          <div className="brand almex-box">
+            <a href="/">
+              <span className="sr-only">Almex</span>
+            </a>
+          </div>
+          <div className="brand fusion">
+            <a href="/">
+              <span className="sr-only">Fusion Systems</span>
+            </a>
+          </div>
+          <div className="brand almex-swoosh">
+            <a href="/">
+              <span className="sr-only">Almex</span>
+            </a>
+          </div>
+          <div className="brand emsys">
+            <a href="/">
+              <span className="sr-only">Emsys</span>
+            </a>
+          </div>
+          <div className="brand bat">
+            <a href="/">
+              <span className="sr-only">BAT</span>
+            </a>
+          </div>
+          <div className="brand cobra">
+            <a href="/">
+              <span className="sr-only">Cobra</span>
+            </a>
+          </div>
+          <div className="brand votech">
+            <a href="/">
+              <span className="sr-only">votech</span>
+            </a>
           </div>
           <div className="brand rampart">
-            <a href="/">Some other brand here</a>
+            <a href="/">
+              <span className="sr-only">votech</span>
+            </a>
           </div>
-          <div className="brand almex">
-            <a href="/">Some brand here</a>
+          <div className="brand institute">
+            <a href="/">
+              <span className="sr-only">Almex Institute</span>
+            </a>
           </div>
-          <div className="brand rampart">
-            <a href="/">Some other brand here</a>
-          </div>
-          <div className="brand almex">
-            <a href="/">Some brand here</a>
-          </div>
-          <div className="brand almex">
-            <a href="/">Some brand here</a>
-          </div>
-          <div className="brand rampart">
-            <a href="/">Some other brand here</a>
-          </div>
-          <div className="brand almex">
-            <a href="/">Some brand here</a>
+          <div className="brand knight">
+            <a href="/">
+              <span className="sr-only">Almex Global Services</span>
+            </a>
           </div>
         </div>
       </Fragment>

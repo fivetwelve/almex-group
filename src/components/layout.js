@@ -16,7 +16,7 @@ class Layout extends React.Component {
     return (
       <React.Fragment>
         <Helmet defaultTitle={title} titleTemplate={`Almex Group | ${title}`}>
-          <html lang={lang} />
+          <html lang={lang} className="no-focus-outline" />
           {/* <link rel="canonical" href={`${siteUrl}${pathname}`} /> */}
           <meta name="docsearch:version" content="2.0" />
           <meta

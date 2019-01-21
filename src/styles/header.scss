@@ -118,6 +118,7 @@
           font-weight: bold;
           text-decoration: none;
           text-transform: uppercase;
+          white-space: nowrap;
           &:not(:first-child) {
             margin-left: 45px;
           }
