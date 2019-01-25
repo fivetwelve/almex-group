@@ -67,6 +67,10 @@ class Layout extends React.Component {
           <meta property="og:image:height" content="512" /> */}
           {/* <meta name="twitter:card" content="summary" />
           <meta name="twitter:site" content={twitter} /> */}
+          <script
+            type="text/javascript"
+            src="https://identity.netlify.com/v1/netlify-identity-widget.js"
+          />
           <body
             className="no-focus-outline"
             ref={this.bodyElement}
