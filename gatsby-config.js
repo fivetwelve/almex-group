@@ -2,10 +2,27 @@ require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 });
 
+const proxy = require('http-proxy-middleware');
+
 module.exports = {
   siteMetadata: {
     title: `Almex Group`,
     description: `Conveyor Belt Vulcanizers | Vulcanizing Equipment | Almex`,
+  },
+  developMiddleware: app => {
+    /*
+      proxying function to avoid CORS issues for localhost testing
+      of lambda functions
+    */
+    app.use(
+      '/.netlify/functions/',
+      proxy({
+        target: 'http://localhost:9000',
+        pathRewrite: {
+          '/.netlify/functions/': '',
+        },
+      }),
+    );
   },
   plugins: [
     {

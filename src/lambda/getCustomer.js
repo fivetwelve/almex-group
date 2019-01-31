@@ -1,16 +1,25 @@
-// example of async handler using async-await
-// https://github.com/netlify/netlify-lambda/issues/43#issuecomment-444618311
-
 import fetch from 'node-fetch';
+import dotenv from 'dotenv';
 import * as log from 'loglevel';
 
-// eslint-disable-next-line no-unused-vars
+/*
+  example of async handler using async-await
+  https://github.com/netlify/netlify-lambda/issues/43#issuecomment-444618311
+*/
+
+const config = dotenv.config({
+  path: `.env.${process.env.NODE_ENV}`,
+}).parsed;
+
 exports.handler = async (event, context, callback) => {
   try {
-    const response = await fetch('https://icanhazdadjoke.com/', {
+    const url = config.AIRTABLE_ENDPOINT;
+    const params = new URLSearchParams({
+      filterByFormula: `({Email}="maggie@companyxyz.com")`,
+    });
+    const response = await fetch(`${url}?${params}`, {
       headers: {
-        Accept: 'application/json',
-        'User-Agent': 'Netlify GoTrue (https://github.com/netlify/gotrue-js)',
+        Authorization: `Bearer ${config.AIRTABLE_TOKEN}`,
       },
     });
     if (!response.ok) {
@@ -21,7 +30,7 @@ exports.handler = async (event, context, callback) => {
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ msg: data.joke }),
+      body: JSON.stringify({ msg: data }),
     };
   } catch (err) {
     log.error(err); // output to netlify function log

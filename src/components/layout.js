@@ -23,9 +23,9 @@ class Layout extends React.Component {
   //   document.body.classList.add('no-focus-outline');
   // }
 
-  shouldComponentUpdate() {
-    return false;
-  }
+  // shouldComponentUpdate() {
+  //   return false;
+  // }
 
   checkForTabbing = evt => {
     // evt.preventDefault();
@@ -58,25 +58,32 @@ class Layout extends React.Component {
           <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
           <meta name="msapplication-TileColor" content="#2b5797" />
           <meta name="theme-color" content="#ffffff" />
-          {/* <meta property="og:url" content={siteUrl} />
+          <meta property="og:url" content="http://almex.com" />
           <meta property="og:type" content="website" />
-          <meta property="og:locale" content="en" />
-          <meta property="og:site_name" content={title} />
-          <meta property="og:image" content={`${siteUrl}${gatsbyIcon}`} />
+          <meta property="og:locale" content={activeLanguage} />
+          <meta
+            property="og:title"
+            content="Conveyor Belt Vulcanizers | Vulcanizing Equipment | Almex"
+          />
+          <meta
+            property="og:description"
+            content="Almex provides conveyer belt vulcanizer products, tools and services required to maintain peak levels of operating efficiency. Learn about the global leader."
+          />
+          {/* <meta property="og:image" content={`${siteUrl}${gatsbyIcon}`} />
           <meta property="og:image:width" content="512" />
           <meta property="og:image:height" content="512" /> */}
           {/* <meta name="twitter:card" content="summary" />
           <meta name="twitter:site" content={twitter} /> */}
-          <script
+          {/* <script
             type="text/javascript"
             src="https://identity.netlify.com/v1/netlify-identity-widget.js"
-          />
+          /> */}
           <body
             className="no-focus-outline"
             ref={this.bodyElement}
-            onKeyUp={evt => {
-              this.checkForTabbing(evt);
-            }}
+            // onKeyUp={evt => {
+            //   this.checkForTabbing(evt);
+            // }}
             role="presentation"
           />
         </Helmet>
