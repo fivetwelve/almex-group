@@ -1,22 +1,28 @@
 import React from 'react';
+import fetchPonyfill from 'fetch-ponyfill';
 // import { Router } from '@reach/router';
-import { fetch } from 'whatwg-fetch';
-// import netlifyIdentity from 'netlify-identity-widget';
-
-// import GoTrue from 'gotrue-js';
 import Dashboard from '../../../components/dashboard';
 import Layout from '../../../components/layout';
 // import Profile from '../../../components/profile';
 // import Login from '../../../components/login';
 
+/*
+  avoid whatwg-fetch, instead use fetch-ponyfill 
+  https://github.com/gatsbyjs/gatsby/issues/8612
+  github.com/matthew-andrews/isomorphic-fetch/issues/174
+*/
+
+// https: // import netlifyIdentity from 'netlify-identity-widget';
+// import GoTrue from 'gotrue-js';
 // const auth = new GoTrue({
 //   APIUrl: 'https://ag-poc.netlify.com/.netlify/identity',
+
 //   audience: '',
 //   setCookie: false,
 // });
-
 // const netlifyAuth = {
 //   isAuthenticated: false,
+
 //   user: null,
 //   authenticate(callback) {
 //     this.isAuthenticated = true;
@@ -36,18 +42,19 @@ import Layout from '../../../components/layout';
 //   },
 // };
 
+const { fetch } = fetchPonyfill();
+
 class DashboardPage extends React.Component {
   state = {
     data: null,
     error: null,
   };
-
   // componentDidMount() {
+
   //   // netlifyIdentity.init({
   //   //   container: '#netlify-modal', // defaults to document.body,
   //   // });
   // }
-
   // state = { redirectToReferrer: false };
 
   componentDidMount() {
@@ -65,8 +72,8 @@ class DashboardPage extends React.Component {
   getData = () => {
     fetch('/.netlify/functions/getCustomer', {
       headers: {
-        'Content-Type': 'application/json',
         Accept: 'application/json',
+        // 'Content-Type': 'application/json',
       },
     })
       .then(res => res.json())
@@ -111,7 +118,9 @@ class DashboardPage extends React.Component {
         region="NORTH_AMERICA"
         title=""
       >
+        <h1>Dashboard Container</h1>
         {error && <p>{error}</p>}
+        {/* {data} */}
         <Dashboard data={data} />
         {/* <button onClick={evt => this.login(evt)} type="button">
           Log in

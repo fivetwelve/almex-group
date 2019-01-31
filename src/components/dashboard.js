@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Dump from '../utils/dump';
 
 const Dashboard = props => {
@@ -12,6 +13,16 @@ const Dashboard = props => {
       )}
     </>
   );
+};
+
+Dashboard.defaultProps = {
+  data: {},
+};
+
+Dashboard.propTypes = {
+  data: PropTypes.shape({
+    msg: PropTypes.object,
+  }),
 };
 
 export default Dashboard;
