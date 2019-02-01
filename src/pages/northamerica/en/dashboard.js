@@ -109,6 +109,7 @@ class DashboardPage extends React.Component {
     //       Log in
     //     </button>
     //   );
+
     const { error, data } = this.state;
     return (
       <Layout
