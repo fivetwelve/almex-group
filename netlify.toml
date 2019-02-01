@@ -1,3 +1,21 @@
 [build]
   Functions = "lambda"
   Command = "npm run build && npm run build:lambda"
+
+[[redirects]]
+  from = "/"
+  to = "/northamerica/en"
+  conditions = {Language = ["en"]}
+
+[[redirects]]
+  from = "/"
+  to = "/northamerica/es"
+  conditions = {Language = ["es"]}
+
+[[redirects]]
+  from = "/en"
+  to = "/northamerica/en"
+
+[[redirects]]
+  from = "/es"
+  to = "/northamerica/es"
