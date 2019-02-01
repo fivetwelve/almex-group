@@ -1,5 +1,4 @@
 import fetch from 'node-fetch';
-import dotenv from 'dotenv';
 import * as log from 'loglevel';
 
 /*
@@ -7,19 +6,15 @@ import * as log from 'loglevel';
   https://github.com/netlify/netlify-lambda/issues/43#issuecomment-444618311
 */
 
-const config = dotenv.config({
-  path: `.env.${process.env.NODE_ENV}`,
-}).parsed;
-
 exports.handler = async (event, context, callback) => {
   try {
-    const url = config.AIRTABLE_ENDPOINT || process.env.AIRTABLE_ENDPOINT;
+    const url = process.env.AIRTABLE_ENDPOINT;
     const params = new URLSearchParams({
-      filterByFormula: `({Email}="maggie@companyxyz.com")`,
+      filterByFormula: `({Email}="victor.chan@almex.com")`,
     });
     const response = await fetch(`${url}?${params}`, {
       headers: {
-        Authorization: `Bearer ${config.AIRTABLE_TOKEN || process.env.AIRTABLE_TOKEN}`,
+        Authorization: `Bearer ${process.env.AIRTABLE_TOKEN}`,
       },
     });
     if (!response.ok) {
