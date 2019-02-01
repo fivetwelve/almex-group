@@ -13,13 +13,13 @@ const config = dotenv.config({
 
 exports.handler = async (event, context, callback) => {
   try {
-    const url = config.AIRTABLE_ENDPOINT;
+    const url = config.AIRTABLE_ENDPOINT || process.env.AIRTABLE_ENDPOINT;
     const params = new URLSearchParams({
       filterByFormula: `({Email}="maggie@companyxyz.com")`,
     });
     const response = await fetch(`${url}?${params}`, {
       headers: {
-        Authorization: `Bearer ${config.AIRTABLE_TOKEN}`,
+        Authorization: `Bearer ${config.AIRTABLE_TOKEN || process.env.AIRTABLE_TOKEN}`,
       },
     });
     if (!response.ok) {
