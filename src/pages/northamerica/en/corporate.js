@@ -34,9 +34,11 @@ const CorporatePage = ({
 
       <div className="main-container">
         <div className="content">
-          <div className="video-container">
-            <YouTube videoId={article.youTubeId[0]} />
-          </div>
+          {article.youTubeId[0] && (
+            <div className="video-container">
+              <YouTube videoId={article.youTubeId[0]} />
+            </div>
+          )}
           <div className="col-container">
             <div className="col-1">
               <div className="content-1">

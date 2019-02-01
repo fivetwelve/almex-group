@@ -30,10 +30,10 @@
     .active-section-mobile {
       font-size: 18px;
       line-height: 22px;
-      color: var(--blue-astral);
+      color: var(--blue);
     }
     .menu-icon {
-      color: var(--blue-astral);
+      color: var(--blue);
     }
     button.mobile-menu {
       appearance: none;
@@ -103,7 +103,7 @@
           }
           .login {
             height: 40px;
-            background-color: var(--blue-astral);
+            background-color: var(--blue);
             color: var(--white);
           }
         }

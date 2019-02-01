@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
+import * as log from 'loglevel';
+// import root from 'window-or-global';
 import Header from './header';
 import Footer from './footer';
 import '../styles/layout.scss';
@@ -19,20 +21,24 @@ class Layout extends React.Component {
   //   });
   // }
 
-  // componentDidMount() {
-  //   document.body.classList.add('no-focus-outline');
-  // }
+  componentDidMount() {
+    // document.body.classList.add('no-focus-outline');
+    // root.addEventListener('click', this.handleKeyUp);
+  }
 
   // shouldComponentUpdate() {
   //   return false;
   // }
 
-  checkForTabbing = evt => {
+  handleKeyUp = () => {
     // evt.preventDefault();
-    /* tab */
-    if (evt.which === 9) {
-      this.bodyElement.current.classList.remove('no-focus-outline');
-    }
+    /* check for Tab */
+    // log.info(`target: ${evt.which}`);
+    log.info('clicked!');
+    // if (evt.which === 9) {
+    //   this.bodyElement.current.classList.remove('no-focus-outline');
+    // }
+    // console.log(`target: ${evt.target}`);
   };
 
   render() {
@@ -41,7 +47,7 @@ class Layout extends React.Component {
     return (
       <React.Fragment>
         <Helmet defaultTitle={title} titleTemplate={`Almex Group | ${title}`}>
-          <html lang={lang} className="no-focus-outline" />
+          <html lang={lang} />
           {/* <link rel="canonical" href={`${siteUrl}${pathname}`} /> */}
           <meta name="docsearch:version" content="2.0" />
           <meta
@@ -87,7 +93,12 @@ class Layout extends React.Component {
             role="presentation"
           />
         </Helmet>
-        <div className="siteContainer" ref={this.siteContainer}>
+        <div
+          className="siteContainer"
+          ref={this.siteContainer}
+          onKeyUp={evt => log.info(evt.target)}
+          role="presentation"
+        >
           <div className="pageContainer">
             <Header activeSection={activeSection} activeLanguage={activeLanguage} region={region} />
             <div className="bodyClass">
