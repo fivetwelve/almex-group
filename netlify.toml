@@ -6,7 +6,7 @@
   from = "https://ag-poc.netlify.com"
   to = "https://dev--ag-poc.netlify.com"
   status = 200
-  force = "true"
+  force = true
 
 [[redirects]]
   from = "/"
@@ -28,4 +28,3 @@
   status = 301
   force = false
   conditions = {Language = ["en"]}
-
