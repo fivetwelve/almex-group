@@ -3,19 +3,29 @@
   Command = "npm run build && npm run build:lambda"
 
 [[redirects]]
+  from = "https://ag-poc.netlify.com"
+  to = "https://dev--ag-poc.netlify.com"
+  status = 200
+  force = "true"
+
+[[redirects]]
   from = "/"
   to = "/northamerica/en"
+  status = 301
+  force = false
   conditions = {Language = ["en"]}
 
 [[redirects]]
   from = "/"
   to = "/northamerica/es"
+  status = 301
+  force = false
   conditions = {Language = ["es"]}
 
 [[redirects]]
-  from = "/en"
-  to = "/northamerica/en"
+  from = "/#invite_token"
+  to = "/northamerica/en/dashboard/#invite_token"
+  status = 301
+  force = false
+  conditions = {Language = ["en"]}
 
-[[redirects]]
-  from = "/es"
-  to = "/northamerica/es"
