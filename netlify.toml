@@ -23,7 +23,7 @@
   conditions = {Language = ["es"]}
 
 [[redirects]]
-  from = "/#invite_token"
+  from = "/northamerica/en/#invite_token"
   to = "/northamerica/en/dashboard/#invite_token"
   status = 301
   force = false
