@@ -1,6 +1,6 @@
 import React from 'react';
 // import netlifyIdentity from 'netlify-identity-widget';
-import Layout from '../components/layout';
+import Layout from '../../../components/layout';
 
 class HomePage extends React.Component {
   componentDidMount() {

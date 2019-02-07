@@ -1,0 +1,115 @@
+@import 'include-media';
+$spacing: 20px;
+$cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+
+.tile {
+  width: 100%;
+  padding-top: 35px;
+  @include media('>=tablet') {
+    width: calc((100% - #{$spacing}) / 2);
+    &:nth-child(odd) {
+      margin-right: $spacing;
+    }
+  }
+
+  @include media('>=desktop') {
+    width: calc((100% - (#{$spacing} * 2)) / 3);
+    margin-right: $spacing;
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
+  }
+
+  .image-container {
+    height: 235px;
+    background-color: var(--gold);
+    position: relative;
+    overflow: hidden;
+
+    .background {
+      background-size: cover;
+      height: 100%;
+      width: 100%;
+    }
+
+    .overlay {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      background-color: rgba(255, 182, 18, 0.7);
+      opacity: 0;
+      transition: all 0.2s ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .text-container {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        @include media('>=desktop') {
+          width: 75%;
+        }
+      }
+
+      .overlay-title,
+      .overlay-subtitle {
+        color: var(--white);
+        opacity: 0.1;
+        transition: all 0.3s $cubic;
+      }
+      .overlay-title {
+        font-size: 42px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      .overlay-subtitle {
+        display: flex;
+        flex-direction: row;
+        color: var(--white);
+      }
+      .indicator {
+        font-size: 12px;
+        margin-right: 15px;
+        position: relative;
+        top: 1px;
+      }
+      .subtitle {
+      }
+    }
+
+    &:hover {
+      .background {
+        opacity: 0.8;
+      }
+      .overlay {
+        opacity: 1;
+        .overlay-title,
+        .overlay-subtitle {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  .description {
+    p:last-child {
+      margin-bottom: 0;
+    }
+    .more,
+    .more-arrow {
+      color: var(--bright-gold);
+    }
+    .more {
+      letter-spacing: 0.8px;
+      text-transform: lowercase;
+    }
+    .more-arrow {
+      font-size: 150%;
+      font-height: 14px;
+      position: relative;
+      top: 2px;
+    }
+  }
+}

@@ -1,0 +1,123 @@
+@import 'include-media';
+$spacing: 20px;
+
+.heading1-container {
+  width: 100%;
+  background-color: var(--bright-gold);
+  height: 50px;
+  display: flex;
+  .heading1 {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding-left: 90px;
+    color: var(--white);
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    line-height: 24px;
+    p {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.tile-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto 40px;
+}
+
+.heading2-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto 35px;
+  background-color: var(--blue-heading);
+  height: 50px;
+  display: flex;
+  .heading2 {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding-left: 90px;
+    color: var(--white);
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    line-height: 24px;
+    p {
+      margin-bottom: 0;
+    }
+  }
+}
+.event-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto 20px;
+  .event1,
+  .event2 {
+    width: 100%;
+    height: 390px;
+    @include media('>=tablet') {
+      width: calc(50% - (#{$spacing} / 2));
+    }
+    @include media('>=desktop') {
+      width: calc(25% - #{$spacing} * 0.75);
+    }
+    .content-container {
+      padding-top: 80px;
+      padding-left: 20px;
+      padding-right: 15px;
+      padding-bottom: 10px;
+      color: var(--white);
+    }
+  }
+  .event1 {
+    background-color: var(--blue60);
+    margin-bottom: $spacing;
+    @include media('>=tablet') {
+      margin-right: $spacing;
+      margin-bottom: 0;
+    }
+    @include media('>=desktop') {
+      margin-right: $spacing;
+    }
+  }
+  .event2 {
+    background-color: var(--bright-gold80);
+    @include media('>=desktop') {
+      margin-right: $spacing;
+    }
+  }
+  .event3 {
+    width: 100%;
+    height: 390px;
+    position: relative;
+    background-color: var(--bright-gold);
+    margin-top: $spacing;
+    @include media('>=desktop') {
+      width: calc(50% - #{$spacing} / 2);
+      margin-top: 0;
+    }
+    .content-container {
+      width: 40%;
+      height: 100%;
+      position: absolute;
+      right: 0;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 30px 15px 20px 20px;
+    }
+  }
+  .title {
+    font-size: 24px;
+  }
+  .event-more {
+    background-color: var(--grey80);
+    border: 0;
+  }
+}

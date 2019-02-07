@@ -12,7 +12,7 @@ import vLogo from '../../static/logo-almex-vert.svg';
 
 const Header = ({ data, activeLanguage, activeSection, region }) => {
   const label = data.cms.labels[0];
-  const nav = data.cms.navigations[0];
+  const nav = data.cms.headerFooters[0];
   return (
     <div className="header">
       <div className="contents">
@@ -27,7 +27,7 @@ const Header = ({ data, activeLanguage, activeSection, region }) => {
             <span className="sr-only">Open menu</span>
           </button>
         </IconContext.Provider>
-        <nav className="navigation">
+        <div className="options-container">
           <div className="options">
             <div className="search">
               {label.header.SEARCH}
@@ -51,22 +51,24 @@ const Header = ({ data, activeLanguage, activeSection, region }) => {
             />
             <div className="login">{label.header.LOGIN}</div>
           </div>
-          <div className="sections">
-            <a href="../" className={activeSection === 'PRODUCTS' ? 'active' : ''}>
-              {label.header.PRODUCTS}
-            </a>
-            <a href="../" className={activeSection === 'INDUSTRIES' ? 'active' : ''}>
-              {label.header.INDUSTRIES}
-            </a>
-            <a href="../" className={activeSection === 'SERVICES' ? 'active' : ''}>
-              {label.header.SERVICES}
-            </a>
-            <a href="../" className={activeSection === 'ABOUT' ? 'active' : ''}>
-              {label.header.ABOUT}
-            </a>
-          </div>
-        </nav>
+        </div>
       </div>
+      <nav className="navigation">
+        <div className="sections">
+          <a href="../" className={activeSection === 'PRODUCTS' ? 'active' : ''}>
+            {label.header.PRODUCTS}
+          </a>
+          <a href="../" className={activeSection === 'INDUSTRIES' ? 'active' : ''}>
+            {label.header.INDUSTRIES}
+          </a>
+          <a href="../" className={activeSection === 'SERVICES' ? 'active' : ''}>
+            {label.header.SERVICES}
+          </a>
+          <a href="../" className={activeSection === 'ABOUT' ? 'active' : ''}>
+            {label.header.ABOUT}
+          </a>
+        </div>
+      </nav>
     </div>
   );
 };
@@ -76,7 +78,7 @@ export default props => (
     query={graphql`
       query {
         cms {
-          navigations {
+          headerFooters {
             language
           }
           labels {
@@ -102,7 +104,7 @@ Header.propTypes = {
   data: PropType.shape({
     cms: PropType.shape({
       labels: PropType.array,
-      navigations: PropType.array,
+      headerFooters: PropType.array,
     }),
   }),
   region: PropType.string,

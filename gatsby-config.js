@@ -23,9 +23,8 @@ module.exports = {
     );
   },
   plugins: [
-    {
-      resolve: `gatsby-plugin-react-helmet`,
-    },
+    `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-sass`,
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
@@ -40,9 +39,6 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-sass`,
-    },
-    {
       resolve: `gatsby-source-graphql`,
       options: {
         url: process.env.CMS_ENDPOINT,
@@ -50,12 +46,15 @@ module.exports = {
           Authorization: `Bearer ${process.env.CMS_TOKEN}`,
         },
         query: `{
-          navigations {
-            structure
+          headerFooters {
+            navigation
             language
           }
           labels {
+            region
             header
+            footer
+            common
           }
           productLists {
             region

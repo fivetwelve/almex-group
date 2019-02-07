@@ -4,11 +4,9 @@ import Markdown from 'react-remarkable';
 import Layout from '../../../components/layout';
 import { articleType } from '../../../types';
 
-const allowHTML = { html: true };
-
 const AboutPage = ({ data }) => (
   <Layout activeSection="ABOUT">
-    <Markdown source={data.cms.articles[0].body[0]} options={allowHTML} />
+    <Markdown source={data.cms.articles[0].body[0]} options={{ html: true }} />
   </Layout>
 );
 

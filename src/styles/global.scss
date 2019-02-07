@@ -15,7 +15,6 @@ html {
 }
 .pageContainer {
   width: 100%;
-  max-width: 1280px;
   margin: 0 auto;
 }
 
@@ -44,10 +43,15 @@ button {
   background: transparent;
   background-color: var(--blue);
   border-radius: 5px;
-  height: 50px;
+  height: 36px;
   color: var(--white);
+  padding-left: 15px;
+  padding-right: 15px;
   cursor: pointer;
   &:active {
     background-color: var(--blue);
+  }
+  &.form-button {
+    min-width: 75px;
   }
 }

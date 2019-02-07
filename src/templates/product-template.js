@@ -6,7 +6,7 @@ import Dump from '../utils/dump';
 
 const allowHTML = { html: true };
 
-const ProductPage = ({ data, pageContext }) => (
+const ProductTemplate = ({ data, pageContext }) => (
   <div>
     <h2>{pageContext.title}</h2>
     {pageContext.summary && (
@@ -28,12 +28,12 @@ const ProductPage = ({ data, pageContext }) => (
   </div>
 );
 
-ProductPage.defaultProps = {
+ProductTemplate.defaultProps = {
   data: {},
   pageContext: {},
 };
 
-ProductPage.propTypes = {
+ProductTemplate.propTypes = {
   data: productType,
   pageContext: PropTypes.shape({
     pageSlug: PropTypes.string,
@@ -45,7 +45,7 @@ ProductPage.propTypes = {
   }),
 };
 
-export default ProductPage;
+export default ProductTemplate;
 
 // export const query = graphql`
 //   query($slug: String) {

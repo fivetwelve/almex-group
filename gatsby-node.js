@@ -45,7 +45,7 @@ exports.createPages = ({ graphql, actions }) => {
           const { pageSlug, category, title, specifications, summary, features } = productsEN[i];
           createPage({
             path: `${regionList[region]}/en/products/${pageSlug}`,
-            component: path.resolve(`./src/templates/product-page.js`),
+            component: path.resolve(`./src/templates/product-template.js`),
             context: {
               pageSlug,
               category,
@@ -60,7 +60,7 @@ exports.createPages = ({ graphql, actions }) => {
           const { pageSlug, category, title, specifications, summary, features } = productsES[i];
           createPage({
             path: `${regionList[region]}/es/products/${pageSlug}`,
-            component: path.resolve(`./src/templates/product-page.js`),
+            component: path.resolve(`./src/templates/product-template.js`),
             context: {
               pageSlug,
               category,

@@ -3,7 +3,7 @@
 .header {
   width: 100%;
   padding-left: 13px;
-  padding-right: 13px;
+  background-color: var(--white);
   z-index: 99;
   .contents {
     height: 60px;
@@ -54,23 +54,23 @@
     }
   }
   @include media('>=tablet') {
-    height: 100px;
+    height: 150px;
     position: fixed;
     padding-left: 0;
     padding-right: 0;
     .contents {
       padding-left: 20px;
-      padding-right: 20px;
-      height: 100px;
+      height: 90px;
       max-width: 1280px;
+      margin: 0 auto;
       .active-section-mobile {
         display: none;
       }
       button.mobile-menu {
         display: none;
       }
-      nav {
-        display: block;
+      .options-container {
+        align-self: flex-start;
         .options {
           display: flex;
           flex-direction: row;
@@ -89,10 +89,10 @@
             padding-right: 30px;
           }
           .brands-icon {
-            color: var(--red-piper);
+            color: var(--bright-gold);
           }
           .search {
-            height: 40px;
+            gheight: 40px;
             .search-icon {
               margin-left: 10px;
             }
@@ -108,19 +108,24 @@
           }
         }
       }
+    }
+    nav {
+      display: block;
+      background-color: var(--grey80);
       .sections {
         display: flex;
         height: 60px;
-        padding-top: 30px;
+        max-width: 1280px;
+        margin: 0 auto;
+        justify-content: center;
+        align-items: center;
         a {
-          color: var(--grey90);
-          font-size: 18px;
-          font-weight: bold;
+          color: var(--white);
+          font-size: 20px;
           text-decoration: none;
-          text-transform: uppercase;
           white-space: nowrap;
           &:not(:first-child) {
-            margin-left: 45px;
+            margin-left: 90px;
           }
           &.active {
             background: no-repeat url('../../static/nav-active.svg');
