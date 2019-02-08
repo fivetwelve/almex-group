@@ -1,6 +1,5 @@
 import React from 'react';
-import PropType from 'prop-types';
-import { graphql, StaticQuery } from 'gatsby';
+import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
 import { FaBars, FaSearch } from 'react-icons/fa';
 import BrandSelector from './brandSelector';
@@ -10,9 +9,9 @@ import '../styles/dropdowns.scss';
 import hLogo from '../../static/logo-almex-hori.svg';
 import vLogo from '../../static/logo-almex-vert.svg';
 
-const Header = ({ data, activeLanguage, activeSection, region }) => {
-  const label = data.cms.labels[0];
-  const nav = data.cms.headerFooters[0];
+const Header = ({ activeLanguage, activeSection, headerFooters, labels, region }) => {
+  const label = labels[0];
+  const nav = headerFooters[0];
   return (
     <div className="header">
       <div className="contents">
@@ -73,39 +72,20 @@ const Header = ({ data, activeLanguage, activeSection, region }) => {
   );
 };
 
-export default props => (
-  <StaticQuery
-    query={graphql`
-      query {
-        cms {
-          headerFooters {
-            language
-          }
-          labels {
-            header
-          }
-        }
-      }
-    `}
-    render={data => <Header data={data} {...props} />}
-  />
-);
-
 Header.defaultProps = {
   activeLanguage: '',
   activeSection: '',
-  data: {},
+  headerFooters: [],
+  labels: [],
   region: '',
 };
 
 Header.propTypes = {
-  activeLanguage: PropType.string,
-  activeSection: PropType.string,
-  data: PropType.shape({
-    cms: PropType.shape({
-      labels: PropType.array,
-      headerFooters: PropType.array,
-    }),
-  }),
-  region: PropType.string,
+  activeLanguage: PropTypes.string,
+  activeSection: PropTypes.string,
+  headerFooters: PropTypes.instanceOf(Array),
+  labels: PropTypes.instanceOf(Array),
+  region: PropTypes.string,
 };
+
+export default Header;

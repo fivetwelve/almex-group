@@ -10,6 +10,7 @@ const Home = data => (
     childrenClass="home-page"
     region="NORTH_AMERICA"
     title=""
+    data={data.data.cms}
   >
     <HomeTemplate data={data.data} />
   </Layout>
@@ -18,10 +19,13 @@ const Home = data => (
 export const query = graphql`
   query {
     cms {
-      labels(where: { region: NORTH_AMERICA }) {
-        common(locale: EN)
-        header(locale: EN)
-        footer(locale: EN)
+      headerFooters(where: { region: NORTH_AMERICA }) {
+        companyAddress(locale: EN)
+        companyEmail
+        companyPhone
+        language
+        socialMedia(locale: EN)
+        tagline(locale: EN)
       }
       homepages(where: { region: NORTH_AMERICA }) {
         heading(locale: EN)
@@ -38,6 +42,11 @@ export const query = graphql`
         eventImage {
           url
         }
+      }
+      labels(where: { region: NORTH_AMERICA }) {
+        common(locale: EN)
+        header(locale: EN)
+        footer(locale: EN)
       }
     }
   }

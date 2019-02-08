@@ -28,7 +28,7 @@ const HomepageTile = ({ data, labels }) => {
           </div>
         </div>
         <div className="description">
-          <Markdown source={description} options={{ html: true }} />{' '}
+          <Markdown source={description} options={{ html: true }} />
           <span className="more">{labels.common.MORE} </span>
           <span className="more-arrow">&nbsp;&raquo;</span>
         </div>

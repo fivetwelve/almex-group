@@ -1,5 +1,45 @@
 .footer {
-  height: 200px;
+  height: 390px;
   border: 1px solid #ccc;
   background-color: var(--grey70);
+  .footer-container {
+    color: var(--white);
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding-left: 30px;
+    padding-right: 30px;
+    .footer-top {
+      height: 345px;
+      padding-top: 70px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    .footer-bottom {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    .contact-icon {
+      width: 15px;
+      margin-right: 5px;
+    }
+    .email-link,
+    .social-media-link {
+      color: var(--white);
+      transition: all 0.3s ease-in;
+      text-decoration: none;
+      &:visited {
+        color: var(--white);
+      }
+      &:active,
+      &:hover {
+        color: var(--bright-gold);
+      }
+    }
+    .social-media-icon {
+      margin-right: 10px;
+    }
+  }
 }

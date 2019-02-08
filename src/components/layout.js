@@ -42,10 +42,19 @@ class Layout extends React.Component {
   };
 
   render() {
-    const { activeLanguage, activeSection, children, childrenClass, region, title } = this.props;
+    const {
+      activeLanguage,
+      activeSection,
+      children,
+      childrenClass,
+      data,
+      region,
+      title,
+    } = this.props;
+    const { headerFooters, labels } = data;
     const lang = activeLanguage.toLowerCase();
     return (
-      <React.Fragment>
+      <>
         <Helmet defaultTitle={title} titleTemplate={`Almex Group | ${title}`}>
           <html lang={lang} />
           {/* <link rel="canonical" href={`${siteUrl}${pathname}`} /> */}
@@ -100,14 +109,20 @@ class Layout extends React.Component {
           role="presentation"
         >
           <div className="pageContainer">
-            <Header activeSection={activeSection} activeLanguage={activeLanguage} region={region} />
+            <Header
+              activeSection={activeSection}
+              activeLanguage={activeLanguage}
+              headerFooters={headerFooters}
+              labels={labels}
+              region={region}
+            />
             <div className="bodyClass">
               <div className={childrenClass}>{children}</div>
             </div>
-            <Footer />
+            <Footer headerFooters={headerFooters} labels={labels} lang={lang} region={region} />
           </div>
         </div>
-      </React.Fragment>
+      </>
     );
   }
 }
@@ -117,15 +132,20 @@ Layout.defaultProps = {
   activeSection: '',
   children: {},
   childrenClass: '',
+  data: {},
   region: '',
   title: '',
 };
 
 Layout.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   activeLanguage: PropTypes.string,
   activeSection: PropTypes.string,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   childrenClass: PropTypes.string,
+  data: PropTypes.shape({
+    headerFooters: PropTypes.array,
+    labels: PropTypes.array,
+  }),
   region: PropTypes.string,
   title: PropTypes.string,
 };
