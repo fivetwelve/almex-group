@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { Link } from 'gatsby';
+import { Link } from 'gatsby';
 import { IconContext } from 'react-icons';
 import {
   FaPhone,
@@ -15,7 +15,7 @@ import Markdown from 'react-remarkable';
 import '../styles/footer.scss';
 
 const Footer = ({ headerFooters, labels }) => {
-  const { companyAddress, companyEmail, companyPhone, socialMedia } = headerFooters[0];
+  const { companyAddress, companyEmail, companyPhone, footerLinks, socialMedia } = headerFooters[0];
   const { footer } = labels[0];
   return (
     <>
@@ -77,7 +77,20 @@ const Footer = ({ headerFooters, labels }) => {
           </div>
           <div className="footer-bottom">
             <div className="bottom-left">{footer.COPYRIGHT}</div>
-            <div className="bottom-center" />
+            <div className="bottom-center">
+              <Link to="/" className="footer-link">
+                {footerLinks.ABOUT.LABEL}
+              </Link>
+              <Link to="/" className="footer-link">
+                {footerLinks.CONTACT.LABEL}
+              </Link>
+              <Link to="/" className="footer-link">
+                {footerLinks.PRIVACY.LABEL}
+              </Link>
+              <Link to="/" className="footer-link">
+                {footerLinks.CAREERS.LABEL}
+              </Link>
+            </div>
             <div className="bottom-right">{footer.RIGHTS}</div>
           </div>
         </div>

@@ -23,6 +23,7 @@ export const query = graphql`
         companyAddress(locale: EN)
         companyEmail
         companyPhone
+        footerLinks(locale: EN)
         language
         socialMedia(locale: EN)
         tagline(locale: EN)

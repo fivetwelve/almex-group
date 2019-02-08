@@ -26,7 +26,8 @@
       margin-right: 5px;
     }
     .email-link,
-    .social-media-link {
+    .social-media-link,
+    .footer-link {
       color: var(--white);
       transition: all 0.3s ease-in;
       text-decoration: none;
@@ -36,6 +37,12 @@
       &:active,
       &:hover {
         color: var(--bright-gold);
+        text-decoration: underline;
+      }
+    }
+    .footer-link {
+      &:not(:last-child) {
+        margin-right: 25px;
       }
     }
     .social-media-icon {
