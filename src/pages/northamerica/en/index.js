@@ -30,19 +30,26 @@ export const query = graphql`
       }
       homepages(where: { region: NORTH_AMERICA }) {
         heading(locale: EN)
+        homepageCarouselSlides {
+          asset {
+            url
+          }
+          slideText(locale: EN)
+          slideType
+        }
         homepageTiles {
+          description(locale: EN)
           image {
             url
           }
-          title(locale: EN)
-          description(locale: EN)
           subtitle(locale: EN)
+          title(locale: EN)
         }
-        eventTitle(locale: EN)
         eventDescription(locale: EN)
         eventImage {
           url
         }
+        eventTitle(locale: EN)
       }
       labels(where: { region: NORTH_AMERICA }) {
         common(locale: EN)

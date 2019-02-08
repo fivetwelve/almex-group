@@ -1,31 +1,102 @@
+/* eslint-disable jsx-a11y/media-has-caption */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Markdown from 'react-remarkable';
+import Flickity from 'react-flickity-component';
 import HomePageTile from '../components/homepageTile';
+// import Dump from '../utils/dump';
 import '../styles/home.scss';
+import '../styles/flickity.scss';
 
 const HomeTemplate = ({
   data: {
     cms: { homepages, labels },
   },
 }) => {
-  // const HomeTemplate = data => {
-  // console.log(data);
-  // const { title, description, subtitle } = data;
+  let slideNum = 0;
   let tileNum = 0;
   const homepage = homepages[0];
   const label = labels[0];
-  const imageStyle = {
+  const eventStyle = {
     backgroundImage: `url(${homepage.eventImage.url})`,
   };
+  const slides = homepage.homepageCarouselSlides;
+  const slideArray = [];
+  const flickityOptions = {
+    accessibility: true,
+  };
+
+  for (let i = 0; i < slides.length; i += 1) {
+    let element = null;
+    slideNum += 1;
+    if (slides[i].slideType === 'IMAGE') {
+      const slideStyle = {
+        backgroundImage: `url(${slides[i].asset.url})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        height: '536px',
+        width: '100%',
+      };
+      element = (
+        <div className="slide" style={slideStyle} key={slideNum}>
+          <div className="heading-container">
+            <div className="heading">
+              <Markdown source={slides[i].slideText} options={{ html: true }} />
+            </div>
+          </div>
+        </div>
+      );
+    }
+    if (slides[i].slideType === 'VIDEO') {
+      const slideStyle = {
+        height: '100%',
+        width: '100%',
+      };
+      element = (
+        <div className="slide" style={slideStyle} key={slideNum}>
+          <div className="video-container">
+            <video width="100%" height="auto" autoPlay loop>
+              <source src={slides[0].asset.url} type="video/mp4" />
+            </video>
+            {/* <iframe
+              className="embed-player slide-media"
+              src="https://player.vimeo.com/video/217885864?api=1&byline=0&portrait=0&title=0&background=1&mute=1&loop=1&autoplay=0&id=217885864"
+              width="980"
+              height="520"
+              frameBorder="0"
+              webkitallowfullscreen
+              mozallowfullscreen
+              allowFullScreen
+              title="almex-video"
+            /> */}
+          </div>
+          <div className="heading-container">
+            <div className="heading">
+              <Markdown source={slides[i].slideText} options={{ html: true }} />
+            </div>
+          </div>
+        </div>
+      );
+    }
+    slideArray.push(element);
+  }
 
   return (
     <>
-      <div className="heading1-container">
+      <Flickity
+        className="carousel" // default ''
+        elementType="div" // default 'div'
+        options={flickityOptions} // takes flickity options {}
+        disableImagesLoaded={false} // default false
+        reloadOnUpdate // default false
+      >
+        {slideArray}
+      </Flickity>
+      {/* <div className="heading1-container">
         <div className="heading1">
-          <Markdown source={homepage.heading[0]} options={{ html: true }} />{' '}
+          <Markdown source={homepage.heading[0]} options={{ html: true }} />
         </div>
-      </div>
+      </div> */}
       <div className="tile-container">
         {homepage.homepageTiles.length > 0 &&
           homepage.homepageTiles.map(tile => {
@@ -65,7 +136,7 @@ const HomeTemplate = ({
             </button>
           </div>
         </div>
-        <div className="event3" style={imageStyle}>
+        <div className="event3" style={eventStyle}>
           <div className="content-container">
             <div className="title">
               <Markdown source={homepage.eventTitle[2]} options={{ html: true }} />
