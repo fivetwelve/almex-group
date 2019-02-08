@@ -2,7 +2,7 @@ import React from 'react';
 import fetchPonyfill from 'fetch-ponyfill';
 // import { Router } from '@reach/router';
 import Dashboard from '../../../components/dashboard';
-import Layout from '../../../components/layout';
+// import Layout from '../../../components/layout';
 // import Profile from '../../../components/profile';
 // import Login from '../../../components/login';
 
@@ -111,13 +111,14 @@ class DashboardPage extends React.Component {
     //   );
     const { error, data } = this.state;
     return (
-      <Layout
-        activeLanguage="EN"
-        activeSection=""
-        childrenClass="dashboard-page"
-        region="NORTH_AMERICA"
-        title=""
-      >
+      // <Layout
+      //   activeLanguage="EN"
+      //   activeSection=""
+      //   childrenClass="dashboard-page"
+      //   region="NORTH_AMERICA"
+      //   title=""
+      // >
+      <div>
         <h1>Dashboard Container</h1>
         {error && <p>{error}</p>}
         {/* {data} */}
@@ -125,7 +126,8 @@ class DashboardPage extends React.Component {
         {/* <button onClick={evt => this.login(evt)} type="button">
           Log in
         </button> */}
-      </Layout>
+      </div>
+      // </Layout>
     );
   }
 }

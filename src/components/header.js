@@ -19,7 +19,7 @@ const Header = ({ activeLanguage, activeSection, headerFooters, labels, region }
           <img src={vLogo} width="50px" alt="Almex Group" className="vertical" />
           <img src={hLogo} width="225px" alt="Almex Group" className="horizontal" />
         </span>
-        <div className="active-section-mobile">{label.header[activeSection]}</div>
+        <div className="active-section-mobile">{labels[0].header[activeSection]}</div>
         <IconContext.Provider value={{ className: 'menu-icon' }}>
           <button type="button" className="mobile-menu">
             <FaBars aria-hidden />

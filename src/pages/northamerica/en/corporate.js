@@ -9,13 +9,9 @@ import '../../../styles/corporate.scss';
 
 const allowHTML = { html: true };
 
-const CorporatePage = ({
-  data: {
-    cms: { labels, articles },
-  },
-}) => {
-  const label = labels[0];
-  const article = articles[0];
+const CorporatePage = data => {
+  const label = data.data.cms.labels[0];
+  const article = data.data.cms.articles[0];
   return (
     <Layout
       activeLanguage="EN"
@@ -23,6 +19,7 @@ const CorporatePage = ({
       childrenClass="corporate-page"
       region="NORTH_AMERICA"
       title={article.title}
+      data={data.data.cms}
     >
       <div className="banner-container">
         <h1>{article.labels.corporate}</h1>
@@ -89,9 +86,6 @@ export default CorporatePage;
 export const query = graphql`
   query {
     cms {
-      labels {
-        header
-      }
       articles(where: { articleType: Corporate }) {
         articleType
         navSection
@@ -103,6 +97,20 @@ export const query = graphql`
         }
         imageLabels(locale: EN)
         youTubeId
+      }
+      headerFooters(where: { region: NORTH_AMERICA }) {
+        companyAddress(locale: EN)
+        companyEmail
+        companyPhone
+        footerLinks(locale: EN)
+        language
+        socialMedia(locale: EN)
+        tagline(locale: EN)
+      }
+      labels(where: { region: NORTH_AMERICA }) {
+        common(locale: EN)
+        header(locale: EN)
+        footer(locale: EN)
       }
     }
   }

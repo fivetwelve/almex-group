@@ -5,7 +5,7 @@ import Layout from '../../../components/layout';
 import { articleType } from '../../../types';
 
 const AboutPage = ({ data }) => (
-  <Layout activeSection="ABOUT">
+  <Layout activeSection="ABOUT" data={data.cms}>
     <Markdown source={data.cms.articles[0].body[0]} options={{ html: true }} />
   </Layout>
 );
@@ -20,6 +20,8 @@ AboutPage.propTypes = {
 
 export default AboutPage;
 
+// TODO Change to CENTRAL_SOUTH_AMERICA and ES when CMS data is available
+
 export const query = graphql`
   query {
     cms {
@@ -27,6 +29,20 @@ export const query = graphql`
         articleType
         title(locale: ES)
         body(locale: ES)
+      }
+      headerFooters(where: { region: NORTH_AMERICA }) {
+        companyAddress(locale: EN)
+        companyEmail
+        companyPhone
+        footerLinks(locale: EN)
+        language
+        socialMedia(locale: EN)
+        tagline(locale: EN)
+      }
+      labels(where: { region: NORTH_AMERICA }) {
+        common(locale: EN)
+        header(locale: EN)
+        footer(locale: EN)
       }
     }
   }
