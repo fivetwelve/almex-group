@@ -3,17 +3,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Markdown from 'react-remarkable';
 import Carousel from 'nuka-carousel';
+import { IconContext } from 'react-icons';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import HomePageTile from '../components/homepageTile';
 // import Dump from '../utils/dump';
 import '../styles/home.scss';
 
 const HomeTemplate = ({
   data: {
-    cms: { homepages, labels },
+    cms: { headerFooters, homepages, labels },
   },
 }) => {
   let slideNum = 0;
   let tileNum = 0;
+  const headerFooter = headerFooters[0];
   const homepage = homepages[0];
   const label = labels[0];
   const eventStyle = {
@@ -22,8 +25,9 @@ const HomeTemplate = ({
   const slides = homepage.homepageCarouselSlides;
   const slideArray = [];
   const options = {
-    enableKeyboardControls: true,
     autoGenerateStyleTag: false,
+    enableKeyboardControls: true,
+    wrapAround: true,
   };
 
   for (let i = 0; i < slides.length; i += 1) {
@@ -55,20 +59,10 @@ const HomeTemplate = ({
       element = (
         <div className="slide" style={slideStyle} key={slideNum}>
           <div className="video-container">
+            {/* TODO set this back to autoplay */}
             <video width="100%" height="auto" autoPlay loop muted>
               <source src={slides[0].asset.url} type="video/mp4" />
             </video>
-            {/* <iframe
-                className="embed-player slide-media"
-                src="https://player.vimeo.com/video/217885864?api=1&byline=0&portrait=0&title=0&background=1&mute=1&loop=1&autoplay=0&id=217885864"
-                width="980"
-                height="520"
-                frameBorder="0"
-                webkitallowfullscreen
-                mozallowfullscreen
-                allowFullScreen
-                title="almex-video"
-              /> */}
           </div>
           <div className="heading-container">
             <div className="heading">
@@ -83,35 +77,47 @@ const HomeTemplate = ({
 
   return (
     <>
-      <Carousel
-        className="carousel"
-        autoGenerateStyleTag={options.autoGenerateStyleTag}
-        enableKeyboardControls={options.enableKeyboardControls}
-        renderCenterLeftControls={({ previousSlide }) => (
-          <button onClick={previousSlide} type="button">
-            {' '}
-            &lt;{' '}
-          </button>
-        )}
-        renderCenterRightControls={({ nextSlide }) => (
-          <button onClick={nextSlide} type="button">
-            {' '}
-            &gt;{' '}
-          </button>
-        )}
-      >
-        {slideArray}
-        {/* <div ref={this.carouselRef}>
-            <video width="100%" height="auto" autoPlay loop muted>
-              <source src={slides[0].asset.url} type="video/mp4" />
-            </video>
-          </div> */}
-      </Carousel>
-      {/* <div className="heading1-container">
-          <div className="heading1">
-            <Markdown source={homepage.heading[0]} options={{ html: true }} />
+      <div className="carousel-container">
+        <Carousel
+          className="carousel"
+          autoGenerateStyleTag={options.autoGenerateStyleTag}
+          enableKeyboardControls={options.enableKeyboardControls}
+          renderCenterLeftControls={({ previousSlide }) => (
+            <button onClick={previousSlide} type="button" className="left-controls">
+              {/* <IconContext.Provider value={{ className: 'left' }}>
+                  {(clicked && <FaChevronUp aria-hidden />) || <FaChevronDown aria-hidden />}
+                </IconContext.Provider> */}
+              <span className="sr-only">Previous</span>
+              <span aria-hidden="true" className="left-controls-icon">
+                <IconContext.Provider value={{ className: 'left-controls-icon' }}>
+                  <FaChevronLeft aria-hidden />
+                </IconContext.Provider>
+              </span>
+            </button>
+          )}
+          renderCenterRightControls={({ nextSlide }) => (
+            <button onClick={nextSlide} type="button" className="right-controls">
+              <span className="sr-only">Next</span>
+              <span aria-hidden="true" className="right-controls-icon">
+                <IconContext.Provider value={{ className: 'right-controls-icon' }}>
+                  <FaChevronRight aria-hidden />
+                </IconContext.Provider>
+              </span>
+            </button>
+          )}
+          wrapAround={options.wrapAround}
+        >
+          {slideArray}
+        </Carousel>
+        <div className="tagline-anchor">
+          <div className="tagline-container">
+            <div className="tagline">
+              <Markdown source={headerFooter.formattedTagline} options={{ html: true }} />
+            </div>
           </div>
-        </div> */}
+        </div>
+      </div>
+      {/* <Dump src={homepage} /> */}
       <div className="tile-container">
         {homepage.homepageTiles.length > 0 &&
           homepage.homepageTiles.map(tile => {

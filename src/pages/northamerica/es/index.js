@@ -25,9 +25,11 @@ export const query = graphql`
         companyEmail
         companyPhone
         footerLinks(locale: ES)
+        formattedTagline(locale: EN)
         language
+        navigation(locale: ES)
+        simpleTagline(locale: EN)
         socialMedia(locale: ES)
-        tagline(locale: ES)
       }
       homepages(where: { region: NORTH_AMERICA }) {
         heading(locale: ES)
