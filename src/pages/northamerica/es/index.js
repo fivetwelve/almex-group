@@ -31,6 +31,13 @@ export const query = graphql`
       }
       homepages(where: { region: NORTH_AMERICA }) {
         heading(locale: ES)
+        homepageCarouselSlides {
+          asset {
+            url
+          }
+          slideText(locale: ES)
+          slideType
+        }
         homepageTiles {
           image {
             url

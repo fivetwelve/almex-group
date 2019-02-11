@@ -2,11 +2,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Markdown from 'react-remarkable';
-import Flickity from 'react-flickity-component';
+import Carousel from 'nuka-carousel';
 import HomePageTile from '../components/homepageTile';
 // import Dump from '../utils/dump';
 import '../styles/home.scss';
-import '../styles/flickity.scss';
 
 const HomeTemplate = ({
   data: {
@@ -22,8 +21,9 @@ const HomeTemplate = ({
   };
   const slides = homepage.homepageCarouselSlides;
   const slideArray = [];
-  const flickityOptions = {
-    accessibility: true,
+  const options = {
+    enableKeyboardControls: true,
+    autoGenerateStyleTag: false,
   };
 
   for (let i = 0; i < slides.length; i += 1) {
@@ -83,15 +83,13 @@ const HomeTemplate = ({
 
   return (
     <>
-      <Flickity
-        className="carousel" // default ''
-        elementType="div" // default 'div'
-        options={flickityOptions} // takes flickity options {}
-        disableImagesLoaded={false} // default false
-        reloadOnUpdate // default false
+      <Carousel
+        className="carousel"
+        autoGenerateStyleTag={options.autoGenerateStyleTag}
+        enableKeyboardControls={options.enableKeyboardControls}
       >
         {slideArray}
-      </Flickity>
+      </Carousel>
       {/* <div className="heading1-container">
         <div className="heading1">
           <Markdown source={homepage.heading[0]} options={{ html: true }} />

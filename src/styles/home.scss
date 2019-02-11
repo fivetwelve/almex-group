@@ -24,11 +24,11 @@ $spacing: 20px;
         margin-bottom: 0;
       }
     }
+    .video-container {
+      max-height: 536px;
+      overflow: hidden;
+    }
   }
-  // video {
-  //   width: 100% !important;
-  //   height: auto !important;
-  // }
 }
 
 .heading1-container {
