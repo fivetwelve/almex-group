@@ -20,8 +20,14 @@ const HomeTemplate = ({
   // const headerFooter = headerFooters[0];
   const homepage = homepages[0];
   const label = labels[0];
-  const eventStyle = {
-    backgroundImage: `url(${homepage.eventImage.url})`,
+  const eventStyle1 = {
+    backgroundImage: `url(${homepage.eventImage[0].url})`,
+  };
+  const eventStyle2 = {
+    backgroundImage: `url(${homepage.eventImage[1].url})`,
+  };
+  const eventStyle3 = {
+    backgroundImage: `url(${homepage.eventImage[2].url})`,
   };
   const slides = homepage.homepageCarouselSlides;
   const slideArray = [];
@@ -41,10 +47,6 @@ const HomeTemplate = ({
     if (slides[i].slideType === 'IMAGE') {
       const slideStyle = {
         backgroundImage: `url(${slides[i].asset.url})`,
-        // backgroundPosition: 'center',
-        // backgroundSize: 'cover',
-        // height: '536px',
-        // width: '100%',
       };
       element = (
         <div className="slide-image" style={slideStyle} key={slideNum}>
@@ -146,6 +148,7 @@ const HomeTemplate = ({
       <div className="event-container">
         <div className="event1">
           <div className="content-container">
+            <div className="event-background" style={eventStyle2} />
             <div className="title">
               <Markdown source={homepage.eventTitle[0]} options={{ html: true }} />
             </div>
@@ -155,10 +158,13 @@ const HomeTemplate = ({
             <button type="button" className="event-more">
               {label.common.MORE}
             </button>
+            <div className="event-overlay-blue" />
           </div>
         </div>
         <div className="event2">
           <div className="content-container">
+            <div className="event-background" style={eventStyle3} />
+            <div className="event-overlay-gold" />
             <div className="title">
               <Markdown source={homepage.eventTitle[1]} options={{ html: true }} />
             </div>
@@ -170,8 +176,9 @@ const HomeTemplate = ({
             </button>
           </div>
         </div>
-        <div className="event3" style={eventStyle}>
+        <div className="event3" style={eventStyle1}>
           <div className="content-container">
+            <div className="event-overlay-blue" />
             <div className="title">
               <Markdown source={homepage.eventTitle[2]} options={{ html: true }} />
             </div>

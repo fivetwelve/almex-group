@@ -186,6 +186,8 @@ $spacing: 20px;
   .event2 {
     width: 100%;
     height: 390px;
+    background-size: cover;
+    background-position: center center;
     @include media('>=tablet') {
       width: calc(50% - (#{$spacing} / 2));
     }
@@ -198,10 +200,45 @@ $spacing: 20px;
       padding-right: 15px;
       padding-bottom: 10px;
       color: var(--white);
+      position: relative;
+      height: 100%;
+      overflow: hidden;
+      .event-background {
+        background-position: center center;
+        background-size: cover;
+      }
+      .event-background,
+      .event-overlay-blue,
+      .event-overlay-gold {
+        z-index: -1;
+      }
+      .event-background,
+      .event-overlay-blue,
+      .event-overlay-gold {
+        padding-bottom: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transition: var(--easeinout);
+      }
+      .event-overlay-blue {
+        background-color: var(--blue);
+      }
+      .event-overlay-gold {
+        background-color: var(--bright-gold);
+      }
+      &:hover {
+        .event-overlay-blue,
+        .event-overlay-gold {
+          opacity: 0.6;
+        }
+      }
     }
   }
   .event1 {
-    background-color: var(--blue60);
+    // background-color: var(--blue60);
     margin-bottom: $spacing;
     @include media('>=tablet') {
       margin-right: $spacing;
@@ -212,7 +249,7 @@ $spacing: 20px;
     }
   }
   .event2 {
-    background-color: var(--bright-gold80);
+    // background-color: var(--bright-gold80);
     @include media('>=desktop') {
       margin-right: $spacing;
     }
@@ -221,7 +258,9 @@ $spacing: 20px;
     width: 100%;
     height: 390px;
     position: relative;
-    background-color: var(--bright-gold);
+    background-color: var(--white);
+    background-position: center center;
+    background-size: cover;
     margin-top: $spacing;
     @include media('>=desktop') {
       width: calc(50% - #{$spacing} / 2);
@@ -242,5 +281,9 @@ $spacing: 20px;
   .event-more {
     background-color: var(--grey80);
     border: 0;
+    &:hover {
+      background-color: var(--grey60);
+    }
+    transition: var(--easeinout);
   }
 }

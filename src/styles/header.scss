@@ -138,16 +138,6 @@
         &:not(:first-child) {
           margin-left: 85px;
         }
-        // &:hover,
-        // &.is-open {
-        //   cursor: pointer;
-        //   .section {
-        //     color: var(--bright-gold);
-        //   }
-        //   .indicator {
-        //     opacity: 1;
-        //   }
-        // }
         .section {
           .section-trigger {
             color: var(--white);
@@ -167,25 +157,14 @@
                 opacity: 1;
               }
             }
-          }
-          // &:hover,
-          // &.is-open {
-          //   color: var(--bright-gold);
-          // }
-
-          // &.is-open {
-          //   color: var(--bright-gold);
-          //   .indicator {
-          //     opacity: 1;
-          //   }
-          // }
-          .indicator {
-            display: block;
-            height: 6px;
-            width: 25px;
-            border-bottom: 3px solid var(--bright-gold);
-            opacity: 0;
-            transition: var(--easeinout);
+            .indicator {
+              display: block;
+              height: 6px;
+              width: 25px;
+              border-bottom: 3px solid var(--bright-gold);
+              opacity: 0;
+              transition: var(--easeinout);
+            }
           }
 
           // &.active {
