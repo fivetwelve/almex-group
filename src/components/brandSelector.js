@@ -46,9 +46,9 @@ class BrandSelector extends Component {
 
   handleClickDropDown = evt => {
     evt.preventDefault();
-    evt.target.classList.toggle('clicked');
+    evt.target.classList.toggle('is-open');
     // evt.target.nextElementSibling.classList.toggle('brand-dropdown--visible');
-    this.brandDropdown.current.classList.toggle('brand-container--visible');
+    this.brandDropdown.current.classList.toggle('visible');
     // console.log(this.brandDropdown.current);
     this.setState(prevState => {
       const clickBool = prevState.clicked;

@@ -15,6 +15,7 @@
   --grey70: #61616a;
   --grey80: #35353f;
   --grey90: #16161f;
+  --grey-river: #484d56;
 
   /* Basics */
   --black: #000;
@@ -67,5 +68,9 @@
   --violet40: #b6acd3;
   --violet20: #dbd5e9;
 
+  /* default easing */
   --easeinout: all 0.2s ease-in-out;
+
+  /* common menu drop-shadow setting */
+  --menu-shadow: 0px 7px 20px -9px rgba(0, 0, 0, 0.75);
 }

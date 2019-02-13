@@ -1,0 +1,15 @@
+/* Helv Neue stack Mixins */
+
+@mixin neue-light {
+  font-family: 'HelveticaNeueLight', 'HelveticaNeue-Light', 'Helvetica Neue Light', 'HelveticaNeue',
+    'Helvetica Neue', 'Helvetica', 'Arial', 'Lucida Grande', sans-serif;
+  font-weight: 300;
+  font-stretch: normal;
+}
+
+@mixin neue-med {
+  font-family: 'HelveticaNeueMedium', 'HelveticaNeue-Medium', 'Helvetica Neue Medium',
+    'HelveticaNeue', 'Helvetica Neue', 'Helvetica', 'Arial', 'Lucida Grande', sans-serif;
+  font-weight: 500;
+  font-stretch: normal;
+}

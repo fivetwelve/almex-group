@@ -2,20 +2,57 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
 import { FaBars, FaSearch } from 'react-icons/fa';
+import * as log from 'loglevel';
 import BrandSelector from './brandSelector';
 import LanguageSelector from './languageSelector';
+import NavigationMenu from './navigationMenu';
 import '../styles/header.scss';
-import '../styles/dropdowns.scss';
+import '../styles/headerOptions.scss';
 import hLogo from '../../static/logo-almex-hori.svg';
 import vLogo from '../../static/logo-almex-vert.svg';
 // import Dump from '../utils/dump';
 
-const Header = ({ activeLanguage, activeSection, headerFooters, labels, region }) => {
-  const label = labels[0];
-  const headerFooter = headerFooters[0];
+class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.myRef = {};
+    const { headerFooters } = this.props;
+    const nav = headerFooters[0].navigation;
+    for (let i = 0; i < nav.length; i += 1) {
+      const navType = nav[i].TYPE;
+      this.myRef[navType] = React.createRef();
+    }
+  }
 
-  return (
-    <>
+  componentDidUpdate() {
+    // console.log(this.myRef);
+  }
+
+  closeOtherMenus = type => {
+    // console.log(`type: ${type}`);
+    // const { headerFooters } = this.props;
+    // const nav = headerFooters[0].navigation;
+    log.info(type);
+    // console.log('myref:', this.myRef['PRODUCTS']);
+    // for (let i = 0; i < nav.length; i += 1) {
+    //   const navType = nav[i].TYPE;
+    //   console.log('nav:', this.myRef[navType]);
+    //   // console.log(`navType: ${navType}`);
+    //   // console.log(this.PRODUCTS.current);
+    //   if (type !== navType) {
+    //     this.myRef[navType].current.toggleMenu();
+    //   }
+    // }
+  };
+
+  render() {
+    const { activeLanguage, activeSection, headerFooters, labels, region } = this.props;
+
+    const label = labels[0];
+    const headerFooter = headerFooters[0];
+
+    return (
       <div className="header">
         <div className="contents">
           <span className="logo">
@@ -34,17 +71,11 @@ const Header = ({ activeLanguage, activeSection, headerFooters, labels, region }
               <div className="search">
                 {label.header.SEARCH}
                 <IconContext.Provider value={{ className: 'search-icon' }}>
-                  {/* <button type="button" className="mobile-menu"> */}
-                  <FaSearch aria-hidden />
-                  {/* </button> */}
+                  <button type="button" className="mobile-menu">
+                    <FaSearch aria-hidden />
+                  </button>
                 </IconContext.Provider>
               </div>
-              {/* <div className="brands">
-              {label.header.BRANDS}
-              <IconContext.Provider value={{ className: 'brands-icon' }}>
-                <FaAngleDown aria-hidden />
-              </IconContext.Provider>
-            </div> */}
               <BrandSelector />
               <LanguageSelector
                 activeLanguage={activeLanguage}
@@ -62,30 +93,75 @@ const Header = ({ activeLanguage, activeSection, headerFooters, labels, region }
           <div className="sections">
             {headerFooter.navigation.length > 0 &&
               headerFooter.navigation.map(section => (
-                <div className="section-container" key={section.TYPE}>
-                  <div className="section">{label.header[section.TYPE]}</div>
-                  <div className="indicator" />
-                </div>
+                <NavigationMenu
+                  closeOtherMenus={type => this.closeOtherMenus(type)}
+                  key={section.TYPE}
+                  header={label.header}
+                  section={section}
+                  ref={this.PRODUCTS}
+                />
               ))}
-
-            {/* <a href="../" className={activeSection === 'PRODUCTS' ? 'active' : ''}>
-              {label.header.PRODUCTS}
-            </a>
-            <a href="../" className={activeSection === 'INDUSTRIES' ? 'active' : ''}>
-              {label.header.INDUSTRIES}
-            </a>
-            <a href="../" className={activeSection === 'SERVICES' ? 'active' : ''}>
-              {label.header.SERVICES}
-            </a>
-            <a href="../" className={activeSection === 'ABOUT' ? 'active' : ''}>
-              {label.header.ABOUT}
-            </a> */}
           </div>
         </nav>
       </div>
-    </>
-  );
-};
+    );
+  }
+}
+
+// const Header = ({ activeLanguage, activeSection, headerFooters, labels, region }) => {
+//   const label = labels[0];
+//   const headerFooter = headerFooters[0];
+
+//   return (
+//     <>
+// <div className="header">
+//   <div className="contents">
+//     <span className="logo">
+//       <img src={vLogo} width="50px" alt="Almex Group" className="vertical" />
+//       <img src={hLogo} width="225px" alt="Almex Group" className="horizontal" />
+//     </span>
+//     <div className="active-section-mobile">{labels[0].header[activeSection]}</div>
+//     <IconContext.Provider value={{ className: 'menu-icon' }}>
+//       <button type="button" className="mobile-menu">
+//         <FaBars aria-hidden />
+//         <span className="sr-only">Open menu</span>
+//       </button>
+//     </IconContext.Provider>
+//     <div className="options-container">
+//       <div className="options">
+//         <div className="search">
+//           {label.header.SEARCH}
+//           <IconContext.Provider value={{ className: 'search-icon' }}>
+//             <button type="button" className="mobile-menu">
+//               <FaSearch aria-hidden />
+//             </button>
+//           </IconContext.Provider>
+//         </div>
+//         <BrandSelector />
+//         <LanguageSelector
+//           activeLanguage={activeLanguage}
+//           languages={headerFooter.language}
+//           region={region}
+//         />
+//         <div className="login">{label.header.LOGIN}</div>
+//       </div>
+//       <div className="tagline-container">
+//         <span className="tagline">{headerFooter.simpleTagline}</span>
+//       </div>
+//     </div>
+//   </div>
+//   <nav className="navigation">
+//     <div className="sections">
+//       {headerFooter.navigation.length > 0 &&
+//         headerFooter.navigation.map(section => (
+//           <NavigationMenu key={section.TYPE} header={label.header} section={section} />
+//         ))}
+//     </div>
+//   </nav>
+// </div>
+//     </>
+//   );
+// };
 
 Header.defaultProps = {
   activeLanguage: '',
