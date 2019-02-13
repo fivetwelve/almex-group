@@ -69,7 +69,7 @@ const HomeTemplate = ({
         <div className="slide-video" style={slideStyle} key={slideNum}>
           <div className="video-container">
             {/* TODO set this back to autoPlay */}
-            <video width="100%" height="auto" loop muted>
+            <video width="100%" height="auto" autoPlay loop muted>
               <source src={slides[0].asset.url} type="video/mp4" />
             </video>
           </div>
