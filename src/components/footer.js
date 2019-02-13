@@ -78,16 +78,16 @@ const Footer = ({ headerFooters, labels }) => {
           <div className="footer-bottom">
             <div className="bottom-left">{footer.COPYRIGHT}</div>
             <div className="bottom-center">
-              <Link to="/" className="footer-link">
+              <Link to="northamerica/en/heavyweight" className="footer-link">
                 {footerLinks.ABOUT.LABEL}
               </Link>
-              <Link to="/" className="footer-link">
+              <Link to="northamerica/en/heavyweight" className="footer-link">
                 {footerLinks.CONTACT.LABEL}
               </Link>
-              <Link to="/" className="footer-link">
+              <Link to="northamerica/en/heavyweight" className="footer-link">
                 {footerLinks.PRIVACY.LABEL}
               </Link>
-              <Link to="/" className="footer-link">
+              <Link to="northamerica/en/heavyweight" className="footer-link">
                 {footerLinks.CAREERS.LABEL}
               </Link>
             </div>

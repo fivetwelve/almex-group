@@ -275,15 +275,23 @@ $spacing: 20px;
       padding: 30px 15px 20px 20px;
     }
   }
-  .title {
-    font-size: 24px;
-  }
-  .event-more {
-    background-color: var(--grey80);
-    border: 0;
-    &:hover {
-      background-color: var(--grey60);
+  .content-container {
+    .title {
+      font-weight: bold;
+      font-size: 22px;
+      line-height: initial;
     }
-    transition: var(--easeinout);
+    .description {
+      font-size: 16px;
+      line-height: 25px;
+    }
+    .event-more {
+      background-color: var(--grey80);
+      border: 0;
+      &:hover {
+        background-color: var(--grey60);
+      }
+      transition: var(--easeinout);
+    }
   }
 }

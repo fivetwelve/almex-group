@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
-// import PropTypes from 'prop-types';
+import { Link } from 'gatsby';
+import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 // import constants from '../constants';
@@ -60,6 +61,7 @@ class BrandSelector extends Component {
     // const { activeLanguage, languages, region } = this.props;
     // const { region } = this.props;
     const { clicked } = this.state;
+    const { label } = this.props;
     // const { langList, regionList } = constants;
 
     return (
@@ -77,8 +79,8 @@ class BrandSelector extends Component {
             //   this.handleKeyDown(evt);
             // }}
           >
-            <span className="dd-text-icon">
-              Brands
+            <span className="dd-text-icon text">
+              {label}
               <span aria-hidden="true" className="dd-icon">
                 <IconContext.Provider value={{ className: 'brands-icon' }}>
                   {(clicked && <FaAngleUp aria-hidden />) || <FaAngleDown aria-hidden />}
@@ -88,63 +90,63 @@ class BrandSelector extends Component {
           </button>
           <ul id="dropdown-1" role="menu" className="lang-dropdown">
             {/* <li className="nav__list" key={language}>
-              <a href={`/${regionList[region]}/${langList[language]}`}>
+              <Link href={`/${regionList[region]}/${langList[language]}`}>
                 <span className="nav__link">{language}</span>
-              </a>
+              </Link>
             </li> */}
             <li className="nav__list">Some Brand here</li>
           </ul>
         </div>
         <div className="brand-container" ref={this.brandDropdown}>
           <div className="brand almex-box">
-            <a href="/">
+            <Link to="northamerica/en/heavyweight">
               <span className="sr-only">Almex</span>
-            </a>
+            </Link>
           </div>
           <div className="brand fusion">
-            <a href="/">
+            <Link to="northamerica/en/heavyweight">
               <span className="sr-only">Fusion Systems</span>
-            </a>
+            </Link>
           </div>
           <div className="brand almex-swoosh">
-            <a href="/">
+            <Link to="northamerica/en/heavyweight">
               <span className="sr-only">Almex</span>
-            </a>
+            </Link>
           </div>
           <div className="brand emsys">
-            <a href="/">
+            <Link to="northamerica/en/heavyweight">
               <span className="sr-only">Emsys</span>
-            </a>
+            </Link>
           </div>
           <div className="brand bat">
-            <a href="/">
+            <Link to="northamerica/en/heavyweight">
               <span className="sr-only">BAT</span>
-            </a>
+            </Link>
           </div>
           <div className="brand cobra">
-            <a href="/">
+            <Link to="northamerica/en/heavyweight">
               <span className="sr-only">Cobra</span>
-            </a>
+            </Link>
           </div>
           <div className="brand votech">
-            <a href="/">
+            <Link to="northamerica/en/heavyweight">
               <span className="sr-only">votech</span>
-            </a>
+            </Link>
           </div>
           <div className="brand rampart">
-            <a href="/">
+            <Link to="northamerica/en/heavyweight">
               <span className="sr-only">votech</span>
-            </a>
+            </Link>
           </div>
           <div className="brand institute">
-            <a href="/">
+            <Link to="northamerica/en/heavyweight">
               <span className="sr-only">Almex Institute</span>
-            </a>
+            </Link>
           </div>
           <div className="brand knight">
-            <a href="/">
+            <Link to="northamerica/en/heavyweight">
               <span className="sr-only">Almex Global Services</span>
-            </a>
+            </Link>
           </div>
         </div>
       </Fragment>
@@ -156,12 +158,14 @@ BrandSelector.defaultProps = {
   // activeLanguage: '',
   // languages: [],
   // region: '',
+  label: '',
 };
 
 BrandSelector.propTypes = {
   // activeLanguage: PropTypes.string,
   // languages: PropTypes.arrayOf(PropTypes.string),
   // region: PropTypes.string,
+  label: PropTypes.string,
 };
 
 export default BrandSelector;

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'gatsby';
 import Markdown from 'react-remarkable';
 import '../styles/homepageTile.scss';
 
@@ -29,8 +30,12 @@ const HomepageTile = ({ data, labels }) => {
         </div>
         <div className="description">
           <Markdown source={description} options={{ html: true }} />
-          <span className="more">{labels.common.MORE} </span>
-          <span className="more-arrow">&nbsp;&raquo;</span>
+          <span className="more-container">
+            <Link to="northamerica/en/heavyweight">
+              <span className="more">{labels.common.MORE}</span>
+              <span className="more-arrow">&nbsp;&raquo;</span>
+            </Link>
+          </span>
         </div>
       </div>
     </>

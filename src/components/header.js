@@ -69,14 +69,15 @@ class Header extends React.Component {
           <div className="options-container">
             <div className="options">
               <div className="search">
-                {label.header.SEARCH}
+                <input placeholder="e.g. rubber tank lining, etc..." />
+                {/* {label.header.SEARCH} */}
                 <IconContext.Provider value={{ className: 'search-icon' }}>
-                  <button type="button" className="mobile-menu">
-                    <FaSearch aria-hidden />
-                  </button>
+                  {/* <button type="button" className="mobile-menu"> */}
+                  <FaSearch aria-hidden />
+                  {/* </button> */}
                 </IconContext.Provider>
               </div>
-              <BrandSelector />
+              <BrandSelector label={label.header.BRANDS} />
               <LanguageSelector
                 activeLanguage={activeLanguage}
                 languages={headerFooter.language}

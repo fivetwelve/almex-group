@@ -52,7 +52,7 @@ const HomeTemplate = ({
         <div className="slide-image" style={slideStyle} key={slideNum}>
           <div className="heading-container">
             <div className="heading">
-              <Link to="/">
+              <Link to="northamerica/en/heavyweight">
                 <Markdown source={slides[i].slideText} options={{ html: true }} />
               </Link>
             </div>
@@ -69,13 +69,13 @@ const HomeTemplate = ({
         <div className="slide-video" style={slideStyle} key={slideNum}>
           <div className="video-container">
             {/* TODO set this back to autoPlay */}
-            <video width="100%" height="auto" autoPlay loop muted>
+            <video width="100%" height="auto" loop muted>
               <source src={slides[0].asset.url} type="video/mp4" />
             </video>
           </div>
           <div className="heading-container">
             <div className="heading">
-              <Link to="/">
+              <Link to="northamerica/en/heavyweight">
                 <Markdown source={slides[i].slideText} options={{ html: true }} />
               </Link>
             </div>

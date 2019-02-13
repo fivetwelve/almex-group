@@ -18,7 +18,7 @@
     background: transparent;
     border: none;
     color: var(--grey60);
-    padding: 0 30px;
+    padding: 0 20px;
     &:hover {
       color: var(--bright-gold);
     }
@@ -50,11 +50,14 @@
     outline: none;
   }
   .dd-text-icon {
+    color: var(--grey80);
     display: flex;
     flex-direction: row;
     align-items: center;
     pointer-events: none;
-
+    &.text {
+      font-weight: bold;
+    }
     .dd-icon {
       height: 20px;
     }
