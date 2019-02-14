@@ -130,8 +130,8 @@
       &.knight,
       &.rampart,
       &.votech {
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-left: 30px;
+        padding-right: 30px;
         padding-top: 20px;
         margin-left: 10px;
         margin-right: 10px;
@@ -149,10 +149,10 @@
         background-position-y: -46px;
       }
       &.fusion a {
-        width: 110px;
-        height: 50px;
+        width: 154px;
+        height: 35px;
         background-image: url('../../static/logo-fusion.png');
-        background-position-y: -50px;
+        background-position-y: -35px;
       }
       &.almex-swoosh a {
         width: 150px;
