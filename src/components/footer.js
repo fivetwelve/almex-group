@@ -84,7 +84,7 @@ const Footer = ({ headerFooters, labels }) => {
                 <br />
               </div>
               <div className="chat">
-                Or <a href="/">Chat Now</a>
+                Or <a href="/northamerica/en">Chat Now</a>
               </div>
             </div>
           </div>
