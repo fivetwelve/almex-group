@@ -21,6 +21,35 @@
       flex-direction: row;
       justify-content: space-between;
     }
+    .address {
+      p {
+        font-size: 14px;
+        line-height: 20px;
+      }
+    }
+    .phone,
+    .email,
+    .support,
+    .chat {
+      line-height: 20px;
+    }
+    .phone,
+    .support {
+      margin-top: 20px;
+    }
+    .email {
+      margin-top: 10px;
+    }
+    .chat {
+      margin-top: 10px;
+      a {
+        color: var(--white);
+        &:hover {
+          color: var(--bright-gold);
+        }
+        transition: var(--easeinout);
+      }
+    }
     .contact-icon {
       width: 15px;
       margin-right: 5px;

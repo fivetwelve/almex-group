@@ -148,7 +148,7 @@ const HomeTemplate = ({
       <div className="event-container">
         <div className="event1">
           <div className="content-container">
-            <div className="event-background" style={eventStyle2} />
+            <div className="event-background" style={eventStyle3} />
             <div className="title">
               <Markdown source={homepage.eventTitle[0]} options={{ html: true }} />
             </div>
@@ -163,7 +163,7 @@ const HomeTemplate = ({
         </div>
         <div className="event2">
           <div className="content-container">
-            <div className="event-background" style={eventStyle3} />
+            <div className="event-background" style={eventStyle2} />
             <div className="event-overlay-gold" />
             <div className="title">
               <Markdown source={homepage.eventTitle[1]} options={{ html: true }} />

@@ -73,6 +73,19 @@ const Footer = ({ headerFooters, labels }) => {
                   </IconContext.Provider>
                 </a>
               </div>
+              <div className="support">
+                <IconContext.Provider value={{ className: 'contact-icon' }}>
+                  <FaPhone
+                    aria-hidden
+                    style={{ transform: 'scaleX(-1)', position: 'relative', top: '2px' }}
+                  />
+                </IconContext.Provider>
+                1.800.xxx.xxx
+                <br />
+              </div>
+              <div className="chat">
+                Or <a href="/">Chat Now</a>
+              </div>
             </div>
           </div>
           <div className="footer-bottom">
