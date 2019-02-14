@@ -133,11 +133,6 @@ class BrandSelector extends Component {
               <span className="sr-only">votech</span>
             </Link>
           </div>
-          <div className="brand rampart">
-            <Link to="northamerica/en/heavyweight">
-              <span className="sr-only">votech</span>
-            </Link>
-          </div>
           <div className="brand institute">
             <Link to="northamerica/en/heavyweight">
               <span className="sr-only">Almex Institute</span>
