@@ -1,20 +1,16 @@
 @import 'include-media';
 $spacing: 20px;
 
-// .carousel-container {
-//   position: relative;
 .carousel {
   overflow: hidden;
+  height: 42vw !important;
+  max-height: 536px;
   .slider-control-bottomcenter {
     bottom: -15px !important;
   }
   .slider-frame {
     ul.slider-list {
       li.slider-slide {
-        // .slide {
-        //   height: 70px !important;
-        //   padding-bottom: 42%;
-        // }
         max-height: 536px;
       }
     }

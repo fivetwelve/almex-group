@@ -39,6 +39,13 @@ export const query = graphql`
           slideText(locale: EN)
           slideType
         }
+        homepageEventTiles {
+          title
+          description(locale: EN)
+          image {
+            url
+          }
+        }
         homepageTiles {
           description(locale: EN)
           image {

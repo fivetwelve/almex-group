@@ -37,7 +37,7 @@ const HomeTemplate = ({
     frameOverflow: 'hidden',
     framePadding: '0px 0px 42% 0px',
     heightMode: 'first',
-    initialSlideHeight: 1,
+    initialSlideHeight: 536,
     wrapAround: true,
   };
 
@@ -88,19 +88,12 @@ const HomeTemplate = ({
 
   return (
     <>
-      {/* <div className="carousel-container"> */}
       <Carousel
         className="carousel"
         autoGenerateStyleTag={options.autoGenerateStyleTag}
         enableKeyboardControls={options.enableKeyboardControls}
-        // frameOverflow={options.frameOverflow}
-        // framePadding={options.framePadding}
-        // heightMode={options.heightMode}
         renderCenterLeftControls={({ previousSlide }) => (
           <button onClick={previousSlide} type="button" className="left-controls">
-            {/* <IconContext.Provider value={{ className: 'left' }}>
-                  {(clicked && <FaChevronUp aria-hidden />) || <FaChevronDown aria-hidden />}
-                </IconContext.Provider> */}
             <span className="sr-only">Previous</span>
             <span aria-hidden="true" className="left-controls-icon">
               <IconContext.Provider value={{ className: 'left-controls-icon' }}>
