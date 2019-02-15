@@ -88,11 +88,6 @@ export default UBRPage;
 export const query = graphql`
   query {
     cms {
-      articles(where: { articleType: About }) {
-        articleType
-        title(locale: EN)
-        body(locale: EN)
-      }
       headerFooters(where: { region: NORTH_AMERICA }) {
         companyAddress(locale: EN)
         companyEmail
@@ -103,22 +98,6 @@ export const query = graphql`
         navigation(locale: EN)
         simpleTagline(locale: EN)
         socialMedia(locale: EN)
-      }
-      homepages(where: { region: NORTH_AMERICA }) {
-        heading(locale: EN)
-        homepageTiles {
-          image {
-            url
-          }
-          title(locale: EN)
-          description(locale: EN)
-          subtitle(locale: EN)
-        }
-        eventTitle(locale: EN)
-        eventDescription(locale: EN)
-        eventImage {
-          url
-        }
       }
       labels(where: { region: NORTH_AMERICA }) {
         common(locale: EN)

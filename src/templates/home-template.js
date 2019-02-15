@@ -21,13 +21,13 @@ const HomeTemplate = ({
   const homepage = homepages[0];
   const label = labels[0];
   const eventStyle1 = {
-    backgroundImage: `url(${homepage.eventImage[0].url})`,
+    backgroundImage: `url(${homepage.homepageEventTiles[0].image.url})`,
   };
   const eventStyle2 = {
-    backgroundImage: `url(${homepage.eventImage[1].url})`,
+    backgroundImage: `url(${homepage.homepageEventTiles[1].image.url})`,
   };
   const eventStyle3 = {
-    backgroundImage: `url(${homepage.eventImage[2].url})`,
+    backgroundImage: `url(${homepage.homepageEventTiles[2].image.url})`,
   };
   const slides = homepage.homepageCarouselSlides;
   const slideArray = [];
@@ -52,7 +52,7 @@ const HomeTemplate = ({
         <div className="slide-image" style={slideStyle} key={slideNum}>
           <div className="heading-container">
             <div className="heading">
-              <Link to="northamerica/en/heavyweight">
+              <Link to="/northamerica/en/heavyweight/">
                 <Markdown source={slides[i].slideText} options={{ html: true }} />
               </Link>
             </div>
@@ -75,7 +75,7 @@ const HomeTemplate = ({
           </div>
           <div className="heading-container">
             <div className="heading">
-              <Link to="northamerica/en/heavyweight">
+              <Link to="/northamerica/en/heavyweight/">
                 <Markdown source={slides[i].slideText} options={{ html: true }} />
               </Link>
             </div>
@@ -141,12 +141,15 @@ const HomeTemplate = ({
       <div className="event-container">
         <div className="event1">
           <div className="content-container">
-            <div className="event-background" style={eventStyle3} />
+            <div className="event-background" style={eventStyle1} />
             <div className="title">
-              <Markdown source={homepage.eventTitle[0]} options={{ html: true }} />
+              <Markdown source={homepage.homepageEventTiles[0].title} options={{ html: true }} />
             </div>
             <div className="description">
-              <Markdown source={homepage.eventDescription[0]} options={{ html: true }} />
+              <Markdown
+                source={homepage.homepageEventTiles[0].description}
+                options={{ html: true }}
+              />
             </div>
             <button type="button" className="event-more">
               {label.common.MORE}
@@ -159,24 +162,30 @@ const HomeTemplate = ({
             <div className="event-background" style={eventStyle2} />
             <div className="event-overlay-gold" />
             <div className="title">
-              <Markdown source={homepage.eventTitle[1]} options={{ html: true }} />
+              <Markdown source={homepage.homepageEventTiles[1].title} options={{ html: true }} />
             </div>
             <div className="description">
-              <Markdown source={homepage.eventDescription[1]} options={{ html: true }} />
+              <Markdown
+                source={homepage.homepageEventTiles[1].description}
+                options={{ html: true }}
+              />
             </div>
             <button type="button" className="event-more">
               {label.common.MORE}
             </button>
           </div>
         </div>
-        <div className="event3" style={eventStyle1}>
+        <div className="event3" style={eventStyle3}>
           <div className="content-container">
             <div className="event-overlay-blue" />
             <div className="title">
-              <Markdown source={homepage.eventTitle[2]} options={{ html: true }} />
+              <Markdown source={homepage.homepageEventTiles[2].title} options={{ html: true }} />
             </div>
             <div className="description">
-              <Markdown source={homepage.eventDescription[2]} options={{ html: true }} />
+              <Markdown
+                source={homepage.homepageEventTiles[2].description}
+                options={{ html: true }}
+              />
             </div>
             <button type="button" className="event-more">
               {label.common.MORE}

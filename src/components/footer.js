@@ -88,19 +88,58 @@ const Footer = ({ headerFooters, labels }) => {
               </div>
             </div>
           </div>
+          <div className="footer-middle">
+            <div className="brands">
+              <div className="almex-box">
+                <Link to="/northamerica/en/heavyweight/">
+                  <span className="sr-only">Almex</span>
+                </Link>
+              </div>
+              <div className="fusion">
+                <Link to="/northamerica/en/heavyweight/">
+                  <span className="sr-only">Fusion Systems</span>
+                </Link>
+              </div>
+              <div className="almex-swoosh">
+                <Link to="/northamerica/en/heavyweight/">
+                  <span className="sr-only">Almex</span>
+                </Link>
+              </div>
+              <div className="emsys">
+                <Link to="/northamerica/en/heavyweight/">
+                  <span className="sr-only">Emsys</span>
+                </Link>
+              </div>
+              <div className="bat">
+                <Link to="/northamerica/en/heavyweight/">
+                  <span className="sr-only">BAT</span>
+                </Link>
+              </div>
+              <div className="cobra">
+                <Link to="/northamerica/en/heavyweight/">
+                  <span className="sr-only">Cobra</span>
+                </Link>
+              </div>
+              <div className="votech">
+                <Link to="/northamerica/en/heavyweight/">
+                  <span className="sr-only">votech</span>
+                </Link>
+              </div>
+            </div>
+          </div>
           <div className="footer-bottom">
             <div className="bottom-left">{footer.COPYRIGHT}</div>
             <div className="bottom-center">
-              <Link to="northamerica/en/heavyweight" className="footer-link">
+              <Link to="/northamerica/en/about" className="footer-link">
                 {footerLinks.ABOUT.LABEL}
               </Link>
-              <Link to="northamerica/en/heavyweight" className="footer-link">
+              <Link to="/northamerica/en/about" className="footer-link">
                 {footerLinks.CONTACT.LABEL}
               </Link>
-              <Link to="northamerica/en/heavyweight" className="footer-link">
+              <Link to="/northamerica/en/about" className="footer-link">
                 {footerLinks.PRIVACY.LABEL}
               </Link>
-              <Link to="northamerica/en/heavyweight" className="footer-link">
+              <Link to="/northamerica/en/about" className="footer-link">
                 {footerLinks.CAREERS.LABEL}
               </Link>
             </div>

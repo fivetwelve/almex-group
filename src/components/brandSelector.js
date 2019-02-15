@@ -99,47 +99,47 @@ class BrandSelector extends Component {
         </div>
         <div className="brand-container" ref={this.brandDropdown}>
           <div className="brand almex-box">
-            <Link to="northamerica/en/heavyweight">
+            <Link to="/northamerica/en/heavyweight/">
               <span className="sr-only">Almex</span>
             </Link>
           </div>
           <div className="brand fusion">
-            <Link to="northamerica/en/heavyweight">
+            <Link to="/northamerica/en/heavyweight/">
               <span className="sr-only">Fusion Systems</span>
             </Link>
           </div>
           <div className="brand almex-swoosh">
-            <Link to="northamerica/en/heavyweight">
+            <Link to="/northamerica/en/heavyweight/">
               <span className="sr-only">Almex</span>
             </Link>
           </div>
           <div className="brand emsys">
-            <Link to="northamerica/en/heavyweight">
+            <Link to="/northamerica/en/heavyweight/">
               <span className="sr-only">Emsys</span>
             </Link>
           </div>
           <div className="brand bat">
-            <Link to="northamerica/en/heavyweight">
+            <Link to="/northamerica/en/heavyweight/">
               <span className="sr-only">BAT</span>
             </Link>
           </div>
           <div className="brand cobra">
-            <Link to="northamerica/en/heavyweight">
+            <Link to="/northamerica/en/heavyweight/">
               <span className="sr-only">Cobra</span>
             </Link>
           </div>
           <div className="brand votech">
-            <Link to="northamerica/en/heavyweight">
+            <Link to="/northamerica/en/heavyweight/">
               <span className="sr-only">votech</span>
             </Link>
           </div>
           <div className="brand institute">
-            <Link to="northamerica/en/heavyweight">
+            <Link to="/northamerica/en/heavyweight/">
               <span className="sr-only">Almex Institute</span>
             </Link>
           </div>
           <div className="brand knight">
-            <Link to="northamerica/en/heavyweight">
+            <Link to="/northamerica/en/heavyweight/">
               <span className="sr-only">Almex Global Services</span>
             </Link>
           </div>

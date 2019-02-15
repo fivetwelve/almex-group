@@ -1,6 +1,4 @@
 .footer {
-  height: 390px;
-  border: 1px solid #ccc;
   background-color: var(--grey70);
   .footer-container {
     color: var(--white);
@@ -10,16 +8,94 @@
     padding-left: 30px;
     padding-right: 30px;
     .footer-top {
-      height: 345px;
       padding-top: 70px;
+      padding-bottom: 30px;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+    }
+    .footer-middle {
+      padding-bottom: 20px;
+      .brands {
+        display: flex;
+        flex: 1;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        border: 3px solid var(--grey40);
+        background-color: var(--grey70);
+        padding-top: 10px;
+        padding-bottom: 10px;
+        .almex-box,
+        .almex-swoosh,
+        .bat,
+        .cobra,
+        .emsys,
+        .fusion,
+        .institute,
+        .knight,
+        .rampart,
+        .votech {
+          margin-left: 10px;
+          margin-right: 10px;
+          a {
+            opacity: 0.8;
+            display: inline-block;
+            &:hover {
+              opacity: 1;
+            }
+          }
+        }
+        .almex-box a {
+          width: 135px;
+          height: 46px;
+          background-image: url('../../static/logo-almex-box.png');
+          background-position-y: -92px;
+          // background-color: #fff;
+        }
+        .fusion a {
+          width: 154px;
+          height: 35px;
+          background-image: url('../../static/logo-fusion.png');
+          background-position-y: -70px;
+        }
+        .almex-swoosh a {
+          width: 150px;
+          height: 58px;
+          background-image: url('../../static/logo-almex-swoosh.png');
+          background-position-y: -116px;
+        }
+        .emsys a {
+          width: 135px;
+          height: 38px;
+          background-image: url('../../static/logo-emsys.png');
+          background-position-y: -76px;
+        }
+        .bat a {
+          width: 101px;
+          height: 72px;
+          background-image: url('../../static/logo-bat.png');
+          background-position-y: -144px;
+        }
+        .cobra a {
+          width: 110px;
+          height: 67px;
+          background-image: url('../../static/logo-cobra.png');
+          background-position-y: -134px;
+        }
+        .votech a {
+          width: 179px;
+          height: 66px;
+          background-image: url('../../static/logo-votech.png');
+          background-position-y: -132px;
+        }
+      }
     }
     .footer-bottom {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      padding-bottom: 30px;
     }
     .address {
       p {
