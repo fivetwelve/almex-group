@@ -33,14 +33,22 @@ export const query = graphql`
       }
       homepages(where: { region: NORTH_AMERICA }) {
         heading(locale: ES)
-        homepageCarouselSlides {
+        homepageCarouselSlides(orderBy: sort_ASC) {
           asset {
             url
           }
           slideText(locale: ES)
           slideType
         }
-        homepageTiles {
+        homepageEventTiles(orderBy: sort_ASC) {
+          sort
+          title
+          description(locale: ES)
+          image {
+            url
+          }
+        }
+        homepageTiles(orderBy: sort_ASC) {
           image {
             url
           }
