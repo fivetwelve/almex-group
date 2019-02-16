@@ -1,5 +1,8 @@
 .footer {
   background-color: var(--grey70);
+  background-image: url('../../static/triangles.svg');
+  background-repeat: no-repeat;
+  background-position: right;
   .footer-container {
     color: var(--white);
     width: 100%;
