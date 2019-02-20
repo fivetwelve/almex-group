@@ -22,7 +22,7 @@ const HomepageTile = ({ data, labels }) => {
             <div className="text-container">
               <span className="overlay-title">{title}</span>
               <div className="overlay-subtitle">
-                <span className="indicator">&#9654;</span>
+                <span className="indicator">&#9650;</span>
                 <span className="subtitle">{subtitle}</span>
               </div>
             </div>
@@ -31,7 +31,7 @@ const HomepageTile = ({ data, labels }) => {
         <div className="description">
           <Markdown source={description} options={{ html: true }} />
           <span className="more-container">
-            <Link to="/northamerica/en/heavyweight/">
+            <Link to="/northamerica/en/heavyweight-pro">
               <span className="more">{labels.common.MORE}</span>
               <span className="more-arrow">&nbsp;&raquo;</span>
             </Link>

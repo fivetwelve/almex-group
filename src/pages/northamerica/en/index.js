@@ -1,5 +1,6 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+import { Location } from '@reach/router';
 import HomeTemplate from '../../../templates/home-template';
 import Layout from '../../../components/layout';
 
@@ -12,7 +13,7 @@ const Home = data => (
     title=""
     data={data.data.cms}
   >
-    <HomeTemplate data={data.data} />
+    <Location>{({ location }) => <HomeTemplate data={data.data} location={location} />}</Location>
   </Layout>
 );
 
@@ -36,6 +37,9 @@ export const query = graphql`
           sort
           asset {
             url
+          }
+          page {
+            slug
           }
           slideText(locale: EN)
           slideType

@@ -3,8 +3,8 @@ $spacing: 20px;
 
 .carousel {
   overflow: hidden;
-  height: 42vw !important;
-  max-height: 536px;
+  height: calc(41.85vw + 70px) !important;
+  max-height: 606px;
   .slider-control-bottomcenter {
     bottom: -15px !important;
   }
@@ -18,14 +18,18 @@ $spacing: 20px;
   .slide-image {
     height: 0;
     width: 100%;
-    padding-bottom: 42%;
+    padding-bottom: 41.85%;
+    @include media('>=wide') {
+      height: 536px;
+      padding-bottom: 0;
+    }
     background-size: cover;
     background-position: center;
   }
   .slide-video {
-    height: 0;
-    width: 100%;
-    padding-bottom: 42%;
+    // height: 0;
+    // width: 100%;
+    // padding-bottom: 42%;
   }
   .left-controls,
   .right-controls {
@@ -66,7 +70,7 @@ $spacing: 20px;
     height: 70px;
     display: flex;
     position: absolute;
-    bottom: 0;
+    bottom: -70px;
     .heading {
       width: 100%;
       max-width: 1280px;
@@ -92,33 +96,34 @@ $spacing: 20px;
     }
   }
   .video-container {
-    max-height: 536px;
+    height: 0;
+    padding-bottom: 41.85%;
     overflow: hidden;
   }
 }
-// .carousel-tagline-anchor {
-// .tagline-anchor {
-//   position: absolute;
-//   width: 100%;
-//   bottom: 72px;
-//   // top: calc(100% - 210px - 72px);
-//   // top: 100%;
-//   .tagline-container {
-//     display: flex;
-//     width: 100%;
-//     max-width: 1280px;
-//     margin: 0 auto;
-//     .tagline {
-//       display: flex;
-//       color: var(--white);
-//       background-color: rgba(0, 0, 0, 0.5);
-//       padding: 55px 90px 40px;
-//       font-size: 50px;
-//       letter-spacing: 2px;
-//     }
-//   }
-// }
-// }
+.tagline-anchor {
+  position: absolute;
+  width: 100%;
+  pointer-events: none;
+  top: calc(41.85vw - 67px);
+  @include media('>=wide') {
+    top: 476px;
+  }
+  .tagline-container {
+    display: flex;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    .tagline {
+      display: flex;
+      color: var(--white);
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 55px 90px 40px;
+      font-size: 50px;
+      letter-spacing: 2px;
+    }
+  }
+}
 
 .heading1-container {
   width: 100%;

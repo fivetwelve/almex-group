@@ -12,12 +12,13 @@ import '../styles/home.scss';
 
 const HomeTemplate = ({
   data: {
-    cms: { homepages, labels },
+    cms: { headerFooters, homepages, labels },
   },
+  location,
 }) => {
   let slideNum = 0;
   let tileNum = 0;
-  // const headerFooter = headerFooters[0];
+  const headerFooter = headerFooters[0];
   const homepage = homepages[0];
   const label = labels[0];
   const eventStyle1 = {
@@ -49,38 +50,37 @@ const HomeTemplate = ({
         backgroundImage: `url(${slides[i].asset.url})`,
       };
       element = (
-        <div className="slide-image" style={slideStyle} key={slideNum}>
+        <>
+          <div className="slide-image" style={slideStyle} key={slideNum} />
           <div className="heading-container">
             <div className="heading">
-              <Link to="/northamerica/en/heavyweight/">
+              <Link to={location.pathname + slides[i].page.slug}>
                 <Markdown source={slides[i].slideText} options={{ html: true }} />
               </Link>
             </div>
           </div>
-        </div>
+        </>
       );
     }
     if (slides[i].slideType === 'VIDEO') {
-      const slideStyle = {
-        // height: '100%',
-        // width: '100%',
-      };
+      const slideStyle = {};
       element = (
-        <div className="slide-video" style={slideStyle} key={slideNum}>
-          <div className="video-container">
-            {/* TODO set this back to autoPlay */}
-            <video width="100%" height="auto" autoPlay loop muted>
-              <source src={slides[0].asset.url} type="video/mp4" />
-            </video>
+        <>
+          <div className="slide-video" style={slideStyle} key={slideNum}>
+            <div className="video-container">
+              <video width="100%" height="auto" autoPlay loop muted>
+                <source src={slides[0].asset.url} type="video/mp4" />
+              </video>
+            </div>
           </div>
           <div className="heading-container">
             <div className="heading">
-              <Link to="/northamerica/en/heavyweight/">
+              <Link to={location.pathname + slides[i].page.slug}>
                 <Markdown source={slides[i].slideText} options={{ html: true }} />
               </Link>
             </div>
           </div>
-        </div>
+        </>
       );
     }
     slideArray.push(element);
@@ -117,15 +117,13 @@ const HomeTemplate = ({
       >
         {slideArray}
       </Carousel>
-      {/* <div className="tagline-anchor">
-          <div className="tagline-container">
-            <div className="tagline">
-              <Markdown source={headerFooter.formattedTagline} options={{ html: true }} />
-            </div>
+      <div className="tagline-anchor">
+        <div className="tagline-container">
+          <div className="tagline">
+            <Markdown source={headerFooter.formattedTagline} options={{ html: true }} />
           </div>
-        </div> */}
-      {/* </div> */}
-      {/* <Dump src={homepage} /> */}
+        </div>
+      </div>
       <div className="tile-container">
         {homepage.homepageTiles.length > 0 &&
           homepage.homepageTiles.map(tile => {
@@ -199,11 +197,15 @@ const HomeTemplate = ({
 
 HomeTemplate.defaultProps = {
   data: {},
+  location: {},
 };
 
 HomeTemplate.propTypes = {
   data: PropTypes.shape({
     tagLine: PropTypes.string,
+  }),
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
   }),
 };
 
