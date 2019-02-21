@@ -121,7 +121,6 @@
 
     .brand {
       &.almex-box,
-      &.almex-swoosh,
       &.bat,
       &.cobra,
       &.emsys,
@@ -153,12 +152,6 @@
         height: 35px;
         background-image: url('../../static/logo-fusion.png');
         background-position-y: -35px;
-      }
-      &.almex-swoosh a {
-        width: 150px;
-        height: 58px;
-        background-image: url('../../static/logo-almex-swoosh.png');
-        background-position-y: -58px;
       }
       &.emsys a {
         width: 135px;

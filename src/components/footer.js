@@ -100,11 +100,6 @@ const Footer = ({ headerFooters, labels }) => {
                   <span className="sr-only">Fusion Systems</span>
                 </Link>
               </div>
-              <div className="almex-swoosh">
-                <Link to="/northamerica/en/heavyweight/">
-                  <span className="sr-only">Almex</span>
-                </Link>
-              </div>
               <div className="emsys">
                 <Link to="/northamerica/en/heavyweight/">
                   <span className="sr-only">Emsys</span>

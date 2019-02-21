@@ -108,11 +108,6 @@ class BrandSelector extends Component {
               <span className="sr-only">Fusion Systems</span>
             </Link>
           </div>
-          <div className="brand almex-swoosh">
-            <Link to="/northamerica/en/heavyweight/">
-              <span className="sr-only">Almex</span>
-            </Link>
-          </div>
           <div className="brand emsys">
             <Link to="/northamerica/en/heavyweight/">
               <span className="sr-only">Emsys</span>
