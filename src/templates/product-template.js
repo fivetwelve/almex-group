@@ -36,7 +36,7 @@ ProductTemplate.defaultProps = {
 ProductTemplate.propTypes = {
   data: productType,
   pageContext: PropTypes.shape({
-    pageSlug: PropTypes.string,
+    slug: PropTypes.string,
     category: PropTypes.array,
     title: PropTypes.string,
     specifications: PropTypes.string,

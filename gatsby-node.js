@@ -1,6 +1,6 @@
 // const log = require('loglevel');
 const path = require('path');
-const { regionList } = require('./src/constants.js');
+const { allPageTypes, allRegions } = require('./src/constants.js');
 
 exports.createPages = ({ graphql, actions }) => {
   /*
@@ -12,55 +12,47 @@ exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions;
 
   return new Promise((resolve, reject) => {
-    // graphql(`
-    //   {
-    //     cms {
-    //       productLists {
-    //         region
-    //         productsEN: products(locale: EN) {
-    //           pageSlug
-    //           category
-    //           title
-    //           specifications
-    //           summary
-    //           features
-    //         }
-    //         productsES: products(locale: ES) {
-    //           pageSlug
-    //           category
-    //           title(locale: ES)
-    //           specifications(locale: ES)
-    //           summary(locale: ES)
-    //           features(locale: ES)
-    //         }
-    //       }
-    //     }
-    //   }
-    // `).then(result => {
     graphql(`
       {
         cms {
-          productLists {
-            region
-            productsEN: products(locale: EN) {
-              page {
-                slug
-              }
-              category
+          navigationNA: navigations(where: { availableIn: NORTH_AMERICA }) {
+            availableIn
+            navigationSections {
               title
-              specifications
-              summary
-              features
-            }
-            productsES: products(locale: ES) {
-              page {
+              pages {
                 slug
+                pageType
+                article {
+                  title
+                }
+                product {
+                  title
+                }
+                landing {
+                  title
+                }
               }
-              category
-              title(locale: ES)
+            }
+          }
+          productListNA: productLists(where: { availableIn: NORTH_AMERICA }) {
+            availableIn
+            productsEN: products(where: { status: PUBLISHED }) {
+              page {
+                slug(locale: EN)
+              }
+              features(locale: EN)
+              specifications(locale: EN)
+              summary(locale: EN)
+              title(locale: EN)
+            }
+            productsES: products(where: { status: PUBLISHED }) {
+              page {
+                slug(locale: ES)
+              }
+              features(locale: ES)
               specifications(locale: ES)
               summary(locale: ES)
-              features(locale: ES)
+              title(locale: ES)
             }
           }
         }
@@ -69,14 +61,96 @@ exports.createPages = ({ graphql, actions }) => {
       if (result.errors) {
         reject(result.errors);
       }
-      result.data.cms.productLists.forEach(({ region, productsEN, productsES }) => {
+      /* Create landing pages from site navigation structure for North America */
+      result.data.cms.navigationNA.forEach(({ availableIn, navigationSections }) => {
+        for (let i = 0; i < navigationSections.length; i += 1) {
+          const { pages } = navigationSections[i];
+          for (let j = 0; j < pages.length; j += 1) {
+            const { slug, pageType, article, industry, landing, product, promo, service } = pages[
+              j
+            ];
+            const pagePath = `${allRegions[availableIn]}/en/${slug}`;
+            switch (pageType) {
+              case allPageTypes.PRODUCT:
+                createPage({
+                  path: pagePath,
+                  component: path.resolve(`./src/templates/product-template.js`),
+                  context: {
+                    page: slug,
+                    category: product.category,
+                    title: product.title,
+                    specifications: product.specifications,
+                    summary: product.summary,
+                    features: product.features,
+                  },
+                });
+                break;
+              case allPageTypes.LANDING:
+                createPage({
+                  path: pagePath,
+                  component: path.resolve(`./src/templates/landing-template.js`),
+                  context: {
+                    page: slug,
+                    title: landing.title,
+                  },
+                });
+                break;
+              // TODO change to appropriate templates for the pageTypes below:
+              case allPageTypes.ARTICLE:
+                createPage({
+                  path: pagePath,
+                  component: path.resolve(`./src/templates/landing-template.js`),
+                  context: {
+                    page: slug,
+                    title: article.title,
+                  },
+                });
+                break;
+              case allPageTypes.INDUSTRY:
+                createPage({
+                  path: pagePath,
+                  component: path.resolve(`./src/templates/landing-template.js`),
+                  context: {
+                    page: slug,
+                    title: industry.title,
+                  },
+                });
+                break;
+              case allPageTypes.PROMO:
+                createPage({
+                  path: pagePath,
+                  component: path.resolve(`./src/templates/landing-template.js`),
+                  context: {
+                    page: slug,
+                    title: promo.title,
+                  },
+                });
+                break;
+              case allPageTypes.SERVICE:
+                createPage({
+                  path: pagePath,
+                  component: path.resolve(`./src/templates/landing-template.js`),
+                  context: {
+                    page: slug,
+                    title: service.title,
+                  },
+                });
+                break;
+              default:
+                break;
+            }
+          }
+        }
+      });
+      /* Create product pages from productsList for North America. */
+      result.data.cms.productListNA.forEach(({ availableIn, productsEN, productsES }) => {
         for (let i = 0; i < productsEN.length; i += 1) {
           const { page, category, title, specifications, summary, features } = productsEN[i];
           createPage({
-            path: `${regionList[region]}/en/products/${page.slug}`,
+            path: `${allRegions[availableIn]}/en/${page.slug}`,
             component: path.resolve(`./src/templates/product-template.js`),
             context: {
-              page,
+              slug: page.slug,
               category,
               title,
               specifications,
@@ -88,10 +162,10 @@ exports.createPages = ({ graphql, actions }) => {
         for (let i = 0; i < productsES.length; i += 1) {
           const { page, category, title, specifications, summary, features } = productsES[i];
           createPage({
-            path: `${regionList[region]}/es/products/${page.slug}`,
+            path: `${allRegions[availableIn]}/es/${page.slug}`,
             component: path.resolve(`./src/templates/product-template.js`),
             context: {
-              page,
+              slug: page.slug,
               category,
               title,
               specifications,
