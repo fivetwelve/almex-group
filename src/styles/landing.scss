@@ -15,9 +15,12 @@ $spacing: 20px;
       align-items: center;
       height: 55px;
       background-color: var(--blue-almex);
-      margin-bottom: 35px;
+      margin: 0 auto 35px;
+      width: 100%;
+      max-width: 1280px;
       .section-title {
         margin: 0 auto;
+        padding-left: 15px;
         width: 100%;
         max-width: 1280px;
         color: var(--white);
