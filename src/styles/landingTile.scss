@@ -1,49 +1,181 @@
 @import 'include-media';
-$spacing: 20px;
+$spacing: 10px;
+$padding: $spacing / 2;
+$borderWidth: 1px;
 $cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+$borderBlue: $borderWidth solid var(--blue-almex);
+$borderWhite: $borderWidth solid var(--white);
 
-.tile {
+/* widths, spacing & border rules only */
+.landing-tile {
   width: 100%;
-  padding-top: 35px;
+  .image-container {
+    .overlay {
+      width: 100%;
+    }
+  }
   @include media('>=tablet') {
-    width: calc((100% - #{$spacing}) / 2);
-    &:nth-child(odd) {
-      margin-right: $spacing;
+    width: calc(100% / 2);
+    .image-container {
+      .overlay {
+        width: calc(100% - #{$padding});
+      }
+    }
+    &:nth-of-type(odd) {
+      .tile-title,
+      .image-container {
+        padding-right: $padding;
+      }
+    }
+    &:nth-of-type(even) {
+      .tile-title,
+      .image-container {
+        padding-left: $padding;
+      }
+    }
+    &:nth-of-type(1) {
+      .image-container {
+        border-right: $borderBlue;
+      }
+      &:nth-last-of-type(1) {
+        .image-container {
+          border-right: $borderWhite;
+        }
+      }
+    }
+    &:nth-of-type(2n + 3) {
+      .tile-title,
+      .image-container {
+        border-right: $borderBlue;
+      }
+      &:nth-last-of-type(1) {
+        .tile-title,
+        .image-container {
+          border-right: $borderWhite;
+        }
+      }
     }
   }
 
   @include media('>=desktop') {
-    width: calc((100% - (#{$spacing} * 2)) / 3);
-    margin-right: $spacing;
-    &:nth-child(3n) {
-      margin-right: 0;
+    width: calc(100% / 3);
+    &:nth-of-type(2n + 3) {
+      .tile-title,
+      .image-container {
+        border-right: initial;
+      }
+    }
+    &:nth-of-type(3n + 1) {
+      .tile-title,
+      .image-container {
+        padding-left: 0;
+        padding-right: $padding;
+      }
+      .image-container {
+        border-right: $borderBlue;
+      }
+    }
+    &:nth-of-type(3n + 2) {
+      .tile-title,
+      .image-container {
+        padding-left: $padding;
+        padding-right: $padding;
+      }
+      .image-container {
+        border-right: $borderBlue;
+        .overlay {
+          width: calc(100% - (2 * #{$padding}));
+        }
+      }
+    }
+    &:nth-of-type(3n + 3) {
+      .tile-title,
+      .image-container {
+        padding-left: $padding;
+        padding-right: 0;
+      }
+    }
+    &:nth-of-type(3n + 4),
+    &:nth-of-type(3n + 5) {
+      .tile-title {
+        border-right: $borderBlue;
+      }
+      &:nth-last-of-type(1) {
+        .tile-title,
+        .image-container {
+          border-right: $borderWhite;
+        }
+      }
+    }
+  }
+}
+
+/* other properties here */
+.landing-tile {
+  @include media('>=desktop') {
+    // width: calc(100% / 3);
+    // width: calc((100% - ((#{$spacing} + #{$borderWidth}) * 2)) / 3);
+    &:nth-child(n + 3) {
+      padding-top: 0; //tablet reset
+    }
+    &:nth-child(n + 4) {
+      // padding-top: 20px;
+    }
+    // margin-right: $spacing;
+    // &:nth-child(3n) {
+    //   margin-right: 0;
+    // }
+    // border-right: 1px dotted var(--blue-almex);
+    // padding-right: $padding;
+    // &:nth-child(3n + 2),
+    // &:nth-child(3n + 3) {
+    //   padding-left: $padding;
+    // }
+    // &:nth-child(3n + 3) {
+    //   padding-right: 0;
+    // }
+    // &:nth-child(3n + 3) {
+    //   padding-left: $padding;
+    // }
+  }
+
+  .tile-title {
+    // @include media('>=tablet') {
+    //   &:nth-child(odd) {
+    //     padding-right: 5px;
+    //   }
+    // }
+    // border-right: 2px dotted var(--blue-almex);
+    h3 {
+      margin-bottom: 0;
+      padding-bottom: 1rem;
     }
   }
 
   .image-container {
-    height: 235px;
-    background-color: var(--gold);
+    height: 255px;
+    padding-bottom: 20px;
+    // background-color: var(--gold);
     position: relative;
     overflow: hidden;
 
     .background {
       background-size: cover;
+      background-position: center center;
       height: 100%;
       width: 100%;
     }
 
     .overlay {
-      height: 100%;
-      width: 100%;
+      height: calc(100% - 20px);
       position: absolute;
       top: 0;
-      background-color: rgba(255, 182, 18, 0.7);
+      background-color: var(--blue);
       opacity: 0;
       transition: all 0.2s ease-in-out;
       display: flex;
       align-items: center;
       justify-content: center;
-
       .text-container {
         display: flex;
         flex-direction: column;
@@ -52,7 +184,6 @@ $cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
           width: 75%;
         }
       }
-
       .overlay-title,
       .overlay-subtitle {
         color: var(--white);
@@ -85,7 +216,7 @@ $cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
         opacity: 0.8;
       }
       .overlay {
-        opacity: 1;
+        opacity: 0.8;
         .overlay-title,
         .overlay-subtitle {
           opacity: 1;

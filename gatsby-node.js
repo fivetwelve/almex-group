@@ -15,21 +15,51 @@ exports.createPages = ({ graphql, actions }) => {
     graphql(`
       {
         cms {
+          headerFooters(where: { region: NORTH_AMERICA }) {
+            companyAddress(locale: EN)
+            companyEmail
+            companyPhone
+            footerLinks(locale: EN)
+            formattedTagline(locale: EN)
+            language
+            navigation(locale: EN)
+            simpleTagline(locale: EN)
+            socialMedia(locale: EN)
+          }
+          labels(where: { region: NORTH_AMERICA }) {
+            common(locale: EN)
+            header(locale: EN)
+            footer(locale: EN)
+          }
           navigationNA: navigations(where: { availableIn: NORTH_AMERICA }) {
             availableIn
             navigationSections {
               title
               pages {
-                slug
+                slug(locale: EN)
                 pageType
                 article {
-                  title
+                  title(locale: EN)
                 }
                 product {
-                  title
+                  title(locale: EN)
                 }
                 landing {
-                  title
+                  title(locale: EN)
+                  landingSections {
+                    title(locale: EN)
+                    pages {
+                      slug(locale: EN)
+                      pageType
+                      product {
+                        title(locale: EN)
+                        subtitle(locale: EN)
+                        tileImage {
+                          url
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -61,37 +91,29 @@ exports.createPages = ({ graphql, actions }) => {
       if (result.errors) {
         reject(result.errors);
       }
+      const data = {
+        headerFooters: result.data.cms.headerFooters,
+        labels: result.data.cms.labels,
+      };
       /* Create landing pages from site navigation structure for North America */
       result.data.cms.navigationNA.forEach(({ availableIn, navigationSections }) => {
         for (let i = 0; i < navigationSections.length; i += 1) {
           const { pages } = navigationSections[i];
           for (let j = 0; j < pages.length; j += 1) {
-            const { slug, pageType, article, industry, landing, product, promo, service } = pages[
-              j
-            ];
+            const { slug, pageType, article, industry, landing, promo, service } = pages[j];
             const pagePath = `${allRegions[availableIn]}/en/${slug}`;
             switch (pageType) {
               case allPageTypes.PRODUCT:
-                createPage({
-                  path: pagePath,
-                  component: path.resolve(`./src/templates/product-template.js`),
-                  context: {
-                    page: slug,
-                    category: product.category,
-                    title: product.title,
-                    specifications: product.specifications,
-                    summary: product.summary,
-                    features: product.features,
-                  },
-                });
                 break;
               case allPageTypes.LANDING:
                 createPage({
                   path: pagePath,
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
+                    data,
                     page: slug,
                     title: landing.title,
+                    landingSections: landing.landingSections,
                   },
                 });
                 break;
@@ -144,11 +166,13 @@ exports.createPages = ({ graphql, actions }) => {
       });
       /* Create product pages from productsList for North America. */
       result.data.cms.productListNA.forEach(({ availableIn, productsEN, productsES }) => {
+        const component = path.resolve(`./src/templates/product-template.js`);
+        /* English */
         for (let i = 0; i < productsEN.length; i += 1) {
           const { page, category, title, specifications, summary, features } = productsEN[i];
           createPage({
             path: `${allRegions[availableIn]}/en/${page.slug}`,
-            component: path.resolve(`./src/templates/product-template.js`),
+            component,
             context: {
               slug: page.slug,
               category,
@@ -159,11 +183,12 @@ exports.createPages = ({ graphql, actions }) => {
             },
           });
         }
+        /* Spanish */
         for (let i = 0; i < productsES.length; i += 1) {
           const { page, category, title, specifications, summary, features } = productsES[i];
           createPage({
             path: `${allRegions[availableIn]}/es/${page.slug}`,
-            component: path.resolve(`./src/templates/product-template.js`),
+            component,
             context: {
               slug: page.slug,
               category,

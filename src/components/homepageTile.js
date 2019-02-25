@@ -11,34 +11,32 @@ const HomepageTile = ({ data, labels }) => {
   };
 
   return (
-    <>
-      <div className="tile">
-        <div className="tile-title">
-          <h3>{title}</h3>
-        </div>
-        <div className="image-container">
-          <div className="background" style={imageStyle} />
-          <div className="overlay">
-            <div className="text-container">
-              <span className="overlay-title">{title}</span>
-              <div className="overlay-subtitle">
-                <span className="indicator">&#9650;</span>
-                <span className="subtitle">{subtitle}</span>
-              </div>
+    <div className="homepage-tile">
+      <div className="tile-title">
+        <h3>{title}</h3>
+      </div>
+      <div className="image-container">
+        <div className="background" style={imageStyle} />
+        <div className="overlay">
+          <div className="text-container">
+            <span className="overlay-title">{title}</span>
+            <div className="overlay-subtitle">
+              <span className="indicator">&#9650;</span>
+              <span className="subtitle">{subtitle}</span>
             </div>
           </div>
         </div>
-        <div className="description">
-          <Markdown source={description} options={{ html: true }} />
-          <span className="more-container">
-            <Link to="/northamerica/en/heavyweight-pro">
-              <span className="more">{labels.common.MORE}</span>
-              <span className="more-arrow">&nbsp;&raquo;</span>
-            </Link>
-          </span>
-        </div>
       </div>
-    </>
+      <div className="description">
+        <Markdown source={description} options={{ html: true }} />
+        <span className="more-container">
+          <Link to="/northamerica/en/heavyweight-pro">
+            <span className="more">{labels.common.MORE}</span>
+            <span className="more-arrow">&nbsp;&raquo;</span>
+          </Link>
+        </span>
+      </div>
+    </div>
   );
 };
 

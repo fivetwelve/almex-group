@@ -1,19 +1,21 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import { Location } from '@reach/router';
-import HomeTemplate from '../../../templates/home-template';
+import HomepageTemplate from '../../../templates/homepage-template';
 import Layout from '../../../components/layout';
 
 const Home = data => (
   <Layout
     activeLanguage="EN"
     activeSection=""
-    childrenClass="home-page"
+    childrenClass="homepage"
     region="NORTH_AMERICA"
     title=""
     data={data.data.cms}
   >
-    <Location>{({ location }) => <HomeTemplate data={data.data} location={location} />}</Location>
+    <Location>
+      {({ location }) => <HomepageTemplate data={data.data} location={location} />}
+    </Location>
   </Layout>
 );
 

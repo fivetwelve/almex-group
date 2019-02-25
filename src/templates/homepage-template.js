@@ -8,9 +8,9 @@ import { IconContext } from 'react-icons';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import HomePageTile from '../components/homepageTile';
 // import Dump from '../utils/dump';
-import '../styles/home.scss';
+import '../styles/homepage.scss';
 
-const HomeTemplate = ({
+const HomepageTemplate = ({
   data: {
     cms: { headerFooters, homepages, labels },
   },
@@ -50,8 +50,8 @@ const HomeTemplate = ({
         backgroundImage: `url(${slides[i].asset.url})`,
       };
       element = (
-        <>
-          <div className="slide-image" style={slideStyle} key={slideNum} />
+        <React.Fragment key={slideNum}>
+          <div className="slide-image" style={slideStyle} />
           <div className="heading-container">
             <div className="heading">
               <Link to={location.pathname + slides[i].page.slug}>
@@ -59,14 +59,14 @@ const HomeTemplate = ({
               </Link>
             </div>
           </div>
-        </>
+        </React.Fragment>
       );
     }
     if (slides[i].slideType === 'VIDEO') {
       const slideStyle = {};
       element = (
-        <>
-          <div className="slide-video" style={slideStyle} key={slideNum}>
+        <React.Fragment key={slideNum}>
+          <div className="slide-video" style={slideStyle}>
             <div className="video-container">
               <video width="100%" height="auto" autoPlay loop muted>
                 <source src={slides[0].asset.url} type="video/mp4" />
@@ -80,14 +80,14 @@ const HomeTemplate = ({
               </Link>
             </div>
           </div>
-        </>
+        </React.Fragment>
       );
     }
     slideArray.push(element);
   }
 
   return (
-    <>
+    <div className="homepage">
       <Carousel
         className="carousel"
         autoGenerateStyleTag={options.autoGenerateStyleTag}
@@ -191,16 +191,16 @@ const HomeTemplate = ({
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
-HomeTemplate.defaultProps = {
+HomepageTemplate.defaultProps = {
   data: {},
   location: {},
 };
 
-HomeTemplate.propTypes = {
+HomepageTemplate.propTypes = {
   data: PropTypes.shape({
     tagLine: PropTypes.string,
   }),
@@ -209,4 +209,4 @@ HomeTemplate.propTypes = {
   }),
 };
 
-export default HomeTemplate;
+export default HomepageTemplate;

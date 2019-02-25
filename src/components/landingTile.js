@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
-import Markdown from 'react-remarkable';
+import { createLink } from '../utils/functions';
 import '../styles/landingTile.scss';
 
-const LandingTile = ({ data, labels }) => {
-  const { image, title, description, subtitle } = data;
+const LandingTile = ({ data, location }) => {
+  const { slug, subtitle, tileImage, title } = data;
   const imageStyle = {
-    backgroundImage: `url(${image.url})`,
+    backgroundImage: `url(${tileImage.url})`,
   };
 
   return (
-    <>
-      <div className="tile">
-        <div className="tile-title">
-          <h3>{title}</h3>
-        </div>
+    <div className="landing-tile">
+      <div className="tile-title">
+        <h3>{title}</h3>
+      </div>
+      <Link to={createLink(location, slug)}>
         <div className="image-container">
           <div className="background" style={imageStyle} />
           <div className="overlay">
@@ -28,33 +28,25 @@ const LandingTile = ({ data, labels }) => {
             </div>
           </div>
         </div>
-        <div className="description">
-          <Markdown source={description} options={{ html: true }} />
-          <span className="more-container">
-            <Link to="/northamerica/en/heavyweight-pro">
-              <span className="more">{labels.common.MORE}</span>
-              <span className="more-arrow">&nbsp;&raquo;</span>
-            </Link>
-          </span>
-        </div>
-      </div>
-    </>
+      </Link>
+    </div>
   );
 };
 
 LandingTile.defaultProps = {
   data: {},
-  labels: {},
+  location: {},
 };
 
 LandingTile.propTypes = {
   data: PropTypes.shape({
-    title: PropTypes.string,
-    description: PropTypes.string,
+    slug: PropTypes.string,
     subtitle: PropTypes.string,
+    tileImage: PropTypes.object,
+    title: PropTypes.string,
   }),
-  labels: PropTypes.shape({
-    common: PropTypes.object,
+  location: PropTypes.shape({
+    pathName: PropTypes.string,
   }),
 };
 
