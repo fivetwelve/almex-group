@@ -54,37 +54,37 @@ class NavigationMenu extends React.Component {
           <div className="title">{header[section.TYPE]}</div>
           <div className="menu-container">
             <div className="category">
-              <a href="/northamerica/en/heavyweight">Belt Accessories</a>
+              <a href="/northamerica/en/heavyweight-presses">Belt Accessories</a>
             </div>
             <div className="category">
-              <a href="/northamerica/en/heavyweight">Belt Monitoring</a>
+              <a href="/northamerica/en/heavyweight-presses">Belt Monitoring</a>
             </div>
             <div className="category">
-              <a href="/northamerica/en/heavyweight">Belt Repair and Maintenance</a>
+              <a href="/northamerica/en/heavyweight-presses">Belt Repair and Maintenance</a>
             </div>
             <div className="category">
-              <a href="/northamerica/en/heavyweight">Belt Repair Power Tools</a>
+              <a href="/northamerica/en/heavyweight-presses">Belt Repair Power Tools</a>
             </div>
             <div className="category">
-              <a href="/northamerica/en/heavyweight">Control Systems</a>
+              <a href="/northamerica/en/heavyweight-presses">Control Systems</a>
             </div>
             <div className="category">
-              <a href="/northamerica/en/heavyweight">Dust Suppression</a>
+              <a href="/northamerica/en/heavyweight-presses">Dust Suppression</a>
             </div>
             <div className="category">
-              <a href="/northamerica/en/heavyweight">Fluid and Pressure Pumps</a>
+              <a href="/northamerica/en/heavyweight-presses">Fluid and Pressure Pumps</a>
             </div>
             <div className="category">
-              <a href="/northamerica/en/heavyweight">HeavyWeight Presses</a>
+              <a href="/northamerica/en/heavyweight-presses">HeavyWeight Presses</a>
             </div>
             <div className="category">
-              <a href="/northamerica/en/heavyweight">Idlers and Rollers</a>
+              <a href="/northamerica/en/heavyweight-presses">Idlers and Rollers</a>
             </div>
             <div className="category">
-              <a href="/northamerica/en/heavyweight">Industrial</a>
+              <a href="/northamerica/en/heavyweight-presses">Industrial</a>
             </div>
             <div className="category">
-              <a href="/northamerica/en/heavyweight">Lightweight</a>
+              <a href="/northamerica/en/heavyweight-presses">Lightweight</a>
             </div>
           </div>
         </div>

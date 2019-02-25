@@ -2,7 +2,7 @@
 $spacing: 20px;
 $cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
 
-.tile {
+.homepage-tile {
   width: 100%;
   padding-top: 35px;
   @include media('>=tablet') {
