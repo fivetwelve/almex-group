@@ -31,22 +31,40 @@ exports.createPages = ({ graphql, actions }) => {
             header(locale: EN)
             footer(locale: EN)
           }
-          navigationNA: navigations(where: { availableIn: NORTH_AMERICA }) {
+          navigations(where: { availableIn: NORTH_AMERICA }) {
             availableIn
             navigationSections {
-              title
+              titleEN: title(locale: EN)
+              titleES: title(locale: ES)
+              type
               pages {
-                slug(locale: EN)
+                slugEN: slug(locale: EN)
+                slugES: slug(locale: ES)
                 pageType
                 article {
-                  title(locale: EN)
+                  titleEN: title(locale: EN)
+                  titleES: title(locale: ES)
+                }
+                industry {
+                  titleEN: title(locale: EN)
+                  titleES: title(locale: ES)
                 }
                 product {
-                  title(locale: EN)
+                  titleEN: title(locale: EN)
+                  titleES: title(locale: ES)
+                }
+                promo {
+                  titleEN: title(locale: EN)
+                  titleES: title(locale: ES)
+                }
+                service {
+                  titleEN: title(locale: EN)
+                  titleES: title(locale: ES)
                 }
                 landing {
-                  title(locale: EN)
-                  landingSections {
+                  titleEN: title(locale: EN)
+                  titleES: title(locale: ES)
+                  landingSectionsEN: landingSections {
                     title(locale: EN)
                     pages {
                       slug(locale: EN)
@@ -54,6 +72,20 @@ exports.createPages = ({ graphql, actions }) => {
                       product {
                         title(locale: EN)
                         subtitle(locale: EN)
+                        tileImage {
+                          url
+                        }
+                      }
+                    }
+                  }
+                  landingSectionsES: landingSections {
+                    title(locale: ES)
+                    pages {
+                      slug(locale: ES)
+                      pageType
+                      product {
+                        title(locale: ES)
+                        subtitle(locale: ES)
                         tileImage {
                           url
                         }
@@ -94,67 +126,141 @@ exports.createPages = ({ graphql, actions }) => {
       const data = {
         headerFooters: result.data.cms.headerFooters,
         labels: result.data.cms.labels,
+        navigations: result.data.cms.navigations,
       };
       /* Create landing pages from site navigation structure for North America */
-      result.data.cms.navigationNA.forEach(({ availableIn, navigationSections }) => {
+      result.data.cms.navigations.forEach(({ availableIn, navigationSections }) => {
         for (let i = 0; i < navigationSections.length; i += 1) {
           const { pages } = navigationSections[i];
           for (let j = 0; j < pages.length; j += 1) {
-            const { slug, pageType, article, industry, landing, promo, service } = pages[j];
-            const pagePath = `${allRegions[availableIn]}/en/${slug}`;
+            const { slugEN, slugES, pageType, article, industry, landing, promo, service } = pages[
+              j
+            ];
+            const pagePathEN = `${allRegions[availableIn]}/en/${slugEN}`;
+            const pagePathES = `${allRegions[availableIn]}/es/${slugES}`;
             switch (pageType) {
               case allPageTypes.PRODUCT:
                 break;
               case allPageTypes.LANDING:
                 createPage({
-                  path: pagePath,
+                  path: pagePathEN,
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
+                    activeLanguage: 'EN',
                     data,
-                    page: slug,
-                    title: landing.title,
-                    landingSections: landing.landingSections,
+                    page: slugEN,
+                    region: 'NORTH_AMERICA',
+                    title: landing.titleEN,
+                    landingSections: landing.landingSectionsEN,
+                  },
+                });
+                createPage({
+                  path: pagePathES,
+                  component: path.resolve(`./src/templates/landing-template.js`),
+                  context: {
+                    activeLanguage: 'ES',
+                    data,
+                    page: slugES,
+                    region: 'NORTH_AMERICA',
+                    title: landing.titleES,
+                    landingSections: landing.landingSectionsES,
                   },
                 });
                 break;
               // TODO change to appropriate templates for the pageTypes below:
               case allPageTypes.ARTICLE:
                 createPage({
-                  path: pagePath,
+                  path: pagePathEN,
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
-                    page: slug,
-                    title: article.title,
+                    activeLanguage: 'EN',
+                    data,
+                    page: slugEN,
+                    region: 'NORTH_AMERICA',
+                    title: article.titleEN,
+                  },
+                });
+                createPage({
+                  path: pagePathES,
+                  component: path.resolve(`./src/templates/landing-template.js`),
+                  context: {
+                    activeLanguage: 'ES',
+                    data,
+                    page: slugES,
+                    region: 'NORTH_AMERICA',
+                    title: article.titleES,
                   },
                 });
                 break;
               case allPageTypes.INDUSTRY:
                 createPage({
-                  path: pagePath,
+                  path: pagePathEN,
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
-                    page: slug,
-                    title: industry.title,
+                    activeLanguage: 'EN',
+                    data,
+                    page: slugEN,
+                    region: 'NORTH_AMERICA',
+                    title: industry.titleEN,
+                  },
+                });
+                createPage({
+                  path: pagePathES,
+                  component: path.resolve(`./src/templates/landing-template.js`),
+                  context: {
+                    activeLanguage: 'ES',
+                    data,
+                    page: slugES,
+                    region: 'NORTH_AMERICA',
+                    title: industry.titleES,
                   },
                 });
                 break;
               case allPageTypes.PROMO:
                 createPage({
-                  path: pagePath,
+                  path: pagePathEN,
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
-                    page: slug,
-                    title: promo.title,
+                    activeLanguage: 'EN',
+                    data,
+                    page: slugEN,
+                    region: 'NORTH_AMERICA',
+                    title: promo.titleEN,
+                  },
+                });
+                createPage({
+                  path: pagePathES,
+                  component: path.resolve(`./src/templates/landing-template.js`),
+                  context: {
+                    activeLanguage: 'ES',
+                    data,
+                    page: slugES,
+                    region: 'NORTH_AMERICA',
+                    title: promo.titleES,
                   },
                 });
                 break;
               case allPageTypes.SERVICE:
                 createPage({
-                  path: pagePath,
+                  path: pagePathEN,
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
-                    page: slug,
-                    title: service.title,
+                    activeLanguage: 'EN',
+                    data,
+                    page: slugEN,
+                    region: 'NORTH_AMERICA',
+                    title: service.titleEN,
+                  },
+                });
+                createPage({
+                  path: pagePathES,
+                  component: path.resolve(`./src/templates/landing-template.js`),
+                  context: {
+                    activeLanguage: 'ES',
+                    data,
+                    page: slugES,
+                    region: 'NORTH_AMERICA',
+                    title: service.titleES,
                   },
                 });
                 break;

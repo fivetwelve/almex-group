@@ -1,4 +1,6 @@
-export const createLink = (location, slug) => {
+import { allPageTypes } from '../constants';
+
+const createLink = (location, slug) => {
   /*
     - Have established that URLs will always be formed as: /region/locale/slug/
     - No further hierarchy expected to pollute URLs or future link creation.
@@ -11,4 +13,37 @@ export const createLink = (location, slug) => {
   return `${linkPrefix[0]}${slug}/`;
 };
 
-export default createLink;
+const createLinkFromPage = (location, page, language) => {
+  /* given a page object, return language-specific URL */
+  const slug = page[`slug${language.toUpperCase()}`];
+  return createLink(location, slug);
+};
+
+const getTitle = (page, language) => {
+  let title = '';
+  switch (page.pageType) {
+    case allPageTypes.ARTICLE:
+      title = page.article[`title${language}`];
+      break;
+    case allPageTypes.INDUSTRY:
+      title = page.industry[`title${language}`];
+      break;
+    case allPageTypes.LANDING:
+      title = page.landing[`title${language}`];
+      break;
+    case allPageTypes.PRODUCT:
+      title = page.product[`title${language}`];
+      break;
+    case allPageTypes.PROMO:
+      title = page.promo[`title${language}`];
+      break;
+    case allPageTypes.SERVICE:
+      title = page.service[`title${language}`];
+      break;
+    default:
+      break;
+  }
+  return title;
+};
+
+export { createLink, createLinkFromPage, getTitle };

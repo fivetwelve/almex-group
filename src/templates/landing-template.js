@@ -9,7 +9,7 @@ import '../styles/landing.scss';
 // const allowHTML = { html: true };
 
 const LandingTemplate = ({ pageContext }) => {
-  const { title, landingSections, data } = pageContext;
+  const { activeLanguage, landingSections, data, region, title } = pageContext;
   const label = data.labels[0];
   let sectionIdx = 0;
 
@@ -47,10 +47,10 @@ const LandingTemplate = ({ pageContext }) => {
 
   return (
     <Layout
-      activeLanguage="EN"
+      activeLanguage={activeLanguage}
       activeSection=""
       childrenClass="landing"
-      region="NORTH_AMERICA"
+      region={region}
       title=""
       data={data}
     >
@@ -62,12 +62,13 @@ const LandingTemplate = ({ pageContext }) => {
               {landingSections.length > 0 &&
                 landingSections.map(landingSection => {
                   const { pages } = landingSection;
+                  const sectionTitle = landingSection[`title${activeLanguage}`] || null;
                   sectionIdx += 1;
                   return (
                     <div className="landing-section" key={`landing-section-${sectionIdx}`}>
-                      {landingSection.title && (
+                      {sectionTitle && (
                         <div className="title-container">
-                          <div className="section-title">{landingSection.title}</div>
+                          <div className="section-title">{sectionTitle}</div>
                         </div>
                       )}
                       <div className="tile-container">
@@ -90,9 +91,11 @@ LandingTemplate.defaultProps = {
 
 LandingTemplate.propTypes = {
   pageContext: PropTypes.shape({
-    title: PropTypes.string,
-    landingSections: PropTypes.array,
+    activeLanguage: PropTypes.string,
     data: PropTypes.object,
+    landingSections: PropTypes.array,
+    region: PropTypes.string,
+    title: PropTypes.string,
   }),
 };
 

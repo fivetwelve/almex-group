@@ -1,11 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
+import { Location } from '@reach/router';
 import * as log from 'loglevel';
 // import root from 'window-or-global';
 import Header from './header';
 import Footer from './footer';
+import { LocationProvider } from '../utils/locationContext';
 import '../styles/layout.scss';
+
+// const LocationContext = React.createContext({});
 
 class Layout extends React.Component {
   constructor(props) {
@@ -51,7 +55,7 @@ class Layout extends React.Component {
       region,
       title,
     } = this.props;
-    const { headerFooters, labels } = data;
+    const { headerFooters, labels, navigations } = data;
     const lang = activeLanguage.toLowerCase();
     return (
       <>
@@ -109,17 +113,34 @@ class Layout extends React.Component {
           role="presentation"
         >
           <div className="pageContainer">
-            <Header
-              activeSection={activeSection}
-              activeLanguage={activeLanguage}
-              headerFooters={headerFooters}
-              labels={labels}
-              region={region}
-            />
-            <div className="bodyClass">
-              <div className={childrenClass}>{children}</div>
-            </div>
-            <Footer headerFooters={headerFooters} labels={labels} lang={lang} region={region} />
+            <Location>
+              {({ location }) => (
+                <>
+                  <Header
+                    activeSection={activeSection}
+                    activeLanguage={activeLanguage}
+                    headerFooters={headerFooters}
+                    labels={labels}
+                    navigations={navigations}
+                    region={region}
+                    location={location}
+                  />
+                  <div className="bodyClass">
+                    <LocationProvider value={location}>
+                      <div className={childrenClass}>{children}</div>
+                    </LocationProvider>
+                  </div>
+                  <Footer
+                    activeLanguage={activeLanguage}
+                    headerFooters={headerFooters}
+                    labels={labels}
+                    lang={lang}
+                    location={location}
+                    region={region}
+                  />
+                </>
+              )}
+            </Location>
           </div>
         </div>
       </>
@@ -145,6 +166,12 @@ Layout.propTypes = {
   data: PropTypes.shape({
     headerFooters: PropTypes.array,
     labels: PropTypes.array,
+    navigations: PropTypes.arrayOf(
+      PropTypes.shape({
+        availableIn: PropTypes.string,
+        navigationSections: PropTypes.array,
+      }),
+    ),
   }),
   region: PropTypes.string,
   title: PropTypes.string,

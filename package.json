@@ -47,6 +47,7 @@
     "react-remarkable": "^1.1.3",
     "react-typography": "^0.16.18",
     "react-youtube": "^7.8.0",
+    "shortid": "^2.2.14",
     "typography": "^0.16.18"
   },
   "devDependencies": {

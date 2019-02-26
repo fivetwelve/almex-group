@@ -62,6 +62,56 @@ export const query = graphql`
         header(locale: EN)
         footer(locale: EN)
       }
+      navigations(where: { availableIn: NORTH_AMERICA }) {
+        availableIn
+        navigationSections {
+          titleEN: title(locale: EN)
+          titleES: title(locale: ES)
+          pages {
+            slugEN: slug(locale: EN)
+            slugES: slug(locale: EN)
+            pageType
+            article {
+              titleEN: title(locale: EN)
+              titleES: title(locale: ES)
+            }
+            industry {
+              titleEN: title(locale: EN)
+              titleES: title(locale: ES)
+            }
+            product {
+              titleEN: title(locale: EN)
+              titleES: title(locale: ES)
+            }
+            promo {
+              titleEN: title(locale: EN)
+              titleES: title(locale: ES)
+            }
+            service {
+              titleEN: title(locale: EN)
+              titleES: title(locale: ES)
+            }
+            landing {
+              titleEN: title(locale: EN)
+              titleES: title(locale: ES)
+              landingSections {
+                title(locale: EN)
+                pages {
+                  slug(locale: EN)
+                  pageType
+                  product {
+                    title(locale: EN)
+                    subtitle(locale: EN)
+                    tileImage {
+                      url
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 `;

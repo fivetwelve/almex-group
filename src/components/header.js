@@ -5,7 +5,7 @@ import { FaBars, FaSearch } from 'react-icons/fa';
 import * as log from 'loglevel';
 import BrandSelector from './brandSelector';
 import LanguageSelector from './languageSelector';
-import NavigationMenu from './navigationMenu';
+import NavigationDropdown from './navigationDropdown';
 import '../styles/header.scss';
 import '../styles/headerOptions.scss';
 import hLogo from '../../static/logo-almex-hori.svg';
@@ -47,11 +47,19 @@ class Header extends React.Component {
   };
 
   render() {
-    const { activeLanguage, activeSection, headerFooters, labels, region } = this.props;
+    const {
+      activeLanguage,
+      activeSection,
+      headerFooters,
+      labels,
+      location,
+      navigations,
+      region,
+    } = this.props;
 
     const label = labels[0];
     const headerFooter = headerFooters[0];
-
+    const navigation = navigations[0];
     return (
       <div className="header">
         <div className="contents">
@@ -92,12 +100,13 @@ class Header extends React.Component {
         </div>
         <nav className="navigation">
           <div className="sections">
-            {headerFooter.navigation.length > 0 &&
-              headerFooter.navigation.map(section => (
-                <NavigationMenu
+            {navigation.navigationSections.length > 0 &&
+              navigation.navigationSections.map(section => (
+                <NavigationDropdown
+                  activeLanguage={activeLanguage}
                   closeOtherMenus={type => this.closeOtherMenus(type)}
-                  key={section.TYPE}
-                  header={label.header}
+                  key={section.type}
+                  location={location}
                   section={section}
                   ref={this.PRODUCTS}
                 />
@@ -155,7 +164,7 @@ class Header extends React.Component {
 //     <div className="sections">
 //       {headerFooter.navigation.length > 0 &&
 //         headerFooter.navigation.map(section => (
-//           <NavigationMenu key={section.TYPE} header={label.header} section={section} />
+//           <NavigationDropdown key={section.TYPE} header={label.header} section={section} />
 //         ))}
 //     </div>
 //   </nav>
@@ -169,6 +178,8 @@ Header.defaultProps = {
   activeSection: '',
   headerFooters: [],
   labels: [],
+  location: {},
+  navigations: [],
   region: '',
 };
 
@@ -177,6 +188,10 @@ Header.propTypes = {
   activeSection: PropTypes.string,
   headerFooters: PropTypes.instanceOf(Array),
   labels: PropTypes.instanceOf(Array),
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+  }),
+  navigations: PropTypes.instanceOf(Array),
   region: PropTypes.string,
 };
 
