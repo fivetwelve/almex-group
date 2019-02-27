@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { graphql } from 'gatsby';
 import { Location } from '@reach/router';
 import Layout from '../components/layout';
 import LandingTile from '../components/landingTile';
@@ -8,9 +9,17 @@ import '../styles/landing.scss';
 
 // const allowHTML = { html: true };
 
-const LandingTemplate = ({ pageContext }) => {
-  const { activeLanguage, landingSections, data, region, title } = pageContext;
-  const label = data.labels[0];
+const LandingTemplate = ({ data, pageContext }) => {
+  // const { activeLanguage, mydata, region, title } = pageContext;
+  const { locale, mydata, region, title } = pageContext;
+  const {
+    cms: {
+      page: {
+        landing: { landingSections },
+      },
+    },
+  } = data;
+  const label = mydata.labels[0];
   let sectionIdx = 0;
 
   const renderTiles = (pages, location) => {
@@ -47,12 +56,12 @@ const LandingTemplate = ({ pageContext }) => {
 
   return (
     <Layout
-      activeLanguage={activeLanguage}
+      activeLanguage={locale}
       activeSection=""
       childrenClass="landing"
       region={region}
       title=""
-      data={data}
+      data={mydata}
     >
       <Location>
         {({ location }) => (
@@ -62,7 +71,7 @@ const LandingTemplate = ({ pageContext }) => {
               {landingSections.length > 0 &&
                 landingSections.map(landingSection => {
                   const { pages } = landingSection;
-                  const sectionTitle = landingSection[`title${activeLanguage}`] || null;
+                  const sectionTitle = landingSection.title || null;
                   sectionIdx += 1;
                   return (
                     <div className="landing-section" key={`landing-section-${sectionIdx}`}>
@@ -86,17 +95,54 @@ const LandingTemplate = ({ pageContext }) => {
 };
 
 LandingTemplate.defaultProps = {
+  data: {},
   pageContext: {},
 };
 
 LandingTemplate.propTypes = {
+  data: PropTypes.shape({
+    id: PropTypes.string,
+  }),
   pageContext: PropTypes.shape({
     activeLanguage: PropTypes.string,
-    data: PropTypes.object,
+    mydata: PropTypes.object,
     landingSections: PropTypes.array,
     region: PropTypes.string,
     title: PropTypes.string,
   }),
 };
+
+export const query = graphql`
+  query($id: ID!, $locale: GraphCMS_Locale!) {
+    cms {
+      page(where: { id: $id }) {
+        landing {
+          landingSections {
+            title(locale: $locale)
+            pages {
+              slug(locale: $locale)
+              pageType
+              product {
+                title(locale: $locale)
+                subtitle(locale: $locale)
+                tileImage {
+                  url
+                }
+              }
+              landing {
+                title(locale: $locale)
+                subtitle(locale: $locale)
+                tileImage {
+                  url
+                }
+              }
+            }
+          }
+          title(locale: $locale)
+        }
+      }
+    }
+  }
+`;
 
 export default LandingTemplate;

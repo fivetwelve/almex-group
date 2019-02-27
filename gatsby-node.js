@@ -38,9 +38,10 @@ exports.createPages = ({ graphql, actions }) => {
               titleES: title(locale: ES)
               type
               pages {
+                id
+                pageType
                 slugEN: slug(locale: EN)
                 slugES: slug(locale: ES)
-                pageType
                 article {
                   titleEN: title(locale: EN)
                   titleES: title(locale: ES)
@@ -133,9 +134,17 @@ exports.createPages = ({ graphql, actions }) => {
         for (let i = 0; i < navigationSections.length; i += 1) {
           const { pages } = navigationSections[i];
           for (let j = 0; j < pages.length; j += 1) {
-            const { slugEN, slugES, pageType, article, industry, landing, promo, service } = pages[
-              j
-            ];
+            const {
+              id,
+              pageType,
+              slugEN,
+              slugES,
+              article,
+              industry,
+              landing,
+              promo,
+              service,
+            } = pages[j];
             const pagePathEN = `${allRegions[availableIn]}/en/${slugEN}`;
             const pagePathES = `${allRegions[availableIn]}/es/${slugES}`;
             switch (pageType) {
@@ -147,7 +156,9 @@ exports.createPages = ({ graphql, actions }) => {
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
                     activeLanguage: 'EN',
-                    data,
+                    id,
+                    locale: 'EN',
+                    mydata: data,
                     page: slugEN,
                     region: 'NORTH_AMERICA',
                     title: landing.titleEN,
@@ -159,7 +170,9 @@ exports.createPages = ({ graphql, actions }) => {
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
                     activeLanguage: 'ES',
-                    data,
+                    id,
+                    locale: 'ES',
+                    mydata: data,
                     page: slugES,
                     region: 'NORTH_AMERICA',
                     title: landing.titleES,
