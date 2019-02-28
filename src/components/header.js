@@ -5,7 +5,8 @@ import { FaBars, FaSearch } from 'react-icons/fa';
 import * as log from 'loglevel';
 import BrandSelector from './brandSelector';
 import LanguageSelector from './languageSelector';
-import NavigationDropdown from './navigationDropdown';
+// import NavigationDropdown from './navigationDropdown';
+import Navigation from './navigation';
 import '../styles/header.scss';
 import '../styles/headerOptions.scss';
 import hLogo from '../../static/logo-almex-hori.svg';
@@ -53,13 +54,13 @@ class Header extends React.Component {
       headerFooters,
       labels,
       location,
-      navigations,
+      // navigations,
       region,
     } = this.props;
 
     const label = labels[0];
     const headerFooter = headerFooters[0];
-    const navigation = navigations[0];
+    // const navigation = navigations[0];
     return (
       <div className="header">
         <div className="contents">
@@ -98,7 +99,8 @@ class Header extends React.Component {
             </div>
           </div>
         </div>
-        <nav className="navigation">
+        <Navigation activeLanguage={activeLanguage} location={location} region={region} />
+        {/* <nav className="navigation">
           <div className="sections">
             {navigation.navigationSections.length > 0 &&
               navigation.navigationSections.map(section => (
@@ -112,7 +114,7 @@ class Header extends React.Component {
                 />
               ))}
           </div>
-        </nav>
+        </nav> */}
       </div>
     );
   }
@@ -179,7 +181,7 @@ Header.defaultProps = {
   headerFooters: [],
   labels: [],
   location: {},
-  navigations: [],
+  // navigations: [],
   region: '',
 };
 
@@ -191,7 +193,7 @@ Header.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string,
   }),
-  navigations: PropTypes.instanceOf(Array),
+  // navigations: PropTypes.instanceOf(Array),
   region: PropTypes.string,
 };
 

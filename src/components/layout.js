@@ -55,7 +55,7 @@ class Layout extends React.Component {
       region,
       title,
     } = this.props;
-    const { headerFooters, labels, navigations } = data;
+    const { headerFooters, labels } = data;
     const lang = activeLanguage.toLowerCase();
     return (
       <>
@@ -121,7 +121,6 @@ class Layout extends React.Component {
                     activeLanguage={activeLanguage}
                     headerFooters={headerFooters}
                     labels={labels}
-                    navigations={navigations}
                     region={region}
                     location={location}
                   />
@@ -166,12 +165,6 @@ Layout.propTypes = {
   data: PropTypes.shape({
     headerFooters: PropTypes.array,
     labels: PropTypes.array,
-    navigations: PropTypes.arrayOf(
-      PropTypes.shape({
-        availableIn: PropTypes.string,
-        navigationSections: PropTypes.array,
-      }),
-    ),
   }),
   region: PropTypes.string,
   title: PropTypes.string,

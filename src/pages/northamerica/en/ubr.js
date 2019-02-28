@@ -41,7 +41,14 @@ const animationStyle = {
 const detailsStyle = {};
 
 const UBRPage = ({ data }) => (
-  <Layout activeSection="PRODUCTS" data={data.cms}>
+  <Layout
+    activeLanguage="EN"
+    activeSection="PRODUCTS"
+    childrenClass="about"
+    data={data.cms}
+    region="NORTH_AMERICA"
+    title="Heavyweight"
+  >
     <div style={shimStyle}>
       <div style={columnStyle}>
         <div>

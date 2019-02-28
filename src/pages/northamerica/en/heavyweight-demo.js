@@ -12,7 +12,14 @@ const shimStyle = {
 };
 
 const HeavyweightPage = ({ data }) => (
-  <Layout activeSection="PRODUCTS" data={data.cms}>
+  <Layout
+    activeLanguage="EN"
+    activeSection="PRODUCTS"
+    childrenClass="landing"
+    data={data.cms}
+    region="NORTH_AMERICA"
+    title="Heavyweight"
+  >
     <div style={shimStyle}>
       <Link to="/northamerica/en/ubr/">
         <img src={heavyweightImage} alt="Heavyweight Presses" width="1280" />

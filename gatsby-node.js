@@ -31,6 +31,7 @@ exports.createPages = ({ graphql, actions }) => {
             header(locale: EN)
             footer(locale: EN)
           }
+          # can get rid of navigations once we generate pages from a master list
           navigations(where: { availableIn: NORTH_AMERICA }) {
             availableIn
             navigationSections {
@@ -50,6 +51,10 @@ exports.createPages = ({ graphql, actions }) => {
                   titleEN: title(locale: EN)
                   titleES: title(locale: ES)
                 }
+                landing {
+                  titleEN: title(locale: EN)
+                  titleES: title(locale: ES)
+                }
                 product {
                   titleEN: title(locale: EN)
                   titleES: title(locale: ES)
@@ -61,38 +66,6 @@ exports.createPages = ({ graphql, actions }) => {
                 service {
                   titleEN: title(locale: EN)
                   titleES: title(locale: ES)
-                }
-                landing {
-                  titleEN: title(locale: EN)
-                  titleES: title(locale: ES)
-                  landingSectionsEN: landingSections {
-                    title(locale: EN)
-                    pages {
-                      slug(locale: EN)
-                      pageType
-                      product {
-                        title(locale: EN)
-                        subtitle(locale: EN)
-                        tileImage {
-                          url
-                        }
-                      }
-                    }
-                  }
-                  landingSectionsES: landingSections {
-                    title(locale: ES)
-                    pages {
-                      slug(locale: ES)
-                      pageType
-                      product {
-                        title(locale: ES)
-                        subtitle(locale: ES)
-                        tileImage {
-                          url
-                        }
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -141,7 +114,7 @@ exports.createPages = ({ graphql, actions }) => {
               slugES,
               article,
               industry,
-              landing,
+              // landing,
               promo,
               service,
             } = pages[j];
@@ -155,28 +128,28 @@ exports.createPages = ({ graphql, actions }) => {
                   path: pagePathEN,
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
-                    activeLanguage: 'EN',
+                    // activeLanguage: 'EN',
                     id,
                     locale: 'EN',
                     mydata: data,
-                    page: slugEN,
+                    // page: slugEN,
                     region: 'NORTH_AMERICA',
-                    title: landing.titleEN,
-                    landingSections: landing.landingSectionsEN,
+                    // title: landing.titleEN,
+                    // landingSections: landing.landingSectionsEN,
                   },
                 });
                 createPage({
                   path: pagePathES,
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
-                    activeLanguage: 'ES',
+                    // activeLanguage: 'ES',
                     id,
                     locale: 'ES',
                     mydata: data,
-                    page: slugES,
+                    // page: slugES,
                     region: 'NORTH_AMERICA',
-                    title: landing.titleES,
-                    landingSections: landing.landingSectionsES,
+                    // title: landing.titleES,
+                    // landingSections: landing.landingSectionsES,
                   },
                 });
                 break;

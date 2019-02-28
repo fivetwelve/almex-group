@@ -19,7 +19,7 @@ const LandingTemplate = ({ data, pageContext }) => {
       },
     },
   } = data;
-  const label = mydata.labels[0];
+  // const label = mydata.labels[0];
   let sectionIdx = 0;
 
   const renderTiles = (pages, location) => {
@@ -32,14 +32,14 @@ const LandingTemplate = ({ data, pageContext }) => {
         case allPageTypes.LANDING:
           tileData = {
             slug: page.slug,
-            labels: label,
+            // labels: label,
             ...page.landing,
           };
           break;
         case allPageTypes.PRODUCT:
           tileData = {
             slug: page.slug,
-            labels: label,
+            // labels: label,
             ...page.product,
           };
           break;

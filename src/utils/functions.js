@@ -20,6 +20,10 @@ const createLinkFromPage = (location, page, language) => {
 };
 
 const getTitle = (page, language) => {
+  /*
+    For use when titles are returned from staticQuery in the form
+    of titleEN, titleES, etc. and we need the locale-specific one
+  */
   let title = '';
   switch (page.pageType) {
     case allPageTypes.ARTICLE:

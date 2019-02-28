@@ -1,13 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import Markdown from 'react-remarkable';
 import Layout from '../../../components/layout';
-import { articleType } from '../../../types';
+// import { articleType } from '../../../types';
 
 const allowHTML = { html: true };
 
 const AboutPage = ({ data }) => (
-  <Layout activeSection="ABOUT" data={data.cms}>
+  <Layout
+    activeLanguage="EN"
+    activeSection="ABOUT"
+    childrenClass="about"
+    data={data.cms}
+    region="NORTH_AMERICA"
+    title={data.cms.articles[0].title}
+  >
     <Markdown source={data.cms.articles[0].body[0]} options={allowHTML} />
   </Layout>
 );
@@ -17,7 +25,9 @@ AboutPage.defaultProps = {
 };
 
 AboutPage.propTypes = {
-  data: articleType,
+  data: PropTypes.shape({
+    title: PropTypes.string,
+  }),
 };
 
 export default AboutPage;
