@@ -21,10 +21,12 @@ const LandingTile = ({ data, location }) => {
           <div className="overlay">
             <div className="text-container">
               <span className="overlay-title">{title}</span>
-              <div className="overlay-subtitle">
-                <span className="indicator">&#9650;</span>
-                <span className="subtitle">{subtitle}</span>
-              </div>
+              {subtitle && (
+                <div className="overlay-subtitle">
+                  <span className="indicator">&#9650;</span>
+                  <span className="subtitle">{subtitle}</span>
+                </div>
+              )}
             </div>
           </div>
         </div>
