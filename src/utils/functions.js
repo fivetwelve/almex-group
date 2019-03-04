@@ -14,9 +14,19 @@ const createLink = (location, slug) => {
 };
 
 const createLinkFromPage = (location, page, language) => {
-  /* given a page object, return language-specific URL */
+  /* Given a page object, return language-specific URL. */
   const slug = page[`slug${language.toUpperCase()}`];
   return createLink(location, slug);
+};
+
+const getSlug = pathname => {
+  /*
+    Get slug from pathname; do not include origin attribute.
+    e.g. /northamerica/en/presses/
+  */
+  const reg = /^(?:[^/]*\/){3}([^/]*)/;
+  const slug = reg.exec(pathname)[1] || '';
+  return slug;
 };
 
 const getTitle = (page, language) => {
@@ -50,4 +60,4 @@ const getTitle = (page, language) => {
   return title;
 };
 
-export { createLink, createLinkFromPage, getTitle };
+export { createLink, createLinkFromPage, getSlug, getTitle };

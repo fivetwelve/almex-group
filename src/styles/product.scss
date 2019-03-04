@@ -1,0 +1,36 @@
+.product {
+  margin-top: 150px;
+  .product-container {
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    .title-container {
+      height: 55px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      &.heavyweight {
+        background-color: var(--prussian-blue);
+      }
+      .section-title {
+        color: var(--white);
+        font-size: 28px;
+        font-weight: bold;
+        padding-left: 15px;
+      }
+    }
+    .product-advantages,
+    .product-features,
+    .product-specs {
+      padding-top: 35px;
+      padding-bottom: 35px;
+      padding-left: 100px;
+      padding-right: 100px;
+    }
+    .product-advantages {
+      &.heavyweight {
+        background-color: var(--prussian-blue20);
+      }
+    }
+  }
+}

@@ -9,8 +9,6 @@ import Footer from './footer';
 import { LocationProvider } from '../utils/locationContext';
 import '../styles/layout.scss';
 
-// const LocationContext = React.createContext({});
-
 class Layout extends React.Component {
   constructor(props) {
     super(props);

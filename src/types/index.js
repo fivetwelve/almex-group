@@ -16,7 +16,7 @@ const productType = PropTypes.shape({
     products: PropTypes.shape({
       title: PropTypes.string.isRequired,
       category: PropTypes.string.isRequired,
-      specifications: PropTypes.string.isRequired,
+      specs: PropTypes.string.isRequired,
       summary: PropTypes.string.isRequired,
       pageslug: PropTypes.string.isRequired,
     }),

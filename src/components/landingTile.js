@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'gatsby';
+import LinkWithPrevious from './linkWithPrevious';
 import { createLink } from '../utils/functions';
 import '../styles/landingTile.scss';
 
@@ -15,7 +15,7 @@ const LandingTile = ({ data, location }) => {
       <div className="tile-title">
         <h3>{title}</h3>
       </div>
-      <Link to={createLink(location, slug)}>
+      <LinkWithPrevious to={createLink(location, slug)}>
         <div className="image-container">
           <div className="background" style={imageStyle} />
           <div className="overlay">
@@ -30,7 +30,7 @@ const LandingTile = ({ data, location }) => {
             </div>
           </div>
         </div>
-      </Link>
+      </LinkWithPrevious>
     </div>
   );
 };

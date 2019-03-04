@@ -74,21 +74,23 @@ exports.createPages = ({ graphql, actions }) => {
             availableIn
             productsEN: products(where: { status: PUBLISHED }) {
               page {
+                id
                 slug(locale: EN)
               }
-              features(locale: EN)
-              specifications(locale: EN)
-              summary(locale: EN)
-              title(locale: EN)
+              # features(locale: EN)
+              # specs(locale: EN)
+              # summary(locale: EN)
+              # title(locale: EN)
             }
             productsES: products(where: { status: PUBLISHED }) {
               page {
+                id
                 slug(locale: ES)
               }
-              features(locale: ES)
-              specifications(locale: ES)
-              summary(locale: ES)
-              title(locale: ES)
+              # features(locale: ES)
+              # specs(locale: ES)
+              # summary(locale: ES)
+              # title(locale: ES)
             }
           }
         }
@@ -131,7 +133,7 @@ exports.createPages = ({ graphql, actions }) => {
                     // activeLanguage: 'EN',
                     id,
                     locale: 'EN',
-                    mydata: data,
+                    siteData: data,
                     // page: slugEN,
                     region: 'NORTH_AMERICA',
                     // title: landing.titleEN,
@@ -145,7 +147,7 @@ exports.createPages = ({ graphql, actions }) => {
                     // activeLanguage: 'ES',
                     id,
                     locale: 'ES',
-                    mydata: data,
+                    siteData: data,
                     // page: slugES,
                     region: 'NORTH_AMERICA',
                     // title: landing.titleES,
@@ -160,7 +162,7 @@ exports.createPages = ({ graphql, actions }) => {
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
                     activeLanguage: 'EN',
-                    data,
+                    siteData: data,
                     page: slugEN,
                     region: 'NORTH_AMERICA',
                     title: article.titleEN,
@@ -171,7 +173,7 @@ exports.createPages = ({ graphql, actions }) => {
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
                     activeLanguage: 'ES',
-                    data,
+                    siteData: data,
                     page: slugES,
                     region: 'NORTH_AMERICA',
                     title: article.titleES,
@@ -184,7 +186,7 @@ exports.createPages = ({ graphql, actions }) => {
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
                     activeLanguage: 'EN',
-                    data,
+                    siteData: data,
                     page: slugEN,
                     region: 'NORTH_AMERICA',
                     title: industry.titleEN,
@@ -195,7 +197,7 @@ exports.createPages = ({ graphql, actions }) => {
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
                     activeLanguage: 'ES',
-                    data,
+                    siteData: data,
                     page: slugES,
                     region: 'NORTH_AMERICA',
                     title: industry.titleES,
@@ -208,7 +210,7 @@ exports.createPages = ({ graphql, actions }) => {
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
                     activeLanguage: 'EN',
-                    data,
+                    siteData: data,
                     page: slugEN,
                     region: 'NORTH_AMERICA',
                     title: promo.titleEN,
@@ -219,7 +221,7 @@ exports.createPages = ({ graphql, actions }) => {
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
                     activeLanguage: 'ES',
-                    data,
+                    siteData: data,
                     page: slugES,
                     region: 'NORTH_AMERICA',
                     title: promo.titleES,
@@ -232,7 +234,7 @@ exports.createPages = ({ graphql, actions }) => {
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
                     activeLanguage: 'EN',
-                    data,
+                    siteData: data,
                     page: slugEN,
                     region: 'NORTH_AMERICA',
                     title: service.titleEN,
@@ -243,7 +245,7 @@ exports.createPages = ({ graphql, actions }) => {
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
                     activeLanguage: 'ES',
-                    data,
+                    siteData: data,
                     page: slugES,
                     region: 'NORTH_AMERICA',
                     title: service.titleES,
@@ -261,33 +263,31 @@ exports.createPages = ({ graphql, actions }) => {
         const component = path.resolve(`./src/templates/product-template.js`);
         /* English */
         for (let i = 0; i < productsEN.length; i += 1) {
-          const { page, category, title, specifications, summary, features } = productsEN[i];
+          // const { page, category, title, specs, summary, features } = productsEN[i];
+          const { page } = productsEN[i];
           createPage({
             path: `${allRegions[availableIn]}/en/${page.slug}`,
             component,
             context: {
-              slug: page.slug,
-              category,
-              title,
-              specifications,
-              summary,
-              features,
+              id: page.id,
+              locale: 'EN',
+              siteData: data,
+              region: 'NORTH_AMERICA',
             },
           });
         }
         /* Spanish */
         for (let i = 0; i < productsES.length; i += 1) {
-          const { page, category, title, specifications, summary, features } = productsES[i];
+          // const { page, category, title, specs, summary, features } = productsES[i];
+          const { page } = productsES[i];
           createPage({
             path: `${allRegions[availableIn]}/es/${page.slug}`,
             component,
             context: {
-              slug: page.slug,
-              category,
-              title,
-              specifications,
-              summary,
-              features,
+              id: page.id,
+              locale: 'ES',
+              siteData: data,
+              region: 'NORTH_AMERICA',
             },
           });
         }

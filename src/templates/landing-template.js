@@ -10,8 +10,8 @@ import '../styles/landing.scss';
 // const allowHTML = { html: true };
 
 const LandingTemplate = ({ data, pageContext }) => {
-  // const { activeLanguage, mydata, region, title } = pageContext;
-  const { locale, mydata, region, title } = pageContext;
+  // const { activeLanguage, siteData, region, title } = pageContext;
+  const { locale, siteData, region, title } = pageContext;
   const {
     cms: {
       page: {
@@ -19,7 +19,7 @@ const LandingTemplate = ({ data, pageContext }) => {
       },
     },
   } = data;
-  // const label = mydata.labels[0];
+  // const label = siteData.labels[0];
   let sectionIdx = 0;
 
   const renderTiles = (pages, location) => {
@@ -61,7 +61,7 @@ const LandingTemplate = ({ data, pageContext }) => {
       childrenClass="landing"
       region={region}
       title=""
-      data={mydata}
+      data={siteData}
     >
       <Location>
         {({ location }) => (
@@ -104,10 +104,10 @@ LandingTemplate.propTypes = {
     id: PropTypes.string,
   }),
   pageContext: PropTypes.shape({
-    activeLanguage: PropTypes.string,
-    mydata: PropTypes.object,
     landingSections: PropTypes.array,
+    locale: PropTypes.string,
     region: PropTypes.string,
+    siteData: PropTypes.object,
     title: PropTypes.string,
   }),
 };
