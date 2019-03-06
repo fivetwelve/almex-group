@@ -91,7 +91,7 @@
             padding-right: 30px;
           }
           .brands-icon {
-            color: var(--bright-gold);
+            color: var(--yellow-sea);
           }
           .search {
             input {
@@ -157,7 +157,7 @@
             cursor: pointer;
             &:hover,
             &.is-open {
-              color: var(--bright-gold);
+              color: var(--yellow-sea);
               .indicator {
                 opacity: 1;
               }
@@ -166,7 +166,7 @@
               display: block;
               height: 6px;
               width: 25px;
-              border-bottom: 3px solid var(--bright-gold);
+              border-bottom: 3px solid var(--yellow-sea);
               opacity: 0;
               transition: var(--easeinout);
             }
@@ -206,7 +206,7 @@
           }
           .title {
             @include neue-med;
-            color: var(--bright-gold);
+            color: var(--yellow-sea);
             font-size: 15px;
             text-decoration: underline;
             margin-top: 20px;
@@ -234,7 +234,7 @@
                 color: var(--white);
                 text-decoration: none;
                 &:hover {
-                  color: var(--bright-gold);
+                  color: var(--yellow-sea);
                   text-decoration: underline;
                   transition: var(--easeinout);
                 }

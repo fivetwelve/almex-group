@@ -208,28 +208,5 @@ $borderWhite: $borderWidth solid var(--white);
     p:last-child {
       margin-bottom: 0;
     }
-    .more-container {
-      &:hover {
-        border-bottom: 2px solid var(--bright-gold);
-      }
-      a {
-        text-decoration: none;
-      }
-      .more,
-      .more-arrow {
-        color: var(--bright-gold);
-        text-decoration: none;
-      }
-      .more {
-        letter-spacing: 0.8px;
-        text-transform: lowercase;
-      }
-      .more-arrow {
-        font-size: 150%;
-        font-height: 14px;
-        position: relative;
-        top: 2px;
-      }
-    }
   }
 }

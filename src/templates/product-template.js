@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import Markdown from 'react-remarkable';
-import Carousel from 'nuka-carousel';
 // import Dump from '../utils/dump';
 import Layout from '../components/layout';
 import LinkWithPrevious from '../components/linkWithPrevious';
 import { getSlug } from '../utils/functions';
 import '../styles/product.scss';
+import ProductShowcase from '../components/productShowcase';
 
 const allowHTML = { html: true };
 
@@ -19,11 +19,11 @@ const ProductTemplate = ({ data, location, pageContext }) => {
       labels,
       page: {
         belongsTo,
-        product: { title, marketing, advantages, features, images, specs },
+        product: { title, marketing, advantages, features, images, productInfo, specs, youTubeIDs },
       },
     },
   } = data;
-  const { products } = labels[0];
+  const { common, products } = labels[0];
   let slideNum = 0;
   const slideArray = [];
 
@@ -61,46 +61,63 @@ const ProductTemplate = ({ data, location, pageContext }) => {
     >
       <>
         <div className="product-container">
-          <Carousel
-            className="carousel"
-            // autoGenerateStyleTag={options.autoGenerateStyleTag}
-            // enableKeyboardControls={options.enableKeyboardControls}
-            // renderCenterLeftControls={({ previousSlide }) => (
-            //   <button onClick={previousSlide} type="button" className="left-controls">
-            //     <span className="sr-only">Previous</span>
-            //     <span aria-hidden="true" className="left-controls-icon">
-            //       <IconContext.Provider value={{ className: 'left-controls-icon' }}>
-            //         <FaChevronLeft aria-hidden />
-            //       </IconContext.Provider>
-            //     </span>
-            //   </button>
-            // )}
-            // renderCenterRightControls={({ nextSlide }) => (
-            //   <button onClick={nextSlide} type="button" className="right-controls">
-            //     <span className="sr-only">Next</span>
-            //     <span aria-hidden="true" className="right-controls-icon">
-            //       <IconContext.Provider value={{ className: 'right-controls-icon' }}>
-            //         <FaChevronRight aria-hidden />
-            //       </IconContext.Provider>
-            //     </span>
-            //   </button>
-            // )}
-            // renderBottomCenterControls={() => null}
-            // wrapAround={options.wrapAround}
-          >
-            {/* {slideArray} */}
-          </Carousel>
-          {/* <Dump src={data} /> */}
-          {location.state && (
-            <div className="go-back">
-              <LinkWithPrevious to={location.state.prevLocation}>
-                {`Back to /${getSlug(location.state.prevLocation)}`}
-              </LinkWithPrevious>
-            </div>
-          )}
           <div className={`title-container ${theme}`}>
             <div className="section-title">{title}</div>
           </div>
+          {location.state && (
+            <div className="go-back">
+              <div className="link-container">
+                <LinkWithPrevious to={location.state.prevLocation}>
+                  <span className="back-arrow">&laquo;&nbsp;</span>
+                  <span className="back-text">
+                    {`${common.BACK} /${getSlug(location.state.prevLocation)}`}
+                  </span>
+                </LinkWithPrevious>
+              </div>
+            </div>
+          )}
+          <ProductShowcase images={images} title={title} youTubeIDs={youTubeIDs} />
+          {/* <div className="showcase">
+            <div className="carousel-container">
+              <Carousel
+                className="carousel"
+                autoGenerateStyleTag={options.autoGenerateStyleTag}
+                enableKeyboardControls={options.enableKeyboardControls}
+                renderCenterLeftControls={({ previousSlide }) => (
+                  <button onClick={previousSlide} type="button" className="left-controls">
+                    <span className="sr-only">Previous</span>
+                    <span aria-hidden="true" className="left-controls-icon">
+                      <IconContext.Provider value={{ className: 'left-controls-icon' }}>
+                        <FaChevronLeft aria-hidden />
+                      </IconContext.Provider>
+                    </span>
+                  </button>
+                )}
+                renderCenterRightControls={({ nextSlide }) => (
+                  <button onClick={nextSlide} type="button" className="right-controls">
+                    <span className="sr-only">Next</span>
+                    <span aria-hidden="true" className="right-controls-icon">
+                      <IconContext.Provider value={{ className: 'right-controls-icon' }}>
+                        <FaChevronRight aria-hidden />
+                      </IconContext.Provider>
+                    </span>
+                  </button>
+                )}
+                renderBottomCenterControls={() => null}
+                wrapAround={options.wrapAround}
+              >
+                {slideArray}
+              </Carousel>
+            </div>
+            <div className="data-container">
+              <div className="logo" />
+              <div className="product-name">{title}</div>
+              <div className="attract-loop" />
+              <div className="downloads" />
+            </div>
+          </div>
+          <div className="carousel-controls" /> */}
+          {/* <Dump src={data} /> */}
           <div className="product-marketing">
             <Markdown source={marketing} options={allowHTML} />
           </div>
@@ -114,13 +131,22 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               </div>
             </>
           )}
-          {features && (
+          {(features || productInfo) && (
             <>
               <div className={`title-container ${theme}`}>
                 <div className="section-title">{products.FEATURES}</div>
               </div>
-              <div className="product-features">
-                <Markdown source={features} options={allowHTML} />
+              <div className="features-info-container">
+                {features && (
+                  <div className="product-features">
+                    <Markdown source={features} options={allowHTML} />
+                  </div>
+                )}
+                {productInfo && (
+                  <div className="product-info">
+                    <Markdown source={productInfo} options={allowHTML} />
+                  </div>
+                )}
               </div>
             </>
           )}
@@ -171,6 +197,7 @@ export const query = graphql`
   query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
     cms {
       labels(where: { region: $region }) {
+        common(locale: $locale)
         products(locale: $locale)
       }
       page(where: { id: $id }) {
@@ -186,6 +213,7 @@ export const query = graphql`
           }
           productInfo(locale: $locale)
           specs(locale: $locale)
+          youTubeIDs
         }
       }
     }

@@ -7,50 +7,81 @@
 
 :root {
   /* Greys */
-  --grey05: #f7f7f7;
-  --grey20: #e5e6e8;
-  --grey30: #d1d1d6;
-  --grey40: #c7c7cc;
-  --grey60: #8e8e93;
-  --grey70: #61616a;
-  --grey80: #35353f;
   --grey90: #16161f;
+  --grey80: #35353f;
+  --grey70: #61616a;
+  --grey60: #8e8e93;
+  --grey40: #c7c7cc;
+  --grey30: #d1d1d6;
+  --grey20: #e5e6e8;
+  --grey05: #f7f7f7;
   --grey-river: #484d56;
+
+  --light-grey: #a1a1a4;
+  --light-grey80: #b4b4b6;
+  --light-grey60: #c7c7c8;
+  --light-grey40: #d9d9db;
+  --light-grey20: #ececed;
 
   /* Basics */
   --black: #000;
   --white: #fff;
 
-  /* Colour names come from 'Name that Color' http://chir.ag/projects/name-that-color */
+  /*
+    Color names come from 'Name that Color' 
+    http://chir.ag/projects/name-that-color
+  */
 
   --blue-almex: #3b6e8f;
   --red-piper: #d65f27;
+
+  /* heavyweight, industrial & fusion cold */
+  --prussian-blue: #00334e;
+  --prussian-blue80: #335c71;
+  --prussian-blue60: #668595;
+  --prussian-blue40: #99adb8;
+  --prussian-blue30: #b3c2ca;
+  --prussian-blue20: #ccd6dc;
+  --prussian-blue10: #e6ebee;
+
+  /* lightweight */
+  --allports: #027b98;
+  --allports80: #3595ad;
+  --allports60: #67b0c1;
+  --allports40: #9acad6;
+  --allports30: #b4d8e1;
+  --allports20: #cce5ea;
+  --allports10: #e6f2f5;
+
+  /* fusion hot */
+  --tango: #f47b29;
+  --tango80: #f69554;
+  --tango60: #f8b07f;
+  --tango40: #fbcaa9;
+  --tango30: #fcd8bf;
+  --tango20: #fde5d4;
+  --tango10: #fef2ea;
+
+  --yellow-sea: #f2a900;
+  --yellow-sea80: #f5ba33;
+  --yellow-sea60: #f7cb66;
+  --yellow-sea40: #fadd99;
+  --yellow-sea30: #fce6b3;
+  --yellow-sea20: #fceecc;
+  --yellow-sea10: #fef7e6;
 
   --dark-blue: #00324e;
   --dark-blue80: #335c71;
   --dark-blue60: #668595;
   --dark-blue40: #899da8;
   --dark-blue20: #ccd6dc;
-  --prussian-blue: #00334e;
-  --prussian-blue80: #335c71;
-  --prussian-blue60: #668595;
-  --prussian-blue40: #99adb8;
-  --prussian-blue20: #ccd6dc;
-  --light-grey: #a1a1a4;
-  --light-grey80: #b4b4b6;
-  --light-grey60: #c7c7c8;
-  --light-grey40: #d9d9db;
-  --light-grey20: #ececed;
-  --bright-gold: #f0ab00;
-  --bright-gold80: #f3bc33;
-  --bright-gold60: #f6cd66;
-  --bright-gold40: #f9dd99;
-  --bright-gold20: #fceecc;
+
   --gold: #d69f3b;
   --gold80: #deb262;
   --gold60: #e6c589;
   --gold40: #efd9b1;
   --gold20: #f7ecd8;
+
   --blue: #3b6e8f;
   --blue80: #628ba5;
   --blue60: #89a8bc;

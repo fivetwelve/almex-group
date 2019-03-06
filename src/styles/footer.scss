@@ -117,7 +117,7 @@
       a {
         color: var(--white);
         &:hover {
-          color: var(--bright-gold);
+          color: var(--yellow-sea);
         }
         transition: var(--easeinout);
       }
@@ -137,7 +137,7 @@
       }
       &:active,
       &:hover {
-        color: var(--bright-gold);
+        color: var(--yellow-sea);
         text-decoration: underline;
       }
     }

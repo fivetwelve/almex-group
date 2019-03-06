@@ -106,15 +106,16 @@ $cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
       margin-bottom: 0;
     }
     .more-container {
+      margin-top: 10px;
       &:hover {
-        border-bottom: 2px solid var(--bright-gold);
+        border-bottom: 2px solid var(--yellow-sea);
       }
       a {
         text-decoration: none;
       }
       .more,
       .more-arrow {
-        color: var(--bright-gold);
+        color: var(--yellow-sea);
         text-decoration: none;
       }
       .more {
@@ -123,7 +124,7 @@ $cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
       }
       .more-arrow {
         font-size: 150%;
-        font-height: 14px;
+        line-height: 14px;
         position: relative;
         top: 2px;
       }

@@ -24,6 +24,9 @@ const getSlug = pathname => {
     Get slug from pathname; do not include origin attribute.
     e.g. /northamerica/en/presses/
   */
+  if (pathname === null) {
+    return '';
+  }
   const reg = /^(?:[^/]*\/){3}([^/]*)/;
   const slug = reg.exec(pathname)[1] || '';
   return slug;

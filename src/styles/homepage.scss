@@ -67,7 +67,7 @@ $spacing: 20px;
 
     .heading-container {
       width: 100%;
-      background-color: var(--bright-gold);
+      background-color: var(--yellow-sea);
       height: 70px;
       display: flex;
       position: absolute;
@@ -128,7 +128,7 @@ $spacing: 20px;
 
   .heading1-container {
     width: 100%;
-    background-color: var(--bright-gold);
+    background-color: var(--yellow-sea);
     height: 50px;
     display: flex;
     .heading1 {
@@ -229,7 +229,7 @@ $spacing: 20px;
           background-color: var(--blue);
         }
         .event-overlay-gold {
-          background-color: var(--bright-gold);
+          background-color: var(--yellow-sea);
         }
         &:hover {
           .event-overlay-blue,
@@ -251,7 +251,7 @@ $spacing: 20px;
       }
     }
     .event2 {
-      // background-color: var(--bright-gold80);
+      // background-color: var(--yellow-sea80);
       @include media('>=desktop') {
         margin-right: $spacing;
       }
