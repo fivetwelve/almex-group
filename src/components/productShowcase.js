@@ -5,26 +5,25 @@ import YouTube from 'react-youtube';
 import shortid from 'shortid';
 import { IconContext } from 'react-icons';
 import { FaChevronLeft, FaChevronRight, FaYoutube } from 'react-icons/fa';
+import ProductBrand from './productBrand';
 
 class ProductShowcase extends React.Component {
   constructor(props) {
     super(props);
-    const { images, youTubeIDs } = props;
+    const { images, youTubeIDs, pdfDownloads, pdfTitles } = props;
     const slideArray = [];
+    const pdfArray = [];
 
     for (let i = 0; i < images.length; i += 1) {
-      let slide = null;
       const slideStyle = {
         backgroundImage: `url(${images[i].url})`,
       };
-      slide = <div className="slide-image" style={slideStyle} key={shortid.generate()} />;
+      const slide = <div className="slide-image" style={slideStyle} key={shortid.generate()} />;
       slideArray.push(slide);
     }
 
     for (let j = 0; j < youTubeIDs.length; j += 1) {
-      let slide = null;
-
-      slide = (
+      const slide = (
         <div className="video-container" key={shortid.generate()}>
           <YouTube videoId={youTubeIDs[j]} />
         </div>
@@ -32,11 +31,24 @@ class ProductShowcase extends React.Component {
       slideArray.push(slide);
     }
 
+    for (let k = 0; k < pdfDownloads.length; k += 1) {
+      const pdf = (
+        <div className="pdf-download">
+          <div className="pdf-icon" />
+          <div className="pdf-title">
+            <a href={pdfDownloads[k].url}>{pdfTitles[k] || pdfDownloads[k].fileName}</a>
+          </div>
+        </div>
+      );
+      pdfArray.push(pdf);
+    }
+
     this.state = {
       autoGenerateStyleTag: false,
       enableKeyboardControls: true,
       slideIdx: 0,
       slideArray,
+      pdfArray,
       wrapAround: true,
     };
   }
@@ -67,12 +79,13 @@ class ProductShowcase extends React.Component {
   };
 
   render() {
-    const { images, title, youTubeIDs } = this.props;
+    const { brand, images, themeColour, subtitle, title, youTubeIDs } = this.props;
     const {
       autoGenerateStyleTag,
       enableKeyboardControls,
       slideIdx,
       slideArray,
+      pdfArray,
       wrapAround,
     } = this.state;
 
@@ -123,10 +136,11 @@ class ProductShowcase extends React.Component {
             </Carousel>
           </div>
           <div className="data-container">
-            <div className="logo" />
-            <div className="product-name">{title}</div>
+            {brand && <ProductBrand brand={brand} />}
+            <div className="product-title">{title}</div>
+            <div className={`product-subtitle ${themeColour}`}>{subtitle}</div>
             <div className="attract-loop" />
-            <div className="downloads" />
+            <div className="downloads">{pdfArray}</div>
           </div>
         </div>
         <div className="carousel-controls">
@@ -180,19 +194,32 @@ class ProductShowcase extends React.Component {
 }
 
 ProductShowcase.defaultProps = {
+  brand: '',
   images: {},
+  themeColour: '',
+  subtitle: '',
   title: '',
   youTubeIDs: [],
+  pdfDownloads: [],
+  pdfTitles: [],
 };
 
 ProductShowcase.propTypes = {
+  brand: PropTypes.string,
   images: PropTypes.arrayOf(
     PropTypes.shape({
       url: PropTypes.string,
     }),
   ),
+  themeColour: PropTypes.string,
+  subtitle: PropTypes.string,
   title: PropTypes.string,
   youTubeIDs: PropTypes.arrayOf(PropTypes.string),
+  pdfDownloads: PropTypes.shape({
+    fileName: PropTypes.string,
+    url: PropTypes.string,
+  }),
+  pdfTitles: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default ProductShowcase;

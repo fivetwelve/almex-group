@@ -16,15 +16,15 @@ module.exports = {
     SOUTH_AMERICA: 'southamerica',
   },
   allBrands: {
-    ALMEX_IN_A_BOX: 'Almex in a box',
-    FUSION: 'Fusion',
+    ALMEX_IN_A_BOX: 'ALMEX_IN_A_BOX',
+    FUSION: 'FUSION',
   },
   allThemes: {
-    DEFAULT: 'default',
-    HEAVYWEIGHT: 'heavyweight',
-    LIGHTWEIGHT: 'lightweight',
-    INDUSTRIAL: 'industrial',
-    FUSION_HOT: 'Fusion hot',
-    FUSION_COLD: 'Fusion cold',
+    DEFAULT: 'DEFAULT',
+    HEAVYWEIGHT: 'HEAVYWEIGHT',
+    LIGHTWEIGHT: 'LIGHTWEIGHT',
+    INDUSTRIAL: 'INDUSTRIAL',
+    FUSION_HOT: 'FUSION_HOT',
+    FUSION_COLD: 'FUSION_COLD',
   },
 };

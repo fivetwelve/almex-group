@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import Markdown from 'react-remarkable';
-// import Dump from '../utils/dump';
 import Layout from '../components/layout';
 import LinkWithPrevious from '../components/linkWithPrevious';
+import ProductShowcase from '../components/productShowcase';
+import { allThemes } from '../constants';
 import { getSlug } from '../utils/functions';
 import '../styles/product.scss';
-import ProductShowcase from '../components/productShowcase';
+// import Dump from '../utils/dump';
 
 const allowHTML = { html: true };
 
@@ -19,36 +20,68 @@ const ProductTemplate = ({ data, location, pageContext }) => {
       labels,
       page: {
         belongsTo,
-        product: { title, marketing, advantages, features, images, productInfo, specs, youTubeIDs },
+        product: {
+          brand,
+          theme,
+          title,
+          subtitle,
+          marketing,
+          advantages,
+          advantagesImage,
+          features,
+          images,
+          productInfo,
+          specs,
+          youTubeIDs,
+          pdfDownloads,
+          pdfTitles,
+        },
       },
     },
   } = data;
   const { common, products } = labels[0];
-  let slideNum = 0;
-  const slideArray = [];
+  let themeColour = '';
 
-  for (let i = 0; i < images.length; i += 1) {
-    let element = null;
-    slideNum += 1;
-    const slideStyle = {
-      backgroundImage: `url(${images[i].url})`,
-    };
-    element = (
-      <React.Fragment key={slideNum}>
-        <div className="slide-image" style={slideStyle} />
-        {/* <div className="heading-container">
-            <div className="heading">
-              <Link to={location.pathname + images[i].page.slug}>
-                <Markdown source={slides[i].slideText} options={{ html: true }} />
-              </Link>
-            </div>
-          </div> */}
-      </React.Fragment>
-    );
-    slideArray.push(element);
+  let featuresProdInfoTitle = '';
+
+  const advantagesImageStyle = advantagesImage
+    ? {
+        backgroundImage: `url(${advantagesImage.url})`,
+      }
+    : '';
+
+  if (features && productInfo) {
+    featuresProdInfoTitle = products.FEATURES_PROD_INFO;
+  }
+  if (!productInfo) {
+    featuresProdInfoTitle = products.FEATURES;
+  }
+  if (!features) {
+    featuresProdInfoTitle = products.PROD_INFO;
   }
 
-  const theme = 'heavyweight';
+  switch (theme) {
+    case allThemes.HEAVYWEIGHT: {
+      break;
+    }
+    case allThemes.LIGHTWEIGHT: {
+      themeColour = 'teal';
+      break;
+    }
+    case allThemes.INDUSTRIAL: {
+      break;
+    }
+    case allThemes.FUSION_COLD: {
+      break;
+    }
+    case allThemes.FUSION_HOT: {
+      themeColour = 'orange';
+      break;
+    }
+    default: {
+      break;
+    }
+  }
 
   return (
     <Layout
@@ -61,7 +94,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
     >
       <>
         <div className="product-container">
-          <div className={`title-container ${theme}`}>
+          <div className={`title-container ${themeColour}`}>
             <div className="section-title">{title}</div>
           </div>
           {location.state && (
@@ -76,74 +109,50 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               </div>
             </div>
           )}
-          <ProductShowcase images={images} title={title} youTubeIDs={youTubeIDs} />
-          {/* <div className="showcase">
-            <div className="carousel-container">
-              <Carousel
-                className="carousel"
-                autoGenerateStyleTag={options.autoGenerateStyleTag}
-                enableKeyboardControls={options.enableKeyboardControls}
-                renderCenterLeftControls={({ previousSlide }) => (
-                  <button onClick={previousSlide} type="button" className="left-controls">
-                    <span className="sr-only">Previous</span>
-                    <span aria-hidden="true" className="left-controls-icon">
-                      <IconContext.Provider value={{ className: 'left-controls-icon' }}>
-                        <FaChevronLeft aria-hidden />
-                      </IconContext.Provider>
-                    </span>
-                  </button>
-                )}
-                renderCenterRightControls={({ nextSlide }) => (
-                  <button onClick={nextSlide} type="button" className="right-controls">
-                    <span className="sr-only">Next</span>
-                    <span aria-hidden="true" className="right-controls-icon">
-                      <IconContext.Provider value={{ className: 'right-controls-icon' }}>
-                        <FaChevronRight aria-hidden />
-                      </IconContext.Provider>
-                    </span>
-                  </button>
-                )}
-                renderBottomCenterControls={() => null}
-                wrapAround={options.wrapAround}
-              >
-                {slideArray}
-              </Carousel>
-            </div>
-            <div className="data-container">
-              <div className="logo" />
-              <div className="product-name">{title}</div>
-              <div className="attract-loop" />
-              <div className="downloads" />
-            </div>
-          </div>
-          <div className="carousel-controls" /> */}
+          <ProductShowcase
+            brand={brand}
+            images={images}
+            themeColour={themeColour}
+            title={title}
+            subtitle={subtitle}
+            youTubeIDs={youTubeIDs}
+            pdfDownloads={pdfDownloads}
+            pdfTitles={pdfTitles}
+          />
           {/* <Dump src={data} /> */}
-          <div className="product-marketing">
+          <div className={`product-marketing ${themeColour}`}>
             <Markdown source={marketing} options={allowHTML} />
           </div>
           {advantages && (
             <>
-              <div className={`title-container ${theme}`}>
+              <div className={`title-container ${themeColour}`}>
                 <div className="section-title">{products.ADVANTAGES}</div>
               </div>
-              <div className="product-advantages">
-                <Markdown source={advantages} options={allowHTML} />
+              <div className={`product-advantages ${themeColour}`}>
+                <div className="advantages-text">
+                  <Markdown source={advantages} options={allowHTML} />
+                </div>
+                {advantagesImage && (
+                  <div className="advantages-image" style={advantagesImageStyle} />
+                )}
               </div>
             </>
           )}
           {(features || productInfo) && (
             <>
-              <div className={`title-container ${theme}`}>
-                <div className="section-title">{products.FEATURES}</div>
+              <div className={`title-container ${themeColour}`}>
+                <div className="section-title">{featuresProdInfoTitle}</div>
               </div>
               <div className="features-info-container">
                 {features && (
-                  <div className="product-features">
+                  <div className={`product-features ${themeColour}`}>
+                    <h4>{products.FEATURES}</h4>
                     <Markdown source={features} options={allowHTML} />
                   </div>
                 )}
                 {productInfo && (
-                  <div className="product-info">
+                  <div className={`product-info ${themeColour}`}>
+                    <h4>{products.PROD_INFO}</h4>
                     <Markdown source={productInfo} options={allowHTML} />
                   </div>
                 )}
@@ -152,10 +161,10 @@ const ProductTemplate = ({ data, location, pageContext }) => {
           )}
           {specs && (
             <>
-              <div className={`title-container ${theme}`}>
+              <div className={`title-container ${themeColour}`}>
                 <div className="section-title">{products.SPECS}</div>
               </div>
-              <div className="product-specs">
+              <div className={`product-specs ${themeColour}`}>
                 <Markdown source={specs} options={allowHTML} />
               </div>
             </>
@@ -204,9 +213,15 @@ export const query = graphql`
         belongsTo
         pageType
         product {
+          brand
+          theme
           title(locale: $locale)
+          subtitle(locale: $locale)
           marketing(locale: $locale)
           advantages(locale: $locale)
+          advantagesImage {
+            url
+          }
           features(locale: $locale)
           images {
             url
@@ -214,6 +229,11 @@ export const query = graphql`
           productInfo(locale: $locale)
           specs(locale: $locale)
           youTubeIDs
+          pdfDownloads(locale: $locale) {
+            fileName
+            url
+          }
+          pdfTitles(locale: $locale)
         }
       }
     }
