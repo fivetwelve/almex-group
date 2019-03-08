@@ -14,6 +14,7 @@ class ProductShowcase extends React.Component {
     const slideArray = [];
     const pdfArray = [];
 
+    /* populating carousel with images */
     for (let i = 0; i < images.length; i += 1) {
       const slideStyle = {
         backgroundImage: `url(${images[i].url})`,
@@ -22,6 +23,7 @@ class ProductShowcase extends React.Component {
       slideArray.push(slide);
     }
 
+    /* populating carousel with YouTube video */
     for (let j = 0; j < youTubeIDs.length; j += 1) {
       const slide = (
         <div className="video-container" key={shortid.generate()}>
@@ -31,14 +33,17 @@ class ProductShowcase extends React.Component {
       slideArray.push(slide);
     }
 
+    /* creating list of PDFs */
     for (let k = 0; k < pdfDownloads.length; k += 1) {
       const pdf = (
-        <div className="pdf-download">
-          <div className="pdf-icon" />
-          <div className="pdf-title">
-            <a href={pdfDownloads[k].url}>{pdfTitles[k] || pdfDownloads[k].fileName}</a>
+        <>
+          <div className="pdf">
+            <a href={pdfDownloads[k].url} target="_new">
+              <div className="pdf-icon" />
+              {pdfTitles[k] || pdfDownloads[k].fileName}
+            </a>
           </div>
-        </div>
+        </>
       );
       pdfArray.push(pdf);
     }
@@ -79,7 +84,7 @@ class ProductShowcase extends React.Component {
   };
 
   render() {
-    const { brand, images, themeColour, subtitle, title, youTubeIDs } = this.props;
+    const { brand, images, themeColour, subtitle, title, youTubeIDs, pdfDownloads } = this.props;
     const {
       autoGenerateStyleTag,
       enableKeyboardControls,
@@ -140,7 +145,7 @@ class ProductShowcase extends React.Component {
             <div className="product-title">{title}</div>
             <div className={`product-subtitle ${themeColour}`}>{subtitle}</div>
             <div className="attract-loop" />
-            <div className="downloads">{pdfArray}</div>
+            {pdfDownloads && <div className="downloads">{pdfArray}</div>}
           </div>
         </div>
         <div className="carousel-controls">

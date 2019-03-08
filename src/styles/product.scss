@@ -173,28 +173,13 @@ $spacing: 20px;
       }
       .data-container {
         width: 100%;
+        padding-left: $spacing;
+        padding-right: $spacing;
         @include media('>=tablet') {
           width: 410px;
           padding-left: $spacing;
           padding-right: $spacing;
           border-left: 1px solid var(--blue-almex);
-        }
-        .product-title {
-          color: var(--prussian-blue);
-          font-size: 25px;
-          font-weight: bold;
-        }
-        .product-subtitle {
-          color: var(--prussian-blue);
-          font-size: 18px;
-          font-weight: bold;
-          text-transform: uppercase;
-          &.orange {
-            color: var(--tango);
-          }
-          &.teal {
-            color: var(--allports);
-          }
         }
         .brand {
           margin-top: 35px;
@@ -213,12 +198,8 @@ $spacing: 20px;
             padding-top: 20px;
             margin-left: 10px;
             margin-right: 10px;
-            // a {
             display: inline-block;
-            // &:hover {
             background-position-y: 0;
-            // }
-            // }
           }
           &.almex-box {
             width: 135px;
@@ -266,10 +247,57 @@ $spacing: 20px;
             background-image: url('../../static/logo-knight.png');
           }
         }
+        .product-title {
+          color: var(--prussian-blue);
+          font-size: 25px;
+          font-weight: bold;
+        }
+        .product-subtitle {
+          margin-top: 10px;
+          color: var(--prussian-blue60);
+          font-size: 18px;
+          font-weight: bold;
+          text-transform: uppercase;
+          &.orange {
+            color: var(--tango);
+          }
+          &.teal {
+            color: var(--allports60);
+          }
+        }
         .attract-loop {
           display: none;
           @include media('>=tablet') {
             display: flex;
+          }
+        }
+        .downloads {
+          padding-top: 30px;
+          .pdf {
+            a,
+            a:visited {
+              color: var(--prussian-blue60);
+              font-size: 18px;
+              text-decoration: none;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              padding-bottom: 18px;
+              &:hover {
+                color: var(--yellow-sea);
+                text-decoration: underline;
+                transition: var(--easeinout);
+              }
+            }
+            .pdf-icon {
+              display: inline-block;
+              height: 32px;
+              width: 24px;
+              background-image: url('../../static/icon-file-pdf.svg');
+              background-size: cover;
+              background-position: center;
+              margin-right: 10px;
+            }
           }
         }
       }
@@ -388,12 +416,16 @@ $spacing: 20px;
       padding-bottom: 35px;
       padding-left: 100px;
       padding-right: 100px;
-      @include media('>=tablet') {
+      @include media('>=desktop') {
         flex-direction: row;
       }
     }
     .product-features + .product-info {
-      margin-left: 40px;
+      margin-top: 20px;
+      @include media('>=desktop') {
+        margin-top: 0;
+        margin-left: 40px;
+      }
     }
     .product-features,
     .product-info {

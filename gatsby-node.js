@@ -264,8 +264,6 @@ exports.createPages = ({ graphql, actions }) => {
         /* English */
         for (let i = 0; i < productsEN.length; i += 1) {
           // const { page, category, title, specs, summary, features } = productsEN[i];
-          console.log('len:', productsEN.length);
-          console.log('page:', productsEN[i]);
           const { page } = productsEN[i];
           createPage({
             path: `${allRegions[availableIn]}/en/${page.slug}`,
