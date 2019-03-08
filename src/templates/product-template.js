@@ -97,7 +97,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
           <div className={`title-container ${themeColour}`}>
             <div className="section-title">{title}</div>
           </div>
-          {location.state && (
+          {location && location.state && location.state.prevLocation && (
             <div className="go-back">
               <div className="link-container">
                 <LinkWithPrevious to={location.state.prevLocation}>

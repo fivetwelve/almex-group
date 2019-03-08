@@ -36,14 +36,12 @@ class ProductShowcase extends React.Component {
     /* creating list of PDFs */
     for (let k = 0; k < pdfDownloads.length; k += 1) {
       const pdf = (
-        <>
-          <div className="pdf">
-            <a href={pdfDownloads[k].url} target="_new">
-              <div className="pdf-icon" />
-              {pdfTitles[k] || pdfDownloads[k].fileName}
-            </a>
-          </div>
-        </>
+        <div className="pdf" key={shortid.generate()}>
+          <a href={pdfDownloads[k].url} target="_new">
+            <div className="pdf-icon" />
+            {pdfTitles[k] || pdfDownloads[k].fileName}
+          </a>
+        </div>
       );
       pdfArray.push(pdf);
     }
@@ -220,10 +218,12 @@ ProductShowcase.propTypes = {
   subtitle: PropTypes.string,
   title: PropTypes.string,
   youTubeIDs: PropTypes.arrayOf(PropTypes.string),
-  pdfDownloads: PropTypes.shape({
-    fileName: PropTypes.string,
-    url: PropTypes.string,
-  }),
+  pdfDownloads: PropTypes.arrayOf(
+    PropTypes.shape({
+      fileName: PropTypes.string,
+      url: PropTypes.string,
+    }),
+  ),
   pdfTitles: PropTypes.arrayOf(PropTypes.string),
 };
 
