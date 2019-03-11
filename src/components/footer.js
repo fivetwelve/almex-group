@@ -12,11 +12,23 @@ import {
   FaFacebookF,
 } from 'react-icons/fa';
 import Markdown from 'react-remarkable';
+// import headerFooterQuery from '../utils/queries';
 import '../styles/footer.scss';
 
 const Footer = ({ headerFooters, labels }) => {
   const { companyAddress, companyEmail, companyPhone, footerLinks, socialMedia } = headerFooters[0];
   const { footer } = labels[0];
+  // const Footer = data => {
+  // console.log(data);
+  // const {
+  //   companyAddress,
+  //   companyEmail,
+  //   companyPhone,
+  //   footerLinks,
+  //   socialMedia,
+  // } = data.headerFooters[0];
+  // const { footer } = data.labels[0];
+
   return (
     <>
       <div className="footer">
@@ -147,11 +159,20 @@ const Footer = ({ headerFooters, labels }) => {
 };
 
 Footer.defaultProps = {
+  // data: {},
+  // location: {},
   headerFooters: [],
   labels: [],
 };
 
 Footer.propTypes = {
+  // data: PropTypes.shape({
+  //   headerFooters: PropTypes.array,
+  //   labels: PropTypes.array,
+  // }),
+  // location: PropTypes.shape({
+  //   pathname: PropTypes.string,
+  // }),
   headerFooters: PropTypes.instanceOf(Array),
   labels: PropTypes.instanceOf(Array),
 };

@@ -19,6 +19,8 @@ const HeavyweightPage = ({ data }) => (
     data={data.cms}
     region="NORTH_AMERICA"
     title="Heavyweight"
+    headerFooters={data.cms.headerFooters}
+    labels={data.cms.labels}
   >
     <div style={shimStyle}>
       <Link to="/northamerica/en/ubr/">

@@ -48,6 +48,8 @@ const UBRPage = ({ data }) => (
     data={data.cms}
     region="NORTH_AMERICA"
     title="Heavyweight"
+    headerFooters={data.cms.headerFooters}
+    labels={data.cms.labels}
   >
     <div style={shimStyle}>
       <div style={columnStyle}>

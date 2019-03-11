@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { graphql } from 'gatsby';
 import { IconContext } from 'react-icons';
 import { FaBars, FaSearch } from 'react-icons/fa';
 import * as log from 'loglevel';
@@ -196,5 +197,26 @@ Header.propTypes = {
   // navigations: PropTypes.instanceOf(Array),
   region: PropTypes.string,
 };
+
+export const commonFragment = graphql`
+  fragment CommonData on GraphCMS {
+    labels(where: { region: $region }) {
+      header(locale: $locale)
+      footer(locale: $locale)
+      common(locale: $locale)
+    }
+    headerFooters(where: { region: $region }) {
+      companyAddress(locale: $locale)
+      companyEmail
+      companyPhone
+      footerLinks(locale: $locale)
+      formattedTagline(locale: $locale)
+      language
+      navigation(locale: $locale)
+      simpleTagline(locale: $locale)
+      socialMedia(locale: $locale)
+    }
+  }
+`;
 
 export default Header;

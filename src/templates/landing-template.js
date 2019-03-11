@@ -14,6 +14,8 @@ const LandingTemplate = ({ data, pageContext }) => {
   const { locale, siteData, region, title } = pageContext;
   const {
     cms: {
+      headerFooters,
+      labels,
       page: {
         landing: { landingSections },
       },
@@ -62,6 +64,8 @@ const LandingTemplate = ({ data, pageContext }) => {
       region={region}
       title=""
       data={siteData}
+      headerFooters={headerFooters}
+      labels={labels}
     >
       <Location>
         {({ location }) => (
@@ -113,8 +117,9 @@ LandingTemplate.propTypes = {
 };
 
 export const query = graphql`
-  query($id: ID!, $locale: GraphCMS_Locale!) {
+  query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
     cms {
+      ...CommonData
       page(where: { id: $id }) {
         landing {
           landingSections {

@@ -9,9 +9,9 @@ import '../../../styles/corporate.scss';
 
 const allowHTML = { html: true };
 
-const CorporatePage = data => {
-  const label = data.data.cms.labels[0];
-  const article = data.data.cms.articles[0];
+const CorporatePage = ({ data }) => {
+  const label = data.cms.labels[0];
+  const article = data.cms.articles[0];
   return (
     <Layout
       activeLanguage="EN"
@@ -19,7 +19,9 @@ const CorporatePage = data => {
       childrenClass="corporate-page"
       region="NORTH_AMERICA"
       title={article.title}
-      data={data.data.cms}
+      data={data.cms}
+      headerFooters={data.cms.headerFooters}
+      labels={data.cms.labels}
     >
       <div className="banner-container">
         <h1>{article.labels.corporate}</h1>

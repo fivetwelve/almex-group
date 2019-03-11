@@ -1,23 +1,34 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import { Location } from '@reach/router';
 import HomepageTemplate from '../../../templates/homepage-template';
 import Layout from '../../../components/layout';
 
-const Home = data => (
+const Home = ({ data }) => (
   <Layout
     activeLanguage="EN"
     activeSection=""
     childrenClass="homepage"
     region="NORTH_AMERICA"
     title=""
-    data={data.data.cms}
+    data={data.cms}
+    headerFooters={data.cms.headerFooters}
+    labels={data.cms.labels}
   >
-    <Location>
-      {({ location }) => <HomepageTemplate data={data.data} location={location} />}
-    </Location>
+    <Location>{({ location }) => <HomepageTemplate data={data} location={location} />}</Location>
   </Layout>
 );
+
+Home.defaultProps = {
+  data: {},
+};
+
+Home.propTypes = {
+  data: PropTypes.shape({
+    id: PropTypes.string,
+  }),
+};
 
 export const query = graphql`
   query {

@@ -49,11 +49,11 @@ class Layout extends React.Component {
       activeSection,
       children,
       childrenClass,
-      data,
+      headerFooters,
+      labels,
       region,
       title,
     } = this.props;
-    const { headerFooters, labels } = data;
     const lang = activeLanguage.toLowerCase();
     return (
       <>
@@ -128,11 +128,12 @@ class Layout extends React.Component {
                     </LocationProvider>
                   </div>
                   <Footer
-                    activeLanguage={activeLanguage}
+                    // activeLanguage={activeLanguage}
+                    locale={activeLanguage}
                     headerFooters={headerFooters}
                     labels={labels}
                     lang={lang}
-                    location={location}
+                    // location={location}
                     region={region}
                   />
                 </>
@@ -150,7 +151,8 @@ Layout.defaultProps = {
   activeSection: '',
   children: {},
   childrenClass: '',
-  data: {},
+  headerFooters: [],
+  labels: [],
   region: '',
   title: '',
 };
@@ -160,10 +162,8 @@ Layout.propTypes = {
   activeSection: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   childrenClass: PropTypes.string,
-  data: PropTypes.shape({
-    headerFooters: PropTypes.array,
-    labels: PropTypes.array,
-  }),
+  headerFooters: PropTypes.arrayOf(PropTypes.object),
+  labels: PropTypes.arrayOf(PropTypes.object),
   region: PropTypes.string,
   title: PropTypes.string,
 };

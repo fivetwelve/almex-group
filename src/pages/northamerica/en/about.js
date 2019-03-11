@@ -15,6 +15,8 @@ const AboutPage = ({ data }) => (
     data={data.cms}
     region="NORTH_AMERICA"
     title={data.cms.articles[0].title}
+    headerFooters={data.cms.headerFooters}
+    labels={data.cms.labels}
   >
     <Markdown source={data.cms.articles[0].body[0]} options={allowHTML} />
   </Layout>

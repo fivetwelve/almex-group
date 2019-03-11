@@ -15,22 +15,22 @@ exports.createPages = ({ graphql, actions }) => {
     graphql(`
       {
         cms {
-          headerFooters(where: { region: NORTH_AMERICA }) {
-            companyAddress(locale: EN)
-            companyEmail
-            companyPhone
-            footerLinks(locale: EN)
-            formattedTagline(locale: EN)
-            language
-            navigation(locale: EN)
-            simpleTagline(locale: EN)
-            socialMedia(locale: EN)
-          }
-          labels(where: { region: NORTH_AMERICA }) {
-            common(locale: EN)
-            header(locale: EN)
-            footer(locale: EN)
-          }
+          # headerFooters(where: { region: NORTH_AMERICA }) {
+          #  companyAddress(locale: EN)
+          #  companyEmail
+          #  companyPhone
+          #  footerLinks(locale: EN)
+          #  formattedTagline(locale: EN)
+          #  language
+          #  navigation(locale: EN)
+          #  simpleTagline(locale: EN)
+          #  socialMedia(locale: EN)
+          # }
+          #labels(where: { region: NORTH_AMERICA }) {
+          #  common(locale: EN)
+          #  header(locale: EN)
+          #  footer(locale: EN)
+          # }
           # can get rid of navigations once we generate pages from a master list
           navigations(where: { availableIn: NORTH_AMERICA }) {
             availableIn
@@ -162,6 +162,7 @@ exports.createPages = ({ graphql, actions }) => {
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
                     activeLanguage: 'EN',
+                    locale: 'EN',
                     siteData: data,
                     page: slugEN,
                     region: 'NORTH_AMERICA',
@@ -186,6 +187,7 @@ exports.createPages = ({ graphql, actions }) => {
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
                     activeLanguage: 'EN',
+                    locale: 'EN',
                     siteData: data,
                     page: slugEN,
                     region: 'NORTH_AMERICA',
@@ -210,6 +212,7 @@ exports.createPages = ({ graphql, actions }) => {
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
                     activeLanguage: 'EN',
+                    locale: 'EN',
                     siteData: data,
                     page: slugEN,
                     region: 'NORTH_AMERICA',
@@ -234,6 +237,7 @@ exports.createPages = ({ graphql, actions }) => {
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
                     activeLanguage: 'EN',
+                    locale: 'EN',
                     siteData: data,
                     page: slugEN,
                     region: 'NORTH_AMERICA',
@@ -273,6 +277,7 @@ exports.createPages = ({ graphql, actions }) => {
               locale: 'EN',
               siteData: data,
               region: 'NORTH_AMERICA',
+              test: 'TEST',
             },
           });
         }

@@ -17,6 +17,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
   const { locale, siteData, region } = pageContext;
   const {
     cms: {
+      headerFooters,
       labels,
       page: {
         belongsTo,
@@ -40,6 +41,8 @@ const ProductTemplate = ({ data, location, pageContext }) => {
     },
   } = data;
   const { common, products } = labels[0];
+  // console.log('data----------------');
+  // console.log(data);
   let themeColour = '';
 
   let featuresProdInfoTitle = '';
@@ -86,11 +89,14 @@ const ProductTemplate = ({ data, location, pageContext }) => {
   return (
     <Layout
       activeLanguage={locale}
+      locale={locale}
       activeSection={belongsTo}
       childrenClass="product"
       region={region}
       title={title}
       data={siteData}
+      headerFooters={headerFooters}
+      labels={labels}
     >
       <>
         <div className="product-container">
@@ -205,8 +211,8 @@ ProductTemplate.propTypes = {
 export const query = graphql`
   query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
     cms {
+      ...CommonData
       labels(where: { region: $region }) {
-        common(locale: $locale)
         products(locale: $locale)
       }
       page(where: { id: $id }) {
