@@ -310,7 +310,10 @@ $spacing: 20px;
         }
         .downloads {
           padding-top: 30px;
+          display: flex;
+          flex-direction: column;
           .pdf {
+            display: inline-flex;
             a,
             a:visited {
               color: var(--prussian-blue60);

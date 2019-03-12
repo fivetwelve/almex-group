@@ -15,8 +15,6 @@ class Attraction extends React.Component {
     this.circleTextTween = React.createRef();
     this.attractAnimation = new TimelineLite({ paused: true });
     this.textTweens = [];
-
-    // console.log(props.attractText);
   }
 
   componentDidMount() {
@@ -34,7 +32,6 @@ class Attraction extends React.Component {
           ease: Back.easeOut.config(3),
         },
       )
-      .addLabel('start')
       .fromTo(
         this.outerCircleTween,
         0.5,
@@ -59,10 +56,9 @@ class Attraction extends React.Component {
         this.textTweens,
         0.8,
         { x: 200, autoAlpha: 0 },
-        { x: 0, autoAlpha: 1, ease: Back.easeOut.config(1) },
+        { x: 10, autoAlpha: 1, ease: Back.easeOut.config(1) },
         1,
       )
-      // .to(this.gsapELement, 0.5, { y: 100, rotation: 90 })
       .play();
   }
 
@@ -123,16 +119,16 @@ class Attraction extends React.Component {
                 this.circleTextTween = elem;
               }}
             >
-              <text id="attractText1">
+              <text id="attractText1" textLength="180">
                 <textPath xlinkHref="#textPath1">
-                  <tspan dy="1.4rem" dx="20">
+                  <tspan dy="20px" dx="20">
                     {thisText1}
                   </tspan>
                 </textPath>
               </text>
-              <text id="attractText2">
+              <text id="attractText2" textLength="80">
                 <textPath xlinkHref="#textPath2">
-                  <tspan dy="0.5rem" dx="45">
+                  <tspan dy="5px" dx="45">
                     {thisText2}
                   </tspan>
                 </textPath>
