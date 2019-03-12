@@ -6,6 +6,7 @@ import shortid from 'shortid';
 import { IconContext } from 'react-icons';
 import { FaChevronLeft, FaChevronRight, FaYoutube } from 'react-icons/fa';
 import ProductBrand from './productBrand';
+import Attraction from './attraction';
 
 class ProductShowcase extends React.Component {
   constructor(props) {
@@ -82,7 +83,16 @@ class ProductShowcase extends React.Component {
   };
 
   render() {
-    const { brand, images, themeColour, subtitle, title, youTubeIDs, pdfDownloads } = this.props;
+    const {
+      attractText,
+      brand,
+      images,
+      themeColour,
+      subtitle,
+      title,
+      youTubeIDs,
+      pdfDownloads,
+    } = this.props;
     const {
       autoGenerateStyleTag,
       enableKeyboardControls,
@@ -142,7 +152,11 @@ class ProductShowcase extends React.Component {
             {brand && <ProductBrand brand={brand} />}
             <div className="product-title">{title}</div>
             <div className={`product-subtitle ${themeColour}`}>{subtitle}</div>
-            <div className="attract-loop" />
+            {attractText.length > 0 && (
+              <div className="attraction-container">
+                <Attraction attractText={attractText} />
+              </div>
+            )}
             {pdfDownloads && <div className="downloads">{pdfArray}</div>}
           </div>
         </div>
@@ -197,6 +211,7 @@ class ProductShowcase extends React.Component {
 }
 
 ProductShowcase.defaultProps = {
+  attractText: [],
   brand: '',
   images: {},
   themeColour: '',
@@ -208,6 +223,7 @@ ProductShowcase.defaultProps = {
 };
 
 ProductShowcase.propTypes = {
+  attractText: PropTypes.arrayOf(PropTypes.string),
   brand: PropTypes.string,
   images: PropTypes.arrayOf(
     PropTypes.shape({

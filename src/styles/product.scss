@@ -19,7 +19,6 @@ $spacing: 20px;
 .test {
   // list-style
 }
-
 .product {
   // margin-top: 150px;
   .product-container {
@@ -265,10 +264,26 @@ $spacing: 20px;
             color: var(--allports60);
           }
         }
-        .attract-loop {
+        .attraction-container {
           display: none;
           @include media('>=tablet') {
             display: flex;
+            height: 154px;
+            width: 100%;
+            // overflow: hidden;
+          }
+          #attractText1,
+          #attractText2 {
+            font-size: 14px;
+            font-weight: bold;
+            fill: var(--prussian-blue);
+            text-transform: uppercase;
+          }
+          #attractText1 {
+            letter-spacing: 5px;
+          }
+          #attractText2 {
+            letter-spacing: 1px;
           }
         }
         .downloads {

@@ -36,6 +36,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
           youTubeIDs,
           pdfDownloads,
           pdfTitles,
+          attractText,
         },
       },
     },
@@ -116,6 +117,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
             </div>
           )}
           <ProductShowcase
+            attractText={attractText}
             brand={brand}
             images={images}
             themeColour={themeColour}
@@ -240,6 +242,7 @@ export const query = graphql`
             url
           }
           pdfTitles(locale: $locale)
+          attractText
         }
       }
     }
