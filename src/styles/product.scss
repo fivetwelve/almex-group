@@ -267,10 +267,32 @@ $spacing: 20px;
         .attraction-container {
           display: none;
           @include media('>=tablet') {
+            // background-color: #eee;
+            border: 1px dotted black;
             display: flex;
             height: 154px;
             width: 100%;
-            // overflow: hidden;
+            overflow: hidden;
+            position: relative;
+          }
+          .svg-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            display: row;
+            justify-content: center;
+            align-items: center;
+            // z-index: 0;
+          }
+          .text-container {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            height: 100%;
+            ul {
+              margin-bottom: 0;
+            }
           }
           #attractText1,
           #attractText2 {
