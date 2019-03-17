@@ -10,8 +10,8 @@ import LanguageSelector from './languageSelector';
 import Navigation from './navigation';
 import '../styles/header.scss';
 import '../styles/headerOptions.scss';
-import hLogo from '../../static/logo-almex-hori.svg';
-import vLogo from '../../static/logo-almex-vert.svg';
+import hLogo from '../../static/img/logo-almex-hori.svg';
+import vLogo from '../../static/img/logo-almex-vert.svg';
 // import Dump from '../utils/dump';
 
 class Header extends React.Component {

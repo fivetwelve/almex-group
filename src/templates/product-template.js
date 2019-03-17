@@ -120,6 +120,8 @@ const ProductTemplate = ({ data, location, pageContext }) => {
             attractText={attractText}
             brand={brand}
             images={images}
+            locale={locale}
+            products={products}
             themeColour={themeColour}
             title={title}
             subtitle={subtitle}

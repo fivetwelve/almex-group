@@ -87,6 +87,8 @@ class ProductShowcase extends React.Component {
       attractText,
       brand,
       images,
+      locale,
+      products,
       themeColour,
       subtitle,
       title,
@@ -154,7 +156,7 @@ class ProductShowcase extends React.Component {
             <div className={`product-subtitle ${themeColour}`}>{subtitle}</div>
             {attractText.length > 0 && (
               <div className="attraction-container">
-                <Attraction attractText={attractText} />
+                <Attraction attractText={attractText} locale={locale} products={products} />
               </div>
             )}
             {pdfDownloads && <div className="downloads">{pdfArray}</div>}
@@ -214,6 +216,8 @@ ProductShowcase.defaultProps = {
   attractText: [],
   brand: '',
   images: {},
+  locale: '',
+  products: {},
   themeColour: '',
   subtitle: '',
   title: '',
@@ -230,6 +234,10 @@ ProductShowcase.propTypes = {
       url: PropTypes.string,
     }),
   ),
+  locale: PropTypes.string,
+  products: PropTypes.shape({
+    SHOULD_KNOW: PropTypes.string,
+  }),
   themeColour: PropTypes.string,
   subtitle: PropTypes.string,
   title: PropTypes.string,
