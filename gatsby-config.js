@@ -1,7 +1,6 @@
 require('dotenv').config();
 
 const proxy = require('http-proxy-middleware');
-// const cssVariables = require('postcss-css-variables');
 const cssVariables = require('postcss-custom-properties');
 
 module.exports = {
@@ -26,22 +25,12 @@ module.exports = {
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
-    // `gatsby-plugin-sass`,
     {
       resolve: `gatsby-plugin-sass`,
       options: {
         postCssPlugins: [cssVariables()],
       },
     },
-    // 'gatsby-plugin-postcss',
-    // {
-    //   resolve: `gatsby-plugin-postcss-sass`,
-    //   options: {
-    //     postCssPlugins: [cssVariables()],
-    //     // precision: 8, // SASS default: 5
-    //   },
-    // },
-    // `css-vars-ponyfill`,
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
