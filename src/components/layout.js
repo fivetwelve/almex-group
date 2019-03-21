@@ -154,9 +154,9 @@ Layout.defaultProps = {
   activeSection: '',
   children: {},
   childrenClass: '',
-  brandNavigation: [],
-  headerFooter: [],
-  label: [],
+  brandNavigation: {},
+  headerFooter: {},
+  label: {},
   region: '',
   title: '',
 };
@@ -166,9 +166,20 @@ Layout.propTypes = {
   activeSection: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   childrenClass: PropTypes.string,
-  brandNavigation: PropTypes.arrayOf(PropTypes.object),
-  headerFooter: PropTypes.arrayOf(PropTypes.object),
-  label: PropTypes.arrayOf(PropTypes.object),
+  brandNavigation: PropTypes.shape({
+    pages: PropTypes.array,
+  }),
+  headerFooter: PropTypes.shape({
+    companyAddress: PropTypes.string,
+    companyEmail: PropTypes.string,
+    companyPhone: PropTypes.string,
+    footerLinks: PropTypes.object,
+    socialMedia: PropTypes.object,
+  }),
+  label: PropTypes.shape({
+    header: PropTypes.object,
+    footer: PropTypes.object,
+  }),
   region: PropTypes.string,
   title: PropTypes.string,
 };

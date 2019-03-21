@@ -179,22 +179,26 @@ class Header extends React.Component {
 Header.defaultProps = {
   activeLanguage: '',
   activeSection: '',
-  headerFooter: [],
-  label: [],
+  headerFooter: {},
+  label: {},
   location: {},
-  // navigations: [],
   region: '',
 };
 
 Header.propTypes = {
   activeLanguage: PropTypes.string,
   activeSection: PropTypes.string,
-  headerFooter: PropTypes.instanceOf(Array),
-  label: PropTypes.instanceOf(Array),
+  headerFooter: PropTypes.shape({
+    language: PropTypes.array,
+    navigation: PropTypes.array,
+    simpleTagline: PropTypes.string,
+  }),
+  label: PropTypes.shape({
+    header: PropTypes.object,
+  }),
   location: PropTypes.shape({
     pathname: PropTypes.string,
   }),
-  // navigations: PropTypes.instanceOf(Array),
   region: PropTypes.string,
 };
 
