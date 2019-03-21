@@ -1,6 +1,6 @@
 // const log = require('loglevel');
 const path = require('path');
-const { allPageTypes, allRegions } = require('./src/constants.js');
+const { allPageTypes, allLanguageSlugs, allRegionSlugs } = require('./src/constants.js');
 
 exports.createPages = ({ graphql, actions }) => {
   /*
@@ -16,6 +16,40 @@ exports.createPages = ({ graphql, actions }) => {
       {
         cms {
           # can get rid of navigations once we generate pages from a master list
+          activePagesLists {
+            availableIn
+            supportedLocales
+            pages {
+              id
+              pageType
+              slugEN: slug(locale: EN)
+              slugES: slug(locale: ES)
+              article {
+                titleEN: title(locale: EN)
+                titleES: title(locale: ES)
+              }
+              industry {
+                titleEN: title(locale: EN)
+                titleES: title(locale: ES)
+              }
+              landing {
+                titleEN: title(locale: EN)
+                titleES: title(locale: ES)
+              }
+              product {
+                titleEN: title(locale: EN)
+                titleES: title(locale: ES)
+              }
+              promo {
+                titleEN: title(locale: EN)
+                titleES: title(locale: ES)
+              }
+              service {
+                titleEN: title(locale: EN)
+                titleES: title(locale: ES)
+              }
+            }
+          }
           navigations(where: { availableIn: NORTH_AMERICA }) {
             availableIn
             navigationSections {
@@ -84,203 +118,110 @@ exports.createPages = ({ graphql, actions }) => {
         reject(result.errors);
       }
       const data = {
-        headerFooters: result.data.cms.headerFooters,
-        labels: result.data.cms.labels,
+        headerFooter: result.data.cms.headerFooter,
+        label: result.data.cms.label,
         navigations: result.data.cms.navigations,
       };
-      /* Create landing pages from site navigation structure for North America */
-      result.data.cms.navigations.forEach(({ availableIn, navigationSections }) => {
-        for (let i = 0; i < navigationSections.length; i += 1) {
-          const { pages } = navigationSections[i];
-          for (let j = 0; j < pages.length; j += 1) {
-            const {
-              id,
-              pageType,
-              slugEN,
-              slugES,
-              article,
-              industry,
-              // landing,
-              promo,
-              service,
-            } = pages[j];
-            const pagePathEN = `${allRegions[availableIn]}/en/${slugEN}`;
-            const pagePathES = `${allRegions[availableIn]}/es/${slugES}`;
+      /*
+        Create landing pages from activePagesList for North America.
+        Loops through country, its language(s), then its assigned pages.
+      */
+      result.data.cms.activePagesLists.forEach(({ availableIn, supportedLocales, pages }) => {
+        supportedLocales.forEach(locale => {
+          pages.forEach(page => {
+            const { id, pageType, article, industry, landing, promo, service } = page;
+            const pagePath = `${allRegionSlugs[availableIn]}/${allLanguageSlugs[locale]}/${
+              page[`slug${locale}`]
+            }`;
             switch (pageType) {
               case allPageTypes.PRODUCT:
+                createPage({
+                  path: pagePath,
+                  component: path.resolve(`./src/templates/product-template.js`),
+                  context: {
+                    id: page.id,
+                    locale,
+                    siteData: data,
+                    region: availableIn,
+                  },
+                });
                 break;
               case allPageTypes.LANDING:
                 createPage({
-                  path: pagePathEN,
+                  path: pagePath,
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
                     // activeLanguage: 'EN',
                     id,
-                    locale: 'EN',
+                    locale,
                     siteData: data,
                     // page: slugEN,
-                    region: 'NORTH_AMERICA',
-                    // title: landing.titleEN,
+                    region: availableIn,
+                    title: landing[`title${locale}`],
                     // landingSections: landing.landingSectionsEN,
-                  },
-                });
-                createPage({
-                  path: pagePathES,
-                  component: path.resolve(`./src/templates/landing-template.js`),
-                  context: {
-                    // activeLanguage: 'ES',
-                    id,
-                    locale: 'ES',
-                    siteData: data,
-                    // page: slugES,
-                    region: 'NORTH_AMERICA',
-                    // title: landing.titleES,
-                    // landingSections: landing.landingSectionsES,
                   },
                 });
                 break;
               // TODO change to appropriate templates for the pageTypes below:
               case allPageTypes.ARTICLE:
                 createPage({
-                  path: pagePathEN,
+                  path: pagePath,
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
-                    activeLanguage: 'EN',
-                    locale: 'EN',
+                    locale,
                     siteData: data,
-                    page: slugEN,
-                    region: 'NORTH_AMERICA',
-                    title: article.titleEN,
-                  },
-                });
-                createPage({
-                  path: pagePathES,
-                  component: path.resolve(`./src/templates/landing-template.js`),
-                  context: {
-                    activeLanguage: 'ES',
-                    siteData: data,
-                    page: slugES,
-                    region: 'NORTH_AMERICA',
-                    title: article.titleES,
+                    page: page.slug[locale],
+                    region: availableIn,
+                    title: article[`title${locale}`],
                   },
                 });
                 break;
               case allPageTypes.INDUSTRY:
                 createPage({
-                  path: pagePathEN,
+                  path: pagePath,
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
-                    activeLanguage: 'EN',
-                    locale: 'EN',
+                    locale,
                     siteData: data,
-                    page: slugEN,
-                    region: 'NORTH_AMERICA',
-                    title: industry.titleEN,
-                  },
-                });
-                createPage({
-                  path: pagePathES,
-                  component: path.resolve(`./src/templates/landing-template.js`),
-                  context: {
-                    activeLanguage: 'ES',
-                    siteData: data,
-                    page: slugES,
-                    region: 'NORTH_AMERICA',
-                    title: industry.titleES,
+                    page: page.slug[locale],
+                    region: availableIn,
+                    title: industry[`title${locale}`],
                   },
                 });
                 break;
               case allPageTypes.PROMO:
                 createPage({
-                  path: pagePathEN,
+                  path: pagePath,
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
-                    activeLanguage: 'EN',
-                    locale: 'EN',
+                    locale,
                     siteData: data,
-                    page: slugEN,
-                    region: 'NORTH_AMERICA',
-                    title: promo.titleEN,
-                  },
-                });
-                createPage({
-                  path: pagePathES,
-                  component: path.resolve(`./src/templates/landing-template.js`),
-                  context: {
-                    activeLanguage: 'ES',
-                    siteData: data,
-                    page: slugES,
-                    region: 'NORTH_AMERICA',
-                    title: promo.titleES,
+                    page: page.slug[locale],
+                    region: availableIn,
+                    title: promo[`title${locale}`],
                   },
                 });
                 break;
               case allPageTypes.SERVICE:
                 createPage({
-                  path: pagePathEN,
+                  path: pagePath,
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
-                    activeLanguage: 'EN',
-                    locale: 'EN',
+                    locale,
                     siteData: data,
-                    page: slugEN,
-                    region: 'NORTH_AMERICA',
-                    title: service.titleEN,
-                  },
-                });
-                createPage({
-                  path: pagePathES,
-                  component: path.resolve(`./src/templates/landing-template.js`),
-                  context: {
-                    activeLanguage: 'ES',
-                    siteData: data,
-                    page: slugES,
-                    region: 'NORTH_AMERICA',
-                    title: service.titleES,
+                    page: page.slug[locale],
+                    region: availableIn,
+                    title: service[`title${locale}`],
                   },
                 });
                 break;
               default:
                 break;
             }
-          }
-        }
-      });
-      /* Create product pages from productsList for North America. */
-      result.data.cms.productListNA.forEach(({ availableIn, productsEN, productsES }) => {
-        const component = path.resolve(`./src/templates/product-template.js`);
-        /* English */
-        for (let i = 0; i < productsEN.length; i += 1) {
-          // const { page, category, title, specs, summary, features } = productsEN[i];
-          const { page } = productsEN[i];
-          createPage({
-            path: `${allRegions[availableIn]}/en/${page.slug}`,
-            component,
-            context: {
-              id: page.id,
-              locale: 'EN',
-              siteData: data,
-              region: 'NORTH_AMERICA',
-              test: 'TEST',
-            },
           });
-        }
-        /* Spanish */
-        for (let i = 0; i < productsES.length; i += 1) {
-          // const { page, category, title, specs, summary, features } = productsES[i];
-          const { page } = productsES[i];
-          createPage({
-            path: `${allRegions[availableIn]}/es/${page.slug}`,
-            component,
-            context: {
-              id: page.id,
-              locale: 'ES',
-              siteData: data,
-              region: 'NORTH_AMERICA',
-            },
-          });
-        }
+        });
       });
+
       resolve();
     });
   });

@@ -14,8 +14,9 @@ const LandingTemplate = ({ data, pageContext }) => {
   const { locale, siteData, region, title } = pageContext;
   const {
     cms: {
-      headerFooters,
-      labels,
+      brandNavigation,
+      headerFooter,
+      label,
       page: {
         landing: { landingSections },
       },
@@ -55,7 +56,6 @@ const LandingTemplate = ({ data, pageContext }) => {
     });
     return tileArray;
   };
-
   return (
     <Layout
       activeLanguage={locale}
@@ -64,8 +64,9 @@ const LandingTemplate = ({ data, pageContext }) => {
       region={region}
       title=""
       data={siteData}
-      headerFooters={headerFooters}
-      labels={labels}
+      brandNavigation={brandNavigation}
+      headerFooter={headerFooter}
+      label={label}
     >
       <Location>
         {({ location }) => (

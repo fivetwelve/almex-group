@@ -62,7 +62,7 @@ class BrandSelector extends Component {
     // const { region } = this.props;
     const { clicked } = this.state;
     const { label } = this.props;
-    // const { allLanguages, allRegions } = constants;
+    // const { allLanguageSlugs, allRegionSlugs } = constants;
 
     return (
       <Fragment>
@@ -90,7 +90,7 @@ class BrandSelector extends Component {
           </button>
           <ul id="dropdown-1" role="menu" className="lang-dropdown">
             {/* <li className="nav__list" key={language}>
-              <Link href={`/${allRegions[region]}/${allLanguages[language]}`}>
+              <Link href={`/${allRegionSlugs[region]}/${allLanguageSlugs[language]}`}>
                 <span className="nav__link">{language}</span>
               </Link>
             </li> */}

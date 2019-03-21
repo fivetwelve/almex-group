@@ -19,8 +19,8 @@ class Header extends React.Component {
     super(props);
     this.state = {};
     this.myRef = {};
-    const { headerFooters } = this.props;
-    const nav = headerFooters[0].navigation;
+    const { headerFooter } = this.props;
+    const nav = headerFooter.navigation;
     for (let i = 0; i < nav.length; i += 1) {
       const navType = nav[i].TYPE;
       this.myRef[navType] = React.createRef();
@@ -33,8 +33,8 @@ class Header extends React.Component {
 
   closeOtherMenus = type => {
     // console.log(`type: ${type}`);
-    // const { headerFooters } = this.props;
-    // const nav = headerFooters[0].navigation;
+    // const { headerFooter } = this.props;
+    // const nav = headerFooter[0].navigation;
     log.info(type);
     // console.log('myref:', this.myRef['PRODUCTS']);
     // for (let i = 0; i < nav.length; i += 1) {
@@ -52,15 +52,15 @@ class Header extends React.Component {
     const {
       activeLanguage,
       activeSection,
-      headerFooters,
-      labels,
+      headerFooter,
+      label,
       location,
       // navigations,
       region,
     } = this.props;
 
-    const label = labels[0];
-    const headerFooter = headerFooters[0];
+    // const label = labels[0];
+    // const headerFooter = headerFooter[0];
     // const navigation = navigations[0];
     return (
       <div className="header">
@@ -69,7 +69,7 @@ class Header extends React.Component {
             <img src={vLogo} width="50px" alt="Almex Group" className="vertical" />
             <img src={hLogo} width="225px" alt="Almex Group" className="horizontal" />
           </span>
-          <div className="active-section-mobile">{labels[0].header[activeSection]}</div>
+          <div className="active-section-mobile">{label.header[activeSection]}</div>
           <IconContext.Provider value={{ className: 'menu-icon' }}>
             <button type="button" className="mobile-menu">
               <FaBars aria-hidden />
@@ -121,9 +121,9 @@ class Header extends React.Component {
   }
 }
 
-// const Header = ({ activeLanguage, activeSection, headerFooters, labels, region }) => {
+// const Header = ({ activeLanguage, activeSection, headerFooter, labels, region }) => {
 //   const label = labels[0];
-//   const headerFooter = headerFooters[0];
+//   const headerFooter = headerFooter[0];
 
 //   return (
 //     <>
@@ -179,8 +179,8 @@ class Header extends React.Component {
 Header.defaultProps = {
   activeLanguage: '',
   activeSection: '',
-  headerFooters: [],
-  labels: [],
+  headerFooter: [],
+  label: [],
   location: {},
   // navigations: [],
   region: '',
@@ -189,8 +189,8 @@ Header.defaultProps = {
 Header.propTypes = {
   activeLanguage: PropTypes.string,
   activeSection: PropTypes.string,
-  headerFooters: PropTypes.instanceOf(Array),
-  labels: PropTypes.instanceOf(Array),
+  headerFooter: PropTypes.instanceOf(Array),
+  label: PropTypes.instanceOf(Array),
   location: PropTypes.shape({
     pathname: PropTypes.string,
   }),
@@ -200,12 +200,20 @@ Header.propTypes = {
 
 export const commonFragment = graphql`
   fragment CommonData on GraphCMS {
-    labels(where: { region: $region }) {
+    brandNavigation(where: { availableIn: $region }) {
+      pages {
+        slug(locale: $locale)
+        landing {
+          brand
+        }
+      }
+    }
+    label(where: { availableIn: $region }) {
       header(locale: $locale)
       footer(locale: $locale)
       common(locale: $locale)
     }
-    headerFooters(where: { region: $region }) {
+    headerFooter(where: { availableIn: $region }) {
       companyAddress(locale: $locale)
       companyEmail
       companyPhone

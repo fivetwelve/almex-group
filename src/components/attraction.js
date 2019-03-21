@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import shortid from 'shortid';
 import { TimelineLite, CSSPlugin, Back, Circ, Elastic, Expo, Sine } from 'gsap';
-// import { DrawSVGPlugin } from '../utils/gsap/DrawSVGPlugin';
+import { DrawSVGPlugin } from '../utils/gsap/DrawSVGPlugin';
 
 // eslint-disable-next-line no-unused-vars
-const myPlugins = [CSSPlugin];
+const myPlugins = [CSSPlugin, DrawSVGPlugin];
 
 class Attraction extends React.Component {
   constructor(props) {

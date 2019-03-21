@@ -15,8 +15,8 @@ const AboutPage = ({ data }) => (
     data={data.cms}
     region="NORTH_AMERICA"
     title={data.cms.articles[0].title}
-    headerFooters={data.cms.headerFooters}
-    labels={data.cms.labels}
+    headerFooter={data.cms.headerFooter}
+    label={data.cms.label}
   >
     <Markdown source={data.cms.articles[0].body[0]} options={allowHTML} />
   </Layout>
@@ -42,7 +42,7 @@ export const query = graphql`
         title(locale: EN)
         body(locale: EN)
       }
-      headerFooters(where: { region: NORTH_AMERICA }) {
+      headerFooter(where: { availableIn: NORTH_AMERICA }) {
         companyAddress(locale: EN)
         companyEmail
         companyPhone
@@ -69,7 +69,7 @@ export const query = graphql`
           url
         }
       }
-      labels(where: { region: NORTH_AMERICA }) {
+      label(where: { availableIn: NORTH_AMERICA }) {
         common(locale: EN)
         header(locale: EN)
         footer(locale: EN)

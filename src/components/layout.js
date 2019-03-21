@@ -49,8 +49,9 @@ class Layout extends React.Component {
       activeSection,
       children,
       childrenClass,
-      headerFooters,
-      labels,
+      brandNavigation,
+      headerFooter,
+      label,
       region,
       title,
     } = this.props;
@@ -118,8 +119,9 @@ class Layout extends React.Component {
                   <Header
                     activeSection={activeSection}
                     activeLanguage={activeLanguage}
-                    headerFooters={headerFooters}
-                    labels={labels}
+                    brandNavigation={brandNavigation}
+                    headerFooter={headerFooter}
+                    label={label}
                     region={region}
                     location={location}
                   />
@@ -131,8 +133,8 @@ class Layout extends React.Component {
                   <Footer
                     // activeLanguage={activeLanguage}
                     locale={activeLanguage}
-                    headerFooters={headerFooters}
-                    labels={labels}
+                    headerFooter={headerFooter}
+                    label={label}
                     lang={lang}
                     // location={location}
                     region={region}
@@ -152,8 +154,9 @@ Layout.defaultProps = {
   activeSection: '',
   children: {},
   childrenClass: '',
-  headerFooters: [],
-  labels: [],
+  brandNavigation: [],
+  headerFooter: [],
+  label: [],
   region: '',
   title: '',
 };
@@ -163,8 +166,9 @@ Layout.propTypes = {
   activeSection: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   childrenClass: PropTypes.string,
-  headerFooters: PropTypes.arrayOf(PropTypes.object),
-  labels: PropTypes.arrayOf(PropTypes.object),
+  brandNavigation: PropTypes.arrayOf(PropTypes.object),
+  headerFooter: PropTypes.arrayOf(PropTypes.object),
+  label: PropTypes.arrayOf(PropTypes.object),
   region: PropTypes.string,
   title: PropTypes.string,
 };

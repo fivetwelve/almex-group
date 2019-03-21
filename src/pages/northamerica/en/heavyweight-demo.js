@@ -19,8 +19,8 @@ const HeavyweightPage = ({ data }) => (
     data={data.cms}
     region="NORTH_AMERICA"
     title="Heavyweight"
-    headerFooters={data.cms.headerFooters}
-    labels={data.cms.labels}
+    headerFooter={data.cms.headerFooter}
+    label={data.cms.label}
   >
     <div style={shimStyle}>
       <Link to="/northamerica/en/ubr/">
@@ -43,7 +43,7 @@ export default HeavyweightPage;
 export const query = graphql`
   query {
     cms {
-      headerFooters(where: { region: NORTH_AMERICA }) {
+      headerFooter(where: { availableIn: NORTH_AMERICA }) {
         companyAddress(locale: EN)
         companyEmail
         companyPhone
@@ -54,7 +54,7 @@ export const query = graphql`
         simpleTagline(locale: EN)
         socialMedia(locale: EN)
       }
-      labels(where: { region: NORTH_AMERICA }) {
+      label(where: { availableIn: NORTH_AMERICA }) {
         common(locale: EN)
         header(locale: EN)
         footer(locale: EN)

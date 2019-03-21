@@ -10,8 +10,9 @@ import '../../../styles/corporate.scss';
 const allowHTML = { html: true };
 
 const CorporatePage = ({ data }) => {
-  const label = data.cms.labels[0];
-  const article = data.cms.articles[0];
+  const { cms } = data;
+  const { articles, headerFooter, label } = cms;
+  const article = articles[0];
   return (
     <Layout
       activeLanguage="EN"
@@ -20,8 +21,8 @@ const CorporatePage = ({ data }) => {
       region="NORTH_AMERICA"
       title={article.title}
       data={data.cms}
-      headerFooters={data.cms.headerFooters}
-      labels={data.cms.labels}
+      headerFooter={headerFooter}
+      label={label}
     >
       <div className="banner-container">
         <h1>{article.labels.corporate}</h1>
@@ -100,7 +101,7 @@ export const query = graphql`
         imageLabels(locale: EN)
         youTubeId
       }
-      headerFooters(where: { region: NORTH_AMERICA }) {
+      headerFooter(where: { availableIn: NORTH_AMERICA }) {
         companyAddress(locale: EN)
         companyEmail
         companyPhone
@@ -111,7 +112,7 @@ export const query = graphql`
         simpleTagline(locale: EN)
         socialMedia(locale: EN)
       }
-      labels(where: { region: NORTH_AMERICA }) {
+      label(where: { availableIn: NORTH_AMERICA }) {
         common(locale: EN)
         header(locale: EN)
         footer(locale: EN)

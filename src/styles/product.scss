@@ -299,6 +299,10 @@ $spacing: 20px;
             height: 100%;
             ul {
               margin-bottom: 0;
+              li {
+                list-style-type: square;
+                padding-right: 5px;
+              }
             }
           }
           #attractText1,

@@ -1,5 +1,9 @@
 module.exports = {
   allLanguages: {
+    EN: 'EN',
+    ES: 'ES',
+  },
+  allLanguageSlugs: {
     EN: 'en',
     ES: 'es',
   },
@@ -12,15 +16,25 @@ module.exports = {
     SERVICE: 'SERVICE',
   },
   allRegions: {
+    NORTH_AMERICA: 'NORTH_AMERICA',
+    SOUTH_AMERICA: 'SOUTH_AMERICA',
+  },
+  allRegionSlugs: {
     NORTH_AMERICA: 'northamerica',
     SOUTH_AMERICA: 'southamerica',
   },
   allBrands: {
     ALMEX_IN_A_BOX: 'ALMEX_IN_A_BOX',
+    ALMEX_INSTITUTE: 'ALMEX_INSTITUTE',
+    BAT: 'BAT',
+    CMI: 'CMI',
+    EMSYS: 'EMSYS',
     FUSION: 'FUSION',
+    GLOBAL_SERVICES: 'GLOBAL_SERVICES',
+    RAMPART: 'RAMPART',
+    VOTECH: 'VOTECH',
   },
   allThemes: {
-    DEFAULT: 'DEFAULT',
     HEAVYWEIGHT: 'HEAVYWEIGHT',
     LIGHTWEIGHT: 'LIGHTWEIGHT',
     INDUSTRIAL: 'INDUSTRIAL',
