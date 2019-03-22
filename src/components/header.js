@@ -49,19 +49,9 @@ class Header extends React.Component {
   };
 
   render() {
-    const {
-      activeLanguage,
-      activeSection,
-      headerFooter,
-      label,
-      location,
-      // navigations,
-      region,
-    } = this.props;
+    const { activeLanguage, activeSection, headerFooter, label, location, region } = this.props;
 
-    // const label = labels[0];
-    // const headerFooter = headerFooter[0];
-    // const navigation = navigations[0];
+    // console.log(`activeSection: *${activeSection}*`);
     return (
       <div className="header">
         <div className="contents">
@@ -69,7 +59,9 @@ class Header extends React.Component {
             <img src={vLogo} width="50px" alt="Almex Group" className="vertical" />
             <img src={hLogo} width="225px" alt="Almex Group" className="horizontal" />
           </span>
-          <div className="active-section-mobile">{label.header[activeSection]}</div>
+          {activeSection !== '' && (
+            <div className="active-section-mobile">{label.header[activeSection]}</div>
+          )}
           <IconContext.Provider value={{ className: 'menu-icon' }}>
             <button type="button" className="mobile-menu">
               <FaBars aria-hidden />
@@ -120,61 +112,6 @@ class Header extends React.Component {
     );
   }
 }
-
-// const Header = ({ activeLanguage, activeSection, headerFooter, labels, region }) => {
-//   const label = labels[0];
-//   const headerFooter = headerFooter[0];
-
-//   return (
-//     <>
-// <div className="header">
-//   <div className="contents">
-//     <span className="logo">
-//       <img src={vLogo} width="50px" alt="Almex Group" className="vertical" />
-//       <img src={hLogo} width="225px" alt="Almex Group" className="horizontal" />
-//     </span>
-//     <div className="active-section-mobile">{labels[0].header[activeSection]}</div>
-//     <IconContext.Provider value={{ className: 'menu-icon' }}>
-//       <button type="button" className="mobile-menu">
-//         <FaBars aria-hidden />
-//         <span className="sr-only">Open menu</span>
-//       </button>
-//     </IconContext.Provider>
-//     <div className="options-container">
-//       <div className="options">
-//         <div className="search">
-//           {label.header.SEARCH}
-//           <IconContext.Provider value={{ className: 'search-icon' }}>
-//             <button type="button" className="mobile-menu">
-//               <FaSearch aria-hidden />
-//             </button>
-//           </IconContext.Provider>
-//         </div>
-//         <BrandSelector />
-//         <LanguageSelector
-//           activeLanguage={activeLanguage}
-//           languages={headerFooter.language}
-//           region={region}
-//         />
-//         <div className="login">{label.header.LOGIN}</div>
-//       </div>
-//       <div className="tagline-container">
-//         <span className="tagline">{headerFooter.simpleTagline}</span>
-//       </div>
-//     </div>
-//   </div>
-//   <nav className="navigation">
-//     <div className="sections">
-//       {headerFooter.navigation.length > 0 &&
-//         headerFooter.navigation.map(section => (
-//           <NavigationDropdown key={section.TYPE} header={label.header} section={section} />
-//         ))}
-//     </div>
-//   </nav>
-// </div>
-//     </>
-//   );
-// };
 
 Header.defaultProps = {
   activeLanguage: '',

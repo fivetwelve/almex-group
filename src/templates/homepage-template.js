@@ -12,15 +12,13 @@ import '../styles/homepage.scss';
 
 const HomepageTemplate = ({
   data: {
-    cms: { headerFooters, homepages, labels },
+    cms: { headerFooter, homepages, label },
   },
   location,
 }) => {
   let slideNum = 0;
   let tileNum = 0;
-  const headerFooter = headerFooters[0];
   const homepage = homepages[0];
-  const label = labels[0];
   const eventStyle1 = {
     backgroundImage: `url(${homepage.homepageEventTiles[0].image.url})`,
   };
