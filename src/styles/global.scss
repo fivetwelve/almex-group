@@ -64,4 +64,8 @@ button {
 .graphcms-image-outer-wrapper,
 .graphcms-image-wrapper {
   height: inherit;
+  img {
+    object-fit: contain;
+    font-family: 'object-fit: contain;';
+  }
 }
