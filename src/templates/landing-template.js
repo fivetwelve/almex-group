@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import { Location } from '@reach/router';
+import GraphImg from 'graphcms-image';
 import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
 import LandingTile from '../components/landingTile';
@@ -23,11 +24,6 @@ const LandingTemplate = ({ data, pageContext }) => {
       },
     },
   } = data;
-  const bannerStyle = brand
-    ? {
-        backgroundImage: `url(${bannerImage.url})`,
-      }
-    : {};
   let themeColour = '';
   let sectionIdx = 0;
 
@@ -83,7 +79,7 @@ const LandingTemplate = ({ data, pageContext }) => {
     });
     return tileArray;
   };
-
+  console.log(bannerImage);
   return (
     <Layout
       activeLanguage={locale}
@@ -101,10 +97,10 @@ const LandingTemplate = ({ data, pageContext }) => {
           <>
             <div className="landing">
               {!brand && <h2 className="landing-title">{title}</h2>}
-              {brand && (
+              {brand && bannerImage && (
                 <div className="brand-container">
                   <div className={`image-container ${themeColour}`}>
-                    <div className="banner-image" style={bannerStyle} />
+                    <GraphImg image={bannerImage} maxWidth={1280} />
                   </div>
                   <ProductBrand brand={brand} />
                   <h2 className="brand-title">{brandTitle}</h2>
@@ -164,7 +160,10 @@ export const query = graphql`
       page(where: { id: $id }) {
         landing {
           bannerImage {
-            url
+            # url
+            handle
+            width
+            height
           }
           brand
           brandTitle(locale: $locale)
