@@ -79,7 +79,6 @@ const LandingTemplate = ({ data, pageContext }) => {
     });
     return tileArray;
   };
-  console.log(bannerImage);
   return (
     <Layout
       activeLanguage={locale}
