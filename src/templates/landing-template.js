@@ -7,6 +7,7 @@ import Layout from '../components/layout';
 import LandingTile from '../components/landingTile';
 import { allPageTypes, allThemes } from '../constants';
 import '../styles/landing.scss';
+import ProductBrand from '../components/productBrand';
 
 const allowHTML = { html: true };
 
@@ -105,6 +106,7 @@ const LandingTemplate = ({ data, pageContext }) => {
                   <div className={`image-container ${themeColour}`}>
                     <div className="banner-image" style={bannerStyle} />
                   </div>
+                  <ProductBrand brand={brand} />
                   <h2 className="brand-title">{brandTitle}</h2>
                   <div className="brand-description">
                     <Markdown source={brandDescription} options={allowHTML} />
