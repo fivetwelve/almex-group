@@ -1,199 +1,201 @@
 @import 'include-media';
 
-.brand-selector,
-.lang-selector {
-  position: relative;
-  display: flex;
-  align-items: center;
-  // padding-left: 30px;
-  // padding-right: 30px;
-  height: 30px;
-  border-left: 1px solid var(--grey40);
-
-  a {
-    text-decoration: none;
-  }
-  button {
-    appearance: none;
-    background: transparent;
-    border: none;
-    color: var(--grey60);
-    padding: 0 20px;
-    &:hover {
-      color: var(--yellow-sea);
-    }
-    &.is-open {
-      color: var(--yellow-sea);
-    }
-    transition-duration: 0.5s;
-  }
-
-  li {
-    color: var(--grey60);
-    display: block;
-    float: left;
+.header {
+  .brand-selector,
+  .lang-selector {
     position: relative;
-    text-decoration: none;
-  }
-
-  li span {
-    color: var(--grey60);
-  }
-
-  li:hover,
-  li:focus-within {
-    // background: var(--grey60);
-    cursor: pointer;
-  }
-
-  li:focus-within a {
-    outline: none;
-  }
-  .dd-text-icon {
-    color: var(--grey80);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    pointer-events: none;
-    &.text {
-      font-weight: bold;
-    }
-    .dd-icon {
-      height: 20px;
-    }
-  }
-
-  .lang-dropdown {
-    background-color: var(--white);
-    min-width: 5rem;
-    position: absolute;
-    transition: all 0.5s ease;
-    margin: 0;
-    left: 0;
-    top: 40px;
-    display: none;
-    box-shadow: 0px 7px 20px -9px rgba(0, 0, 0, 0.75);
-  }
-
-  .lang-dropdown--visible {
-    display: block;
-  }
-  .nav__list {
-    clear: both;
     display: flex;
     align-items: center;
-    width: 100%;
-    height: 40px;
-    margin: 0;
-  }
+    // padding-left: 30px;
+    // padding-right: 30px;
+    height: 30px;
+    border-left: 1px solid var(--grey40);
 
-  .nav__link {
-    padding-left: 30px;
-    padding-right: 50px;
-    &:hover {
-      color: var(--red-piper);
+    a {
+      text-decoration: none;
     }
-    transition-duration: 0.5s;
-  }
-}
-.brand-container {
-  z-index: 1;
-  @include media('>phone') {
-    display: none;
-    background-color: var(--white);
-    max-width: 1240px;
-    width: calc(100% - 40px);
-    position: absolute;
-    top: 40px;
-    margin-left: -20px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 20px;
-    padding-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-    justify-items: center;
-    align-items: center;
-    box-shadow: var(--menu-shadow);
-    &.visible {
+    button {
+      appearance: none;
+      background: transparent;
+      border: none;
+      color: var(--grey60);
+      padding: 0 20px;
+      &:hover {
+        color: var(--yellow-sea);
+      }
+      &.is-open {
+        color: var(--yellow-sea);
+      }
+      transition-duration: 0.5s;
+    }
+
+    li {
+      color: var(--grey60);
+      display: block;
+      float: left;
+      position: relative;
+      text-decoration: none;
+    }
+
+    li span {
+      color: var(--grey60);
+    }
+
+    li:hover,
+    li:focus-within {
+      // background: var(--grey60);
+      cursor: pointer;
+    }
+
+    li:focus-within a {
+      outline: none;
+    }
+    .dd-text-icon {
+      color: var(--grey80);
       display: flex;
+      flex-direction: row;
+      align-items: center;
+      pointer-events: none;
+      &.text {
+        font-weight: bold;
+      }
+      .dd-icon {
+        height: 20px;
+      }
     }
 
-    .brand {
-      &.almex-box,
-      &.bat,
-      &.cobra,
-      &.emsys,
-      &.fusion,
-      &.institute,
-      &.knight,
-      &.rampart,
-      &.votech {
-        padding-left: 30px;
-        padding-right: 30px;
-        padding-top: 20px;
-        margin-left: 10px;
-        margin-right: 10px;
-        a {
-          display: inline-block;
-          &:hover {
-            background-position-y: 0;
+    .lang-dropdown {
+      background-color: var(--white);
+      min-width: 5rem;
+      position: absolute;
+      transition: all 0.5s ease;
+      margin: 0;
+      left: 0;
+      top: 40px;
+      display: none;
+      box-shadow: 0px 7px 20px -9px rgba(0, 0, 0, 0.75);
+    }
+
+    .lang-dropdown--visible {
+      display: block;
+    }
+    .nav__list {
+      clear: both;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 40px;
+      margin: 0;
+    }
+
+    .nav__link {
+      padding-left: 30px;
+      padding-right: 50px;
+      &:hover {
+        color: var(--red-piper);
+      }
+      transition-duration: 0.5s;
+    }
+  }
+  .brand-container {
+    z-index: 1;
+    @include media('>phone') {
+      display: none;
+      background-color: var(--white);
+      max-width: 1240px;
+      width: calc(100% - 40px);
+      position: absolute;
+      top: 40px;
+      margin-left: -20px;
+      padding-left: 20px;
+      padding-right: 20px;
+      padding-bottom: 20px;
+      padding-top: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      justify-items: center;
+      align-items: center;
+      box-shadow: var(--menu-shadow);
+      &.visible {
+        display: flex;
+      }
+
+      .brand {
+        &.almex-box,
+        &.bat,
+        &.cobra,
+        &.emsys,
+        &.fusion,
+        &.institute,
+        &.knight,
+        &.rampart,
+        &.votech {
+          padding-left: 30px;
+          padding-right: 30px;
+          padding-top: 20px;
+          margin-left: 10px;
+          margin-right: 10px;
+          a {
+            display: inline-block;
+            &:hover {
+              background-position-y: 0;
+            }
           }
         }
-      }
-      &.almex-box a {
-        width: 135px;
-        height: 46px;
-        background-image: url('../../static/img/logo-almex-box.png');
-        background-position-y: -46px;
-      }
-      &.fusion a {
-        width: 154px;
-        height: 35px;
-        background-image: url('../../static/img/logo-fusion.png');
-        background-position-y: -35px;
-      }
-      &.emsys a {
-        width: 135px;
-        height: 38px;
-        background-image: url('../../static/img/logo-emsys.png');
-        background-position-y: -38px;
-      }
-      &.bat a {
-        width: 101px;
-        height: 72px;
-        background-image: url('../../static/img/logo-bat.png');
-        background-position-y: -72px;
-      }
-      &.cobra a {
-        width: 110px;
-        height: 67px;
-        background-image: url('../../static/img/logo-cobra.png');
-        background-position-y: -67px;
-      }
-      &.votech a {
-        width: 179px;
-        height: 66px;
-        background-image: url('../../static/img/logo-votech.png');
-        background-position-y: -66px;
-      }
-      &.rampart a {
-        width: 151px;
-        height: 47px;
-        background-image: url('../../static/img/logo-rampart.png');
-        background-position-y: -47px;
-      }
-      &.institute a {
-        width: 100px;
-        height: 88px;
-        background-image: url('../../static/img/logo-institute.png');
-        background-position-y: -88px;
-      }
-      &.knight a {
-        width: 55px;
-        height: 103px;
-        background-image: url('../../static/img/logo-knight.png');
-        background-position-y: -103px;
+        &.almex-box a {
+          width: 135px;
+          height: 46px;
+          background-image: url('../../static/img/logo-almex-box.png');
+          background-position-y: -46px;
+        }
+        &.fusion a {
+          width: 154px;
+          height: 35px;
+          background-image: url('../../static/img/logo-fusion.png');
+          background-position-y: -35px;
+        }
+        &.emsys a {
+          width: 135px;
+          height: 38px;
+          background-image: url('../../static/img/logo-emsys.png');
+          background-position-y: -38px;
+        }
+        &.bat a {
+          width: 101px;
+          height: 72px;
+          background-image: url('../../static/img/logo-bat.png');
+          background-position-y: -72px;
+        }
+        &.cobra a {
+          width: 110px;
+          height: 67px;
+          background-image: url('../../static/img/logo-cobra.png');
+          background-position-y: -67px;
+        }
+        &.votech a {
+          width: 179px;
+          height: 66px;
+          background-image: url('../../static/img/logo-votech.png');
+          background-position-y: -66px;
+        }
+        &.rampart a {
+          width: 151px;
+          height: 47px;
+          background-image: url('../../static/img/logo-rampart.png');
+          background-position-y: -47px;
+        }
+        &.institute a {
+          width: 100px;
+          height: 88px;
+          background-image: url('../../static/img/logo-institute.png');
+          background-position-y: -88px;
+        }
+        &.knight a {
+          width: 55px;
+          height: 103px;
+          background-image: url('../../static/img/logo-knight.png');
+          background-position-y: -103px;
+        }
       }
     }
   }

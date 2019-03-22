@@ -34,6 +34,12 @@ module.exports = {
     RAMPART: 'RAMPART',
     VOTECH: 'VOTECH',
   },
+  allOptions: {
+    PSI_100: 'PSI_100',
+    PSI_200: 'PSI_200',
+    RECTANGULAR: 'RECTANGULAR',
+    RHOMBOID: 'RHOMBOID',
+  },
   allThemes: {
     HEAVYWEIGHT: 'HEAVYWEIGHT',
     LIGHTWEIGHT: 'LIGHTWEIGHT',

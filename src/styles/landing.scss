@@ -2,7 +2,45 @@
 $spacing: 20px;
 
 .landing {
-  h2 {
+  .brand-container {
+    width: 100%;
+    margin: 0 auto;
+    max-width: 1280px;
+    .image-container {
+      height: 550px;
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      border-bottom: 15px solid var(--blue-almex);
+      &.orange {
+        border-bottom: 15px solid var(--tango);
+      }
+      &.teal {
+        border-bottom: 15px solid var(--allports);
+      }
+      .banner-image {
+        background-size: cover;
+        background-position: center center;
+        height: 100%;
+      }
+    }
+    h2.brand-title {
+      margin: 0px auto 20px;
+      padding-left: 100px;
+      padding-right: 100px;
+      width: 100%;
+      max-width: 1280px;
+      font-size: 30px;
+    }
+    .brand-description {
+      font-size: 24px;
+      line-height: normal;
+      padding-left: 100px;
+      padding-right: 100px;
+      margin-bottom: 50px;
+    }
+  }
+  h2.landing-title {
     margin: 40px auto;
     width: 100%;
     max-width: 1280px;
@@ -18,6 +56,12 @@ $spacing: 20px;
       margin: 0 auto 35px;
       width: 100%;
       max-width: 1280px;
+      &.orange {
+        background-color: var(--tango);
+      }
+      &.teal {
+        background-color: var(--allports);
+      }
       .section-title {
         margin: 0 auto;
         padding-left: 15px;

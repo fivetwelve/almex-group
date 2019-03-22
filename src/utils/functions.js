@@ -22,7 +22,7 @@ const createLinkFromPage = (location, page, language) => {
 const getSlug = pathname => {
   /*
     Get slug from pathname; do not include origin attribute.
-    e.g. /northamerica/en/presses/
+    e.g. path = /northamerica/en/presses/, slug = presses
   */
   if (pathname === null) {
     return '';

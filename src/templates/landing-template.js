@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import { Location } from '@reach/router';
+import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
 import LandingTile from '../components/landingTile';
-import { allPageTypes } from '../constants';
+import { allPageTypes, allThemes } from '../constants';
 import '../styles/landing.scss';
 
-// const allowHTML = { html: true };
+const allowHTML = { html: true };
 
 const LandingTemplate = ({ data, pageContext }) => {
-  // const { activeLanguage, siteData, region, title } = pageContext;
   const { locale, siteData, region, title } = pageContext;
   const {
     cms: {
@@ -18,12 +18,40 @@ const LandingTemplate = ({ data, pageContext }) => {
       headerFooter,
       label,
       page: {
-        landing: { landingSections },
+        landing: { bannerImage, brand, brandDescription, brandTitle, theme, landingSections },
       },
     },
   } = data;
-  // const label = siteData.labels[0];
+  const bannerStyle = brand
+    ? {
+        backgroundImage: `url(${bannerImage.url})`,
+      }
+    : {};
+  let themeColour = '';
   let sectionIdx = 0;
+
+  switch (theme) {
+    case allThemes.HEAVYWEIGHT: {
+      break;
+    }
+    case allThemes.LIGHTWEIGHT: {
+      themeColour = 'teal';
+      break;
+    }
+    case allThemes.INDUSTRIAL: {
+      break;
+    }
+    case allThemes.FUSION_COLD: {
+      break;
+    }
+    case allThemes.FUSION_HOT: {
+      themeColour = 'orange';
+      break;
+    }
+    default: {
+      break;
+    }
+  }
 
   const renderTiles = (pages, location) => {
     const tileArray = [];
@@ -35,14 +63,12 @@ const LandingTemplate = ({ data, pageContext }) => {
         case allPageTypes.LANDING:
           tileData = {
             slug: page.slug,
-            // labels: label,
             ...page.landing,
           };
           break;
         case allPageTypes.PRODUCT:
           tileData = {
             slug: page.slug,
-            // labels: label,
             ...page.product,
           };
           break;
@@ -56,6 +82,7 @@ const LandingTemplate = ({ data, pageContext }) => {
     });
     return tileArray;
   };
+
   return (
     <Layout
       activeLanguage={locale}
@@ -72,7 +99,18 @@ const LandingTemplate = ({ data, pageContext }) => {
         {({ location }) => (
           <>
             <div className="landing">
-              <h2 className="landing-title">{title}</h2>
+              {!brand && <h2 className="landing-title">{title}</h2>}
+              {brand && (
+                <div className="brand-container">
+                  <div className={`image-container ${themeColour}`}>
+                    <div className="banner-image" style={bannerStyle} />
+                  </div>
+                  <h2 className="brand-title">{brandTitle}</h2>
+                  <div className="brand-description">
+                    <Markdown source={brandDescription} options={allowHTML} />
+                  </div>
+                </div>
+              )}
               {landingSections.length > 0 &&
                 landingSections.map(landingSection => {
                   const { pages } = landingSection;
@@ -81,7 +119,7 @@ const LandingTemplate = ({ data, pageContext }) => {
                   return (
                     <div className="landing-section" key={`landing-section-${sectionIdx}`}>
                       {sectionTitle && (
-                        <div className="title-container">
+                        <div className={`title-container ${themeColour}`}>
                           <div className="section-title">{sectionTitle}</div>
                         </div>
                       )}
@@ -120,9 +158,16 @@ LandingTemplate.propTypes = {
 export const query = graphql`
   query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
     cms {
-      ...CommonData
+      ...CommonQuery
       page(where: { id: $id }) {
         landing {
+          bannerImage {
+            url
+          }
+          brand
+          brandTitle(locale: $locale)
+          brandDescription(locale: $locale)
+          theme
           landingSections {
             title(locale: $locale)
             pages {

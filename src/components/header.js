@@ -140,7 +140,7 @@ Header.propTypes = {
 };
 
 export const commonFragment = graphql`
-  fragment CommonData on GraphCMS {
+  fragment CommonQuery on GraphCMS {
     brandNavigation(where: { availableIn: $region }) {
       pages {
         slug(locale: $locale)

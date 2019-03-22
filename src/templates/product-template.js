@@ -32,6 +32,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
           advantagesImage,
           features,
           images,
+          options,
           productInfo,
           specs,
           youTubeIDs,
@@ -43,17 +44,13 @@ const ProductTemplate = ({ data, location, pageContext }) => {
     },
   } = data;
   const { common, products } = label;
-  // console.log('data----------------');
-  // console.log(data);
-  let themeColour = '';
-
-  let featuresProdInfoTitle = '';
-
   const advantagesImageStyle = advantagesImage
     ? {
         backgroundImage: `url(${advantagesImage.url})`,
       }
     : '';
+  let themeColour = '';
+  let featuresProdInfoTitle = '';
 
   if (features && productInfo) {
     featuresProdInfoTitle = products.FEATURES_PROD_INFO;
@@ -181,6 +178,18 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               </div>
             </>
           )}
+          {options && (
+            <>
+              <div className={`title-container ${themeColour}`}>
+                {/* <div className="section-title">{products.SPECS}</div> */}
+                title here
+              </div>
+              {/* <div className={`product-specs ${themeColour}`}>
+                <Markdown source={specs} options={allowHTML} />
+              </div> */}
+              Options icons here
+            </>
+          )}
         </div>
       </>
     </Layout>
@@ -217,7 +226,7 @@ ProductTemplate.propTypes = {
 export const query = graphql`
   query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
     cms {
-      ...CommonData
+      ...CommonQuery
       label(where: { availableIn: $region }) {
         products(locale: $locale)
       }
@@ -238,6 +247,7 @@ export const query = graphql`
           images {
             url
           }
+          options
           productInfo(locale: $locale)
           specs(locale: $locale)
           youTubeIDs
