@@ -8,6 +8,7 @@ import ProductShowcase from '../components/productShowcase';
 import { allThemes } from '../constants';
 import { getSlug } from '../utils/functions';
 import '../styles/product.scss';
+import Options from '../components/options';
 // import Dump from '../utils/dump';
 
 const allowHTML = { html: true };
@@ -181,13 +182,9 @@ const ProductTemplate = ({ data, location, pageContext }) => {
           {options && (
             <>
               <div className={`title-container ${themeColour}`}>
-                {/* <div className="section-title">{products.SPECS}</div> */}
-                title here
+                <div className="section-title">{products.OPTIONS}</div>
               </div>
-              {/* <div className={`product-specs ${themeColour}`}>
-                <Markdown source={specs} options={allowHTML} />
-              </div> */}
-              Options icons here
+              <Options options={options} label={products} themeColour={themeColour} />
             </>
           )}
         </div>

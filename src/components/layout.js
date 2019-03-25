@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { Location } from '@reach/router';
-import * as log from 'loglevel';
-// import root from 'window-or-global';
+// import * as log from 'loglevel';
 import Header from './header';
 import Footer from './footer';
 import { LocationProvider } from '../utils/locationContext';
@@ -36,7 +35,7 @@ class Layout extends React.Component {
     // evt.preventDefault();
     /* check for Tab */
     // log.info(`target: ${evt.which}`);
-    log.info('clicked!');
+    // log.info('clicked!');
     // if (evt.which === 9) {
     //   this.bodyElement.current.classList.remove('no-focus-outline');
     // }
@@ -109,7 +108,7 @@ class Layout extends React.Component {
         <div
           className="siteContainer"
           ref={this.siteContainer}
-          onKeyUp={evt => log.info(evt.target)}
+          // onKeyUp={evt => log.info(evt.target)}
           role="presentation"
         >
           <div className="pageContainer">

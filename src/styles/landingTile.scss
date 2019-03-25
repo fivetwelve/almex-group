@@ -148,6 +148,12 @@ $borderWhite: $borderWidth solid var(--white);
       display: flex;
       align-items: center;
       justify-content: center;
+      &.orange {
+        background-color: var(--tango);
+      }
+      &.teal {
+        background-color: var(--allports);
+      }
       .text-container {
         display: flex;
         flex-direction: column;

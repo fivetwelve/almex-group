@@ -4,7 +4,7 @@ import LinkWithPrevious from './linkWithPrevious';
 import { createLink } from '../utils/functions';
 import '../styles/landingTile.scss';
 
-const LandingTile = ({ data, location }) => {
+const LandingTile = ({ data, location, themeColour }) => {
   const { slug, subtitle, tileImage, title } = data;
   const imageStyle = {
     backgroundImage: `url(${tileImage.url})`,
@@ -18,7 +18,7 @@ const LandingTile = ({ data, location }) => {
       <LinkWithPrevious to={createLink(location, slug)}>
         <div className="image-container">
           <div className="background" style={imageStyle} />
-          <div className="overlay">
+          <div className={`overlay ${themeColour}`}>
             <div className="text-container">
               <span className="overlay-title">{title}</span>
               {subtitle && (
@@ -38,6 +38,7 @@ const LandingTile = ({ data, location }) => {
 LandingTile.defaultProps = {
   data: {},
   location: {},
+  themeColour: '',
 };
 
 LandingTile.propTypes = {
@@ -50,6 +51,7 @@ LandingTile.propTypes = {
   location: PropTypes.shape({
     pathName: PropTypes.string,
   }),
+  themeColour: PropTypes.string,
 };
 
 export default LandingTile;

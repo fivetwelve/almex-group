@@ -73,7 +73,12 @@ const LandingTemplate = ({ data, pageContext }) => {
           break;
       }
       const landingTile = (
-        <LandingTile data={tileData} key={`tile-${tileIdx}`} location={location} />
+        <LandingTile
+          data={tileData}
+          key={`tile-${tileIdx}`}
+          location={location}
+          themeColour={themeColour}
+        />
       );
       tileArray.push(landingTile);
     });

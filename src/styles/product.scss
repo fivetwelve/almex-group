@@ -432,7 +432,8 @@ $spacing: 20px;
       padding: 25px 50px 90px 50px;
     }
     .product-advantages,
-    .product-specs {
+    .product-specs,
+    .product-options {
       padding-top: 35px;
       padding-bottom: 35px;
       padding-left: 100px;
@@ -503,6 +504,37 @@ $spacing: 20px;
       }
       &.orange {
         background-color: var(--tango20);
+      }
+    }
+    .product-options {
+      display: flex;
+      align-items: flex-start;
+      .option {
+        flex: 1 1 auto;
+        svg {
+          max-width: 200px;
+          max-height: 200px;
+          .bg {
+            fill: var(--prussian-blue60);
+          }
+        }
+        &:not(:first-child) {
+          margin-left: 9%;
+        }
+        &.orange {
+          svg {
+            .bg {
+              fill: var(--tango60);
+            }
+          }
+        }
+        &.teal {
+          svg {
+            .bg {
+              fill: var(--allports60);
+            }
+          }
+        }
       }
     }
   }
