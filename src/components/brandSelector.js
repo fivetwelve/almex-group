@@ -104,7 +104,7 @@ class BrandSelector extends Component {
             </Link>
           </div>
           <div className="brand fusion">
-            <Link to="/northamerica/en/heavyweight/">
+            <Link to="/northamerica/en/fusion/">
               <span className="sr-only">Fusion Systems</span>
             </Link>
           </div>
