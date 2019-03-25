@@ -164,7 +164,6 @@ export const query = graphql`
       page(where: { id: $id }) {
         landing {
           bannerImage {
-            # url
             handle
             width
             height
