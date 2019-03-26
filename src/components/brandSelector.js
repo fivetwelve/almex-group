@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Link } from 'gatsby';
 import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
@@ -65,8 +65,8 @@ class BrandSelector extends Component {
     // const { allLanguageSlugs, allRegionSlugs } = constants;
 
     return (
-      <Fragment>
-        <div className="language brand-selector">
+      <>
+        <div className="brand-selector">
           <button
             type="button"
             aria-expanded="false"
@@ -88,14 +88,6 @@ class BrandSelector extends Component {
               </span>
             </span>
           </button>
-          <ul id="dropdown-1" role="menu" className="lang-dropdown">
-            {/* <li className="nav__list" key={language}>
-              <Link href={`/${allRegionSlugs[region]}/${allLanguageSlugs[language]}`}>
-                <span className="nav__link">{language}</span>
-              </Link>
-            </li> */}
-            <li className="nav__list">Some Brand here</li>
-          </ul>
         </div>
         <div className="brand-container" ref={this.brandDropdown}>
           <div className="brand almex-box">
@@ -139,7 +131,7 @@ class BrandSelector extends Component {
             </Link>
           </div>
         </div>
-      </Fragment>
+      </>
     );
   }
 }

@@ -60,7 +60,7 @@ class LanguageSelector extends Component {
     const { allLanguageSlugs, allRegionSlugs } = constants;
 
     return (
-      <div className="language lang-selector" ref={this.myDropDown}>
+      <div className="lang-selector" ref={this.myDropDown}>
         <button
           type="button"
           aria-expanded="false"
