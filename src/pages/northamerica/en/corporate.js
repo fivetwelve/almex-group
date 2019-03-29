@@ -11,12 +11,13 @@ const allowHTML = { html: true };
 
 const CorporatePage = ({ data }) => {
   const { cms } = data;
-  const { articles, headerFooter, label } = cms;
+  const { articles, brandNavigation, headerFooter, label } = cms;
   const article = articles[0];
   return (
     <Layout
       activeLanguage="EN"
       activeSection={article.navSection}
+      brandNavigation={brandNavigation}
       childrenClass="corporate-page"
       region="NORTH_AMERICA"
       title={article.title}
@@ -100,6 +101,15 @@ export const query = graphql`
         }
         imageLabels(locale: EN)
         youTubeId
+      }
+      brandNavigation(where: { availableIn: NORTH_AMERICA }) {
+        pages {
+          slug(locale: EN)
+          landing {
+            brand
+            title(locale: EN)
+          }
+        }
       }
       headerFooter(where: { availableIn: NORTH_AMERICA }) {
         companyAddress(locale: EN)

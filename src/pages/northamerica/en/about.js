@@ -11,6 +11,7 @@ const AboutPage = ({ data }) => (
   <Layout
     activeLanguage="EN"
     activeSection="ABOUT"
+    brandNavigation={data.cms.brandNavigation}
     childrenClass="about"
     data={data.cms}
     region="NORTH_AMERICA"
@@ -41,6 +42,15 @@ export const query = graphql`
         articleType
         title(locale: EN)
         body(locale: EN)
+      }
+      brandNavigation(where: { availableIn: NORTH_AMERICA }) {
+        pages {
+          slug(locale: EN)
+          landing {
+            brand
+            title(locale: EN)
+          }
+        }
       }
       headerFooter(where: { availableIn: NORTH_AMERICA }) {
         companyAddress(locale: EN)

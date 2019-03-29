@@ -9,6 +9,7 @@ const Home = ({ data }) => (
   <Layout
     activeLanguage="EN"
     activeSection=""
+    brandNavigation={data.cms.brandNavigation}
     childrenClass="homepage"
     region="NORTH_AMERICA"
     title=""
@@ -33,6 +34,15 @@ Home.propTypes = {
 export const query = graphql`
   query {
     cms {
+      brandNavigation(where: { availableIn: NORTH_AMERICA }) {
+        pages {
+          slug(locale: EN)
+          landing {
+            brand
+            title(locale: EN)
+          }
+        }
+      }
       headerFooter(where: { availableIn: NORTH_AMERICA }) {
         companyAddress(locale: EN)
         companyEmail

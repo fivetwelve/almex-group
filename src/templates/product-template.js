@@ -91,11 +91,11 @@ const ProductTemplate = ({ data, location, pageContext }) => {
       activeLanguage={locale}
       locale={locale}
       activeSection={belongsTo}
+      brandNavigation={brandNavigation}
       childrenClass="product"
       region={region}
       title={title}
       data={siteData}
-      brandNavigation={brandNavigation}
       headerFooter={headerFooter}
       label={label}
     >

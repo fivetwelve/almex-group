@@ -88,11 +88,11 @@ const LandingTemplate = ({ data, pageContext }) => {
     <Layout
       activeLanguage={locale}
       activeSection=""
+      brandNavigation={brandNavigation}
       childrenClass="landing"
       region={region}
       title=""
       data={siteData}
-      brandNavigation={brandNavigation}
       headerFooter={headerFooter}
       label={label}
     >

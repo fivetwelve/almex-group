@@ -46,9 +46,9 @@ class Layout extends React.Component {
     const {
       activeLanguage,
       activeSection,
+      brandNavigation,
       children,
       childrenClass,
-      brandNavigation,
       headerFooter,
       label,
       region,

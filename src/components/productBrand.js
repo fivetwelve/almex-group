@@ -9,6 +9,9 @@ const ProductBrand = ({ brand }) => {
     case allBrands.ALMEX_IN_A_BOX:
       productBrand = 'almex-box';
       break;
+    case allBrands.BAT:
+      productBrand = 'bat';
+      break;
     case allBrands.FUSION:
       productBrand = 'fusion';
       break;

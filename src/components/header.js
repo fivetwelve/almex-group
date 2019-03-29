@@ -49,7 +49,15 @@ class Header extends React.Component {
   };
 
   render() {
-    const { activeLanguage, activeSection, headerFooter, label, location, region } = this.props;
+    const {
+      activeLanguage,
+      brandNavigation,
+      activeSection,
+      headerFooter,
+      label,
+      location,
+      region,
+    } = this.props;
 
     // console.log(`activeSection: *${activeSection}*`);
     return (
@@ -79,7 +87,11 @@ class Header extends React.Component {
                   {/* </button> */}
                 </IconContext.Provider>
               </div>
-              <BrandSelector label={label.header.BRANDS} />
+              <BrandSelector
+                brandNavigation={brandNavigation}
+                label={label.header.BRANDS}
+                location={location}
+              />
               <LanguageSelector
                 activeLanguage={activeLanguage}
                 languages={headerFooter.language}
@@ -116,6 +128,7 @@ class Header extends React.Component {
 Header.defaultProps = {
   activeLanguage: '',
   activeSection: '',
+  brandNavigation: {},
   headerFooter: {},
   label: {},
   location: {},
@@ -125,6 +138,9 @@ Header.defaultProps = {
 Header.propTypes = {
   activeLanguage: PropTypes.string,
   activeSection: PropTypes.string,
+  brandNavigation: PropTypes.shape({
+    pages: PropTypes.array,
+  }),
   headerFooter: PropTypes.shape({
     language: PropTypes.array,
     navigation: PropTypes.array,
@@ -146,6 +162,7 @@ export const commonFragment = graphql`
         slug(locale: $locale)
         landing {
           brand
+          title(locale: $locale)
         }
       }
     }

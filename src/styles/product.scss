@@ -185,7 +185,6 @@ $spacing: 20px;
           margin-bottom: 20px;
           &.almex-box,
           &.bat,
-          &.cobra,
           &.emsys,
           &.fusion,
           &.institute,
@@ -220,20 +219,10 @@ $spacing: 20px;
             height: 72px;
             background-image: url('../../static/img/logo-bat.png');
           }
-          &.cobra {
-            width: 110px;
-            height: 67px;
-            background-image: url('../../static/img/logo-cobra.png');
-          }
           &.votech {
             width: 179px;
             height: 66px;
             background-image: url('../../static/img/logo-votech.png');
-          }
-          &.rampart {
-            width: 151px;
-            height: 47px;
-            background-image: url('../../static/img/logo-rampart.png');
           }
           &.institute {
             width: 100px;

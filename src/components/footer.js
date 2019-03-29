@@ -18,16 +18,6 @@ import '../styles/footer.scss';
 const Footer = ({ headerFooter, label }) => {
   const { companyAddress, companyEmail, companyPhone, footerLinks, socialMedia } = headerFooter;
   const { footer } = label;
-  // const Footer = data => {
-  // console.log(data);
-  // const {
-  //   companyAddress,
-  //   companyEmail,
-  //   companyPhone,
-  //   footerLinks,
-  //   socialMedia,
-  // } = data.headerFooters[0];
-  // const { footer } = data.labels[0];
 
   return (
     <>
@@ -107,9 +97,9 @@ const Footer = ({ headerFooter, label }) => {
                   <span className="sr-only">Almex</span>
                 </Link>
               </div>
-              <div className="fusion">
+              <div className="bat">
                 <Link to="/northamerica/en/heavyweight/">
-                  <span className="sr-only">Fusion Systems</span>
+                  <span className="sr-only">BAT</span>
                 </Link>
               </div>
               <div className="emsys">
@@ -117,14 +107,9 @@ const Footer = ({ headerFooter, label }) => {
                   <span className="sr-only">Emsys</span>
                 </Link>
               </div>
-              <div className="bat">
-                <Link to="/northamerica/en/heavyweight/">
-                  <span className="sr-only">BAT</span>
-                </Link>
-              </div>
-              <div className="cobra">
-                <Link to="/northamerica/en/heavyweight/">
-                  <span className="sr-only">Cobra</span>
+              <div className="fusion">
+                <Link to="/northamerica/en/fusion/">
+                  <span className="sr-only">Fusion Systems</span>
                 </Link>
               </div>
               <div className="votech">
