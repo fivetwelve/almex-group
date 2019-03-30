@@ -130,12 +130,12 @@ class Layout extends React.Component {
                     </LocationProvider>
                   </div>
                   <Footer
-                    // activeLanguage={activeLanguage}
-                    locale={activeLanguage}
+                    brandNavigation={brandNavigation}
                     headerFooter={headerFooter}
                     label={label}
                     lang={lang}
-                    // location={location}
+                    locale={activeLanguage}
+                    location={location}
                     region={region}
                   />
                 </>

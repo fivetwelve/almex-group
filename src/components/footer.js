@@ -13,11 +13,15 @@ import {
 } from 'react-icons/fa';
 import Markdown from 'react-remarkable';
 // import headerFooterQuery from '../utils/queries';
+import { createLink } from '../utils/functions';
+import { allBrands } from '../constants';
 import '../styles/footer.scss';
 
-const Footer = ({ headerFooter, label }) => {
+const Footer = ({ brandNavigation, headerFooter, label, location }) => {
   const { companyAddress, companyEmail, companyPhone, footerLinks, socialMedia } = headerFooter;
   const { footer } = label;
+  const brands = brandNavigation.pages;
+  // console.log(brandNavigation.pages[0]);
 
   return (
     <>
@@ -35,7 +39,9 @@ const Footer = ({ headerFooter, label }) => {
                     style={{ transform: 'scaleX(-1)', position: 'relative', top: '2px' }}
                   />
                 </IconContext.Provider>
-                {companyPhone}
+                <a href={`tel:${companyPhone}`} className="phone-link">
+                  {companyPhone}
+                </a>
               </div>
               <div className="email">
                 <IconContext.Provider value={{ className: 'contact-icon' }}>
@@ -92,7 +98,7 @@ const Footer = ({ headerFooter, label }) => {
           </div>
           <div className="footer-middle">
             <div className="brands">
-              <div className="almex-box">
+              {/* <div className="almex-box">
                 <Link to="/northamerica/en/heavyweight/">
                   <span className="sr-only">Almex</span>
                 </Link>
@@ -116,7 +122,42 @@ const Footer = ({ headerFooter, label }) => {
                 <Link to="/northamerica/en/heavyweight/">
                   <span className="sr-only">votech</span>
                 </Link>
-              </div>
+              </div> */}
+              {brands.map(brand => {
+                let productBrand = '';
+                switch (brand.landing.brand) {
+                  case allBrands.ALMEX_IN_A_BOX:
+                    productBrand = 'almex-box';
+                    break;
+                  case allBrands.BAT:
+                    productBrand = 'bat';
+                    break;
+                  case allBrands.EMSYS:
+                    productBrand = 'emsys';
+                    break;
+                  case allBrands.FUSION:
+                    productBrand = 'fusion';
+                    break;
+                  case allBrands.VOTECH:
+                    productBrand = 'votech';
+                    break;
+                  case allBrands.ALMEX_INSTITUTE:
+                    productBrand = 'institute';
+                    break;
+                  case allBrands.GLOBAL_SERVICES:
+                    productBrand = 'knight';
+                    break;
+                  default:
+                    break;
+                }
+                return (
+                  <div className={`brand ${productBrand}`} key={brand.slug}>
+                    <Link to={createLink(location, brand.slug)}>
+                      <span className="sr-only">{brand.landing.title}</span>
+                    </Link>
+                  </div>
+                );
+              })}
             </div>
           </div>
           <div className="footer-bottom">
@@ -144,11 +185,16 @@ const Footer = ({ headerFooter, label }) => {
 };
 
 Footer.defaultProps = {
+  brandNavigation: {},
   headerFooter: {},
   label: {},
+  location: {},
 };
 
 Footer.propTypes = {
+  brandNavigation: PropTypes.shape({
+    pages: PropTypes.array,
+  }),
   headerFooter: PropTypes.shape({
     companyAddress: PropTypes.string,
     companyEmail: PropTypes.string,
@@ -158,6 +204,9 @@ Footer.propTypes = {
   }),
   label: PropTypes.shape({
     footer: PropTypes.object,
+  }),
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
   }),
 };
 
