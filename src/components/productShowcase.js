@@ -184,7 +184,7 @@ class ProductShowcase extends React.Component {
           })}
           {youTubeIDs.map((yt, idx) => {
             const thumbStyle = {
-              backgroundColor: 'var(--black)',
+              backgroundColor: '$black',
             };
             const thisIdx = idx + images.length;
             return (

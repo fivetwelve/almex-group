@@ -1,5 +1,4 @@
-@import 'include-media';
-@import 'variables';
+@import 'base';
 
 $spacing: 20px;
 
@@ -14,12 +13,12 @@ $spacing: 20px;
       max-width: 1280px;
       margin: 0 auto;
       overflow: hidden;
-      border-bottom: 15px solid var(--blue-almex);
+      border-bottom: 15px solid $blue-almex;
       &.orange {
         border-bottom: 15px solid $tango;
       }
       &.teal {
-        border-bottom: 15px solid var(--allports);
+        border-bottom: 15px solid $allports;
       }
     }
     .logo {
@@ -96,7 +95,7 @@ $spacing: 20px;
       display: flex;
       align-items: center;
       height: 55px;
-      background-color: var(--blue-almex);
+      background-color: $blue-almex;
       margin: 0 auto 35px;
       width: 100%;
       max-width: 1280px;
@@ -104,14 +103,14 @@ $spacing: 20px;
         background-color: $tango;
       }
       &.teal {
-        background-color: var(--allports);
+        background-color: $allports;
       }
       .section-title {
         margin: 0 auto;
         padding-left: 15px;
         width: 100%;
         max-width: 1280px;
-        color: var(--white);
+        color: $white;
         font-weight: bold;
         font-size: 28px;
         line-height: 28px;

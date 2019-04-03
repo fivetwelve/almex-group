@@ -1,4 +1,4 @@
-@import 'include-media';
+@import 'base';
 $spacing: 20px;
 $cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
 
@@ -22,7 +22,7 @@ $cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
 
   .image-container {
     height: 235px;
-    background-color: var(--gold);
+    background-color: $gold;
     position: relative;
     overflow: hidden;
 
@@ -55,7 +55,7 @@ $cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
 
       .overlay-title,
       .overlay-subtitle {
-        color: var(--white);
+        color: $white;
         opacity: 0.1;
         transition: all 0.3s $cubic;
       }
@@ -67,7 +67,7 @@ $cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
       .overlay-subtitle {
         display: flex;
         flex-direction: row;
-        color: var(--white);
+        color: $white;
       }
       .indicator {
         font-size: 14px;
@@ -108,14 +108,14 @@ $cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
     .more-container {
       margin-top: 10px;
       &:hover {
-        border-bottom: 2px solid var(--yellow-sea);
+        border-bottom: 2px solid $yellow-sea;
       }
       a {
         text-decoration: none;
       }
       .more,
       .more-arrow {
-        color: var(--yellow-sea);
+        color: $yellow-sea;
         text-decoration: none;
       }
       .more {

@@ -1,4 +1,4 @@
-@import 'include-media';
+@import 'base';
 
 .corporate-page {
   .banner-container {
@@ -17,7 +17,7 @@
       height: 300px;
     }
     h1 {
-      color: var(--white);
+      color: $white;
       margin: 0;
       @include media('>=desktop') {
         font-size: 72px;
@@ -36,7 +36,7 @@
       margin: 0 auto;
       font-size: 12px;
       line-height: normal;
-      color: var(--grey70);
+      color: $grey70;
     }
   }
 

@@ -1,4 +1,4 @@
-@import 'include-media';
+@import 'base';
 $spacing: 20px;
 @mixin bullet-blue {
   list-style-image: url('../../static/img/bullet-blue.svg');
@@ -49,11 +49,11 @@ $spacing: 20px;
         a {
           text-decoration: none;
           &:hover {
-            border-bottom: 1px solid var(--yellow-sea);
-            color: var(--yellow-sea);
+            border-bottom: 1px solid $yellow-sea;
+            color: $yellow-sea;
             .back-text {
-              transition: var(--easeinout);
-              color: var(--yellow-sea);
+              transition: $easeinout;
+              color: $yellow-sea;
             }
           }
           .back-arrow {
@@ -61,10 +61,10 @@ $spacing: 20px;
             line-height: 14px;
             position: relative;
             top: 1px;
-            color: var(--yellow-sea);
+            color: $yellow-sea;
           }
           .back-text {
-            color: var(--black);
+            color: $black;
             font-size: 15px;
             font-weight: bold;
           }
@@ -73,14 +73,14 @@ $spacing: 20px;
       .more-container {
         margin-top: 10px;
         &:hover {
-          border-bottom: 2px solid var(--yellow-sea);
+          border-bottom: 2px solid $yellow-sea;
         }
         a {
           text-decoration: none;
         }
         .more,
         .more-arrow {
-          color: var(--yellow-sea);
+          color: $yellow-sea;
           text-decoration: none;
         }
         .more {
@@ -142,8 +142,8 @@ $spacing: 20px;
             width: 50px;
             height: 50px;
             border: 0;
-            background-color: var(--dark-blue20);
-            color: var(--gray60);
+            background-color: $dark-blue20;
+            color: $grey60;
             opacity: 0.7;
             font-size: 30px;
             line-height: 30px;
@@ -178,7 +178,7 @@ $spacing: 20px;
           width: 410px;
           padding-left: $spacing;
           padding-right: $spacing;
-          border-left: 1px solid var(--blue-almex);
+          border-left: 1px solid $blue-almex;
         }
         .brand {
           margin-top: 35px;
@@ -237,21 +237,21 @@ $spacing: 20px;
           }
         }
         .product-title {
-          color: var(--prussian-blue);
+          color: $prussian-blue;
           font-size: 25px;
           font-weight: bold;
         }
         .product-subtitle {
           margin-top: 10px;
-          color: var(--prussian-blue60);
+          color: $prussian-blue60;
           font-size: 18px;
           font-weight: bold;
           text-transform: uppercase;
           &.orange {
-            color: var(--tango);
+            color: $tango;
           }
           &.teal {
-            color: var(--allports60);
+            color: $allports60;
           }
         }
         .attraction-container {
@@ -299,7 +299,7 @@ $spacing: 20px;
           #attractText2 {
             font-size: 14px;
             font-weight: bold;
-            fill: var(--prussian-blue);
+            fill: $prussian-blue;
             text-transform: uppercase;
           }
           #attractText1 {
@@ -317,7 +317,7 @@ $spacing: 20px;
             display: inline-flex;
             a,
             a:visited {
-              color: var(--prussian-blue60);
+              color: $prussian-blue60;
               font-size: 18px;
               text-decoration: none;
               display: flex;
@@ -325,9 +325,9 @@ $spacing: 20px;
               align-items: center;
               padding-bottom: 18px;
               &:hover {
-                color: var(--yellow-sea);
+                color: $yellow-sea;
                 text-decoration: underline;
-                transition: var(--easeinout);
+                transition: $easeinout;
               }
             }
             .pdf-icon {
@@ -358,14 +358,14 @@ $spacing: 20px;
             margin-right: 20px;
           }
           &.active {
-            border-bottom: 10px solid var(--yellow-sea);
+            border-bottom: 10px solid $yellow-sea;
           }
           .thumb-image {
             height: 155px;
             width: 155px;
             background-position: center;
             background-size: cover;
-            border: 1px solid var(--grey60);
+            border: 1px solid $grey60;
           }
         }
       }
@@ -380,15 +380,15 @@ $spacing: 20px;
       width: 100%;
       display: flex;
       align-items: center;
-      background-color: var(--prussian-blue);
+      background-color: $prussian-blue;
       &.teal {
-        background-color: var(--allports);
+        background-color: $allports;
       }
       &.orange {
-        background-color: var(--tango);
+        background-color: $tango;
       }
       .section-title {
-        color: var(--white);
+        color: $white;
         font-size: 28px;
         font-weight: bold;
         padding-left: 15px;
@@ -416,7 +416,7 @@ $spacing: 20px;
       }
     }
     .product-marketing {
-      border-top: 2px solid var(--dark-blue60);
+      border-top: 2px solid $dark-blue60;
       margin-left: 40px;
       margin-right: 40px;
       padding: 25px 50px 90px 50px;
@@ -478,22 +478,22 @@ $spacing: 20px;
       }
       &.orange {
         h4 {
-          color: var(--tango);
+          color: $tango;
         }
       }
       &.teal {
         h4 {
-          color: var(--allports);
+          color: $allports;
         }
       }
     }
     .product-advantages {
-      background-color: var(--prussian-blue20);
+      background-color: $prussian-blue20;
       &.teal {
-        background-color: var(--allports20);
+        background-color: $allports20;
       }
       &.orange {
-        background-color: var(--tango20);
+        background-color: $tango20;
       }
     }
     .product-options {
@@ -505,7 +505,7 @@ $spacing: 20px;
           max-width: 200px;
           max-height: 200px;
           .bg {
-            fill: var(--prussian-blue60);
+            fill: $prussian-blue60;
           }
         }
         &:not(:first-child) {
@@ -514,14 +514,14 @@ $spacing: 20px;
         &.orange {
           svg {
             .bg {
-              fill: var(--tango60);
+              fill: $tango60;
             }
           }
         }
         &.teal {
           svg {
             .bg {
-              fill: var(--allports60);
+              fill: $allports60;
             }
           }
         }

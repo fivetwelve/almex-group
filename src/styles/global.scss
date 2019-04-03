@@ -1,8 +1,8 @@
-@import 'include-media';
 @import 'a11y';
+@import 'base';
 
 html {
-  background-color: var(--white);
+  background-color: $white;
   // outline: 2px solid black;
   // &.no-focus-outline a:focus,
   // &.no-focus-outline button:focus {
@@ -46,15 +46,15 @@ p {
 button {
   appearance: none;
   background: transparent;
-  background-color: var(--blue);
+  background-color: $blue;
   border-radius: 5px;
   height: 36px;
-  color: var(--white);
+  color: $white;
   padding-left: 15px;
   padding-right: 15px;
   cursor: pointer;
   &:active {
-    background-color: var(--blue);
+    background-color: $blue;
   }
   &.form-button {
     min-width: 75px;

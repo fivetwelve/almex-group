@@ -1,7 +1,7 @@
-@import 'include-media';
+@import 'base';
 
 .footer {
-  background-color: var(--grey70);
+  background-color: $grey70;
   background-image: url('../../static/img/triangles.svg');
   background-repeat: no-repeat;
   background-position: right;
@@ -10,7 +10,7 @@
     background-size: contain;
   }
   .footer-container {
-    color: var(--white);
+    color: $white;
     width: 100%;
     max-width: 1280px;
     margin: 0 auto;
@@ -32,8 +32,8 @@
         align-items: center;
         // justify-content: space-evenly;
         justify-content: center;
-        border: 3px solid var(--grey40);
-        background-color: var(--grey70);
+        border: 3px solid $grey40;
+        background-color: $grey70;
         padding-top: 10px;
         padding-bottom: 10px;
         flex-wrap: wrap;
@@ -194,11 +194,11 @@
     .chat {
       margin-top: 10px;
       a {
-        color: var(--white);
+        color: $white;
         &:hover {
-          color: var(--yellow-sea);
+          color: $yellow-sea;
         }
-        transition: var(--easeinout);
+        transition: $easeinout;
       }
     }
     .contact-icon {
@@ -209,15 +209,15 @@
     .email-link,
     .social-media-link,
     .footer-link {
-      color: var(--white);
+      color: $white;
       transition: all 0.3s ease-in;
       text-decoration: none;
       &:visited {
-        color: var(--white);
+        color: $white;
       }
       &:active,
       &:hover {
-        color: var(--yellow-sea);
+        color: $yellow-sea;
         text-decoration: underline;
       }
     }

@@ -1,7 +1,6 @@
 require('dotenv').config();
 
 const proxy = require('http-proxy-middleware');
-const cssVariables = require('postcss-custom-properties');
 
 module.exports = {
   siteMetadata: {
@@ -25,14 +24,7 @@ module.exports = {
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
-    // `gatsby-plugin-postcss`,
-    // `gatsby-plugin-sass`,
-    {
-      resolve: `gatsby-plugin-sass`,
-      options: {
-        postCssPlugins: [cssVariables()],
-      },
-    },
+    `gatsby-plugin-sass`,
     // {
     //   resolve: `gatsby-plugin-polyfill-io`,
     //   options: {

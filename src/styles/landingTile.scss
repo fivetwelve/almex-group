@@ -1,10 +1,10 @@
-@import 'include-media';
+@import 'base';
 $spacing: 10px;
 $padding: $spacing / 2;
 $borderWidth: 1px;
 $cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
-$borderBlue: $borderWidth solid var(--blue-almex);
-$borderWhite: $borderWidth solid var(--white);
+$borderBlue: $borderWidth solid $blue-almex;
+$borderWhite: $borderWidth solid $white;
 
 /* widths, spacing & border rules only */
 .landing-tile {
@@ -142,17 +142,17 @@ $borderWhite: $borderWidth solid var(--white);
       height: calc(100% - 20px);
       position: absolute;
       top: 0;
-      background-color: var(--blue);
+      background-color: $blue;
       opacity: 0;
       transition: all 0.2s ease-in-out;
       display: flex;
       align-items: center;
       justify-content: center;
       &.orange {
-        background-color: var(--tango);
+        background-color: $tango;
       }
       &.teal {
-        background-color: var(--allports);
+        background-color: $allports;
       }
       .text-container {
         display: flex;
@@ -164,7 +164,7 @@ $borderWhite: $borderWidth solid var(--white);
       }
       .overlay-title,
       .overlay-subtitle {
-        color: var(--white);
+        color: $white;
         opacity: 0.1;
         transition: all 0.3s $cubic;
       }
@@ -176,7 +176,7 @@ $borderWhite: $borderWidth solid var(--white);
       .overlay-subtitle {
         display: flex;
         flex-direction: row;
-        color: var(--white);
+        color: $white;
       }
       .indicator {
         font-size: 14px;

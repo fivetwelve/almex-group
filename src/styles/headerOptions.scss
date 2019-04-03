@@ -1,4 +1,4 @@
-@import 'include-media';
+@import 'base';
 
 .header {
   .brand-selector,
@@ -9,7 +9,7 @@
     // padding-left: 30px;
     // padding-right: 30px;
     height: 30px;
-    border-left: 1px solid var(--grey40);
+    border-left: 1px solid $grey40;
 
     a {
       text-decoration: none;
@@ -18,19 +18,19 @@
       appearance: none;
       background: transparent;
       border: none;
-      color: var(--grey60);
+      color: $grey60;
       padding: 0 20px;
       &:hover {
-        color: var(--yellow-sea);
+        color: $yellow-sea;
       }
       &.is-open {
-        color: var(--yellow-sea);
+        color: $yellow-sea;
       }
       transition-duration: 0.5s;
     }
 
     li {
-      color: var(--grey60);
+      color: $grey60;
       display: block;
       float: left;
       position: relative;
@@ -38,12 +38,12 @@
     }
 
     li span {
-      color: var(--grey60);
+      color: $grey60;
     }
 
     li:hover,
     li:focus-within {
-      // background: var(--grey60);
+      // background: $grey60;
       cursor: pointer;
     }
 
@@ -51,7 +51,7 @@
       outline: none;
     }
     .dd-text-icon {
-      color: var(--grey80);
+      color: $grey80;
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -65,7 +65,7 @@
     }
 
     .lang-dropdown {
-      background-color: var(--white);
+      background-color: $white;
       min-width: 5rem;
       position: absolute;
       transition: all 0.5s ease;
@@ -92,7 +92,7 @@
       padding-left: 30px;
       padding-right: 50px;
       &:hover {
-        color: var(--red-piper);
+        color: $red-piper;
       }
       transition-duration: 0.5s;
     }
@@ -101,7 +101,7 @@
     z-index: 1;
     @include media('>phone') {
       display: none;
-      background-color: var(--white);
+      background-color: $white;
       max-width: 1240px;
       width: calc(100% - 40px);
       position: absolute;
@@ -115,7 +115,7 @@
       justify-content: center;
       justify-items: center;
       align-items: center;
-      box-shadow: var(--menu-shadow);
+      box-shadow: $menu-shadow;
       &.visible {
         display: flex;
       }

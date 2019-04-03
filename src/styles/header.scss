@@ -1,14 +1,13 @@
-@import 'include-media';
-@import 'mixins';
+@import 'base';
 
 .header {
   width: 100%;
   padding-left: 13px;
-  background-color: var(--white);
+  background-color: $white;
   z-index: 99;
   .contents {
     height: 60px;
-    background-color: var(--white);
+    background-color: $white;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -31,10 +30,10 @@
     .active-section-mobile {
       font-size: 18px;
       line-height: 22px;
-      color: var(--blue);
+      color: $blue;
     }
     .menu-icon {
-      color: var(--blue);
+      color: $blue;
     }
     button.mobile-menu {
       appearance: none;
@@ -43,7 +42,7 @@
       height: 30px;
     }
     .search-icon {
-      color: var(--black);
+      color: $black;
       opacity: 0.65;
       height: 25px;
     }
@@ -79,7 +78,7 @@
           align-items: center;
           justify-content: flex-end;
           height: 40px;
-          color: var(--grey60);
+          color: $grey60;
           font-size: 20px;
           line-height: normal;
           .search,
@@ -91,7 +90,7 @@
             padding-right: 30px;
           }
           .brands-icon {
-            color: var(--yellow-sea);
+            color: $yellow-sea;
           }
           .search {
             input {
@@ -106,12 +105,12 @@
           }
           .brands {
             height: 30px;
-            border-left: 1px solid var(--grey40);
+            border-left: 1px solid $grey40;
           }
           .login {
             height: 40px;
-            background-color: var(--dark-blue);
-            color: var(--white);
+            background-color: $dark-blue;
+            color: $white;
           }
         }
         .tagline-container {
@@ -128,7 +127,7 @@
   }
   nav {
     display: block;
-    background-color: var(--grey80);
+    background-color: $grey80;
     .sections {
       display: flex;
       height: 60px;
@@ -145,7 +144,7 @@
         }
         .section {
           .section-trigger {
-            color: var(--white);
+            color: $white;
             border: 0;
             padding: 0;
             background: none;
@@ -153,11 +152,11 @@
             font-size: 20px;
             text-decoration: none;
             white-space: nowrap;
-            transition: var(--easeinout);
+            transition: $easeinout;
             cursor: pointer;
             &:hover,
             &.is-open {
-              color: var(--yellow-sea);
+              color: $yellow-sea;
               .indicator {
                 opacity: 1;
               }
@@ -166,9 +165,9 @@
               display: block;
               height: 6px;
               width: 25px;
-              border-bottom: 3px solid var(--yellow-sea);
+              border-bottom: 3px solid $yellow-sea;
               opacity: 0;
-              transition: var(--easeinout);
+              transition: $easeinout;
             }
           }
 
@@ -180,7 +179,7 @@
         .section-menu-container {
           cursor: default;
           display: none;
-          background-color: var(--grey-river);
+          background-color: $grey-river;
           width: calc(100% - 40px);
           position: absolute;
           // left: calc(100)
@@ -188,7 +187,7 @@
           top: 60px;
           padding-left: 70px;
           padding-right: 50px;
-          box-shadow: var(--menu-shadow);
+          box-shadow: $menu-shadow;
           &.visible {
             display: flex;
             flex-direction: column;
@@ -206,7 +205,7 @@
           }
           .title {
             @include neue-med;
-            color: var(--yellow-sea);
+            color: $yellow-sea;
             font-size: 15px;
             text-decoration: underline;
             margin-top: 20px;
@@ -220,7 +219,7 @@
             .category {
               width: calc(100% / 3);
               display: inline-flex;
-              color: var(--white);
+              color: $white;
               font-size: 13px;
               height: 36px;
               align-items: center;
@@ -228,15 +227,15 @@
               &:nth-child(3n + 2),
               &:nth-child(3n + 3) {
                 padding-left: 25px;
-                border-left: 1px solid var(--white);
+                border-left: 1px solid $white;
               }
               a {
-                color: var(--white);
+                color: $white;
                 text-decoration: none;
                 &:hover {
-                  color: var(--yellow-sea);
+                  color: $yellow-sea;
                   text-decoration: underline;
-                  transition: var(--easeinout);
+                  transition: $easeinout;
                 }
               }
             }
