@@ -6,11 +6,8 @@
     position: relative;
     display: flex;
     align-items: center;
-    // padding-left: 30px;
-    // padding-right: 30px;
     height: 30px;
     border-left: 1px solid $grey40;
-
     a {
       text-decoration: none;
     }
@@ -28,7 +25,6 @@
       }
       transition-duration: 0.5s;
     }
-
     li {
       color: $grey60;
       display: block;
@@ -36,11 +32,9 @@
       position: relative;
       text-decoration: none;
     }
-
     li span {
       color: $grey60;
     }
-
     li:hover,
     li:focus-within {
       // background: $grey60;
@@ -79,6 +73,7 @@
     .lang-dropdown--visible {
       display: block;
     }
+
     .nav__list {
       clear: both;
       display: flex;
@@ -106,6 +101,7 @@
       width: calc(100% - 40px);
       position: absolute;
       top: 40px;
+      left: 40px;
       margin-left: -20px;
       padding-left: 20px;
       padding-right: 20px;
