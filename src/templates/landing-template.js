@@ -113,6 +113,11 @@ const LandingTemplate = ({ data, pageContext }) => {
                   </div>
                 </div>
               )}
+              {brand && !bannerImage && (
+                <div className="brand-container">
+                  <ProductBrand brand={brand} />
+                </div>
+              )}
               {landingSections.length > 0 &&
                 landingSections.map(landingSection => {
                   const { pages } = landingSection;

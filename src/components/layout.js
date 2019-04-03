@@ -95,7 +95,7 @@ class Layout extends React.Component {
             type="text/javascript"
             src="https://identity.netlify.com/v1/netlify-identity-widget.js"
           /> */}
-          <script src="https://cdn.polyfill.io/v2/polyfill.min.js" />
+          {/* <script src="https://cdn.polyfill.io/v2/polyfill.min.js" /> */}
           <body
             className="no-focus-outline"
             ref={this.bodyElement}

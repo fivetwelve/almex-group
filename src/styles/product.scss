@@ -189,7 +189,6 @@ $spacing: 20px;
           &.fusion,
           &.institute,
           &.knight,
-          &.rampart,
           &.votech {
             padding-left: 30px;
             padding-right: 30px;
@@ -198,41 +197,43 @@ $spacing: 20px;
             margin-right: 10px;
             display: inline-block;
             background-position-y: 0;
+            background-size: contain;
+            background-repeat: no-repeat;
           }
           &.almex-box {
             width: 135px;
             height: 46px;
-            background-image: url('../../static/img/logo-almex-box.png');
+            background-image: url('../../static/img/logo-almex-box.svg');
           }
           &.fusion {
             width: 154px;
             height: 35px;
-            background-image: url('../../static/img/logo-fusion.png');
+            background-image: url('../../static/img/logo-fusion.svg');
           }
           &.emsys {
             width: 135px;
             height: 38px;
-            background-image: url('../../static/img/logo-emsys.png');
+            background-image: url('../../static/img/logo-emsys.svg');
           }
           &.bat {
             width: 101px;
             height: 72px;
-            background-image: url('../../static/img/logo-bat.png');
+            background-image: url('../../static/img/logo-bat.svg');
           }
           &.votech {
             width: 179px;
             height: 66px;
-            background-image: url('../../static/img/logo-votech.png');
+            background-image: url('../../static/img/logo-votech.svg');
           }
           &.institute {
             width: 100px;
             height: 88px;
-            background-image: url('../../static/img/logo-institute.png');
+            background-image: url('../../static/img/logo-institute.svg');
           }
           &.knight {
             width: 55px;
             height: 103px;
-            background-image: url('../../static/img/logo-knight.png');
+            background-image: url('../../static/img/logo-knight.svg');
           }
         }
         .product-title {

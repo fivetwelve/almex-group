@@ -25,12 +25,20 @@ module.exports = {
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
+    // `gatsby-plugin-postcss`,
+    // `gatsby-plugin-sass`,
     {
       resolve: `gatsby-plugin-sass`,
       options: {
         postCssPlugins: [cssVariables()],
       },
     },
+    // {
+    //   resolve: `gatsby-plugin-polyfill-io`,
+    //   options: {
+    //     features: [`Array.prototype.map`, `fetch`],
+    //   },
+    // },
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {

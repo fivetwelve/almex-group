@@ -1,4 +1,6 @@
 @import 'include-media';
+@import 'variables';
+
 $spacing: 20px;
 
 .landing {
@@ -14,7 +16,7 @@ $spacing: 20px;
       overflow: hidden;
       border-bottom: 15px solid var(--blue-almex);
       &.orange {
-        border-bottom: 15px solid var(--tango);
+        border-bottom: 15px solid $tango;
       }
       &.teal {
         border-bottom: 15px solid var(--allports);
@@ -36,42 +38,34 @@ $spacing: 20px;
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center center;
-        height: 80px;
       }
       &.almex-box {
-        // width: 135px;
-        // height: 46px;
-        background-image: url('../../static/img/logo-almex-box.png');
+        background-image: url('../../static/img/logo-almex-box.svg');
+        height: 80px;
       }
       &.fusion {
-        // height: 70px;
-        // width: 305px;
         background-image: url('../../static/img/logo-fusion.svg');
+        height: 80px;
       }
       &.emsys {
-        // width: 135px;
-        // height: 38px;
-        background-image: url('../../static/img/logo-emsys.png');
+        background-image: url('../../static/img/logo-emsys.svg');
+        height: 80px;
       }
       &.bat {
-        // width: 101px;
-        // height: 72px;
         background-image: url('../../static/img/logo-bat.svg');
+        height: 80px;
       }
       &.votech {
-        // width: 179px;
-        // height: 66px;
-        background-image: url('../../static/img/logo-votech.png');
+        background-image: url('../../static/img/logo-votech.svg');
+        height: 80px;
       }
       &.institute {
-        // width: 100px;
-        // height: 88px;
-        background-image: url('../../static/img/logo-institute.png');
+        background-image: url('../../static/img/logo-institute.svg');
+        height: 140px;
       }
       &.knight {
-        // width: 55px;
-        // height: 103px;
-        background-image: url('../../static/img/logo-knight.png');
+        background-image: url('../../static/img/logo-knight.svg');
+        height: 140px;
       }
     }
     h2.brand-title {
@@ -107,7 +101,7 @@ $spacing: 20px;
       width: 100%;
       max-width: 1280px;
       &.orange {
-        background-color: var(--tango);
+        background-color: $tango;
       }
       &.teal {
         background-color: var(--allports);
