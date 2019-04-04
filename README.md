@@ -1,4 +1,4 @@
-# eight-trees
+# almex-poc
 
 This project uses Gatsby which in itself is based on React (version 16.x).
 

@@ -7,22 +7,17 @@ import { createLinkFromPage, getTitle } from '../utils/functions';
 class NavigationDropdown extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isOpen: false,
-    };
     this.trigger = React.createRef();
-    this.menu = React.createRef();
   }
 
-  handleClickDropDown = evt => {
-    // const { closeOtherMenus, section } = this.props;
+  handleClick = evt => {
+    const { handleMenuItem, isOpen, section } = this.props;
     evt.preventDefault();
-    evt.target.classList.toggle('is-open');
-    this.menu.current.classList.toggle('visible');
-    // closeOtherMenus(section.TYPE);
-    this.setState(prevState => ({
-      isOpen: !prevState.isOpen,
-    }));
+    if (!isOpen) {
+      handleMenuItem(section.type);
+    } else {
+      handleMenuItem('');
+    }
   };
 
   closeMenu = () => {
@@ -33,7 +28,7 @@ class NavigationDropdown extends React.Component {
   };
 
   render() {
-    const { activeLanguage, location, section } = this.props;
+    const { activeLanguage, isOpen, location, section } = this.props;
     return (
       <div className="section-container">
         <div className="section">
@@ -41,9 +36,9 @@ class NavigationDropdown extends React.Component {
             type="button"
             aria-expanded="false"
             aria-haspopup="true"
-            className="section-trigger"
+            className={`section-trigger ${isOpen ? 'is-open' : ''}`}
             onClick={evt => {
-              this.handleClickDropDown(evt);
+              this.handleClick(evt);
             }}
             ref={this.trigger}
           >
@@ -51,7 +46,7 @@ class NavigationDropdown extends React.Component {
             <span className="indicator" />
           </button>
         </div>
-        <div className="section-menu-container" ref={this.menu}>
+        <div className={`section-menu-container ${isOpen ? 'visible' : ''}`}>
           <div className="title">{section[`title${activeLanguage}`]}</div>
           <div className="menu-container">
             {section.pages.map(page => (
@@ -63,22 +58,23 @@ class NavigationDropdown extends React.Component {
             ))}
           </div>
         </div>
-        {/* )} */}
       </div>
     );
   }
 }
 
 NavigationDropdown.defaultProps = {
-  // closeOtherMenus: () => {},
+  handleMenuItem: () => {},
   activeLanguage: '',
+  isOpen: false,
   location: {},
   section: {},
 };
 
 NavigationDropdown.propTypes = {
-  // closeOtherMenus: PropTypes.func,
+  handleMenuItem: PropTypes.func,
   activeLanguage: PropTypes.string,
+  isOpen: PropTypes.bool,
   location: PropTypes.shape({
     pathname: PropTypes.string,
   }),

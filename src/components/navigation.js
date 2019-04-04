@@ -2,40 +2,66 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, StaticQuery } from 'gatsby';
 import NavigationDropdown from './navigationDropdown';
-// import Dump from '../utils/dump';
 
-const Navigation = props => {
-  const {
-    activeLanguage,
-    data: {
-      cms: { navigations },
-    },
-    location,
-    region,
-  } = props;
-  // console.log(`navigations: ${navigations}`);
-  const navigation = navigations.filter(nav => nav.availableIn === region)[0];
-  return (
-    <>
-      {/* <Dump src={navigations} /> */}
-      <nav className="navigation">
-        <div className="sections">
-          {navigation.navigationSections.length > 0 &&
-            navigation.navigationSections.map(section => (
-              <NavigationDropdown
-                activeLanguage={activeLanguage}
-                closeOtherMenus={type => this.closeOtherMenus(type)}
-                key={section.type}
-                location={location}
-                section={section}
-                // ref={this.PRODUCTS}
-              />
-            ))}
-        </div>
-      </nav>
-    </>
-  );
-};
+class Navigation extends React.Component {
+  constructor(props) {
+    super(props);
+    // TODO handling logic for current section vs open/close state
+    /*
+      activeSection indicates whether menu item should be highlighted;
+      openSection indicates whether actual menu item should be open
+    */
+    this.state = {
+      activeSection: '',
+      openSection: '',
+    };
+  }
+
+  handleMenuItem = type => {
+    this.setState({
+      openSection: type,
+    });
+  };
+
+  render() {
+    const { activeSection, openSection } = this.state;
+    const {
+      activeLanguage,
+      data: {
+        cms: { navigations },
+      },
+      location,
+      region,
+    } = this.props;
+    const navigation = navigations.filter(nav => nav.availableIn === region)[0];
+    return (
+      <>
+        <nav className="navigation">
+          <div className="sections">
+            {navigation.navigationSections.length > 0 &&
+              navigation.navigationSections.map(section => {
+                const isOpen = section.type === openSection;
+                return (
+                  <NavigationDropdown
+                    activeLanguage={activeLanguage}
+                    activeSection={activeSection}
+                    handleMenuItem={this.handleMenuItem}
+                    key={section.type}
+                    location={location}
+                    section={section}
+                    isOpen={isOpen}
+                    // ref={`menu${index}`}
+                    // ref={this.PRODUCTS}
+                  />
+                );
+              })}
+          </div>
+        </nav>
+      </>
+    );
+  }
+}
+
 Navigation.defaultProps = {
   activeLanguage: '',
   data: {},
