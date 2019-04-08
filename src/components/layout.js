@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { Location } from '@reach/router';
-// import * as log from 'loglevel';
 import Header from './header';
 import Footer from './footer';
 import { LocationProvider } from '../utils/locationContext';

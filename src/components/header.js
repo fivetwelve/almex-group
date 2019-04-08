@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import { IconContext } from 'react-icons';
 import { FaBars, FaSearch } from 'react-icons/fa';
-import * as log from 'loglevel';
 import BrandSelector from './brandSelector';
 import LanguageSelector from './languageSelector';
-// import NavigationDropdown from './navigationDropdown';
 import Navigation from './navigation';
 import '../styles/header.scss';
 import '../styles/headerOptions.scss';
@@ -31,22 +29,21 @@ class Header extends React.Component {
     // console.log(this.myRef);
   }
 
-  closeOtherMenus = type => {
-    // console.log(`type: ${type}`);
-    // const { headerFooter } = this.props;
-    // const nav = headerFooter[0].navigation;
-    log.info(type);
-    // console.log('myref:', this.myRef['PRODUCTS']);
-    // for (let i = 0; i < nav.length; i += 1) {
-    //   const navType = nav[i].TYPE;
-    //   console.log('nav:', this.myRef[navType]);
-    //   // console.log(`navType: ${navType}`);
-    //   // console.log(this.PRODUCTS.current);
-    //   if (type !== navType) {
-    //     this.myRef[navType].current.toggleMenu();
-    //   }
-    // }
-  };
+  // closeOtherMenus = type => {
+  // console.log(`type: ${type}`);
+  // const { headerFooter } = this.props;
+  // const nav = headerFooter[0].navigation;
+  // console.log('myref:', this.myRef['PRODUCTS']);
+  // for (let i = 0; i < nav.length; i += 1) {
+  //   const navType = nav[i].TYPE;
+  //   console.log('nav:', this.myRef[navType]);
+  //   // console.log(`navType: ${navType}`);
+  //   // console.log(this.PRODUCTS.current);
+  //   if (type !== navType) {
+  //     this.myRef[navType].current.toggleMenu();
+  //   }
+  // }
+  // };
 
   render() {
     const {

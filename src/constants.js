@@ -14,6 +14,7 @@ module.exports = {
     PRODUCT: 'PRODUCT',
     PROMO: 'PROMO',
     SERVICE: 'SERVICE',
+    USED: 'USED',
   },
   allRegions: {
     NORTH_AMERICA: 'NORTH_AMERICA',

@@ -215,7 +215,7 @@ class ProductShowcase extends React.Component {
 ProductShowcase.defaultProps = {
   attractText: [],
   brand: '',
-  images: {},
+  images: [],
   locale: '',
   products: {},
   themeColour: '',

@@ -13,14 +13,22 @@ import ProductBrand from '../components/productBrand';
 const allowHTML = { html: true };
 
 const LandingTemplate = ({ data, pageContext }) => {
-  const { locale, siteData, region, title } = pageContext;
+  const { locale, siteData, region } = pageContext;
   const {
     cms: {
       brandNavigation,
       headerFooter,
       label,
       page: {
-        landing: { bannerImage, brand, brandDescription, brandTitle, theme, landingSections },
+        landing: {
+          bannerImage,
+          brand,
+          brandDescription,
+          brandTitle,
+          theme,
+          landingSections,
+          title,
+        },
       },
     },
   } = data;
@@ -158,7 +166,7 @@ LandingTemplate.propTypes = {
     locale: PropTypes.string,
     region: PropTypes.string,
     siteData: PropTypes.object,
-    title: PropTypes.string,
+    // title: PropTypes.string,
   }),
 };
 
