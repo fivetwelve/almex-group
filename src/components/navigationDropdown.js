@@ -3,15 +3,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
 import shortid from 'shortid';
 import { createLinkFromPage, getTitle } from '../utils/functions';
+import CloseButton from './closeButton';
 
-class NavigationDropdown extends React.Component {
-  constructor(props) {
-    super(props);
-    this.trigger = React.createRef();
-  }
+const NavigationDropdown = props => {
+  const { activeLanguage, handleMenuItem, isOpen, location, section } = props;
 
-  handleClick = evt => {
-    const { handleMenuItem, isOpen, section } = this.props;
+  const handleClick = evt => {
     evt.preventDefault();
     if (!isOpen) {
       handleMenuItem(section.type);
@@ -20,48 +17,39 @@ class NavigationDropdown extends React.Component {
     }
   };
 
-  closeMenu = () => {
-    const { isOpen } = this.state;
-    if (isOpen) {
-      this.menu.current.classList.toggle('visible');
-    }
-  };
-
-  render() {
-    const { activeLanguage, isOpen, location, section } = this.props;
-    return (
-      <div className="section-container">
-        <div className="section">
-          <button
-            type="button"
-            aria-expanded="false"
-            aria-haspopup="true"
-            className={`section-trigger ${isOpen ? 'is-open' : ''}`}
-            onClick={evt => {
-              this.handleClick(evt);
-            }}
-            ref={this.trigger}
-          >
-            {section[`title${activeLanguage}`]}
-            <span className="indicator" />
-          </button>
-        </div>
-        <div className={`section-menu-container ${isOpen ? 'visible' : ''}`}>
-          <div className="title">{section[`title${activeLanguage}`]}</div>
-          <div className="menu-container">
-            {section.pages.map(page => (
-              <div className="category" key={shortid.generate()}>
-                <Link to={createLinkFromPage(location, page, activeLanguage)}>
-                  {getTitle(page, activeLanguage)}
-                </Link>
-              </div>
-            ))}
-          </div>
+  return (
+    <div className="section-container">
+      <div className="section">
+        <button
+          type="button"
+          aria-expanded="false"
+          aria-haspopup="true"
+          className={`section-trigger ${isOpen ? 'is-open' : ''}`}
+          onClick={evt => {
+            handleClick(evt);
+          }}
+        >
+          {section[`title${activeLanguage}`]}
+          <span className="indicator" />
+        </button>
+      </div>
+      <div className={`section-menu-container ${isOpen ? 'visible' : ''}`}>
+        <CloseButton closeMenu={handleMenuItem} />
+        <div className="title">{section[`title${activeLanguage}`]}</div>
+        <div className="menu-container">
+          {section.pages.map(page => (
+            <div className="category" key={shortid.generate()}>
+              <Link to={createLinkFromPage(location, page, activeLanguage)}>
+                {getTitle(page, activeLanguage)}
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+// }
 
 NavigationDropdown.defaultProps = {
   handleMenuItem: () => {},
@@ -79,9 +67,7 @@ NavigationDropdown.propTypes = {
     pathname: PropTypes.string,
   }),
   section: PropTypes.shape({
-    ITEMS: PropTypes.array,
-    PATH: PropTypes.string,
-    TYPE: PropTypes.string,
+    type: PropTypes.string,
   }),
 };
 

@@ -5,11 +5,10 @@ import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
 import LinkWithPrevious from '../components/linkWithPrevious';
 import ProductShowcase from '../components/productShowcase';
+import Options from '../components/options';
 import { allThemes } from '../constants';
 import { getSlug } from '../utils/functions';
 import '../styles/product.scss';
-import Options from '../components/options';
-// import Dump from '../utils/dump';
 
 const allowHTML = { html: true };
 
@@ -129,7 +128,6 @@ const ProductTemplate = ({ data, location, pageContext }) => {
             pdfDownloads={pdfDownloads}
             pdfTitles={pdfTitles}
           />
-          {/* <Dump src={data} /> */}
           <div className={`product-marketing ${themeColour}`}>
             <Markdown source={marketing} options={allowHTML} />
           </div>

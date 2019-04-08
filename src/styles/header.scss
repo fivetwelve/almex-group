@@ -204,6 +204,17 @@
             left: calc((100% - 900px) / 2);
             max-width: 900px;
           }
+
+          button.close {
+            position: absolute;
+            right: 0;
+            top: 0;
+            border: 0;
+            background: none;
+            padding: 10px;
+            margin: 5px;
+          }
+
           .title {
             @include neue-med;
             color: $yellow-sea;

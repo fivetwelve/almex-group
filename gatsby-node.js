@@ -1,4 +1,3 @@
-// const log = require('loglevel');
 const path = require('path');
 const { allPageTypes, allLanguageSlugs, allRegionSlugs } = require('./src/constants.js');
 
@@ -24,30 +23,34 @@ exports.createPages = ({ graphql, actions }) => {
               pageType
               slugEN: slug(locale: EN)
               slugES: slug(locale: ES)
-              article {
-                titleEN: title(locale: EN)
-                titleES: title(locale: ES)
-              }
-              industry {
-                titleEN: title(locale: EN)
-                titleES: title(locale: ES)
-              }
-              landing {
-                titleEN: title(locale: EN)
-                titleES: title(locale: ES)
-              }
-              product {
-                titleEN: title(locale: EN)
-                titleES: title(locale: ES)
-              }
-              promo {
-                titleEN: title(locale: EN)
-                titleES: title(locale: ES)
-              }
-              service {
-                titleEN: title(locale: EN)
-                titleES: title(locale: ES)
-              }
+              # article {
+              #   titleEN: title(locale: EN)
+              #   titleES: title(locale: ES)
+              # }
+              # industry {
+              #   titleEN: title(locale: EN)
+              #   titleES: title(locale: ES)
+              # }
+              # landing {
+              #   titleEN: title(locale: EN)
+              #   titleES: title(locale: ES)
+              # }
+              # product {
+              #   titleEN: title(locale: EN)
+              #   titleES: title(locale: ES)
+              # }
+              # promo {
+              #   titleEN: title(locale: EN)
+              #   titleES: title(locale: ES)
+              # }
+              # service {
+              #   titleEN: title(locale: EN)
+              #   titleES: title(locale: ES)
+              # }
+              # usedEquipment {
+              #   titleEN: title(locale: EN)
+              #   titleES: title(locale: ES)
+              # }
             }
           }
           navigations(where: { availableIn: NORTH_AMERICA }) {
@@ -88,29 +91,6 @@ exports.createPages = ({ graphql, actions }) => {
               }
             }
           }
-          productListNA: productLists(where: { availableIn: NORTH_AMERICA }) {
-            availableIn
-            productsEN: products(where: { status: PUBLISHED }) {
-              page {
-                id
-                slug(locale: EN)
-              }
-              # features(locale: EN)
-              # specs(locale: EN)
-              # summary(locale: EN)
-              # title(locale: EN)
-            }
-            productsES: products(where: { status: PUBLISHED }) {
-              page {
-                id
-                slug(locale: ES)
-              }
-              # features(locale: ES)
-              # specs(locale: ES)
-              # summary(locale: ES)
-              # title(locale: ES)
-            }
-          }
         }
       }
     `).then(result => {
@@ -129,7 +109,7 @@ exports.createPages = ({ graphql, actions }) => {
       result.data.cms.activePagesLists.forEach(({ availableIn, supportedLocales, pages }) => {
         supportedLocales.forEach(locale => {
           pages.forEach(page => {
-            const { id, pageType, article, industry, landing, promo, service } = page;
+            const { id, pageType } = page;
             const pagePath = `${allRegionSlugs[availableIn]}/${allLanguageSlugs[locale]}/${
               page[`slug${locale}`]
             }`;
@@ -139,7 +119,7 @@ exports.createPages = ({ graphql, actions }) => {
                   path: pagePath,
                   component: path.resolve(`./src/templates/product-template.js`),
                   context: {
-                    id: page.id,
+                    id,
                     locale,
                     siteData: data,
                     region: availableIn,
@@ -157,7 +137,7 @@ exports.createPages = ({ graphql, actions }) => {
                     siteData: data,
                     // page: slugEN,
                     region: availableIn,
-                    title: landing[`title${locale}`],
+                    // title: landing[`title${locale}`],
                     // landingSections: landing.landingSectionsEN,
                   },
                 });
@@ -168,11 +148,12 @@ exports.createPages = ({ graphql, actions }) => {
                   path: pagePath,
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
+                    id,
                     locale,
                     siteData: data,
                     page: page.slug[locale],
                     region: availableIn,
-                    title: article[`title${locale}`],
+                    // title: article[`title${locale}`],
                   },
                 });
                 break;
@@ -181,11 +162,12 @@ exports.createPages = ({ graphql, actions }) => {
                   path: pagePath,
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
+                    id,
                     locale,
                     siteData: data,
                     page: page.slug[locale],
                     region: availableIn,
-                    title: industry[`title${locale}`],
+                    // title: industry[`title${locale}`],
                   },
                 });
                 break;
@@ -194,11 +176,12 @@ exports.createPages = ({ graphql, actions }) => {
                   path: pagePath,
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
+                    id,
                     locale,
                     siteData: data,
                     page: page.slug[locale],
                     region: availableIn,
-                    title: promo[`title${locale}`],
+                    // title: promo[`title${locale}`],
                   },
                 });
                 break;
@@ -207,11 +190,24 @@ exports.createPages = ({ graphql, actions }) => {
                   path: pagePath,
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
+                    id,
                     locale,
                     siteData: data,
                     page: page.slug[locale],
                     region: availableIn,
-                    title: service[`title${locale}`],
+                    // title: service[`title${locale}`],
+                  },
+                });
+                break;
+              case allPageTypes.USED:
+                createPage({
+                  path: pagePath,
+                  component: path.resolve(`./src/templates/usedEquipment-template.js`),
+                  context: {
+                    id,
+                    locale,
+                    siteData: data,
+                    region: availableIn,
                   },
                 });
                 break;
