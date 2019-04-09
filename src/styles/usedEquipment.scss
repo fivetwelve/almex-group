@@ -39,6 +39,15 @@ $spacing: 20px;
       }
       .description {
         font-size: 18px;
+        a {
+          color: $grey80;
+          text-decoration: none;
+          &:hover {
+            color: $yellow-sea;
+            text-decoration: underline;
+          }
+          transition: $easeinout;
+        }
         p:last-of-type {
           margin-bottom: 0;
         }
@@ -175,6 +184,7 @@ $spacing: 20px;
                 background-position: center;
                 background-size: cover;
                 border: 1px solid $grey60;
+                background-color: transparent;
               }
             }
           }

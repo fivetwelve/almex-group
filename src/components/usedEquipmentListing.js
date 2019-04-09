@@ -91,36 +91,46 @@ class UsedEquipmentListing extends React.Component {
               className="carousel"
               autoGenerateStyleTag={autoGenerateStyleTag}
               enableKeyboardControls={enableKeyboardControls}
-              renderCenterLeftControls={({ currentSlide, previousSlide }) => (
-                <button
-                  onClick={evt =>
-                    this.handleClickDirection(evt, currentSlide, previousSlide, 'PREVIOUS')
-                  }
-                  type="button"
-                  className="left-controls"
-                >
-                  <span className="sr-only">Previous</span>
-                  <span aria-hidden="true" className="left-controls-icon">
-                    <IconContext.Provider value={{ className: 'left-controls-icon' }}>
-                      <FaChevronLeft aria-hidden />
-                    </IconContext.Provider>
-                  </span>
-                </button>
-              )}
-              renderCenterRightControls={({ currentSlide, nextSlide }) => (
-                <button
-                  onClick={evt => this.handleClickDirection(evt, currentSlide, nextSlide, 'NEXT')}
-                  type="button"
-                  className="right-controls"
-                >
-                  <span className="sr-only">Next</span>
-                  <span aria-hidden="true" className="right-controls-icon">
-                    <IconContext.Provider value={{ className: 'right-controls-icon' }}>
-                      <FaChevronRight aria-hidden />
-                    </IconContext.Provider>
-                  </span>
-                </button>
-              )}
+              renderCenterLeftControls={({ currentSlide, previousSlide }) => {
+                if (slideArray.length <= 1) {
+                  return null;
+                }
+                return (
+                  <button
+                    onClick={evt =>
+                      this.handleClickDirection(evt, currentSlide, previousSlide, 'PREVIOUS')
+                    }
+                    type="button"
+                    className="left-controls"
+                  >
+                    <span className="sr-only">Previous</span>
+                    <span aria-hidden="true" className="left-controls-icon">
+                      <IconContext.Provider value={{ className: 'left-controls-icon' }}>
+                        <FaChevronLeft aria-hidden />
+                      </IconContext.Provider>
+                    </span>
+                  </button>
+                );
+              }}
+              renderCenterRightControls={({ currentSlide, nextSlide }) => {
+                if (slideArray.length <= 1) {
+                  return null;
+                }
+                return (
+                  <button
+                    onClick={evt => this.handleClickDirection(evt, currentSlide, nextSlide, 'NEXT')}
+                    type="button"
+                    className="right-controls"
+                  >
+                    <span className="sr-only">Next</span>
+                    <span aria-hidden="true" className="right-controls-icon">
+                      <IconContext.Provider value={{ className: 'right-controls-icon' }}>
+                        <FaChevronRight aria-hidden />
+                      </IconContext.Provider>
+                    </span>
+                  </button>
+                );
+              }}
               renderBottomCenterControls={() => null}
               slideIndex={slideIdx}
               wrapAround={wrapAround}
@@ -136,27 +146,29 @@ class UsedEquipmentListing extends React.Component {
             <div className="contact-info">
               <Markdown source={contactInformation} options={allowHTML} />
             </div>
-            <div className="carousel-controls">
-              {images.map((image, idx) => {
-                const thumbStyle = {
-                  backgroundImage: `url(${images[idx].url})`,
-                };
-                return (
-                  <div
-                    className={`thumb-container${slideIdx === idx ? ' active' : ''}`}
-                    key={shortid.generate()}
-                    data-num={idx}
-                  >
-                    <button
-                      className="thumb-image"
-                      onClick={() => this.setState({ slideIdx: idx })}
-                      style={thumbStyle}
-                      type="button"
-                    />
-                  </div>
-                );
-              })}
-            </div>
+            {slideArray.length > 1 && (
+              <div className="carousel-controls">
+                {images.map((image, idx) => {
+                  const thumbStyle = {
+                    backgroundImage: `url(${images[idx].url})`,
+                  };
+                  return (
+                    <div
+                      className={`thumb-container${slideIdx === idx ? ' active' : ''}`}
+                      key={shortid.generate()}
+                      data-num={idx}
+                    >
+                      <button
+                        className="thumb-image"
+                        onClick={() => this.setState({ slideIdx: idx })}
+                        style={thumbStyle}
+                        type="button"
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
         <div className="listing-specs">
