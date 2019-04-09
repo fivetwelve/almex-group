@@ -37,7 +37,7 @@ export const query = graphql`
       brandNavigation(where: { availableIn: NORTH_AMERICA }) {
         pages {
           slug(locale: EN)
-          landing {
+          landing: landingSource {
             brand
             title(locale: EN)
           }
@@ -104,27 +104,27 @@ export const query = graphql`
             slugEN: slug(locale: EN)
             slugES: slug(locale: EN)
             pageType
-            article {
+            article: articleSource {
               titleEN: title(locale: EN)
               titleES: title(locale: ES)
             }
-            industry {
+            industry: industrySource {
               titleEN: title(locale: EN)
               titleES: title(locale: ES)
             }
-            product {
+            product: productSource {
               titleEN: title(locale: EN)
               titleES: title(locale: ES)
             }
-            promo {
+            promo: promoSource {
               titleEN: title(locale: EN)
               titleES: title(locale: ES)
             }
-            service {
+            service: serviceSource {
               titleEN: title(locale: EN)
               titleES: title(locale: ES)
             }
-            landing {
+            landing: landingSource {
               titleEN: title(locale: EN)
               titleES: title(locale: ES)
               landingSections {
@@ -132,7 +132,7 @@ export const query = graphql`
                 pages {
                   slug(locale: EN)
                   pageType
-                  product {
+                  product: productSource {
                     title(locale: EN)
                     subtitle(locale: EN)
                     tileImage {

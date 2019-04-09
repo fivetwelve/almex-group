@@ -88,7 +88,7 @@ export const query = graphql`
         products(locale: $locale)
       }
       page(where: { id: $id }) {
-        usedEquipment {
+        usedEquipment: usedEquipmentSource {
           title(locale: $locale)
           description(locale: $locale)
           disclaimer(locale: $locale)

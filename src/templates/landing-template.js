@@ -175,7 +175,7 @@ export const query = graphql`
     cms {
       ...CommonQuery
       page(where: { id: $id }) {
-        landing {
+        landing: landingSource {
           bannerImage {
             handle
             width
@@ -190,14 +190,14 @@ export const query = graphql`
             pages {
               slug(locale: $locale)
               pageType
-              product {
+              product: productSource {
                 title(locale: $locale)
                 subtitle(locale: $locale)
                 tileImage {
                   url
                 }
               }
-              landing {
+              landing: landingSource {
                 title(locale: $locale)
                 subtitle(locale: $locale)
                 tileImage {

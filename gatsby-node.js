@@ -64,27 +64,27 @@ exports.createPages = ({ graphql, actions }) => {
                 pageType
                 slugEN: slug(locale: EN)
                 slugES: slug(locale: ES)
-                article {
+                article: articleSource {
                   titleEN: title(locale: EN)
                   titleES: title(locale: ES)
                 }
-                industry {
+                industry: industrySource {
                   titleEN: title(locale: EN)
                   titleES: title(locale: ES)
                 }
-                landing {
+                landing: landingSource {
                   titleEN: title(locale: EN)
                   titleES: title(locale: ES)
                 }
-                product {
+                product: productSource {
                   titleEN: title(locale: EN)
                   titleES: title(locale: ES)
                 }
-                promo {
+                promo: promoSource {
                   titleEN: title(locale: EN)
                   titleES: title(locale: ES)
                 }
-                service {
+                service: serviceSource {
                   titleEN: title(locale: EN)
                   titleES: title(locale: ES)
                 }

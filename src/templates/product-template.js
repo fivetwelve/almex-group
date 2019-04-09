@@ -228,7 +228,7 @@ export const query = graphql`
       page(where: { id: $id }) {
         belongsTo
         pageType
-        product {
+        product: productSource {
           brand
           theme
           title(locale: $locale)

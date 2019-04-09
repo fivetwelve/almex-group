@@ -157,7 +157,7 @@ export const commonFragment = graphql`
     brandNavigation(where: { availableIn: $region }) {
       pages {
         slug(locale: $locale)
-        landing {
+        landing: landingSource {
           brand
           title(locale: $locale)
         }
