@@ -172,7 +172,9 @@ class UsedEquipmentListing extends React.Component {
           </div>
         </div>
         <div className="listing-specs">
-          <div className="equipment-description">{equipmentDescription}</div>
+          <div className="listing-description">
+            <Markdown source={equipmentDescription} allowHTML={allowHTML} />
+          </div>
         </div>
       </>
     );

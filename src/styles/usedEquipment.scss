@@ -192,7 +192,6 @@ $spacing: 20px;
       }
     }
     .listing-specs {
-      color: $grey80;
       padding-left: 0px;
       padding-right: 0px;
       @include media('>=tablet') {
@@ -203,6 +202,10 @@ $spacing: 20px;
         padding-left: 100px;
         padding-right: 100px;
         margin-top: 60px;
+      }
+      .listing-description {
+        color: $grey80;
+        font-size: 20px;
       }
     }
     .disclaimer {
