@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import shortid from 'shortid';
 import { TimelineLite, CSSPlugin, Back, Circ, Elastic, Expo, Sine } from 'gsap';
 import { DrawSVGPlugin } from '../utils/gsap/DrawSVGPlugin';
+import { makeid } from '../utils/functions';
 
 // eslint-disable-next-line no-unused-vars
 const myPlugins = [CSSPlugin, DrawSVGPlugin];
@@ -152,7 +152,7 @@ class Attraction extends React.Component {
           <ul>
             {attractText.map((elem, idx) => (
               <li
-                key={shortid.generate()}
+                key={makeid()}
                 ref={li => {
                   this.textTweens[idx] = li;
                 }}

@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Carousel from 'nuka-carousel';
 import YouTube from 'react-youtube';
-import shortid from 'shortid';
 import { IconContext } from 'react-icons';
 import { FaChevronLeft, FaChevronRight, FaYoutube } from 'react-icons/fa';
+import { makeid } from '../utils/functions';
 import ProductBrand from './productBrand';
 import Attraction from './attraction';
 
@@ -20,14 +20,14 @@ class ProductShowcase extends React.Component {
       const slideStyle = {
         backgroundImage: `url(${images[i].url})`,
       };
-      const slide = <div className="slide-image" style={slideStyle} key={shortid.generate()} />;
+      const slide = <div className="slide-image" style={slideStyle} key={makeid()} />;
       slideArray.push(slide);
     }
 
     /* populating carousel with YouTube video */
     for (let j = 0; j < youTubeIDs.length; j += 1) {
       const slide = (
-        <div className="video-container" key={shortid.generate()}>
+        <div className="video-container" key={makeid()}>
           <YouTube videoId={youTubeIDs[j]} />
         </div>
       );
@@ -37,7 +37,7 @@ class ProductShowcase extends React.Component {
     /* creating list of PDFs */
     for (let k = 0; k < pdfDownloads.length; k += 1) {
       const pdf = (
-        <div className="pdf" key={shortid.generate()}>
+        <div className="pdf" key={makeid()}>
           <a href={pdfDownloads[k].url} target="_new">
             <div className="pdf-icon" />
             {pdfTitles[k] || pdfDownloads[k].fileName}
@@ -170,7 +170,7 @@ class ProductShowcase extends React.Component {
             return (
               <div
                 className={`thumb-container${slideIdx === idx ? ' active' : ''}`}
-                key={shortid.generate()}
+                key={makeid()}
                 data-num={idx}
               >
                 <button
@@ -190,7 +190,7 @@ class ProductShowcase extends React.Component {
             return (
               <div
                 className={`thumb-container${slideIdx === thisIdx ? ' active' : ''}`}
-                key={shortid.generate()}
+                key={makeid()}
                 data-num={images.length + thisIdx}
               >
                 <button

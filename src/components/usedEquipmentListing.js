@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Carousel from 'nuka-carousel';
 import Markdown from 'react-remarkable';
-import shortid from 'shortid';
 import { IconContext } from 'react-icons';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import moment from 'moment';
+import { makeid } from '../utils/functions';
 import defaultImage from '../../static/img/icon-used-wide.svg';
 
 const allowHTML = { html: true };
@@ -27,7 +27,7 @@ class UsedEquipmentListing extends React.Component {
       const slideStyle = {
         backgroundImage: `url(${images[i].url})`,
       };
-      const slide = <div className="slide-image" style={slideStyle} key={shortid.generate()} />;
+      const slide = <div className="slide-image" style={slideStyle} key={makeid()} />;
       slideArray.push(slide);
     }
 
@@ -155,7 +155,7 @@ class UsedEquipmentListing extends React.Component {
                   return (
                     <div
                       className={`thumb-container${slideIdx === idx ? ' active' : ''}`}
-                      key={shortid.generate()}
+                      key={makeid()}
                       data-num={idx}
                     >
                       <button

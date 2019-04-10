@@ -14,8 +14,8 @@ const createLink = (location, slug) => {
 };
 
 const createLinkFromPage = (location, page, language) => {
-  /* Given a page object, return language-specific URL. */
-  const slug = page[`slug${language.toUpperCase()}`];
+  /* Given a page object with multiple slugs, return language-specific URL. */
+  const slug = page[`slug${language.toUpperCase()}`] || page.slug;
   return createLink(location, slug);
 };
 
@@ -32,13 +32,16 @@ const getSlug = pathname => {
   return slug;
 };
 
-const getTitle = (page, language) => {
+const getTitle = (page, language = '') => {
   /*
-    For use when titles are returned from staticQuery in the form
-    of titleEN, titleES, etc. and we need the locale-specific one
+    Get title from staticQuery from forms of titleEN, titleES, etc. or
+    simply from page object when query is already language-filtered.
   */
   let title = '';
   switch (page.pageType) {
+    case allPageTypes.ABOUT:
+      title = page.about[`title${language}`];
+      break;
     case allPageTypes.ARTICLE:
       title = page.article[`title${language}`];
       break;
@@ -57,10 +60,24 @@ const getTitle = (page, language) => {
     case allPageTypes.SERVICE:
       title = page.service[`title${language}`];
       break;
+    case allPageTypes.USED:
+      title = page.usedEquipment[`title${language}`];
+      break;
     default:
       break;
   }
   return title;
 };
 
-export { createLink, createLinkFromPage, getSlug, getTitle };
+const makeid = (length = 5) => {
+  /* from https://stackoverflow.com/a/1349426 */
+  let text = '';
+  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+  for (let i = 0; i < length; i += 1) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return text;
+};
+
+export { createLink, createLinkFromPage, getSlug, getTitle, makeid };

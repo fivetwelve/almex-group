@@ -6,7 +6,10 @@ import NavigationDropdown from './navigationDropdown';
 class Navigation extends React.Component {
   constructor(props) {
     super(props);
-    // TODO handling logic for current section vs open/close state
+    /* TODO handling logic for current section vs open/close state;
+       may not be intuitive if a section is highlighted and user opens a menu
+       item then 2 sections become highlighted; a different highlight colour
+       would be required */
     /*
       activeSection indicates whether menu item should be highlighted;
       openSection indicates whether actual menu item should be open
@@ -99,6 +102,10 @@ export default props => (
                 pageType
                 slugEN: slug(locale: EN)
                 slugES: slug(locale: ES)
+                about: aboutSource {
+                  titleEN: title(locale: EN)
+                  titleES: title(locale: ES)
+                }
                 article: articleSource {
                   titleEN: title(locale: EN)
                   titleES: title(locale: ES)
@@ -120,6 +127,10 @@ export default props => (
                   titleES: title(locale: ES)
                 }
                 service: serviceSource {
+                  titleEN: title(locale: EN)
+                  titleES: title(locale: ES)
+                }
+                usedEquipment: usedEquipmentSource {
                   titleEN: title(locale: EN)
                   titleES: title(locale: ES)
                 }

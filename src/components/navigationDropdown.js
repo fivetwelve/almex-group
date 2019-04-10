@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
-import shortid from 'shortid';
-import { createLinkFromPage, getTitle } from '../utils/functions';
+import { createLinkFromPage, getTitle, makeid } from '../utils/functions';
 import CloseButton from './closeButton';
 
 const NavigationDropdown = props => {
@@ -38,7 +37,7 @@ const NavigationDropdown = props => {
         <div className="title">{section[`title${activeLanguage}`]}</div>
         <div className="menu-container">
           {section.pages.map(page => (
-            <div className="category" key={shortid.generate()}>
+            <div className="category" key={makeid()}>
               <Link to={createLinkFromPage(location, page, activeLanguage)}>
                 {getTitle(page, activeLanguage)}
               </Link>

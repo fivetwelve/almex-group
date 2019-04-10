@@ -211,6 +211,18 @@ exports.createPages = ({ graphql, actions }) => {
                   },
                 });
                 break;
+              case allPageTypes.ABOUT:
+                createPage({
+                  path: pagePath,
+                  component: path.resolve(`./src/templates/about-template.js`),
+                  context: {
+                    id,
+                    locale,
+                    siteData: data,
+                    region: availableIn,
+                  },
+                });
+                break;
               default:
                 break;
             }

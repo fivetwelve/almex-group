@@ -8,6 +8,7 @@ module.exports = {
     ES: 'es',
   },
   allPageTypes: {
+    ABOUT: 'ABOUT',
     ARTICLE: 'ARTICLE',
     INDUSTRY: 'INDUSTRY',
     LANDING: 'LANDING',
@@ -19,10 +20,12 @@ module.exports = {
   allRegions: {
     NORTH_AMERICA: 'NORTH_AMERICA',
     SOUTH_AMERICA: 'SOUTH_AMERICA',
+    CENTRAL_SOUTH_AMERICA: 'CENTRAL_SOUTH_AMERICA',
   },
   allRegionSlugs: {
     NORTH_AMERICA: 'northamerica',
     SOUTH_AMERICA: 'southamerica',
+    CENTRAL_SOUTH_AMERICA: 'centralsouthamerica',
   },
   allBrands: {
     ALMEX_IN_A_BOX: 'ALMEX_IN_A_BOX',

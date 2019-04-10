@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import Markdown from 'react-remarkable';
-import shortid from 'shortid';
 import Layout from '../components/layout';
 import UsedEquipmentListing from '../components/usedEquipmentListing';
+import { makeid } from '../utils/functions';
 import '../styles/usedEquipment.scss';
 
 const allowHTML = { html: true };
@@ -45,7 +45,7 @@ const UsedEquipmentTemplate = ({ data, pageContext }) => {
           </div>
         </div>
         {usedEquipmentListings.map(listing => (
-          <UsedEquipmentListing {...listing} key={shortid.generate()} />
+          <UsedEquipmentListing {...listing} key={makeid()} />
         ))}
         <div className="disclaimer">{disclaimer}</div>
       </div>
