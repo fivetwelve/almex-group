@@ -98,31 +98,6 @@ const Footer = ({ brandNavigation, headerFooter, label, location }) => {
           </div>
           <div className="footer-middle">
             <div className="brands">
-              {/* <div className="almex-box">
-                <Link to="/northamerica/en/heavyweight/">
-                  <span className="sr-only">Almex</span>
-                </Link>
-              </div>
-              <div className="bat">
-                <Link to="/northamerica/en/heavyweight/">
-                  <span className="sr-only">BAT</span>
-                </Link>
-              </div>
-              <div className="emsys">
-                <Link to="/northamerica/en/heavyweight/">
-                  <span className="sr-only">Emsys</span>
-                </Link>
-              </div>
-              <div className="fusion">
-                <Link to="/northamerica/en/fusion/">
-                  <span className="sr-only">Fusion Systems</span>
-                </Link>
-              </div>
-              <div className="votech">
-                <Link to="/northamerica/en/heavyweight/">
-                  <span className="sr-only">votech</span>
-                </Link>
-              </div> */}
               {brands.map(brand => {
                 let productBrand = '';
                 switch (brand.landing.brand) {

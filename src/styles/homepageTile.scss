@@ -107,11 +107,11 @@ $cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
     }
     .more-container {
       margin-top: 10px;
-      &:hover {
-        border-bottom: 2px solid $yellow-sea;
-      }
       a {
         text-decoration: none;
+        &:hover {
+          border-bottom: 2px solid $yellow-sea;
+        }
       }
       .more,
       .more-arrow {

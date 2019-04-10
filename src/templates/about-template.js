@@ -6,10 +6,10 @@ import GraphImg from 'graphcms-image';
 import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
 // import LandingTile from '../components/landingTile';
-// import { allPageTypes } from '../constants';
+import { allBrands } from '../constants';
 import '../styles/about.scss';
 // import ProductBrand from '../components/productBrand';
-import { createLink, getTitle } from '../utils/functions';
+import { createLink, getTitle, makeid } from '../utils/functions';
 
 const allowHTML = { html: true };
 
@@ -20,6 +20,7 @@ const AboutTemplate = ({ data, pageContext }) => {
       brandNavigation,
       headerFooter,
       label,
+      aboutLabel,
       page: {
         about: {
           bannerImage,
@@ -35,6 +36,8 @@ const AboutTemplate = ({ data, pageContext }) => {
       },
     },
   } = data;
+
+  const brands = brandNavigation.pages;
   // let sectionIdx = 0;
 
   // const renderTiles = (pages, location) => {
@@ -90,21 +93,65 @@ const AboutTemplate = ({ data, pageContext }) => {
               <div className="banner-image">
                 <GraphImg image={bannerImage} maxWidth={1280} />
               </div>
+              <div className="brands">
+                {brands.map(brand => {
+                  let productBrand = '';
+                  switch (brand.landing.brand) {
+                    case allBrands.ALMEX_IN_A_BOX:
+                      productBrand = 'almex-box';
+                      break;
+                    case allBrands.BAT:
+                      productBrand = 'bat';
+                      break;
+                    case allBrands.EMSYS:
+                      productBrand = 'emsys';
+                      break;
+                    case allBrands.FUSION:
+                      productBrand = 'fusion';
+                      break;
+                    case allBrands.VOTECH:
+                      productBrand = 'votech';
+                      break;
+                    case allBrands.ALMEX_INSTITUTE:
+                      productBrand = 'institute';
+                      break;
+                    case allBrands.GLOBAL_SERVICES:
+                      productBrand = 'knight';
+                      break;
+                    default:
+                      break;
+                  }
+                  return (
+                    <div className={`brand ${productBrand}`} key={brand.slug}>
+                      <Link to={createLink(location, brand.slug)}>
+                        <span className="sr-only">{brand.landing.title}</span>
+                      </Link>
+                    </div>
+                  );
+                })}
+              </div>
               <div className="intro-container">
                 <div className="intro-content">
-                  <h2 className="title">{title}</h2>
+                  <h1 className="title">{title}</h1>
                   <div className="description">
                     <Markdown source={description} options={allowHTML} />
                   </div>
                 </div>
-                <div className="resources">
-                  {helpfulResources.map(resource => (
-                    <div>
-                      <Link to={createLink(location, resource.slug)}>{getTitle(resource)}</Link>
-                    </div>
-                  ))}
+                <div className="links">
+                  <div className="resources">
+                    <div className="label">{aboutLabel.about.RESOURCES}</div>
+                    <ul>
+                      {helpfulResources.map(resource => (
+                        <li key={makeid()}>
+                          <Link to={createLink(location, resource.slug)}>{getTitle(resource)}</Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="about-links">
+                    <div className="label">{label.header.ABOUT}</div>
+                  </div>
                 </div>
-                <div className="about-Links">Link</div>
               </div>
               {/* {brand && !bannerImage && (
                 <div className="brand-container">
@@ -159,7 +206,7 @@ export const query = graphql`
   query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
     cms {
       ...CommonQuery
-      aboutLabels: label(where: { availableIn: $region }) {
+      aboutLabel: label(where: { availableIn: $region }) {
         about(locale: $locale)
       }
       page(where: { id: $id }) {
