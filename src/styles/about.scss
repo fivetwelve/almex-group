@@ -40,11 +40,11 @@ $spacing: 20px;
         background-size: cover;
         width: calc(135px * 0.6);
         height: calc(46px * 0.6);
-        background-position-y: calc(-92px * 0.6);
+        background-position-y: calc(-46px * 0.6);
         @include media('>=tablet') {
           width: 135px;
           height: 46px;
-          background-position-y: -92px;
+          background-position-y: -46px;
         }
       }
       .fusion a {
@@ -52,11 +52,11 @@ $spacing: 20px;
         background-size: cover;
         width: calc(154px * 0.6);
         height: calc(35px * 0.6);
-        background-position-y: calc(-70px * 0.6);
+        background-position-y: calc(-35px * 0.6);
         @include media('>=tablet') {
           width: 154px;
           height: 35px;
-          background-position-y: -70px;
+          background-position-y: -35px;
         }
       }
       .emsys a {
@@ -64,11 +64,11 @@ $spacing: 20px;
         background-size: cover;
         width: calc(135px * 0.6);
         height: calc(38px * 0.6);
-        background-position-y: calc(-76px * 0.6);
+        background-position-y: calc(-38px * 0.6);
         @include media('>=tablet') {
           width: 135px;
           height: 38px;
-          background-position-y: -76px;
+          background-position-y: -38px;
         }
       }
       .bat a {
@@ -76,11 +76,11 @@ $spacing: 20px;
         background-size: cover;
         width: calc(110px * 0.6);
         height: calc(66px * 0.6);
-        background-position-y: calc(-132px * 0.6);
+        background-position-y: calc(-66px * 0.6);
         @include media('>=tablet') {
           width: 110px;
           height: 66px;
-          background-position-y: -132px;
+          background-position-y: -66px;
         }
       }
       .votech a {
@@ -88,11 +88,11 @@ $spacing: 20px;
         background-size: cover;
         width: calc(179px * 0.6);
         height: calc(66px * 0.6);
-        background-position-y: calc(-132px * 0.59);
+        background-position-y: calc(-66px * 0.59);
         @include media('>=tablet') {
           width: 179px;
           height: 66px;
-          background-position-y: -132px;
+          background-position-y: -66px;
         }
       }
       .institute a {
@@ -100,11 +100,11 @@ $spacing: 20px;
         background-size: cover;
         width: calc(100px * 0.6);
         height: calc(84px * 0.6);
-        background-position-y: calc(-168px * 0.6);
+        background-position-y: calc(-84px * 0.6);
         @include media('>=tablet') {
           width: 100px;
           height: 84px;
-          background-position-y: -168px;
+          background-position-y: -84px;
         }
       }
       .knight a {
@@ -112,11 +112,11 @@ $spacing: 20px;
         background-size: cover;
         width: calc(55px * 0.6);
         height: calc(103px * 0.6);
-        background-position-y: calc(-206px * 0.6);
+        background-position-y: calc(-103px * 0.6);
         @include media('>=tablet') {
           width: 55px;
           height: 103px;
-          background-position-y: -206px;
+          background-position-y: -103px;
         }
       }
     }
@@ -156,11 +156,11 @@ $spacing: 20px;
           padding: 20px;
           font-size: 24px;
           color: white;
+          line-height: normal;
         }
         .resources {
           display: table;
           width: 50%;
-          // padding: 20px;
           background-color: $grey80;
           @include media('>=desktop') {
             width: 40%;
