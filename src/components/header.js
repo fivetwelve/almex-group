@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import { IconContext } from 'react-icons';
 import { FaBars, FaSearch } from 'react-icons/fa';
 import BrandSelector from './brandSelector';
 import LanguageSelector from './languageSelector';
 import Navigation from './navigation';
+import { createLink } from '../utils/functions';
 import '../styles/header.scss';
 import '../styles/headerOptions.scss';
 import hLogo from '../../static/img/logo-almex-hori.svg';
@@ -60,10 +61,12 @@ class Header extends React.Component {
     return (
       <div className="header">
         <div className="contents">
-          <span className="logo">
-            <img src={vLogo} width="50px" alt="Almex Group" className="vertical" />
-            <img src={hLogo} width="225px" alt="Almex Group" className="horizontal" />
-          </span>
+          <Link to={createLink(location, '')}>
+            <span className="logo">
+              <img src={vLogo} width="50px" alt="Almex Group" className="vertical" />
+              <img src={hLogo} width="225px" alt="Almex Group" className="horizontal" />
+            </span>
+          </Link>
           {activeSection !== '' && (
             <div className="active-section-mobile">{label.header[activeSection]}</div>
           )}

@@ -143,13 +143,23 @@ const AboutTemplate = ({ data, pageContext }) => {
                     <ul>
                       {helpfulResources.map(resource => (
                         <li key={makeid()}>
-                          <Link to={createLink(location, resource.slug)}>{getTitle(resource)}</Link>
+                          <Link to={createLink(location, resource.slug)}>
+                            {getTitle(resource)} lorem
+                          </Link>
                         </li>
                       ))}
                     </ul>
                   </div>
                   <div className="about-links">
                     <div className="label">{label.header.ABOUT}</div>
+                    <ul>
+                      <li>
+                        <a href="http://alme.com">Some link here</a>
+                      </li>
+                      <li>
+                        <a href="http://alme.com">Some link here lorem ipsum</a>
+                      </li>
+                    </ul>
                   </div>
                 </div>
               </div>

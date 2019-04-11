@@ -153,35 +153,27 @@ $spacing: 20px;
           padding-right: 20px;
         }
         .label {
-          padding: 20px;
           font-size: 24px;
           color: white;
           line-height: normal;
         }
-        .resources {
-          display: table;
-          width: 50%;
-          background-color: $grey80;
-          @include media('>=desktop') {
-            width: 40%;
-          }
-          .label {
-            color: $white;
-          }
+        .resources,
+        .about-links {
           ul {
-            margin-left: 20px;
+            margin-left: 0;
             list-style-type: none;
             li {
               color: $yellow-sea;
               overflow: visible;
               padding-left: 10px;
               position: relative;
-              font-size: 20px;
-              line-height: 13px;
+              font-size: 32px;
+              line-height: 15px;
               margin-bottom: 20px;
               &:before {
                 content: '\00BB';
                 left: 0;
+                top: 4px;
                 position: absolute;
               }
               a {
@@ -189,16 +181,28 @@ $spacing: 20px;
                 color: $white;
                 text-decoration: none;
                 transition: $easeinout;
-                margin-left: 5px;
+                margin-left: 15px;
                 font-size: 15px;
-                line-height: 15px;
+                line-height: 100%;
                 &:hover {
                   color: $yellow-sea;
-                  // border-bottom: 1px solid $yellow-sea;
                   text-decoration: underline;
                 }
               }
             }
+          }
+        }
+        .resources {
+          display: table;
+          width: 50%;
+          background-color: $grey80;
+          padding: 20px;
+          @include media('>=desktop') {
+            width: 45%;
+          }
+          .label {
+            color: $white;
+            padding-bottom: 20px;
           }
         }
         .about-links {
@@ -206,10 +210,30 @@ $spacing: 20px;
           // padding: 20px;
           margin-left: 10px;
           @include media('>=desktop') {
-            width: calc(60% - 10px);
+            width: calc(55% - 10px);
           }
           .label {
             background-color: $blue;
+            padding: 20px;
+          }
+          ul {
+            li {
+              border-bottom: 1px solid $black;
+              margin-top: 10px;
+              padding-bottom: 20px;
+              &:first-of-type {
+                margin-top: 20px;
+              }
+              &:before {
+                left: 20px;
+                top: 3px;
+              }
+              a {
+                color: $grey80;
+                font-size: 20px;
+                margin-left: 35px;
+              }
+            }
           }
         }
       }
