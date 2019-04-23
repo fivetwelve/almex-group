@@ -44,6 +44,8 @@ class EventsTemplate extends Component {
     const { events } = props.data.cms.page.eventsSource;
     const { locale } = props.pageContext;
     const parsedEvents = [];
+    console.log('events');
+    console.log(events);
     events.forEach(event => {
       const { startDate, endDate, ...rest } = event;
       /* normalize dates to simplify date comparison when selecting and filtering */
