@@ -225,7 +225,7 @@ class EventsTemplate extends Component {
                   </div>
                   <div className="events-right">
                     {/* <GraphImg image={bannerImage} maxWidth={200} /> */}
-                    <img src="http://placehold.it/400x800" alt="" style={{ width: '100%' }} />
+                    <img src="https://placehold.it/400x800" alt="" style={{ width: '100%' }} />
                   </div>
                 </div>
                 {events && events.length > 0 && (

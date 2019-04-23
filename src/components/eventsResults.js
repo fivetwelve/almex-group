@@ -17,7 +17,7 @@ const EventsResults = ({ calendarLocale, events, labels, selectedDay }) => {
           <div className="title">{event.title}</div>
           <div className="result">
             <div className="thumbnail">
-              <img src="http://placehold.it/200x200" alt="" />
+              <img src="https://placehold.it/200x200" alt="" />
             </div>
             <div className="details">
               <table>
