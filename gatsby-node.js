@@ -131,14 +131,10 @@ exports.createPages = ({ graphql, actions }) => {
                   path: pagePath,
                   component: path.resolve(`./src/templates/landing-template.js`),
                   context: {
-                    // activeLanguage: 'EN',
                     id,
                     locale,
                     siteData: data,
-                    // page: slugEN,
                     region: availableIn,
-                    // title: landing[`title${locale}`],
-                    // landingSections: landing.landingSectionsEN,
                   },
                 });
                 break;
@@ -215,6 +211,30 @@ exports.createPages = ({ graphql, actions }) => {
                 createPage({
                   path: pagePath,
                   component: path.resolve(`./src/templates/about-template.js`),
+                  context: {
+                    id,
+                    locale,
+                    siteData: data,
+                    region: availableIn,
+                  },
+                });
+                break;
+              case allPageTypes.EVENTS:
+                createPage({
+                  path: pagePath,
+                  component: path.resolve(`./src/templates/events-template.js`),
+                  context: {
+                    id,
+                    locale,
+                    siteData: data,
+                    region: availableIn,
+                  },
+                });
+                break;
+              case allPageTypes.NEWS:
+                createPage({
+                  path: pagePath,
+                  component: path.resolve(`./src/templates/news-template.js`),
                   context: {
                     id,
                     locale,

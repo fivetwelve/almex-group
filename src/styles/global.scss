@@ -3,6 +3,7 @@
 
 html {
   background-color: $white;
+  box-sizing: border-box;
   // outline: 2px solid black;
   // &.no-focus-outline a:focus,
   // &.no-focus-outline button:focus {
@@ -13,6 +14,12 @@ html {
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: inherit;
+}
+
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
 .siteContainer {
@@ -47,7 +54,7 @@ button {
   appearance: none;
   background: transparent;
   background-color: $blue;
-  border-radius: 5px;
+  border-radius: 0;
   height: 36px;
   color: $white;
   padding-left: 15px;

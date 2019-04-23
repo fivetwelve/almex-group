@@ -13,3 +13,124 @@
   font-weight: 500;
   font-stretch: normal;
 }
+
+@mixin about-intro {
+  .intro-container {
+    display: flex;
+    margin-top: 20px;
+    flex-direction: column;
+    @include media('>=desktop') {
+      flex-direction: row;
+    }
+    .intro-content {
+      width: 100%;
+      @include media('>=desktop') {
+        width: 60%;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      .title {
+        font-size: 30px;
+        color: $prussian-blue;
+        font-weight: 500;
+      }
+      .description {
+        font-size: 24px;
+        line-height: normal;
+      }
+    }
+    .links {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      @include media('>=desktop') {
+        width: 40%;
+        padding-right: 20px;
+      }
+      .label {
+        font-size: 24px;
+        color: white;
+        line-height: normal;
+      }
+      .resources,
+      .about-links {
+        ul {
+          margin-left: 0;
+          list-style-type: none;
+          li {
+            color: $yellow-sea;
+            overflow: visible;
+            padding-left: 10px;
+            position: relative;
+            font-size: 32px;
+            line-height: 15px;
+            margin-bottom: 20px;
+            &:before {
+              content: '\00BB';
+              left: 0;
+              top: 4px;
+              position: absolute;
+            }
+            a {
+              display: inline-block;
+              color: $white;
+              text-decoration: none;
+              transition: $easeinout;
+              margin-left: 15px;
+              font-size: 15px;
+              line-height: 100%;
+              &:hover {
+                color: $yellow-sea;
+                text-decoration: underline;
+              }
+            }
+          }
+        }
+      }
+      .resources {
+        display: table;
+        width: 50%;
+        background-color: $grey80;
+        padding: 20px;
+        @include media('>=desktop') {
+          width: 45%;
+        }
+        .label {
+          color: $white;
+          padding-bottom: 20px;
+        }
+      }
+      .about-links {
+        width: calc(50% - 10px);
+        // padding: 20px;
+        margin-left: 10px;
+        @include media('>=desktop') {
+          width: calc(55% - 10px);
+        }
+        .label {
+          background-color: $blue;
+          padding: 20px;
+        }
+        ul {
+          li {
+            border-bottom: 1px solid $black;
+            margin-top: 10px;
+            padding-bottom: 20px;
+            &:first-of-type {
+              margin-top: 20px;
+            }
+            &:before {
+              left: 20px;
+              top: 3px;
+            }
+            a {
+              color: $grey80;
+              font-size: 20px;
+              margin-left: 35px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

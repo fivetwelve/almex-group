@@ -1,0 +1,213 @@
+@import 'base';
+$spacing: 20px;
+.events {
+  .events-container {
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    .banner-image {
+      border-bottom: 15px solid $blue;
+    }
+    .events-intro {
+      @include media('>=desktop') {
+        width: 60%;
+      }
+    }
+    .events-main {
+      display: flex;
+      flex-direction: row;
+      .events-left {
+        display: flex;
+        margin-top: 20px;
+        flex-direction: column;
+        width: 100%;
+        @include media('>=desktop') {
+          width: 60%;
+        }
+        .intro {
+          .title {
+            font-size: 30px;
+            color: $prussian-blue;
+            font-weight: 500;
+          }
+          .description {
+            font-size: 24px;
+            line-height: normal;
+          }
+        }
+      }
+      .events-right {
+        display: none;
+        @include media('>=desktop') {
+          display: flex;
+          flex: 1 1 0;
+          flex-direction: row;
+          width: 40%;
+          margin-top: 20px;
+          padding-left: 60px;
+        }
+      }
+    }
+    .continent-selector {
+      position: relative;
+      display: flex;
+      align-items: center;
+      height: 70px;
+      a {
+        text-decoration: none;
+      }
+      button {
+        background: $blue;
+        border: none;
+        color: $grey60;
+        padding: 0 20px;
+        width: 240px;
+        text-align: left;
+        height: inherit;
+        &:hover {
+          color: $yellow-sea;
+        }
+        &.is-open {
+          color: $yellow-sea;
+        }
+        transition-duration: 0.5s;
+        z-index: 2;
+        .dd-text-icon {
+          color: $yellow-sea;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          pointer-events: none;
+          font-size: 20px;
+          &.text {
+            font-weight: bold;
+          }
+          .dd-icon {
+            height: 20px;
+          }
+        }
+      }
+      .continent__trigger {
+        border-bottom: 2px solid $white;
+      }
+      .continent-dropdown {
+        background-color: $blue;
+        min-width: 5rem;
+        position: absolute;
+        transition: all 0.5s ease;
+        margin: 0;
+        left: 0;
+        top: 70px;
+        display: none;
+        box-shadow: 0px 0px 10px -3px rgba(0, 0, 0, 0.75);
+        z-index: 1;
+      }
+      .continent-dropdown--visible {
+        display: block;
+      }
+      .continent-list-item {
+        clear: both;
+        display: block;
+        align-items: center;
+        width: 100%;
+        height: 50px;
+        margin: 0;
+        background-color: $blue80;
+        &:hover,
+        &:focus-within {
+          cursor: pointer;
+          .continent-link {
+            color: $yellow-sea;
+            text-decoration: underline;
+          }
+        }
+        button {
+          margin-left: 10px;
+          margin-right: 10px;
+          width: 220px;
+          background-color: inherit;
+          border-top: 1px solid $white;
+        }
+        &:first-child {
+          button {
+            border-top: none;
+          }
+        }
+        .continent-link {
+          color: $white;
+          font-size: 18px;
+          transition-duration: 0.5s;
+        }
+      }
+    }
+    .events-results {
+      .heading {
+        font-size: 24px;
+        padding-bottom: 15px;
+        border-bottom: 5px solid $blue;
+        margin-bottom: 35px;
+      }
+      .title {
+        color: $blue;
+        font-size: 24px;
+        margin-left: 10px;
+      }
+      .result {
+        border: 1px solid $black;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        margin: 10px 0px 40px;
+        padding: 10px;
+        .thumbnail {
+          width: 200px;
+          min-width: 200px;
+          margin-right: 20px;
+        }
+        .details {
+          td {
+            border: none;
+            font-size: 24px;
+            line-height: normal;
+          }
+          .label {
+            white-space: nowrap;
+            vertical-align: top;
+            font-weight: bold;
+          }
+          .date,
+          .location {
+            width: 100%;
+          }
+          .website {
+            text-align: right;
+            a {
+              text-decoration: none;
+              &:hover {
+                border-bottom: 2px solid $yellow-sea;
+              }
+            }
+            .visit,
+            .visit-arrow {
+              color: $yellow-sea;
+              text-decoration: none;
+              font-size: 18px;
+            }
+            .visit {
+              letter-spacing: 0.8px;
+              text-transform: lowercase;
+            }
+            .visit-arrow {
+              font-size: 150%;
+              line-height: 14px;
+              position: relative;
+              top: 2px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
