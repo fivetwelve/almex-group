@@ -44,8 +44,7 @@ class EventsTemplate extends Component {
     const { events } = props.data.cms.page.eventsSource;
     const { locale } = props.pageContext;
     const parsedEvents = [];
-    console.log('events');
-    console.log(events);
+    console.log('events', events);
     events.forEach(event => {
       const { startDate, endDate, ...rest } = event;
       /* normalize dates to simplify date comparison when selecting and filtering */
@@ -57,7 +56,7 @@ class EventsTemplate extends Component {
     });
 
     // console.log('events');
-    console.log(parsedEvents);
+    console.log('parsedEvents', parsedEvents);
     /* For dates, ensure Spain's Spanish uses generic Spanish locale */
     const calendarLocale = locale === allLanguages.ES_ES ? allLanguages.ES : locale;
     this.state = {
@@ -130,7 +129,7 @@ class EventsTemplate extends Component {
     const { allEvents, continent } = this.state;
     let bool = false;
     if (continent === allContinents.GLOBAL) {
-      console.log(day);
+      // console.log(day);
       bool =
         allEvents &&
         allEvents.some(event =>
@@ -151,7 +150,10 @@ class EventsTemplate extends Component {
             }),
         );
     }
-    console.log(bool);
+    if (bool) {
+      console.log(day);
+      console.log(bool);
+    }
     return bool;
   };
 
@@ -161,6 +163,7 @@ class EventsTemplate extends Component {
   };
 
   renderDay = day => {
+    // console.log(`day: ${day}`);
     const date = day.getDate();
     const thisClass = this.isDayHighlighted(day)
       ? 'DayPicker-Day--inner-lit'
