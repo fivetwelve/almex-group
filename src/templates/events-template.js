@@ -150,10 +150,10 @@ class EventsTemplate extends Component {
             }),
         );
     }
-    if (bool) {
-      console.log(day);
-      console.log(bool);
-    }
+    // if (bool) {
+    //   console.log(day);
+    //   console.log(bool);
+    // }
     return bool;
   };
 
@@ -165,9 +165,15 @@ class EventsTemplate extends Component {
   renderDay = day => {
     // console.log(`day: ${day}`);
     const date = day.getDate();
-    const thisClass = this.isDayHighlighted(day)
-      ? 'DayPicker-Day--inner-lit'
-      : 'DayPicker-Day--inner';
+    const bool = this.isDayHighlighted(day);
+    // if (bool) {
+    console.log(date);
+    console.log(bool);
+    // }
+    const thisClass = bool ? 'DayPicker-Day--inner-lit' : 'DayPicker-Day--inner';
+    // const thisClass = this.isDayHighlighted(day)
+    //   ? 'DayPicker-Day--inner-lit'
+    //   : 'DayPicker-Day--inner';
     return (
       <div className={thisClass}>
         <span>{date}</span>
