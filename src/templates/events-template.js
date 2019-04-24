@@ -53,7 +53,11 @@ class EventsTemplate extends Component {
       const normalizedDate2 = !endDate ? normalizedDate1 : formatDate(event.endDate);
       const newEvent = { startDate: normalizedDate1, endDate: normalizedDate2, ...rest };
       parsedEvents.push(newEvent);
+      // console.log(event.startDate.substring(0, 10));
     });
+
+    // console.log('events');
+    console.log(parsedEvents);
     /* For dates, ensure Spain's Spanish uses generic Spanish locale */
     const calendarLocale = locale === allLanguages.ES_ES ? allLanguages.ES : locale;
     this.state = {
@@ -124,28 +128,31 @@ class EventsTemplate extends Component {
 
   isDayHighlighted = day => {
     const { allEvents, continent } = this.state;
+    let bool = false;
     if (continent === allContinents.GLOBAL) {
-      return (
+      console.log(day);
+      bool =
         allEvents &&
         allEvents.some(event =>
           DateUtils.isDayInRange(day, {
             from: new Date(event.startDate),
             to: new Date(event.endDate),
           }),
-        )
-      );
+        );
+    } else {
+      bool =
+        allEvents &&
+        allEvents.some(
+          event =>
+            event.continent === continent &&
+            DateUtils.isDayInRange(day, {
+              from: new Date(event.startDate),
+              to: new Date(event.endDate),
+            }),
+        );
     }
-    return (
-      allEvents &&
-      allEvents.some(
-        event =>
-          event.continent === continent &&
-          DateUtils.isDayInRange(day, {
-            from: new Date(event.startDate),
-            to: new Date(event.endDate),
-          }),
-      )
-    );
+    console.log(bool);
+    return bool;
   };
 
   isAlmexAttending = day => {

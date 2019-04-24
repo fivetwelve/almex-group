@@ -80,4 +80,115 @@ const makeid = (length = 5) => {
   return text;
 };
 
-export { createLink, createLinkFromPage, getSlug, getTitle, makeid };
+/**
+ * Clone a date object.
+ *
+ * @export
+ * @param  {Date} d The date to clone
+ * @return {Date} The cloned date
+ */
+const clone = d => new Date(d.getTime());
+
+/**
+ * Return `true` if two dates are the same day, ignoring the time.
+ *
+ * @export
+ * @param  {Date}  d1
+ * @param  {Date}  d2
+ * @return {Boolean}
+ */
+const isSameDay = (d1, d2) => {
+  if (!d1 || !d2) {
+    return false;
+  }
+  return (
+    d1.getDate() === d2.getDate() &&
+    d1.getMonth() === d2.getMonth() &&
+    d1.getFullYear() === d2.getFullYear()
+  );
+};
+
+/**
+ * Returns `true` if the first day is before the second day.
+ *
+ * @export
+ * @param {Date} d1
+ * @param {Date} d2
+ * @returns {Boolean}
+ */
+
+const isDayBefore = (d1, d2) => {
+  const day1 = clone(d1).setHours(0, 0, 0, 0);
+  const day2 = clone(d2).setHours(0, 0, 0, 0);
+  return day1 < day2;
+};
+
+/**
+ * Returns `true` if the first day is after the second day.
+ *
+ * @export
+ * @param {Date} d1
+ * @param {Date} d2
+ * @returns {Boolean}
+ */
+const isDayAfter = (d1, d2) => {
+  const day1 = clone(d1).setHours(0, 0, 0, 0);
+  const day2 = clone(d2).setHours(0, 0, 0, 0);
+  return day1 > day2;
+};
+
+/**
+ * Return `true` if day `d` is between days `d1` and `d2`,
+ * without including them.
+ *
+ * @export
+ * @param  {Date}  d
+ * @param  {Date}  d1
+ * @param  {Date}  d2
+ * @return {Boolean}
+ */
+const isDayBetween = (d, d1, d2) => {
+  const date = clone(d);
+  date.setHours(0, 0, 0, 0);
+  return (
+    (isDayAfter(date, d1) && isDayBefore(date, d2)) ||
+    (isDayAfter(date, d2) && isDayBefore(date, d1))
+  );
+};
+
+/**
+ * Return `true` if a day is included in a range of days.
+ *
+ * @export
+ * @param  {Date}  day
+ * @param  {Object}  range
+ * @return {Boolean}
+ */
+const isDayInRange = (day, range) => {
+  const { from, to } = range;
+
+  return (
+    (from && isSameDay(day, from)) ||
+    (to && isSameDay(day, to)) ||
+    (from && to && isDayBetween(day, from, to))
+  );
+};
+
+/**
+ *
+ *
+ * @export
+ * @param  {String}  date
+ * @return {String}
+ */
+const normalizeTimeZone = day => `${day}T00:00:00.Z`;
+
+export {
+  createLink,
+  createLinkFromPage,
+  getSlug,
+  getTitle,
+  makeid,
+  isDayInRange,
+  normalizeTimeZone,
+};
