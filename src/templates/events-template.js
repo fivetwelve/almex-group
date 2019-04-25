@@ -58,7 +58,7 @@ class EventsTemplate extends Component {
 
     // console.log('events');
     // console.log('parsedEvents', parsedEvents);
-    console.log(parsedEvents);
+    // console.log(parsedEvents);
     /* For dates, ensure Spain's Spanish uses generic Spanish locale */
     const calendarLocale = locale === allLanguages.ES_ES ? allLanguages.ES : locale;
     this.state = {
