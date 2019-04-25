@@ -45,7 +45,7 @@ class EventsTemplate extends Component {
     const { events } = props.data.cms.page.eventsSource;
     const { locale } = props.pageContext;
     const parsedEvents = [];
-    console.log('events', events);
+    // console.log('events', events);
     events.forEach(event => {
       const { startDate, endDate, ...rest } = event;
       /* normalize dates to simplify date comparison when selecting and filtering */
@@ -57,7 +57,7 @@ class EventsTemplate extends Component {
     });
 
     // console.log('events');
-    console.log('parsedEvents', parsedEvents);
+    // console.log('parsedEvents', parsedEvents);
     /* For dates, ensure Spain's Spanish uses generic Spanish locale */
     const calendarLocale = locale === allLanguages.ES_ES ? allLanguages.ES : locale;
     this.state = {
@@ -128,6 +128,8 @@ class EventsTemplate extends Component {
 
   isDayHighlighted = day => {
     const { allEvents, continent } = this.state;
+    // const daySelected = new Date(day.getFullYear(), day.getMonth(), day.getDate());
+    // console.log(daySelected);
     let bool = false;
     if (continent === allContinents.GLOBAL) {
       // console.log(day);
@@ -166,10 +168,10 @@ class EventsTemplate extends Component {
   renderDay = day => {
     // console.log(`day: ${day}`);
     const date = day.getDate();
-    const bool = this.isDayHighlighted(day);
+    // const bool = this.isDayHighlighted(day);
     // if (bool) {
-    console.log(date);
-    console.log(bool);
+    // console.log(date);
+    // console.log(bool);
     // }
     // const thisClass = bool ? 'DayPicker-Day--inner-lit' : 'DayPicker-Day--inner';
     // const thisClass = this.isDayHighlighted(day)
@@ -199,43 +201,49 @@ class EventsTemplate extends Component {
     } = this.props;
     const { allEvents, calendarLocale, continent, events, selectedDay } = this.state;
 
-    // const highlighted2 = day => {
-    //   let bool = false;
-    //   if (continent === allContinents.GLOBAL) {
-    //     // console.log(day);
-    //     bool =
-    //       allEvents &&
-    //       allEvents.some(event =>
-    //         DateUtils.isDayInRange(day, {
-    //           from: new Date(event.startDate),
-    //           to: new Date(event.endDate),
-    //         }),
-    //       );
-    //   } else {
-    //     bool =
-    //       allEvents &&
-    //       allEvents.some(
-    //         event =>
-    //           event.continent === continent &&
-    //           DateUtils.isDayInRange(day, {
-    //             from: new Date(event.startDate),
-    //             to: new Date(event.endDate),
-    //           }),
-    //       );
-    //   }
-    //   return bool;
-    // };
+    const eventHighlight = day => {
+      const thisDay = new Date(day.getFullYear(), day.getMonth(), day.getDate());
+      let bool = false;
+      if (continent === allContinents.GLOBAL) {
+        bool =
+          allEvents &&
+          allEvents.some(event =>
+            DateUtils.isDayInRange(thisDay, {
+              from: new Date(event.startDate),
+              to: new Date(event.endDate),
+            }),
+          );
+      } else {
+        bool =
+          allEvents &&
+          allEvents.some(
+            event =>
+              event.continent === continent &&
+              DateUtils.isDayInRange(thisDay, {
+                from: new Date(event.startDate),
+                to: new Date(event.endDate),
+              }),
+          );
+      }
+      return bool;
+    };
 
     // const highlighted = new Date(allEvents[1].startDate);
 
-    const highlighted3 = day => {
-      console.log(new Date(day));
-      // console.log(new Date(allEvents[0].startDate));
-      if (day === new Date(allEvents[0].startDate)) {
-        return day;
-      }
-      return false;
-    };
+    // const eventDay = day => {
+    //   const daySelected = new Date(day.getFullYear(), day.getMonth(), day.getDate());
+    //   // console.log('--->', day.toUTCString());
+    //   // console.log(new Date(allEvents[0].startDate));
+    //   // if (daySelected.getDate() === new Date(allEvents[0].startDate).getDate()) {
+    //   //   console.log(daySelected);
+    //   //   console.log(allEvents[0].startDate);
+    //   // }
+    //   if (daySelected.toUTCString() === new Date(allEvents[0].startDate).toUTCString()) {
+    //     console.log(daySelected);
+    //     return true;
+    //   }
+    //   return false;
+    // };
 
     // const weekends = {
     //   daysOfWeek: [0, 6],
@@ -245,7 +253,7 @@ class EventsTemplate extends Component {
     //   after: new Date(2016, 3, 1),
     // };
 
-    // const eventDay = day => {};
+    // const event = day => {};
 
     return (
       <Layout
@@ -282,14 +290,14 @@ class EventsTemplate extends Component {
                       />
                     </div>
                     <DayPicker
-                      // renderDay={this.renderDay}
+                      renderDay={this.renderDay}
                       selectedDays={selectedDay}
                       onDayClick={this.handleDayClick}
                       showOutsideDays
                       localeUtils={MomentLocaleUtils}
                       locale={calendarLocale}
                       navbarElement={<Navbar />}
-                      modifiers={{ highlighted3 }}
+                      modifiers={{ eventHighlight }}
                       utc="true"
                     />
                   </div>
