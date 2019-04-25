@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
-import { DayPicker, DateUtils } from 'react-day-picker';
+import DayPicker, { DateUtils } from 'react-day-picker';
 import MomentLocaleUtils, { formatDate } from 'react-day-picker/moment';
 import { IconContext } from 'react-icons';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
@@ -58,6 +58,7 @@ class EventsTemplate extends Component {
 
     // console.log('events');
     // console.log('parsedEvents', parsedEvents);
+    console.log(parsedEvents);
     /* For dates, ensure Spain's Spanish uses generic Spanish locale */
     const calendarLocale = locale === allLanguages.ES_ES ? allLanguages.ES : locale;
     this.state = {
