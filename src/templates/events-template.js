@@ -10,6 +10,7 @@ import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 import Markdown from 'react-remarkable';
 import 'moment/locale/de';
 import 'moment/locale/es';
+// import SingleDatePickerWrapper from '../components/singleDatePickerWrapper';
 import Layout from '../components/layout';
 import EventsResults from '../components/eventsResults';
 import { allContinents, allLanguages } from '../constants';
@@ -170,12 +171,12 @@ class EventsTemplate extends Component {
     console.log(date);
     console.log(bool);
     // }
-    const thisClass = bool ? 'DayPicker-Day--inner-lit' : 'DayPicker-Day--inner';
+    // const thisClass = bool ? 'DayPicker-Day--inner-lit' : 'DayPicker-Day--inner';
     // const thisClass = this.isDayHighlighted(day)
     //   ? 'DayPicker-Day--inner-lit'
     //   : 'DayPicker-Day--inner';
     return (
-      <div className={thisClass}>
+      <div>
         <span>{date}</span>
       </div>
     );
@@ -196,7 +197,56 @@ class EventsTemplate extends Component {
       },
       pageContext: { locale, siteData, region },
     } = this.props;
-    const { calendarLocale, continent, events, selectedDay } = this.state;
+    const { allEvents, calendarLocale, continent, events, selectedDay } = this.state;
+
+    // const highlighted2 = day => {
+    //   let bool = false;
+    //   if (continent === allContinents.GLOBAL) {
+    //     // console.log(day);
+    //     bool =
+    //       allEvents &&
+    //       allEvents.some(event =>
+    //         DateUtils.isDayInRange(day, {
+    //           from: new Date(event.startDate),
+    //           to: new Date(event.endDate),
+    //         }),
+    //       );
+    //   } else {
+    //     bool =
+    //       allEvents &&
+    //       allEvents.some(
+    //         event =>
+    //           event.continent === continent &&
+    //           DateUtils.isDayInRange(day, {
+    //             from: new Date(event.startDate),
+    //             to: new Date(event.endDate),
+    //           }),
+    //       );
+    //   }
+    //   return bool;
+    // };
+
+    // const highlighted = new Date(allEvents[1].startDate);
+
+    const highlighted3 = day => {
+      console.log(new Date(day));
+      // console.log(new Date(allEvents[0].startDate));
+      if (day === new Date(allEvents[0].startDate)) {
+        return day;
+      }
+      return false;
+    };
+
+    // const weekends = {
+    //   daysOfWeek: [0, 6],
+    // };
+
+    // const future = {
+    //   after: new Date(2016, 3, 1),
+    // };
+
+    // const eventDay = day => {};
+
     return (
       <Layout
         activeLanguage={locale}
@@ -232,13 +282,15 @@ class EventsTemplate extends Component {
                       />
                     </div>
                     <DayPicker
-                      renderDay={this.renderDay}
+                      // renderDay={this.renderDay}
                       selectedDays={selectedDay}
                       onDayClick={this.handleDayClick}
                       showOutsideDays
                       localeUtils={MomentLocaleUtils}
                       locale={calendarLocale}
                       navbarElement={<Navbar />}
+                      modifiers={{ highlighted3 }}
+                      utc="true"
                     />
                   </div>
                   <div className="events-right">
@@ -246,6 +298,9 @@ class EventsTemplate extends Component {
                     <img src="https://placehold.it/400x800" alt="" style={{ width: '100%' }} />
                   </div>
                 </div>
+                {/* <div>
+                  <SingleDatePickerWrapper orientation="vertical" verticalHeight={568} />
+                </div> */}
                 {events && events.length > 0 && (
                   <EventsResults
                     calendarLocale={calendarLocale}
