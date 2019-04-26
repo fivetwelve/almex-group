@@ -1,5 +1,8 @@
 @import 'base';
 
+$captionHeight: 40px;
+$dateHeight: 35px;
+
 .DayPicker {
   background-color: $grey05;
   .DayPicker-Month {
@@ -44,18 +47,18 @@
     // padding-left: 20px;
     // padding-right: 20px;
     margin: 0 auto;
-    font-size: 18px;
+    font-size: 14px;
     color: $grey80;
     .nav-prev,
     .nav-next {
       position: absolute;
       background-color: transparent;
       border: 0;
-      height: 60px;
+      height: $captionHeight;
       padding-bottom: 0;
       .icon {
-        font-size: 24px;
-        line-height: 24px;
+        font-size: 18px;
+        line-height: 18px;
         color: $grey90;
         display: inline-flex;
         justify-content: center;
@@ -109,15 +112,15 @@
     // margin-bottom: 0.5em;
     // padding: 0 0.5em;
     text-align: center;
-    height: 60px;
+    height: $captionHeight;
   }
 
   .DayPicker-Caption > div {
     display: inline-flex;
     align-items: center;
-    height: 60px;
+    height: $captionHeight;
     font-weight: 500;
-    font-size: 24px;
+    font-size: 14px;
   }
 
   .DayPicker-Weekdays {
@@ -136,7 +139,7 @@
     color: $white;
     text-align: center;
     // font-size: 0.875em;
-    font-size: 28px;
+    font-size: 14px;
   }
 
   .DayPicker-Weekday abbr[title] {
@@ -158,7 +161,7 @@
     border-radius: 50%;
     vertical-align: middle;
     text-align: center;
-    height: 75px;
+    height: $dateHeight;
     cursor: pointer;
     &:hover {
       div {
@@ -202,10 +205,10 @@
 
   .DayPicker-Day > div,
   .DayPicker-Day--eventHighlight > div {
-    border-radius: 50px;
-    height: 75px;
-    width: 75px;
-    font-size: 28px;
+    border-radius: 30px;
+    height: $dateHeight;
+    width: $dateHeight;
+    font-size: 14px;
     align-items: center;
     justify-content: center;
     display: inline-flex;
@@ -215,8 +218,13 @@
     border: 5px solid transparent;
   }
 
+  .DayPicker-Day--today > div {
+    color: $yellow-sea;
+    font-weight: bold;
+  }
+
   .DayPicker-Day--eventHighlight > div {
-    border: 5px solid $yellow-sea;
+    border: 3px solid $yellow-sea;
   }
 
   /* Default modifiers */

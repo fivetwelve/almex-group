@@ -84,8 +84,6 @@ const HomepageTemplate = ({
     slideArray.push(element);
   }
 
-  console.log(homepage.homepageEventTiles);
-
   return (
     <div className="homepage">
       <Carousel

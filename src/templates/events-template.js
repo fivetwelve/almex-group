@@ -281,15 +281,15 @@ class EventsTemplate extends Component {
                     <Markdown source={description} options={allowHTML} />
                   </div>
                 </div>
+                <div className="daypicker-dropdown">
+                  <ContinentSelector
+                    labels={aboutLabel.about}
+                    setContinent={this.setContinent}
+                    continent={continent}
+                  />
+                </div>
                 <div className="events-main">
                   <div className="events-left">
-                    <div className="daypicker-dropdown">
-                      <ContinentSelector
-                        labels={aboutLabel.about}
-                        setContinent={this.setContinent}
-                        continent={continent}
-                      />
-                    </div>
                     <DayPicker
                       renderDay={this.renderDay}
                       selectedDays={selectedDay}
@@ -303,21 +303,36 @@ class EventsTemplate extends Component {
                     />
                   </div>
                   <div className="events-right">
-                    {/* <GraphImg image={bannerImage} maxWidth={200} /> */}
-                    <img src="https://placehold.it/400x800" alt="" style={{ width: '100%' }} />
+                    {events && events.length > 0 && (
+                      <div className="events-results">
+                        <div className="heading">
+                          {formatDate(new Date(selectedDay), 'LL', calendarLocale)}{' '}
+                          {aboutLabel.about.EVENTS}
+                        </div>
+                        <EventsResults
+                          calendarLocale={calendarLocale}
+                          events={[events[0]]}
+                          labels={aboutLabel.about}
+                          location={location}
+                          selectedDay={formatDate(selectedDay)}
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
                 {/* <div>
                   <SingleDatePickerWrapper orientation="vertical" verticalHeight={568} />
                 </div> */}
-                {events && events.length > 0 && (
-                  <EventsResults
-                    calendarLocale={calendarLocale}
-                    events={events}
-                    labels={aboutLabel.about}
-                    location={location}
-                    selectedDay={formatDate(selectedDay)}
-                  />
+                {events && events.length > 1 && (
+                  <div className="events-results">
+                    <EventsResults
+                      calendarLocale={calendarLocale}
+                      events={[...events.slice(1)]}
+                      labels={aboutLabel.about}
+                      location={location}
+                      selectedDay={formatDate(selectedDay)}
+                    />
+                  </div>
                 )}
               </div>
             </>
@@ -377,6 +392,9 @@ export const query = graphql`
             description(locale: $locale)
             location(locale: $locale)
             website
+            thumbnail {
+              url
+            }
           }
         }
       }

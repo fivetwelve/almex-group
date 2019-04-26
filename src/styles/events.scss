@@ -17,14 +17,16 @@ $spacing: 20px;
     }
     .events-main {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
+      @include media('>=desktop') {
+        flex-direction: row;
+      }
       .events-left {
         display: flex;
-        margin-top: 20px;
         flex-direction: column;
         width: 100%;
         @include media('>=desktop') {
-          width: 60%;
+          width: 400px;
         }
         .intro {
           .title {
@@ -39,13 +41,15 @@ $spacing: 20px;
         }
       }
       .events-right {
-        display: none;
+        width: 100%;
+        padding-left: 0;
+        margin-top: 40px;
         @include media('>=desktop') {
           display: flex;
           flex: 1 1 0;
           flex-direction: row;
-          width: 40%;
-          margin-top: 20px;
+          width: 60%;
+          margin-top: 0;
           padding-left: 60px;
         }
       }
@@ -54,7 +58,8 @@ $spacing: 20px;
       position: relative;
       display: flex;
       align-items: center;
-      height: 70px;
+      height: 50px;
+      margin-top: 20px;
       a {
         text-decoration: none;
       }
@@ -80,11 +85,12 @@ $spacing: 20px;
           flex-direction: row;
           align-items: center;
           pointer-events: none;
-          font-size: 20px;
+          font-size: 18px;
           &.text {
             font-weight: bold;
           }
           .dd-icon {
+            margin-left: 10px;
             height: 20px;
           }
         }
@@ -99,7 +105,7 @@ $spacing: 20px;
         transition: all 0.5s ease;
         margin: 0;
         left: 0;
-        top: 70px;
+        top: 50px;
         display: none;
         box-shadow: 0px 0px 10px -3px rgba(0, 0, 0, 0.75);
         z-index: 1;
@@ -142,12 +148,14 @@ $spacing: 20px;
         }
       }
     }
+
     .events-results {
+      width: 100%;
       .heading {
         font-size: 24px;
         padding-bottom: 15px;
         border-bottom: 5px solid $blue;
-        margin-bottom: 35px;
+        margin-bottom: 30px;
       }
       .title {
         color: $blue;
@@ -162,14 +170,20 @@ $spacing: 20px;
         margin: 10px 0px 40px;
         padding: 10px;
         .thumbnail {
-          width: 200px;
-          min-width: 200px;
           margin-right: 20px;
+          width: 150px;
+          min-width: 150px;
+          height: 150px;
+          @include media('>=tablet') {
+            width: 200px;
+            min-width: 200px;
+            height: 200px;
+          }
         }
         .details {
           td {
             border: none;
-            font-size: 24px;
+            font-size: 18px;
             line-height: normal;
           }
           .label {
