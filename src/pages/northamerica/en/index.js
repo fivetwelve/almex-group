@@ -84,11 +84,6 @@ export const query = graphql`
           subtitle(locale: EN)
           title(locale: EN)
         }
-        eventDescription(locale: EN)
-        eventImage {
-          url
-        }
-        eventTitle(locale: EN)
       }
       label(where: { availableIn: NORTH_AMERICA }) {
         common(locale: EN)
@@ -105,6 +100,10 @@ export const query = graphql`
             slugES: slug(locale: EN)
             pageType
             article: articleSource {
+              titleEN: title(locale: EN)
+              titleES: title(locale: ES)
+            }
+            events: eventsSource {
               titleEN: title(locale: EN)
               titleES: title(locale: ES)
             }

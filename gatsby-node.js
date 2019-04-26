@@ -53,44 +53,6 @@ exports.createPages = ({ graphql, actions }) => {
               # }
             }
           }
-          navigations(where: { availableIn: NORTH_AMERICA }) {
-            availableIn
-            navigationSections {
-              titleEN: title(locale: EN)
-              titleES: title(locale: ES)
-              type
-              pages {
-                id
-                pageType
-                slugEN: slug(locale: EN)
-                slugES: slug(locale: ES)
-                article: articleSource {
-                  titleEN: title(locale: EN)
-                  titleES: title(locale: ES)
-                }
-                industry: industrySource {
-                  titleEN: title(locale: EN)
-                  titleES: title(locale: ES)
-                }
-                landing: landingSource {
-                  titleEN: title(locale: EN)
-                  titleES: title(locale: ES)
-                }
-                product: productSource {
-                  titleEN: title(locale: EN)
-                  titleES: title(locale: ES)
-                }
-                promo: promoSource {
-                  titleEN: title(locale: EN)
-                  titleES: title(locale: ES)
-                }
-                service: serviceSource {
-                  titleEN: title(locale: EN)
-                  titleES: title(locale: ES)
-                }
-              }
-            }
-          }
         }
       }
     `).then(result => {

@@ -200,9 +200,6 @@
     cursor: pointer;
   }
 
-  /* Date formatting and highlighting */
-  // .DayPicker-Day--inner,
-  // .DayPicker-Day--inner-lit {
   .DayPicker-Day > div,
   .DayPicker-Day--eventHighlight > div {
     border-radius: 50px;
@@ -259,8 +256,6 @@
   .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
     position: relative;
 
-    // &.DayPicker-Day--eventHightlight > div,
-    // &.DayPicker-Day--eventHightlight {
     div {
       color: $white;
       border: 5px solid $yellow-sea;

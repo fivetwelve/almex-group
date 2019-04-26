@@ -110,6 +110,10 @@ export default props => (
                   titleEN: title(locale: EN)
                   titleES: title(locale: ES)
                 }
+                events: eventsSource {
+                  titleEN: title(locale: EN)
+                  titleES: title(locale: ES)
+                }
                 industry: industrySource {
                   titleEN: title(locale: EN)
                   titleES: title(locale: ES)

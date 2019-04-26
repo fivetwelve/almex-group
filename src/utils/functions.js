@@ -45,6 +45,9 @@ const getTitle = (page, language = '') => {
     case allPageTypes.ARTICLE:
       title = page.article[`title${language}`];
       break;
+    case allPageTypes.EVENTS:
+      title = page.events[`title${language}`];
+      break;
     case allPageTypes.INDUSTRY:
       title = page.industry[`title${language}`];
       break;

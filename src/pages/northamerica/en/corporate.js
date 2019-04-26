@@ -140,6 +140,10 @@ export const query = graphql`
               titleEN: title(locale: EN)
               titleES: title(locale: ES)
             }
+            events: eventsSource {
+              titleEN: title(locale: EN)
+              titleES: title(locale: ES)
+            }
             industry: industrySource {
               titleEN: title(locale: EN)
               titleES: title(locale: ES)
