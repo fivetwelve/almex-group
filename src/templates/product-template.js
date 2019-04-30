@@ -6,8 +6,9 @@ import Layout from '../components/layout';
 import LinkWithPrevious from '../components/linkWithPrevious';
 import ProductShowcase from '../components/productShowcase';
 import Options from '../components/options';
+import AccessoryAndRelatedTile from '../components/accessoryAndRelatedTile';
 import { allThemes } from '../constants';
-import { getSlug } from '../utils/functions';
+import { getSlug, makeid } from '../utils/functions';
 import '../styles/product.scss';
 
 const allowHTML = { html: true };
@@ -27,18 +28,20 @@ const ProductTemplate = ({ data, location, pageContext }) => {
           theme,
           title,
           subtitle,
+          images,
+          youTubeIDs,
+          attractText,
+          pdfDownloads,
+          pdfTitles,
           marketing,
           advantages,
           advantagesImage,
           features,
-          images,
-          options,
           productInfo,
           specs,
-          youTubeIDs,
-          pdfDownloads,
-          pdfTitles,
-          attractText,
+          options,
+          accessories,
+          relatedItems,
         },
       },
     },
@@ -185,6 +188,43 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               <Options options={options} label={products} themeColour={themeColour} />
             </>
           )}
+          {accessories && (
+            <>
+              <div className={`title-container ${themeColour}`}>
+                <div className="section-title">{products.ACCESSORIES}</div>
+              </div>
+              <div className="product-accessories">
+                {/* {accessories.map(accessory => (
+                  <AccessoryAndRelatedTile
+                    image={accessory.productSource.thumbnail}
+                    location={location}
+                    slug={accessory.slug}
+                    title={accessory.productSource.title}
+                    key={makeid()}
+                  />
+                ))} */}
+              </div>
+              {/* {console.log(accessories)} */}
+            </>
+          )}
+          {relatedItems && (
+            <>
+              <div className={`title-container ${themeColour}`}>
+                <div className="section-title">{products.RELATED_ITEMS}</div>
+              </div>
+              <div className="product-related-items">
+                {relatedItems.map(relatedItem => (
+                  <AccessoryAndRelatedTile
+                    image={relatedItem.productSource.thumbnail}
+                    location={location}
+                    slug={relatedItem.slug}
+                    title={relatedItem.productSource.title}
+                    key={makeid()}
+                  />
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </>
     </Layout>
@@ -226,32 +266,49 @@ export const query = graphql`
         products(locale: $locale)
       }
       page(where: { id: $id }) {
-        belongsTo
+        # belongsTo
         pageType
         product: productSource {
           brand
           theme
           title(locale: $locale)
           subtitle(locale: $locale)
+          images {
+            url
+          }
+          youTubeIDs
           marketing(locale: $locale)
           advantages(locale: $locale)
           advantagesImage {
             url
           }
           features(locale: $locale)
-          images {
-            url
-          }
-          options
           productInfo(locale: $locale)
           specs(locale: $locale)
-          youTubeIDs
+          options
           pdfDownloads(locale: $locale) {
             fileName
             url
           }
           pdfTitles(locale: $locale)
           attractText
+          accessories {
+            slug
+            productSource {
+              thumbnail {
+                url
+              }
+            }
+          }
+          relatedItems {
+            slug
+            productSource {
+              title(locale: $locale)
+              thumbnail {
+                url
+              }
+            }
+          }
         }
       }
     }
