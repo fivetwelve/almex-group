@@ -72,3 +72,6 @@ yarn-error.log
 
 # VS Code debug folder
 .vscode
+
+# Netlify CLI config folder
+.netlify
