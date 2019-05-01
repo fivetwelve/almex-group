@@ -193,6 +193,18 @@ exports.createPages = ({ graphql, actions }) => {
                   },
                 });
                 break;
+              case allPageTypes.HISTORY:
+                createPage({
+                  path: pagePath,
+                  component: path.resolve(`./src/templates/history-template.js`),
+                  context: {
+                    id,
+                    locale,
+                    siteData: data,
+                    region: availableIn,
+                  },
+                });
+                break;
               case allPageTypes.NEWS:
                 createPage({
                   path: pagePath,

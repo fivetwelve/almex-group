@@ -1,29 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql, Link } from 'gatsby';
-import { Location } from '@reach/router';
-import GraphImg from 'graphcms-image';
+import { graphql } from 'gatsby';
+// import { Location } from '@reach/router';
+// import GraphImg from 'graphcms-image';
 import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
 // import LandingTile from '../components/landingTile';
-import { allBrands } from '../constants';
+// import { allBrands } from '../constants';
 import '../styles/about.scss';
 // import ProductBrand from '../components/productBrand';
-import { createLink, getTitle, makeid } from '../utils/functions';
+// import { createLink, getTitle, makeid } from '../utils/functions';
+import { makeid } from '../utils/functions';
 
 const allowHTML = { html: true };
 
-const AboutTemplate = ({ data, pageContext }) => {
+const HistoryTemplate = ({ data, pageContext }) => {
   const { locale, siteData, region } = pageContext;
   const {
     cms: {
       brandNavigation,
       headerFooter,
       label,
-      aboutLabel,
       page: {
-        about: {
-          bannerImage,
+        history: {
           // brand,
           // brandDescription,
           // brandTitle,
@@ -31,13 +30,13 @@ const AboutTemplate = ({ data, pageContext }) => {
           // landingSections,
           title,
           description,
-          helpfulResources,
+          events,
         },
       },
     },
   } = data;
 
-  const brands = brandNavigation.pages;
+  // const brands = brandNavigation.pages;
   // let sectionIdx = 0;
 
   // const renderTiles = (pages, location) => {
@@ -86,11 +85,11 @@ const AboutTemplate = ({ data, pageContext }) => {
       headerFooter={headerFooter}
       label={label}
     >
-      <Location>
-        {({ location }) => (
-          <>
-            <div className="about-container">
-              <div className="banner-image">
+      {/* <Location>
+        {({ location }) => ( */}
+      <>
+        <div className="about-container">
+          {/* <div className="banner-image">
                 <GraphImg image={bannerImage} maxWidth={1280} />
               </div>
               <div className="brands">
@@ -129,46 +128,27 @@ const AboutTemplate = ({ data, pageContext }) => {
                     </div>
                   );
                 })}
+              </div> */}
+          <div className="intro-container">
+            <div className="intro-content">
+              <h1 className="title">{title}</h1>
+              <div className="description">
+                <Markdown source={description} options={allowHTML} />
               </div>
-              <div className="intro-container">
-                <div className="intro-content">
-                  <h1 className="title">{title}</h1>
-                  <div className="description">
-                    <Markdown source={description} options={allowHTML} />
-                  </div>
-                </div>
-                <div className="links">
-                  <div className="resources">
-                    <div className="label">{aboutLabel.about.RESOURCES}</div>
-                    <ul>
-                      {helpfulResources.map(resource => (
-                        <li key={makeid()}>
-                          <Link to={createLink(location, resource.slug)}>
-                            {getTitle(resource)} lorem
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="about-links">
-                    <div className="label">{label.header.ABOUT}</div>
-                    <ul>
-                      <li>
-                        <a href="http://alme.com">Some link here</a>
-                      </li>
-                      <li>
-                        <a href="http://alme.com">Some link here lorem ipsum</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              {/* {brand && !bannerImage && (
+            </div>
+            {/* <div className="timeline">{console.log(events)}</div> */}
+            <div className="timeline">
+              {events.map(event => (
+                <p key={makeid()}>{event.title}</p>
+              ))}
+            </div>
+          </div>
+          {/* {brand && !bannerImage && (
                 <div className="brand-container">
                   <ProductBrand brand={brand} />
                 </div>
               )} */}
-              {/* {landingSections.length > 0 &&
+          {/* {landingSections.length > 0 &&
                 landingSections.map(landingSection => {
                   const { pages } = landingSection;
                   const sectionTitle = landingSection.title || null;
@@ -186,20 +166,20 @@ const AboutTemplate = ({ data, pageContext }) => {
                     </div>
                   );
                 })} */}
-            </div>
-          </>
-        )}
-      </Location>
+        </div>
+      </>
+      {/* )}
+      </Location> */}
     </Layout>
   );
 };
 
-AboutTemplate.defaultProps = {
+HistoryTemplate.defaultProps = {
   data: {},
   pageContext: {},
 };
 
-AboutTemplate.propTypes = {
+HistoryTemplate.propTypes = {
   data: PropTypes.shape({
     id: PropTypes.string,
   }),
@@ -207,7 +187,6 @@ AboutTemplate.propTypes = {
     locale: PropTypes.string,
     region: PropTypes.string,
     siteData: PropTypes.object,
-    // title: PropTypes.string,
   }),
 };
 
@@ -219,12 +198,7 @@ export const query = graphql`
         about(locale: $locale)
       }
       page(where: { id: $id }) {
-        about: aboutSource {
-          bannerImage {
-            handle
-            width
-            height
-          }
+        history: historySource {
           # theme
           # landingSections {
           #   title(locale: $locale)
@@ -249,16 +223,10 @@ export const query = graphql`
           # }
           title(locale: $locale)
           description(locale: $locale)
-          helpfulResources {
-            id
-            slug
-            pageType
-            landing: landingSource {
-              title(locale: $locale)
-            }
-            product: productSource {
-              title(locale: $locale)
-            }
+          events: historicalEvents {
+            date
+            year
+            eventTitle: title(locale: $locale)
           }
         }
       }
@@ -266,4 +234,4 @@ export const query = graphql`
   }
 `;
 
-export default AboutTemplate;
+export default HistoryTemplate;
