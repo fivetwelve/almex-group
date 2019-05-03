@@ -22,8 +22,15 @@
       }
       &.is-open {
         color: $yellow-sea;
+        .dd-icon {
+          transform: rotate(180deg);
+          transition: $easeinout;
+        }
       }
-      transition-duration: 0.5s;
+      .dd-icon {
+        transform: rotate(0);
+        transition: $easeinout;
+      }
     }
     li {
       color: $grey60;

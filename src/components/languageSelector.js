@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
-import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
+import { FaAngleUp } from 'react-icons/fa';
 import constants from '../constants';
 /* n.b. Shared CSS is imported in Header from dropdowns.scss */
 
 class LanguageSelector extends Component {
   constructor(props) {
     super(props);
-    this.myDropDown = React.createRef();
-    this.state = {
-      clicked: false,
-    };
+    this.langDropDown = React.createRef();
   }
 
   // handleKeyDown = evt => {
@@ -46,21 +43,16 @@ class LanguageSelector extends Component {
 
   handleClickDropDown = evt => {
     evt.preventDefault();
-    evt.target.classList.toggle('clicked');
+    evt.target.classList.toggle('is-open');
     evt.target.nextElementSibling.classList.toggle('lang-dropdown--visible');
-    this.setState(prevState => {
-      const clickBool = prevState.clicked;
-      return { clicked: !clickBool };
-    });
   };
 
   render() {
     const { activeLanguage, languages, region } = this.props;
-    const { clicked } = this.state;
     const { allLanguageSlugs, allRegionSlugs } = constants;
 
     return (
-      <div className="lang-selector" ref={this.myDropDown}>
+      <div className="lang-selector" ref={this.langDropDown}>
         <button
           type="button"
           aria-expanded="false"
@@ -77,7 +69,7 @@ class LanguageSelector extends Component {
             {activeLanguage}
             <span aria-hidden="true" className="dd-icon">
               <IconContext.Provider value={{ className: 'brands-icon' }}>
-                {(clicked && <FaAngleUp aria-hidden />) || <FaAngleDown aria-hidden />}
+                <FaAngleUp aria-hidden />
               </IconContext.Provider>
             </span>
           </span>

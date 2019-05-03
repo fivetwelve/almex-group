@@ -194,7 +194,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
                 <div className="section-title">{products.ACCESSORIES}</div>
               </div>
               <div className="product-accessories">
-                {/* {accessories.map(accessory => (
+                {accessories.map(accessory => (
                   <AccessoryAndRelatedTile
                     image={accessory.productSource.thumbnail}
                     location={location}
@@ -202,7 +202,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
                     title={accessory.productSource.title}
                     key={makeid()}
                   />
-                ))} */}
+                ))}
               </div>
               {/* {console.log(accessories)} */}
             </>
@@ -295,6 +295,7 @@ export const query = graphql`
           accessories {
             slug
             productSource {
+              title(locale: $locale)
               thumbnail {
                 url
               }

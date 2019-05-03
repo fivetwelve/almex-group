@@ -54,10 +54,17 @@ module.exports = {
     VOTECH: 'VOTECH',
   },
   allOptions: {
+    MULTI_PLATEN: 'MULTI_PLATEN',
+    PSI_40: 'PSI_40',
+    PSI_60: 'PSI_60',
     PSI_100: 'PSI_100',
+    PSI_175: 'PSI_175',
     PSI_200: 'PSI_200',
     RECTANGULAR: 'RECTANGULAR',
     RHOMBOID: 'RHOMBOID',
+    SIDE_BY_SIDE_RECT: 'SIDE_BY_SIDE_RECT',
+    SIDE_BY_SIDE_RHOM: 'SIDE_BY_SIDE_RHOM',
+    SIDE_HANDLES: 'SIDE_HANDLES',
   },
   allThemes: {
     HEAVYWEIGHT: 'HEAVYWEIGHT',

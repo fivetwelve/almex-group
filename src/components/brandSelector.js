@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'gatsby';
 import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
-import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
+import { FaAngleUp } from 'react-icons/fa';
 import { createLink } from '../utils/functions';
 import { allBrands } from '../constants';
 // import constants from '../constants';
@@ -12,9 +12,6 @@ class BrandSelector extends Component {
   constructor(props) {
     super(props);
     this.brandDropdown = React.createRef();
-    this.state = {
-      clicked: false,
-    };
   }
 
   // handleKeyDown = evt => {
@@ -53,16 +50,11 @@ class BrandSelector extends Component {
     // evt.target.nextElementSibling.classList.toggle('brand-dropdown--visible');
     this.brandDropdown.current.classList.toggle('visible');
     // console.log(this.brandDropdown.current);
-    this.setState(prevState => {
-      const clickBool = prevState.clicked;
-      return { clicked: !clickBool };
-    });
   };
 
   render() {
     // const { activeLanguage, languages, region } = this.props;
     // const { region } = this.props;
-    const { clicked } = this.state;
     const { brandNavigation, label, location } = this.props;
     const brands = brandNavigation.pages;
     // const { allLanguageSlugs, allRegionSlugs } = constants;
@@ -85,7 +77,7 @@ class BrandSelector extends Component {
               {label}
               <span aria-hidden="true" className="dd-icon">
                 <IconContext.Provider value={{ className: 'brands-icon' }}>
-                  {(clicked && <FaAngleUp aria-hidden />) || <FaAngleDown aria-hidden />}
+                  <FaAngleUp aria-hidden />
                 </IconContext.Provider>
               </span>
             </span>
