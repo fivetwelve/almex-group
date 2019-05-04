@@ -6,6 +6,7 @@ import { FaBars, FaSearch } from 'react-icons/fa';
 import BrandSelector from './brandSelector';
 import LanguageSelector from './languageSelector';
 import Navigation from './navigation';
+import NavWrapper from './navWrapper';
 import { createLink } from '../utils/functions';
 import '../styles/header.scss';
 import '../styles/headerOptions.scss';
@@ -24,6 +25,7 @@ class Header extends React.Component {
       const navType = nav[i].TYPE;
       this.myRef[navType] = React.createRef();
     }
+    this.navWrapperRef = React.createRef();
   }
 
   componentDidUpdate() {
@@ -46,6 +48,13 @@ class Header extends React.Component {
   // }
   // };
 
+  handleMobileMenuClick = evt => {
+    evt.preventDefault();
+    const { showMobileBG } = this.props;
+    showMobileBG();
+    this.navWrapperRef.current.classList.toggle('is-open');
+  };
+
   render() {
     const {
       activeLanguage,
@@ -57,7 +66,6 @@ class Header extends React.Component {
       region,
     } = this.props;
 
-    // console.log(`activeSection: *${activeSection}*`);
     return (
       <div className="header">
         <div className="contents">
@@ -71,32 +79,15 @@ class Header extends React.Component {
             <div className="active-section-mobile">{label.header[activeSection]}</div>
           )}
           <IconContext.Provider value={{ className: 'menu-icon' }}>
-            <button type="button" className="mobile-menu">
+            <button
+              type="button"
+              className="mobile-menu"
+              onClick={evt => this.handleMobileMenuClick(evt)}
+            >
               <FaBars aria-hidden />
               <span className="sr-only">Open menu</span>
             </button>
           </IconContext.Provider>
-          {/* <i class="far fa-chevron-double-right"></i> */}
-          <IconContext.Provider value={{ className: 'link-icon' }}>
-            <span className="sr-only">icon</span>
-            {/* <i className="far fa-chevron-double-right" /> */}
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              data-prefix="fas"
-              data-icon="chevron-double-right"
-              className="svg-inline--fa fa-chevron-double-right fa-w-16"
-              role="img"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"
-            >
-              <path
-                fill="currentColor"
-                d="M477.5 273L283.1 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.7-22.7c-9.4-9.4-9.4-24.5 0-33.9l154-154.7-154-154.7c-9.3-9.4-9.3-24.5 0-33.9l22.7-22.7c9.4-9.4 24.6-9.4 33.9 0L477.5 239c9.3 9.4 9.3 24.6 0 34zm-192-34L91.1 44.7c-9.4-9.4-24.6-9.4-33.9 0L34.5 67.4c-9.4 9.4-9.4 24.5 0 33.9l154 154.7-154 154.7c-9.3 9.4-9.3 24.5 0 33.9l22.7 22.7c9.4 9.4 24.6 9.4 33.9 0L285.5 273c9.3-9.4 9.3-24.6 0-34z"
-              />
-            </svg>
-          </IconContext.Provider>
-          {/* <i class="far fa-chevron-double-right"></i> */}
 
           <div className="options-container">
             <div className="options">
@@ -126,22 +117,14 @@ class Header extends React.Component {
             </div>
           </div>
         </div>
-        <Navigation activeLanguage={activeLanguage} location={location} region={region} />
-        {/* <nav className="navigation">
-          <div className="sections">
-            {navigation.navigationSections.length > 0 &&
-              navigation.navigationSections.map(section => (
-                <NavigationDropdown
-                  activeLanguage={activeLanguage}
-                  closeOtherMenus={type => this.closeOtherMenus(type)}
-                  key={section.type}
-                  location={location}
-                  section={section}
-                  ref={this.PRODUCTS}
-                />
-              ))}
-          </div>
-        </nav> */}
+        <NavWrapper ref={this.navWrapperRef}>
+          <Navigation
+            activeLanguage={activeLanguage}
+            label={label}
+            location={location}
+            region={region}
+          />
+        </NavWrapper>
       </div>
     );
   }
@@ -155,6 +138,7 @@ Header.defaultProps = {
   label: {},
   location: {},
   region: '',
+  showMobileBG: () => {},
 };
 
 Header.propTypes = {
@@ -175,6 +159,7 @@ Header.propTypes = {
     pathname: PropTypes.string,
   }),
   region: PropTypes.string,
+  showMobileBG: PropTypes.func,
 };
 
 export const commonFragment = graphql`

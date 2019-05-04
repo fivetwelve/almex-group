@@ -11,6 +11,8 @@ class Layout extends React.Component {
   constructor(props) {
     super(props);
     this.bodyElement = React.createRef();
+    this.mobileMenuBg = React.createRef();
+    this.mobileShroud = React.createRef();
   }
 
   // componentDidMount() {
@@ -39,6 +41,11 @@ class Layout extends React.Component {
     //   this.bodyElement.current.classList.remove('no-focus-outline');
     // }
     // console.log(`target: ${evt.target}`);
+  };
+
+  showMobileBG = () => {
+    this.mobileMenuBg.current.classList.toggle('is-open');
+    this.mobileShroud.current.classList.toggle('is-open');
   };
 
   render() {
@@ -114,6 +121,8 @@ class Layout extends React.Component {
             <Location>
               {({ location }) => (
                 <>
+                  <div className="mobile-menu-bg" ref={this.mobileMenuBg} />
+                  <div className="mobile-shroud" ref={this.mobileShroud} />
                   <Header
                     activeSection={activeSection}
                     activeLanguage={activeLanguage}
@@ -122,6 +131,7 @@ class Layout extends React.Component {
                     label={label}
                     region={region}
                     location={location}
+                    showMobileBG={this.showMobileBG}
                   />
                   <div className="bodyClass">
                     <LocationProvider value={location}>

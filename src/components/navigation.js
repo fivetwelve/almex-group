@@ -1,73 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { graphql, StaticQuery } from 'gatsby';
 import NavigationDropdown from './navigationDropdown';
 
-class Navigation extends React.Component {
-  constructor(props) {
-    super(props);
-    /* TODO handling logic for current section vs open/close state;
-       may not be intuitive if a section is highlighted and user opens a menu
-       item then 2 sections become highlighted; a different highlight colour
-       would be required */
-    /*
-      activeSection indicates whether menu item should be highlighted;
-      openSection indicates whether actual menu item should be open
-    */
-    this.state = {
-      activeSection: '',
-      openSection: '',
-    };
-  }
+/* n.b. Parent <nav> element is in NavWrapper so we may use forwardRef in Header component. */
+const Navigation = props => {
+  /* using Hooks instead of component state */
+  const {
+    activeLanguage,
+    data: { cms },
+    label,
+    location,
+    region,
+  } = props;
+  const [openSection, handleMenuItem] = useState('');
+  const navigation = cms.navigations.filter(nav => nav.availableIn === region)[0];
 
-  handleMenuItem = type => {
-    this.setState({
-      openSection: type,
-    });
-  };
-
-  render() {
-    const { activeSection, openSection } = this.state;
-    const {
-      activeLanguage,
-      data: {
-        cms: { navigations },
-      },
-      location,
-      region,
-    } = this.props;
-    const navigation = navigations.filter(nav => nav.availableIn === region)[0];
-    return (
-      <>
-        <nav className="navigation">
-          <div className="sections">
-            {navigation.navigationSections.length > 0 &&
-              navigation.navigationSections.map(section => {
-                const isOpen = section.type === openSection;
-                return (
-                  <NavigationDropdown
-                    activeLanguage={activeLanguage}
-                    activeSection={activeSection}
-                    handleMenuItem={this.handleMenuItem}
-                    key={section.type}
-                    location={location}
-                    section={section}
-                    isOpen={isOpen}
-                    // ref={`menu${index}`}
-                    // ref={this.PRODUCTS}
-                  />
-                );
-              })}
-          </div>
-        </nav>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <div className="mobile-options">test</div>
+      <div className="sections">
+        {navigation.navigationSections.length > 0 &&
+          navigation.navigationSections.map(section => {
+            const isOpen = section.type === openSection;
+            return (
+              <NavigationDropdown
+                activeLanguage={activeLanguage}
+                handleMenuItem={type => handleMenuItem(type)}
+                key={section.type}
+                location={location}
+                section={section}
+                isOpen={isOpen}
+                label={label.common}
+              />
+            );
+          })}
+      </div>
+    </>
+  );
+};
 
 Navigation.defaultProps = {
   activeLanguage: '',
   data: {},
+  label: {},
   location: {},
   region: '',
 };
@@ -78,6 +54,11 @@ Navigation.propTypes = {
     cms: PropTypes.shape({
       navigations: PropTypes.array,
     }),
+  }),
+  label: PropTypes.shape({
+    header: PropTypes.object,
+    footer: PropTypes.object,
+    common: PropTypes.object,
   }),
   location: PropTypes.shape({
     pathname: PropTypes.string,

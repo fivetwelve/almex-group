@@ -4,8 +4,7 @@ import { IconContext } from 'react-icons';
 import { FaTimes } from 'react-icons/fa';
 
 const CloseButton = props => {
-  const { closeMenu } = props;
-
+  const { closeMenu, label } = props;
   const handleClick = evt => {
     evt.preventDefault();
     closeMenu('');
@@ -21,7 +20,7 @@ const CloseButton = props => {
         handleClick(evt);
       }}
     >
-      <span className="sr-only">Previous</span>
+      <span className="sr-only">{label.CLOSE}</span>
       <span aria-hidden="true" className="left-controls-icon">
         <IconContext.Provider value={{ className: 'left-controls-icon' }}>
           <FaTimes aria-hidden />
@@ -33,10 +32,14 @@ const CloseButton = props => {
 
 CloseButton.defaultProps = {
   closeMenu: () => {},
+  label: {},
 };
 
 CloseButton.propTypes = {
   closeMenu: PropTypes.func,
+  label: PropTypes.shape({
+    CLOSE: PropTypes.string,
+  }),
 };
 
 export default CloseButton;
