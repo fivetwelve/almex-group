@@ -11,18 +11,19 @@ const allowHTML = { html: true };
 
 const CorporatePage = ({ data }) => {
   const { cms } = data;
-  const { articles, brandNavigation, headerFooter, label } = cms;
+  const { articles, brandNavigation, headerFooter, label, navigation } = cms;
   const article = articles[0];
   return (
     <Layout
       activeLanguage="EN"
       brandNavigation={brandNavigation}
       childrenClass="corporate-page"
-      region="NORTH_AMERICA"
-      title={article.title}
       data={data.cms}
       headerFooter={headerFooter}
       label={label}
+      navigation={navigation}
+      region="NORTH_AMERICA"
+      title={article.title}
     >
       <div className="banner-container">
         <h1>{article.labels.corporate}</h1>
@@ -126,7 +127,7 @@ export const query = graphql`
         header(locale: EN)
         footer(locale: EN)
       }
-      navigations(where: { availableIn: NORTH_AMERICA }) {
+      navigation(where: { availableIn: NORTH_AMERICA }) {
         availableIn
         navigationSections {
           titleEN: title(locale: EN)
@@ -135,6 +136,10 @@ export const query = graphql`
             slugEN: slug(locale: EN)
             slugES: slug(locale: EN)
             pageType
+            about: aboutSource {
+              titleEN: title(locale: EN)
+              titleES: title(locale: ES)
+            }
             article: articleSource {
               titleEN: title(locale: EN)
               titleES: title(locale: ES)
@@ -176,6 +181,10 @@ export const query = graphql`
                   }
                 }
               }
+            }
+            usedEquipment: usedEquipmentSource {
+              titleEN: title(locale: EN)
+              titleES: title(locale: ES)
             }
           }
         }
