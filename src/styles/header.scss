@@ -321,10 +321,12 @@
             cursor: pointer;
             background-color: transparent;
             &.is-open {
+              font-weight: 700;
               color: $yellow-sea;
               border-bottom: 1px solid $grey80;
               background-color: $grey80;
               @include media('>=tablet') {
+                font-weight: 500;
                 background-color: transparent;
               }
               .chevron {
