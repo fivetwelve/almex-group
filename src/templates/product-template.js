@@ -21,8 +21,8 @@ const ProductTemplate = ({ data, location, pageContext }) => {
       brandNavigation,
       headerFooter,
       label,
+      navigation,
       page: {
-        belongsTo,
         product: {
           brand,
           theme,
@@ -91,15 +91,15 @@ const ProductTemplate = ({ data, location, pageContext }) => {
   return (
     <Layout
       activeLanguage={locale}
-      locale={locale}
-      activeSection={belongsTo}
       brandNavigation={brandNavigation}
       childrenClass="product"
-      region={region}
-      title={title}
       data={siteData}
       headerFooter={headerFooter}
       label={label}
+      locale={locale}
+      navigation={navigation}
+      region={region}
+      title={title}
     >
       <>
         <div className="product-container">

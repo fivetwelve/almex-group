@@ -19,6 +19,7 @@ const LandingTemplate = ({ data, pageContext }) => {
       brandNavigation,
       headerFooter,
       label,
+      navigation,
       page: {
         landing: {
           bannerImage,
@@ -95,14 +96,14 @@ const LandingTemplate = ({ data, pageContext }) => {
   return (
     <Layout
       activeLanguage={locale}
-      activeSection=""
       brandNavigation={brandNavigation}
       childrenClass="landing"
-      region={region}
-      title=""
       data={siteData}
       headerFooter={headerFooter}
       label={label}
+      navigation={navigation}
+      region={region}
+      title=""
     >
       <Location>
         {({ location }) => (

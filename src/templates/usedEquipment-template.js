@@ -16,6 +16,7 @@ const UsedEquipmentTemplate = ({ data, pageContext }) => {
       brandNavigation,
       headerFooter,
       label,
+      navigation,
       page: {
         usedEquipment: { title, description, disclaimer, usedEquipmentListings },
       },
@@ -25,14 +26,14 @@ const UsedEquipmentTemplate = ({ data, pageContext }) => {
   return (
     <Layout
       activeLanguage={locale}
-      activeSection=""
       brandNavigation={brandNavigation}
       childrenClass="used-equipment"
-      region={region}
-      title=""
       data={siteData}
       headerFooter={headerFooter}
       label={label}
+      navigation={navigation}
+      region={region}
+      title=""
     >
       <div className="used-equipment-container">
         <div className="heading">

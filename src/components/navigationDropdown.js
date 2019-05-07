@@ -28,8 +28,7 @@ const NavigationDropdown = props => {
             handleClick(evt);
           }}
         >
-          {section[`title${activeLanguage}`]}
-          {/* <i className="far fa-chevron-double-right" /> */}
+          {section.title}
           <span className="chevron">
             <svg
               aria-hidden="true"
@@ -52,7 +51,7 @@ const NavigationDropdown = props => {
       </div>
       <div className={`section-menu-container ${isOpen ? 'visible' : ''}`}>
         <CloseButton closeMenu={handleMenuItem} label={label} />
-        <div className="title">{section[`title${activeLanguage}`]}</div>
+        <div className="title">{section.title}</div>
         <div className="menu-container">
           {section.pages.map(page => (
             <div className="category" key={makeid()}>
@@ -66,7 +65,6 @@ const NavigationDropdown = props => {
     </div>
   );
 };
-// }
 
 NavigationDropdown.defaultProps = {
   handleMenuItem: () => {},

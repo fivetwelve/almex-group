@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, Link } from 'gatsby';
 import { IconContext } from 'react-icons';
-import { FaBars, FaSearch } from 'react-icons/fa';
+import { FaBars } from 'react-icons/fa';
 import BrandSelector from './brandSelector';
 import LanguageSelector from './languageSelector';
 import Navigation from './navigation';
@@ -18,35 +18,19 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.myRef = {};
-    const { headerFooter } = this.props;
-    const nav = headerFooter.navigation;
-    for (let i = 0; i < nav.length; i += 1) {
-      const navType = nav[i].TYPE;
-      this.myRef[navType] = React.createRef();
-    }
+    // this.myRef = {};
+    // const { headerFooter } = this.props;
+    // const nav = headerFooter.navigation;
+    // for (let i = 0; i < nav.length; i += 1) {
+    //   const navType = nav[i].TYPE;
+    //   this.myRef[navType] = React.createRef();
+    // }
     this.navWrapperRef = React.createRef();
   }
 
   componentDidUpdate() {
     // console.log(this.myRef);
   }
-
-  // closeOtherMenus = type => {
-  // console.log(`type: ${type}`);
-  // const { headerFooter } = this.props;
-  // const nav = headerFooter[0].navigation;
-  // console.log('myref:', this.myRef['PRODUCTS']);
-  // for (let i = 0; i < nav.length; i += 1) {
-  //   const navType = nav[i].TYPE;
-  //   console.log('nav:', this.myRef[navType]);
-  //   // console.log(`navType: ${navType}`);
-  //   // console.log(this.PRODUCTS.current);
-  //   if (type !== navType) {
-  //     this.myRef[navType].current.toggleMenu();
-  //   }
-  // }
-  // };
 
   handleMobileMenuClick = evt => {
     evt.preventDefault();
@@ -59,10 +43,10 @@ class Header extends React.Component {
     const {
       activeLanguage,
       brandNavigation,
-      activeSection,
       headerFooter,
       label,
       location,
+      navigation,
       region,
     } = this.props;
 
@@ -71,35 +55,28 @@ class Header extends React.Component {
         <div className="contents">
           <Link to={createLink(location, '')}>
             <span className="logo">
-              <img src={vLogo} width="50px" alt="Almex Group" className="vertical" />
-              <img src={hLogo} width="225px" alt="Almex Group" className="horizontal" />
+              <img src={vLogo} width="50" alt="Almex Group" className="vertical" />
+              <img src={hLogo} width="225" alt="Almex Group" className="horizontal" />
             </span>
           </Link>
-          {activeSection !== '' && (
-            <div className="active-section-mobile">{label.header[activeSection]}</div>
-          )}
-          <IconContext.Provider value={{ className: 'menu-icon' }}>
-            <button
-              type="button"
-              className="mobile-menu"
-              onClick={evt => this.handleMobileMenuClick(evt)}
-            >
-              <FaBars aria-hidden />
-              <span className="sr-only">Open menu</span>
-            </button>
-          </IconContext.Provider>
 
           <div className="options-container">
             <div className="options">
-              <div className="search">
+              {/* <div className="search">
                 <input placeholder="e.g. rubber tank lining, etc..." />
-                {/* {label.header.SEARCH} */}
+                {
+                  // {label.header.SEARCH}
+                }
                 <IconContext.Provider value={{ className: 'search-icon' }}>
-                  {/* <button type="button" className="mobile-menu"> */}
+                  {
+                    // <button type="button" className="mobile-menu">
+                  }
                   <FaSearch aria-hidden />
-                  {/* </button> */}
+                  {
+                    // </button>
+                  }
                 </IconContext.Provider>
-              </div>
+              </div> */}
               <BrandSelector
                 brandNavigation={brandNavigation}
                 label={label.header.BRANDS}
@@ -110,18 +87,31 @@ class Header extends React.Component {
                 languages={headerFooter.language}
                 region={region}
               />
-              <div className="login">{label.header.LOGIN}</div>
+              {/* <div className="login">{label.header.LOGIN}</div> */}
             </div>
             <div className="tagline-container">
               <span className="tagline">{headerFooter.simpleTagline}</span>
             </div>
           </div>
+          <IconContext.Provider value={{ className: 'menu-icon' }}>
+            <button
+              type="button"
+              className="mobile-menu"
+              onClick={evt => this.handleMobileMenuClick(evt)}
+            >
+              <FaBars aria-hidden />
+              <span className="sr-only">Open menu</span>
+            </button>
+          </IconContext.Provider>
         </div>
         <NavWrapper ref={this.navWrapperRef}>
           <Navigation
             activeLanguage={activeLanguage}
+            brandNavigation={brandNavigation}
             label={label}
+            languages={headerFooter.language}
             location={location}
+            navigation={navigation}
             region={region}
           />
         </NavWrapper>
@@ -132,18 +122,17 @@ class Header extends React.Component {
 
 Header.defaultProps = {
   activeLanguage: '',
-  activeSection: '',
   brandNavigation: {},
   headerFooter: {},
   label: {},
   location: {},
+  navigation: {},
   region: '',
   showMobileBG: () => {},
 };
 
 Header.propTypes = {
   activeLanguage: PropTypes.string,
-  activeSection: PropTypes.string,
   brandNavigation: PropTypes.shape({
     pages: PropTypes.array,
   }),
@@ -158,6 +147,9 @@ Header.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string,
   }),
+  navigation: PropTypes.shape({
+    navigationSections: PropTypes.array,
+  }),
   region: PropTypes.string,
   showMobileBG: PropTypes.func,
 };
@@ -166,12 +158,15 @@ export const commonFragment = graphql`
   fragment CommonQuery on GraphCMS {
     brandNavigation(where: { availableIn: $region }) {
       pages {
-        slug(locale: $locale)
         landing: landingSource {
           brand
           title(locale: $locale)
         }
+        pageType
+        slug(locale: $locale)
       }
+      title(locale: $locale)
+      type
     }
     label(where: { availableIn: $region }) {
       header(locale: $locale)
@@ -188,6 +183,44 @@ export const commonFragment = graphql`
       navigation(locale: $locale)
       simpleTagline(locale: $locale)
       socialMedia(locale: $locale)
+    }
+    navigation(where: { availableIn: $region }) {
+      navigationSections {
+        pages {
+          id
+          pageType
+          slug: slug(locale: $locale)
+          about: aboutSource {
+            title(locale: $locale)
+          }
+          article: articleSource {
+            title(locale: $locale)
+          }
+          events: eventsSource {
+            title(locale: $locale)
+          }
+          industry: industrySource {
+            title(locale: $locale)
+          }
+          landing: landingSource {
+            title(locale: $locale)
+          }
+          product: productSource {
+            title(locale: $locale)
+          }
+          promo: promoSource {
+            title(locale: $locale)
+          }
+          service: serviceSource {
+            title(locale: $locale)
+          }
+          usedEquipment: usedEquipmentSource {
+            title(locale: $locale)
+          }
+        }
+        title(locale: $locale)
+        type
+      }
     }
   }
 `;

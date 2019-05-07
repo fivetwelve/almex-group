@@ -40,31 +40,31 @@ const getTitle = (page, language = '') => {
   let title = '';
   switch (page.pageType) {
     case allPageTypes.ABOUT:
-      title = page.about[`title${language}`];
+      title = page.about[`title${language}`] || page.about.title || '';
       break;
     case allPageTypes.ARTICLE:
-      title = page.article[`title${language}`];
+      title = page.article[`title${language}`] || page.article.title || '';
       break;
     case allPageTypes.EVENTS:
-      title = page.events[`title${language}`];
+      title = page.events[`title${language}`] || page.events.title || '';
       break;
     case allPageTypes.INDUSTRY:
-      title = page.industry[`title${language}`];
+      title = page.industry[`title${language}`] || page.industry.title || '';
       break;
     case allPageTypes.LANDING:
-      title = page.landing[`title${language}`];
+      title = page.landing[`title${language}`] || page.landing.title || '';
       break;
     case allPageTypes.PRODUCT:
-      title = page.product[`title${language}`];
+      title = page.product[`title${language}`] || page.product.title || '';
       break;
     case allPageTypes.PROMO:
-      title = page.promo[`title${language}`];
+      title = page.promo[`title${language}`] || page.promo.title || '';
       break;
     case allPageTypes.SERVICE:
-      title = page.service[`title${language}`];
+      title = page.service[`title${language}`] || page.service.title || '';
       break;
     case allPageTypes.USED:
-      title = page.usedEquipment[`title${language}`];
+      title = page.usedEquipment[`title${language}`] || page.usedEquipment.title || '';
       break;
     default:
       break;

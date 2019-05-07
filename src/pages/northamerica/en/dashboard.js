@@ -113,7 +113,6 @@ class DashboardPage extends React.Component {
     return (
       // <Layout
       //   activeLanguage="EN"
-      //   activeSection=""
       //   childrenClass="dashboard-page"
       //   region="NORTH_AMERICA"
       //   title=""

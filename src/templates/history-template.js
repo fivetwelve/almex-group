@@ -21,6 +21,7 @@ const HistoryTemplate = ({ data, pageContext }) => {
       brandNavigation,
       headerFooter,
       label,
+      navigation,
       page: {
         history: {
           // brand,
@@ -76,14 +77,14 @@ const HistoryTemplate = ({ data, pageContext }) => {
   return (
     <Layout
       activeLanguage={locale}
-      activeSection=""
       brandNavigation={brandNavigation}
       childrenClass="about"
-      region={region}
-      title=""
       data={siteData}
       headerFooter={headerFooter}
       label={label}
+      navigation={navigation}
+      region={region}
+      title=""
     >
       {/* <Location>
         {({ location }) => ( */}

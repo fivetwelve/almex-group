@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'gatsby';
 import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
-import { FaAngleUp } from 'react-icons/fa';
+import { FaAngleDown } from 'react-icons/fa';
 import { createLink } from '../utils/functions';
 import { allBrands } from '../constants';
 // import constants from '../constants';
@@ -77,7 +77,7 @@ class BrandSelector extends Component {
               {label}
               <span aria-hidden="true" className="dd-icon">
                 <IconContext.Provider value={{ className: 'brands-icon' }}>
-                  <FaAngleUp aria-hidden />
+                  <FaAngleDown aria-hidden />
                 </IconContext.Provider>
               </span>
             </span>

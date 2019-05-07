@@ -3,11 +3,14 @@
 .header {
   .brand-selector,
   .lang-selector {
-    position: relative;
-    display: flex;
-    align-items: center;
-    height: 30px;
-    border-left: 1px solid $grey40;
+    display: none;
+    @include media('>=tablet') {
+      position: relative;
+      display: flex;
+      align-items: center;
+      height: 30px;
+      border-left: 1px solid $grey40;
+    }
     a {
       text-decoration: none;
     }

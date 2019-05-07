@@ -16,7 +16,6 @@ const CorporatePage = ({ data }) => {
   return (
     <Layout
       activeLanguage="EN"
-      activeSection={article.navSection}
       brandNavigation={brandNavigation}
       childrenClass="corporate-page"
       region="NORTH_AMERICA"

@@ -17,10 +17,11 @@ const AboutTemplate = ({ data, pageContext }) => {
   const { locale, siteData, region } = pageContext;
   const {
     cms: {
-      brandNavigation,
-      headerFooter,
       label,
       aboutLabel,
+      brandNavigation,
+      headerFooter,
+      navigation,
       page: {
         about: {
           bannerImage,
@@ -77,14 +78,14 @@ const AboutTemplate = ({ data, pageContext }) => {
   return (
     <Layout
       activeLanguage={locale}
-      activeSection=""
       brandNavigation={brandNavigation}
       childrenClass="about"
-      region={region}
-      title=""
       data={siteData}
       headerFooter={headerFooter}
       label={label}
+      navigation={navigation}
+      region={region}
+      title=""
     >
       <Location>
         {({ location }) => (
@@ -154,10 +155,10 @@ const AboutTemplate = ({ data, pageContext }) => {
                     <div className="label">{label.header.ABOUT}</div>
                     <ul>
                       <li>
-                        <a href="http://alme.com">Some link here</a>
+                        <a href="http://almex.com">Some link here</a>
                       </li>
                       <li>
-                        <a href="http://alme.com">Some link here lorem ipsum</a>
+                        <a href="http://almex.com">Some link here lorem ipsum</a>
                       </li>
                     </ul>
                   </div>

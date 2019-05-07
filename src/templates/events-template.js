@@ -189,10 +189,11 @@ class EventsTemplate extends Component {
     const {
       data: {
         cms: {
+          aboutLabel,
           brandNavigation,
           headerFooter,
           label,
-          aboutLabel,
+          navigation,
           page: {
             eventsSource: { bannerImage, title, description },
           },
@@ -259,14 +260,14 @@ class EventsTemplate extends Component {
     return (
       <Layout
         activeLanguage={locale}
-        activeSection=""
         brandNavigation={brandNavigation}
         childrenClass="events"
-        region={region}
-        title=""
         data={siteData}
         headerFooter={headerFooter}
         label={label}
+        navigation={navigation}
+        region={region}
+        title=""
       >
         <Location>
           {({ location }) => (

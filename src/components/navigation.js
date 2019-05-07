@@ -1,24 +1,75 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { graphql, StaticQuery } from 'gatsby';
+import { Link } from 'gatsby';
 import NavigationDropdown from './navigationDropdown';
+import { allLanguageSlugs, allRegionSlugs } from '../constants';
+
+const mobileLanguages = (activeLanguage, languages, label, region) => {
+  const displayLanguages = [];
+  languages.forEach(language => {
+    if (language === activeLanguage) {
+      displayLanguages.push(
+        <div className="lang-item" key={language}>
+          <span className="link-text active">{language}</span>
+        </div>,
+      );
+    } else {
+      displayLanguages.push(
+        <div className="lang-item" key={language}>
+          <Link to={`/${allRegionSlugs[region]}/${allLanguageSlugs[language]}`}>
+            <span className="link-text">{language}</span>
+          </Link>
+        </div>,
+      );
+    }
+  });
+  return (
+    <>
+      <div className="language-container">
+        <span className="lang-title">{label}</span>
+        <div className="languages">
+          {displayLanguages}
+          <div className="lang-item">
+            <span className="link-text">FR</span>
+          </div>
+          <div className="lang-item">
+            <span className="link-text">DE</span>
+          </div>
+          <div className="lang-item">
+            <span className="link-text">RU</span>
+          </div>
+          <div className="lang-item">
+            <span className="link-text">PL</span>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
 
 /* n.b. Parent <nav> element is in NavWrapper so we may use forwardRef in Header component. */
 const Navigation = props => {
   /* using Hooks instead of component state */
-  const {
-    activeLanguage,
-    data: { cms },
-    label,
-    location,
-    region,
-  } = props;
+  const { activeLanguage, brandNavigation, label, languages, location, navigation, region } = props;
   const [openSection, handleMenuItem] = useState('');
-  const navigation = cms.navigations.filter(nav => nav.availableIn === region)[0];
+  const brandMenuOpen = brandNavigation.type === openSection;
 
   return (
     <>
-      <div className="mobile-options">test</div>
+      <div className="mobile-options">
+        {languages.length > 1 &&
+          mobileLanguages(activeLanguage, languages, label.header.LANGUAGES, region)}
+        {brandNavigation.pages && brandNavigation.pages.length > 0 && (
+          <NavigationDropdown
+            activeLanguage={activeLanguage}
+            handleMenuItem={type => handleMenuItem(type)}
+            location={location}
+            section={brandNavigation}
+            isOpen={brandMenuOpen}
+            label={label.common}
+          />
+        )}
+      </div>
       <div className="sections">
         {navigation.navigationSections.length > 0 &&
           navigation.navigationSections.map(section => {
@@ -42,89 +93,32 @@ const Navigation = props => {
 
 Navigation.defaultProps = {
   activeLanguage: '',
-  data: {},
+  brandNavigation: {},
   label: {},
+  languages: [],
   location: {},
+  navigation: {},
   region: '',
 };
 
 Navigation.propTypes = {
   activeLanguage: PropTypes.string,
-  data: PropTypes.shape({
-    cms: PropTypes.shape({
-      navigations: PropTypes.array,
-    }),
+  brandNavigation: PropTypes.shape({
+    pages: PropTypes.array,
   }),
   label: PropTypes.shape({
     header: PropTypes.object,
     footer: PropTypes.object,
     common: PropTypes.object,
   }),
+  languages: PropTypes.arrayOf(PropTypes.string),
   location: PropTypes.shape({
     pathname: PropTypes.string,
+  }),
+  navigation: PropTypes.shape({
+    navigationSections: PropTypes.array,
   }),
   region: PropTypes.string,
 };
 
-export default props => (
-  <StaticQuery
-    query={graphql`
-      query {
-        cms {
-          # navigations(where: { availableIn: NORTH_AMERICA }) {
-          navigations {
-            availableIn
-            navigationSections {
-              titleEN: title(locale: EN)
-              titleES: title(locale: ES)
-              type
-              pages {
-                id
-                pageType
-                slugEN: slug(locale: EN)
-                slugES: slug(locale: ES)
-                about: aboutSource {
-                  titleEN: title(locale: EN)
-                  titleES: title(locale: ES)
-                }
-                article: articleSource {
-                  titleEN: title(locale: EN)
-                  titleES: title(locale: ES)
-                }
-                events: eventsSource {
-                  titleEN: title(locale: EN)
-                  titleES: title(locale: ES)
-                }
-                industry: industrySource {
-                  titleEN: title(locale: EN)
-                  titleES: title(locale: ES)
-                }
-                landing: landingSource {
-                  titleEN: title(locale: EN)
-                  titleES: title(locale: ES)
-                }
-                product: productSource {
-                  titleEN: title(locale: EN)
-                  titleES: title(locale: ES)
-                }
-                promo: promoSource {
-                  titleEN: title(locale: EN)
-                  titleES: title(locale: ES)
-                }
-                service: serviceSource {
-                  titleEN: title(locale: EN)
-                  titleES: title(locale: ES)
-                }
-                usedEquipment: usedEquipmentSource {
-                  titleEN: title(locale: EN)
-                  titleES: title(locale: ES)
-                }
-              }
-            }
-          }
-        }
-      }
-    `}
-    render={data => <Navigation data={data} {...props} />}
-  />
-);
+export default Navigation;

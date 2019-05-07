@@ -51,16 +51,17 @@ class Layout extends React.Component {
   render() {
     const {
       activeLanguage,
-      activeSection,
       brandNavigation,
       children,
       childrenClass,
       headerFooter,
       label,
+      navigation,
       region,
       title,
     } = this.props;
     const lang = activeLanguage.toLowerCase();
+
     return (
       <>
         <Helmet defaultTitle={title} titleTemplate={`Almex Group | ${title}`}>
@@ -124,11 +125,11 @@ class Layout extends React.Component {
                   <div className="mobile-menu-bg" ref={this.mobileMenuBg} />
                   <div className="mobile-shroud" ref={this.mobileShroud} />
                   <Header
-                    activeSection={activeSection}
                     activeLanguage={activeLanguage}
                     brandNavigation={brandNavigation}
                     headerFooter={headerFooter}
                     label={label}
+                    navigation={navigation}
                     region={region}
                     location={location}
                     showMobileBG={this.showMobileBG}
@@ -159,19 +160,18 @@ class Layout extends React.Component {
 
 Layout.defaultProps = {
   activeLanguage: '',
-  activeSection: '',
   children: {},
   childrenClass: '',
   brandNavigation: {},
   headerFooter: {},
   label: {},
+  navigation: {},
   region: '',
   title: '',
 };
 
 Layout.propTypes = {
   activeLanguage: PropTypes.string,
-  activeSection: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   childrenClass: PropTypes.string,
   brandNavigation: PropTypes.shape({
@@ -187,6 +187,9 @@ Layout.propTypes = {
   label: PropTypes.shape({
     header: PropTypes.object,
     footer: PropTypes.object,
+  }),
+  navigation: PropTypes.shape({
+    navigationSections: PropTypes.array,
   }),
   region: PropTypes.string,
   title: PropTypes.string,

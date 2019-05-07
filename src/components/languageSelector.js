@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { Link } from 'gatsby';
 import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
-import { FaAngleUp } from 'react-icons/fa';
-import constants from '../constants';
+import { FaAngleDown } from 'react-icons/fa';
+import { allLanguageSlugs, allRegionSlugs } from '../constants';
 /* n.b. Shared CSS is imported in Header from dropdowns.scss */
 
 class LanguageSelector extends Component {
@@ -49,7 +50,6 @@ class LanguageSelector extends Component {
 
   render() {
     const { activeLanguage, languages, region } = this.props;
-    const { allLanguageSlugs, allRegionSlugs } = constants;
 
     return (
       <div className="lang-selector" ref={this.langDropDown}>
@@ -69,7 +69,7 @@ class LanguageSelector extends Component {
             {activeLanguage}
             <span aria-hidden="true" className="dd-icon">
               <IconContext.Provider value={{ className: 'brands-icon' }}>
-                <FaAngleUp aria-hidden />
+                <FaAngleDown aria-hidden />
               </IconContext.Provider>
             </span>
           </span>
@@ -77,9 +77,9 @@ class LanguageSelector extends Component {
         <ul id="dropdown-1" role="menu" className="lang-dropdown">
           {languages.map(language => (
             <li className="nav__list" key={language}>
-              <a href={`/${allRegionSlugs[region]}/${allLanguageSlugs[language]}`}>
+              <Link to={`/${allRegionSlugs[region]}/${allLanguageSlugs[language]}`}>
                 <span className="nav__link">{language}</span>
-              </a>
+              </Link>
             </li>
             //   <button
             //     type="button"

@@ -8,14 +8,14 @@ import Layout from '../../../components/layout';
 const Home = ({ data }) => (
   <Layout
     activeLanguage="EN"
-    activeSection=""
     brandNavigation={data.cms.brandNavigation}
     childrenClass="homepage"
-    region="NORTH_AMERICA"
-    title=""
     data={data.cms}
     headerFooter={data.cms.headerFooter}
     label={data.cms.label}
+    navigation={data.cms.navigation}
+    region="NORTH_AMERICA"
+    title=""
   >
     <Location>{({ location }) => <HomepageTemplate data={data} location={location} />}</Location>
   </Layout>
@@ -42,6 +42,8 @@ export const query = graphql`
             title(locale: EN)
           }
         }
+        title(locale: EN)
+        type
       }
       headerFooter(where: { availableIn: NORTH_AMERICA }) {
         companyAddress(locale: EN)
@@ -90,15 +92,17 @@ export const query = graphql`
         header(locale: EN)
         footer(locale: EN)
       }
-      navigations(where: { availableIn: NORTH_AMERICA }) {
+      navigation(where: { availableIn: NORTH_AMERICA }) {
         availableIn
         navigationSections {
-          titleEN: title(locale: EN)
-          titleES: title(locale: ES)
           pages {
+            pageType
             slugEN: slug(locale: EN)
             slugES: slug(locale: EN)
-            pageType
+            about: aboutSource {
+              titleEN: title(locale: EN)
+              titleES: title(locale: ES)
+            }
             article: articleSource {
               titleEN: title(locale: EN)
               titleES: title(locale: ES)
@@ -108,18 +112,6 @@ export const query = graphql`
               titleES: title(locale: ES)
             }
             industry: industrySource {
-              titleEN: title(locale: EN)
-              titleES: title(locale: ES)
-            }
-            product: productSource {
-              titleEN: title(locale: EN)
-              titleES: title(locale: ES)
-            }
-            promo: promoSource {
-              titleEN: title(locale: EN)
-              titleES: title(locale: ES)
-            }
-            service: serviceSource {
               titleEN: title(locale: EN)
               titleES: title(locale: ES)
             }
@@ -141,7 +133,25 @@ export const query = graphql`
                 }
               }
             }
+            product: productSource {
+              titleEN: title(locale: EN)
+              titleES: title(locale: ES)
+            }
+            promo: promoSource {
+              titleEN: title(locale: EN)
+              titleES: title(locale: ES)
+            }
+            service: serviceSource {
+              titleEN: title(locale: EN)
+              titleES: title(locale: ES)
+            }
+            usedEquipment: usedEquipmentSource {
+              titleEN: title(locale: EN)
+              titleES: title(locale: ES)
+            }
           }
+          title(locale: EN)
+          type
         }
       }
     }
