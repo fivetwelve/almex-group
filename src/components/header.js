@@ -59,7 +59,6 @@ class Header extends React.Component {
               <img src={hLogo} width="225" alt="Almex Group" className="horizontal" />
             </span>
           </Link>
-
           <div className="options-container">
             <div className="options">
               {/* <div className="search">
@@ -108,6 +107,7 @@ class Header extends React.Component {
           <Navigation
             activeLanguage={activeLanguage}
             brandNavigation={brandNavigation}
+            handleCloseMenuClick={this.handleMobileMenuClick}
             label={label}
             languages={headerFooter.language}
             location={location}

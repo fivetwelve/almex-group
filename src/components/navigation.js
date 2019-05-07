@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
+import { IconContext } from 'react-icons';
+import { FaTimes } from 'react-icons/fa';
 import NavigationDropdown from './navigationDropdown';
 import { allLanguageSlugs, allRegionSlugs } from '../constants';
 
@@ -49,13 +51,30 @@ const mobileLanguages = (activeLanguage, languages, label, region) => {
 
 /* n.b. Parent <nav> element is in NavWrapper so we may use forwardRef in Header component. */
 const Navigation = props => {
+  const {
+    activeLanguage,
+    brandNavigation,
+    handleCloseMenuClick,
+    label,
+    languages,
+    location,
+    navigation,
+    region,
+  } = props;
   /* using Hooks instead of component state */
-  const { activeLanguage, brandNavigation, label, languages, location, navigation, region } = props;
   const [openSection, handleMenuItem] = useState('');
   const brandMenuOpen = brandNavigation.type === openSection;
 
   return (
     <>
+      <div className="close-container">
+        <IconContext.Provider value={{ className: 'close-icon' }}>
+          <button type="button" className="close-menu" onClick={evt => handleCloseMenuClick(evt)}>
+            <FaTimes aria-hidden />
+            <span className="sr-only">Open menu</span>
+          </button>
+        </IconContext.Provider>
+      </div>
       <div className="mobile-options">
         {languages.length > 1 &&
           mobileLanguages(activeLanguage, languages, label.header.LANGUAGES, region)}
@@ -94,6 +113,7 @@ const Navigation = props => {
 Navigation.defaultProps = {
   activeLanguage: '',
   brandNavigation: {},
+  handleCloseMenuClick: () => {},
   label: {},
   languages: [],
   location: {},
@@ -106,6 +126,7 @@ Navigation.propTypes = {
   brandNavigation: PropTypes.shape({
     pages: PropTypes.array,
   }),
+  handleCloseMenuClick: PropTypes.func,
   label: PropTypes.shape({
     header: PropTypes.object,
     footer: PropTypes.object,
