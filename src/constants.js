@@ -24,6 +24,7 @@ module.exports = {
     CONTACT: 'CONTACT',
     EVENTS: 'EVENTS',
     HISTORY: 'HISTORY',
+    HOMEPAGE: 'HOMEPAGE',
     HOPE: 'HOPE',
     INDUSTRY: 'INDUSTRY',
     LANDING: 'LANDING',

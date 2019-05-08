@@ -72,10 +72,41 @@ exports.createPages = ({ graphql, actions }) => {
         supportedLocales.forEach(locale => {
           pages.forEach(page => {
             const { id, pageType } = page;
-            const pagePath = `${allRegionSlugs[availableIn]}/${allLanguageSlugs[locale]}/${
-              page[`slug${locale}`]
-            }`;
+            const pagePath =
+              pageType !== allPageTypes.HOMEPAGE
+                ? `${allRegionSlugs[availableIn]}/${allLanguageSlugs[locale]}/${
+                    page[`slug${locale}`]
+                  }`
+                : `${allRegionSlugs[availableIn]}/${allLanguageSlugs[locale]}`;
             switch (pageType) {
+              case allPageTypes.HOMEPAGE:
+                createPage({
+                  path: pagePath,
+                  component: path.resolve(`./src/templates/homepage-template.js`),
+                  context: {
+                    id,
+                    locale,
+                    siteData: data,
+                    page: 'index',
+                    region: availableIn,
+                    // title: homepage[`title${locale}`],
+                  },
+                });
+                break;
+              case allPageTypes.INDUSTRY:
+                createPage({
+                  path: pagePath,
+                  component: path.resolve(`./src/templates/landing-template.js`),
+                  context: {
+                    id,
+                    locale,
+                    siteData: data,
+                    page: page.slug[locale],
+                    region: availableIn,
+                    // title: industry[`title${locale}`],
+                  },
+                });
+                break;
               case allPageTypes.PRODUCT:
                 createPage({
                   path: pagePath,
@@ -85,6 +116,20 @@ exports.createPages = ({ graphql, actions }) => {
                     locale,
                     siteData: data,
                     region: availableIn,
+                  },
+                });
+                break;
+              case allPageTypes.PROMO:
+                createPage({
+                  path: pagePath,
+                  component: path.resolve(`./src/templates/landing-template.js`),
+                  context: {
+                    id,
+                    locale,
+                    siteData: data,
+                    page: page.slug[locale],
+                    region: availableIn,
+                    // title: promo[`title${locale}`],
                   },
                 });
                 break;
@@ -115,34 +160,7 @@ exports.createPages = ({ graphql, actions }) => {
                   },
                 });
                 break;
-              case allPageTypes.INDUSTRY:
-                createPage({
-                  path: pagePath,
-                  component: path.resolve(`./src/templates/landing-template.js`),
-                  context: {
-                    id,
-                    locale,
-                    siteData: data,
-                    page: page.slug[locale],
-                    region: availableIn,
-                    // title: industry[`title${locale}`],
-                  },
-                });
-                break;
-              case allPageTypes.PROMO:
-                createPage({
-                  path: pagePath,
-                  component: path.resolve(`./src/templates/landing-template.js`),
-                  context: {
-                    id,
-                    locale,
-                    siteData: data,
-                    page: page.slug[locale],
-                    region: availableIn,
-                    // title: promo[`title${locale}`],
-                  },
-                });
-                break;
+
               case allPageTypes.SERVICE:
                 createPage({
                   path: pagePath,
