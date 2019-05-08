@@ -6,11 +6,13 @@ const createLink = (location, slug) => {
     - No further hierarchy expected to pollute URLs or future link creation.
     - Slugs expected to be unique, coming from CMS.
     - location passed in expected to be the prop coming from @reach/router Location 
+    - accounts for when there is no slug (homepage) so url may end in /region/locale
+      and no trailing slash
   */
   const reg = /\/(.*?)\/\w+\//;
-  const linkPrefix = (location.pathname && reg.exec(location.pathname)) || '/';
-
-  return `${linkPrefix[0]}${slug}/`;
+  const match = reg.exec(location.pathname);
+  const linkPrefix = (match && match[0]) || `${location.pathname}/`;
+  return `${linkPrefix}${slug}/`;
 };
 
 const createLinkFromPage = (location, page, language) => {
