@@ -109,44 +109,44 @@ const HomepageTemplate = ({ data, pageContext }) => {
       <Location>
         {({ location }) => (
           <>
-            <div className="homepage">
-              <Carousel
-                className="carousel"
-                autoGenerateStyleTag={options.autoGenerateStyleTag}
-                enableKeyboardControls={options.enableKeyboardControls}
-                renderCenterLeftControls={({ previousSlide }) => (
-                  <button onClick={previousSlide} type="button" className="left-controls">
-                    <span className="sr-only">Previous</span>
-                    <span aria-hidden="true" className="left-controls-icon">
-                      <IconContext.Provider value={{ className: 'left-controls-icon' }}>
-                        <FaChevronLeft aria-hidden />
-                      </IconContext.Provider>
-                    </span>
-                  </button>
-                )}
-                renderCenterRightControls={({ nextSlide }) => (
-                  <button onClick={nextSlide} type="button" className="right-controls">
-                    <span className="sr-only">Next</span>
-                    <span aria-hidden="true" className="right-controls-icon">
-                      <IconContext.Provider value={{ className: 'right-controls-icon' }}>
-                        <FaChevronRight aria-hidden />
-                      </IconContext.Provider>
-                    </span>
-                  </button>
-                )}
-                // renderBottomCenterControls={() => null}
-                wrapAround={options.wrapAround}
-              >
-                {/* {slideArray} */}
-                {renderSlides(location)}
-              </Carousel>
-              <div className="tagline-anchor">
-                <div className="tagline-container">
-                  <div className="tagline">
-                    <Markdown source={headerFooter.formattedTagline} options={{ html: true }} />
-                  </div>
+            <Carousel
+              className="carousel"
+              autoGenerateStyleTag={options.autoGenerateStyleTag}
+              enableKeyboardControls={options.enableKeyboardControls}
+              renderCenterLeftControls={({ previousSlide }) => (
+                <button onClick={previousSlide} type="button" className="left-controls">
+                  <span className="sr-only">Previous</span>
+                  <span aria-hidden="true" className="left-controls-icon">
+                    <IconContext.Provider value={{ className: 'left-controls-icon' }}>
+                      <FaChevronLeft aria-hidden />
+                    </IconContext.Provider>
+                  </span>
+                </button>
+              )}
+              renderCenterRightControls={({ nextSlide }) => (
+                <button onClick={nextSlide} type="button" className="right-controls">
+                  <span className="sr-only">Next</span>
+                  <span aria-hidden="true" className="right-controls-icon">
+                    <IconContext.Provider value={{ className: 'right-controls-icon' }}>
+                      <FaChevronRight aria-hidden />
+                    </IconContext.Provider>
+                  </span>
+                </button>
+              )}
+              // renderBottomCenterControls={() => null}
+              wrapAround={options.wrapAround}
+            >
+              {/* {slideArray} */}
+              {renderSlides(location)}
+            </Carousel>
+            <div className="tagline-anchor">
+              <div className="tagline-container">
+                <div className="tagline">
+                  <Markdown source={headerFooter.formattedTagline} options={{ html: true }} />
                 </div>
               </div>
+            </div>
+            <div className="no-bleed-container">
               <div className="tile-container">
                 {homepage.homepageTiles.length > 0 &&
                   homepage.homepageTiles.map(tile => {

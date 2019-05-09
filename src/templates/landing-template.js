@@ -108,44 +108,42 @@ const LandingTemplate = ({ data, pageContext }) => {
       <Location>
         {({ location }) => (
           <>
-            <div className="landing">
-              {!brand && <h2 className="landing-title">{title}</h2>}
-              {brand && bannerImage && (
-                <div className="brand-container">
-                  <div className={`banner-image ${themeColour}`}>
-                    <GraphImg image={bannerImage} maxWidth={1280} />
-                  </div>
-                  <ProductBrand brand={brand} />
-                  <h2 className="brand-title">{brandTitle}</h2>
-                  <div className="brand-description">
-                    <Markdown source={brandDescription} options={allowHTML} />
-                  </div>
+            {!brand && <h2 className="landing-title">{title}</h2>}
+            {brand && bannerImage && (
+              <div className="brand-container">
+                <div className={`banner-image ${themeColour}`}>
+                  <GraphImg image={bannerImage} maxWidth={1280} />
                 </div>
-              )}
-              {brand && !bannerImage && (
-                <div className="brand-container">
-                  <ProductBrand brand={brand} />
+                <ProductBrand brand={brand} />
+                <h2 className="brand-title">{brandTitle}</h2>
+                <div className="brand-description">
+                  <Markdown source={brandDescription} options={allowHTML} />
                 </div>
-              )}
-              {landingSections.length > 0 &&
-                landingSections.map(landingSection => {
-                  const { pages } = landingSection;
-                  const sectionTitle = landingSection.title || null;
-                  sectionIdx += 1;
-                  return (
-                    <div className="landing-section" key={`landing-section-${sectionIdx}`}>
-                      {sectionTitle && (
-                        <div className={`title-container ${themeColour}`}>
-                          <div className="section-title">{sectionTitle}</div>
-                        </div>
-                      )}
-                      <div className="tile-container">
-                        {pages.length > 0 && renderTiles(pages, location)}
+              </div>
+            )}
+            {brand && !bannerImage && (
+              <div className="brand-container">
+                <ProductBrand brand={brand} />
+              </div>
+            )}
+            {landingSections.length > 0 &&
+              landingSections.map(landingSection => {
+                const { pages } = landingSection;
+                const sectionTitle = landingSection.title || null;
+                sectionIdx += 1;
+                return (
+                  <div className="landing-section" key={`landing-section-${sectionIdx}`}>
+                    {sectionTitle && (
+                      <div className={`title-container ${themeColour}`}>
+                        <div className="section-title">{sectionTitle}</div>
                       </div>
+                    )}
+                    <div className="tile-container">
+                      {pages.length > 0 && renderTiles(pages, location)}
                     </div>
-                  );
-                })}
-            </div>
+                  </div>
+                );
+              })}
           </>
         )}
       </Location>

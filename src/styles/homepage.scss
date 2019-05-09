@@ -6,8 +6,21 @@ $spacing: 20px;
     overflow: hidden;
     height: calc(41.85vw + 70px) !important;
     max-height: 606px;
+    .slider-control-centerleft,
+    .slider-control-centerright {
+      margin-top: -30px;
+      @include media('>=tablet') {
+        // margin-top: 0;
+      }
+    }
     .slider-control-bottomcenter {
-      bottom: -15px !important;
+      // display: none;
+      margin-bottom: -25px;
+      @include media('>=tablet') {
+        margin-bottom: 0px;
+        display: block;
+        bottom: -15px !important;
+      }
     }
     .slider-frame {
       ul.slider-list {
@@ -76,13 +89,19 @@ $spacing: 20px;
         width: 100%;
         max-width: 1280px;
         margin: 0 auto;
-        padding-left: 90px;
-        padding-right: 90px;
         color: $white;
-        font-size: 24px;
+        font-size: 14px;
         display: flex;
         align-items: center;
-        line-height: 24px;
+        line-height: 16px;
+        padding-left: 10px;
+        padding-right: 10px;
+        @include media('>=tablet') {
+          line-height: 24px;
+          font-size: 24px;
+          padding-left: 90px;
+          padding-right: 90px;
+        }
         a {
           color: $white;
           text-decoration: none;
@@ -103,26 +122,30 @@ $spacing: 20px;
     }
   }
   .tagline-anchor {
-    position: absolute;
-    width: 100%;
-    pointer-events: none;
-    top: calc(41.85vw - 67px);
+    display: none;
+    @include media('>=tablet') {
+      display: block;
+      position: absolute;
+      width: 100%;
+      pointer-events: none;
+      top: calc(41.85vw - 67px);
+      .tagline-container {
+        display: flex;
+        width: 100%;
+        max-width: 1280px;
+        margin: 0 auto;
+        .tagline {
+          display: flex;
+          color: $white;
+          background-color: rgba(0, 0, 0, 0.5);
+          padding: 55px 90px 40px;
+          font-size: 50px;
+          letter-spacing: 2px;
+        }
+      }
+    }
     @include media('>=wide') {
       top: 476px;
-    }
-    .tagline-container {
-      display: flex;
-      width: 100%;
-      max-width: 1280px;
-      margin: 0 auto;
-      .tagline {
-        display: flex;
-        color: $white;
-        background-color: rgba(0, 0, 0, 0.5);
-        padding: 55px 90px 40px;
-        font-size: 50px;
-        letter-spacing: 2px;
-      }
     }
   }
 
@@ -147,31 +170,47 @@ $spacing: 20px;
     }
   }
 
+  .no-bleed-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+    @include media('>=tablet') {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
   .tile-container {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    max-width: 1280px;
-    margin: 0 auto 40px;
   }
 
   .heading2-container {
+    display: flex;
     width: 100%;
-    max-width: 1280px;
     margin: 0 auto 35px;
     background-color: $blue;
     height: 50px;
-    display: flex;
     .heading2 {
       width: 100%;
       max-width: 1280px;
       margin: 0 auto;
-      padding-left: 90px;
+      padding-left: 20px;
       color: $white;
-      font-size: 24px;
+      font-size: 18px;
+      line-height: 18px;
       display: flex;
       align-items: center;
-      line-height: 24px;
+      @include media('>=tablet') {
+        padding-left: 90px;
+        font-size: 24px;
+        line-height: 24px;
+      }
       p {
         margin-bottom: 0;
       }
@@ -182,7 +221,6 @@ $spacing: 20px;
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
-    max-width: 1280px;
     margin: 0 auto 20px;
     .event1,
     .event2 {
@@ -231,6 +269,13 @@ $spacing: 20px;
         .event-overlay-gold {
           background-color: $yellow-sea;
         }
+        .event-overlay-blue,
+        .event-overlay-gold {
+          opacity: 0.6;
+          @include media('>=tablet') {
+            opacity: 1;
+          }
+        }
         &:hover {
           .event-overlay-blue,
           .event-overlay-gold {
@@ -269,12 +314,15 @@ $spacing: 20px;
         margin-top: 0;
       }
       .content-container {
-        width: 40%;
+        width: 100%;
         height: 100%;
         position: absolute;
         right: 0;
         background-color: rgba(255, 255, 255, 0.8);
         padding: 30px 15px 20px 20px;
+        @include media('>=tablet') {
+          width: 40%;
+        }
       }
     }
     .content-container {
