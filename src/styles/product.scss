@@ -3,20 +3,32 @@ $spacing: 20px;
 @mixin bullet-blue {
   list-style-image: url('../../static/img/bullet-blue.svg');
   font-size: 20px;
-  font-weight: bold;
+  @include media('>=tablet') {
+    font-weight: bold;
+  }
 }
 @mixin bullet-orange {
   list-style-image: url('../../static/img/bullet-orange.svg');
   font-size: 20px;
-  font-weight: bold;
+  @include media('>=tablet') {
+    font-weight: bold;
+  }
 }
 @mixin bullet-teal {
   list-style-image: url('../../static/img/bullet-teal.svg');
   font-size: 20px;
-  font-weight: bold;
+  @include media('>=tablet') {
+    font-weight: bold;
+  }
 }
 
 .product {
+  padding-left: 10px;
+  padding-right: 10px;
+  @include media('>=tablet') {
+    padding-left: 0;
+    padding-right: 0;
+  }
   .product-container {
     max-width: 1280px;
     width: 100%;
@@ -412,17 +424,20 @@ $spacing: 20px;
     }
     .product-marketing {
       border-top: 2px solid $dark-blue60;
-      margin-left: 40px;
-      margin-right: 40px;
-      padding: 25px 50px 90px 50px;
+      padding: 25px 10px;
+      @include media('>=tablet') {
+        margin-left: 40px;
+        margin-right: 40px;
+        padding: 25px 50px 90px 50px;
+      }
     }
     .product-advantages,
     .product-specs,
     .product-options {
-      padding-top: 35px;
-      padding-bottom: 35px;
-      padding-left: 100px;
-      padding-right: 100px;
+      padding: 25px 10px;
+      @include media('>=tablet') {
+        padding: 35px 100px;
+      }
     }
     .product-advantages {
       display: flex;
@@ -449,10 +464,16 @@ $spacing: 20px;
     .features-info-container {
       display: flex;
       flex-direction: column;
-      padding-top: 35px;
-      padding-bottom: 35px;
-      padding-left: 100px;
-      padding-right: 100px;
+      // padding-top: 35px;
+      // padding-bottom: 35px;
+      // padding-left: 100px;
+      // padding-right: 100px;
+      padding: 25px 10px;
+      @include media('>=tablet') {
+        margin-left: 40px;
+        margin-right: 40px;
+        padding: 35px 100px;
+      }
       @include media('>=desktop') {
         flex-direction: row;
       }

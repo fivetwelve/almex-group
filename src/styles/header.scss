@@ -257,9 +257,12 @@
         height: 60px;
         max-width: 1280px;
         margin: 0 auto;
-        justify-content: center;
         align-items: center;
         position: relative;
+        justify-content: space-around;
+      }
+      @include media('>=desktop') {
+        justify-content: center;
       }
     }
 
@@ -285,6 +288,8 @@
         @include media('>=tablet') {
           display: flex;
           flex-direction: column;
+        }
+        @include media('>=desktop') {
           &:not(:first-child) {
             margin-left: 85px;
           }

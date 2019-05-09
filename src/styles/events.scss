@@ -1,6 +1,12 @@
 @import 'base';
 $spacing: 20px;
 .events {
+  padding-left: 10px;
+  padding-right: 10px;
+  @include media('>=tablet') {
+    padding-left: 0;
+    padding-right: 0;
+  }
   .events-container {
     max-width: 1280px;
     width: 100%;
@@ -11,6 +17,23 @@ $spacing: 20px;
       border-bottom: 15px solid $blue;
     }
     .events-intro {
+      .title {
+        font-size: 18px;
+        color: $prussian-blue;
+        font-weight: 500;
+      }
+      .description {
+        font-size: 16px;
+        line-height: normal;
+      }
+      @include media('>=tablet') {
+        .title {
+          font-size: 30px;
+        }
+        .description {
+          font-size: 24px;
+        }
+      }
       @include media('>=desktop') {
         width: 60%;
       }
@@ -27,17 +50,6 @@ $spacing: 20px;
         width: 100%;
         @include media('>=desktop') {
           width: 400px;
-        }
-        .intro {
-          .title {
-            font-size: 30px;
-            color: $prussian-blue;
-            font-weight: 500;
-          }
-          .description {
-            font-size: 24px;
-            line-height: normal;
-          }
         }
       }
       .events-right {
@@ -166,9 +178,12 @@ $spacing: 20px;
         border: 1px solid $black;
         width: 100%;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         margin: 10px 0px 40px;
         padding: 10px;
+        @include media('>=tablet') {
+          flex-direction: row;
+        }
         .thumbnail {
           margin-right: 20px;
           width: 150px;
