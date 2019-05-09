@@ -30,7 +30,7 @@ const HomepageTile = ({ data, labels }) => {
       <div className="description">
         <Markdown source={description} options={{ html: true }} />
         <div className="more-container">
-          <Link to="/northamerica/en/heavyweight-pro">
+          <Link to="/northamerica/en/heavyweight-presses">
             <span className="more">{labels.common.MORE}</span>
             <span className="more-arrow">&nbsp;&raquo;</span>
           </Link>
