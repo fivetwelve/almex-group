@@ -5,10 +5,11 @@ import { Waypoint } from 'react-waypoint';
 import { Location } from '@reach/router';
 import { IconContext } from 'react-icons';
 import { FaAngleUp } from 'react-icons/fa';
-import { document, window } from 'browser-monads';
+import { window } from 'browser-monads';
 import Header from './header';
 import Footer from './footer';
 import { LocationProvider } from '../utils/locationContext';
+import { scrollTo } from '../utils/functions';
 import '../styles/layout.scss';
 
 class Layout extends React.Component {
@@ -81,12 +82,7 @@ class Layout extends React.Component {
 
   scrollToTop = evt => {
     evt.preventDefault();
-    if (document.body) {
-      document.body.scrollTop = 0;
-    }
-    if (document.documentElement) {
-      document.documentElement.scrollTop = 0;
-    }
+    scrollTo(0);
   };
 
   render() {

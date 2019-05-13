@@ -18,31 +18,30 @@ html {
 }
 
 .scroll-to-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
   height: 40px;
   width: 40px;
-  background-color: $grey70;
-  position: fixed;
   top: 60%;
-  z-index: 1;
   right: 0;
+  z-index: 1;
   opacity: 0;
-  transition: $easeinout;
+  background-color: $grey70;
   pointer-events: none;
+  transition: $easeinout;
+  cursor: pointer;
   &.in-view {
-    display: flex;
     opacity: 1;
-    transition: $easeinout;
     pointer-events: initial;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    @include media('>=tablet') {
-      &:hover {
-        .icon {
-          color: $yellow-sea;
-          transform: scaleX(1.6) scaleY(1.6);
-          transition: $easeinout;
-        }
+  }
+  @include media('>=tablet') {
+    &:hover {
+      .icon {
+        color: $yellow-sea;
+        transform: scaleX(1.6) scaleY(1.6);
+        transition: $easeinout;
       }
     }
   }
@@ -53,6 +52,7 @@ html {
     @include media('>=tablet') {
       font-size: 25px;
       line-height: 25px;
+      // transform: scaleX(1) scaleY(1);
     }
   }
 }

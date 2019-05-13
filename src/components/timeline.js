@@ -38,12 +38,6 @@ class Timeline extends React.Component {
     return (
       <div className="timeline">
         <ul>
-          {/* <Scrollspy onEnter={handleWaypointEnter}>
-                {events.map((event, idx) => (
-                  <li key={makeid()} id=""><a href="#event">{event.eventTitle}</a></li>
-                  // <BlockWithRef key={makeid()} title={event.eventTitle} />
-                ))}
-              </Scrollspy> */}
           {events.map((event, idx) => (
             <Waypoint
               scrollableAncestor={window}

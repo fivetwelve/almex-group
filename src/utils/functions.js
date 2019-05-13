@@ -1,3 +1,4 @@
+import { document, window } from 'browser-monads';
 import { allPageTypes } from '../constants';
 
 const createLink = (location, slug) => {
@@ -188,6 +189,65 @@ const isDayInRange = (day, range) => {
  */
 const normalizeTimeZone = day => `${day}T00:00:00.Z`;
 
+/* Thanks to James Doyle for this: https://gist.github.com/james2doyle/5694700 */
+
+const requestAnimFrame = func =>
+  window.requestAnimationFrame(func) ||
+  window.webkitRequestAnimationFrame(func) ||
+  window.mozRequestAnimationFrame(func) ||
+  (callback => {
+    window.setTimeout(callback, 1000 / 60);
+  });
+
+// easing functions http://goo.gl/5HLl8
+Math.easeInOutQuad = (ti, b, c, d) => {
+  let t = ti;
+  t /= d / 2;
+  if (t < 1) {
+    return (c / 2) * t * t + b;
+  }
+  t -= 1;
+  return (-c / 2) * (t * (t - 2) - 1) + b;
+};
+
+const scrollTo = (to, callback, duration) => {
+  // because it's so fucking difficult to detect the scrolling element, just move them all
+  const move = amount => {
+    document.documentElement.scrollTop = amount;
+    document.body.parentNode.scrollTop = amount;
+    document.body.scrollTop = amount;
+  };
+
+  const position = () =>
+    document.documentElement.scrollTop ||
+    document.body.parentNode.scrollTop ||
+    document.body.scrollTop;
+
+  const start = position();
+  const change = to - start;
+  let currentTime = 0;
+  const increment = 20;
+  const thisDuration = typeof duration === 'undefined' ? 500 : duration;
+
+  const animateScroll = () => {
+    // increment the time
+    currentTime += increment;
+    // find the value with the quadratic in-out easing function
+    const val = Math.easeInOutQuad(currentTime, start, change, thisDuration);
+    // move the document.body
+    move(val);
+    // do the animation unless its over
+    if (currentTime < thisDuration) {
+      requestAnimFrame(animateScroll);
+    } else if (callback && typeof callback === 'function') {
+      // the animation is done so lets callback
+      callback();
+    }
+  };
+
+  animateScroll();
+};
+
 export {
   createLink,
   createLinkFromPage,
@@ -196,4 +256,5 @@ export {
   makeid,
   isDayInRange,
   normalizeTimeZone,
+  scrollTo,
 };
