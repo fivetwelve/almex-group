@@ -1,7 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
+import { Waypoint } from 'react-waypoint';
 import { Location } from '@reach/router';
+import { IconContext } from 'react-icons';
+import { FaAngleUp } from 'react-icons/fa';
+import { document, window } from 'browser-monads';
 import Header from './header';
 import Footer from './footer';
 import { LocationProvider } from '../utils/locationContext';
@@ -11,8 +15,14 @@ class Layout extends React.Component {
   constructor(props) {
     super(props);
     this.bodyElement = React.createRef();
+    this.page = React.createRef();
+    this.waypoint = React.createRef();
+    this.scrollToTopButton = React.createRef();
     this.mobileMenuBg = React.createRef();
     this.mobileShroud = React.createRef();
+    this.state = {
+      scrollToTopEnabled: false,
+    };
   }
 
   // componentDidMount() {
@@ -26,11 +36,19 @@ class Layout extends React.Component {
   componentDidMount() {
     // document.body.classList.add('no-focus-outline');
     // root.addEventListener('click', this.handleKeyUp);
+    if (window.innerHeight) {
+      const windowHeight = window.innerHeight;
+      const pageHeight = this.page.current.getBoundingClientRect().height;
+      /* Enable scroll to top only if page is at least twice the window height */
+      if (pageHeight > 2 * windowHeight) {
+        this.setState({
+          scrollToTopEnabled: true,
+        });
+      }
+      const posY = windowHeight * 2;
+      this.waypoint.current.style.top = `${posY}px`;
+    }
   }
-
-  // shouldComponentUpdate() {
-  //   return false;
-  // }
 
   handleKeyUp = () => {
     // evt.preventDefault();
@@ -48,6 +66,29 @@ class Layout extends React.Component {
     this.mobileShroud.current.classList.toggle('is-open');
   };
 
+  toggleScrollToTop = props => {
+    const { currentPosition, previousPosition } = props;
+    if (currentPosition === 'inside' && previousPosition === 'below') {
+      this.scrollToTopButton.current.classList.add('in-view');
+    }
+    if (currentPosition === 'below' && previousPosition === 'inside') {
+      this.scrollToTopButton.current.classList.remove('in-view');
+    }
+    if (currentPosition === 'inside' && previousPosition === undefined) {
+      this.scrollToTopButton.current.classList.add('in-view');
+    }
+  };
+
+  scrollToTop = evt => {
+    evt.preventDefault();
+    if (document.body) {
+      document.body.scrollTop = 0;
+    }
+    if (document.documentElement) {
+      document.documentElement.scrollTop = 0;
+    }
+  };
+
   render() {
     const {
       activeLanguage,
@@ -60,6 +101,7 @@ class Layout extends React.Component {
       region,
       title,
     } = this.props;
+    const { scrollToTopEnabled } = this.state;
     const lang = activeLanguage.toLowerCase();
 
     return (
@@ -118,7 +160,36 @@ class Layout extends React.Component {
           // onKeyUp={evt => log.info(evt.target)}
           role="presentation"
         >
-          <div className="pageContainer">
+          <div className="pageContainer" ref={this.page} id="top">
+            <div
+              className="waypoint-container"
+              ref={this.waypoint}
+              style={{ borderTop: '1px solid red', width: '100px' }}
+            >
+              {scrollToTopEnabled && (
+                <Waypoint
+                  // debug
+                  scrollableAncestor={window}
+                  onEnter={this.toggleScrollToTop}
+                  onLeave={this.toggleScrollToTop}
+                  topOffset="0px"
+                />
+              )}
+            </div>
+            <div
+              aria-hidden="true"
+              className="scroll-to-top"
+              ref={this.scrollToTopButton}
+              onClick={evt => this.scrollToTop(evt)}
+            >
+              {/* <a href="http://google.com"> */}
+              {/* <span aria-hidden="true"> */}
+              <IconContext.Provider value={{ className: 'icon' }}>
+                <FaAngleUp aria-hidden />
+              </IconContext.Provider>
+              {/* </span> */}
+              {/* </a> */}
+            </div>
             <Location>
               {({ location }) => (
                 <>

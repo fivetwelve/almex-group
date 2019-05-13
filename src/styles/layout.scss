@@ -1,8 +1,59 @@
 @import 'base';
 
+html {
+  scroll-behavior: smooth;
+}
+
 .bodyClass {
   @include media('>=tablet') {
     padding-top: 150px;
+  }
+}
+
+.waypoint-container {
+  display: block;
+  position: absolute;
+  border-top: 2px solid red;
+  width: 100px;
+}
+
+.scroll-to-top {
+  height: 40px;
+  width: 40px;
+  background-color: $grey70;
+  position: fixed;
+  top: 60%;
+  z-index: 1;
+  right: 0;
+  opacity: 0;
+  transition: $easeinout;
+  pointer-events: none;
+  &.in-view {
+    display: flex;
+    opacity: 1;
+    transition: $easeinout;
+    pointer-events: initial;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    @include media('>=tablet') {
+      &:hover {
+        .icon {
+          color: $yellow-sea;
+          transform: scaleX(1.6) scaleY(1.6);
+          transition: $easeinout;
+        }
+      }
+    }
+  }
+  .icon {
+    color: $white;
+    font-size: 40px;
+    line-height: 40px;
+    @include media('>=tablet') {
+      font-size: 25px;
+      line-height: 25px;
+    }
   }
 }
 

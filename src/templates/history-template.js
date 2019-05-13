@@ -2,15 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 // import { Location } from '@reach/router';
-// import GraphImg from 'graphcms-image';
 import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
-// import LandingTile from '../components/landingTile';
-// import { allBrands } from '../constants';
-import '../styles/about.scss';
-// import ProductBrand from '../components/productBrand';
+import '../styles/history.scss';
 // import { createLink, getTitle, makeid } from '../utils/functions';
-import { makeid } from '../utils/functions';
+import Timeline from '../components/timeline';
 
 const allowHTML = { html: true };
 
@@ -23,62 +19,16 @@ const HistoryTemplate = ({ data, pageContext }) => {
       label,
       navigation,
       page: {
-        history: {
-          // brand,
-          // brandDescription,
-          // brandTitle,
-          // theme,
-          // landingSections,
-          title,
-          description,
-          events,
-        },
+        history: { title, description, events },
       },
     },
   } = data;
 
-  // const brands = brandNavigation.pages;
-  // let sectionIdx = 0;
-
-  // const renderTiles = (pages, location) => {
-  //   const tileArray = [];
-  //   let tileIdx = 0;
-  //   pages.forEach(page => {
-  //     let tileData = {};
-  //     tileIdx += 1;
-  //     switch (page.pageType) {
-  //       case allPageTypes.LANDING:
-  //         tileData = {
-  //           slug: page.slug,
-  //           ...page.landing,
-  //         };
-  //         break;
-  //       case allPageTypes.PRODUCT:
-  //         tileData = {
-  //           slug: page.slug,
-  //           ...page.product,
-  //         };
-  //         break;
-  //       default:
-  //         break;
-  //     }
-  //     const landingTile = (
-  //       <LandingTile
-  //         data={tileData}
-  //         key={`tile-${tileIdx}`}
-  //         location={location}
-  //         themeColour={themeColour}
-  //       />
-  //     );
-  //     tileArray.push(landingTile);
-  //   });
-  //   return tileArray;
-  // };
   return (
     <Layout
       activeLanguage={locale}
       brandNavigation={brandNavigation}
-      childrenClass="about"
+      childrenClass="history"
       data={siteData}
       headerFooter={headerFooter}
       label={label}
@@ -89,47 +39,7 @@ const HistoryTemplate = ({ data, pageContext }) => {
       {/* <Location>
         {({ location }) => ( */}
       <>
-        <div className="about-container">
-          {/* <div className="banner-image">
-                <GraphImg image={bannerImage} maxWidth={1280} />
-              </div>
-              <div className="brands">
-                {brands.map(brand => {
-                  let productBrand = '';
-                  switch (brand.landing.brand) {
-                    case allBrands.ALMEX_IN_A_BOX:
-                      productBrand = 'almex-box';
-                      break;
-                    case allBrands.BAT:
-                      productBrand = 'bat';
-                      break;
-                    case allBrands.EMSYS:
-                      productBrand = 'emsys';
-                      break;
-                    case allBrands.FUSION:
-                      productBrand = 'fusion';
-                      break;
-                    case allBrands.VOTECH:
-                      productBrand = 'votech';
-                      break;
-                    case allBrands.ALMEX_INSTITUTE:
-                      productBrand = 'institute';
-                      break;
-                    case allBrands.GLOBAL_SERVICES:
-                      productBrand = 'knight';
-                      break;
-                    default:
-                      break;
-                  }
-                  return (
-                    <div className={`brand ${productBrand}`} key={brand.slug}>
-                      <Link to={createLink(location, brand.slug)}>
-                        <span className="sr-only">{brand.landing.title}</span>
-                      </Link>
-                    </div>
-                  );
-                })}
-              </div> */}
+        <div className="history-container">
           <div className="intro-container">
             <div className="intro-content">
               <h1 className="title">{title}</h1>
@@ -138,35 +48,30 @@ const HistoryTemplate = ({ data, pageContext }) => {
               </div>
             </div>
             {/* <div className="timeline">{console.log(events)}</div> */}
-            <div className="timeline">
-              {events.map(event => (
-                <p key={makeid()}>{event.title}</p>
-              ))}
-            </div>
           </div>
-          {/* {brand && !bannerImage && (
-                <div className="brand-container">
-                  <ProductBrand brand={brand} />
-                </div>
-              )} */}
-          {/* {landingSections.length > 0 &&
-                landingSections.map(landingSection => {
-                  const { pages } = landingSection;
-                  const sectionTitle = landingSection.title || null;
-                  sectionIdx += 1;
-                  return (
-                    <div className="landing-section" key={`landing-section-${sectionIdx}`}>
-                      {sectionTitle && (
-                        <div className={`title-container ${themeColour}`}>
-                          <div className="section-title">{sectionTitle}</div>
-                        </div>
-                      )}
-                      <div className="tile-container">
-                        {pages.length > 0 && renderTiles(pages, location)}
-                      </div>
-                    </div>
-                  );
-                })} */}
+          {/* <div className="timeline">
+            <ul> */}
+          {/* <Scrollspy onEnter={handleWaypointEnter}>
+                {events.map((event, idx) => (
+                  <li key={makeid()} id=""><a href="#event">{event.eventTitle}</a></li>
+                  // <BlockWithRef key={makeid()} title={event.eventTitle} />
+                ))}
+              </Scrollspy> */}
+          {/* {events.map((event, idx) => (
+                <Waypoint
+                  debug={true}
+                  scrollableAncestor={window}
+                  onEnter={props => handleWaypointEnter(props, idx)}
+                  key={makeid()}
+                > */}
+          {/* <li key={makeid()} id=""><a href="#event">{event.eventTitle}</a></li> */}
+          {/* <BlockWithRef title={event.eventTitle} ref={`block${idx}`} />
+                </Waypoint>
+              ))}
+            </ul>
+          </div> */}
+          <Timeline events={events} />
+          <div className="other-content">BLAH BLAH BLAH</div>
         </div>
       </>
       {/* )}
