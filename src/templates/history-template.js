@@ -71,7 +71,7 @@ const HistoryTemplate = ({ data, pageContext }) => {
             </ul>
           </div> */}
           <Timeline events={events} />
-          <div className="other-content">BLAH BLAH BLAH</div>
+          <div className="other-content">...</div>
         </div>
       </>
       {/* )}
@@ -130,9 +130,17 @@ export const query = graphql`
           title(locale: $locale)
           description(locale: $locale)
           events: historicalEvents {
-            date
-            year
+            almexEvent
+            sortDate
+            displayDate(locale: $locale)
             eventTitle: title(locale: $locale)
+            description(locale: $locale)
+            thumbnail {
+              url
+            }
+            images {
+              url
+            }
           }
         }
       }

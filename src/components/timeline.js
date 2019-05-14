@@ -8,6 +8,9 @@ class Timeline extends React.Component {
   constructor(props) {
     super(props);
     const { events } = this.props;
+
+    events.sort((a, b) => new Date(a.sortDate) - new Date(b.sortDate));
+
     events.forEach((event, idx) => {
       this[`eventBlock${idx}`] = React.createRef();
     });
@@ -17,7 +20,7 @@ class Timeline extends React.Component {
     };
   }
 
-  handleWaypointEnter = (props, idx) => {
+  handleEnterWaypoint = (props, idx) => {
     const { start, threshold } = this.state;
     const now = new Date();
     if (!this[`eventBlock${idx}`].current.classList.contains('in-view')) {
@@ -41,12 +44,20 @@ class Timeline extends React.Component {
           {events.map((event, idx) => (
             <Waypoint
               scrollableAncestor={window}
-              onEnter={props => this.handleWaypointEnter(props, idx)}
+              onEnter={props => this.handleEnterWaypoint(props, idx)}
               key={makeid()}
             >
               {/* <li key={makeid()} id=""><a href="#event">{event.eventTitle}</a></li> */}
-              <li className="event-item" title={event.eventTitle} ref={this[`eventBlock${idx}`]}>
-                {event.eventTitle}
+              <li
+                className={`event-item ${event.almexEvent ? 'almex' : ''}`}
+                title={event.eventTitle}
+                ref={this[`eventBlock${idx}`]}
+              >
+                <div className="content">
+                  {event.displayDate}
+                  <br />
+                  {event.eventTitle}
+                </div>
               </li>
             </Waypoint>
           ))}
