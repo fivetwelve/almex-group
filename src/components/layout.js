@@ -37,6 +37,7 @@ class Layout extends React.Component {
   componentDidMount() {
     // document.body.classList.add('no-focus-outline');
     // root.addEventListener('click', this.handleKeyUp);
+    let posY = 0;
     if (window.innerHeight) {
       const windowHeight = window.innerHeight;
       const pageHeight = this.page.current.getBoundingClientRect().height;
@@ -45,8 +46,9 @@ class Layout extends React.Component {
         this.setState({
           scrollToTopEnabled: true,
         });
+        /* set waypoint to be 20% away from bottom of 2nd page */
+        posY = Math.round(windowHeight * 1.8);
       }
-      const posY = windowHeight * 2;
       this.waypoint.current.style.top = `${posY}px`;
     }
   }
@@ -157,11 +159,7 @@ class Layout extends React.Component {
           role="presentation"
         >
           <div className="pageContainer" ref={this.page} id="top">
-            <div
-              className="waypoint-container"
-              ref={this.waypoint}
-              style={{ borderTop: '1px solid red', width: '100px' }}
-            >
+            <div className="waypoint-container" ref={this.waypoint}>
               {scrollToTopEnabled && (
                 <Waypoint
                   // debug

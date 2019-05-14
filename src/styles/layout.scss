@@ -13,8 +13,9 @@ html {
 .waypoint-container {
   display: block;
   position: absolute;
-  border-top: 2px solid red;
-  width: 100px;
+  width: 1px;
+  height: 1px;
+  opacity: 0.01;
 }
 
 .scroll-to-top {

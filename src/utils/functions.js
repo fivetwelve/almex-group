@@ -211,7 +211,7 @@ Math.easeInOutQuad = (ti, b, c, d) => {
 };
 
 const scrollTo = (to, callback, duration) => {
-  // because it's so fucking difficult to detect the scrolling element, just move them all
+  // because it's so f*cking difficult to detect the scrolling element, just move them all
   const move = amount => {
     document.documentElement.scrollTop = amount;
     document.body.parentNode.scrollTop = amount;
