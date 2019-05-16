@@ -15,8 +15,9 @@ import '../styles/layout.scss';
 class Layout extends React.Component {
   constructor(props) {
     super(props);
-    this.bodyElement = React.createRef();
-    this.page = React.createRef();
+    this.htmlRef = React.createRef();
+    this.bodyRef = React.createRef();
+    this.pageRef = React.createRef();
     this.waypoint = React.createRef();
     this.scrollToTopButton = React.createRef();
     this.mobileMenuBg = React.createRef();
@@ -40,7 +41,7 @@ class Layout extends React.Component {
     let posY = 0;
     if (window.innerHeight) {
       const windowHeight = window.innerHeight;
-      const pageHeight = this.page.current.getBoundingClientRect().height;
+      const pageHeight = this.pageRef.current.getBoundingClientRect().height;
       /* Enable scroll to top only if page is at least twice the window height */
       if (pageHeight > 2 * windowHeight) {
         this.setState({
@@ -59,7 +60,7 @@ class Layout extends React.Component {
     // log.info(`target: ${evt.which}`);
     // log.info('clicked!');
     // if (evt.which === 9) {
-    //   this.bodyElement.current.classList.remove('no-focus-outline');
+    //   this.bodyRef.current.classList.remove('no-focus-outline');
     // }
     // console.log(`target: ${evt.target}`);
   };
@@ -87,6 +88,10 @@ class Layout extends React.Component {
     scrollTo(0);
   };
 
+  toggleHtmlOverflow = () => {
+    this.htmlRef.current.toggle('hide-overflow');
+  };
+
   render() {
     const {
       activeLanguage,
@@ -105,7 +110,7 @@ class Layout extends React.Component {
     return (
       <>
         <Helmet defaultTitle={title} titleTemplate={`Almex Group | ${title}`}>
-          <html lang={lang} />
+          <html lang={lang} ref={this.htmlRef} />
           {/* <link rel="canonical" href={`${siteUrl}${pathname}`} /> */}
           <meta name="docsearch:version" content="2.0" />
           <meta
@@ -145,7 +150,7 @@ class Layout extends React.Component {
           <script src="https://cdn.polyfill.io/v2/polyfill.min.js" />
           <body
             className="no-focus-outline"
-            ref={this.bodyElement}
+            ref={this.bodyRef}
             // onKeyUp={evt => {
             //   this.checkForTabbing(evt);
             // }}
@@ -158,7 +163,7 @@ class Layout extends React.Component {
           // onKeyUp={evt => log.info(evt.target)}
           role="presentation"
         >
-          <div className="pageContainer" ref={this.page} id="top">
+          <div className="pageContainer" ref={this.pageRef} id="top">
             <div className="waypoint-container" ref={this.waypoint}>
               {scrollToTopEnabled && (
                 <Waypoint

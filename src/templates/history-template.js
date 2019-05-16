@@ -6,7 +6,8 @@ import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
 import '../styles/history.scss';
 // import { createLink, getTitle, makeid } from '../utils/functions';
-import Timeline from '../components/timeline';
+// import Timeline from '../components/timeline';
+import TimelineManager from '../components/timelineManager';
 
 const allowHTML = { html: true };
 
@@ -23,6 +24,8 @@ const HistoryTemplate = ({ data, pageContext }) => {
       },
     },
   } = data;
+
+  events.sort((a, b) => new Date(a.sortDate) - new Date(b.sortDate));
 
   return (
     <Layout
@@ -70,7 +73,8 @@ const HistoryTemplate = ({ data, pageContext }) => {
               ))}
             </ul>
           </div> */}
-          <Timeline events={events} />
+          {/* <Timeline events={events} label={label} /> */}
+          <TimelineManager events={events} label={label} />
           <div className="other-content">...</div>
         </div>
       </>

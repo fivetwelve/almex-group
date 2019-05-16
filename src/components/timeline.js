@@ -9,15 +9,19 @@ class Timeline extends React.Component {
     super(props);
     const { events } = this.props;
 
-    events.sort((a, b) => new Date(a.sortDate) - new Date(b.sortDate));
-
     events.forEach((event, idx) => {
       this[`eventBlock${idx}`] = React.createRef();
     });
+
     this.state = {
       start: new Date(),
       threshold: 150,
     };
+  }
+
+  shouldComponentUpdate() {
+    // This prevents Waypoints from re-rendering when TimelineManager's showModal state changes
+    return false;
   }
 
   handleEnterWaypoint = (props, idx) => {
@@ -34,6 +38,12 @@ class Timeline extends React.Component {
       this[`eventBlock${idx}`].current.style.transitionDelay = delay;
       this[`eventBlock${idx}`].current.classList.toggle('in-view');
     }
+  };
+
+  handleSelectEvent = (evt, idx) => {
+    evt.preventDefault();
+    const { events, selectEvent } = this.props;
+    selectEvent(events[idx]);
   };
 
   render() {
@@ -53,11 +63,23 @@ class Timeline extends React.Component {
                 title={event.eventTitle}
                 ref={this[`eventBlock${idx}`]}
               >
-                <div className="content">
-                  {event.displayDate}
-                  <br />
-                  {event.eventTitle}
-                </div>
+                {event.almexEvent ? (
+                  <button
+                    className="content"
+                    onClick={evt => this.handleSelectEvent(evt, idx)}
+                    type="button"
+                  >
+                    {event.displayDate}
+                    <br />
+                    {event.eventTitle}
+                  </button>
+                ) : (
+                  <div className="content">
+                    {event.displayDate}
+                    <br />
+                    {event.eventTitle}
+                  </div>
+                )}
               </li>
             </Waypoint>
           ))}
@@ -69,10 +91,16 @@ class Timeline extends React.Component {
 
 Timeline.defaultProps = {
   events: [],
+  label: {},
+  selectEvent: () => {},
 };
 
 Timeline.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object),
+  label: PropTypes.shape({
+    common: PropTypes.object,
+  }),
+  selectEvent: PropTypes.func,
 };
 
 export default Timeline;
