@@ -3,74 +3,67 @@ import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
 import { FaTimes } from 'react-icons/fa';
 
-class TimelineModal extends React.Component {
-  handleHideModal = evt => {
-    const { hideThisModal } = this.props;
+const TimelineModal = props => {
+  const handleHideModal = evt => {
+    const { hideThisModal } = props;
     evt.preventDefault();
     hideThisModal();
   };
 
-  render() {
-    const { event, label, showModal } = this.props;
-    return (
-      <div className={`timeline-modal ${showModal ? 'in-view' : ''}`}>
-        <div className="modal-container">
-          <div className="top">
-            <div className="close-container">
-              <IconContext.Provider value={{ className: 'close-icon' }}>
-                <button
-                  type="button"
-                  className="close-menu"
-                  onClick={evt => this.handleHideModal(evt)}
-                >
-                  <FaTimes aria-hidden />
-                  <span className="sr-only">{label.common.CLOSE}</span>
-                </button>
-              </IconContext.Provider>
-            </div>
+  const { event, label, showModal } = props;
+  return (
+    <div className={`timeline-modal ${showModal ? 'in-view' : ''}`}>
+      <div className="modal-container">
+        <div className="top">
+          <div className="close-container">
+            <IconContext.Provider value={{ className: 'close-icon' }}>
+              <button type="button" className="close-menu" onClick={evt => handleHideModal(evt)}>
+                <FaTimes aria-hidden />
+                <span className="sr-only">{label.common.CLOSE}</span>
+              </button>
+            </IconContext.Provider>
           </div>
-          <div className="content-container">
-            <div className="content">
-              {event && (
-                <>
-                  <h3>{event.eventTitle}</h3>
-                  <p>
-                    Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
-                    fermentum massa justo sit amet risus. Donec sed odio dui. Cras mattis
-                    consectetur purus sit amet fermentum. Nulla vitae elit libero, a pharetra augue.
-                    Maecenas faucibus mollis interdum. Vivamus sagittis lacus vel augue laoreet
-                    rutrum faucibus dolor auctor. Integer posuere erat a ante venenatis dapibus
-                    posuere velit aliquet.
-                  </p>
-                  <p>
-                    Etiam porta sem malesuada magna mollis euismod. Nullam quis risus eget urna
-                    mollis ornare vel eu leo. Nulla vitae elit libero, a pharetra augue. Donec sed
-                    odio dui. Etiam porta sem malesuada magna mollis euismod.
-                  </p>
-                  <p>
-                    Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
-                    fermentum massa justo sit amet risus. Sed posuere consectetur est at lobortis.
-                    Maecenas sed diam eget risus varius blandit sit amet non magna. Curabitur
-                    blandit tempus porttitor. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-                    condimentum nibh, ut fermentum massa justo sit amet risus. Curabitur blandit
-                    tempus porttitor. Duis mollis, est non commodo luctus, nisi erat porttitor
-                    ligula, eget lacinia odio sem nec elit.
-                  </p>
-                  <p>
-                    Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia
-                    odio sem nec elit. Nulla vitae elit libero, a pharetra augue. Nulla vitae elit
-                    libero, a pharetra augue. Cum sociis natoque penatibus et magnis dis parturient
-                    montes, nascetur ridiculus mus.
-                  </p>
-                </>
-              )}
-            </div>
+        </div>
+        <div className="content-container">
+          <div className="content">
+            {event && (
+              <>
+                <h3>{event.eventTitle}</h3>
+                <p>
+                  Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
+                  fermentum massa justo sit amet risus. Donec sed odio dui. Cras mattis consectetur
+                  purus sit amet fermentum. Nulla vitae elit libero, a pharetra augue. Maecenas
+                  faucibus mollis interdum. Vivamus sagittis lacus vel augue laoreet rutrum faucibus
+                  dolor auctor. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
+                </p>
+                <p>
+                  Etiam porta sem malesuada magna mollis euismod. Nullam quis risus eget urna mollis
+                  ornare vel eu leo. Nulla vitae elit libero, a pharetra augue. Donec sed odio dui.
+                  Etiam porta sem malesuada magna mollis euismod.
+                </p>
+                <p>
+                  Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
+                  fermentum massa justo sit amet risus. Sed posuere consectetur est at lobortis.
+                  Maecenas sed diam eget risus varius blandit sit amet non magna. Curabitur blandit
+                  tempus porttitor. Fusce dapibus, tellus ac cursus commodo, tortor mauris
+                  condimentum nibh, ut fermentum massa justo sit amet risus. Curabitur blandit
+                  tempus porttitor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula,
+                  eget lacinia odio sem nec elit.
+                </p>
+                <p>
+                  Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio
+                  sem nec elit. Nulla vitae elit libero, a pharetra augue. Nulla vitae elit libero,
+                  a pharetra augue. Cum sociis natoque penatibus et magnis dis parturient montes,
+                  nascetur ridiculus mus.
+                </p>
+              </>
+            )}
           </div>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 TimelineModal.defaultProps = {
   hideThisModal: () => {},

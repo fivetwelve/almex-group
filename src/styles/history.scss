@@ -42,6 +42,9 @@ $spacing: 20px;
         transform: translateY(112px);
         padding-bottom: 50px;
         top: -5px;
+        @include media('>=tablet') {
+          max-width: 400px;
+        }
         &:before {
           content: '\2022';
           display: block;
