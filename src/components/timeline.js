@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
+import GraphImg from 'graphcms-image';
 import { window } from 'browser-monads';
 import { makeid } from '../utils/functions';
 
@@ -57,7 +58,6 @@ class Timeline extends React.Component {
               onEnter={props => this.handleEnterWaypoint(props, idx)}
               key={makeid()}
             >
-              {/* <li key={makeid()} id=""><a href="#event">{event.eventTitle}</a></li> */}
               <li
                 className={`event-item ${event.almexEvent ? 'almex' : ''}`}
                 title={event.eventTitle}
@@ -69,9 +69,21 @@ class Timeline extends React.Component {
                     onClick={evt => this.handleSelectEvent(evt, idx)}
                     type="button"
                   >
-                    {event.displayDate}
-                    <br />
-                    {event.eventTitle}
+                    <div className="details">
+                      {event.displayDate}
+                      <br />
+                      {event.eventTitle}
+                    </div>
+                    {event.images.length > 0 && (
+                      <div className="thumbnail">
+                        <GraphImg
+                          fit="scale"
+                          image={event.images[0]}
+                          transform={['resize=height:100']}
+                          withWebp
+                        />
+                      </div>
+                    )}
                   </button>
                 ) : (
                   <div className="content">

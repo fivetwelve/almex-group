@@ -5,8 +5,6 @@ import { graphql } from 'gatsby';
 import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
 import '../styles/history.scss';
-// import { createLink, getTitle, makeid } from '../utils/functions';
-// import Timeline from '../components/timeline';
 import TimelineManager from '../components/timelineManager';
 
 const allowHTML = { html: true };
@@ -50,30 +48,7 @@ const HistoryTemplate = ({ data, pageContext }) => {
                 <Markdown source={description} options={allowHTML} />
               </div>
             </div>
-            {/* <div className="timeline">{console.log(events)}</div> */}
           </div>
-          {/* <div className="timeline">
-            <ul> */}
-          {/* <Scrollspy onEnter={handleWaypointEnter}>
-                {events.map((event, idx) => (
-                  <li key={makeid()} id=""><a href="#event">{event.eventTitle}</a></li>
-                  // <BlockWithRef key={makeid()} title={event.eventTitle} />
-                ))}
-              </Scrollspy> */}
-          {/* {events.map((event, idx) => (
-                <Waypoint
-                  debug={true}
-                  scrollableAncestor={window}
-                  onEnter={props => handleWaypointEnter(props, idx)}
-                  key={makeid()}
-                > */}
-          {/* <li key={makeid()} id=""><a href="#event">{event.eventTitle}</a></li> */}
-          {/* <BlockWithRef title={event.eventTitle} ref={`block${idx}`} />
-                </Waypoint>
-              ))}
-            </ul>
-          </div> */}
-          {/* <Timeline events={events} label={label} /> */}
           <TimelineManager events={events} label={label} />
           <div className="other-content">...</div>
         </div>
@@ -139,10 +114,10 @@ export const query = graphql`
             displayDate(locale: $locale)
             eventTitle: title(locale: $locale)
             description(locale: $locale)
-            thumbnail {
-              url
-            }
             images {
+              handle
+              height
+              width
               url
             }
           }

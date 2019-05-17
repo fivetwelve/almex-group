@@ -3,6 +3,7 @@ $spacing: 20px;
 .history {
   padding-left: 10px;
   padding-right: 10px;
+
   @include media('>=tablet') {
     padding-left: 0;
     padding-right: 0;
@@ -13,7 +14,16 @@ $spacing: 20px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-
+    background: repeating-linear-gradient(
+      -238deg,
+      #c8d6df 0% 10%,
+      #bfd0da 10% 25%,
+      #b9cbd7 25% 35%,
+      #b2c5d3 35% 65%,
+      #b9cbd7 65% 75%,
+      #bfd0da 75% 90%,
+      #c8d6df 90% 100%
+    );
     .timeline {
       display: inline-block;
       position: relative;
@@ -23,22 +33,23 @@ $spacing: 20px;
           position: absolute;
           left: 50%;
           transform: translate(-50%, 0);
-          background-color: red;
+          background-color: $white;
           content: '';
           width: 1px;
           height: 100%;
           top: 0;
-          z-index: -1;
+          z-index: 1;
         }
         padding: 0;
         margin: 0;
       }
       li {
         position: relative;
-        left: calc(50% + 10px);
+        // left: calc(50% + 10px);
+        left: 50%;
         display: flex;
         flex-wrap: wrap;
-        width: calc(50% - 10px);
+        width: 50%;
         transform: translateY(112px);
         padding-bottom: 50px;
         top: -5px;
@@ -49,10 +60,10 @@ $spacing: 20px;
           content: '\2022';
           display: block;
           position: absolute;
-          left: -15px;
+          left: -5px;
           top: 0;
           font-size: 30px;
-          color: red;
+          color: $white;
           line-height: 13px;
         }
         &.in-view {
@@ -65,16 +76,29 @@ $spacing: 20px;
             text-align: left;
           }
         }
-        .content {
-          width: 100%;
-          transform: translateX(calc(-100% - 20px));
-          text-align: right;
-        }
         button.content {
           background: none;
           border: none;
           color: inherit;
           height: auto;
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+        .content {
+          // display: flex;
+          // flex-direction: row;
+          width: 100%;
+          padding-left: 10px;
+          padding-right: 10px;
+          transform: translateX(-100%);
+          text-align: right;
+          @include media('>=tablet') {
+            flex-direction: column;
+          }
+          .thumbnail {
+            margin-top: 15px;
+            max-width: 120px;
+          }
         }
       }
     }
@@ -116,12 +140,6 @@ $spacing: 20px;
         transform: translateY(0%);
       }
       .modal-container {
-        // background: repeating-linear-gradient(170deg, transparent 0 15%, $white 15% 100%);
-        // #c8d6df 15% 23%,
-        // #b9cbd7 23% 40%,
-        // #b2c5d3 40% 50%,
-        // #c8d6df 50% 100%
-
         position: absolute;
         min-height: 100%;
         // padding-top: 200px;
