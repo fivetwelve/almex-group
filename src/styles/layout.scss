@@ -2,7 +2,7 @@
 
 html {
   scroll-behavior: smooth;
-  .hide-overflow {
+  &.hide-overflow {
     overflow: hidden;
   }
 }

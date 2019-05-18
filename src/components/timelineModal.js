@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Markdown from 'react-remarkable';
 import GraphImg from 'graphcms-image';
+import { document } from 'browser-monads';
 import { IconContext } from 'react-icons';
 import { FaTimes } from 'react-icons/fa';
 import { makeid } from '../utils/functions';
@@ -11,6 +12,7 @@ const TimelineModal = props => {
     const { hideThisModal } = props;
     evt.preventDefault();
     hideThisModal();
+    document.querySelector('html').classList.toggle('hide-overflow');
   };
 
   const { event, label, showModal } = props;
@@ -37,9 +39,10 @@ const TimelineModal = props => {
                     <Markdown source={desc} options={{ html: true }} />
                     {event.images[idx] ? (
                       <GraphImg
-                        fit="scale"
+                        // fit="scale"
                         image={event.images[0]}
-                        transform={['resize=height:100']}
+                        // transform={['resize=height:100']}
+                        transform={['fit=scale']}
                         withWebp
                       />
                     ) : (

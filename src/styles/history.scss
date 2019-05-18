@@ -133,11 +133,12 @@ $spacing: 20px;
       height: 100%;
       transform: translateY(100%);
       z-index: 101;
-      overflow-y: scroll;
+      overflow-y: hidden;
       transition: all 0.8s ease-in-out;
       // $easeinout: all 0.2s ease-in-out;
       &.in-view {
         transform: translateY(0%);
+        overflow-y: auto;
       }
       .modal-container {
         position: absolute;

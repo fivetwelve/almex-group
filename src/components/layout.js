@@ -88,10 +88,6 @@ class Layout extends React.Component {
     scrollTo(0);
   };
 
-  toggleHtmlOverflow = () => {
-    this.htmlRef.current.toggle('hide-overflow');
-  };
-
   render() {
     const {
       activeLanguage,
