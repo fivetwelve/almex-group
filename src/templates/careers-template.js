@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import { graphql, Link } from 'gatsby';
 import { Location } from '@reach/router';
 // import GraphImg from 'graphcms-image';
-// import Markdown from 'react-remarkable';
+import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
 import { allBrands } from '../constants';
 import '../styles/about.scss';
 import { createLink } from '../utils/functions';
 
-// const allowHTML = { html: true };
+const allowHTML = { html: true };
 
-const NewsTemplate = ({ data, pageContext }) => {
+const CareersTemplate = ({ data, pageContext }) => {
   const { locale, siteData, region } = pageContext;
   const {
     cms: {
@@ -21,7 +21,7 @@ const NewsTemplate = ({ data, pageContext }) => {
       label,
       navigation,
       page: {
-        news: { title },
+        careers: { title, description },
       },
     },
   } = data;
@@ -32,7 +32,7 @@ const NewsTemplate = ({ data, pageContext }) => {
     <Layout
       activeLanguage={locale}
       brandNavigation={brandNavigation}
-      childrenClass="news"
+      childrenClass="careers"
       data={siteData}
       headerFooter={headerFooter}
       label={label}
@@ -87,9 +87,9 @@ const NewsTemplate = ({ data, pageContext }) => {
               <div className="intro-container">
                 <div className="intro-content">
                   <h1 className="title">{title}</h1>
-                  {/* <div className="description">
+                  <div className="description">
                     <Markdown source={description} options={allowHTML} />
-                  </div> */}
+                  </div>
                 </div>
                 <div className="links">
                   <div className="resources">
@@ -105,12 +105,12 @@ const NewsTemplate = ({ data, pageContext }) => {
   );
 };
 
-NewsTemplate.defaultProps = {
+CareersTemplate.defaultProps = {
   data: {},
   pageContext: {},
 };
 
-NewsTemplate.propTypes = {
+CareersTemplate.propTypes = {
   data: PropTypes.shape({
     id: PropTypes.string,
   }),
@@ -130,18 +130,13 @@ export const query = graphql`
         about(locale: $locale)
       }
       page(where: { id: $id }) {
-        news: newsSource {
-          # bannerImage {
-          #   handle
-          #   width
-          #   height
-          # }
+        careers: careersSource {
           title(locale: $locale)
-          # description(locale: $locale)
+          description(locale: $locale)
         }
       }
     }
   }
 `;
 
-export default NewsTemplate;
+export default CareersTemplate;

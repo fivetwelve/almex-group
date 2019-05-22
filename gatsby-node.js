@@ -14,7 +14,6 @@ exports.createPages = ({ graphql, actions }) => {
     graphql(`
       {
         cms {
-          # can get rid of navigations once we generate pages from a master list
           activePagesLists {
             availableIn
             supportedLocales
@@ -23,34 +22,6 @@ exports.createPages = ({ graphql, actions }) => {
               pageType
               slugEN: slug(locale: EN)
               slugES: slug(locale: ES)
-              # article {
-              #   titleEN: title(locale: EN)
-              #   titleES: title(locale: ES)
-              # }
-              # industry {
-              #   titleEN: title(locale: EN)
-              #   titleES: title(locale: ES)
-              # }
-              # landing {
-              #   titleEN: title(locale: EN)
-              #   titleES: title(locale: ES)
-              # }
-              # product {
-              #   titleEN: title(locale: EN)
-              #   titleES: title(locale: ES)
-              # }
-              # promo {
-              #   titleEN: title(locale: EN)
-              #   titleES: title(locale: ES)
-              # }
-              # service {
-              #   titleEN: title(locale: EN)
-              #   titleES: title(locale: ES)
-              # }
-              # usedEquipment {
-              #   titleEN: title(locale: EN)
-              #   titleES: title(locale: ES)
-              # }
             }
           }
         }
@@ -175,10 +146,10 @@ exports.createPages = ({ graphql, actions }) => {
                   },
                 });
                 break;
-              case allPageTypes.USED:
+              case allPageTypes.ABOUT:
                 createPage({
                   path: pagePath,
-                  component: path.resolve(`./src/templates/usedEquipment-template.js`),
+                  component: path.resolve(`./src/templates/about-template.js`),
                   context: {
                     id,
                     locale,
@@ -187,10 +158,10 @@ exports.createPages = ({ graphql, actions }) => {
                   },
                 });
                 break;
-              case allPageTypes.ABOUT:
+              case allPageTypes.CAREERS:
                 createPage({
                   path: pagePath,
-                  component: path.resolve(`./src/templates/about-template.js`),
+                  component: path.resolve(`./src/templates/careers-template.js`),
                   context: {
                     id,
                     locale,
@@ -227,6 +198,18 @@ exports.createPages = ({ graphql, actions }) => {
                 createPage({
                   path: pagePath,
                   component: path.resolve(`./src/templates/news-template.js`),
+                  context: {
+                    id,
+                    locale,
+                    siteData: data,
+                    region: availableIn,
+                  },
+                });
+                break;
+              case allPageTypes.USED:
+                createPage({
+                  path: pagePath,
+                  component: path.resolve(`./src/templates/usedEquipment-template.js`),
                   context: {
                     id,
                     locale,
