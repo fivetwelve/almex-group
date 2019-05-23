@@ -88,9 +88,11 @@ class Timeline extends React.Component {
                   </button>
                 ) : (
                   <div className="content">
-                    {event.displayDate}
-                    <br />
-                    {event.eventTitle}
+                    <div className="details">
+                      {event.displayDate}
+                      <br />
+                      {event.eventTitle}
+                    </div>
                   </div>
                 )}
               </li>

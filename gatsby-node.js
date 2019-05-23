@@ -170,6 +170,18 @@ exports.createPages = ({ graphql, actions }) => {
                   },
                 });
                 break;
+              case allPageTypes.CONTACT:
+                createPage({
+                  path: pagePath,
+                  component: path.resolve(`./src/templates/contact-template.js`),
+                  context: {
+                    id,
+                    locale,
+                    siteData: data,
+                    region: availableIn,
+                  },
+                });
+                break;
               case allPageTypes.EVENTS:
                 createPage({
                   path: pagePath,
