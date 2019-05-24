@@ -5,6 +5,7 @@ import { Location } from '@reach/router';
 // import GraphImg from 'graphcms-image';
 import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
+import RegionLookup from '../components/regionLookup';
 import { allBrands } from '../constants';
 import '../styles/about.scss';
 import { createLink } from '../utils/functions';
@@ -97,6 +98,9 @@ const ContactTemplate = ({ data, pageContext }) => {
                   </div>
                 </div>
               </div>
+              <RegionLookup>
+                <div>Office info here</div>
+              </RegionLookup>
             </div>
           </>
         )}
@@ -130,10 +134,18 @@ export const query = graphql`
         about(locale: $locale)
       }
       page(where: { id: $id }) {
-        # TODO revert this to contactSource when GraphCMS fixed
-        contact: newsSource {
+        contact: contactSource {
           title(locale: $locale)
           description(locale: $locale)
+          offices {
+            address
+            belongsTo
+            contactPerson
+            fax
+            name
+            telephone
+            tollFree
+          }
         }
       }
     }

@@ -31,7 +31,8 @@ $spacing: 20px;
         &:before {
           /* timeline line */
           position: absolute;
-          left: calc(50% - 1px);
+          // left: calc(50% - 1px);
+          left: calc(5% - 1px);
           // transform: translate(-50%, 0);
           border-left: 2px solid $white;
           // background-color: $white;
@@ -40,6 +41,9 @@ $spacing: 20px;
           height: 100%;
           top: 0;
           z-index: 0;
+          @include media('>=tablet') {
+            left: calc(50% - 1px);
+          }
         }
         padding: 0;
         margin: 0;
@@ -47,15 +51,18 @@ $spacing: 20px;
       li {
         position: relative;
         // left: calc(50% + 10px);
-        left: 50%;
+        // left: 50%;
+        left: 5%;
         display: flex;
         flex-wrap: wrap;
-        width: 50%;
+        width: 90%;
         transform: translateY(112px);
         margin-bottom: 0;
         padding-bottom: 50px;
         top: -5px;
         @include media('>=tablet') {
+          left: 50%;
+          width: 50%;
           max-width: 400px;
         }
         &:before {
@@ -102,10 +109,12 @@ $spacing: 20px;
           width: 100%;
           padding-left: 10px;
           padding-right: 10px;
-          transform: translateX(-100%);
-          text-align: right;
+          // transform: translateX(0);
+          // text-align: right;
           margin-top: -8px;
           @include media('>=tablet') {
+            text-align: right;
+            transform: translateX(-100%);
             flex-direction: column;
           }
           .details {

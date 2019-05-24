@@ -131,8 +131,9 @@ export const query = graphql`
       }
       page(where: { id: $id }) {
         careers: careersSource {
-          title(locale: $locale)
           description(locale: $locale)
+          instructions(locale: $locale)
+          title(locale: $locale)
         }
       }
     }

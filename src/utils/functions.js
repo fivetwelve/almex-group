@@ -1,4 +1,5 @@
 import { document, window } from 'browser-monads';
+import fetchPonyfill from 'fetch-ponyfill';
 import { allPageTypes } from '../constants';
 
 const createLink = (location, slug) => {
@@ -248,9 +249,12 @@ const scrollTo = (to, callback, duration) => {
   animateScroll();
 };
 
+const fetch = fetchPonyfill;
+
 export {
   createLink,
   createLinkFromPage,
+  fetch,
   getSlug,
   getTitle,
   makeid,
