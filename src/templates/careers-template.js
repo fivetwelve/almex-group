@@ -43,7 +43,7 @@ const CareersTemplate = ({ data, pageContext }) => {
       <Location>
         {({ location }) => (
           <>
-            <div className="about-container">
+            <div className="careers-container">
               {/* <div className="banner-image">
                 <GraphImg image={bannerImage} maxWidth={1280} />
               </div> */}

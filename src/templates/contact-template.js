@@ -2,13 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, Link } from 'gatsby';
 import { Location } from '@reach/router';
+// import ReactMapGL, { Marker, NavigationControl, Popup } from 'react-map-gl';
 // import GraphImg from 'graphcms-image';
+// import { fromJS } from 'immutable';
 import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
 import RegionLookup from '../components/regionLookup';
+import ContactMap from '../components/contactMap';
 import { allBrands } from '../constants';
-import '../styles/about.scss';
 import { createLink } from '../utils/functions';
+
+import '../styles/contact.scss';
+// import '../../node_modules/mapbox-gl/dist/mapbox-gl.css';
+// import '../styles/mapbox-gl.css';
 
 const allowHTML = { html: true };
 
@@ -22,18 +28,52 @@ const ContactTemplate = ({ data, pageContext }) => {
       label,
       navigation,
       page: {
-        contact: { title, description },
+        contact: { title, description, offices },
       },
     },
   } = data;
+  // const { viewport } = this.state;
 
   const brands = brandNavigation.pages;
 
+  // const mapStyle = fromJS({
+  //   version: 8,
+  //   sprite: 'mapbox://sprites/mapbox/streets-v8',
+  //   glyphs: 'mapbox://fonts/mapbox/{fontstack}/{range}.pbf',
+  //   sources: {
+  //     'mapbox-streets': {
+  //       type: 'vector',
+  //       url: 'mapbox://mapbox.mapbox-streets-v6',
+  //     },
+  //     points: {
+  //       type: 'geojson',
+  //       data: {
+  //         type: 'FeatureCollection',
+  //         features: [
+  //           { type: 'Feature', geometry: { type: 'Point', coordinates: [-122.45, 37.78] } },
+  //         ],
+  //       },
+  //     },
+  //   },
+  //   layers: [
+  //     {
+  //       id: 'my-layer',
+  //       type: 'circle',
+  //       source: 'points',
+  //       paint: {
+  //         'circle-color': '#f00',
+  //         'circle-radius': 4,
+  //       },
+  //     },
+  //   ],
+  // });
+
+  // console.log(offices);
   return (
     <Layout
       activeLanguage={locale}
       brandNavigation={brandNavigation}
-      childrenClass="careers"
+      childrenClass="contact"
       data={siteData}
       headerFooter={headerFooter}
       label={label}
@@ -44,10 +84,10 @@ const ContactTemplate = ({ data, pageContext }) => {
       <Location>
         {({ location }) => (
           <>
-            <div className="about-container">
+            <div className="contact-container">
               {/* <div className="banner-image">
-                <GraphImg image={bannerImage} maxWidth={1280} />
-              </div> */}
+                  <GraphImg image={bannerImage} maxWidth={1280} />
+                </div> */}
               <div className="brands">
                 {brands.map(brand => {
                   let productBrand = '';
@@ -98,9 +138,8 @@ const ContactTemplate = ({ data, pageContext }) => {
                   </div>
                 </div>
               </div>
-              <RegionLookup>
-                <div>Office info here</div>
-              </RegionLookup>
+              <RegionLookup />
+              <ContactMap offices={offices} />
             </div>
           </>
         )}
@@ -142,6 +181,8 @@ export const query = graphql`
             belongsTo
             contactPerson
             fax
+            latitude
+            longitude
             name
             telephone
             tollFree

@@ -1,53 +1,53 @@
 import React from 'react';
-import { fetch } from '../utils/functions';
+import { fetch, getRegion } from '../utils/functions';
+// import Dump from '../utils/dump';
 
 class RegionLookup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: null,
       error: null,
+      region: null,
     };
   }
 
   componentDidMount() {
-    this.getRegion();
-  }
-
-  getRegion = () => {
-    fetch('/.netlify/functions/getRegion', {
+    // 3rd party api to get country code from visitor's IP address
+    fetch('https://ipapi.co/json/', {
       headers: {
         Accept: 'application/json',
-        // 'Content-Type': 'application/json',
       },
     })
       .then(res => res.json())
       .then(json => {
+        const region = getRegion(json.country);
         this.setState({
-          data: json.msg,
           error: null,
+          region,
         });
-        // console.log(json.msg);
       })
       .catch(err => {
         this.setState({
-          data: null,
+          region: null,
           error: err,
         });
-        // console.error('Error!');
-        // console.log(err);
       });
-  };
+  }
 
   render() {
-    const { data, error } = this.state;
+    // const { data, error, region } = this.state;
+    const { error, region } = this.state;
     return (
       <>
         <div>
-          <p>Data</p>
-          <p>{data}</p>
-          <p>Error</p>
-          <p>{error}</p>
+          {/* <Dump src={data} /> */}
+          {error && (
+            <>
+              <p>Error</p>
+              <p>{error}</p>
+            </>
+          )}
+          {region && <p>Office Region: {region}</p>}
         </div>
       </>
     );
