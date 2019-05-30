@@ -5,7 +5,7 @@ import { Waypoint } from 'react-waypoint';
 import { Location } from '@reach/router';
 import { IconContext } from 'react-icons';
 import { FaAngleUp } from 'react-icons/fa';
-import { window } from 'browser-monads';
+// import { window } from 'browser-monads';
 import Header from './header';
 import Footer from './footer';
 import { LocationProvider } from '../utils/locationContext';
@@ -38,20 +38,20 @@ class Layout extends React.Component {
   componentDidMount() {
     // document.body.classList.add('no-focus-outline');
     // root.addEventListener('click', this.handleKeyUp);
-    let posY = 0;
-    if (window.innerHeight) {
-      const windowHeight = window.innerHeight;
-      const pageHeight = this.pageRef.current.getBoundingClientRect().height;
-      /* Enable scroll to top only if page is at least twice the window height */
-      if (pageHeight > 2 * windowHeight) {
-        this.setState({
-          scrollToTopEnabled: true,
-        });
-        /* set waypoint to be 20% away from bottom of 2nd page */
-        posY = Math.round(windowHeight * 1.8);
-      }
-      this.waypoint.current.style.top = `${posY}px`;
-    }
+    // let posY = 0;
+    // if (window.innerHeight) {
+    //   const windowHeight = window.innerHeight;
+    //   const pageHeight = this.pageRef.current.getBoundingClientRect().height;
+    //   /* Enable scroll to top only if page is at least twice the window height */
+    //   if (pageHeight > 2 * windowHeight) {
+    //     this.setState({
+    //       scrollToTopEnabled: true,
+    //     });
+    //     /* set waypoint to be 20% away from bottom of 2nd page */
+    //     posY = Math.round(windowHeight * 1.8);
+    //   }
+    //   this.waypoint.current.style.top = `${posY}px`;
+    // }
   }
 
   handleKeyUp = () => {
@@ -143,7 +143,15 @@ class Layout extends React.Component {
             type="text/javascript"
             src="https://identity.netlify.com/v1/netlify-identity-widget.js"
           /> */}
+          {/* <script src="https://cdn.polyfill.io/v3/polyfill.min.js?flags=gated" /> */}
           <script src="https://cdn.polyfill.io/v2/polyfill.min.js" />
+          {/* <script>
+            if(!(window.Promise&&[].includes&&Object.assign&&window.Map))
+            {document.write(
+              '<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></scr' + 'ipt>',
+            )}
+          </script> */}
+
           <body
             className="no-focus-outline"
             ref={this.bodyRef}
@@ -164,7 +172,7 @@ class Layout extends React.Component {
               {scrollToTopEnabled && (
                 <Waypoint
                   // debug
-                  scrollableAncestor={window}
+                  // scrollableAncestor={window}
                   onEnter={this.toggleScrollToTop}
                   onLeave={this.toggleScrollToTop}
                   topOffset="0px"

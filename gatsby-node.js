@@ -246,7 +246,14 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
   if (stage === 'build-html') {
     actions.setWebpackConfig({
       module: {
+        // noParse: /(mapbox-gl)\.js$/,
+        // noParse: /node_modules\/mapbox-gl\/dist\/mapbox-gl.js/,
         rules: [
+          // {
+          //   test: /\.(js)$/,
+          //   exclude: /mapbox-gl/,
+          //   use: 'babel-loader',
+          // },
           {
             test: /DrawSVGPlugin/,
             use: loaders.null(),
@@ -256,3 +263,34 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
     });
   }
 };
+
+// We want to include the babel polyfills before any application code,
+// so we're inserting it as an additional entry point.  Gatsby does not allow
+// this in "setWebpackConfig", so we have to use "replaceWebpackConfig"
+// exports.onCreateWebpackConfig = ({
+//   stage,
+//   getConfig,
+//   loaders,
+//   actions: { replaceWebpackConfig, setWebpackConfig },
+// }) => {
+//   if (stage === 'build-javascript') {
+//     const config = getConfig();
+
+//     const app = typeof config.entry.app === 'string' ? [config.entry.app] : config.entry.app;
+
+//     config.entry.app = ['@babel/polyfill', ...app];
+//     replaceWebpackConfig(config);
+//   }
+//   if (stage === 'build=html') {
+//     setWebpackConfig({
+//       module: {
+//         rules: [
+//           {
+//             test: /DrawSVGPlugin/,
+//             use: loaders.null(),
+//           },
+//         ],
+//       },
+//     });
+//   }
+// };

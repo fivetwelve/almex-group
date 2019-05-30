@@ -1,7 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import ReactMapGL, { Marker, NavigationControl, Popup } from 'react-map-gl';
-import ContactPin from './contactPin';
+// import PropTypes from 'prop-types';
+// import ReactMapGL, { Marker, NavigationControl, Popup } from 'react-map-gl';
+import { GoogleMap, LoadScript } from '@react-google-maps/api';
+// import MapboxMap from 'react-mapbox-wrapper';
+// import ContactPin from './contactPin';
 
 class ContactMap extends React.Component {
   constructor(props) {
@@ -15,7 +17,7 @@ class ContactMap extends React.Component {
         height: 600,
         width: '100%',
       },
-      popupInfo: null,
+      // popupInfo: null,
     };
   }
 
@@ -43,93 +45,77 @@ class ContactMap extends React.Component {
     </button>
   );
 
-  renderMarker = (office, index) => (
-    <Marker key={`marker-${index}`} longitude={office.longitude} latitude={office.latitude}>
-      <ContactPin size={20} onClick={() => this.setState({ popupInfo: office })} />
-    </Marker>
-  );
+  // renderMarker = (office, index) => (
+  //   <Marker key={`marker-${index}`} longitude={office.longitude} latitude={office.latitude}>
+  //     <ContactPin size={20} onClick={() => this.setState({ popupInfo: office })} />
+  //   </Marker>
+  // );
 
-  renderPopup = () => {
-    const { popupInfo } = this.state;
+  // renderPopup = () => {
+  //   const { popupInfo } = this.state;
 
-    return (
-      popupInfo && (
-        <Popup
-          tipSize={5}
-          anchor="bottom"
-          longitude={popupInfo.longitude}
-          latitude={popupInfo.latitude}
-          closeOnClick={false}
-          onClose={() => this.setState({ popupInfo: null })}
-          offsetLeft={0}
-          offsetTop={-20}
-        >
-          <div>{popupInfo.name}</div>
-        </Popup>
-      )
-    );
-  };
+  //   return (
+  //     popupInfo && (
+  //       <Popup
+  //         tipSize={5}
+  //         anchor="bottom"
+  //         longitude={popupInfo.longitude}
+  //         latitude={popupInfo.latitude}
+  //         closeOnClick={false}
+  //         onClose={() => this.setState({ popupInfo: null })}
+  //         offsetLeft={0}
+  //         offsetTop={-20}
+  //       >
+  //         <div>{popupInfo.name}</div>
+  //       </Popup>
+  //     )
+  //   );
+  // };
 
   render() {
-    const { viewport } = this.state;
+    // const { viewport } = this.state;
 
-    const { offices } = this.props;
+    // const { offices } = this.props;
 
     return (
       <>
-        {offices && (
-          <div className="map" id="map">
-            <ReactMapGL
-              id="appMap"
-              mapboxApiAccessToken="pk.eyJ1IjoiYWxtZXgiLCJhIjoiY2p3MzNjZjU1MGN6bjRhbzMyaGZmOWd0aiJ9.NpeQ-ufdfR_bxOdn_H5sCg"
-              width="100%"
-              mapStyle="mapbox://styles/mapbox/streets-v9"
-              // mapStyle="mapbox://mapbox.mapbox-streets-v6"
-              // onViewportChange={this._onViewportChange}
-              // mapStyle="mapbox://styles/mapbox/dark-v9"
-              {...viewport}
-              onViewportChange={viewportUpdate => this.setState({ viewport: viewportUpdate })}
-            >
-              {/* <Marker latitude={37.7577} longitude={-122.4376} offsetLeft={20} offsetTop={10}>
-                      <div>You are here</div>
-                    </Marker> */}
-              {/* <Marker
-                latitude={43.2189745}
-                longitude={-79.6797994}
-                offsetLeft={40}
-                offsetTop={10}
-              /> */}
-              {offices.map(this.renderMarker)}
-              {this.renderPopup()}
+        <div className="map" id="map" style={{ display: 'flex', height: 'calc(100vh - 50px)' }}>
+          {/* <LoadScript
+              id="script-loader"
+              googleMapsApiKey="AIzaSyCPjZIbrcLv2B8t92OoiMoPxhnLQ4_kNpY"
+            > */}
 
-              <div style={{ position: 'absolute', left: 0 }}>
-                <NavigationControl
-                  onViewportChange={viewportUpdate => this.updateViewport(viewportUpdate)}
-                  showCompass={false}
-                />
-              </div>
-              {/* <Popup
-                latitude={43.2189745}
-                longitude={-79.6797994}
-                closeButton
-                closeOnClick
-                anchor="bottom"
-              >
-                <div>Shaw Almex Fusion Canada Ltd.</div>
-              </Popup>
-              <Popup
-                latitude={-26.1921843}
-                longitude={27.9180396}
-                closeButton
-                closeOnClick={false}
-                anchor="bottom"
-              >
-                <div style={{ marginTop: '20px' }}>Shaw Almex Africa Pty. Ltd.</div>
-              </Popup> */}
-            </ReactMapGL>
-          </div>
-        )}
-        {offices.map(this.renderButton)}
+          <LoadScript
+            googleMapsApiKey="AIzaSyCPjZIbrcLv2B8t92OoiMoPxhnLQ4_kNpY"
+            // language={language}
+            // region={'EN'}
+            // version={'weekly'}
+            // onLoad={onLoad}
+            // onError={onError}
+            // loadingElement={Loading}
+            // libraries={googleMapsLibraries}
+            // preventGoogleFontsLoading
+          >
+            <GoogleMap
+              id="my-map"
+              zoom={13}
+              mapContainerStyle={{
+                flex: 1,
+              }}
+              center={{
+                lat: 43.855472,
+                lng: 18.410574,
+              }}
+            />
+          </LoadScript>
+          {/* <div style={{ height: 400, width: 400 }}>
+            <MapboxMap
+              accessToken="pk.eyJ1IjoiYWxtZXgiLCJhIjoiY2p3MzNjZjU1MGN6bjRhbzMyaGZmOWd0aiJ9.NpeQ-ufdfR_bxOdn_H5sCg"
+              coordinates={{ lat: 48.872198, lng: 2.3366308 }}
+            />
+          </div> */}
+        </div>
+        {/* {offices.map(this.renderButton)} */}
         {/* <button
           onClick={() => this.goToOffice(43.2189745, -79.6797994)}
           type="button"
@@ -150,17 +136,17 @@ class ContactMap extends React.Component {
 }
 
 ContactMap.defaultProps = {
-  offices: null,
+  // offices: null,
 };
 
 ContactMap.propTypes = {
-  offices: PropTypes.arrayOf(
-    PropTypes.shape({
-      latitude: PropTypes.number,
-      longitude: PropTypes.number,
-      name: PropTypes.string,
-    }),
-  ),
+  // offices: PropTypes.arrayOf(
+  //   PropTypes.shape({
+  //     latitude: PropTypes.number,
+  //     longitude: PropTypes.number,
+  //     name: PropTypes.string,
+  //   }),
+  // ),
 };
 
 export default ContactMap;

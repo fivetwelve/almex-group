@@ -5,10 +5,12 @@ import { Location } from '@reach/router';
 // import ReactMapGL, { Marker, NavigationControl, Popup } from 'react-map-gl';
 // import GraphImg from 'graphcms-image';
 // import { fromJS } from 'immutable';
+// import { GoogleMap, LoadScript } from '@react-google-maps/api';
 import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
-import RegionLookup from '../components/regionLookup';
-import ContactMap from '../components/contactMap';
+// import ErrorBoundary from '../components/errorBoundary';
+// import RegionLookup from '../components/regionLookup';
+// import ContactMap from '../components/contactMap';
 import { allBrands } from '../constants';
 import { createLink } from '../utils/functions';
 
@@ -28,7 +30,8 @@ const ContactTemplate = ({ data, pageContext }) => {
       label,
       navigation,
       page: {
-        contact: { title, description, offices },
+        // contact: { title, description, offices },
+        contact: { title, description },
       },
     },
   } = data;
@@ -81,6 +84,7 @@ const ContactTemplate = ({ data, pageContext }) => {
       region={region}
       title=""
     >
+      {/* <ContactMap /> */}
       <Location>
         {({ location }) => (
           <>
@@ -138,8 +142,13 @@ const ContactTemplate = ({ data, pageContext }) => {
                   </div>
                 </div>
               </div>
-              <RegionLookup />
-              <ContactMap offices={offices} />
+              {/* <RegionLookup /> */}
+              {/* <ContactMap offices={offices} /> */}
+              {/* <ContactMap /> */}
+              {/* <ErrorBoundary> */}
+              {/* </ErrorBoundary> */}
+              {/* <div className="map" id="map-container">
+              </div> */}
             </div>
           </>
         )}
