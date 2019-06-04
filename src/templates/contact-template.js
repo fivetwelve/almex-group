@@ -103,7 +103,7 @@ const ContactTemplate = ({ data, pageContext }) => {
                 </div>
               </div>
               <RegionLookup />
-              <a href="#offices">Click here to </a>
+              <a href="#offices">Almex locations around the globe</a>
               <ContactMap offices={offices} locale={locale} />
               {/* <ContactMap /> */}
               {/* <ErrorBoundary> */}
@@ -122,7 +122,7 @@ const ContactTemplate = ({ data, pageContext }) => {
                           <br />
                           <Markdown source={address} />
                         </td>
-                        <td className="table-desc">{description}</td>
+                        <td className="table-desc">{office.description}</td>
                         <td className="table-countries">{countries}</td>
                       </tr>
                     );

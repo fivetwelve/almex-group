@@ -41,9 +41,8 @@ class ContactMap extends React.Component {
   };
 
   renderButton = (office, index) => (
-    <div>
+    <div key={`link-${index}`}>
       <button
-        key={`link-${index}`}
         onClick={() => this.goToOffice(office.latitude, office.longitude)}
         type="button"
         style={{ width: '200px' }}
@@ -159,7 +158,9 @@ class ContactMap extends React.Component {
           </LoadScript>
         </div>
         <div>Temporary navigation to locations:</div>
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>{offices.map(this.renderButton)}</div>
+        <div id="offices" style={{ display: 'flex', flexWrap: 'wrap', paddingBottom: '50px' }}>
+          {offices.map(this.renderButton)}
+        </div>
       </>
     );
   }
