@@ -1,4 +1,3 @@
-// import { document, window } from 'browser-monads';
 import fetchPonyfill from 'fetch-ponyfill';
 import { allPageTypes } from '../constants';
 
@@ -38,6 +37,7 @@ const getRegion = countryCode => {
      MEX = Mexico
      PER = Peru
      FON = Fonmar
+     NA = North America
   */
 
   const countryMap = new Map([
@@ -159,8 +159,8 @@ const getRegion = countryCode => {
     ['AE', 'IND'],
     ['UZ', 'IND'],
     ['YE', 'IND'],
-    ['US', 'USA'],
-    ['CA', 'CAN'],
+    ['US', 'NA'],
+    ['CA', 'NA'],
     ['AO', 'AFR'],
     ['DZ', 'AFR'],
     ['BJ', 'AFR'],
@@ -414,17 +414,20 @@ const normalizeTimeZone = day => `${day}T00:00:00.Z`;
 
 /* Thanks to James Doyle for this: https://gist.github.com/james2doyle/5694700 */
 
-const requestAnimFrame = func =>
-  // window.requestAnimationFrame(func) ||
-  // window.webkitRequestAnimationFrame(func) ||
-  // window.mozRequestAnimationFrame(func) ||
-  // (callback => {
-  //   window.setTimeout(callback, 1000 / 60);
-  // });
-  {
-    console.log(func);
-    return false;
-  };
+const requestAnimFrame = func => {
+  if (typeof window !== 'undefined') {
+    return (
+      window.requestAnimationFrame(func) ||
+      window.webkitRequestAnimationFrame(func) ||
+      window.mozRequestAnimationFrame(func) ||
+      (callback => {
+        window.setTimeout(callback, 1000 / 60);
+      })
+    );
+  }
+  return false;
+};
+
 // easing functions http://goo.gl/5HLl8
 Math.easeInOutQuad = (ti, b, c, d) => {
   let t = ti;
@@ -439,22 +442,24 @@ Math.easeInOutQuad = (ti, b, c, d) => {
 const scrollTo = (to, callback, duration) => {
   // because it's so f*cking difficult to detect the scrolling element, just move them all
   const move = amount => {
-    // document.documentElement.scrollTop = amount;
-    // document.body.parentNode.scrollTop = amount;
-    // document.body.scrollTop = amount;
-    console.log(amount);
-    return false;
+    if (typeof document !== 'undefined') {
+      document.documentElement.scrollTop = amount;
+      document.body.parentNode.scrollTop = amount;
+      document.body.scrollTop = amount;
+    }
   };
 
-  const position = () =>
-    // if (typeof document !== 'undefined') {
-    //   return (
-    //     document.documentElement.scrollTop ||
-    //     document.body.parentNode.scrollTop ||
-    //     document.body.scrollTop
-    //   );
-    // }
-    false;
+  const position = () => {
+    if (typeof document !== 'undefined') {
+      return (
+        document.documentElement.scrollTop ||
+        document.body.parentNode.scrollTop ||
+        document.body.scrollTop
+      );
+    }
+    return false;
+  };
+  // false;
 
   const start = position();
   const change = to - start;

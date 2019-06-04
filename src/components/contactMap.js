@@ -1,31 +1,37 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-// import ReactMapGL, { Marker, NavigationControl, Popup } from 'react-map-gl';
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
-// import MapboxMap from 'react-mapbox-wrapper';
+import PropTypes from 'prop-types';
+import { GoogleMap, InfoWindow, LoadScript, Marker } from '@react-google-maps/api';
+import Markdown from 'react-remarkable';
+import { makeid } from '../utils/functions';
+// import {Size} from '@react-google-maps/api/src/components/
 // import ContactPin from './contactPin';
+import pin from '../../static/img/map-pin.svg';
 
 class ContactMap extends React.Component {
   constructor(props) {
     super(props);
-    // Using Lisbon, Portugal for initial coordinates because it nicely centers the map.
+    // Using Lisbon, Portugal for initial coordinates because it centers the map nicely.
     this.state = {
+      activeOffice: null,
+      infoWindowVisible: false,
       viewport: {
-        latitude: 33.589886,
-        longitude: -7.603869,
-        zoom: 1.3,
-        height: 600,
-        width: '100%',
+        center: {
+          lat: 33.589886,
+          lng: -7.603869,
+        },
+        zoom: 2.2,
+        // height: 600,
+        // width: '100%',
       },
+      offset: null,
+      // offset: new window.google.maps.Size(0, 20),
       // popupInfo: null,
     };
   }
 
-  goToOffice = (latitude, longitude) => {
-    // 33.704291, -84.1868887
-    // 43.2189745, -79.6797994;
+  goToOffice = (lat, lng) => {
     const { viewport } = this.state;
-    const viewportUpdate = { ...viewport, latitude, longitude, zoom: 8 };
+    const viewportUpdate = { ...viewport, center: { lat, lng }, zoom: 7 };
     this.setState({ viewport: viewportUpdate });
   };
 
@@ -35,62 +41,66 @@ class ContactMap extends React.Component {
   };
 
   renderButton = (office, index) => (
-    <button
-      key={`link-${index}`}
-      onClick={() => this.goToOffice(office.latitude, office.longitude)}
-      type="button"
-      style={{ width: '200px' }}
-    >
-      {office.name}
-    </button>
+    <div>
+      <button
+        key={`link-${index}`}
+        onClick={() => this.goToOffice(office.latitude, office.longitude)}
+        type="button"
+        style={{ width: '200px' }}
+      >
+        {office.name}
+      </button>
+    </div>
   );
 
-  // renderMarker = (office, index) => (
-  //   <Marker key={`marker-${index}`} longitude={office.longitude} latitude={office.latitude}>
-  //     <ContactPin size={20} onClick={() => this.setState({ popupInfo: office })} />
-  //   </Marker>
-  // );
+  renderMarker = (office, index) => (
+    <Marker
+      key={`marker-${index}`}
+      // onLoad={marker => {
+      //   console.log('marker: ', marker);
+      // }}
+      position={{ lat: office.latitude, lng: office.longitude }}
+      title={office.name}
+      onClick={() => this.showInfoWindow(office)}
+      icon={pin}
+    />
+  );
 
-  // renderPopup = () => {
-  //   const { popupInfo } = this.state;
+  showInfoWindow = office => {
+    this.setState({
+      activeOffice: office,
+      infoWindowVisible: true,
+    });
+  };
 
-  //   return (
-  //     popupInfo && (
-  //       <Popup
-  //         tipSize={5}
-  //         anchor="bottom"
-  //         longitude={popupInfo.longitude}
-  //         latitude={popupInfo.latitude}
-  //         closeOnClick={false}
-  //         onClose={() => this.setState({ popupInfo: null })}
-  //         offsetLeft={0}
-  //         offsetTop={-20}
-  //       >
-  //         <div>{popupInfo.name}</div>
-  //       </Popup>
-  //     )
-  //   );
-  // };
+  hideInfoWindow = () => {
+    this.setState({
+      infoWindowVisible: false,
+    });
+  };
+
+  updateState = () => {
+    if (typeof window !== 'undefined') {
+      this.setState({
+        offset: new window.google.maps.Size(0, -40),
+      });
+    }
+  };
 
   render() {
-    // const { viewport } = this.state;
-
-    // const { offices } = this.props;
+    const { activeOffice, infoWindowVisible, offset, viewport } = this.state;
+    const { locale, offices } = this.props;
 
     return (
       <>
-        <div className="map" id="map" style={{ display: 'flex', height: 'calc(100vh - 50px)' }}>
-          {/* <LoadScript
-              id="script-loader"
-              googleMapsApiKey="AIzaSyCPjZIbrcLv2B8t92OoiMoPxhnLQ4_kNpY"
-            > */}
-
+        <div className="map" id="map" style={{ display: 'flex', height: '585px' }}>
           <LoadScript
             googleMapsApiKey="AIzaSyCPjZIbrcLv2B8t92OoiMoPxhnLQ4_kNpY"
-            // language={language}
+            language={locale}
             // region={'EN'}
             // version={'weekly'}
             // onLoad={onLoad}
+            onLoad={() => this.updateState()}
             // onError={onError}
             // loadingElement={Loading}
             // libraries={googleMapsLibraries}
@@ -98,55 +108,77 @@ class ContactMap extends React.Component {
           >
             <GoogleMap
               id="my-map"
-              zoom={13}
               mapContainerStyle={{
                 flex: 1,
               }}
-              center={{
-                lat: 43.855472,
-                lng: 18.410574,
+              options={{
+                disableDefaultUI: true,
+                scaleControl: true,
+                zoomControl: true,
               }}
-            />
+              {...viewport}
+            >
+              {offices.map(this.renderMarker)}
+              {infoWindowVisible && (
+                <InfoWindow
+                  onCloseClick={() => this.hideInfoWindow()}
+                  // onLoad={infoWindow => {
+                  //   console.log('infoWindow: ', infoWindow);
+                  // }}
+                  position={{ lat: activeOffice.latitude, lng: activeOffice.longitude }}
+                  options={{ pixelOffset: offset }}
+                >
+                  <div
+                    style={{
+                      background: `white`,
+                      padding: 15,
+                    }}
+                  >
+                    <div className="infoWindow-name">{activeOffice.name}</div>
+                    <div className="infoWindow-details">
+                      <Markdown source={activeOffice.address} />
+                      {activeOffice.telephone.length > 0 &&
+                        activeOffice.telephone.map(num => (
+                          <div key={`tel-${makeid()}`}>tel: {num}</div>
+                        ))}
+                      {activeOffice.tollFree.length > 0 &&
+                        activeOffice.tollFree.map(num => (
+                          <div key={`free-${makeid()}`}>toll-free: {num}</div>
+                        ))}
+                      {activeOffice.fax.length > 0 &&
+                        activeOffice.fax.map(num => <div key={`fax-${makeid()}`}>fax: {num}</div>)}
+                      {activeOffice.mobile.length > 0 &&
+                        activeOffice.mobile.map(num => (
+                          <div key={`mob-${makeid()}`}>mobile: {num}</div>
+                        ))}
+                    </div>
+                  </div>
+                </InfoWindow>
+              )}
+            </GoogleMap>
           </LoadScript>
-          {/* <div style={{ height: 400, width: 400 }}>
-            <MapboxMap
-              accessToken="pk.eyJ1IjoiYWxtZXgiLCJhIjoiY2p3MzNjZjU1MGN6bjRhbzMyaGZmOWd0aiJ9.NpeQ-ufdfR_bxOdn_H5sCg"
-              coordinates={{ lat: 48.872198, lng: 2.3366308 }}
-            />
-          </div> */}
         </div>
-        {/* {offices.map(this.renderButton)} */}
-        {/* <button
-          onClick={() => this.goToOffice(43.2189745, -79.6797994)}
-          type="button"
-          style={{ width: '120px' }}
-        >
-          Stoney Creek
-        </button>
-        <button
-          onClick={() => this.goToOffice(-26.1921843, 27.9180396)}
-          type="button"
-          style={{ width: '120px' }}
-        >
-          South Africa
-        </button> */}
+        <div>Temporary navigation to locations:</div>
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>{offices.map(this.renderButton)}</div>
       </>
     );
   }
 }
 
 ContactMap.defaultProps = {
-  // offices: null,
+  locale: 'EN',
+  offices: null,
 };
 
 ContactMap.propTypes = {
-  // offices: PropTypes.arrayOf(
-  //   PropTypes.shape({
-  //     latitude: PropTypes.number,
-  //     longitude: PropTypes.number,
-  //     name: PropTypes.string,
-  //   }),
-  // ),
+  locale: PropTypes.string,
+  offices: PropTypes.arrayOf(
+    PropTypes.shape({
+      latitude: PropTypes.number,
+      longitude: PropTypes.number,
+      name: PropTypes.string,
+    }),
+  ),
 };
 
 export default ContactMap;

@@ -249,11 +249,15 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
         // noParse: /(mapbox-gl)\.js$/,
         // noParse: /node_modules\/mapbox-gl\/dist\/mapbox-gl.js/,
         rules: [
-          // {
-          //   test: /\.(js)$/,
-          //   exclude: /mapbox-gl/,
-          //   use: 'babel-loader',
-          // },
+          //   {
+          //     test: /\.(js)$/,
+          //     exclude: /mapbox-gl/,
+          //     use: 'babel-loader',
+          //   },
+          {
+            test: /mapbox-gl/,
+            use: loaders.null(),
+          },
           {
             test: /DrawSVGPlugin/,
             use: loaders.null(),

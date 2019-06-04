@@ -10,7 +10,6 @@ import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 import Markdown from 'react-remarkable';
 import 'moment/locale/de';
 import 'moment/locale/es';
-// import SingleDatePickerWrapper from '../components/singleDatePickerWrapper';
 import Layout from '../components/layout';
 import EventsResults from '../components/eventsResults';
 import { allContinents, allLanguages } from '../constants';
@@ -321,9 +320,6 @@ class EventsTemplate extends Component {
                     )}
                   </div>
                 </div>
-                {/* <div>
-                  <SingleDatePickerWrapper orientation="vertical" verticalHeight={568} />
-                </div> */}
                 {events && events.length > 1 && (
                   <div className="events-results">
                     <EventsResults

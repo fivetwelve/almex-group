@@ -2,21 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, Link } from 'gatsby';
 import { Location } from '@reach/router';
-// import ReactMapGL, { Marker, NavigationControl, Popup } from 'react-map-gl';
 // import GraphImg from 'graphcms-image';
-// import { fromJS } from 'immutable';
-// import { GoogleMap, LoadScript } from '@react-google-maps/api';
 import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
 // import ErrorBoundary from '../components/errorBoundary';
-// import RegionLookup from '../components/regionLookup';
-// import ContactMap from '../components/contactMap';
+import RegionLookup from '../components/regionLookup';
+import ContactMap from '../components/contactMap';
 import { allBrands } from '../constants';
-import { createLink } from '../utils/functions';
+import { createLink, makeid } from '../utils/functions';
 
 import '../styles/contact.scss';
-// import '../../node_modules/mapbox-gl/dist/mapbox-gl.css';
-// import '../styles/mapbox-gl.css';
 
 const allowHTML = { html: true };
 
@@ -30,48 +25,13 @@ const ContactTemplate = ({ data, pageContext }) => {
       label,
       navigation,
       page: {
-        // contact: { title, description, offices },
-        contact: { title, description },
+        contact: { title, description, offices },
       },
     },
   } = data;
-  // const { viewport } = this.state;
 
   const brands = brandNavigation.pages;
 
-  // const mapStyle = fromJS({
-  //   version: 8,
-  //   sprite: 'mapbox://sprites/mapbox/streets-v8',
-  //   glyphs: 'mapbox://fonts/mapbox/{fontstack}/{range}.pbf',
-  //   sources: {
-  //     'mapbox-streets': {
-  //       type: 'vector',
-  //       url: 'mapbox://mapbox.mapbox-streets-v6',
-  //     },
-  //     points: {
-  //       type: 'geojson',
-  //       data: {
-  //         type: 'FeatureCollection',
-  //         features: [
-  //           { type: 'Feature', geometry: { type: 'Point', coordinates: [-122.45, 37.78] } },
-  //         ],
-  //       },
-  //     },
-  //   },
-  //   layers: [
-  //     {
-  //       id: 'my-layer',
-  //       type: 'circle',
-  //       source: 'points',
-  //       paint: {
-  //         'circle-color': '#f00',
-  //         'circle-radius': 4,
-  //       },
-  //     },
-  //   ],
-  // });
-
-  // console.log(offices);
   return (
     <Layout
       activeLanguage={locale}
@@ -142,13 +102,33 @@ const ContactTemplate = ({ data, pageContext }) => {
                   </div>
                 </div>
               </div>
-              {/* <RegionLookup /> */}
-              {/* <ContactMap offices={offices} /> */}
+              <RegionLookup />
+              <a href="#offices">Click here to </a>
+              <ContactMap offices={offices} locale={locale} />
               {/* <ContactMap /> */}
               {/* <ErrorBoundary> */}
               {/* </ErrorBoundary> */}
               {/* <div className="map" id="map-container">
               </div> */}
+              <table className="table-data">
+                <tbody>
+                  {offices.map(office => {
+                    const { belongsTo, address, countries, name } = office;
+                    return (
+                      <tr key={makeid()}>
+                        <td className="table-region">{belongsTo}</td>
+                        <td className="table-office">
+                          {name}
+                          <br />
+                          <Markdown source={address} />
+                        </td>
+                        <td className="table-desc">{description}</td>
+                        <td className="table-countries">{countries}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
             </div>
           </>
         )}
@@ -189,9 +169,12 @@ export const query = graphql`
             address
             belongsTo
             contactPerson
+            countries
+            description
             fax
             latitude
             longitude
+            mobile
             name
             telephone
             tollFree

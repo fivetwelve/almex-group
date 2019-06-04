@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
 import GraphImg from 'graphcms-image';
-// import { document, window } from 'browser-monads';
+// import { window } from 'browser-monads';
 import { makeid } from '../utils/functions';
 
 class Timeline extends React.Component {
@@ -45,7 +45,9 @@ class Timeline extends React.Component {
     evt.preventDefault();
     const { events, selectEvent } = this.props;
     selectEvent(events[idx]);
-    // document.querySelector('html').classList.toggle('hide-overflow');
+    if (typeof document !== 'undefined') {
+      document.querySelector('html').classList.toggle('hide-overflow');
+    }
   };
 
   render() {

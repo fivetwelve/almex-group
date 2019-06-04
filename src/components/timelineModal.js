@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Markdown from 'react-remarkable';
 import GraphImg from 'graphcms-image';
-// import { document } from 'browser-monads';
 import { IconContext } from 'react-icons';
 import { FaTimes } from 'react-icons/fa';
 import { makeid } from '../utils/functions';
@@ -12,7 +11,9 @@ const TimelineModal = props => {
     const { hideThisModal } = props;
     evt.preventDefault();
     hideThisModal();
-    // document.querySelector('html').classList.toggle('hide-overflow');
+    if (typeof document !== 'undefined') {
+      document.querySelector('html').classList.toggle('hide-overflow');
+    }
   };
 
   const { event, label, showModal } = props;
