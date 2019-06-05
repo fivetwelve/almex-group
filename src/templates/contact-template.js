@@ -5,11 +5,10 @@ import { Location } from '@reach/router';
 // import GraphImg from 'graphcms-image';
 import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
-// import ErrorBoundary from '../components/errorBoundary';
 import RegionLookup from '../components/regionLookup';
 import ContactMap from '../components/contactMap';
 import { allBrands } from '../constants';
-import { createLink, makeid } from '../utils/functions';
+import { createLink } from '../utils/functions';
 
 import '../styles/contact.scss';
 
@@ -105,30 +104,6 @@ const ContactTemplate = ({ data, pageContext }) => {
               <RegionLookup />
               <a href="#offices">Almex locations around the globe</a>
               <ContactMap offices={offices} locale={locale} />
-              {/* <ContactMap /> */}
-              {/* <ErrorBoundary> */}
-              {/* </ErrorBoundary> */}
-              {/* <div className="map" id="map-container">
-              </div> */}
-              <table className="table-data">
-                <tbody>
-                  {offices.map(office => {
-                    const { belongsTo, address, countries, name } = office;
-                    return (
-                      <tr key={makeid()}>
-                        <td className="table-region">{belongsTo}</td>
-                        <td className="table-office">
-                          {name}
-                          <br />
-                          <Markdown source={address} />
-                        </td>
-                        <td className="table-desc">{office.description}</td>
-                        <td className="table-countries">{countries}</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
             </div>
           </>
         )}
@@ -169,8 +144,8 @@ export const query = graphql`
             address
             belongsTo
             contactPerson
-            countries
-            description
+            countries(locale: $locale)
+            description(locale: $locale)
             fax
             latitude
             longitude

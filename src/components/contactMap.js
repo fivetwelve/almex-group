@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { GoogleMap, InfoWindow, LoadScript, Marker } from '@react-google-maps/api';
 import Markdown from 'react-remarkable';
 import { makeid } from '../utils/functions';
+import ContactOffice from './contactOffice';
 // import {Size} from '@react-google-maps/api/src/components/
 // import ContactPin from './contactPin';
 import pin from '../../static/img/map-pin.svg';
@@ -161,6 +162,13 @@ class ContactMap extends React.Component {
         <div id="offices" style={{ display: 'flex', flexWrap: 'wrap', paddingBottom: '50px' }}>
           {offices.map(this.renderButton)}
         </div>
+        <table className="table-data">
+          <tbody>
+            {offices.map(office => (
+              <ContactOffice office={office} key={makeid()} goToOffice={this.goToOffice} />
+            ))}
+          </tbody>
+        </table>
       </>
     );
   }
