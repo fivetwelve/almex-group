@@ -9,8 +9,10 @@ import pin from '../../static/img/map-pin.svg';
 const ContactOffice = props => {
   const {
     goToOffice,
+    label,
     office: {
       address,
+      contactPerson,
       countries,
       description,
       fax,
@@ -22,11 +24,11 @@ const ContactOffice = props => {
       tollFree,
     },
   } = props;
-  // console.log(office);
+  // console.log(label);
 
   return (
-    <tr>
-      <td className="table-pin">
+    <div className="table-entry">
+      <div className="table-pin">
         <button
           type="button"
           onClick={() => {
@@ -35,58 +37,71 @@ const ContactOffice = props => {
         >
           <img src={pin} alt="" />
         </button>
-      </td>
-      <td className="table-office">
-        {name}
-        <br />
-        <Markdown source={address} />
-        {telephone.length > 0 &&
-          telephone.map(num => (
-            <div key={`tel-${makeid()}`}>
-              <span aria-hidden="true">
-                <IconContext.Provider value={{ className: 'phone' }}>
-                  <FaPhone aria-hidden />
-                </IconContext.Provider>
-              </span>
-              {num}
+      </div>
+      <div className="table-details">
+        <div className="table-office">
+          {name}
+          <br />
+          <Markdown source={address} />
+          {telephone.length > 0 &&
+            telephone.map(num => (
+              <div key={`tel-${makeid()}`}>
+                <span aria-hidden="true">
+                  <IconContext.Provider value={{ className: 'phone' }}>
+                    <FaPhone aria-hidden />
+                  </IconContext.Provider>
+                </span>
+                {num}
+              </div>
+            ))}
+          {fax.length > 0 &&
+            fax.map(num => (
+              <div key={`fax-${makeid()}`}>
+                <span aria-hidden="true">
+                  <IconContext.Provider value={{ className: 'fax' }}>
+                    <FaFax aria-hidden />
+                  </IconContext.Provider>
+                </span>{' '}
+                {num}
+              </div>
+            ))}
+          {mobile.length > 0 &&
+            mobile.map(num => (
+              <div key={`mob-${makeid()}`}>
+                <span aria-hidden="true">
+                  <IconContext.Provider value={{ className: 'mobile' }}>
+                    <FaMobileAlt aria-hidden />
+                  </IconContext.Provider>
+                </span>
+                {num}
+              </div>
+            ))}
+          {tollFree.length > 0 &&
+            tollFree.map(num => (
+              <div key={`toll-free-${makeid()}`}>
+                <span className="toll-free">{label.about.TOLLFREE}</span>: {num}
+              </div>
+            ))}
+          {contactPerson && (
+            <div>
+              <span className="contact-person">{label.about.CONTACT}</span>: {contactPerson}
             </div>
-          ))}
-        {fax.length > 0 &&
-          fax.map(num => (
-            <div key={`fax-${makeid()}`}>
-              <span aria-hidden="true">
-                <IconContext.Provider value={{ className: 'fax' }}>
-                  <FaFax aria-hidden />
-                </IconContext.Provider>
-              </span>{' '}
-              {num}
-            </div>
-          ))}
-        {mobile.length > 0 &&
-          mobile.map(num => (
-            <div key={`mob-${makeid()}`}>
-              <span aria-hidden="true">
-                <IconContext.Provider value={{ className: 'mobile' }}>
-                  <FaMobileAlt aria-hidden />
-                </IconContext.Provider>
-              </span>
-              {num}
-            </div>
-          ))}
-        {tollFree.length > 0 &&
-          tollFree.map(num => <div key={`toll-free-${makeid()}`}>toll-free: {num}</div>)}
-      </td>
-      <td className="table-desc">{description}</td>
-      <td className="table-countries">{countries}</td>
-    </tr>
+          )}
+        </div>
+        <div className="table-desc">{description}</div>
+        <div className="table-countries">{countries}</div>
+      </div>
+    </div>
   );
 };
 
 ContactOffice.defaultProps = {
   goToOffice: () => {},
+  label: {},
   office: {
     address: '',
     belongsTo: '',
+    contactPerson: null,
     countries: '',
     description: '',
     fax: [],
@@ -98,10 +113,14 @@ ContactOffice.defaultProps = {
 };
 
 ContactOffice.propTypes = {
+  label: PropTypes.shape({
+    about: PropTypes.object,
+  }),
   goToOffice: PropTypes.func,
   office: PropTypes.shape({
     address: PropTypes.string,
     belongsTo: PropTypes.string,
+    contactPerson: PropTypes.string,
     countries: PropTypes.string,
     description: PropTypes.string,
     fax: PropTypes.array,

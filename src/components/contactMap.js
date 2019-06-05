@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { GoogleMap, InfoWindow, LoadScript, Marker } from '@react-google-maps/api';
 import Markdown from 'react-remarkable';
-import { makeid } from '../utils/functions';
+import { IconContext } from 'react-icons';
+import { FaFax, FaMobileAlt, FaPhone } from 'react-icons/fa';
 import ContactOffice from './contactOffice';
+import { makeid, scrollTo } from '../utils/functions';
 // import {Size} from '@react-google-maps/api/src/components/
 // import ContactPin from './contactPin';
 import pin from '../../static/img/map-pin.svg';
@@ -34,24 +36,13 @@ class ContactMap extends React.Component {
     const { viewport } = this.state;
     const viewportUpdate = { ...viewport, center: { lat, lng }, zoom: 7 };
     this.setState({ viewport: viewportUpdate });
+    scrollTo(120);
   };
 
   updateViewport = viewportUpdate => {
     // const {width, height, latitude, longitude, zoom} = viewportUpdate;
     this.setState({ viewport: viewportUpdate });
   };
-
-  renderButton = (office, index) => (
-    <div key={`link-${index}`}>
-      <button
-        onClick={() => this.goToOffice(office.latitude, office.longitude)}
-        type="button"
-        style={{ width: '200px' }}
-      >
-        {office.name}
-      </button>
-    </div>
-  );
 
   renderMarker = (office, index) => (
     <Marker
@@ -89,7 +80,7 @@ class ContactMap extends React.Component {
 
   render() {
     const { activeOffice, infoWindowVisible, offset, viewport } = this.state;
-    const { locale, offices } = this.props;
+    const { label, locale, offices } = this.props;
 
     return (
       <>
@@ -139,18 +130,50 @@ class ContactMap extends React.Component {
                       <Markdown source={activeOffice.address} />
                       {activeOffice.telephone.length > 0 &&
                         activeOffice.telephone.map(num => (
-                          <div key={`tel-${makeid()}`}>tel: {num}</div>
+                          <div key={`tel-${makeid()}`}>
+                            <span aria-hidden="true">
+                              <IconContext.Provider value={{ className: 'phone' }}>
+                                <FaPhone aria-hidden />
+                              </IconContext.Provider>
+                            </span>
+                            {num}
+                          </div>
+                        ))}
+                      {activeOffice.fax.length > 0 &&
+                        activeOffice.fax.map(num => (
+                          <div key={`fax-${makeid()}`}>
+                            <span aria-hidden="true">
+                              <IconContext.Provider value={{ className: 'fax' }}>
+                                <FaFax aria-hidden />
+                              </IconContext.Provider>
+                            </span>
+                            {num}
+                          </div>
+                        ))}
+                      {activeOffice.mobile.length > 0 &&
+                        activeOffice.mobile.map(num => (
+                          <div key={`mob-${makeid()}`}>
+                            <span aria-hidden="true">
+                              <IconContext.Provider value={{ className: 'mobile' }}>
+                                <FaMobileAlt aria-hidden />
+                              </IconContext.Provider>
+                            </span>
+                            {num}
+                          </div>
                         ))}
                       {activeOffice.tollFree.length > 0 &&
                         activeOffice.tollFree.map(num => (
-                          <div key={`free-${makeid()}`}>toll-free: {num}</div>
+                          <div key={`free-${makeid()}`}>
+                            <span className="contact-person">{label.about.TOLLFREE}: </span>
+                            {num}
+                          </div>
                         ))}
-                      {activeOffice.fax.length > 0 &&
-                        activeOffice.fax.map(num => <div key={`fax-${makeid()}`}>fax: {num}</div>)}
-                      {activeOffice.mobile.length > 0 &&
-                        activeOffice.mobile.map(num => (
-                          <div key={`mob-${makeid()}`}>mobile: {num}</div>
-                        ))}
+                      {activeOffice.contactPerson && (
+                        <div>
+                          <span className="contact-person">{label.about.CONTACT}: </span>
+                          {activeOffice.contactPerson}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </InfoWindow>
@@ -158,28 +181,40 @@ class ContactMap extends React.Component {
             </GoogleMap>
           </LoadScript>
         </div>
-        <div>Temporary navigation to locations:</div>
-        <div id="offices" style={{ display: 'flex', flexWrap: 'wrap', paddingBottom: '50px' }}>
-          {offices.map(this.renderButton)}
+        <div id="offices" style={{ marginBottom: '120px' }} />
+        <div className="table-data">
+          <div className="table-entry">
+            <div className="table-pin" />
+            <div className="table-details">
+              <div className="table-office">{label.about.HEADING_OFFICE}</div>
+              <div className="table-desc">{label.about.HEADING_DESC}</div>
+              <div className="table-countries">{label.about.HEADING_COUNTRIES}</div>
+            </div>
+          </div>
+          {offices.map(office => (
+            <ContactOffice
+              goToOffice={this.goToOffice}
+              key={makeid()}
+              label={label}
+              office={office}
+            />
+          ))}
         </div>
-        <table className="table-data">
-          <tbody>
-            {offices.map(office => (
-              <ContactOffice office={office} key={makeid()} goToOffice={this.goToOffice} />
-            ))}
-          </tbody>
-        </table>
       </>
     );
   }
 }
 
 ContactMap.defaultProps = {
+  label: {},
   locale: 'EN',
   offices: null,
 };
 
 ContactMap.propTypes = {
+  label: PropTypes.shape({
+    about: PropTypes.object,
+  }),
   locale: PropTypes.string,
   offices: PropTypes.arrayOf(
     PropTypes.shape({
