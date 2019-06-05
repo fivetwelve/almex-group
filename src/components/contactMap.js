@@ -30,7 +30,7 @@ class ContactMap extends React.Component {
     const { viewport } = this.state;
     const viewportUpdate = { ...viewport, center: { lat, lng }, zoom: 7 };
     this.setState({ viewport: viewportUpdate });
-    scrollTo(120);
+    scrollTo(256);
   };
 
   updateViewport = viewportUpdate => {
@@ -81,14 +81,12 @@ class ContactMap extends React.Component {
           <LoadScript
             googleMapsApiKey="AIzaSyCPjZIbrcLv2B8t92OoiMoPxhnLQ4_kNpY"
             language={locale}
-            // region={'EN'}
             // version={'weekly'}
             // onLoad={onLoad}
             onLoad={() => this.updateState()}
             // onError={onError}
             // loadingElement={Loading}
             // libraries={googleMapsLibraries}
-            // preventGoogleFontsLoading
           >
             <GoogleMap
               id="my-map"
@@ -128,8 +126,8 @@ class ContactMap extends React.Component {
                               <IconContext.Provider value={{ className: 'phone' }}>
                                 <FaPhone aria-hidden />
                               </IconContext.Provider>
-                            </span>
-                            {num}
+                            </span>{' '}
+                            <a href={`tel:${num}`}>{num}</a>
                           </div>
                         ))}
                       {activeOffice.fax.length > 0 &&
@@ -139,7 +137,7 @@ class ContactMap extends React.Component {
                               <IconContext.Provider value={{ className: 'fax' }}>
                                 <FaFax aria-hidden />
                               </IconContext.Provider>
-                            </span>
+                            </span>{' '}
                             {num}
                           </div>
                         ))}
@@ -150,8 +148,8 @@ class ContactMap extends React.Component {
                               <IconContext.Provider value={{ className: 'mobile' }}>
                                 <FaMobileAlt aria-hidden />
                               </IconContext.Provider>
-                            </span>
-                            {num}
+                            </span>{' '}
+                            <a href={`tel:${num}`}>{num}</a>
                           </div>
                         ))}
                       {activeOffice.tollFree.length > 0 &&

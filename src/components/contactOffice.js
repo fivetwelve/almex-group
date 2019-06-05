@@ -117,8 +117,8 @@ const ContactOffice = props => {
                   <IconContext.Provider value={{ className: 'phone' }}>
                     <FaPhone aria-hidden />
                   </IconContext.Provider>
-                </span>
-                {num}
+                </span>{' '}
+                <a href={`tel:${num}`}>{num}</a>
               </div>
             ))}
           {fax.length > 0 &&
@@ -139,8 +139,8 @@ const ContactOffice = props => {
                   <IconContext.Provider value={{ className: 'mobile' }}>
                     <FaMobileAlt aria-hidden />
                   </IconContext.Provider>
-                </span>
-                {num}
+                </span>{' '}
+                <a href={`tel:${num}`}>{num}</a>
               </div>
             ))}
           {tollFree.length > 0 &&

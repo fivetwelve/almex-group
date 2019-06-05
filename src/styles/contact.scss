@@ -48,18 +48,26 @@ $spacing: 20px;
       @include neue-med;
       font-size: 16px;
     }
+    .infoWindow-details,
+    .table-details {
+      a {
+        color: $grey80;
+        text-decoration: none;
+        border-bottom: 1px dashed;
+      }
+    }
     .infoWindow-details {
       @include neue-light;
       font-size: 14px;
-      .fax {
-        margin-right: 5px;
-      }
-      .mobile {
-        margin-right: 10px;
-      }
       .phone {
         margin-right: 8px;
         transform: scaleX(-1);
+      }
+      .fax {
+        margin-right: 8px;
+      }
+      .mobile {
+        margin-right: 8px;
       }
       .toll-free,
       .contact-person {
@@ -131,14 +139,15 @@ $spacing: 20px;
             border: 1px solid $grey20;
           }
           .fax {
-            margin-right: 5px;
+            margin-right: 8px;
           }
           .mobile {
-            margin-right: 10px;
+            margin-right: 8px;
           }
           .phone {
             margin-right: 8px;
             transform: scaleX(-1);
+            text-decoration: dotted;
           }
           .toll-free,
           .contact-person {
