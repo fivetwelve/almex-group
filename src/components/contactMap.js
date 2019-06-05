@@ -6,8 +6,6 @@ import { IconContext } from 'react-icons';
 import { FaFax, FaMobileAlt, FaPhone } from 'react-icons/fa';
 import ContactOffice from './contactOffice';
 import { makeid, scrollTo } from '../utils/functions';
-// import {Size} from '@react-google-maps/api/src/components/
-// import ContactPin from './contactPin';
 import pin from '../../static/img/map-pin.svg';
 
 class ContactMap extends React.Component {
@@ -23,12 +21,8 @@ class ContactMap extends React.Component {
           lng: -7.603869,
         },
         zoom: 2.2,
-        // height: 600,
-        // width: '100%',
       },
       offset: null,
-      // offset: new window.google.maps.Size(0, 20),
-      // popupInfo: null,
     };
   }
 
@@ -40,7 +34,6 @@ class ContactMap extends React.Component {
   };
 
   updateViewport = viewportUpdate => {
-    // const {width, height, latitude, longitude, zoom} = viewportUpdate;
     this.setState({ viewport: viewportUpdate });
   };
 
@@ -186,9 +179,9 @@ class ContactMap extends React.Component {
           <div className="table-entry">
             <div className="table-pin" />
             <div className="table-details">
-              <div className="table-office">{label.about.HEADING_OFFICE}</div>
-              <div className="table-desc">{label.about.HEADING_DESC}</div>
-              <div className="table-countries">{label.about.HEADING_COUNTRIES}</div>
+              <div className="table-office heading">{label.about.HEADING_OFFICE}</div>
+              <div className="table-desc heading">{label.about.HEADING_DESC}</div>
+              <div className="table-countries heading">{label.about.HEADING_COUNTRIES}</div>
             </div>
           </div>
           {offices.map(office => (

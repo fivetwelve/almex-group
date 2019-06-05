@@ -102,7 +102,12 @@ const ContactTemplate = ({ data, pageContext }) => {
                 </div>
               </div>
               <RegionLookup />
-              <a href="#offices">Almex locations around the globe</a>
+              <div className="almex-locations">
+                <a href="#offices">
+                  <span className="more">{aboutLabel.about.ALMEX_LOCATIONS}</span>
+                  <span className="more-arrow">&nbsp;&raquo;</span>
+                </a>
+              </div>
               <ContactMap label={aboutLabel} locale={locale} offices={offices} />
             </div>
           </>
@@ -145,6 +150,7 @@ export const query = graphql`
             belongsTo
             contactPerson
             countries(locale: $locale)
+            countryCode
             description(locale: $locale)
             fax
             latitude
