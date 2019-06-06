@@ -107,7 +107,7 @@ const ContactOffice = props => {
       <div className="table-details">
         <div className="table-office">
           {countryCode && showFlag(countryCode)}
-          {name}
+          <em>{name}</em>
           <br />
           <Markdown source={address} />
           {telephone.length > 0 &&
@@ -146,12 +146,14 @@ const ContactOffice = props => {
           {tollFree.length > 0 &&
             tollFree.map(num => (
               <div key={`toll-free-${makeid()}`}>
-                <span className="toll-free">{label.about.TOLLFREE}</span>: {num}
+                <span className="toll-free">{label.about.TOLLFREE}: </span>
+                {num}
               </div>
             ))}
           {contactPerson && (
             <div>
-              <span className="contact-person">{label.about.CONTACT}</span>: {contactPerson}
+              <span className="contact-person">{label.about.CONTACT}: </span>
+              <em>{contactPerson}</em>
             </div>
           )}
         </div>

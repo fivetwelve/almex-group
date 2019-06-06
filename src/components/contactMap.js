@@ -110,12 +110,7 @@ class ContactMap extends React.Component {
                   position={{ lat: activeOffice.latitude, lng: activeOffice.longitude }}
                   options={{ pixelOffset: offset }}
                 >
-                  <div
-                    style={{
-                      background: `white`,
-                      padding: 15,
-                    }}
-                  >
+                  <div className="infoWindow-content">
                     <div className="infoWindow-name">{activeOffice.name}</div>
                     <div className="infoWindow-details">
                       <Markdown source={activeOffice.address} />
@@ -162,7 +157,7 @@ class ContactMap extends React.Component {
                       {activeOffice.contactPerson && (
                         <div>
                           <span className="contact-person">{label.about.CONTACT}: </span>
-                          {activeOffice.contactPerson}
+                          <em>{activeOffice.contactPerson}</em>
                         </div>
                       )}
                     </div>
