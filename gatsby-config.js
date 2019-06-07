@@ -1,6 +1,5 @@
-require('dotenv').config();
-
 const proxy = require('http-proxy-middleware');
+// const webpack = require('webpack');
 
 module.exports = {
   siteMetadata: {
@@ -23,6 +22,7 @@ module.exports = {
     );
   },
   plugins: [
+    // new webpack.DefinePlugin({ 'global.GENTLY': false }),
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sass`,
     // {
@@ -34,7 +34,6 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        // replace "UA-XXXXXXXXX-X" with your own Tracking ID
         trackingId: 'UA-136510250-1',
       },
     },

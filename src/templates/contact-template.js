@@ -11,6 +11,7 @@ import { allBrands } from '../constants';
 import { createLink } from '../utils/functions';
 
 import '../styles/contact.scss';
+import ContactForm from '../components/contactForm';
 
 const allowHTML = { html: true };
 
@@ -109,6 +110,7 @@ const ContactTemplate = ({ data, pageContext }) => {
                 </a>
               </div>
               <ContactMap label={aboutLabel} locale={locale} offices={offices} />
+              <ContactForm label={aboutLabel} />
             </div>
           </>
         )}
