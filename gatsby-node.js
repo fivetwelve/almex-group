@@ -242,6 +242,7 @@ exports.createPages = ({ graphql, actions }) => {
   });
 };
 
+// exports.onCreateWebpackConfig = ({ stage, loaders, actions, plugins }) => {
 exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
   if (stage === 'build-html') {
     actions.setWebpackConfig({
@@ -253,6 +254,11 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
           },
         ],
       },
+      // plugins: [plugins.define({ 'global.GENTLY': false })],
     });
   }
+  // Workaround for error when building forwardEmail lambda that relies on mailjet
+  // actions.setWebpackConfig({
+  //   plugins: [plugins.define({ 'global.GENTLY': false })],
+  // });
 };

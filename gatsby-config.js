@@ -1,5 +1,6 @@
+require('dotenv').config();
+
 const proxy = require('http-proxy-middleware');
-// const webpack = require('webpack');
 
 module.exports = {
   siteMetadata: {
@@ -22,7 +23,6 @@ module.exports = {
     );
   },
   plugins: [
-    // new webpack.DefinePlugin({ 'global.GENTLY': false }),
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sass`,
     // {
