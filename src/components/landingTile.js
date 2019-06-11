@@ -8,6 +8,7 @@ const LandingTile = ({ data, location, themeColour }) => {
   const { slug, subtitle, tile, title } = data;
   const imageStyle = {
     backgroundImage: tile && `url(${tile.url})`,
+    backgroundColor: !tile && '#e5e6e8',
   };
 
   return (
