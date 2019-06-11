@@ -29,7 +29,7 @@ class ContactForm extends React.Component {
 
   handleSubmit = async evt => {
     const { params } = this.state;
-    console.log(params);
+    // console.log(params);
     evt.preventDefault();
     const form = evt.target;
     try {
