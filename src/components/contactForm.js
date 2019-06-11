@@ -27,21 +27,42 @@ class ContactForm extends React.Component {
     this.setState({ params: { 'g-recaptcha-response': value } });
   };
 
-  handleSubmit = evt => {
+  handleSubmit = async evt => {
     const { params } = this.state;
+    console.log(params);
     evt.preventDefault();
     const form = evt.target;
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: encode({
-        'form-name': form.getAttribute('name'),
-        ...params,
-      }),
-    })
-      // .then(() => navigateTo(form.getAttribute('action')))
-      .then(() => this.showSuccess())
-      .catch(error => this.showError(error));
+    try {
+      // const response = await fetch('/forwardEmail', {
+      const response = await fetch('http://localhost:9000/forwardEmail', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encode({
+          'form-name': form.getAttribute('name'),
+          ...params,
+        }),
+      });
+      console('=============');
+      console(response);
+      if (!response.ok) {
+        /* NOT res.status >= 200 && res.status < 300 */
+        return { statusCode: response.status, body: response.statusText };
+      }
+      const data = await response.json();
+
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ msg: data }),
+      };
+    } catch (err) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ msg: err.message }), // Could be a custom message or object i.e. JSON.stringify(err)
+      };
+    }
+    // .then(() => navigateTo(form.getAttribute('action')))
+    // .then(() => this.showSuccess())
+    // .catch(error => this.showError(error));
   };
 
   // handleSubmit = e => {
@@ -146,7 +167,7 @@ class ContactForm extends React.Component {
           </p>
           {message && <p>{message}</p>}
         </form> */}
-        <form name="contact" method="POST" data-netlify="true" onSubmit={this.handleSubmit2}>
+        <form name="contact" method="POST" data-netlify="true" onSubmit={this.handleSubmit}>
           <input type="hidden" name="form-name" value="contact" />
           <p>
             <label htmlFor="name">

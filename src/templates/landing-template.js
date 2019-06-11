@@ -187,21 +187,24 @@ export const query = graphql`
           landingSections {
             title(locale: $locale)
             pages {
-              slug(locale: $locale)
               pageType
+              slug(locale: $locale)
+              tile {
+                url
+              }
               product: productSource {
                 title(locale: $locale)
                 subtitle(locale: $locale)
-                tileImage {
-                  url
-                }
+                # tileImage {
+                #   url
+                # }
               }
               landing: landingSource {
                 title(locale: $locale)
                 subtitle(locale: $locale)
-                tileImage {
-                  url
-                }
+                # tileImage {
+                #   url
+                # }
               }
             }
           }

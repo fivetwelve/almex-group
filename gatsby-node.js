@@ -254,11 +254,6 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
           },
         ],
       },
-      // plugins: [plugins.define({ 'global.GENTLY': false })],
     });
   }
-  // Workaround for error when building forwardEmail lambda that relies on mailjet
-  // actions.setWebpackConfig({
-  //   plugins: [plugins.define({ 'global.GENTLY': false })],
-  // });
 };

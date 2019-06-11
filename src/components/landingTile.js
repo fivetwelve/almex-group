@@ -5,9 +5,9 @@ import { createLink } from '../utils/functions';
 import '../styles/landingTile.scss';
 
 const LandingTile = ({ data, location, themeColour }) => {
-  const { slug, subtitle, tileImage, title } = data;
+  const { slug, subtitle, tile, title } = data;
   const imageStyle = {
-    backgroundImage: `url(${tileImage.url})`,
+    backgroundImage: tile && `url(${tile.url})`,
   };
 
   return (
@@ -45,7 +45,7 @@ LandingTile.propTypes = {
   data: PropTypes.shape({
     slug: PropTypes.string,
     subtitle: PropTypes.string,
-    tileImage: PropTypes.object,
+    tile: PropTypes.object,
     title: PropTypes.string,
   }),
   location: PropTypes.shape({
