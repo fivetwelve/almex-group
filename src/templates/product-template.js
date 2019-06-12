@@ -196,10 +196,10 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               <div className="product-accessories">
                 {accessories.map(accessory => (
                   <AccessoryAndRelatedTile
-                    image={accessory.productSource.thumbnail}
                     location={location}
                     slug={accessory.slug}
-                    title={accessory.productSource.title}
+                    tile={accessory.tile}
+                    title={accessory.title}
                     key={makeid()}
                   />
                 ))}
@@ -215,10 +215,10 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               <div className="product-related-items">
                 {relatedItems.map(relatedItem => (
                   <AccessoryAndRelatedTile
-                    image={relatedItem.productSource.thumbnail}
                     location={location}
                     slug={relatedItem.slug}
-                    title={relatedItem.productSource.title}
+                    tile={relatedItem.tile}
+                    title={relatedItem.title}
                     key={makeid()}
                   />
                 ))}
@@ -293,22 +293,18 @@ export const query = graphql`
           pdfTitles(locale: $locale)
           attractText
           accessories {
-            slug
-            productSource {
-              title(locale: $locale)
-              thumbnail {
-                url
-              }
+            slug(locale: $locale)
+            tile {
+              url
             }
+            title(locale: $locale)
           }
           relatedItems {
-            slug
-            productSource {
-              title(locale: $locale)
-              thumbnail {
-                url
-              }
+            slug(locale: $locale)
+            tile {
+              url
             }
+            title(locale: $locale)
           }
         }
       }

@@ -3,6 +3,15 @@ import { allPageTypes } from '../constants';
 
 const { fetch } = fetchPonyfill();
 
+const apiUrl = () => {
+  if (typeof window !== 'undefined') {
+    return window.location.hostname === 'localhost'
+      ? 'http://localhost:8000/.netlify/functions'
+      : `https://${window.location.hostname}/.netlify/functions`;
+  }
+  return false;
+};
+
 const createLink = (location, slug) => {
   /*
     - Have established that URLs will always be formed as: /region/locale/slug/
@@ -487,6 +496,7 @@ const scrollTo = (to, callback, duration) => {
 };
 
 export {
+  apiUrl,
   createLink,
   createLinkFromPage,
   fetch,

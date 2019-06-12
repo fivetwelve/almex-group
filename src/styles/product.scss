@@ -550,7 +550,17 @@ $spacing: 20px;
       padding-left: 20px;
       padding-right: 20px;
       flex-wrap: wrap;
-      align-items: flex-end;
+      // align-items: flex-end;
+      align-items: center;
+      @include media('>=tablet') {
+        flex-wrap: nowrap;
+        a {
+          margin-right: 20px;
+          &:last-child {
+            margin-right: 0;
+          }
+        }
+      }
       .tile {
         .title {
           font-size: 20px;
@@ -558,10 +568,12 @@ $spacing: 20px;
           margin-top: 30px;
           margin-bottom: 15px;
         }
-        flex: 1 1 0;
+        flex: 1 1 275px;
         display: flex;
         flex-direction: column;
         min-width: 200px;
+        max-height: 275px;
+        max-width: 275px;
         &:not(:last-child) {
           margin-right: 46.6px;
         }
@@ -569,11 +581,24 @@ $spacing: 20px;
           min-width: 140px;
         }
         .image-container {
+          // display: flex;
+          // flex: 1 1 275px;
+          // height: 100%;
+          // width: 100%;
+          // // justify-content: space-between;
+          max-height: 275px;
+          max-width: 275px;
+          // justify-items: center;
           img {
-            height: 100%;
-            width: 100%;
-            max-height: 275px;
-            max-width: 275px;
+            // width: 100%;
+            object-fit: cover;
+          }
+          .background {
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            height: 275px;
+            width: 275px;
           }
         }
       }

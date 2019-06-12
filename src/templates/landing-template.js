@@ -69,12 +69,14 @@ const LandingTemplate = ({ data, pageContext }) => {
         case allPageTypes.LANDING:
           tileData = {
             slug: page.slug,
+            tile: page.tile,
             ...page.landing,
           };
           break;
         case allPageTypes.PRODUCT:
           tileData = {
             slug: page.slug,
+            tile: page.tile,
             ...page.product,
           };
           break;
