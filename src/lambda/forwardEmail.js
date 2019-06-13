@@ -5,33 +5,33 @@ const { MJ_APIKEY_PUBLIC, MJ_APIKEY_PRIVATE } = process.env;
 const mailjet = Mailjet.connect(MJ_APIKEY_PUBLIC, MJ_APIKEY_PRIVATE);
 
 exports.handler = async (event, context, callback) => {
-  // try {
+  const params = JSON.parse(event.body);
+  const destinationEmails = [];
+  for (let i = 0; i < params.destination.length; i += 1) {
+    const email = { Email: params.destination[i] };
+    destinationEmails.push(email);
+  }
 
-  // } catch (err) {
-
-  // }
-  console.log('-------event');
-  console.log(event);
-  console.log('-------context');
-  console.log(context);
   const request = await mailjet.post('send', { version: 'v3.1' }).request({
     Messages: [
       {
         From: {
-          // Email: 'victor.chan@almex.com',
-          Email: 'pilot@mailjet.com',
-          Name: 'Mailjet Pilot',
+          Email: params.contactEmail,
+          Name: params.contactName,
         },
-        To: [
-          {
-            Email: 'hello@fivetwelve.ca',
-            Name: 'passenger 1',
-          },
-        ],
-        Subject: 'Your email flight plan!',
-        TextPart: 'Dear passenger 1, welcome to Mailjet! May the delivery force be with you!',
-        HTMLPart:
-          '<h3>Dear passenger 1, welcome to <a href="https://www.mailjet.com/">Mailjet</a>!</h3><br />May the delivery force be with you!',
+        To: destinationEmails,
+        Subject: 'Message from Almex website',
+        TextPart: params.contactMessage,
+        HTMLPart: `<h3>A new message has been delivered via the Almex website</h3>
+        <ul>
+        <li>Name: ${params.contactName}</li>
+        <li>Email: ${params.contactEmail}</li>
+        <li>Position: ${params.contactPosition}</li>
+        <li>Company: ${params.contactCompany}</li>
+        <li>Phone: ${params.contactPhone}</li>
+        <li>Country: ${params.contactCountry}</li>
+        </ul>
+        <p><b>Message:</b><br/>${params.contactMessage}</p>`,
       },
     ],
   });

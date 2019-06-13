@@ -183,5 +183,12 @@ $spacing: 20px;
         }
       }
     }
+    .contact-form {
+      button {
+        &.disabled {
+          opacity: 0.5;
+        }
+      }
+    }
   }
 }

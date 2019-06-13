@@ -110,7 +110,7 @@ const ContactTemplate = ({ data, pageContext }) => {
                 </a>
               </div>
               <ContactMap label={aboutLabel} locale={locale} offices={offices} />
-              <ContactForm label={aboutLabel} />
+              <ContactForm label={aboutLabel} offices={offices} />
             </div>
           </>
         )}
@@ -154,6 +154,7 @@ export const query = graphql`
             countries(locale: $locale)
             countryCode
             description(locale: $locale)
+            email
             fax
             latitude
             longitude
