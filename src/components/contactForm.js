@@ -9,25 +9,36 @@ class ContactForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      contactName: '',
+      contactEmail: '',
+      contactPosition: '',
+      contactCompany: '',
+      contactPhone: '',
+      contactCountry: '',
+      contactMessage: '',
+      contactOffice: '',
       message: null,
       submitDisabled: true,
     };
-    this.recaptcha = React.createRef();
+    this.recaptchaRef = React.createRef();
   }
 
   handleChange = evt => {
     const { target } = evt;
+    const { message } = this.state;
+    if (message) {
+      this.setState({ message: null });
+    }
     this.setState({
       [target.name]: target.value,
     });
   };
 
-  handleKeyUp = evt => {
-    if (evt.keyCode === 13) return this.handleSubmit(evt);
-    return false;
-  };
-
   handleRecaptcha = value => {
+    const { message } = this.state;
+    if (message) {
+      this.setState({ message: null });
+    }
     if (value) {
       this.setState({ submitDisabled: false });
     } else {
@@ -55,19 +66,29 @@ class ContactForm extends React.Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...params }),
       });
-      console('=============');
-      console(response);
+      // console.log(response);
       if (!response.ok) {
         /* NOT res.status >= 200 && res.status < 300 */
-        return { statusCode: response.status, body: response.statusText };
+        // return { statusCode: response.status, body: response.statusText };
+        this.setState({
+          message: 'Sorry there was an error. Please try again later.',
+        });
+      } else {
+        this.setState({
+          message: 'Your message has been sent!',
+        });
+        this.resetForm();
+        this.recaptchaRef.current.reset();
       }
-      const data = await response.json();
-
       return {
         statusCode: 200,
-        body: JSON.stringify({ msg: data }),
+        body: { msg: 'Success!' },
       };
     } catch (err) {
+      // console.log('error!');
+      this.setState({
+        message: 'Sorry there was an error. Please try again later.',
+      });
       return {
         statusCode: 500,
         body: JSON.stringify({ msg: err.message }), // Could be a custom message or object i.e. JSON.stringify(err)
@@ -78,73 +99,127 @@ class ContactForm extends React.Component {
     // // .catch(error => this.showError(error));
   };
 
+  resetForm = () => {
+    this.setState({
+      contactName: '',
+      contactEmail: '',
+      contactPosition: '',
+      contactCompany: '',
+      contactPhone: '',
+      contactCountry: '',
+      contactMessage: '',
+      contactOffice: '',
+      submitDisabled: true,
+    });
+  };
+
   showError = error => {
     this.setState({ message: error });
   };
 
   showSuccess = () => {
-    this.setState({ message: 'Success!' });
+    this.setState({ message: 'Thank you. Your message has been sent.' });
   };
 
   render() {
     const { label, offices } = this.props;
-    const { contactOffice, message, submitDisabled } = this.state;
+    const {
+      contactEmail,
+      contactCompany,
+      contactCountry,
+      contactName,
+      contactOffice,
+      contactPhone,
+      contactPosition,
+      contactMessage,
+      message,
+      submitDisabled,
+    } = this.state;
     return (
       <div>
-        <form
-          className="contact-form"
-          name="contact"
-          method="POST"
-          onChange={this.handleChange}
-          onSubmit={this.handleSubmit}
-        >
+        <form className="contact-form" name="contact" method="POST" onSubmit={this.handleSubmit}>
           <p>
             <label htmlFor="contactName">
               <span className="label-input">{label.about.FORM_NAME}</span>
               <br />
-              <input type="text" name="contactName" />
+              <input
+                type="text"
+                name="contactName"
+                onChange={evt => this.handleChange(evt)}
+                value={contactName}
+              />
             </label>
           </p>
           <p>
             <label htmlFor="contactEmail">
               <span className="label-input">{label.about.FORM_EMAIL}</span>
               <br />
-              <input type="email" name="contactEmail" />
+              <input
+                type="email"
+                name="contactEmail"
+                onChange={evt => this.handleChange(evt)}
+                value={contactEmail}
+              />
             </label>
           </p>
           <p>
             <label htmlFor="contactPosition">
               <span className="label-input">{label.about.FORM_POSITION}</span>
               <br />
-              <input type="text" name="contactPosition" />
+              <input
+                type="text"
+                name="contactPosition"
+                onChange={evt => this.handleChange(evt)}
+                value={contactPosition}
+              />
             </label>
           </p>
           <p>
             <label htmlFor="contactCompany">
               <span className="label-input">{label.about.FORM_COMPANY}</span>
               <br />
-              <input type="text" name="contactCompany" />
+              <input
+                type="text"
+                name="contactCompany"
+                onChange={evt => this.handleChange(evt)}
+                value={contactCompany}
+              />
             </label>
           </p>
           <p>
             <label htmlFor="contactPhone">
               <span className="label-input">{label.about.FORM_PHONE}</span>
               <br />
-              <input type="text" name="contactPhone" />
+              <input
+                type="text"
+                name="contactPhone"
+                onChange={evt => this.handleChange(evt)}
+                value={contactPhone}
+              />
             </label>
           </p>
           <p>
             <label htmlFor="contactCountry">
               <span className="label-input">{label.about.FORM_COUNTRY}</span>
               <br />
-              <input type="text" name="contactCountry" />
+              <input
+                type="text"
+                name="contactCountry"
+                onChange={evt => this.handleChange(evt)}
+                value={contactCountry}
+              />
             </label>
           </p>
           <p>
             <label htmlFor="contactOffice">
-              <span className="label-input">{label.about.FORM_COUNTRY}</span>
+              <span className="label-input">{label.about.FORM_ALMEX_OFFICE}</span>
               <br />
-              <select name="contactOffice" value={contactOffice} readOnly>
+              <select
+                name="contactOffice"
+                value={contactOffice}
+                onChange={evt => this.handleChange(evt)}
+                readOnly
+              >
                 <option value="">Select an office</option>
                 {offices &&
                   offices.map((office, idx) => (
@@ -160,11 +235,15 @@ class ContactForm extends React.Component {
             <label htmlFor="contactMessage">
               <span className="label-input">{label.about.FORM_MESSAGE}</span>
               <br />
-              <textarea name="contactMessage" />
+              <textarea
+                name="contactMessage"
+                onChange={evt => this.handleChange(evt)}
+                value={contactMessage}
+              />
             </label>
           </p>
           <Recaptcha
-            ref={this.recaptcha}
+            ref={this.recaptchaRef}
             sitekey={process.env.SITE_RECAPTCHA_KEY}
             onChange={this.handleRecaptcha}
           />
