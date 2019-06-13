@@ -16,6 +16,7 @@ exports.handler = (event, context, callback) => {
       {
         From: {
           Email: params.contactEmail,
+          /* use the following for testing errors on FE */
           // Email: 'pilot@mailjet.com',
           Name: params.contactName,
         },
@@ -43,7 +44,6 @@ exports.handler = (event, context, callback) => {
         body: JSON.stringify(res.body),
       });
     })
-    // .catch(err => console.log(err));
     .catch(err => {
       console.log(err);
       callback(err);

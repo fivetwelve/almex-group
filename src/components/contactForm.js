@@ -66,37 +66,26 @@ class ContactForm extends React.Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...params }),
       });
-      // console.log(response);
-      if (!response.ok) {
-        /* NOT res.status >= 200 && res.status < 300 */
-        // return { statusCode: response.status, body: response.statusText };
-        this.setState({
-          message: 'Sorry there was an error. Please try again later.',
-        });
-      } else {
+      if (response.ok) {
         this.setState({
           message: 'Your message has been sent!',
         });
         this.resetForm();
         this.recaptchaRef.current.reset();
+      } else {
+        this.setState({
+          message: 'Sorry there was an error. Please try again later.',
+          submitDisabled: true,
+        });
+        this.recaptchaRef.current.reset();
       }
-      return {
-        statusCode: 200,
-        body: { msg: 'Success!' },
-      };
     } catch (err) {
-      // console.log('error!');
       this.setState({
-        message: 'Sorry there was an error. Please try again later.',
+        message: 'Sorry, there was an error. Please try again later.',
+        submitDisabled: true,
       });
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ msg: err.message }), // Could be a custom message or object i.e. JSON.stringify(err)
-      };
+      this.recaptchaRef.current.reset();
     }
-    // // .then(() => navigateTo(form.getAttribute('action')))
-    // // .then(() => this.showSuccess())
-    // // .catch(error => this.showError(error));
   };
 
   resetForm = () => {
@@ -146,6 +135,7 @@ class ContactForm extends React.Component {
                 type="text"
                 name="contactName"
                 onChange={evt => this.handleChange(evt)}
+                required
                 value={contactName}
               />
             </label>
@@ -158,6 +148,7 @@ class ContactForm extends React.Component {
                 type="email"
                 name="contactEmail"
                 onChange={evt => this.handleChange(evt)}
+                required
                 value={contactEmail}
               />
             </label>
@@ -170,6 +161,7 @@ class ContactForm extends React.Component {
                 type="text"
                 name="contactPosition"
                 onChange={evt => this.handleChange(evt)}
+                required
                 value={contactPosition}
               />
             </label>
@@ -182,6 +174,7 @@ class ContactForm extends React.Component {
                 type="text"
                 name="contactCompany"
                 onChange={evt => this.handleChange(evt)}
+                required
                 value={contactCompany}
               />
             </label>
@@ -194,6 +187,7 @@ class ContactForm extends React.Component {
                 type="text"
                 name="contactPhone"
                 onChange={evt => this.handleChange(evt)}
+                required
                 value={contactPhone}
               />
             </label>
@@ -206,6 +200,7 @@ class ContactForm extends React.Component {
                 type="text"
                 name="contactCountry"
                 onChange={evt => this.handleChange(evt)}
+                required
                 value={contactCountry}
               />
             </label>
@@ -218,7 +213,7 @@ class ContactForm extends React.Component {
                 name="contactOffice"
                 value={contactOffice}
                 onChange={evt => this.handleChange(evt)}
-                readOnly
+                required
               >
                 <option value="">Select an office</option>
                 {offices &&
@@ -238,6 +233,7 @@ class ContactForm extends React.Component {
               <textarea
                 name="contactMessage"
                 onChange={evt => this.handleChange(evt)}
+                required
                 value={contactMessage}
               />
             </label>
