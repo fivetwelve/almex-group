@@ -101,14 +101,18 @@ const ContactTemplate = ({ data, pageContext }) => {
                   </div>
                 </div>
               </div>
+
               <RegionLookup />
+
               <div className="almex-locations">
                 <a href="#offices">
                   <span className="more">{aboutLabel.about.ALMEX_LOCATIONS}</span>
                   <span className="more-arrow">&nbsp;&raquo;</span>
                 </a>
               </div>
+
               <ContactMap label={aboutLabel} locale={locale} offices={offices} />
+
               <ContactForm label={aboutLabel} offices={offices} />
             </div>
           </>
