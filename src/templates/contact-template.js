@@ -44,7 +44,6 @@ const ContactTemplate = ({ data, pageContext }) => {
       region={region}
       title=""
     >
-      {/* <ContactMap /> */}
       <Location>
         {({ location }) => (
           <>
