@@ -10,7 +10,7 @@ class ContactModal extends React.Component {
   constructor(props) {
     super(props);
     const subjectArray = [];
-    Object.entries(props.label.about).forEach(([key, value]) => {
+    Object.entries(props.aboutLabel.about).forEach(([key, value]) => {
       if (key.indexOf('FORM_SUBJECT_') > -1) {
         subjectArray.push(value);
       }
@@ -130,7 +130,7 @@ class ContactModal extends React.Component {
   };
 
   render() {
-    const { label, offices, selectedOffice, showModal } = this.props;
+    const { aboutLabel, label, offices, selectedOffice, showModal } = this.props;
     const {
       contactName,
       contactEmail,
@@ -174,8 +174,8 @@ class ContactModal extends React.Component {
                 <div className="field">
                   <label htmlFor="contactName">
                     <div className="label">
-                      <span className="label-input">{label.about.FORM_NAME}</span>
-                      <span className="required">* {label.about.FORM_REQUIRED}</span>
+                      <span className="label-input">{aboutLabel.about.FORM_NAME}</span>
+                      <span className="required">* {aboutLabel.about.FORM_REQUIRED}</span>
                     </div>
                     <input
                       type="text"
@@ -189,8 +189,8 @@ class ContactModal extends React.Component {
                 <div className="field">
                   <label htmlFor="contactEmail">
                     <div className="label">
-                      <span className="label-input">{label.about.FORM_EMAIL}</span>
-                      <span className="required">* {label.about.FORM_REQUIRED}</span>
+                      <span className="label-input">{aboutLabel.about.FORM_EMAIL}</span>
+                      <span className="required">* {aboutLabel.about.FORM_REQUIRED}</span>
                     </div>
                     <input
                       type="email"
@@ -204,8 +204,8 @@ class ContactModal extends React.Component {
                 <div className="field">
                   <label htmlFor="contactPosition">
                     <div className="label">
-                      <span className="label-input">{label.about.FORM_POSITION}</span>
-                      <span className="required">* {label.about.FORM_REQUIRED}</span>
+                      <span className="label-input">{aboutLabel.about.FORM_POSITION}</span>
+                      <span className="required">* {aboutLabel.about.FORM_REQUIRED}</span>
                     </div>
                     <input
                       type="text"
@@ -219,8 +219,8 @@ class ContactModal extends React.Component {
                 <div className="field">
                   <label htmlFor="contactCompany">
                     <div className="label">
-                      <span className="label-input">{label.about.FORM_COMPANY}</span>
-                      <span className="required">* {label.about.FORM_REQUIRED}</span>
+                      <span className="label-input">{aboutLabel.about.FORM_COMPANY}</span>
+                      <span className="required">* {aboutLabel.about.FORM_REQUIRED}</span>
                     </div>
                     <input
                       type="text"
@@ -234,8 +234,8 @@ class ContactModal extends React.Component {
                 <div className="field">
                   <label htmlFor="contactPhone">
                     <div className="label">
-                      <span className="label-input">{label.about.FORM_PHONE}</span>
-                      <span className="required">* {label.about.FORM_REQUIRED}</span>
+                      <span className="label-input">{aboutLabel.about.FORM_PHONE}</span>
+                      <span className="required">* {aboutLabel.about.FORM_REQUIRED}</span>
                     </div>
                     <input
                       type="text"
@@ -249,8 +249,8 @@ class ContactModal extends React.Component {
                 <div className="field">
                   <label htmlFor="contactCountry">
                     <div className="label">
-                      <span className="label-input">{label.about.FORM_COUNTRY}</span>
-                      <span className="required">* {label.about.FORM_REQUIRED}</span>
+                      <span className="label-input">{aboutLabel.about.FORM_COUNTRY}</span>
+                      <span className="required">* {aboutLabel.about.FORM_REQUIRED}</span>
                     </div>
                     <input
                       type="text"
@@ -264,8 +264,8 @@ class ContactModal extends React.Component {
                 <div className="field">
                   <label htmlFor="contactOffice">
                     <div className="label">
-                      <span className="label-input">{label.about.FORM_ALMEX_OFFICE}</span>
-                      <span className="required">* {label.about.FORM_REQUIRED}</span>
+                      <span className="label-input">{aboutLabel.about.FORM_ALMEX_OFFICE}</span>
+                      <span className="required">* {aboutLabel.about.FORM_REQUIRED}</span>
                     </div>
                     <select
                       name="contactOffice"
@@ -273,7 +273,7 @@ class ContactModal extends React.Component {
                       onChange={evt => this.handleChange(evt)}
                       required
                     >
-                      <option value="">{label.about.FORM_PLEASE_SELECT}</option>
+                      <option value="">{aboutLabel.about.FORM_PLEASE_SELECT}</option>
                       {offices &&
                         offices.map((office, idx) => {
                           if (String(idx) === selectedOffice || office.backupOffice) {
@@ -291,8 +291,8 @@ class ContactModal extends React.Component {
                 <div className="field">
                   <label htmlFor="contactSubject">
                     <div className="label">
-                      <span className="label-input">{label.about.FORM_SUBJECT}</span>
-                      <span className="required">* {label.about.FORM_REQUIRED}</span>
+                      <span className="label-input">{aboutLabel.about.FORM_SUBJECT}</span>
+                      <span className="required">* {aboutLabel.about.FORM_REQUIRED}</span>
                     </div>
                     <select
                       name="contactSubject"
@@ -300,7 +300,7 @@ class ContactModal extends React.Component {
                       onChange={evt => this.handleChange(evt)}
                       required
                     >
-                      <option value="">{label.about.FORM_PLEASE_SELECT}</option>
+                      <option value="">{aboutLabel.about.FORM_PLEASE_SELECT}</option>
                       {subjects &&
                         subjects.map(subject => (
                           <option key={makeid()} value={subject}>
@@ -313,8 +313,8 @@ class ContactModal extends React.Component {
                 <div className="field">
                   <label htmlFor="contactMessage">
                     <div className="label">
-                      <span className="label-input">{label.about.FORM_MESSAGE}</span>
-                      <span className="required">* {label.about.FORM_REQUIRED}</span>
+                      <span className="label-input">{aboutLabel.about.FORM_MESSAGE}</span>
+                      <span className="required">* {aboutLabel.about.FORM_REQUIRED}</span>
                     </div>
                     <textarea
                       name="contactMessage"
@@ -351,6 +351,7 @@ class ContactModal extends React.Component {
 }
 
 ContactModal.defaultProps = {
+  aboutLabel: {},
   hideModal: () => {},
   label: {},
   offices: null,
@@ -360,9 +361,11 @@ ContactModal.defaultProps = {
 };
 
 ContactModal.propTypes = {
+  aboutLabel: PropTypes.shape({
+    about: PropTypes.object,
+  }),
   hideModal: PropTypes.func,
   label: PropTypes.shape({
-    about: PropTypes.object,
     common: PropTypes.object,
   }),
   offices: PropTypes.arrayOf(

@@ -47,6 +47,7 @@ class ContactTemplate extends React.Component {
     const { locale, siteData, region } = pageContext;
     const {
       cms: {
+        aboutLabel,
         brandNavigation,
         headerFooter,
         label,
@@ -85,7 +86,7 @@ class ContactTemplate extends React.Component {
               </div>
               <div className="links">
                 <div className="resources">
-                  <div className="label">{label.about.RESOURCES}</div>
+                  <div className="label">{aboutLabel.about.RESOURCES}</div>
                 </div>
               </div>
             </div>
@@ -94,18 +95,19 @@ class ContactTemplate extends React.Component {
 
             <div className="almex-locations">
               <a href="#offices">
-                <span className="more">{label.about.ALMEX_LOCATIONS}</span>
+                <span className="more">{aboutLabel.about.ALMEX_LOCATIONS}</span>
                 <span className="more-arrow">&nbsp;&raquo;</span>
               </a>
             </div>
             <ContactMap
-              label={label}
+              aboutLabel={aboutLabel}
               locale={locale}
               offices={offices}
               handleContactUs={this.handleContactUs}
             />
             <div className="contact-shroud" ref={this.shroud} />
             <ContactModal
+              aboutLabel={aboutLabel}
               hideModal={this.handleHideModal}
               label={label}
               offices={offices}
@@ -141,9 +143,8 @@ export const query = graphql`
   query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
     cms {
       ...CommonQuery
-      label(where: { availableIn: $region }) {
+      aboutLabel: label(where: { availableIn: $region }) {
         about(locale: $locale)
-        common(locale: $locale)
       }
       page(where: { id: $id }) {
         contact: contactSource {

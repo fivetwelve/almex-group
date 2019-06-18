@@ -73,7 +73,7 @@ class ContactMap extends React.Component {
 
   render() {
     const { activeOffice, infoWindowVisible, offset, viewport } = this.state;
-    const { label, locale, offices, handleContactUs } = this.props;
+    const { aboutLabel, locale, offices, handleContactUs } = this.props;
 
     return (
       <>
@@ -146,13 +146,13 @@ class ContactMap extends React.Component {
                       {activeOffice.tollFree.length > 0 &&
                         activeOffice.tollFree.map(num => (
                           <div key={`free-${makeid()}`}>
-                            <span className="contact-person">{label.about.TOLLFREE}: </span>
+                            <span className="contact-person">{aboutLabel.about.TOLLFREE}: </span>
                             {num}
                           </div>
                         ))}
                       {activeOffice.contactPerson && (
                         <div>
-                          <span className="contact-person">{label.about.CONTACT}: </span>
+                          <span className="contact-person">{aboutLabel.about.CONTACT}: </span>
                           <em>{activeOffice.contactPerson}</em>
                         </div>
                       )}
@@ -168,16 +168,16 @@ class ContactMap extends React.Component {
           <div className="table-entry">
             <div className="table-pin" />
             <div className="table-details">
-              <div className="table-office heading">{label.about.HEADING_OFFICE}</div>
-              <div className="table-desc heading">{label.about.HEADING_DESC}</div>
-              <div className="table-countries heading">{label.about.HEADING_COUNTRIES}</div>
+              <div className="table-office heading">{aboutLabel.about.HEADING_OFFICE}</div>
+              <div className="table-desc heading">{aboutLabel.about.HEADING_DESC}</div>
+              <div className="table-countries heading">{aboutLabel.about.HEADING_COUNTRIES}</div>
             </div>
           </div>
           {offices.map((office, index) => (
             <ContactOffice
               goToOffice={this.goToOffice}
               key={makeid()}
-              label={label}
+              aboutLabel={aboutLabel}
               office={office}
               officeIndex={index}
               handleContactUs={handleContactUs}
@@ -190,14 +190,14 @@ class ContactMap extends React.Component {
 }
 
 ContactMap.defaultProps = {
-  label: {},
+  aboutLabel: {},
   locale: 'EN',
   offices: null,
   handleContactUs: () => {},
 };
 
 ContactMap.propTypes = {
-  label: PropTypes.shape({
+  aboutLabel: PropTypes.shape({
     about: PropTypes.object,
   }),
   locale: PropTypes.string,

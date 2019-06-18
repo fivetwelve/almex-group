@@ -73,8 +73,8 @@ const showFlag = countryAbbrev => {
 
 const ContactOffice = props => {
   const {
+    aboutLabel,
     goToOffice,
-    label,
     office: {
       address,
       contactPerson,
@@ -147,13 +147,13 @@ const ContactOffice = props => {
           {tollFree.length > 0 &&
             tollFree.map(num => (
               <div key={`toll-free-${makeid()}`}>
-                <span className="toll-free">{label.about.TOLLFREE}: </span>
+                <span className="toll-free">{aboutLabel.about.TOLLFREE}: </span>
                 {num}
               </div>
             ))}
           {contactPerson && (
             <div>
-              <span className="contact-person">{label.about.CONTACT}: </span>
+              <span className="contact-person">{aboutLabel.about.CONTACT}: </span>
               <em>{contactPerson}</em>
             </div>
           )}
@@ -162,7 +162,7 @@ const ContactOffice = props => {
           <p>{description}</p>
           <p>
             <button type="button" onClick={() => handleContactUs(officeIndex)}>
-              {label.about.CONTACT_US}
+              {aboutLabel.about.CONTACT_US}
             </button>
           </p>
         </div>
@@ -174,7 +174,7 @@ const ContactOffice = props => {
 
 ContactOffice.defaultProps = {
   goToOffice: () => {},
-  label: {},
+  aboutLabel: {},
   office: {
     address: '',
     belongsTo: '',
@@ -193,7 +193,7 @@ ContactOffice.defaultProps = {
 };
 
 ContactOffice.propTypes = {
-  label: PropTypes.shape({
+  aboutLabel: PropTypes.shape({
     about: PropTypes.object,
   }),
   goToOffice: PropTypes.func,
