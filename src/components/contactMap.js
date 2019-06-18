@@ -73,7 +73,7 @@ class ContactMap extends React.Component {
 
   render() {
     const { activeOffice, infoWindowVisible, offset, viewport } = this.state;
-    const { label, locale, offices } = this.props;
+    const { label, locale, offices, handleContactUs } = this.props;
 
     return (
       <>
@@ -81,12 +81,8 @@ class ContactMap extends React.Component {
           <LoadScript
             googleMapsApiKey="AIzaSyCPjZIbrcLv2B8t92OoiMoPxhnLQ4_kNpY"
             language={locale}
-            // version={'weekly'}
-            // onLoad={onLoad}
             onLoad={() => this.updateState()}
             // onError={onError}
-            // loadingElement={Loading}
-            // libraries={googleMapsLibraries}
           >
             <GoogleMap
               id="my-map"
@@ -177,12 +173,14 @@ class ContactMap extends React.Component {
               <div className="table-countries heading">{label.about.HEADING_COUNTRIES}</div>
             </div>
           </div>
-          {offices.map(office => (
+          {offices.map((office, index) => (
             <ContactOffice
               goToOffice={this.goToOffice}
               key={makeid()}
               label={label}
               office={office}
+              officeIndex={index}
+              handleContactUs={handleContactUs}
             />
           ))}
         </div>
@@ -195,6 +193,7 @@ ContactMap.defaultProps = {
   label: {},
   locale: 'EN',
   offices: null,
+  handleContactUs: () => {},
 };
 
 ContactMap.propTypes = {
@@ -209,6 +208,7 @@ ContactMap.propTypes = {
       name: PropTypes.string,
     }),
   ),
+  handleContactUs: PropTypes.func,
 };
 
 export default ContactMap;

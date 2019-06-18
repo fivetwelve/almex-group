@@ -15,10 +15,10 @@ exports.handler = (event, context, callback) => {
     Messages: [
       {
         From: {
-          Email: params.contactEmail,
+          Email: 'info@almex.com',
           /* use the following for testing errors on FE */
           // Email: 'pilot@mailjet.com',
-          Name: params.contactName,
+          Name: 'Almex website',
         },
         To: destinationEmails,
         Subject: 'Message from Almex website',
@@ -32,6 +32,7 @@ exports.handler = (event, context, callback) => {
         <li>Phone: ${params.contactPhone}</li>
         <li>Country: ${params.contactCountry}</li>
         </ul>
+        <h3>${params.contactSubject}</h3>
         <p><b>Message:</b><br/>${params.contactMessage}</p>`,
       },
     ],

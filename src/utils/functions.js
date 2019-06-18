@@ -33,6 +33,10 @@ const createLinkFromPage = (location, page, language) => {
   return createLink(location, slug);
 };
 
+// const getOffice = countryCode => {
+
+// }
+
 const getRegion = countryCode => {
   /* Region mappings
      API = Asia Pacific Indonesia
@@ -267,7 +271,7 @@ const getSlug = pathname => {
   return slug;
 };
 
-const getTitle = (page, language = '') => {
+const getTitle = page => {
   /*
     Get title from staticQuery from forms of titleEN, titleES, etc. or
     simply from page object when query is already language-filtered.
@@ -275,31 +279,43 @@ const getTitle = (page, language = '') => {
   let title = '';
   switch (page.pageType) {
     case allPageTypes.ABOUT:
-      title = page.about[`title${language}`] || page.about.title || '';
+      title = page.about.title || '';
       break;
     case allPageTypes.ARTICLE:
-      title = page.article[`title${language}`] || page.article.title || '';
+      title = page.article.title || '';
+      break;
+    case allPageTypes.CAREERS:
+      title = page.careers.title || '';
+      break;
+    case allPageTypes.CONTACT:
+      title = page.contact.title || '';
       break;
     case allPageTypes.EVENTS:
-      title = page.events[`title${language}`] || page.events.title || '';
+      title = page.events.title || '';
+      break;
+    case allPageTypes.HISTORY:
+      title = page.history.title || '';
       break;
     case allPageTypes.INDUSTRY:
-      title = page.industry[`title${language}`] || page.industry.title || '';
+      title = page.industry.title || '';
       break;
     case allPageTypes.LANDING:
-      title = page.landing[`title${language}`] || page.landing.title || '';
+      title = page.landing.title || '';
+      break;
+    case allPageTypes.NEWS:
+      title = page.news.title || '';
       break;
     case allPageTypes.PRODUCT:
-      title = page.product[`title${language}`] || page.product.title || '';
+      title = page.product.title || '';
       break;
     case allPageTypes.PROMO:
-      title = page.promo[`title${language}`] || page.promo.title || '';
+      title = page.promo.title || '';
       break;
     case allPageTypes.SERVICE:
-      title = page.service[`title${language}`] || page.service.title || '';
+      title = page.service.title || '';
       break;
     case allPageTypes.USED:
-      title = page.usedEquipment[`title${language}`] || page.usedEquipment.title || '';
+      title = page.usedEquipment.title || '';
       break;
     default:
       break;

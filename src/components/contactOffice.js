@@ -89,8 +89,9 @@ const ContactOffice = props => {
       telephone,
       tollFree,
     },
+    officeIndex,
+    handleContactUs,
   } = props;
-  // console.log(label);
 
   return (
     <div className="table-entry">
@@ -157,7 +158,14 @@ const ContactOffice = props => {
             </div>
           )}
         </div>
-        <div className="table-desc">{description}</div>
+        <div className="table-desc">
+          <p>{description}</p>
+          <p>
+            <button type="button" onClick={() => handleContactUs(officeIndex)}>
+              {label.about.CONTACT_US}
+            </button>
+          </p>
+        </div>
         <div className="table-countries">{countries}</div>
       </div>
     </div>
@@ -180,6 +188,8 @@ ContactOffice.defaultProps = {
     telephone: [],
     tollFree: [],
   },
+  officeIndex: null,
+  handleContactUs: () => {},
 };
 
 ContactOffice.propTypes = {
@@ -200,6 +210,8 @@ ContactOffice.propTypes = {
     telephone: PropTypes.array,
     tollFree: PropTypes.array,
   }),
+  officeIndex: PropTypes.number,
+  handleContactUs: PropTypes.func,
 };
 
 export default ContactOffice;

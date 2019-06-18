@@ -195,13 +195,25 @@ export const commonFragment = graphql`
           article: articleSource {
             title(locale: $locale)
           }
+          careers: careersSource {
+            title(locale: $locale)
+          }
+          contact: contactSource {
+            title(locale: $locale)
+          }
           events: eventsSource {
+            title(locale: $locale)
+          }
+          history: historySource {
             title(locale: $locale)
           }
           industry: industrySource {
             title(locale: $locale)
           }
           landing: landingSource {
+            title(locale: $locale)
+          }
+          news: newsSource {
             title(locale: $locale)
           }
           product: productSource {

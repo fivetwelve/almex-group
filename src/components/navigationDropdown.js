@@ -6,6 +6,7 @@ import CloseButton from './closeButton';
 
 const NavigationDropdown = props => {
   const { activeLanguage, handleMenuItem, isOpen, label, location, section } = props;
+  // console.log(section);
 
   const handleClick = evt => {
     evt.preventDefault();
@@ -56,7 +57,7 @@ const NavigationDropdown = props => {
           {section.pages.map(page => (
             <div className="category" key={makeid()}>
               <Link to={createLinkFromPage(location, page, activeLanguage)}>
-                <span className="link-text">{getTitle(page, activeLanguage)}</span>
+                <span className="link-text">{getTitle(page)}</span>
               </Link>
             </div>
           ))}
