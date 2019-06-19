@@ -4,11 +4,11 @@ import { graphql } from 'gatsby';
 // import { Location } from '@reach/router';
 import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
-import RegionLookup from '../components/regionLookup';
 import ContactMap from '../components/contactMap';
+import ContactModal from '../components/contactModal';
+import { fetch, mapToOffice } from '../utils/functions';
 
 import '../styles/contact.scss';
-import ContactModal from '../components/contactModal';
 
 const allowHTML = { html: true };
 
@@ -19,11 +19,42 @@ class ContactTemplate extends React.Component {
     this.state = {
       office: '',
       showModal: false,
+      visitorRegion: null,
     };
   }
 
+  componentDidMount() {
+    const {
+      data: {
+        cms: {
+          page: {
+            contact: { offices },
+          },
+        },
+      },
+    } = this.props;
+
+    // 3rd party api to get country code from visitor's IP address
+    fetch('https://ipapi.co/json/', {
+      headers: {
+        Accept: 'application/json',
+      },
+    })
+      .then(result => result.json())
+      .then(json => {
+        const visitorRegion = mapToOffice(json.country, offices);
+        this.setState({
+          visitorRegion,
+        });
+      })
+      .catch(() => {
+        this.setState({
+          visitorRegion: null,
+        });
+      });
+  }
+
   handleContactUs = officeIndex => {
-    // console.log('office:', officeIndex);
     this.setState({
       office: String(officeIndex),
       showModal: true,
@@ -42,7 +73,7 @@ class ContactTemplate extends React.Component {
   };
 
   render() {
-    const { office, showModal } = this.state;
+    const { office, visitorRegion, showModal } = this.state;
     const { data, pageContext } = this.props;
     const { locale, siteData, region } = pageContext;
     const {
@@ -57,7 +88,6 @@ class ContactTemplate extends React.Component {
         },
       },
     } = data;
-
     return (
       <Layout
         activeLanguage={locale}
@@ -91,8 +121,6 @@ class ContactTemplate extends React.Component {
               </div>
             </div>
 
-            <RegionLookup />
-
             <div className="almex-locations">
               <a href="#offices">
                 <span className="more">{aboutLabel.about.ALMEX_LOCATIONS}</span>
@@ -104,6 +132,7 @@ class ContactTemplate extends React.Component {
               locale={locale}
               offices={offices}
               handleContactUs={this.handleContactUs}
+              visitorRegion={visitorRegion}
             />
             <div className="contact-shroud" ref={this.shroud} />
             <ContactModal
@@ -113,6 +142,7 @@ class ContactTemplate extends React.Component {
               offices={offices}
               selectedOffice={office}
               showModal={showModal}
+              title={title}
             />
           </div>
         </>

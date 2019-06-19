@@ -73,7 +73,7 @@ class ContactMap extends React.Component {
 
   render() {
     const { activeOffice, infoWindowVisible, offset, viewport } = this.state;
-    const { aboutLabel, locale, offices, handleContactUs } = this.props;
+    const { aboutLabel, handleContactUs, locale, offices, visitorRegion } = this.props;
 
     return (
       <>
@@ -178,9 +178,10 @@ class ContactMap extends React.Component {
               goToOffice={this.goToOffice}
               key={makeid()}
               aboutLabel={aboutLabel}
+              handleContactUs={handleContactUs}
               office={office}
               officeIndex={index}
-              handleContactUs={handleContactUs}
+              visitorRegion={visitorRegion}
             />
           ))}
         </div>
@@ -191,15 +192,17 @@ class ContactMap extends React.Component {
 
 ContactMap.defaultProps = {
   aboutLabel: {},
+  handleContactUs: () => {},
   locale: 'EN',
   offices: null,
-  handleContactUs: () => {},
+  visitorRegion: null,
 };
 
 ContactMap.propTypes = {
   aboutLabel: PropTypes.shape({
     about: PropTypes.object,
   }),
+  handleContactUs: PropTypes.func,
   locale: PropTypes.string,
   offices: PropTypes.arrayOf(
     PropTypes.shape({
@@ -208,7 +211,7 @@ ContactMap.propTypes = {
       name: PropTypes.string,
     }),
   ),
-  handleContactUs: PropTypes.func,
+  visitorRegion: PropTypes.string,
 };
 
 export default ContactMap;

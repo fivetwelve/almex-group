@@ -130,7 +130,7 @@ class ContactModal extends React.Component {
   };
 
   render() {
-    const { aboutLabel, label, offices, selectedOffice, showModal } = this.props;
+    const { aboutLabel, label, offices, selectedOffice, showModal, title } = this.props;
     const {
       contactName,
       contactEmail,
@@ -165,6 +165,7 @@ class ContactModal extends React.Component {
           </div>
           <div className="content-container">
             <div className="content">
+              <h2>{title}</h2>
               <form
                 className="contact-form"
                 name="contact"
@@ -356,8 +357,8 @@ ContactModal.defaultProps = {
   label: {},
   offices: null,
   selectedOffice: '',
-  // selectedSubject: '',
   showModal: false,
+  title: '',
 };
 
 ContactModal.propTypes = {
@@ -376,8 +377,8 @@ ContactModal.propTypes = {
     }),
   ),
   selectedOffice: PropTypes.string,
-  // selectedSubject: PropTypes.string,
   showModal: PropTypes.bool,
+  title: PropTypes.string,
 };
 
 export default ContactModal;

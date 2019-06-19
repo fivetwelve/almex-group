@@ -14,6 +14,13 @@ $spacing: 20px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    .intro-content {
+      .title {
+        font-size: 30px;
+        color: $prussian-blue;
+        font-weight: 500;
+      }
+    }
     .almex-locations {
       padding-bottom: 20px;
       a {
@@ -282,6 +289,9 @@ $spacing: 20px;
               padding-left: 100px;
               padding-right: 100px;
             }
+            h2 {
+              text-align: center;
+            }
             p {
               font-size: 20px;
               line-height: 20px;
@@ -335,6 +345,14 @@ $spacing: 20px;
               .required {
                 font-size: 12px;
                 font-style: italic;
+              }
+              #rc-imageselect,
+              .g-recaptcha {
+                transform: scale(0.77);
+                transform-origin: 0 0;
+                @include media('>=tablet') {
+                  transform: scale(1);
+                }
               }
             }
           }

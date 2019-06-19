@@ -37,227 +37,6 @@ const createLinkFromPage = (location, page, language) => {
 
 // }
 
-const getRegion = countryCode => {
-  /* Region mappings
-     API = Asia Pacific Indonesia
-     AUS = Australia
-     BRA = Brazil
-     CHI = Chile
-     CHN = China
-     EUR = Europe
-     IND = India
-     AFR = Africa
-     MEX = Mexico
-     PER = Peru
-     FON = Fonmar
-     NA = North America
-  */
-
-  const countryMap = new Map([
-    ['BN', 'API'],
-    ['KH', 'API'],
-    ['TL', 'API'],
-    ['ID', 'API'],
-    ['LA', 'API'],
-    ['MY', 'API'],
-    ['FM', 'API'],
-    ['PW', 'API'],
-    ['PG', 'API'],
-    ['PH', 'API'],
-    ['SG', 'API'],
-    ['TH', 'API'],
-    ['VN', 'API'],
-    ['AQ', 'AUS'],
-    ['AU', 'AUS'],
-    ['FJ', 'AUS'],
-    ['KI', 'AUS'],
-    ['MH', 'AUS'],
-    ['NR', 'AUS'],
-    ['NZ', 'AUS'],
-    ['WS', 'AUS'],
-    ['SB', 'AUS'],
-    ['TO', 'AUS'],
-    ['TV', 'AUS'],
-    ['VU', 'AUS'],
-    ['BR', 'BRA'],
-    ['GY', 'BRA'],
-    ['PY', 'BRA'],
-    ['SR', 'BRA'],
-    ['GF', 'BRA'],
-    ['CL', 'CHI'],
-    ['AR', 'CHI'],
-    ['CN', 'CHN'],
-    ['HK', 'CHN'],
-    ['JP', 'CHN'],
-    ['KZ', 'CHN'],
-    ['KP', 'CHN'],
-    ['KR', 'CHN'],
-    ['MN', 'CHN'],
-    ['TW', 'CHN'],
-    ['AM', 'EUR'],
-    ['AT', 'EUR'],
-    ['AZ', 'EUR'],
-    ['AD', 'EUR'],
-    ['AL', 'EUR'],
-    ['BY', 'EUR'],
-    ['BE', 'EUR'],
-    ['BA', 'EUR'],
-    ['BG', 'EUR'],
-    ['HR', 'EUR'],
-    ['CY', 'EUR'],
-    ['CZ', 'EUR'],
-    ['DK', 'EUR'],
-    ['EE', 'EUR'],
-    ['FI', 'EUR'],
-    ['FR', 'EUR'],
-    ['GE', 'EUR'],
-    ['GR', 'EUR'],
-    ['HU', 'EUR'],
-    ['IS', 'EUR'],
-    ['IR', 'EUR'],
-    ['IQ', 'EUR'],
-    ['IE', 'EUR'],
-    ['IT', 'EUR'],
-    ['XK', 'EUR'],
-    ['LV', 'EUR'],
-    ['LI', 'EUR'],
-    ['LT', 'EUR'],
-    ['LU', 'EUR'],
-    ['MK', 'EUR'],
-    ['MT', 'EUR'],
-    ['MD', 'EUR'],
-    ['MC', 'EUR'],
-    ['ME', 'EUR'],
-    ['MA', 'EUR'],
-    ['NL', 'EUR'],
-    ['NO', 'EUR'],
-    ['PL', 'EUR'],
-    ['PT', 'EUR'],
-    ['RO', 'EUR'],
-    ['RU', 'EUR'],
-    ['SM', 'EUR'],
-    ['RS', 'EUR'],
-    ['SK', 'EUR'],
-    ['SI', 'EUR'],
-    ['SE', 'EUR'],
-    ['CH', 'EUR'],
-    ['TR', 'EUR'],
-    ['UA', 'EUR'],
-    ['GB', 'EUR'],
-    ['VA', 'EUR'],
-    ['DE', 'GER'],
-    ['BH', 'IND'],
-    ['BD', 'IND'],
-    ['AF', 'IND'],
-    ['BT', 'IND'],
-    ['IN', 'IND'],
-    ['IR', 'IND'],
-    ['IQ', 'IND'],
-    ['IL', 'IND'],
-    ['JO', 'IND'],
-    ['KW', 'IND'],
-    ['KG', 'IND'],
-    ['LB', 'IND'],
-    ['MV', 'IND'],
-    ['MM', 'IND'],
-    ['NP', 'IND'],
-    ['OM', 'IND'],
-    ['PK', 'IND'],
-    ['QA', 'IND'],
-    ['SA', 'IND'],
-    ['LK', 'IND'],
-    ['SY', 'IND'],
-    ['TJ', 'IND'],
-    ['TM', 'IND'],
-    ['AE', 'IND'],
-    ['UZ', 'IND'],
-    ['YE', 'IND'],
-    ['US', 'NA'],
-    ['CA', 'NA'],
-    ['AO', 'AFR'],
-    ['DZ', 'AFR'],
-    ['BJ', 'AFR'],
-    ['BW', 'AFR'],
-    ['BF', 'AFR'],
-    ['BI', 'AFR'],
-    ['CV', 'AFR'],
-    ['CM', 'AFR'],
-    ['CF', 'AFR'],
-    ['TD', 'AFR'],
-    ['KM', 'AFR'],
-    ['CD', 'AFR'],
-    ['CG', 'AFR'],
-    ['CI', 'AFR'],
-    ['DJ', 'AFR'],
-    ['EG', 'AFR'],
-    ['GQ', 'AFR'],
-    ['ER', 'AFR'],
-    ['ET', 'AFR'],
-    ['GA', 'AFR'],
-    ['GM', 'AFR'],
-    ['GH', 'AFR'],
-    ['GN', 'AFR'],
-    ['GW', 'AFR'],
-    ['KE', 'AFR'],
-    ['LS', 'AFR'],
-    ['LR', 'AFR'],
-    ['LY', 'AFR'],
-    ['MG', 'AFR'],
-    ['MW', 'AFR'],
-    ['ML', 'AFR'],
-    ['MR', 'AFR'],
-    ['MU', 'AFR'],
-    ['MZ', 'AFR'],
-    ['NA', 'AFR'],
-    ['NI', 'AFR'],
-    ['NE', 'AFR'],
-    ['NG', 'AFR'],
-    ['RW', 'AFR'],
-    ['ST', 'AFR'],
-    ['SN', 'AFR'],
-    ['SC', 'AFR'],
-    ['SL', 'AFR'],
-    ['SO', 'AFR'],
-    ['ZA', 'AFR'],
-    ['SD', 'AFR'],
-    ['SS', 'AFR'],
-    ['SZ', 'AFR'],
-    ['TZ', 'AFR'],
-    ['TG', 'AFR'],
-    ['TN', 'AFR'],
-    ['UG', 'AFR'],
-    ['ZM', 'AFR'],
-    ['ZW', 'AFR'],
-    ['AG', 'MEX'],
-    ['BS', 'MEX'],
-    ['BB', 'MEX'],
-    ['BZ', 'MEX'],
-    ['CO', 'MEX'],
-    ['CR', 'MEX'],
-    ['CU', 'MEX'],
-    ['DM', 'MEX'],
-    ['DO', 'MEX'],
-    ['SV', 'MEX'],
-    ['GD', 'MEX'],
-    ['GT', 'MEX'],
-    ['HT', 'MEX'],
-    ['HN', 'MEX'],
-    ['JM', 'MEX'],
-    ['MX', 'MEX'],
-    ['PA', 'MEX'],
-    ['KN', 'MEX'],
-    ['LC', 'MEX'],
-    ['VC', 'MEX'],
-    ['TT', 'MEX'],
-    ['VE', 'MEX'],
-    ['PE', 'PER'],
-    ['BO', 'PER'],
-    ['EC', 'PER'],
-    ['ES', 'FON'],
-  ]);
-  return countryMap.get(countryCode) || null;
-};
-
 const getSlug = pathname => {
   /*
     Get slug from pathname; do not include origin attribute.
@@ -414,8 +193,8 @@ const isDayBetween = (d, d1, d2) => {
  * Return `true` if a day is included in a range of days.
  *
  * @export
- * @param  {Date}  day
- * @param  {Object}  range
+ * @param  {Date}     day
+ * @param  {Object}   range
  * @return {Boolean}
  */
 const isDayInRange = (day, range) => {
@@ -429,8 +208,23 @@ const isDayInRange = (day, range) => {
 };
 
 /**
- *
- *
+ * @export
+ * @param  {String}   countryCode
+ * @param  {Array}    offices
+ * @return {String}
+ */
+const mapToOffice = (countryCode, offices) => {
+  let supportOffice = null;
+  for (let i = 0; i < offices.length; i += 1) {
+    if (offices[i].countryCodes.countries.includes(countryCode)) {
+      supportOffice = countryCode;
+      break;
+    }
+  }
+  return supportOffice;
+};
+
+/**
  * @export
  * @param  {String}  date
  * @return {String}
@@ -516,10 +310,10 @@ export {
   createLink,
   createLinkFromPage,
   fetch,
-  getRegion,
   getSlug,
   getTitle,
   makeid,
+  mapToOffice,
   isDayInRange,
   normalizeTimeZone,
   scrollTo,

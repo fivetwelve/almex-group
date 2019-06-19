@@ -75,7 +75,9 @@ const ContactOffice = props => {
   const {
     aboutLabel,
     goToOffice,
+    handleContactUs,
     office: {
+      backupOffice,
       address,
       contactPerson,
       countries,
@@ -90,9 +92,10 @@ const ContactOffice = props => {
       tollFree,
     },
     officeIndex,
-    handleContactUs,
+    visitorRegion,
   } = props;
-
+  // console.log(`countryCode: ${countryCode}`);
+  // console.log(`visitorRegion: ${visitorRegion}`);
   return (
     <div className="table-entry">
       <div className="table-pin">
@@ -160,11 +163,20 @@ const ContactOffice = props => {
         </div>
         <div className="table-desc">
           <p>{description}</p>
-          <p>
-            <button type="button" onClick={() => handleContactUs(officeIndex)}>
-              {aboutLabel.about.CONTACT_US}
-            </button>
-          </p>
+          {visitorRegion === countryCode && (
+            <p>
+              <button type="button" onClick={() => handleContactUs(officeIndex)}>
+                {aboutLabel.about.CONTACT_US}
+              </button>
+            </p>
+          )}
+          {!visitorRegion && backupOffice && (
+            <p>
+              <button type="button" onClick={() => handleContactUs(officeIndex)}>
+                {aboutLabel.about.CONTACT_US}
+              </button>
+            </p>
+          )}
         </div>
         <div className="table-countries">{countries}</div>
       </div>
@@ -173,10 +185,12 @@ const ContactOffice = props => {
 };
 
 ContactOffice.defaultProps = {
-  goToOffice: () => {},
   aboutLabel: {},
+  goToOffice: () => {},
+  handleContactUs: () => {},
   office: {
     address: '',
+    backupOffice: false,
     belongsTo: '',
     contactPerson: null,
     countries: '',
@@ -189,7 +203,7 @@ ContactOffice.defaultProps = {
     tollFree: [],
   },
   officeIndex: null,
-  handleContactUs: () => {},
+  visitorRegion: null,
 };
 
 ContactOffice.propTypes = {
@@ -197,8 +211,10 @@ ContactOffice.propTypes = {
     about: PropTypes.object,
   }),
   goToOffice: PropTypes.func,
+  handleContactUs: PropTypes.func,
   office: PropTypes.shape({
     address: PropTypes.string,
+    backupOffice: PropTypes.bool,
     belongsTo: PropTypes.string,
     contactPerson: PropTypes.string,
     countries: PropTypes.string,
@@ -211,7 +227,7 @@ ContactOffice.propTypes = {
     tollFree: PropTypes.array,
   }),
   officeIndex: PropTypes.number,
-  handleContactUs: PropTypes.func,
+  visitorRegion: PropTypes.string,
 };
 
 export default ContactOffice;
