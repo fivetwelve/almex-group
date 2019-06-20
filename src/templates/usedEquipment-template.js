@@ -10,7 +10,7 @@ import '../styles/usedEquipment.scss';
 const allowHTML = { html: true };
 
 const UsedEquipmentTemplate = ({ data, pageContext }) => {
-  const { locale, siteData, region } = pageContext;
+  const { locale, region } = pageContext;
   const {
     cms: {
       brandNavigation,
@@ -28,7 +28,6 @@ const UsedEquipmentTemplate = ({ data, pageContext }) => {
       activeLanguage={locale}
       brandNavigation={brandNavigation}
       childrenClass="used-equipment"
-      data={siteData}
       headerFooter={headerFooter}
       label={label}
       navigation={navigation}
@@ -77,7 +76,6 @@ UsedEquipmentTemplate.propTypes = {
   pageContext: PropTypes.shape({
     locale: PropTypes.string,
     region: PropTypes.string,
-    siteData: PropTypes.object,
   }),
 };
 

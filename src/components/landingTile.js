@@ -5,7 +5,7 @@ import { createLink } from '../utils/functions';
 import '../styles/landingTile.scss';
 
 const LandingTile = ({ data, location, themeColour }) => {
-  const { slug, subtitle, tile, title } = data;
+  const { slug, tile, title } = data;
   const imageStyle = {
     backgroundImage: tile && `url(${tile.url})`,
     backgroundColor: !tile && '#e5e6e8',
@@ -22,12 +22,12 @@ const LandingTile = ({ data, location, themeColour }) => {
           <div className={`overlay ${themeColour}`}>
             <div className="text-container">
               <span className="overlay-title">{title}</span>
-              {subtitle && (
+              {/* {subtitle && (
                 <div className="overlay-subtitle">
                   <span className="indicator">&#9650;</span>
                   <span className="subtitle">{subtitle}</span>
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </div>
@@ -45,7 +45,7 @@ LandingTile.defaultProps = {
 LandingTile.propTypes = {
   data: PropTypes.shape({
     slug: PropTypes.string,
-    subtitle: PropTypes.string,
+    // subtitle: PropTypes.string,
     tile: PropTypes.object,
     title: PropTypes.string,
   }),

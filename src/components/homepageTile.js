@@ -5,7 +5,7 @@ import Markdown from 'react-remarkable';
 import '../styles/homepageTile.scss';
 
 const HomepageTile = ({ data, labels }) => {
-  const { image, title, description, subtitle } = data;
+  const { image, title, description } = data;
   const imageStyle = {
     backgroundImage: `url(${image.url})`,
   };
@@ -20,10 +20,10 @@ const HomepageTile = ({ data, labels }) => {
         <div className="overlay">
           <div className="text-container">
             <span className="overlay-title">{title}</span>
-            <div className="overlay-subtitle">
+            {/* <div className="overlay-subtitle">
               <span className="indicator">&#9650;</span>
               <span className="subtitle">{subtitle}</span>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -49,7 +49,7 @@ HomepageTile.propTypes = {
   data: PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string,
-    subtitle: PropTypes.string,
+    // subtitle: PropTypes.string,
   }),
   labels: PropTypes.shape({
     common: PropTypes.object,

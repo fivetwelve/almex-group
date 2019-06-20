@@ -14,7 +14,7 @@ import { createLink, getTitle, makeid } from '../utils/functions';
 const allowHTML = { html: true };
 
 const AboutTemplate = ({ data, pageContext }) => {
-  const { locale, siteData, region } = pageContext;
+  const { locale, region } = pageContext;
   const {
     cms: {
       label,
@@ -80,7 +80,6 @@ const AboutTemplate = ({ data, pageContext }) => {
       activeLanguage={locale}
       brandNavigation={brandNavigation}
       childrenClass="about"
-      data={siteData}
       headerFooter={headerFooter}
       label={label}
       navigation={navigation}
@@ -207,7 +206,6 @@ AboutTemplate.propTypes = {
   pageContext: PropTypes.shape({
     locale: PropTypes.string,
     region: PropTypes.string,
-    siteData: PropTypes.object,
     // title: PropTypes.string,
   }),
 };

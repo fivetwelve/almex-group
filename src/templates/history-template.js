@@ -10,7 +10,7 @@ import TimelineManager from '../components/timelineManager';
 const allowHTML = { html: true };
 
 const HistoryTemplate = ({ data, pageContext }) => {
-  const { locale, siteData, region } = pageContext;
+  const { locale, region } = pageContext;
   const {
     cms: {
       brandNavigation,
@@ -30,7 +30,6 @@ const HistoryTemplate = ({ data, pageContext }) => {
       activeLanguage={locale}
       brandNavigation={brandNavigation}
       childrenClass="history"
-      data={siteData}
       headerFooter={headerFooter}
       label={label}
       navigation={navigation}
@@ -71,7 +70,6 @@ HistoryTemplate.propTypes = {
   pageContext: PropTypes.shape({
     locale: PropTypes.string,
     region: PropTypes.string,
-    siteData: PropTypes.object,
   }),
 };
 
@@ -84,28 +82,6 @@ export const query = graphql`
       }
       page(where: { id: $id }) {
         history: historySource {
-          # theme
-          # landingSections {
-          #   title(locale: $locale)
-          #   pages {
-          #     slug(locale: $locale)
-          #     pageType
-          #     product: productSource {
-          #       title(locale: $locale)
-          #       subtitle(locale: $locale)
-          #       tileImage {
-          #         url
-          #       }
-          #     }
-          #     landing: landingSource {
-          #       title(locale: $locale)
-          #       subtitle(locale: $locale)
-          #       tileImage {
-          #         url
-          #       }
-          #     }
-          #   }
-          # }
           title(locale: $locale)
           description(locale: $locale)
           events: historicalEvents {

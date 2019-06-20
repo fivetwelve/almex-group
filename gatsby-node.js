@@ -14,26 +14,28 @@ exports.createPages = ({ graphql, actions }) => {
     graphql(`
       {
         cms {
-          activePagesLists {
+          # activePagesLists {
+          #   availableIn
+          #   supportedLocales
+          #   pages {
+          #     id
+          #     pageType
+          #     slugEN: slug(locale: EN)
+          #     slugES: slug(locale: ES)
+          #   }
+          # }
+          pages(where: { status: PUBLISHED }) {
+            id
             availableIn
-            supportedLocales
-            pages {
-              id
-              pageType
-              slugEN: slug(locale: EN)
-              slugES: slug(locale: ES)
-            }
+            pageType
+            slugEN: slug(locale: EN)
+            slugES: slug(locale: ES)
+          }
+          siteRegions {
+            region
+            languages
           }
         }
-        #cms {
-        #  pages {
-        #    availableIn
-        #    id
-        #    pageType
-        #    slugEN: slug(locale: EN)
-        #    slugES: slug(locale: ES)
-        #  }
-        #}
       }
     `).then(result => {
       if (result.errors) {
@@ -44,210 +46,201 @@ exports.createPages = ({ graphql, actions }) => {
       //   label: result.data.cms.label,
       //   navigations: result.data.cms.navigations,
       // };
-      const { data } = result;
+      // const { data } = result;
       /*
         Create landing pages from activePagesList for North America.
         Loops through country, its language(s), then its assigned pages.
       */
-      result.data.cms.activePagesLists.forEach(({ availableIn, supportedLocales, pages }) => {
-        // result.data.cms.pages.forEach
-        supportedLocales.forEach(locale => {
-          pages.forEach(page => {
-            const { id, pageType } = page;
-            const pagePath =
-              pageType !== allPageTypes.HOMEPAGE
-                ? `${allRegionSlugs[availableIn]}/${allLanguageSlugs[locale]}/${
-                    page[`slug${locale}`]
-                  }`
-                : `${allRegionSlugs[availableIn]}/${allLanguageSlugs[locale]}`;
-            switch (pageType) {
-              case allPageTypes.HOMEPAGE:
-                createPage({
-                  path: pagePath,
-                  component: path.resolve(`./src/templates/homepage-template.js`),
-                  context: {
-                    id,
-                    locale,
-                    siteData: data,
-                    page: 'index',
-                    region: availableIn,
-                    // title: homepage[`title${locale}`],
-                  },
-                });
-                break;
-              case allPageTypes.INDUSTRY:
-                createPage({
-                  path: pagePath,
-                  component: path.resolve(`./src/templates/landing-template.js`),
-                  context: {
-                    id,
-                    locale,
-                    siteData: data,
-                    page: page.slug[locale],
-                    region: availableIn,
-                    // title: industry[`title${locale}`],
-                  },
-                });
-                break;
-              case allPageTypes.PRODUCT:
-                createPage({
-                  path: pagePath,
-                  component: path.resolve(`./src/templates/product-template.js`),
-                  context: {
-                    id,
-                    locale,
-                    siteData: data,
-                    region: availableIn,
-                  },
-                });
-                break;
-              case allPageTypes.PROMO:
-                createPage({
-                  path: pagePath,
-                  component: path.resolve(`./src/templates/landing-template.js`),
-                  context: {
-                    id,
-                    locale,
-                    siteData: data,
-                    page: page.slug[locale],
-                    region: availableIn,
-                    // title: promo[`title${locale}`],
-                  },
-                });
-                break;
-              case allPageTypes.LANDING:
-                createPage({
-                  path: pagePath,
-                  component: path.resolve(`./src/templates/landing-template.js`),
-                  context: {
-                    id,
-                    locale,
-                    siteData: data,
-                    region: availableIn,
-                  },
-                });
-                break;
-              // TODO change to appropriate templates for the pageTypes below:
-              case allPageTypes.ARTICLE:
-                createPage({
-                  path: pagePath,
-                  component: path.resolve(`./src/templates/landing-template.js`),
-                  context: {
-                    id,
-                    locale,
-                    siteData: data,
-                    page: page.slug[locale],
-                    region: availableIn,
-                    // title: article[`title${locale}`],
-                  },
-                });
-                break;
 
-              case allPageTypes.SERVICE:
-                createPage({
-                  path: pagePath,
-                  component: path.resolve(`./src/templates/landing-template.js`),
-                  context: {
-                    id,
-                    locale,
-                    siteData: data,
-                    page: page.slug[locale],
-                    region: availableIn,
-                    // title: service[`title${locale}`],
-                  },
-                });
-                break;
-              case allPageTypes.ABOUT:
-                createPage({
-                  path: pagePath,
-                  component: path.resolve(`./src/templates/about-template.js`),
-                  context: {
-                    id,
-                    locale,
-                    siteData: data,
-                    region: availableIn,
-                  },
-                });
-                break;
-              case allPageTypes.CAREERS:
-                createPage({
-                  path: pagePath,
-                  component: path.resolve(`./src/templates/careers-template.js`),
-                  context: {
-                    id,
-                    locale,
-                    siteData: data,
-                    region: availableIn,
-                  },
-                });
-                break;
-              case allPageTypes.CONTACT:
-                createPage({
-                  path: pagePath,
-                  component: path.resolve(`./src/templates/contact-template.js`),
-                  context: {
-                    id,
-                    locale,
-                    siteData: data,
-                    region: availableIn,
-                  },
-                });
-                break;
-              case allPageTypes.EVENTS:
-                createPage({
-                  path: pagePath,
-                  component: path.resolve(`./src/templates/events-template.js`),
-                  context: {
-                    id,
-                    locale,
-                    siteData: data,
-                    region: availableIn,
-                  },
-                });
-                break;
-              case allPageTypes.HISTORY:
-                createPage({
-                  path: pagePath,
-                  component: path.resolve(`./src/templates/history-template.js`),
-                  context: {
-                    id,
-                    locale,
-                    siteData: data,
-                    region: availableIn,
-                  },
-                });
-                break;
-              case allPageTypes.NEWS:
-                createPage({
-                  path: pagePath,
-                  component: path.resolve(`./src/templates/news-template.js`),
-                  context: {
-                    id,
-                    locale,
-                    siteData: data,
-                    region: availableIn,
-                  },
-                });
-                break;
-              case allPageTypes.USED:
-                createPage({
-                  path: pagePath,
-                  component: path.resolve(`./src/templates/usedEquipment-template.js`),
-                  context: {
-                    id,
-                    locale,
-                    siteData: data,
-                    region: availableIn,
-                  },
-                });
-                break;
-              default:
-                break;
-            }
-          });
+      /*
+        Loop through all regions. For each region, loop through published pages and
+        check if each one is available for that region. If so, cycle through each of
+        the region's supported languages and call createPage for it.
+      */
+
+      const {
+        data: {
+          cms: { pages, siteRegions },
+        },
+      } = result;
+      // result.data.cms.activePagesLists.forEach(({ availableIn, supportedLocales, pages }) => {
+      //   supportedLocales.forEach(locale => {
+      //     pages.forEach(page => {
+      siteRegions.forEach(({ region, languages }) => {
+        pages.forEach(page => {
+          const { id, availableIn, pageType } = page;
+          if (availableIn.includes(region)) {
+            languages.forEach(language => {
+              const pagePath =
+                pageType !== allPageTypes.HOMEPAGE
+                  ? `${allRegionSlugs[region]}/${allLanguageSlugs[language]}/${
+                      page[`slug${language}`]
+                    }`
+                  : `${allRegionSlugs[region]}/${allLanguageSlugs[language]}`;
+              switch (pageType) {
+                case allPageTypes.HOMEPAGE:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/homepage-template.js`),
+                    context: {
+                      id,
+                      locale: language,
+                      page: 'index',
+                      region,
+                    },
+                  });
+                  break;
+                case allPageTypes.INDUSTRY:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/landing-template.js`),
+                    context: {
+                      id,
+                      locale: language,
+                      region,
+                    },
+                  });
+                  break;
+                case allPageTypes.PRODUCT:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/product-template.js`),
+                    context: {
+                      id,
+                      locale: language,
+                      region,
+                    },
+                  });
+                  break;
+                case allPageTypes.PROMO:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/landing-template.js`),
+                    context: {
+                      id,
+                      locale: language,
+                      region,
+                    },
+                  });
+                  break;
+                case allPageTypes.LANDING:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/landing-template.js`),
+                    context: {
+                      id,
+                      locale: language,
+                      region,
+                    },
+                  });
+                  break;
+                // TODO change to appropriate templates for the pageTypes below:
+                case allPageTypes.ARTICLE:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/landing-template.js`),
+                    context: {
+                      id,
+                      locale: language,
+                      region,
+                    },
+                  });
+                  break;
+                case allPageTypes.SERVICE:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/landing-template.js`),
+                    context: {
+                      id,
+                      locale: language,
+                      region,
+                    },
+                  });
+                  break;
+                case allPageTypes.ABOUT:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/about-template.js`),
+                    context: {
+                      id,
+                      locale: language,
+                      region,
+                    },
+                  });
+                  break;
+                case allPageTypes.CAREERS:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/careers-template.js`),
+                    context: {
+                      id,
+                      locale: language,
+                      region,
+                    },
+                  });
+                  break;
+                case allPageTypes.CONTACT:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/contact-template.js`),
+                    context: {
+                      id,
+                      locale: language,
+                      region,
+                    },
+                  });
+                  break;
+                case allPageTypes.EVENTS:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/events-template.js`),
+                    context: {
+                      id,
+                      locale: language,
+                      region,
+                    },
+                  });
+                  break;
+                case allPageTypes.HISTORY:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/history-template.js`),
+                    context: {
+                      id,
+                      locale: language,
+                      region,
+                    },
+                  });
+                  break;
+                case allPageTypes.NEWS:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/news-template.js`),
+                    context: {
+                      id,
+                      locale: language,
+                      region,
+                    },
+                  });
+                  break;
+                case allPageTypes.USED:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/usedEquipment-template.js`),
+                    context: {
+                      id,
+                      locale: language,
+                      region,
+                    },
+                  });
+                  break;
+                default:
+                  break;
+              }
+            });
+          }
         });
       });
-
       resolve();
     });
   });

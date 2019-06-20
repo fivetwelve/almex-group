@@ -12,7 +12,7 @@ import { createLink } from '../utils/functions';
 // const allowHTML = { html: true };
 
 const NewsTemplate = ({ data, pageContext }) => {
-  const { locale, siteData, region } = pageContext;
+  const { locale, region } = pageContext;
   const {
     cms: {
       aboutLabel,
@@ -33,7 +33,6 @@ const NewsTemplate = ({ data, pageContext }) => {
       activeLanguage={locale}
       brandNavigation={brandNavigation}
       childrenClass="news"
-      data={siteData}
       headerFooter={headerFooter}
       label={label}
       navigation={navigation}
@@ -118,7 +117,6 @@ NewsTemplate.propTypes = {
     landingSections: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
-    siteData: PropTypes.object,
   }),
 };
 

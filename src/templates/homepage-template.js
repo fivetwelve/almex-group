@@ -13,7 +13,7 @@ import Layout from '../components/layout';
 import '../styles/homepage.scss';
 
 const HomepageTemplate = ({ data, pageContext }) => {
-  const { locale, siteData, region } = pageContext;
+  const { locale, region } = pageContext;
   const {
     cms: {
       brandNavigation,
@@ -99,7 +99,6 @@ const HomepageTemplate = ({ data, pageContext }) => {
       activeLanguage={locale}
       brandNavigation={brandNavigation}
       childrenClass="homepage"
-      data={siteData}
       headerFooter={headerFooter}
       label={label}
       navigation={navigation}
@@ -244,7 +243,6 @@ HomepageTemplate.propTypes = {
     landingSections: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
-    siteData: PropTypes.object,
   }),
 };
 
@@ -280,7 +278,7 @@ export const query = graphql`
             image {
               url
             }
-            subtitle(locale: $locale)
+            # subtitle(locale: $locale)
             title(locale: $locale)
           }
         }

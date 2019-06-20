@@ -13,7 +13,7 @@ import ProductBrand from '../components/productBrand';
 const allowHTML = { html: true };
 
 const LandingTemplate = ({ data, pageContext }) => {
-  const { locale, siteData, region } = pageContext;
+  const { locale, region } = pageContext;
   const {
     cms: {
       brandNavigation,
@@ -100,7 +100,6 @@ const LandingTemplate = ({ data, pageContext }) => {
       activeLanguage={locale}
       brandNavigation={brandNavigation}
       childrenClass="landing"
-      data={siteData}
       headerFooter={headerFooter}
       label={label}
       navigation={navigation}
@@ -166,8 +165,6 @@ LandingTemplate.propTypes = {
     landingSections: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
-    siteData: PropTypes.object,
-    // title: PropTypes.string,
   }),
 };
 

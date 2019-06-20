@@ -15,7 +15,7 @@ const allowHTML = { html: true };
 
 /* location prop is received from LinkWithPrevious's composition with Location */
 const ProductTemplate = ({ data, location, pageContext }) => {
-  const { locale, siteData, region } = pageContext;
+  const { locale, region } = pageContext;
   const {
     cms: {
       brandNavigation,
@@ -93,7 +93,6 @@ const ProductTemplate = ({ data, location, pageContext }) => {
       activeLanguage={locale}
       brandNavigation={brandNavigation}
       childrenClass="product"
-      data={siteData}
       headerFooter={headerFooter}
       label={label}
       locale={locale}
@@ -254,7 +253,6 @@ ProductTemplate.propTypes = {
   pageContext: PropTypes.shape({
     locale: PropTypes.string,
     region: PropTypes.string,
-    siteData: PropTypes.object,
   }),
 };
 
