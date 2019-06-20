@@ -14,7 +14,6 @@ import '../styles/homepage.scss';
 
 const HomepageTemplate = ({ data, pageContext }) => {
   const { locale, siteData, region } = pageContext;
-  console.log(siteData);
   const {
     cms: {
       brandNavigation,
