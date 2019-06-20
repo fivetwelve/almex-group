@@ -163,14 +163,7 @@ const ContactOffice = props => {
         </div>
         <div className="table-desc">
           <p>{description}</p>
-          {visitorRegion === countryCode && (
-            <p>
-              <button type="button" onClick={() => handleContactUs(officeIndex)}>
-                {aboutLabel.about.CONTACT_US}
-              </button>
-            </p>
-          )}
-          {!visitorRegion && backupOffice && (
+          {(visitorRegion === countryCode || backupOffice) && (
             <p>
               <button type="button" onClick={() => handleContactUs(officeIndex)}>
                 {aboutLabel.about.CONTACT_US}

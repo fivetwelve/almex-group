@@ -3,10 +3,9 @@ const { allPageTypes, allLanguageSlugs, allRegionSlugs } = require('./src/consta
 
 exports.createPages = ({ graphql, actions }) => {
   /*
-     1. Get all productLists by region. Each region will map to a path.
-     2. Under each region, populate related products in the region's
-        supported languages; each language will have its own path followed
-        by the product's slug.
+     1. Get all pages with PUBLISHED status. Get list of regions.
+     2. For each region, check if a page is available for it and publish it
+        against each of the region's supported languages.
   */
   const { createPage } = actions;
 
@@ -14,16 +13,6 @@ exports.createPages = ({ graphql, actions }) => {
     graphql(`
       {
         cms {
-          # activePagesLists {
-          #   availableIn
-          #   supportedLocales
-          #   pages {
-          #     id
-          #     pageType
-          #     slugEN: slug(locale: EN)
-          #     slugES: slug(locale: ES)
-          #   }
-          # }
           pages(where: { status: PUBLISHED }) {
             id
             availableIn
@@ -41,31 +30,13 @@ exports.createPages = ({ graphql, actions }) => {
       if (result.errors) {
         reject(result.errors);
       }
-      // const data = {
-      //   headerFooter: result.data.cms.headerFooter,
-      //   label: result.data.cms.label,
-      //   navigations: result.data.cms.navigations,
-      // };
-      // const { data } = result;
-      /*
-        Create landing pages from activePagesList for North America.
-        Loops through country, its language(s), then its assigned pages.
-      */
-
-      /*
-        Loop through all regions. For each region, loop through published pages and
-        check if each one is available for that region. If so, cycle through each of
-        the region's supported languages and call createPage for it.
-      */
 
       const {
         data: {
           cms: { pages, siteRegions },
         },
       } = result;
-      // result.data.cms.activePagesLists.forEach(({ availableIn, supportedLocales, pages }) => {
-      //   supportedLocales.forEach(locale => {
-      //     pages.forEach(page => {
+
       siteRegions.forEach(({ region, languages }) => {
         pages.forEach(page => {
           const { id, availableIn, pageType } = page;
@@ -246,7 +217,6 @@ exports.createPages = ({ graphql, actions }) => {
   });
 };
 
-// exports.onCreateWebpackConfig = ({ stage, loaders, actions, plugins }) => {
 exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
   if (stage === 'build-html') {
     actions.setWebpackConfig({
