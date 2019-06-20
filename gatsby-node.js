@@ -25,21 +25,32 @@ exports.createPages = ({ graphql, actions }) => {
             }
           }
         }
+        #cms {
+        #  pages {
+        #    availableIn
+        #    id
+        #    pageType
+        #    slugEN: slug(locale: EN)
+        #    slugES: slug(locale: ES)
+        #  }
+        #}
       }
     `).then(result => {
       if (result.errors) {
         reject(result.errors);
       }
-      const data = {
-        headerFooter: result.data.cms.headerFooter,
-        label: result.data.cms.label,
-        navigations: result.data.cms.navigations,
-      };
+      // const data = {
+      //   headerFooter: result.data.cms.headerFooter,
+      //   label: result.data.cms.label,
+      //   navigations: result.data.cms.navigations,
+      // };
+      const { data } = result;
       /*
         Create landing pages from activePagesList for North America.
         Loops through country, its language(s), then its assigned pages.
       */
       result.data.cms.activePagesLists.forEach(({ availableIn, supportedLocales, pages }) => {
+        // result.data.cms.pages.forEach
         supportedLocales.forEach(locale => {
           pages.forEach(page => {
             const { id, pageType } = page;

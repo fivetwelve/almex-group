@@ -180,7 +180,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               </div>
             </>
           )}
-          {options && (
+          {options.length > 1 && (
             <>
               <div className={`title-container ${themeColour}`}>
                 <div className="section-title">{products.OPTIONS}</div>
@@ -188,7 +188,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               <Options options={options} label={products} themeColour={themeColour} />
             </>
           )}
-          {accessories && (
+          {accessories.length > 1 && (
             <>
               <div className={`title-container ${themeColour}`}>
                 <div className="section-title">{products.ACCESSORIES}</div>
@@ -207,7 +207,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               {/* {console.log(accessories)} */}
             </>
           )}
-          {relatedItems && (
+          {relatedItems.length > 1 && (
             <>
               <div className={`title-container ${themeColour}`}>
                 <div className="section-title">{products.RELATED_ITEMS}</div>
