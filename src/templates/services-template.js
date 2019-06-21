@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
-import { Location } from '@reach/router';
-// import GraphImg from 'graphcms-image';
+// import { Location } from '@reach/router';
+import GraphImg from 'graphcms-image';
 import Markdown from 'react-remarkable';
-import BrandBanner from '../components/brandBanner';
 import Layout from '../components/layout';
 import { makeid } from '../utils/functions';
-import '../styles/about.scss';
+import '../styles/services.scss';
 
 const allowHTML = { html: true };
 
@@ -21,12 +20,11 @@ const ServicesTemplate = ({ data, pageContext }) => {
       label,
       navigation,
       page: {
-        services: { title, description, sideContent },
+        services: { bannerImage, description, sideContent, title },
       },
     },
   } = data;
 
-  const brands = brandNavigation.pages;
   return (
     <Layout
       activeLanguage={locale}
@@ -38,36 +36,32 @@ const ServicesTemplate = ({ data, pageContext }) => {
       region={region}
       title=""
     >
-      <Location>
-        {({ location }) => (
-          <>
-            <div className="services-container">
-              {/* <div className="banner-image">
-                <GraphImg image={bannerImage} maxWidth={1280} />
-              </div> */}
-              <BrandBanner brands={brands} location={location} />
-              <div className="intro-container">
-                <div className="intro-content">
-                  <h1 className="title">{title}</h1>
-                  <div className="description">
-                    <Markdown source={description} options={allowHTML} />
-                  </div>
-                </div>
-                {/* <div className="links">
-                  <div className="resources">
-                    <div className="label">{aboutLabel.about.RESOURCES}</div>
-                  </div>
-                </div> */}
+      {/* <Location>
+        {({ location }) => ( */}
+      <>
+        <div className="services-container">
+          <div className="banner-wrapper">
+            <div className="banner-image">
+              <GraphImg image={bannerImage} maxWidth={1280} />
+            </div>
+          </div>
+          <div className="main-container">
+            <div className="main-content">
+              <h1 className="title">{title}</h1>
+              <div className="description">
+                <Markdown source={description} options={allowHTML} />
               </div>
             </div>
-            <div className="side-content-container">
+            <aside className="aside-container">
               {sideContent.map(content => (
                 <Markdown key={makeid()} source={content} options={allowHTML} />
               ))}
-            </div>
-          </>
-        )}
-      </Location>
+            </aside>
+          </div>
+        </div>
+      </>
+      {/* )}
+      </Location> */}
     </Layout>
   );
 };
@@ -97,6 +91,11 @@ export const query = graphql`
       # }
       page(where: { id: $id }) {
         services: servicesSource {
+          bannerImage {
+            handle
+            width
+            height
+          }
           description(locale: $locale)
           sideContent(locale: $locale)
           title(locale: $locale)

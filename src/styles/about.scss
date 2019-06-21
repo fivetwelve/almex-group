@@ -1,5 +1,6 @@
 @import 'base';
 $spacing: 20px;
+
 .about {
   padding-left: 10px;
   padding-right: 10px;
@@ -128,7 +129,7 @@ $spacing: 20px;
     }
     .intro-container {
       display: flex;
-      margin-top: 20px;
+      margin-top: 40px;
       flex-direction: column;
       @include media('>=desktop') {
         flex-direction: row;
