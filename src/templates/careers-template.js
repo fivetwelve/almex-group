@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql, Link } from 'gatsby';
+import { graphql } from 'gatsby';
 import { Location } from '@reach/router';
 // import GraphImg from 'graphcms-image';
 import Markdown from 'react-remarkable';
+import BrandBanner from '../components/brandBanner';
 import Layout from '../components/layout';
-import { allBrands } from '../constants';
 import '../styles/about.scss';
-import { createLink } from '../utils/functions';
 
 const allowHTML = { html: true };
 
@@ -46,43 +45,7 @@ const CareersTemplate = ({ data, pageContext }) => {
               {/* <div className="banner-image">
                 <GraphImg image={bannerImage} maxWidth={1280} />
               </div> */}
-              <div className="brands">
-                {brands.map(brand => {
-                  let productBrand = '';
-                  switch (brand.landing.brand) {
-                    case allBrands.ALMEX_IN_A_BOX:
-                      productBrand = 'almex-box';
-                      break;
-                    case allBrands.BAT:
-                      productBrand = 'bat';
-                      break;
-                    case allBrands.EMSYS:
-                      productBrand = 'emsys';
-                      break;
-                    case allBrands.FUSION:
-                      productBrand = 'fusion';
-                      break;
-                    case allBrands.VOTECH:
-                      productBrand = 'votech';
-                      break;
-                    case allBrands.ALMEX_INSTITUTE:
-                      productBrand = 'institute';
-                      break;
-                    case allBrands.GLOBAL_SERVICES:
-                      productBrand = 'knight';
-                      break;
-                    default:
-                      break;
-                  }
-                  return (
-                    <div className={`brand ${productBrand}`} key={brand.slug}>
-                      <Link to={createLink(location, brand.slug)}>
-                        <span className="sr-only">{brand.landing.title}</span>
-                      </Link>
-                    </div>
-                  );
-                })}
-              </div>
+              <BrandBanner brands={brands} location={location} />
               <div className="intro-container">
                 <div className="intro-content">
                   <h1 className="title">{title}</h1>

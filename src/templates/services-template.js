@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql, Link } from 'gatsby';
+import { graphql } from 'gatsby';
 import { Location } from '@reach/router';
 // import GraphImg from 'graphcms-image';
 import Markdown from 'react-remarkable';
+import BrandBanner from '../components/brandBanner';
 import Layout from '../components/layout';
-import { allBrands, allPageTypes } from '../constants';
+import { makeid } from '../utils/functions';
 import '../styles/about.scss';
-import { createLink, makeid } from '../utils/functions';
 
 const allowHTML = { html: true };
 
@@ -27,7 +27,7 @@ const ServicesTemplate = ({ data, pageContext }) => {
   } = data;
 
   const brands = brandNavigation.pages;
-
+  console.log(`brands: ${brands}`);
   return (
     <Layout
       activeLanguage={locale}
@@ -46,45 +46,7 @@ const ServicesTemplate = ({ data, pageContext }) => {
               {/* <div className="banner-image">
                 <GraphImg image={bannerImage} maxWidth={1280} />
               </div> */}
-              <div className="brands">
-                {brands.map(brand => {
-                  let productBrand = '';
-                  const brandType =
-                    brand.pageType === allPageTypes.LANDING ? brand.landing : brand.services;
-                  switch (brandType.brand) {
-                    case allBrands.ALMEX_IN_A_BOX:
-                      productBrand = 'almex-box';
-                      break;
-                    case allBrands.BAT:
-                      productBrand = 'bat';
-                      break;
-                    case allBrands.EMSYS:
-                      productBrand = 'emsys';
-                      break;
-                    case allBrands.FUSION:
-                      productBrand = 'fusion';
-                      break;
-                    case allBrands.VOTECH:
-                      productBrand = 'votech';
-                      break;
-                    case allBrands.ALMEX_INSTITUTE:
-                      productBrand = 'institute';
-                      break;
-                    case allBrands.GLOBAL_SERVICES:
-                      productBrand = 'knight';
-                      break;
-                    default:
-                      break;
-                  }
-                  return (
-                    <div className={`brand ${productBrand}`} key={brand.slug}>
-                      <Link to={createLink(location, brand.slug)}>
-                        <span className="sr-only">{brandType.title}</span>
-                      </Link>
-                    </div>
-                  );
-                })}
-              </div>
+              <BrandBanner brands={brands} location={location} />
               <div className="intro-container">
                 <div className="intro-content">
                   <h1 className="title">{title}</h1>
