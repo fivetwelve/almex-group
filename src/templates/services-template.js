@@ -27,7 +27,6 @@ const ServicesTemplate = ({ data, pageContext }) => {
   } = data;
 
   const brands = brandNavigation.pages;
-  console.log(`brands: ${brands}`);
   return (
     <Layout
       activeLanguage={locale}
