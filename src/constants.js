@@ -48,7 +48,7 @@ module.exports = {
     NEWS: 'NEWS',
     PRODUCT: 'PRODUCT',
     PROMO: 'PROMO',
-    SERVICE: 'SERVICE',
+    SERVICES: 'SERVICES',
     USED: 'USED',
   },
   allRegions: {

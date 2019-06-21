@@ -14,7 +14,7 @@ import {
 import Markdown from 'react-remarkable';
 // import headerFooterQuery from '../utils/queries';
 import { createLink } from '../utils/functions';
-import { allBrands } from '../constants';
+import { allBrands, allPageTypes } from '../constants';
 import '../styles/footer.scss';
 
 const Footer = ({ brandNavigation, headerFooter, label, location }) => {
@@ -100,7 +100,9 @@ const Footer = ({ brandNavigation, headerFooter, label, location }) => {
             <div className="brands">
               {brands.map(brand => {
                 let productBrand = '';
-                switch (brand.landing.brand) {
+                const brandType =
+                  brand.pageType === allPageTypes.LANDING ? brand.landing : brand.services;
+                switch (brandType.brand) {
                   case allBrands.ALMEX_IN_A_BOX:
                     productBrand = 'almex-box';
                     break;
@@ -128,7 +130,7 @@ const Footer = ({ brandNavigation, headerFooter, label, location }) => {
                 return (
                   <div className={`brand ${productBrand}`} key={brand.slug}>
                     <Link to={createLink(location, brand.slug)}>
-                      <span className="sr-only">{brand.landing.title}</span>
+                      <span className="sr-only">{brandType.title}</span>
                     </Link>
                   </div>
                 );

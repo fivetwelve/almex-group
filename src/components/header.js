@@ -161,6 +161,10 @@ export const commonFragment = graphql`
           brand
           title(locale: $locale)
         }
+        services: servicesSource {
+          brand
+          title(locale: $locale)
+        }
         pageType
         slug(locale: $locale)
       }
@@ -211,6 +215,7 @@ export const commonFragment = graphql`
             title(locale: $locale)
           }
           landing: landingSource {
+            brand
             title(locale: $locale)
           }
           news: newsSource {
@@ -222,7 +227,8 @@ export const commonFragment = graphql`
           promo: promoSource {
             title(locale: $locale)
           }
-          service: serviceSource {
+          services: servicesSource {
+            brand
             title(locale: $locale)
           }
           usedEquipment: usedEquipmentSource {

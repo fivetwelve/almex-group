@@ -117,17 +117,6 @@ exports.createPages = ({ graphql, actions }) => {
                     },
                   });
                   break;
-                case allPageTypes.SERVICE:
-                  createPage({
-                    path: pagePath,
-                    component: path.resolve(`./src/templates/landing-template.js`),
-                    context: {
-                      id,
-                      locale: language,
-                      region,
-                    },
-                  });
-                  break;
                 case allPageTypes.ABOUT:
                   createPage({
                     path: pagePath,
@@ -187,6 +176,17 @@ exports.createPages = ({ graphql, actions }) => {
                   createPage({
                     path: pagePath,
                     component: path.resolve(`./src/templates/news-template.js`),
+                    context: {
+                      id,
+                      locale: language,
+                      region,
+                    },
+                  });
+                  break;
+                case allPageTypes.SERVICES:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/services-template.js`),
                     context: {
                       id,
                       locale: language,

@@ -90,8 +90,8 @@ const getTitle = page => {
     case allPageTypes.PROMO:
       title = page.promo.title || '';
       break;
-    case allPageTypes.SERVICE:
-      title = page.service.title || '';
+    case allPageTypes.SERVICES:
+      title = page.services.title || '';
       break;
     case allPageTypes.USED:
       title = page.usedEquipment.title || '';
