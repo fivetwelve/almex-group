@@ -87,6 +87,13 @@ $spacing: 20px;
       padding-left: 100px;
       padding-right: 100px;
       margin-bottom: 50px;
+      img {
+        padding: 0 0 5px;
+        @include media('>=tablet') {
+          float: left;
+          padding: 5px 20px 5px 0;
+        }
+      }
     }
   }
   h2.landing-title {

@@ -43,6 +43,7 @@ module.exports = {
     HOMEPAGE: 'HOMEPAGE',
     HOPE: 'HOPE',
     INDUSTRY: 'INDUSTRY',
+    INSTITUTE: 'INSTITUTE',
     LANDING: 'LANDING',
     LEADERSHIP: 'LEADERSHIP',
     NEWS: 'NEWS',

@@ -16,7 +16,6 @@ const NavigationDropdown = props => {
       handleMenuItem('');
     }
   };
-
   return (
     <div className="section-container">
       <div className="section">

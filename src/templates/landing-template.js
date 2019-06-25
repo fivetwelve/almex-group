@@ -95,6 +95,7 @@ const LandingTemplate = ({ data, pageContext }) => {
     });
     return tileArray;
   };
+
   return (
     <Layout
       activeLanguage={locale}
@@ -110,16 +111,22 @@ const LandingTemplate = ({ data, pageContext }) => {
         {({ location }) => (
           <>
             {!brand && <h2 className="landing-title">{title}</h2>}
-            {brand && bannerImage && (
+            {bannerImage && (
               <div className="brand-container">
                 <div className={`banner-image ${themeColour}`}>
                   <GraphImg image={bannerImage} maxWidth={1280} />
                 </div>
-                <ProductBrand brand={brand} />
-                <h2 className="brand-title">{brandTitle}</h2>
-                <div className="brand-description">
-                  <Markdown source={brandDescription} options={allowHTML} />
-                </div>
+                {brand && (
+                  <>
+                    <ProductBrand brand={brand} />
+                    <h2 className="brand-title">{brandTitle}</h2>
+                  </>
+                )}
+                {brandDescription && (
+                  <div className="brand-description">
+                    <Markdown source={brandDescription} options={allowHTML} />
+                  </div>
+                )}
               </div>
             )}
             {brand && !bannerImage && (

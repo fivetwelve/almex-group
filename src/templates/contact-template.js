@@ -113,11 +113,6 @@ class ContactTemplate extends React.Component {
                   <Markdown source={description} options={allowHTML} />
                 </div>
               </div>
-              <div className="links">
-                <div className="resources">
-                  <div className="label">{aboutLabel.about.RESOURCES}</div>
-                </div>
-              </div>
             </div>
 
             <div className="almex-locations">

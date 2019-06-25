@@ -27,8 +27,10 @@ class ContactMap extends React.Component {
   }
 
   goToOffice = (lat, lng) => {
-    const { viewport } = this.state;
-    const viewportUpdate = { ...viewport, center: { lat, lng }, zoom: 7 };
+    // const { viewport } = this.state;
+    // const viewportUpdate = { ...viewport, center: { lat, lng }, zoom: 7 };
+    const viewportUpdate = { center: { lat, lng }, zoom: 7 };
+    // console.log(viewportUpdate);
     this.setState({ viewport: viewportUpdate });
     scrollTo(256);
   };
@@ -74,6 +76,7 @@ class ContactMap extends React.Component {
   render() {
     const { activeOffice, infoWindowVisible, offset, viewport } = this.state;
     const { aboutLabel, handleContactUs, locale, offices, visitorRegion } = this.props;
+    // console.log(viewport);
 
     return (
       <>

@@ -78,6 +78,9 @@ const getTitle = page => {
     case allPageTypes.INDUSTRY:
       title = page.industry.title || '';
       break;
+    case allPageTypes.INSTITUTE:
+      title = page.institute.title || '';
+      break;
     case allPageTypes.LANDING:
       title = page.landing.title || '';
       break;

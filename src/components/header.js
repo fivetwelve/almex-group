@@ -214,6 +214,9 @@ export const commonFragment = graphql`
           industry: industrySource {
             title(locale: $locale)
           }
+          institute: instituteSource {
+            title(locale: $locale)
+          }
           landing: landingSource {
             brand
             title(locale: $locale)

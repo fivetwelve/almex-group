@@ -72,6 +72,17 @@ exports.createPages = ({ graphql, actions }) => {
                     },
                   });
                   break;
+                case allPageTypes.INSTITUTE:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/institute-template.js`),
+                    context: {
+                      id,
+                      locale: language,
+                      region,
+                    },
+                  });
+                  break;
                 case allPageTypes.PRODUCT:
                   createPage({
                     path: pagePath,
