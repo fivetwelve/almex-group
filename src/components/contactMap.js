@@ -24,19 +24,19 @@ class ContactMap extends React.Component {
       },
       offset: null,
     };
+    this.mapRef = React.createRef();
   }
 
   goToOffice = (lat, lng) => {
-    // const { viewport } = this.state;
-    // const viewportUpdate = { ...viewport, center: { lat, lng }, zoom: 7 };
-    const viewportUpdate = { center: { lat, lng }, zoom: 7 };
-    // console.log(viewportUpdate);
-    this.setState({ viewport: viewportUpdate });
+    this.mapRef.setCenter({ lat, lng });
+    this.mapRef.setZoom(7);
     scrollTo(256);
   };
 
-  updateViewport = viewportUpdate => {
-    this.setState({ viewport: viewportUpdate });
+  hideInfoWindow = () => {
+    this.setState({
+      infoWindowVisible: false,
+    });
   };
 
   renderMarker = (office, index) => (
@@ -59,12 +59,6 @@ class ContactMap extends React.Component {
     });
   };
 
-  hideInfoWindow = () => {
-    this.setState({
-      infoWindowVisible: false,
-    });
-  };
-
   updateState = () => {
     if (typeof window !== 'undefined') {
       this.setState({
@@ -76,8 +70,6 @@ class ContactMap extends React.Component {
   render() {
     const { activeOffice, infoWindowVisible, offset, viewport } = this.state;
     const { aboutLabel, handleContactUs, locale, offices, visitorRegion } = this.props;
-    // console.log(viewport);
-
     return (
       <>
         <div className="map" id="map" style={{ display: 'flex', height: '585px' }}>
@@ -89,6 +81,9 @@ class ContactMap extends React.Component {
           >
             <GoogleMap
               id="my-map"
+              onLoad={map => {
+                this.mapRef = map;
+              }}
               mapContainerStyle={{
                 flex: 1,
               }}
@@ -98,6 +93,7 @@ class ContactMap extends React.Component {
                 zoomControl: true,
               }}
               {...viewport}
+              onZoomChanged={this.updateZoom}
             >
               {offices.map(this.renderMarker)}
               {infoWindowVisible && (
