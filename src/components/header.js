@@ -161,6 +161,10 @@ export const commonFragment = graphql`
           brand
           title(locale: $locale)
         }
+        institute: instituteSource {
+          brand
+          title(locale: $locale)
+        }
         services: servicesSource {
           brand
           title(locale: $locale)

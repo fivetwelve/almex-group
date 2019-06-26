@@ -46,10 +46,22 @@ $spacing: 20px;
           font-size: 30px;
           color: $prussian-blue;
           font-weight: 500;
+          padding-left: 10px;
+          padding-right: 10px;
+          @include media('>=tablet') {
+            padding-left: 40px;
+            padding-right: 40px;
+          }
         }
         .description {
           font-size: 24px;
           line-height: normal;
+          padding-left: 10px;
+          padding-right: 10px;
+          @include media('>=tablet') {
+            padding-left: 40px;
+            padding-right: 40px;
+          }
           img {
             padding: 0 0 5px;
             @include media('>=tablet') {

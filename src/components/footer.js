@@ -99,9 +99,21 @@ const Footer = ({ brandNavigation, headerFooter, label, location }) => {
           <div className="footer-middle">
             <div className="brands">
               {brands.map(brand => {
+                let brandType = '';
                 let productBrand = '';
-                const brandType =
-                  brand.pageType === allPageTypes.LANDING ? brand.landing : brand.services;
+                switch (brand.pageType) {
+                  case allPageTypes.INSTITUTE:
+                    brandType = brand.institute;
+                    break;
+                  case allPageTypes.LANDING:
+                    brandType = brand.landing;
+                    break;
+                  case allPageTypes.SERVICES:
+                    brandType = brand.services;
+                    break;
+                  default:
+                    break;
+                }
                 switch (brandType.brand) {
                   case allBrands.ALMEX_IN_A_BOX:
                     productBrand = 'almex-box';
