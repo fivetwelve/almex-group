@@ -23,17 +23,7 @@ const AboutTemplate = ({ data, pageContext }) => {
       headerFooter,
       navigation,
       page: {
-        about: {
-          bannerImage,
-          // brand,
-          // brandDescription,
-          // brandTitle,
-          // theme,
-          // landingSections,
-          title,
-          description,
-          helpfulResources,
-        },
+        about: { bannerImage, title, description, helpfulResources },
       },
     },
   } = data;

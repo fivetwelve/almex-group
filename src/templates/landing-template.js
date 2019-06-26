@@ -6,7 +6,7 @@ import GraphImg from 'graphcms-image';
 import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
 import LandingTile from '../components/landingTile';
-import { allPageTypes, allThemes } from '../constants';
+import { allLandingTypes, allPageTypes, allThemes } from '../constants';
 import '../styles/landing.scss';
 import ProductBrand from '../components/productBrand';
 
@@ -21,15 +21,7 @@ const LandingTemplate = ({ data, pageContext }) => {
       label,
       navigation,
       page: {
-        landing: {
-          bannerImage,
-          brand,
-          brandDescription,
-          brandTitle,
-          theme,
-          landingSections,
-          title,
-        },
+        landing: { bannerImage, brand, description, landingType, landingSections, theme, title },
       },
     },
   } = data;
@@ -110,29 +102,43 @@ const LandingTemplate = ({ data, pageContext }) => {
       <Location>
         {({ location }) => (
           <>
-            {!brand && <h2 className="landing-title">{title}</h2>}
-            {bannerImage && (
-              <div className="brand-container">
-                <div className={`banner-image ${themeColour}`}>
-                  <GraphImg image={bannerImage} maxWidth={1280} />
-                </div>
-                {brand && (
-                  <>
-                    <ProductBrand brand={brand} />
-                    <h2 className="brand-title">{brandTitle}</h2>
-                  </>
-                )}
-                {brandDescription && (
-                  <div className="brand-description">
-                    <Markdown source={brandDescription} options={allowHTML} />
-                  </div>
-                )}
-              </div>
+            {(!landingType || landingType === allLandingTypes.PRODUCT) && (
+              <h2 className="landing-title">{title}</h2>
             )}
-            {brand && !bannerImage && (
-              <div className="brand-container">
-                <ProductBrand brand={brand} />
-              </div>
+            {landingType === allLandingTypes.BRAND && (
+              <>
+                <div className="brand-container">
+                  <div className={`banner-image ${themeColour}`}>
+                    <GraphImg image={bannerImage} maxWidth={1280} />
+                  </div>
+                  {brand && (
+                    <>
+                      <ProductBrand brand={brand} />
+                      <h2 className="title">{title}</h2>
+                    </>
+                  )}
+                  {description && (
+                    <div className="description">
+                      <Markdown source={description} options={allowHTML} />
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
+            {landingType === allLandingTypes.INDUSTRY && (
+              <>
+                <div className="industry-container">
+                  <div className={`banner-image ${themeColour}`}>
+                    <GraphImg image={bannerImage} maxWidth={1280} />
+                  </div>
+                  <h2 className="title">{title}</h2>
+                  {description && (
+                    <div className="description">
+                      <Markdown source={description} options={allowHTML} />
+                    </div>
+                  )}
+                </div>
+              </>
             )}
             {landingSections.length > 0 &&
               landingSections.map(landingSection => {
@@ -187,9 +193,9 @@ export const query = graphql`
             height
           }
           brand
-          brandTitle(locale: $locale)
-          brandDescription(locale: $locale)
+          description(locale: $locale)
           theme
+          landingType
           landingSections {
             title(locale: $locale)
             pages {

@@ -9,7 +9,8 @@ $spacing: 20px;
     padding-left: 0;
     padding-right: 0;
   }
-  .brand-container {
+  .brand-container,
+  .industry-container {
     width: 100%;
     margin: 0 auto;
     max-width: 1280px;
@@ -27,6 +28,8 @@ $spacing: 20px;
         border-bottom: 15px solid $allports;
       }
     }
+  }
+  .brand-container {
     .logo {
       margin: 40px auto;
     }
@@ -73,7 +76,7 @@ $spacing: 20px;
         height: 140px;
       }
     }
-    h2.brand-title {
+    h2.title {
       margin: 0px auto 20px;
       padding-left: 100px;
       padding-right: 100px;
@@ -81,14 +84,49 @@ $spacing: 20px;
       max-width: 1280px;
       font-size: 30px;
     }
-    .brand-description {
+    .description {
       font-size: 24px;
       line-height: normal;
       padding-left: 100px;
       padding-right: 100px;
       margin-bottom: 50px;
       img {
-        padding: 0 0 5px;
+        padding: 0 0 10px;
+        display: block;
+        @include media('>=tablet') {
+          float: left;
+          padding: 5px 20px 5px 0;
+        }
+      }
+    }
+  }
+  .industry-container {
+    h2.title {
+      margin: 40px auto 20px;
+      padding-left: 10px;
+      padding-right: 10px;
+      width: 100%;
+      max-width: 1280px;
+      font-size: 30px;
+      @include media('>=tablet') {
+        padding-left: 40px;
+        padding-right: 40px;
+      }
+    }
+    .description {
+      font-size: 24px;
+      line-height: normal;
+      padding-left: 10px;
+      padding-right: 10px;
+      margin-bottom: 50px;
+      @include media('>=tablet') {
+        padding-left: 40px;
+        padding-right: 40px;
+      }
+      img {
+        padding: 0 0 10px;
+        // clear: both;
+        display: block;
         @include media('>=tablet') {
           float: left;
           padding: 5px 20px 5px 0;

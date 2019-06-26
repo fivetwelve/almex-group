@@ -61,17 +61,6 @@ module.exports = {
             footer
             common
           }
-          #productLists {
-          #  region
-          #  products {
-          #    pageSlug
-          #    category
-          #    title
-          #    specifications
-          #    summary
-          #    features
-          #  }
-          #}
           articles {
             pageSlug
             articleType

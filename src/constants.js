@@ -1,12 +1,12 @@
 module.exports = {
-  allLanguages: {
-    EN: 'EN',
-    ES: 'ES',
-    ES_ES: 'ES_ES',
-  },
-  allLanguageSlugs: {
-    EN: 'en',
-    ES: 'es',
+  allBrands: {
+    ALMEX_IN_A_BOX: 'ALMEX_IN_A_BOX',
+    ALMEX_INSTITUTE: 'ALMEX_INSTITUTE',
+    BAT: 'BAT',
+    EMSYS: 'EMSYS',
+    FUSION: 'FUSION',
+    GLOBAL_SERVICES: 'GLOBAL_SERVICES',
+    VOTECH: 'VOTECH',
   },
   allContinents: {
     GLOBAL: 'GLOBAL',
@@ -16,6 +16,20 @@ module.exports = {
     EUROPE: 'EUROPE',
     NORTH_AMERICA: 'NORTH_AMERICA',
     SOUTH_AMERICA: 'SOUTH_AMERICA',
+  },
+  allLanguages: {
+    EN: 'EN',
+    ES: 'ES',
+    ES_ES: 'ES_ES',
+  },
+  allLanguageSlugs: {
+    EN: 'en',
+    ES: 'es',
+  },
+  allLandingTypes: {
+    BRAND: 'BRAND',
+    INDUSTRY: 'INDUSTRY',
+    PRODUCT: 'PRODUCT',
   },
   allOffices: {
     API: 'INDONESIA',
@@ -62,15 +76,7 @@ module.exports = {
     SOUTH_AMERICA: 'southamerica',
     CENTRAL_SOUTH_AMERICA: 'centralsouthamerica',
   },
-  allBrands: {
-    ALMEX_IN_A_BOX: 'ALMEX_IN_A_BOX',
-    ALMEX_INSTITUTE: 'ALMEX_INSTITUTE',
-    BAT: 'BAT',
-    EMSYS: 'EMSYS',
-    FUSION: 'FUSION',
-    GLOBAL_SERVICES: 'GLOBAL_SERVICES',
-    VOTECH: 'VOTECH',
-  },
+
   allOptions: {
     MULTI_PLATEN: 'MULTI_PLATEN',
     PSI_40: 'PSI_40',
