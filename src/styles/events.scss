@@ -95,6 +95,7 @@ $spacing: 20px;
           color: $yellow-sea;
           display: flex;
           flex-direction: row;
+          justify-content: space-between;
           align-items: center;
           pointer-events: none;
           font-size: 18px;
