@@ -20,7 +20,7 @@ $spacing: 20px;
       .title {
         font-size: 18px;
         color: $prussian-blue;
-        font-weight: 500;
+        font-weight: 700;
       }
       .description {
         font-size: 16px;
@@ -95,6 +95,7 @@ $spacing: 20px;
           color: $yellow-sea;
           display: flex;
           flex-direction: row;
+          justify-content: space-between;
           align-items: center;
           pointer-events: none;
           font-size: 18px;

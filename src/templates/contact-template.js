@@ -5,7 +5,7 @@ import { graphql } from 'gatsby';
 import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
 import ContactMap from '../components/contactMap';
-import ContactModal from '../components/contactModal';
+import ContactFormModal from '../components/contactFormModal';
 import { fetch, mapToOffice } from '../utils/functions';
 
 import '../styles/contact.scss';
@@ -129,7 +129,7 @@ class ContactTemplate extends React.Component {
               visitorRegion={visitorRegion}
             />
             <div className="contact-shroud" ref={this.shroud} />
-            <ContactModal
+            <ContactFormModal
               aboutLabel={aboutLabel}
               hideModal={this.handleHideModal}
               label={label}
