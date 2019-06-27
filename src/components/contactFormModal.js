@@ -4,9 +4,10 @@ import { IconContext } from 'react-icons';
 import { FaTimes } from 'react-icons/fa';
 import Recaptcha from 'react-google-recaptcha';
 import { apiUrl, makeid } from '../utils/functions';
+import { allFormTypes } from '../constants';
 // import 'dotenv/config';
 
-class ContactModal extends React.Component {
+class ContactFormModal extends React.Component {
   constructor(props) {
     super(props);
     const subjectArray = [];
@@ -25,11 +26,23 @@ class ContactModal extends React.Component {
       contactOffice: '',
       contactSubject: '',
       contactMessage: '',
+      contactFormType: allFormTypes.CONTACT,
       message: null,
       subjects: subjectArray,
       submitDisabled: true,
     };
     this.recaptchaRef = React.createRef();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // When there is a selectedOffice, set contactOffice to that value
+    // this should only happen once when user clicks on Contact Us in parent component
+    const { selectedOffice } = this.props;
+    if (nextProps.selectedOffice !== selectedOffice) {
+      this.setState({
+        contactOffice: nextProps.selectedOffice,
+      });
+    }
   }
 
   handleChange = evt => {
@@ -76,8 +89,8 @@ class ContactModal extends React.Component {
         params[elem] = values[index];
       }
     });
-    params.destination = offices[Number(contactOffice)].email;
 
+    params.destination = offices[Number(contactOffice)].email;
     try {
       const response = await fetch(`${apiUrl()}/forwardEmail`, {
         method: 'POST',
@@ -131,6 +144,7 @@ class ContactModal extends React.Component {
 
   render() {
     const { aboutLabel, label, offices, selectedOffice, showModal, title } = this.props;
+
     const {
       contactName,
       contactEmail,
@@ -145,7 +159,6 @@ class ContactModal extends React.Component {
       subjects,
       submitDisabled,
     } = this.state;
-    // const availableOffices = offices.filter(office => office.)
     return (
       <div className={`contact-modal ${showModal ? 'in-view' : ''}`}>
         <div className="modal-container">
@@ -203,6 +216,21 @@ class ContactModal extends React.Component {
                   </label>
                 </div>
                 <div className="field">
+                  <label htmlFor="contactPhone">
+                    <div className="label">
+                      <span className="label-input">{aboutLabel.about.FORM_PHONE}</span>
+                      <span className="required">* {aboutLabel.about.FORM_REQUIRED}</span>
+                    </div>
+                    <input
+                      type="text"
+                      name="contactPhone"
+                      onChange={evt => this.handleChange(evt)}
+                      required
+                      value={contactPhone}
+                    />
+                  </label>
+                </div>
+                <div className="field">
                   <label htmlFor="contactPosition">
                     <div className="label">
                       <span className="label-input">{aboutLabel.about.FORM_POSITION}</span>
@@ -229,21 +257,6 @@ class ContactModal extends React.Component {
                       onChange={evt => this.handleChange(evt)}
                       required
                       value={contactCompany}
-                    />
-                  </label>
-                </div>
-                <div className="field">
-                  <label htmlFor="contactPhone">
-                    <div className="label">
-                      <span className="label-input">{aboutLabel.about.FORM_PHONE}</span>
-                      <span className="required">* {aboutLabel.about.FORM_REQUIRED}</span>
-                    </div>
-                    <input
-                      type="text"
-                      name="contactPhone"
-                      onChange={evt => this.handleChange(evt)}
-                      required
-                      value={contactPhone}
                     />
                   </label>
                 </div>
@@ -341,7 +354,7 @@ class ContactModal extends React.Component {
                     Send
                   </button>
                 </div>
-                {message && <div className="field">{message}</div>}
+                {message && <div className="feedback">{message}</div>}
               </form>
             </div>
           </div>
@@ -351,7 +364,7 @@ class ContactModal extends React.Component {
   }
 }
 
-ContactModal.defaultProps = {
+ContactFormModal.defaultProps = {
   aboutLabel: {},
   hideModal: () => {},
   label: {},
@@ -361,7 +374,7 @@ ContactModal.defaultProps = {
   title: '',
 };
 
-ContactModal.propTypes = {
+ContactFormModal.propTypes = {
   aboutLabel: PropTypes.shape({
     about: PropTypes.object,
   }),
@@ -381,4 +394,4 @@ ContactModal.propTypes = {
   title: PropTypes.string,
 };
 
-export default ContactModal;
+export default ContactFormModal;

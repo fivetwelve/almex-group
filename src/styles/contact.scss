@@ -18,7 +18,7 @@ $spacing: 20px;
       .title {
         font-size: 30px;
         color: $prussian-blue;
-        font-weight: 500;
+        font-weight: 700;
       }
     }
     .almex-locations {
@@ -352,6 +352,13 @@ $spacing: 20px;
                 transform-origin: 0 0;
                 @include media('>=tablet') {
                   transform: scale(1);
+                }
+              }
+              .feedback {
+                font-size: 18px;
+                max-width: 400px;
+                @include media('>=tablet') {
+                  font-size: 24px;
                 }
               }
             }

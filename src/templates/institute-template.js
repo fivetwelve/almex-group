@@ -7,6 +7,7 @@ import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
 import { makeid } from '../utils/functions';
 import '../styles/institute.scss';
+import InstituteForm from '../components/instituteForm';
 
 const allowHTML = { html: true };
 
@@ -22,13 +23,18 @@ const InstituteTemplate = ({ data, pageContext }) => {
       page: {
         institute: {
           bannerImage,
+          contactAndForm,
           description,
+          email,
           instructors,
+          instructorsImages,
           pdfDownloads,
           presentation,
+          presentationImages,
           sideContent,
           title,
           topics,
+          topicsImages,
         },
       },
     },
@@ -38,7 +44,7 @@ const InstituteTemplate = ({ data, pageContext }) => {
     <Layout
       activeLanguage={locale}
       brandNavigation={brandNavigation}
-      childrenClass="services"
+      childrenClass="institute"
       headerFooter={headerFooter}
       label={label}
       navigation={navigation}
@@ -48,7 +54,7 @@ const InstituteTemplate = ({ data, pageContext }) => {
       {/* <Location>
         {({ location }) => ( */}
       <>
-        <div className="services-container">
+        <div className="institute-container">
           <div className="banner-wrapper">
             <div className="banner-image">
               <GraphImg image={bannerImage} maxWidth={1280} />
@@ -60,14 +66,41 @@ const InstituteTemplate = ({ data, pageContext }) => {
               <div className="description">
                 <Markdown source={description} options={allowHTML} />
               </div>
-              <div className="topics">
-                <Markdown source={topics} options={allowHTML} />
+              <div className="topics-container">
+                <div className="topics">
+                  <Markdown source={topics} options={allowHTML} />
+                </div>
+                {topicsImages.length > 0 && (
+                  <div className="images">
+                    {topicsImages.map(image => (
+                      <GraphImg key={makeid()} image={image} maxWidth={400} />
+                    ))}
+                  </div>
+                )}
               </div>
-              <div className="presetation">
-                <Markdown source={presentation} options={allowHTML} />
+              <div className="presentation-container">
+                {presentationImages.length > 0 && (
+                  <div className="images">
+                    {presentationImages.map(image => (
+                      <GraphImg key={makeid()} image={image} maxWidth={400} />
+                    ))}
+                  </div>
+                )}
+                <div className="presentation">
+                  <Markdown source={presentation} options={allowHTML} />
+                </div>
               </div>
-              <div className="instructors">
-                <Markdown source={instructors} options={allowHTML} />
+              <div className="instructors-container">
+                <div className="instructors">
+                  <Markdown source={instructors} options={allowHTML} />
+                </div>
+                {instructorsImages.length > 0 && (
+                  <div className="images">
+                    {instructorsImages.map(image => (
+                      <GraphImg key={makeid()} image={image} maxWidth={400} />
+                    ))}
+                  </div>
+                )}
               </div>
               {pdfDownloads.length > 0 && <div className="pdfDownloads">test</div>}
             </div>
@@ -76,6 +109,11 @@ const InstituteTemplate = ({ data, pageContext }) => {
                 <Markdown key={makeid()} source={content} options={allowHTML} />
               ))}
             </aside>
+          </div>
+          <hr className="divider" />
+          <div className="form-container">
+            <Markdown source={contactAndForm} options={allowHTML} />
+            <InstituteForm label={label} email={email} />
           </div>
         </div>
       </>
@@ -105,9 +143,6 @@ export const query = graphql`
   query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
     cms {
       ...CommonQuery
-      # aboutLabel: label(where: { availableIn: $region }) {
-      #   about(locale: $locale)
-      # }
       page(where: { id: $id }) {
         institute: instituteSource {
           bannerImage {
@@ -127,6 +162,21 @@ export const query = graphql`
           topics(locale: $locale)
           presentation(locale: $locale)
           instructors(locale: $locale)
+          topicsImages {
+            handle
+            width
+            height
+          }
+          presentationImages {
+            handle
+            width
+            height
+          }
+          instructorsImages {
+            handle
+            width
+            height
+          }
         }
       }
     }

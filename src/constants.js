@@ -97,4 +97,8 @@ module.exports = {
     FUSION_HOT: 'FUSION_HOT',
     FUSION_COLD: 'FUSION_COLD',
   },
+  allFormTypes: {
+    CONTACT: 'CONTACT',
+    INSTITUTE: 'INSTITUTE',
+  },
 };
