@@ -215,9 +215,6 @@ export const commonFragment = graphql`
           history: historySource {
             title(locale: $locale)
           }
-          industry: industrySource {
-            title(locale: $locale)
-          }
           institute: instituteSource {
             title(locale: $locale)
           }
