@@ -200,11 +200,11 @@ $spacing: 20px;
     hr.divider {
       background-color: $blue;
       height: 2px;
-      padding-left: 10px;
-      padding-right: 10px;
+      margin-left: 10px;
+      margin-right: 10px;
       @include media('>=desktop') {
-        padding-left: 40px;
-        padding-right: 40px;
+        margin-left: 40px;
+        margin-right: 40px;
         margin-top: 40px;
       }
     }
@@ -234,7 +234,9 @@ $spacing: 20px;
         }
       }
       p {
-        padding-left: 40px;
+        @include media('>=tablet') {
+          padding-left: 40px;
+        }
       }
       .contact-form {
         margin-top: 20px;

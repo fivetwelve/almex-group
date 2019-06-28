@@ -130,7 +130,6 @@ class ContactTemplate extends React.Component {
             />
             <div className="contact-shroud" ref={this.shroud} />
             <ContactFormModal
-              aboutLabel={aboutLabel}
               hideModal={this.handleHideModal}
               label={label}
               offices={offices}
