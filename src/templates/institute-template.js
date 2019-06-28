@@ -5,9 +5,11 @@ import { graphql } from 'gatsby';
 import GraphImg from 'graphcms-image';
 import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
+import InstituteForm from '../components/instituteForm';
 import { makeid } from '../utils/functions';
 import '../styles/institute.scss';
-import InstituteForm from '../components/instituteForm';
+
+import logo from '../../static/img/logo-institute.svg';
 
 const allowHTML = { html: true };
 
@@ -65,6 +67,9 @@ const InstituteTemplate = ({ data, pageContext }) => {
             <div className="main-content">
               <h1 className="title">{title}</h1>
               <div className="description">
+                <div className="institute-logo-mobile">
+                  <img src={logo} alt="Almex Institute logo" />
+                </div>
                 <Markdown source={description} options={allowHTML} />
               </div>
               <div className="topics-container">
@@ -115,6 +120,9 @@ const InstituteTemplate = ({ data, pageContext }) => {
               )}
             </div>
             <aside className="aside-container">
+              <div className="institute-logo">
+                <img src={logo} alt="Almex Institute logo" />
+              </div>
               {sideContent.map(content => (
                 <Markdown key={makeid()} source={content} options={allowHTML} />
               ))}

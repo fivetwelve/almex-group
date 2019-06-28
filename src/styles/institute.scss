@@ -51,6 +51,14 @@ $spacing: 20px;
           color: $prussian-blue;
           font-weight: 700;
         }
+        .description {
+          .institute-logo-mobile {
+            width: 160px;
+            @include media('>=tablet') {
+              display: none;
+            }
+          }
+        }
         .topics-container,
         .instructors-container {
           flex-direction: column;
@@ -200,6 +208,13 @@ $spacing: 20px;
             width: 100%;
           }
         }
+        .institute-logo {
+          border: none;
+          display: none;
+          @include media('>=desktop') {
+            display: block;
+          }
+        }
         h3,
         p,
         li {
@@ -211,6 +226,7 @@ $spacing: 20px;
         }
         h3 {
           color: $chocolate;
+          text-transform: uppercase;
         }
         ul {
           margin-left: 1.5rem;
