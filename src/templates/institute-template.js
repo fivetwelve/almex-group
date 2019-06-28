@@ -29,6 +29,7 @@ const InstituteTemplate = ({ data, pageContext }) => {
           instructors,
           instructorsImages,
           pdfDownloads,
+          pdfTitles,
           presentation,
           presentationImages,
           sideContent,
@@ -102,7 +103,16 @@ const InstituteTemplate = ({ data, pageContext }) => {
                   </div>
                 )}
               </div>
-              {pdfDownloads.length > 0 && <div className="pdfDownloads">test</div>}
+              {pdfDownloads.length > 0 && (
+                <div className="downloads">
+                  {pdfDownloads.map((download, idx) => (
+                    <div key={makeid()} className="pdf">
+                      <div className="pdf-icon" />
+                      <a href={download.url}>{pdfTitles[idx] || download.fileName}</a>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
             <aside className="aside-container">
               {sideContent.map(content => (
@@ -155,6 +165,7 @@ export const query = graphql`
           email
           sideContent(locale: $locale)
           pdfDownloads(locale: $locale) {
+            fileName
             url
           }
           pdfTitles(locale: $locale)

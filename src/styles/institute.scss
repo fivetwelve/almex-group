@@ -139,7 +139,43 @@ $spacing: 20px;
             padding-left: 40px;
           }
         }
+        .downloads {
+          margin-top: 40px;
+          display: flex;
+          flex-direction: column;
+          font-size: 18px;
+          line-height: normal;
+          @include media('>=tablet') {
+            font-size: 24px;
+          }
+          .pdf {
+            display: inline-flex;
+            a,
+            a:visited {
+              color: $prussian-blue60;
+              text-decoration: none;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              &:hover {
+                color: $yellow-sea;
+                text-decoration: underline;
+                transition: $easeinout;
+              }
+            }
+            .pdf-icon {
+              display: inline-block;
+              height: 32px;
+              width: 24px;
+              background-image: url('../../static/img/icon-file-pdf.svg');
+              background-size: cover;
+              background-position: center;
+              margin-right: 10px;
+            }
+          }
+        }
       }
+
       .aside-container {
         width: 100%;
         display: flex;
@@ -197,6 +233,7 @@ $spacing: 20px;
         }
       }
     }
+
     hr.divider {
       background-color: $blue;
       height: 2px;
