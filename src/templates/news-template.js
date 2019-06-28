@@ -2,24 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 // import { Location } from '@reach/router';
-// import GraphImg from 'graphcms-image';
-// import Markdown from 'react-remarkable';
+import GraphImg from 'graphcms-image';
+import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
-import '../styles/about.scss';
+import '../styles/news.scss';
 
-// const allowHTML = { html: true };
+const allowHTML = { html: true };
 
 const NewsTemplate = ({ data, pageContext }) => {
   const { locale, region } = pageContext;
   const {
     cms: {
-      aboutLabel,
+      // aboutLabel,
       brandNavigation,
       headerFooter,
       label,
       navigation,
       page: {
-        news: { title },
+        news: { bannerImage, description, title },
       },
     },
   } = data;
@@ -38,23 +38,25 @@ const NewsTemplate = ({ data, pageContext }) => {
       {/* <Location>
         {({ location }) => ( */}
       <>
-        <div className="about-container">
-          {/* <div className="banner-image">
+        <div className="news-container">
+          {bannerImage && (
+            <div className="banner-wrapper">
+              <div className="banner-image">
                 <GraphImg image={bannerImage} maxWidth={1280} />
-              </div> */}
+              </div>
+            </div>
+          )}
           <div className="intro-container">
             <div className="intro-content">
               <h1 className="title">{title}</h1>
-              {/* <div className="description">
-                    <Markdown source={description} options={allowHTML} />
-                  </div> */}
-            </div>
-            <div className="links">
-              <div className="resources">
-                <div className="label">{aboutLabel.about.RESOURCES}</div>
-              </div>
+              {description && (
+                <div className="description">
+                  <Markdown source={description} options={allowHTML} />
+                </div>
+              )}
             </div>
           </div>
+          {/* <div className="article-container"></div> */}
         </div>
       </>
       {/* )}
@@ -88,13 +90,27 @@ export const query = graphql`
       }
       page(where: { id: $id }) {
         news: newsSource {
-          # bannerImage {
-          #   handle
-          #   width
-          #   height
-          # }
+          bannerImage {
+            handle
+            width
+            height
+          }
+          description(locale: $locale)
           title(locale: $locale)
-          # description(locale: $locale)
+          articles {
+            tile {
+              url
+            }
+            date
+            title(locale: $locale)
+            excerpt(locale: $locale)
+            content(locale: $locale)
+            pdfDownloads(locale: $locale) {
+              fileName
+              url
+            }
+            pdfTitles(locale: $locale)
+          }
         }
       }
     }

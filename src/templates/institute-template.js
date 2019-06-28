@@ -58,11 +58,13 @@ const InstituteTemplate = ({ data, pageContext }) => {
         {({ location }) => ( */}
       <>
         <div className="institute-container">
-          <div className="banner-wrapper">
-            <div className="banner-image">
-              <GraphImg image={bannerImage} maxWidth={1280} />
+          {bannerImage && (
+            <div className="banner-wrapper">
+              <div className="banner-image">
+                <GraphImg image={bannerImage} maxWidth={1280} />
+              </div>
             </div>
-          </div>
+          )}
           <div className="main-container">
             <div className="main-content">
               <h1 className="title">{title}</h1>
@@ -151,7 +153,6 @@ InstituteTemplate.propTypes = {
     id: PropTypes.string,
   }),
   pageContext: PropTypes.shape({
-    landingSections: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
   }),
