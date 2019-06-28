@@ -5,9 +5,11 @@ import { graphql } from 'gatsby';
 import GraphImg from 'graphcms-image';
 import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
+import InstituteForm from '../components/instituteForm';
 import { makeid } from '../utils/functions';
 import '../styles/institute.scss';
-import InstituteForm from '../components/instituteForm';
+
+import logo from '../../static/img/logo-institute.svg';
 
 const allowHTML = { html: true };
 
@@ -29,6 +31,7 @@ const InstituteTemplate = ({ data, pageContext }) => {
           instructors,
           instructorsImages,
           pdfDownloads,
+          pdfTitles,
           presentation,
           presentationImages,
           sideContent,
@@ -55,15 +58,20 @@ const InstituteTemplate = ({ data, pageContext }) => {
         {({ location }) => ( */}
       <>
         <div className="institute-container">
-          <div className="banner-wrapper">
-            <div className="banner-image">
-              <GraphImg image={bannerImage} maxWidth={1280} />
+          {bannerImage && (
+            <div className="banner-wrapper">
+              <div className="banner-image">
+                <GraphImg image={bannerImage} maxWidth={1280} />
+              </div>
             </div>
-          </div>
+          )}
           <div className="main-container">
             <div className="main-content">
               <h1 className="title">{title}</h1>
               <div className="description">
+                <div className="institute-logo-mobile">
+                  <img src={logo} alt="Almex Institute logo" />
+                </div>
                 <Markdown source={description} options={allowHTML} />
               </div>
               <div className="topics-container">
@@ -102,9 +110,21 @@ const InstituteTemplate = ({ data, pageContext }) => {
                   </div>
                 )}
               </div>
-              {pdfDownloads.length > 0 && <div className="pdfDownloads">test</div>}
+              {pdfDownloads.length > 0 && (
+                <div className="downloads">
+                  {pdfDownloads.map((download, idx) => (
+                    <div key={makeid()} className="pdf">
+                      <div className="pdf-icon" />
+                      <a href={download.url}>{pdfTitles[idx] || download.fileName}</a>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
             <aside className="aside-container">
+              <div className="institute-logo">
+                <img src={logo} alt="Almex Institute logo" />
+              </div>
               {sideContent.map(content => (
                 <Markdown key={makeid()} source={content} options={allowHTML} />
               ))}
@@ -133,7 +153,6 @@ InstituteTemplate.propTypes = {
     id: PropTypes.string,
   }),
   pageContext: PropTypes.shape({
-    landingSections: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
   }),
@@ -155,6 +174,7 @@ export const query = graphql`
           email
           sideContent(locale: $locale)
           pdfDownloads(locale: $locale) {
+            fileName
             url
           }
           pdfTitles(locale: $locale)

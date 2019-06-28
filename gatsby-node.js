@@ -184,6 +184,7 @@ exports.createPages = ({ graphql, actions }) => {
                   });
                   break;
                 case allPageTypes.NEWS:
+                  /* also used by Safety Alerts & Certifications */
                   createPage({
                     path: pagePath,
                     component: path.resolve(`./src/templates/news-template.js`),

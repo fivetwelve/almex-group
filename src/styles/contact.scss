@@ -14,11 +14,31 @@ $spacing: 20px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    .banner-wrapper {
+      border-bottom: 15px solid $chocolate;
+      @include media('>=tablet') {
+        border-bottom: none;
+      }
+      .banner-image {
+        height: 325px;
+        @include media('>=tablet') {
+          height: auto;
+          border-bottom: 15px solid $chocolate;
+        }
+      }
+    }
     .intro-content {
       .title {
         font-size: 30px;
         color: $prussian-blue;
         font-weight: 700;
+      }
+      .description {
+        font-size: 18px;
+        line-height: normal;
+        @include media('>=tablet') {
+          font-size: 24px;
+        }
       }
     }
     .almex-locations {

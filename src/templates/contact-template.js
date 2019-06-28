@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 // import { Location } from '@reach/router';
+import GraphImg from 'graphcms-image';
 import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
 import ContactMap from '../components/contactMap';
@@ -84,7 +85,7 @@ class ContactTemplate extends React.Component {
         label,
         navigation,
         page: {
-          contact: { title, description, offices },
+          contact: { bannerImage, title, description, offices },
         },
       },
     } = data;
@@ -106,6 +107,13 @@ class ContactTemplate extends React.Component {
             {/* <div className="banner-image">
                    <GraphImg image={bannerImage} maxWidth={1280} />
                  </div> */}
+            {bannerImage && (
+              <div className="banner-wrapper">
+                <div className="banner-image">
+                  <GraphImg image={bannerImage} maxWidth={1280} />
+                </div>
+              </div>
+            )}
             <div className="intro-container">
               <div className="intro-content">
                 <h1 className="title">{title}</h1>
@@ -130,7 +138,6 @@ class ContactTemplate extends React.Component {
             />
             <div className="contact-shroud" ref={this.shroud} />
             <ContactFormModal
-              aboutLabel={aboutLabel}
               hideModal={this.handleHideModal}
               label={label}
               offices={offices}
