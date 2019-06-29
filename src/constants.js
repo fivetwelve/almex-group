@@ -49,7 +49,6 @@ module.exports = {
   },
   allPageTypes: {
     ABOUT: 'ABOUT',
-    ARTICLE: 'ARTICLE',
     CAREERS: 'CAREERS',
     CONTACT: 'CONTACT',
     EVENTS: 'EVENTS',
@@ -76,7 +75,6 @@ module.exports = {
     SOUTH_AMERICA: 'southamerica',
     CENTRAL_SOUTH_AMERICA: 'centralsouthamerica',
   },
-
   allOptions: {
     MULTI_PLATEN: 'MULTI_PLATEN',
     PSI_40: 'PSI_40',
