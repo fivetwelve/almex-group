@@ -33,10 +33,6 @@ const createLinkFromPage = (location, page, language) => {
   return createLink(location, slug);
 };
 
-// const getOffice = countryCode => {
-
-// }
-
 const getSlug = pathname => {
   /*
     Get slug from pathname; do not include origin attribute.
@@ -59,9 +55,6 @@ const getTitle = page => {
   switch (page.pageType) {
     case allPageTypes.ABOUT:
       title = page.about.title || '';
-      break;
-    case allPageTypes.ARTICLE:
-      title = page.article.title || '';
       break;
     case allPageTypes.CAREERS:
       title = page.careers.title || '';
@@ -227,6 +220,24 @@ const mapToOffice = (countryCode, offices) => {
   return supportOffice;
 };
 
+const matchMomentLocale = locale => {
+  const thisLocale = locale.toLowerCase();
+  let momentLocale = 'en';
+  switch (thisLocale) {
+    case 'en':
+      break;
+    case 'es':
+      momentLocale = 'es';
+      break;
+    case 'es_es':
+      momentLocale = 'es';
+      break;
+    default:
+      break;
+  }
+  return momentLocale;
+};
+
 /**
  * @export
  * @param  {String}  date
@@ -317,6 +328,7 @@ export {
   getTitle,
   makeid,
   mapToOffice,
+  matchMomentLocale,
   isDayInRange,
   normalizeTimeZone,
   scrollTo,

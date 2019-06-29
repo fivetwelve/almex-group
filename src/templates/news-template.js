@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 // import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
 import Markdown from 'react-remarkable';
+import moment from 'moment';
+import 'moment/locale/es';
 import Layout from '../components/layout';
+import { makeid, matchMomentLocale } from '../utils/functions';
 import '../styles/news.scss';
 
 const allowHTML = { html: true };
@@ -19,10 +22,15 @@ const NewsTemplate = ({ data, pageContext }) => {
       label,
       navigation,
       page: {
-        news: { bannerImage, description, title },
+        news: { articles, bannerImage, description, title },
       },
     },
   } = data;
+  const [articleNum, setArticleNum] = useState(0);
+
+  moment.locale(matchMomentLocale(locale));
+  /* sort articles in descending date order */
+  articles.sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (
     <Layout
@@ -56,7 +64,34 @@ const NewsTemplate = ({ data, pageContext }) => {
               )}
             </div>
           </div>
-          {/* <div className="article-container"></div> */}
+          {articles.length > 0 && (
+            <>
+              <hr className="divider" />
+              <div className="article-container">
+                <p>{moment(articles[articleNum].date).format('LL')}</p>
+                <Markdown source={articles[articleNum].content} options={allowHTML} />
+              </div>
+              <hr className="divider" />
+              <div className="tile-container">
+                {articles.map((article, idx) => (
+                  <button
+                    className={idx === articleNum ? 'active' : ''}
+                    key={makeid()}
+                    type="button"
+                    onClick={() => setArticleNum(idx)}
+                  >
+                    <div className="date">{moment(article.date).format('LL')}</div>
+                    <div className="tile">
+                      <div className="image">
+                        <img src={article.tile.url} alt="" />
+                      </div>
+                      <div className="excerpt">{article.excerpt}</div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </>
       {/* )}
@@ -110,6 +145,9 @@ export const query = graphql`
               url
             }
             pdfTitles(locale: $locale)
+            richContent(locale: $locale) {
+              html
+            }
           }
         }
       }
