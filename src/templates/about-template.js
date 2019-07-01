@@ -38,13 +38,13 @@ const AboutTemplate = ({ data, pageContext }) => {
   //     let tileData = {};
   //     tileIdx += 1;
   //     switch (page.pageType) {
-  //       case allPageTypes.LANDING:
+  //       case PAGE_TYPES.LANDING:
   //         tileData = {
   //           slug: page.slug,
   //           ...page.landing,
   //         };
   //         break;
-  //       case allPageTypes.PRODUCT:
+  //       case PAGE_TYPES.PRODUCT:
   //         tileData = {
   //           slug: page.slug,
   //           ...page.product,

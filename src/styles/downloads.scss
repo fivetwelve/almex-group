@@ -1,0 +1,131 @@
+@import 'base';
+$spacing: 20px;
+
+.downloads {
+  padding-left: 10px;
+  padding-right: 10px;
+  @include media('>=tablet') {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .downloads-container {
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    .banner-wrapper {
+      border-bottom: 15px solid $blue;
+      @include media('>=tablet') {
+        border-bottom: none;
+      }
+      .banner-image {
+        height: 325px;
+        @include media('>=tablet') {
+          height: auto;
+          border-bottom: 15px solid $blue;
+        }
+      }
+    }
+    .intro-container {
+      display: flex;
+      margin-top: 40px;
+      flex-direction: column;
+      width: 100%;
+      @include media('>=desktop') {
+        flex-direction: row;
+      }
+      .intro-content {
+        .title {
+          font-size: 30px;
+          color: $prussian-blue;
+          font-weight: 700;
+          padding-left: 10px;
+          padding-right: 10px;
+          @include media('>=tablet') {
+            padding-left: 40px;
+            padding-right: 40px;
+          }
+        }
+        .description {
+          font-size: 24px;
+          line-height: normal;
+          padding-left: 10px;
+          padding-right: 10px;
+          @include media('>=tablet') {
+            padding-left: 40px;
+            padding-right: 40px;
+          }
+          img {
+            padding: 0 0 5px;
+            @include media('>=tablet') {
+              float: left;
+              padding: 5px 20px 5px 0;
+            }
+          }
+        }
+      }
+    }
+    hr.divider {
+      background-color: $blue;
+      height: 5px;
+      margin-left: 10px;
+      margin-right: 10px;
+      @include media('>=desktop') {
+        margin-left: 40px;
+        margin-right: 40px;
+        margin-top: 40px;
+        margin-bottom: 40px;
+      }
+    }
+    .downloads {
+      padding-left: 10px;
+      padding-right: 10px;
+      @include media('>=tablet') {
+        padding-left: 40px;
+        padding-right: 40px;
+      }
+    }
+    .downloads {
+      font-size: 18px;
+      &.blue {
+        column-rule: dotted 1px $blue;
+        // column-rule: dotted 1px $prussian-blue;
+      }
+      &.orange {
+        column-rule: dotted 1px $tango;
+      }
+      @include media('>=tablet') {
+        padding: 40px;
+        columns: 2 auto;
+        font-size: 24px;
+      }
+      @include media('>=desktop') {
+        columns: 3 auto;
+      }
+      .category {
+        margin-bottom: 30px;
+        &.blue h2 {
+          background-color: $prussian-blue;
+        }
+        &.orange h2 {
+          background-color: $tango;
+        }
+      }
+
+      .category h2 {
+        color: $white;
+        padding: 5px 20px;
+        margin-block-start: 0;
+        margin-block-end: 0.3em;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        letter-spacing: 0.3px;
+        line-height: 1em;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+    }
+  }
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import { Link } from 'gatsby';
 import { createLink } from '../utils/functions';
-import { allBrands, allPageTypes } from '../constants';
+import { BRANDS, PAGE_TYPES } from '../constants';
 
 const BrandBanner = ({ brands, location }) => (
   <div className="brands">
@@ -10,38 +10,38 @@ const BrandBanner = ({ brands, location }) => (
       let brandType = '';
       let productBrand = '';
       switch (brand.pageType) {
-        case allPageTypes.INSTITUTE:
+        case PAGE_TYPES.INSTITUTE:
           brandType = brand.institute;
           break;
-        case allPageTypes.LANDING:
+        case PAGE_TYPES.LANDING:
           brandType = brand.landing;
           break;
-        case allPageTypes.SERVICES:
+        case PAGE_TYPES.SERVICES:
           brandType = brand.services;
           break;
         default:
           break;
       }
       switch (brandType.brand) {
-        case allBrands.ALMEX_IN_A_BOX:
+        case BRANDS.ALMEX_IN_A_BOX:
           productBrand = 'almex-box';
           break;
-        case allBrands.BAT:
+        case BRANDS.BAT:
           productBrand = 'bat';
           break;
-        case allBrands.EMSYS:
+        case BRANDS.EMSYS:
           productBrand = 'emsys';
           break;
-        case allBrands.FUSION:
+        case BRANDS.FUSION:
           productBrand = 'fusion';
           break;
-        case allBrands.VOTECH:
+        case BRANDS.VOTECH:
           productBrand = 'votech';
           break;
-        case allBrands.ALMEX_INSTITUTE:
+        case BRANDS.ALMEX_INSTITUTE:
           productBrand = 'institute';
           break;
-        case allBrands.GLOBAL_SERVICES:
+        case BRANDS.GLOBAL_SERVICES:
           productBrand = 'knight';
           break;
         default:

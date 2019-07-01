@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
-import { allContinents } from '../constants';
+import { CONTINENTS } from '../constants';
 
 class ContinentSelector extends Component {
   constructor(props) {
@@ -10,15 +10,15 @@ class ContinentSelector extends Component {
     this.dropdownTrigger = React.createRef();
     this.state = {
       clicked: false,
-      /* want to use following sort order rather than just equating to allContinents */
+      /* want to use following sort order rather than just equating to CONTINENTS */
       continents: [
-        allContinents.GLOBAL,
-        allContinents.AFRICA,
-        allContinents.ASIA,
-        allContinents.AUSTRALIA,
-        allContinents.EUROPE,
-        allContinents.NORTH_AMERICA,
-        allContinents.SOUTH_AMERICA,
+        CONTINENTS.GLOBAL,
+        CONTINENTS.AFRICA,
+        CONTINENTS.ASIA,
+        CONTINENTS.AUSTRALIA,
+        CONTINENTS.EUROPE,
+        CONTINENTS.NORTH_AMERICA,
+        CONTINENTS.SOUTH_AMERICA,
       ],
     };
   }
@@ -97,7 +97,7 @@ class ContinentSelector extends Component {
 ContinentSelector.defaultProps = {
   continent: '',
   labels: {},
-  setContinent: () => allContinents.ALL_EVENTS,
+  setContinent: () => CONTINENTS.ALL_EVENTS,
 };
 
 ContinentSelector.propTypes = {

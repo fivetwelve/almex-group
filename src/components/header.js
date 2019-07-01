@@ -200,13 +200,13 @@ export const commonFragment = graphql`
           about: aboutSource {
             title(locale: $locale)
           }
-          # article: articleSource {
-          #   title(locale: $locale)
-          # }
           careers: careersSource {
             title(locale: $locale)
           }
           contact: contactSource {
+            title(locale: $locale)
+          }
+          downloads: downloadsSource {
             title(locale: $locale)
           }
           events: eventsSource {

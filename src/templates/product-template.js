@@ -7,7 +7,7 @@ import LinkWithPrevious from '../components/linkWithPrevious';
 import ProductShowcase from '../components/productShowcase';
 import Options from '../components/options';
 import AccessoryAndRelatedTile from '../components/accessoryAndRelatedTile';
-import { allThemes } from '../constants';
+import { THEMES } from '../constants';
 import { getSlug, makeid } from '../utils/functions';
 import '../styles/product.scss';
 
@@ -66,20 +66,20 @@ const ProductTemplate = ({ data, location, pageContext }) => {
   }
 
   switch (theme) {
-    case allThemes.HEAVYWEIGHT: {
+    case THEMES.HEAVYWEIGHT: {
       break;
     }
-    case allThemes.LIGHTWEIGHT: {
+    case THEMES.LIGHTWEIGHT: {
       themeColour = 'teal';
       break;
     }
-    case allThemes.INDUSTRIAL: {
+    case THEMES.INDUSTRIAL: {
       break;
     }
-    case allThemes.FUSION_COLD: {
+    case THEMES.FUSION_COLD: {
       break;
     }
-    case allThemes.FUSION_HOT: {
+    case THEMES.FUSION_HOT: {
       themeColour = 'orange';
       break;
     }

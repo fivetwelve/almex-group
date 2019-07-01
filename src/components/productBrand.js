@@ -1,30 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { allBrands } from '../constants';
+import { BRANDS } from '../constants';
 
 const ProductBrand = ({ brand }) => {
   let productBrand = '';
 
   switch (brand) {
-    case allBrands.ALMEX_IN_A_BOX:
+    case BRANDS.ALMEX_IN_A_BOX:
       productBrand = 'almex-box';
       break;
-    case allBrands.ALMEX_INSTITUTE:
+    case BRANDS.ALMEX_INSTITUTE:
       productBrand = 'institute';
       break;
-    case allBrands.BAT:
+    case BRANDS.BAT:
       productBrand = 'bat';
       break;
-    case allBrands.EMSYS:
+    case BRANDS.EMSYS:
       productBrand = 'emsys';
       break;
-    case allBrands.FUSION:
+    case BRANDS.FUSION:
       productBrand = 'fusion';
       break;
-    case allBrands.GLOBAL_SERVICES:
+    case BRANDS.GLOBAL_SERVICES:
       productBrand = 'knight';
       break;
-    case allBrands.VOTECH:
+    case BRANDS.VOTECH:
       productBrand = 'votech';
       break;
     default:

@@ -4,7 +4,7 @@ import { IconContext } from 'react-icons';
 import { FaTimes } from 'react-icons/fa';
 import Recaptcha from 'react-google-recaptcha';
 import { apiUrl, makeid } from '../utils/functions';
-import { allFormTypes } from '../constants';
+import { FORM_TYPES } from '../constants';
 // import 'dotenv/config';
 
 class ContactFormModal extends React.Component {
@@ -26,7 +26,7 @@ class ContactFormModal extends React.Component {
       contactOffice: '',
       contactSubject: '',
       contactMessage: '',
-      contactFormType: allFormTypes.CONTACT,
+      contactFormType: FORM_TYPES.CONTACT,
       message: null,
       subjects: subjectArray,
       submitDisabled: true,

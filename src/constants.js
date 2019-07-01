@@ -1,5 +1,5 @@
 module.exports = {
-  allBrands: {
+  BRANDS: {
     ALMEX_IN_A_BOX: 'ALMEX_IN_A_BOX',
     ALMEX_INSTITUTE: 'ALMEX_INSTITUTE',
     BAT: 'BAT',
@@ -8,7 +8,7 @@ module.exports = {
     GLOBAL_SERVICES: 'GLOBAL_SERVICES',
     VOTECH: 'VOTECH',
   },
-  allContinents: {
+  CONTINENTS: {
     GLOBAL: 'GLOBAL',
     AFRICA: 'AFRICA',
     ASIA: 'ASIA',
@@ -17,21 +17,25 @@ module.exports = {
     NORTH_AMERICA: 'NORTH_AMERICA',
     SOUTH_AMERICA: 'SOUTH_AMERICA',
   },
-  allLanguages: {
-    EN: 'EN',
-    ES: 'ES',
-    ES_ES: 'ES_ES',
+  DOWNLOAD_TYPES: {
+    DATA_SHEETS: 'DATA_SHEETS',
+    MANUALS: 'MANUALS',
   },
-  allLanguageSlugs: {
-    EN: 'en',
-    ES: 'es',
-  },
-  allLandingTypes: {
+  LANDING_TYPES: {
     BRAND: 'BRAND',
     INDUSTRY: 'INDUSTRY',
     PRODUCT: 'PRODUCT',
   },
-  allOffices: {
+  LANGUAGE_SLUGS: {
+    EN: 'en',
+    ES: 'es',
+  },
+  LANGUAGES: {
+    EN: 'EN',
+    ES: 'ES',
+    ES_ES: 'ES_ES',
+  },
+  OFFICES: {
     API: 'INDONESIA',
     AUS: 'AUSTRALIA',
     BRA: 'BRASIL',
@@ -47,10 +51,24 @@ module.exports = {
     PER: 'PERU',
     FON: 'FONMAR',
   },
-  allPageTypes: {
+  OPTIONS: {
+    MULTI_PLATEN: 'MULTI_PLATEN',
+    PSI_40: 'PSI_40',
+    PSI_60: 'PSI_60',
+    PSI_100: 'PSI_100',
+    PSI_175: 'PSI_175',
+    PSI_200: 'PSI_200',
+    RECTANGULAR: 'RECTANGULAR',
+    RHOMBOID: 'RHOMBOID',
+    SIDE_BY_SIDE_RECT: 'SIDE_BY_SIDE_RECT',
+    SIDE_BY_SIDE_RHOM: 'SIDE_BY_SIDE_RHOM',
+    SIDE_HANDLES: 'SIDE_HANDLES',
+  },
+  PAGE_TYPES: {
     ABOUT: 'ABOUT',
     CAREERS: 'CAREERS',
     CONTACT: 'CONTACT',
+    DOWNLOADS: 'DOWNLOADS',
     EVENTS: 'EVENTS',
     HISTORY: 'HISTORY',
     HOMEPAGE: 'HOMEPAGE',
@@ -65,37 +83,29 @@ module.exports = {
     SERVICES: 'SERVICES',
     USED: 'USED',
   },
-  allRegions: {
+  REGIONS: {
     NORTH_AMERICA: 'NORTH_AMERICA',
     SOUTH_AMERICA: 'SOUTH_AMERICA',
     CENTRAL_SOUTH_AMERICA: 'CENTRAL_SOUTH_AMERICA',
   },
-  allRegionSlugs: {
+  REGION_SLUGS: {
     NORTH_AMERICA: 'northamerica',
     SOUTH_AMERICA: 'southamerica',
     CENTRAL_SOUTH_AMERICA: 'centralsouthamerica',
   },
-  allOptions: {
-    MULTI_PLATEN: 'MULTI_PLATEN',
-    PSI_40: 'PSI_40',
-    PSI_60: 'PSI_60',
-    PSI_100: 'PSI_100',
-    PSI_175: 'PSI_175',
-    PSI_200: 'PSI_200',
-    RECTANGULAR: 'RECTANGULAR',
-    RHOMBOID: 'RHOMBOID',
-    SIDE_BY_SIDE_RECT: 'SIDE_BY_SIDE_RECT',
-    SIDE_BY_SIDE_RHOM: 'SIDE_BY_SIDE_RHOM',
-    SIDE_HANDLES: 'SIDE_HANDLES',
+  STATUS: {
+    PUBLISHED: 'PUBLISHED',
+    DRAFT: 'DRAFT',
+    ARCHIVED: 'ARCHIVED',
   },
-  allThemes: {
+  THEMES: {
     HEAVYWEIGHT: 'HEAVYWEIGHT',
     LIGHTWEIGHT: 'LIGHTWEIGHT',
     INDUSTRIAL: 'INDUSTRIAL',
     FUSION_HOT: 'FUSION_HOT',
     FUSION_COLD: 'FUSION_COLD',
   },
-  allFormTypes: {
+  FORM_TYPES: {
     CONTACT: 'CONTACT',
     INSTITUTE: 'INSTITUTE',
   },
