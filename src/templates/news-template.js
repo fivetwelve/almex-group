@@ -5,6 +5,7 @@ import { graphql } from 'gatsby';
 // import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
 import Markdown from 'react-remarkable';
+import DOMPurify from 'dompurify';
 import moment from 'moment';
 import 'moment/locale/es';
 import Layout from '../components/layout';
@@ -30,6 +31,12 @@ const NewsTemplate = ({ data, pageContext }) => {
   const [articleNum, setArticleNum] = useState(0);
 
   moment.locale(matchMomentLocale(locale));
+
+  /* sanitizing HTML content to prevent XSS */
+  articles.forEach((article, idx) => {
+    articles[idx].richContent.html = DOMPurify.sanitize(article.richContent.html);
+  });
+
   /* sort articles in descending date order */
   const published = articles.filter(article => article.status === STATUS.PUBLISHED);
   const archived = articles.filter(article => article.status === STATUS.ARCHIVED);
