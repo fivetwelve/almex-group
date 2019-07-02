@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
+import GraphImg from 'graphcms-image';
 import Markdown from 'react-remarkable';
+import moment from 'moment';
+import 'moment/locale/es';
 import Layout from '../components/layout';
 import UsedEquipmentListing from '../components/usedEquipmentListing';
-import { makeid } from '../utils/functions';
+import { makeid, matchMomentLocale } from '../utils/functions';
 import '../styles/usedEquipment.scss';
 
 const allowHTML = { html: true };
@@ -18,10 +21,12 @@ const UsedEquipmentTemplate = ({ data, pageContext }) => {
       label,
       navigation,
       page: {
-        usedEquipment: { title, description, disclaimer, usedEquipmentListings },
+        usedEquipment: { bannerImage, description, disclaimer, title, usedEquipmentListings },
       },
     },
   } = data;
+
+  moment.locale(matchMomentLocale(locale));
 
   return (
     <Layout
@@ -35,9 +40,15 @@ const UsedEquipmentTemplate = ({ data, pageContext }) => {
       title=""
     >
       <div className="used-equipment-container">
+        {bannerImage && (
+          <div className="banner-wrapper">
+            <div className="banner-image">
+              <GraphImg image={bannerImage} maxWidth={1280} />
+            </div>
+          </div>
+        )}
         <div className="heading">
           <div className="title-container">
-            <div className="used-icon" aria-hidden="true" />
             <div className="title">{title}</div>
           </div>
           <div className="description">
@@ -88,9 +99,14 @@ export const query = graphql`
       }
       page(where: { id: $id }) {
         usedEquipment: usedEquipmentSource {
-          title(locale: $locale)
+          bannerImage {
+            handle
+            width
+            height
+          }
           description(locale: $locale)
           disclaimer(locale: $locale)
+          title(locale: $locale)
           usedEquipmentListings {
             date
             title(locale: $locale)

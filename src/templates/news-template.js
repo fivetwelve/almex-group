@@ -5,7 +5,6 @@ import { graphql } from 'gatsby';
 // import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
 import Markdown from 'react-remarkable';
-import DOMPurify from 'dompurify';
 import moment from 'moment';
 import 'moment/locale/es';
 import Layout from '../components/layout';
@@ -33,11 +32,11 @@ const NewsTemplate = ({ data, pageContext }) => {
   moment.locale(matchMomentLocale(locale));
 
   /* sanitizing HTML content to prevent XSS */
-  articles.forEach((article, idx) => {
-    if (article.richContent.html && typeof window !== 'undefined') {
-      articles[idx].richContent.html = DOMPurify.sanitize(article.richContent.html);
-    }
-  });
+  // articles.forEach((article, idx) => {
+  //   if (article.richContent.html && typeof window !== 'undefined') {
+  //     articles[idx].richContent.html = DOMPurify.sanitize(article.richContent.html);
+  //   }
+  // });
 
   /* sort articles in descending date order */
   const published = articles.filter(article => article.status === STATUS.PUBLISHED);
@@ -82,8 +81,8 @@ const NewsTemplate = ({ data, pageContext }) => {
               <hr className="divider" />
               <div className="article-container">
                 <p>{moment(published[articleNum].date).format('LL')}</p>
-                {/* <Markdown source={published[articleNum].content} options={allowHTML} /> */}
-                <div dangerouslySetInnerHTML={{ __html: published[articleNum].richContent.html }} />
+                <Markdown source={published[articleNum].content} options={allowHTML} />
+                {/* <div dangerouslySetInnerHTML={{ __html: published[articleNum].richContent.html }} /> */}
               </div>
               <hr className="divider" />
               <div className="tile-container">
@@ -173,9 +172,6 @@ export const query = graphql`
               url
             }
             pdfTitles(locale: $locale)
-            richContent(locale: $locale) {
-              html
-            }
             status
           }
         }

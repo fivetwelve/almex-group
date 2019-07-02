@@ -104,9 +104,6 @@ class ContactTemplate extends React.Component {
           {({ location }) => ( */}
         <>
           <div className="contact-container">
-            {/* <div className="banner-image">
-                   <GraphImg image={bannerImage} maxWidth={1280} />
-                 </div> */}
             {bannerImage && (
               <div className="banner-wrapper">
                 <div className="banner-image">
@@ -178,8 +175,13 @@ export const query = graphql`
       }
       page(where: { id: $id }) {
         contact: contactSource {
-          title(locale: $locale)
+          bannerImage {
+            handle
+            width
+            height
+          }
           description(locale: $locale)
+          title(locale: $locale)
           offices {
             address
             backupOffice
