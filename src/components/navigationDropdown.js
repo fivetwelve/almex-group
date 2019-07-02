@@ -16,6 +16,7 @@ const NavigationDropdown = props => {
       handleMenuItem('');
     }
   };
+
   return (
     <div className="section-container">
       <div className="section">
@@ -56,6 +57,8 @@ const NavigationDropdown = props => {
           {section.pages.map(page => (
             <div className="category" key={makeid()}>
               <Link to={createLinkFromPage(location, page, activeLanguage)}>
+                {/* always use getTitle instead of page.title because this 
+                reflects actual title on page not the one used for linking */}
                 <span className="link-text">{getTitle(page)}</span>
               </Link>
             </div>

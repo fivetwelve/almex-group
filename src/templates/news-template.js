@@ -34,7 +34,9 @@ const NewsTemplate = ({ data, pageContext }) => {
 
   /* sanitizing HTML content to prevent XSS */
   articles.forEach((article, idx) => {
-    articles[idx].richContent.html = DOMPurify.sanitize(article.richContent.html);
+    if (article.richContent.html && typeof window !== 'undefined') {
+      articles[idx].richContent.html = DOMPurify.sanitize(article.richContent.html);
+    }
   });
 
   /* sort articles in descending date order */
