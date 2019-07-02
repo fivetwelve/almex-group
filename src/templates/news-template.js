@@ -1,4 +1,3 @@
-/* eslint-disable react/no-danger */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
@@ -30,13 +29,6 @@ const NewsTemplate = ({ data, pageContext }) => {
   const [articleNum, setArticleNum] = useState(0);
 
   moment.locale(matchMomentLocale(locale));
-
-  /* sanitizing HTML content to prevent XSS */
-  // articles.forEach((article, idx) => {
-  //   if (article.richContent.html && typeof window !== 'undefined') {
-  //     articles[idx].richContent.html = DOMPurify.sanitize(article.richContent.html);
-  //   }
-  // });
 
   /* sort articles in descending date order */
   const published = articles.filter(article => article.status === STATUS.PUBLISHED);
@@ -82,7 +74,6 @@ const NewsTemplate = ({ data, pageContext }) => {
               <div className="article-container">
                 <p>{moment(published[articleNum].date).format('LL')}</p>
                 <Markdown source={published[articleNum].content} options={allowHTML} />
-                {/* <div dangerouslySetInnerHTML={{ __html: published[articleNum].richContent.html }} /> */}
               </div>
               <hr className="divider" />
               <div className="tile-container">
@@ -109,12 +100,12 @@ const NewsTemplate = ({ data, pageContext }) => {
             <>
               <hr className="divider" />
               <div className="archive-container">
-                <h3>{label.common.ARCHIVEd}</h3>
+                <h3>{label.common.ARCHIVED}</h3>
                 <ul>
                   {archived.forEach(archive => {
                     archive.pdfDownloads.map((download, idx) => (
                       <li>
-                        <a href={download.url}>{archive.pdfTitle[idx]}</a>
+                        <a href={download.url}>{archive.pdfTitles[idx]}</a>
                       </li>
                     ));
                   })}

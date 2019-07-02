@@ -20,6 +20,7 @@ const UsedEquipmentTemplate = ({ data, pageContext }) => {
       headerFooter,
       label,
       navigation,
+      supportLabel,
       page: {
         usedEquipment: { bannerImage, description, disclaimer, title, usedEquipmentListings },
       },
@@ -56,7 +57,7 @@ const UsedEquipmentTemplate = ({ data, pageContext }) => {
           </div>
         </div>
         {usedEquipmentListings.map(listing => (
-          <UsedEquipmentListing {...listing} key={makeid()} />
+          <UsedEquipmentListing {...listing} key={makeid()} label={supportLabel} />
         ))}
         <div className="disclaimer">{disclaimer}</div>
       </div>
@@ -94,8 +95,9 @@ export const query = graphql`
   query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
     cms {
       ...CommonQuery
-      label(where: { availableIn: $region }) {
-        products(locale: $locale)
+      supportLabel: label(where: { availableIn: $region }) {
+        # products(locale: $locale)
+        support(locale: $locale)
       }
       page(where: { id: $id }) {
         usedEquipment: usedEquipmentSource {
@@ -109,6 +111,7 @@ export const query = graphql`
           title(locale: $locale)
           usedEquipmentListings {
             date
+            equipmentStatus
             title(locale: $locale)
             modelNumber
             contactInformation(locale: $locale)

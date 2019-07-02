@@ -6,6 +6,7 @@ import { IconContext } from 'react-icons';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import moment from 'moment';
 import { makeid } from '../utils/functions';
+import { EQUIPMENT_STATUS } from '../constants';
 import defaultImage from '../../static/img/icon-used-wide.svg';
 
 const allowHTML = { html: true };
@@ -70,7 +71,9 @@ class UsedEquipmentListing extends React.Component {
       contactInformation,
       date,
       equipmentDescription,
+      equipmentStatus,
       images,
+      label,
       modelNumber,
       title,
     } = this.props;
@@ -140,6 +143,7 @@ class UsedEquipmentListing extends React.Component {
           </div>
           <div className="details-and-controls">
             <div className="date">{moment(date).format('MMMM DD, YYYY')}</div>
+            <div className="status">{label.support[EQUIPMENT_STATUS[equipmentStatus]]}</div>
             <div className="used-icon" aria-hidden="true" />
             <div className="title">{title}</div>
             <div className="model-number">{modelNumber}</div>
@@ -185,7 +189,9 @@ UsedEquipmentListing.defaultProps = {
   contactInformation: '',
   date: '',
   equipmentDescription: '',
+  equipmentStatus: '',
   images: [],
+  label: {},
   modelNumber: '',
   title: '',
 };
@@ -194,11 +200,15 @@ UsedEquipmentListing.propTypes = {
   contactInformation: PropTypes.string,
   date: PropTypes.string,
   equipmentDescription: PropTypes.string,
+  equipmentStatus: PropTypes.string,
   images: PropTypes.arrayOf(
     PropTypes.shape({
       url: PropTypes.string,
     }),
   ),
+  label: PropTypes.shape({
+    support: PropTypes.object,
+  }),
   modelNumber: PropTypes.string,
   title: PropTypes.string,
 };

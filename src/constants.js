@@ -21,6 +21,12 @@ module.exports = {
     DATA_SHEETS: 'DATA_SHEETS',
     MANUALS: 'MANUALS',
   },
+  EQUIPMENT_STATUS: {
+    NEW: 'NEW',
+    USED: 'USED',
+    HOLD: 'HOLD',
+    SOLD: 'SOLD',
+  },
   LANDING_TYPES: {
     BRAND: 'BRAND',
     INDUSTRY: 'INDUSTRY',
