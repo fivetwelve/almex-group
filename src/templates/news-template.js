@@ -75,6 +75,19 @@ const NewsTemplate = ({ data, pageContext }) => {
                 <p>{moment(published[articleNum].date).format('LL')}</p>
                 <Markdown source={published[articleNum].content} options={allowHTML} />
               </div>
+              {published[articleNum].pdfDownloads.length > 0 && (
+                <div className="downloads-container">
+                  <p>{label.common.DOWNLOAD}</p>
+                  {published[articleNum].pdfDownloads.map((download, idx) => (
+                    <div key={makeid()} className="pdf">
+                      <div className="pdf-icon" />
+                      <a href={download.url} target="_blank" rel="noopener noreferrer">
+                        {published[articleNum].pdfTitles[idx]}
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              )}
               <hr className="divider" />
               <div className="tile-container">
                 {published.map((article, idx) => (
