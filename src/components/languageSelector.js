@@ -3,7 +3,7 @@ import { Link } from 'gatsby';
 import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
 import { FaAngleDown } from 'react-icons/fa';
-import { allLanguageSlugs, allRegionSlugs } from '../constants';
+import { LANGUAGE_SLUGS, REGION_SLUGS } from '../constants';
 /* n.b. Shared CSS is imported in Header from dropdowns.scss */
 
 class LanguageSelector extends Component {
@@ -77,7 +77,7 @@ class LanguageSelector extends Component {
         <ul id="dropdown-1" role="menu" className="lang-dropdown">
           {languages.map(language => (
             <li className="nav__list" key={language}>
-              <Link to={`/${allRegionSlugs[region]}/${allLanguageSlugs[language]}`}>
+              <Link to={`/${REGION_SLUGS[region]}/${LANGUAGE_SLUGS[language]}`}>
                 <span className="nav__link">{language}</span>
               </Link>
             </li>

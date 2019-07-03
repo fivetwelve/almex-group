@@ -77,15 +77,17 @@ $spacing: 20px;
       height: 5px;
       margin-left: 10px;
       margin-right: 10px;
-      @include media('>=desktop') {
+      margin-top: 20px;
+      @include media('>=tablet') {
         margin-left: 40px;
         margin-right: 40px;
         margin-top: 40px;
-        margin-bottom: 40px;
       }
     }
     .article-container,
-    .tile-container {
+    .downloads-container,
+    .tile-container,
+    .archive-container {
       padding-left: 10px;
       padding-right: 10px;
       @include media('>=tablet') {
@@ -94,12 +96,81 @@ $spacing: 20px;
       }
     }
     .article-container {
+      font-size: 16px;
+      line-height: normal;
+      @include media('>=tablet') {
+        font-size: 20px;
+      }
+      a,
+      a:active {
+        color: $prussian-blue60;
+        text-decoration: none;
+        &:hover {
+          color: $yellow-sea;
+          text-decoration: underline;
+          transition: $easeinout;
+        }
+      }
+      h2 {
+        font-size: 1.5em;
+        color: $blue;
+      }
+      img {
+        object-fit: contain;
+        height: 100%;
+        clear: both;
+        margin: 0 0 20px 0;
+        @include media('>=tablet') {
+          margin: 0 0 20px 20px;
+          float: right;
+          height: initial;
+          object-fit: none;
+        }
+      }
+    }
+    .downloads-container,
+    .archive-container {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
       font-size: 18px;
+      line-height: normal;
       @include media('>=tablet') {
         font-size: 24px;
       }
+      p {
+        font-size: 0.85em;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+      .pdf {
+        display: inline-flex;
+        a,
+        a:visited {
+          color: $prussian-blue60;
+          text-decoration: none;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          &:hover {
+            color: $yellow-sea;
+            text-decoration: underline;
+            transition: $easeinout;
+          }
+        }
+        .pdf-icon {
+          display: inline-block;
+          height: 32px;
+          width: 24px;
+          background-image: url('../../static/img/icon-file-pdf.svg');
+          background-size: cover;
+          background-position: center;
+          margin-right: 10px;
+        }
+      }
     }
     .tile-container {
+      margin-top: 40px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -109,7 +180,7 @@ $spacing: 20px;
       }
       button {
         width: 100%;
-        height: 235px;
+        height: 175px;
         display: inline-flex;
         flex-direction: column;
         padding: 0;
@@ -122,6 +193,7 @@ $spacing: 20px;
         @include media('>=tablet') {
           font-size: 24px;
           width: calc((100% - 20px) / 2);
+          height: 235px;
         }
         @include media('>=wide') {
           width: calc((100% - 40px) / 3);
@@ -136,18 +208,30 @@ $spacing: 20px;
           display: flex;
           align-items: center;
           padding-left: 10px;
+          @include media('>=tablet') {
+            font-size: 0.85em;
+          }
         }
         .tile {
           display: flex;
           flex-direction: row;
           .image {
-            height: 180px;
-            width: 180px;
-            min-width: 180px;
+            height: 120px;
+            width: 120px;
+            min-width: 120px;
             margin-left: 10px;
-            img {
+            @include media('>=tablet') {
               height: 180px;
               width: 180px;
+              min-width: 180px;
+            }
+            img {
+              height: 120px;
+              width: 120px;
+              @include media('>=tablet') {
+                height: 180px;
+                width: 180px;
+              }
               object-fit: cover;
               margin: 0;
             }
@@ -158,6 +242,9 @@ $spacing: 20px;
             font-weight: 700;
             padding-left: 10px;
             padding-right: 10px;
+            @include media('>=tablet') {
+              font-size: 0.85em;
+            }
           }
         }
       }

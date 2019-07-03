@@ -10,23 +10,27 @@ $spacing: 20px;
   .used-equipment-container {
     max-width: 1280px;
     width: 100%;
-    margin: 50px auto 0;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    .used-icon {
-      display: inline-block;
-      height: 50px;
-      width: 50px;
-      min-width: 50px;
-      background-image: url('../../static/img/icon-used-square.svg');
-      background-size: contain;
-      background-position: center;
-      background-repeat: no-repeat;
+    .banner-wrapper {
+      border-bottom: 15px solid $yellow-sea;
+      @include media('>=tablet') {
+        border-bottom: none;
+      }
+      .banner-image {
+        height: 325px;
+        @include media('>=tablet') {
+          height: auto;
+          border-bottom: 15px solid $yellow-sea;
+        }
+      }
     }
     .heading {
       display: flex;
       flex-direction: column;
       line-height: normal;
+      margin-top: 40px;
       @include media('>=tablet') {
         flex-direction: row;
         align-items: center;
@@ -39,9 +43,11 @@ $spacing: 20px;
       .title {
         font-size: 24px;
         font-weight: bold;
-        margin-left: 20px;
-        margin-right: 20px;
-        white-space: nowrap;
+        @include media('>=tablet') {
+          white-space: nowrap;
+          margin-left: 20px;
+          margin-right: 20px;
+        }
       }
       .description {
         font-size: 18px;
@@ -79,6 +85,10 @@ $spacing: 20px;
         .carousel {
           height: 56.25vw !important;
           max-height: 450px;
+          @include media('>=desktop') {
+            max-height: 28.125vw;
+          }
+
           overflow: hidden;
           .slide-image {
             height: 0;
@@ -142,10 +152,21 @@ $spacing: 20px;
             margin-top: 0;
           }
         }
+        .status {
+          color: $yellow-sea;
+          font-size: 24px;
+          font-weight: 700;
+          line-height: normal;
+          margin-bottom: 10px;
+          margin-top: 20px;
+          @include media('>=desktop') {
+            margin-top: 0;
+          }
+        }
         .title {
           color: $prussian-blue;
-          font-size: 25px;
-          font-weight: bold;
+          font-size: 24px;
+          font-weight: 700;
           line-height: normal;
           margin-top: 5px;
           text-transform: uppercase;
@@ -211,7 +232,7 @@ $spacing: 20px;
       @include media('>=desktop') {
         padding-left: 100px;
         padding-right: 100px;
-        margin-top: 60px;
+        margin-top: 20px;
       }
       .listing-description {
         color: $grey80;

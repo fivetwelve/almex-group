@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Recaptcha from 'react-google-recaptcha';
 import { apiUrl } from '../utils/functions';
-import { allFormTypes } from '../constants';
+import { FORM_TYPES } from '../constants';
 
 class InstituteForm extends React.Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class InstituteForm extends React.Component {
       contactCountry: '',
       contactSubject: '',
       contactMessage: '',
-      contactFormType: allFormTypes.INSTITUTE,
+      contactFormType: FORM_TYPES.INSTITUTE,
       message: null,
       submitDisabled: true,
     };

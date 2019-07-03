@@ -6,7 +6,7 @@ import GraphImg from 'graphcms-image';
 import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
 import LandingTile from '../components/landingTile';
-import { allLandingTypes, allPageTypes, allThemes } from '../constants';
+import { LANDING_TYPES, PAGE_TYPES, THEMES } from '../constants';
 import '../styles/landing.scss';
 import ProductBrand from '../components/productBrand';
 
@@ -29,20 +29,20 @@ const LandingTemplate = ({ data, pageContext }) => {
   let sectionIdx = 0;
 
   switch (theme) {
-    case allThemes.HEAVYWEIGHT: {
+    case THEMES.HEAVYWEIGHT: {
       break;
     }
-    case allThemes.LIGHTWEIGHT: {
+    case THEMES.LIGHTWEIGHT: {
       themeColour = 'teal';
       break;
     }
-    case allThemes.INDUSTRIAL: {
+    case THEMES.INDUSTRIAL: {
       break;
     }
-    case allThemes.FUSION_COLD: {
+    case THEMES.FUSION_COLD: {
       break;
     }
-    case allThemes.FUSION_HOT: {
+    case THEMES.FUSION_HOT: {
       themeColour = 'orange';
       break;
     }
@@ -58,14 +58,14 @@ const LandingTemplate = ({ data, pageContext }) => {
       let tileData = {};
       tileIdx += 1;
       switch (page.pageType) {
-        case allPageTypes.LANDING:
+        case PAGE_TYPES.LANDING:
           tileData = {
             slug: page.slug,
             tile: page.tile,
             ...page.landing,
           };
           break;
-        case allPageTypes.PRODUCT:
+        case PAGE_TYPES.PRODUCT:
           tileData = {
             slug: page.slug,
             tile: page.tile,
@@ -102,10 +102,10 @@ const LandingTemplate = ({ data, pageContext }) => {
       <Location>
         {({ location }) => (
           <>
-            {(!landingType || landingType === allLandingTypes.PRODUCT) && (
+            {(!landingType || landingType === LANDING_TYPES.PRODUCT) && (
               <h2 className="landing-title">{title}</h2>
             )}
-            {landingType === allLandingTypes.BRAND && (
+            {landingType === LANDING_TYPES.BRAND && (
               <>
                 <div className="brand-container">
                   {bannerImage && (
@@ -127,7 +127,7 @@ const LandingTemplate = ({ data, pageContext }) => {
                 </div>
               </>
             )}
-            {landingType === allLandingTypes.INDUSTRY && (
+            {landingType === LANDING_TYPES.INDUSTRY && (
               <>
                 <div className="industry-container">
                   <div className={`banner-image ${themeColour}`}>

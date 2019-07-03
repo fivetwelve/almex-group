@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
 import { FaAngleDown } from 'react-icons/fa';
 import { createLink } from '../utils/functions';
-import { allBrands, allPageTypes } from '../constants';
+import { BRANDS, PAGE_TYPES } from '../constants';
 // import constants from '../constants';
 // import '../styles/brandSelector.scss';
 
@@ -57,7 +57,7 @@ class BrandSelector extends Component {
     // const { region } = this.props;
     const { brandNavigation, label, location } = this.props;
     const brands = brandNavigation.pages;
-    // const { allLanguageSlugs, allRegionSlugs } = constants;
+    // const { LANGUAGE_SLUGS, REGION_SLUGS } = constants;
     return (
       <>
         <div className="brand-selector">
@@ -88,38 +88,38 @@ class BrandSelector extends Component {
             let brandType = '';
             let productBrand = '';
             switch (brand.pageType) {
-              case allPageTypes.INSTITUTE:
+              case PAGE_TYPES.INSTITUTE:
                 brandType = brand.institute;
                 break;
-              case allPageTypes.LANDING:
+              case PAGE_TYPES.LANDING:
                 brandType = brand.landing;
                 break;
-              case allPageTypes.SERVICES:
+              case PAGE_TYPES.SERVICES:
                 brandType = brand.services;
                 break;
               default:
                 break;
             }
             switch (brandType.brand) {
-              case allBrands.ALMEX_IN_A_BOX:
+              case BRANDS.ALMEX_IN_A_BOX:
                 productBrand = 'almex-box';
                 break;
-              case allBrands.BAT:
+              case BRANDS.BAT:
                 productBrand = 'bat';
                 break;
-              case allBrands.EMSYS:
+              case BRANDS.EMSYS:
                 productBrand = 'emsys';
                 break;
-              case allBrands.FUSION:
+              case BRANDS.FUSION:
                 productBrand = 'fusion';
                 break;
-              case allBrands.VOTECH:
+              case BRANDS.VOTECH:
                 productBrand = 'votech';
                 break;
-              case allBrands.ALMEX_INSTITUTE:
+              case BRANDS.ALMEX_INSTITUTE:
                 productBrand = 'institute';
                 break;
-              case allBrands.GLOBAL_SERVICES:
+              case BRANDS.GLOBAL_SERVICES:
                 productBrand = 'knight';
                 break;
               default:

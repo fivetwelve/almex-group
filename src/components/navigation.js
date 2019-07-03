@@ -4,7 +4,7 @@ import { Link } from 'gatsby';
 import { IconContext } from 'react-icons';
 import { FaTimes } from 'react-icons/fa';
 import NavigationDropdown from './navigationDropdown';
-import { allLanguageSlugs, allRegionSlugs } from '../constants';
+import { LANGUAGE_SLUGS, REGION_SLUGS } from '../constants';
 
 const mobileLanguages = (activeLanguage, languages, label, region) => {
   const displayLanguages = [];
@@ -18,7 +18,7 @@ const mobileLanguages = (activeLanguage, languages, label, region) => {
     } else {
       displayLanguages.push(
         <div className="lang-item" key={language}>
-          <Link to={`/${allRegionSlugs[region]}/${allLanguageSlugs[language]}`}>
+          <Link to={`/${REGION_SLUGS[region]}/${LANGUAGE_SLUGS[language]}`}>
             <span className="link-text">{language}</span>
           </Link>
         </div>,

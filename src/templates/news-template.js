@@ -8,6 +8,7 @@ import moment from 'moment';
 import 'moment/locale/es';
 import Layout from '../components/layout';
 import { makeid, matchMomentLocale } from '../utils/functions';
+import { STATUS } from '../constants';
 import '../styles/news.scss';
 
 const allowHTML = { html: true };
@@ -16,7 +17,6 @@ const NewsTemplate = ({ data, pageContext }) => {
   const { locale, region } = pageContext;
   const {
     cms: {
-      // aboutLabel,
       brandNavigation,
       headerFooter,
       label,
@@ -29,8 +29,12 @@ const NewsTemplate = ({ data, pageContext }) => {
   const [articleNum, setArticleNum] = useState(0);
 
   moment.locale(matchMomentLocale(locale));
+
   /* sort articles in descending date order */
-  articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+  const published = articles.filter(article => article.status === STATUS.PUBLISHED);
+  const archived = articles.filter(article => article.status === STATUS.ARCHIVED);
+  published.sort((a, b) => new Date(b.date) - new Date(a.date));
+  archived.sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (
     <Layout
@@ -64,16 +68,29 @@ const NewsTemplate = ({ data, pageContext }) => {
               )}
             </div>
           </div>
-          {articles.length > 0 && (
+          {published.length > 0 && (
             <>
               <hr className="divider" />
               <div className="article-container">
-                <p>{moment(articles[articleNum].date).format('LL')}</p>
-                <Markdown source={articles[articleNum].content} options={allowHTML} />
+                <p>{moment(published[articleNum].date).format('LL')}</p>
+                <Markdown source={published[articleNum].content} options={allowHTML} />
               </div>
+              {published[articleNum].pdfDownloads.length > 0 && (
+                <div className="downloads-container">
+                  <p>{label.common.DOWNLOAD}</p>
+                  {published[articleNum].pdfDownloads.map((download, idx) => (
+                    <div key={makeid()} className="pdf">
+                      <div className="pdf-icon" />
+                      <a href={download.url} target="_blank" rel="noopener noreferrer">
+                        {published[articleNum].pdfTitles[idx]}
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              )}
               <hr className="divider" />
               <div className="tile-container">
-                {articles.map((article, idx) => (
+                {published.map((article, idx) => (
                   <button
                     className={idx === articleNum ? 'active' : ''}
                     key={makeid()}
@@ -89,6 +106,24 @@ const NewsTemplate = ({ data, pageContext }) => {
                     </div>
                   </button>
                 ))}
+              </div>
+            </>
+          )}
+          {archived.length > 0 && (
+            <>
+              <hr className="divider" />
+              <div className="archive-container">
+                <h3>{label.common.ARCHIVED}</h3>
+                {archived.map(archive =>
+                  archive.pdfDownloads.map((download, idx) => (
+                    <div key={makeid()} className="pdf">
+                      <div className="pdf-icon" />
+                      <a href={download.url} target="_blank" rel="noopener noreferrer">
+                        {moment(archive.date).format('LL')} - {archive.pdfTitles[idx]}
+                      </a>
+                    </div>
+                  )),
+                )}
               </div>
             </>
           )}
@@ -120,9 +155,6 @@ export const query = graphql`
   query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
     cms {
       ...CommonQuery
-      aboutLabel: label(where: { availableIn: $region }) {
-        about(locale: $locale)
-      }
       page(where: { id: $id }) {
         news: newsSource {
           bannerImage {
@@ -145,9 +177,7 @@ export const query = graphql`
               url
             }
             pdfTitles(locale: $locale)
-            richContent(locale: $locale) {
-              html
-            }
+            status
           }
         }
       }

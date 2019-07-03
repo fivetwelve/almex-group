@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import Mailjet from 'node-mailjet';
-import { allFormTypes } from '../constants';
+import { FORM_TYPES } from '../constants';
 
 const { MJ_APIKEY_PUBLIC, MJ_APIKEY_PRIVATE } = process.env;
 const mailjet = Mailjet.connect(MJ_APIKEY_PUBLIC, MJ_APIKEY_PRIVATE);
@@ -17,7 +17,7 @@ exports.handler = (event, context, callback) => {
   let request = null;
   console.log(params.contactFormType);
   switch (params.contactFormType) {
-    case allFormTypes.CONTACT:
+    case FORM_TYPES.CONTACT:
       request = mailjet.post('send', { version: 'v3.1' }).request({
         Messages: [
           {
@@ -46,7 +46,7 @@ exports.handler = (event, context, callback) => {
         ],
       });
       break;
-    case allFormTypes.INSTITUTE:
+    case FORM_TYPES.INSTITUTE:
       request = mailjet.post('send', { version: 'v3.1' }).request({
         Messages: [
           {

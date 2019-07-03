@@ -1,5 +1,5 @@
 import fetchPonyfill from 'fetch-ponyfill';
-import { allPageTypes } from '../constants';
+import { PAGE_TYPES } from '../constants';
 
 const { fetch } = fetchPonyfill();
 
@@ -53,43 +53,46 @@ const getTitle = page => {
   */
   let title = '';
   switch (page.pageType) {
-    case allPageTypes.ABOUT:
+    case PAGE_TYPES.ABOUT:
       title = page.about.title || '';
       break;
-    case allPageTypes.CAREERS:
+    case PAGE_TYPES.CAREERS:
       title = page.careers.title || '';
       break;
-    case allPageTypes.CONTACT:
+    case PAGE_TYPES.CONTACT:
       title = page.contact.title || '';
       break;
-    case allPageTypes.EVENTS:
+    case PAGE_TYPES.DOWNLOADS:
+      title = page.downloads.title || '';
+      break;
+    case PAGE_TYPES.EVENTS:
       title = page.events.title || '';
       break;
-    case allPageTypes.HISTORY:
+    case PAGE_TYPES.HISTORY:
       title = page.history.title || '';
       break;
-    case allPageTypes.INDUSTRY:
+    case PAGE_TYPES.INDUSTRY:
       title = page.industry.title || '';
       break;
-    case allPageTypes.INSTITUTE:
+    case PAGE_TYPES.INSTITUTE:
       title = page.institute.title || '';
       break;
-    case allPageTypes.LANDING:
+    case PAGE_TYPES.LANDING:
       title = page.landing.title || '';
       break;
-    case allPageTypes.NEWS:
+    case PAGE_TYPES.NEWS:
       title = page.news.title || '';
       break;
-    case allPageTypes.PRODUCT:
+    case PAGE_TYPES.PRODUCT:
       title = page.product.title || '';
       break;
-    case allPageTypes.PROMO:
+    case PAGE_TYPES.PROMO:
       title = page.promo.title || '';
       break;
-    case allPageTypes.SERVICES:
+    case PAGE_TYPES.SERVICES:
       title = page.services.title || '';
       break;
-    case allPageTypes.USED:
+    case PAGE_TYPES.USED:
       title = page.usedEquipment.title || '';
       break;
     default:

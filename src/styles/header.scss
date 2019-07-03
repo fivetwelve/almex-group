@@ -80,6 +80,12 @@
       .options {
         display: none;
       }
+      .tagline-container {
+        .tagline {
+          font-style: italic;
+          font-weight: bold;
+        }
+      }
     }
     button.mobile-menu {
       appearance: none;
@@ -161,7 +167,9 @@
           .tagline {
             font-size: 18px;
             font-style: italic;
+            font-weight: 400;
             margin-top: 15px;
+            padding-right: 20px;
           }
         }
       }

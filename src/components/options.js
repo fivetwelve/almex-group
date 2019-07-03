@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { allOptions } from '../constants';
+import { OPTIONS } from '../constants';
 // import PSI_100 from '../../static/img/press_option-PSI_100.svg';
 // import PSI_200 from '../../static/img/press_option-PSI_200.svg';
 // import RECTANGULAR from '../../static/img/press_option-RECTANGULAR.svg';
@@ -8,7 +8,7 @@ import { allOptions } from '../constants';
 
 const optionSVG = (option, label) => {
   switch (option) {
-    case allOptions.MULTI_PLATEN:
+    case OPTIONS.MULTI_PLATEN:
       return (
         <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
           <title>{label.MULT_PLATEN}</title>
@@ -23,7 +23,7 @@ const optionSVG = (option, label) => {
           </g>
         </svg>
       );
-    case allOptions.PSI_40:
+    case OPTIONS.PSI_40:
       return (
         <svg
           version="1.1"
@@ -46,7 +46,7 @@ const optionSVG = (option, label) => {
           />
         </svg>
       );
-    case allOptions.PSI_60:
+    case OPTIONS.PSI_60:
       return (
         <svg
           version="1.1"
@@ -69,7 +69,7 @@ const optionSVG = (option, label) => {
           />
         </svg>
       );
-    case allOptions.PSI_100:
+    case OPTIONS.PSI_100:
       return (
         <svg
           version="1.1"
@@ -92,7 +92,7 @@ const optionSVG = (option, label) => {
           />
         </svg>
       );
-    case allOptions.PSI_175:
+    case OPTIONS.PSI_175:
       return (
         <svg
           version="1.1"
@@ -115,7 +115,7 @@ const optionSVG = (option, label) => {
           />
         </svg>
       );
-    case allOptions.PSI_200:
+    case OPTIONS.PSI_200:
       return (
         <svg
           version="1.1"
@@ -138,7 +138,7 @@ const optionSVG = (option, label) => {
           />
         </svg>
       );
-    case allOptions.RECTANGULAR:
+    case OPTIONS.RECTANGULAR:
       return (
         <svg
           version="1.1"
@@ -158,7 +158,7 @@ const optionSVG = (option, label) => {
           <path d="m41 67h120v65h-120z" fill="#fff" />
         </svg>
       );
-    case allOptions.RHOMBOID:
+    case OPTIONS.RHOMBOID:
       return (
         <svg
           version="1.1"
@@ -178,7 +178,7 @@ const optionSVG = (option, label) => {
           <path d="m75.7 56.7h97.9l-48.9 86.6h-98.3z" fill="#fff" />
         </svg>
       );
-    case allOptions.SIDE_BY_SIDE_RECT:
+    case OPTIONS.SIDE_BY_SIDE_RECT:
       return (
         <svg
           version="1.1"
@@ -202,7 +202,7 @@ const optionSVG = (option, label) => {
           <use height="46" transform="translate(105 77)" width="70" xlinkHref="#a" />
         </svg>
       );
-    case allOptions.SIDE_BY_SIDE_RHOM:
+    case OPTIONS.SIDE_BY_SIDE_RHOM:
       return (
         <svg
           version="1.1"
@@ -225,7 +225,7 @@ const optionSVG = (option, label) => {
           </g>
         </svg>
       );
-    case allOptions.SIDE_HANDLES:
+    case OPTIONS.SIDE_HANDLES:
       return (
         <svg
           version="1.1"

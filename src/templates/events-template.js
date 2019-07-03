@@ -12,7 +12,7 @@ import 'moment/locale/de';
 import 'moment/locale/es';
 import Layout from '../components/layout';
 import EventsResults from '../components/eventsResults';
-import { allContinents, allLanguages } from '../constants';
+import { CONTINENTS, LANGUAGES } from '../constants';
 import '../styles/events.scss';
 import '../styles/dayPicker.scss';
 import ContinentSelector from '../components/continentSelector';
@@ -59,11 +59,11 @@ class EventsTemplate extends Component {
     // console.log('parsedEvents', parsedEvents);
     // console.log(parsedEvents);
     /* For dates, ensure Spain's Spanish uses generic Spanish locale */
-    const calendarLocale = locale === allLanguages.ES_ES ? allLanguages.ES : locale;
+    const calendarLocale = locale === LANGUAGES.ES_ES ? LANGUAGES.ES : locale;
     this.state = {
       allEvents: parsedEvents,
       calendarLocale,
-      continent: allContinents.GLOBAL,
+      continent: CONTINENTS.GLOBAL,
       events: null,
       selectedDay: null,
     };
@@ -75,7 +75,7 @@ class EventsTemplate extends Component {
       if (!selectedDay) {
         return null;
       }
-      if (selectedDay && continent === allContinents.GLOBAL) {
+      if (selectedDay && continent === CONTINENTS.GLOBAL) {
         return DateUtils.isDayInRange(selectedDay, {
           from: new Date(event.startDate),
           to: new Date(event.endDate),
@@ -102,7 +102,7 @@ class EventsTemplate extends Component {
     const events = selected
       ? []
       : allEvents.filter(event => {
-          if (continent === allContinents.GLOBAL) {
+          if (continent === CONTINENTS.GLOBAL) {
             return DateUtils.isDayInRange(day, {
               from: new Date(event.startDate),
               to: new Date(event.endDate),
@@ -131,7 +131,7 @@ class EventsTemplate extends Component {
     // const daySelected = new Date(day.getFullYear(), day.getMonth(), day.getDate());
     // console.log(daySelected);
     let bool = false;
-    if (continent === allContinents.GLOBAL) {
+    if (continent === CONTINENTS.GLOBAL) {
       // console.log(day);
       bool =
         allEvents &&
@@ -205,7 +205,7 @@ class EventsTemplate extends Component {
     const eventHighlight = day => {
       const thisDay = new Date(day.getFullYear(), day.getMonth(), day.getDate());
       let bool = false;
-      if (continent === allContinents.GLOBAL) {
+      if (continent === CONTINENTS.GLOBAL) {
         bool =
           allEvents &&
           allEvents.some(event =>
