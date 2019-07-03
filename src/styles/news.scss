@@ -208,6 +208,9 @@ $spacing: 20px;
           display: flex;
           align-items: center;
           padding-left: 10px;
+          @include media('>=tablet') {
+            font-size: 0.85em;
+          }
         }
         .tile {
           display: flex;
@@ -239,6 +242,9 @@ $spacing: 20px;
             font-weight: 700;
             padding-left: 10px;
             padding-right: 10px;
+            @include media('>=tablet') {
+              font-size: 0.85em;
+            }
           }
         }
       }

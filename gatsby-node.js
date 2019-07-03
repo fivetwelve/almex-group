@@ -47,85 +47,6 @@ exports.createPages = ({ graphql, actions }) => {
                   ? `${REGION_SLUGS[region]}/${LANGUAGE_SLUGS[language]}/${page[`slug${language}`]}`
                   : `${REGION_SLUGS[region]}/${LANGUAGE_SLUGS[language]}`;
               switch (pageType) {
-                case PAGE_TYPES.HOMEPAGE:
-                  createPage({
-                    path: pagePath,
-                    component: path.resolve(`./src/templates/homepage-template.js`),
-                    context: {
-                      id,
-                      locale: language,
-                      page: 'index',
-                      region,
-                    },
-                  });
-                  break;
-                case PAGE_TYPES.INDUSTRY:
-                  createPage({
-                    path: pagePath,
-                    component: path.resolve(`./src/templates/landing-template.js`),
-                    context: {
-                      id,
-                      locale: language,
-                      region,
-                    },
-                  });
-                  break;
-                case PAGE_TYPES.INSTITUTE:
-                  createPage({
-                    path: pagePath,
-                    component: path.resolve(`./src/templates/institute-template.js`),
-                    context: {
-                      id,
-                      locale: language,
-                      region,
-                    },
-                  });
-                  break;
-                case PAGE_TYPES.PRODUCT:
-                  createPage({
-                    path: pagePath,
-                    component: path.resolve(`./src/templates/product-template.js`),
-                    context: {
-                      id,
-                      locale: language,
-                      region,
-                    },
-                  });
-                  break;
-                case PAGE_TYPES.PROMO:
-                  createPage({
-                    path: pagePath,
-                    component: path.resolve(`./src/templates/landing-template.js`),
-                    context: {
-                      id,
-                      locale: language,
-                      region,
-                    },
-                  });
-                  break;
-                case PAGE_TYPES.LANDING:
-                  createPage({
-                    path: pagePath,
-                    component: path.resolve(`./src/templates/landing-template.js`),
-                    context: {
-                      id,
-                      locale: language,
-                      region,
-                    },
-                  });
-                  break;
-                // TODO change to appropriate templates for the pageTypes below:
-                case PAGE_TYPES.ARTICLE:
-                  createPage({
-                    path: pagePath,
-                    component: path.resolve(`./src/templates/landing-template.js`),
-                    context: {
-                      id,
-                      locale: language,
-                      region,
-                    },
-                  });
-                  break;
                 case PAGE_TYPES.ABOUT:
                   createPage({
                     path: pagePath,
@@ -192,11 +113,78 @@ exports.createPages = ({ graphql, actions }) => {
                     },
                   });
                   break;
+                case PAGE_TYPES.HOMEPAGE:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/homepage-template.js`),
+                    context: {
+                      id,
+                      locale: language,
+                      page: 'index',
+                      region,
+                    },
+                  });
+                  break;
+                case PAGE_TYPES.INDUSTRY:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/landing-template.js`),
+                    context: {
+                      id,
+                      locale: language,
+                      region,
+                    },
+                  });
+                  break;
+                case PAGE_TYPES.INSTITUTE:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/institute-template.js`),
+                    context: {
+                      id,
+                      locale: language,
+                      region,
+                    },
+                  });
+                  break;
                 case PAGE_TYPES.NEWS:
                   /* also used by Safety Alerts & Certifications */
                   createPage({
                     path: pagePath,
                     component: path.resolve(`./src/templates/news-template.js`),
+                    context: {
+                      id,
+                      locale: language,
+                      region,
+                    },
+                  });
+                  break;
+                case PAGE_TYPES.PRODUCT:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/product-template.js`),
+                    context: {
+                      id,
+                      locale: language,
+                      region,
+                    },
+                  });
+                  break;
+                case PAGE_TYPES.PROMO:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/landing-template.js`),
+                    context: {
+                      id,
+                      locale: language,
+                      region,
+                    },
+                  });
+                  break;
+                case PAGE_TYPES.LANDING:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/landing-template.js`),
                     context: {
                       id,
                       locale: language,

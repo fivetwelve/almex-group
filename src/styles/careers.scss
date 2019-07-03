@@ -1,0 +1,200 @@
+@import 'base';
+$spacing: 20px;
+
+.careers {
+  padding-left: 10px;
+  padding-right: 10px;
+  @include media('>=tablet') {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .careers-container {
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    .banner-wrapper {
+      border-bottom: 15px solid $blue;
+      @include media('>=tablet') {
+        border-bottom: none;
+      }
+      .banner-image {
+        height: 325px;
+        @include media('>=tablet') {
+          height: auto;
+          border-bottom: 15px solid $blue;
+        }
+      }
+    }
+    .intro-container {
+      display: flex;
+      margin-top: 40px;
+      flex-direction: column;
+      width: 100%;
+      @include media('>=desktop') {
+        flex-direction: row;
+      }
+      .intro-content {
+        @include media('>=desktop') {
+          // width: calc(75% - 20px);
+          // padding-left: 20px;
+          // padding-right: 20px;
+        }
+        .title {
+          font-size: 30px;
+          color: $prussian-blue;
+          font-weight: 700;
+          padding-left: 10px;
+          padding-right: 10px;
+          @include media('>=tablet') {
+            padding-left: 40px;
+            padding-right: 40px;
+          }
+        }
+        .description {
+          font-size: 24px;
+          line-height: normal;
+          padding-left: 10px;
+          padding-right: 10px;
+          @include media('>=tablet') {
+            padding-left: 40px;
+            padding-right: 40px;
+          }
+          img {
+            padding: 0 0 5px;
+            @include media('>=tablet') {
+              float: left;
+              padding: 5px 20px 5px 0;
+            }
+          }
+        }
+      }
+    }
+    hr.divider {
+      background-color: $blue;
+      height: 5px;
+      margin: 20px 10px;
+      @include media('>=tablet') {
+        margin: 40px;
+      }
+    }
+    .postings-container {
+      padding-left: 10px;
+      padding-right: 10px;
+      @include media('>=tablet') {
+        padding-left: 40px;
+        padding-right: 40px;
+      }
+      .heading {
+        font-size: 18px;
+        @include media('>=tablet') {
+          font-size: 24px;
+        }
+        h2 {
+          color: $blue;
+        }
+        p {
+          font-size: 0.8em;
+        }
+      }
+      table {
+        font-size: 18px;
+        line-height: normal;
+        border-bottom: 2px solid $white;
+        @include media('>=tablet') {
+          font-size: 20px;
+        }
+      }
+      thead {
+        background-color: $blue;
+        color: $white;
+        display: none;
+        @include media('>=tablet') {
+          display: table-header-group;
+        }
+        th {
+          text-align: center;
+          span {
+            display: none;
+            @include media('>=tablet') {
+              display: block;
+            }
+          }
+        }
+        th:nth-of-type(2),
+        th:nth-of-type(3) {
+          display: none;
+          @include media('>=tablet') {
+            display: table-cell;
+          }
+        }
+      }
+      tr {
+        border-top: 2px solid $blue;
+        @include media('>=tablet') {
+          border: none;
+        }
+      }
+      td {
+        vertical-align: top;
+        ul {
+          padding-left: 10px;
+        }
+        a,
+        a:active {
+          color: $prussian-blue60;
+          text-decoration: none;
+          &:hover {
+            color: $yellow-sea;
+            text-decoration: underline;
+            transition: $easeinout;
+          }
+        }
+        .mobile {
+          @include media('>=tablet') {
+            display: none;
+          }
+        }
+      }
+      tbody > tr:nth-of-type(odd) {
+        background-color: $prussian-blue10;
+      }
+      tr > td:nth-of-type(1) {
+        width: 100%;
+        @include media('>=tablet') {
+          width: 60%;
+          border-right: 3px solid $white;
+        }
+        padding: 20px 20px 40px 40px;
+        .position {
+          color: $blue;
+          font-weight: 700;
+          margin-bottom: 20px;
+        }
+        .description {
+          font-weight: 700;
+        }
+      }
+      tr > td:nth-of-type(2) {
+        display: none;
+        @include media('>=tablet') {
+          display: table-cell;
+          width: 10%;
+          text-align: center;
+          padding: 20px 10px;
+        }
+      }
+      tr > td:nth-of-type(3) {
+        display: none;
+        @include media('>=tablet') {
+          display: table-cell;
+          width: 30%;
+          padding: 20px 20px 40px 20px;
+          border-left: 3px solid $white;
+        }
+      }
+    }
+  }
+}
