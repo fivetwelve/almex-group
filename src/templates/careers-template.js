@@ -95,13 +95,13 @@ const CareersTemplate = ({ data, pageContext }) => {
                           <td>
                             <div className="position">{posting.position}</div>
                             <div className="companyAndLocation">
-                              {<Markdown source={posting.companyAndLocation} options={allowHTML} />}
+                              <Markdown source={posting.companyAndLocation} options={allowHTML} />
                             </div>
                             <div className="description">
                               {aboutLabel.about.POSTING_DESCRIPTION}
                             </div>
                             <div>
-                              {<Markdown source={posting.description} options={allowHTML} />}
+                              <Markdown source={posting.description} options={allowHTML} />
                               <div className="mobile">
                                 <p>
                                   <b>{aboutLabel.about.POSTING_STATUS}</b>:{' '}

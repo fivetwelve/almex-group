@@ -163,11 +163,12 @@ $spacing: 20px;
       }
       tr > td:nth-of-type(1) {
         width: 100%;
+        padding: 20px 20px 40px 20px;
         @include media('>=tablet') {
           width: 60%;
           border-right: 3px solid $white;
+          padding: 20px 20px 40px 40px;
         }
-        padding: 20px 20px 40px 40px;
         .position {
           color: $blue;
           font-weight: 700;
