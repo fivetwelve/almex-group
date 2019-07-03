@@ -114,15 +114,16 @@ const NewsTemplate = ({ data, pageContext }) => {
               <hr className="divider" />
               <div className="archive-container">
                 <h3>{label.common.ARCHIVED}</h3>
-                <ul>
-                  {archived.forEach(archive => {
-                    archive.pdfDownloads.map((download, idx) => (
-                      <li>
-                        <a href={download.url}>{archive.pdfTitles[idx]}</a>
-                      </li>
-                    ));
-                  })}
-                </ul>
+                {archived.map(archive =>
+                  archive.pdfDownloads.map((download, idx) => (
+                    <div key={makeid()} className="pdf">
+                      <div className="pdf-icon" />
+                      <a href={download.url} target="_blank" rel="noopener noreferrer">
+                        {moment(archive.date).format('LL')} - {archive.pdfTitles[idx]}
+                      </a>
+                    </div>
+                  )),
+                )}
               </div>
             </>
           )}

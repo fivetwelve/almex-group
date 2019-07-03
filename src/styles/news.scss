@@ -78,17 +78,16 @@ $spacing: 20px;
       margin-left: 10px;
       margin-right: 10px;
       margin-top: 20px;
-      margin-bottom: 20px;
       @include media('>=tablet') {
         margin-left: 40px;
         margin-right: 40px;
         margin-top: 40px;
-        margin-bottom: 40px;
       }
     }
     .article-container,
     .downloads-container,
-    .tile-container {
+    .tile-container,
+    .archive-container {
       padding-left: 10px;
       padding-right: 10px;
       @include media('>=tablet') {
@@ -119,34 +118,18 @@ $spacing: 20px;
       img {
         object-fit: contain;
         height: 100%;
-        float: right;
         clear: both;
-        padding: 0 0 20px 20px;
+        margin: 0 0 20px 0;
         @include media('>=tablet') {
+          margin: 0 0 20px 20px;
+          float: right;
           height: initial;
           object-fit: none;
         }
       }
-      .image-left {
-        @include media('>=tablet') {
-          img {
-            float: left;
-            margin-right: 20px;
-            margin-bottom: 5px;
-          }
-        }
-      }
-      .image-right {
-        @include media('>=tablet') {
-          img {
-            float: right;
-            margin-left: 20px;
-            margin-bottom: 5px;
-          }
-        }
-      }
     }
-    .downloads-container {
+    .downloads-container,
+    .archive-container {
       margin-top: 40px;
       display: flex;
       flex-direction: column;
@@ -187,6 +170,7 @@ $spacing: 20px;
       }
     }
     .tile-container {
+      margin-top: 40px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
