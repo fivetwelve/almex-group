@@ -37,11 +37,6 @@ $spacing: 20px;
         flex-direction: row;
       }
       .intro-content {
-        @include media('>=desktop') {
-          // width: calc(75% - 20px);
-          // padding-left: 20px;
-          // padding-right: 20px;
-        }
         .title {
           font-size: 30px;
           color: $prussian-blue;

@@ -147,11 +147,33 @@ exports.createPages = ({ graphql, actions }) => {
                     },
                   });
                   break;
+                case PAGE_TYPES.LANDING:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/landing-template.js`),
+                    context: {
+                      id,
+                      locale: language,
+                      region,
+                    },
+                  });
+                  break;
                 case PAGE_TYPES.NEWS:
                   /* also used by Safety Alerts & Certifications */
                   createPage({
                     path: pagePath,
                     component: path.resolve(`./src/templates/news-template.js`),
+                    context: {
+                      id,
+                      locale: language,
+                      region,
+                    },
+                  });
+                  break;
+                case PAGE_TYPES.PARTS:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/parts-and-repair-template.js`),
                     context: {
                       id,
                       locale: language,
@@ -181,10 +203,10 @@ exports.createPages = ({ graphql, actions }) => {
                     },
                   });
                   break;
-                case PAGE_TYPES.LANDING:
+                case PAGE_TYPES.REPAIR:
                   createPage({
                     path: pagePath,
-                    component: path.resolve(`./src/templates/landing-template.js`),
+                    component: path.resolve(`./src/templates/parts-and-repair-template.js`),
                     context: {
                       id,
                       locale: language,
@@ -206,7 +228,7 @@ exports.createPages = ({ graphql, actions }) => {
                 case PAGE_TYPES.USED:
                   createPage({
                     path: pagePath,
-                    component: path.resolve(`./src/templates/usedEquipment-template.js`),
+                    component: path.resolve(`./src/templates/used-equipment-template.js`),
                     context: {
                       id,
                       locale: language,

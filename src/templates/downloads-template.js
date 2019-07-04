@@ -6,7 +6,6 @@ import GraphImg from 'graphcms-image';
 import Markdown from 'react-remarkable';
 import 'moment/locale/es';
 import Layout from '../components/layout';
-import { makeid } from '../utils/functions';
 import { DOWNLOAD_TYPES } from '../constants';
 import '../styles/downloads.scss';
 
@@ -22,7 +21,7 @@ const DownloadsTemplate = ({ data, pageContext }) => {
       label,
       navigation,
       page: {
-        downloads: { bannerImage, description, downloads, downloadsType, title },
+        downloads: { bannerImage, description, files, downloadsType, title },
       },
     },
   } = data;
@@ -75,13 +74,13 @@ const DownloadsTemplate = ({ data, pageContext }) => {
               )}
             </div>
           </div>
-          {downloads.length > 0 && (
+          {files && (
             <div className={`downloads ${themeColour}`}>
-              {downloads.map(downloadGroup => (
-                <div key={makeid()} className={`category ${themeColour}`}>
-                  <Markdown source={downloadGroup} options={allowHTML} />
-                </div>
-              ))}
+              {/* {files.map(downloadGroup => ( */}
+              {/* <div key={makeid()} className={`category ${themeColour}`}> */}
+              <Markdown source={files} options={allowHTML} />
+              {/* </div> */}
+              {/* ))} */}
             </div>
           )}
         </div>
@@ -125,7 +124,7 @@ export const query = graphql`
           description(locale: $locale)
           downloadsType
           title(locale: $locale)
-          downloads(locale: $locale)
+          files: downloads(locale: $locale)
         }
       }
     }

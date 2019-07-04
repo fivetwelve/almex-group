@@ -89,9 +89,9 @@ $spacing: 20px;
     }
     .downloads {
       font-size: 18px;
+      line-height: normal;
       &.blue {
         column-rule: dotted 1px $blue;
-        // column-rule: dotted 1px $prussian-blue;
       }
       &.orange {
         column-rule: dotted 1px $tango;
@@ -104,27 +104,39 @@ $spacing: 20px;
       @include media('>=desktop') {
         columns: 3 auto;
       }
-      .category {
+      p {
+        display: inline-block;
+        width: 100%;
         margin-bottom: 30px;
-        &.blue h2 {
-          background-color: $prussian-blue;
-        }
-        &.orange h2 {
-          background-color: $tango;
+        a,
+        a:active,
+        a:visited {
+          color: $prussian-blue60;
+          text-decoration: none;
+          &:hover {
+            color: $yellow-sea;
+            text-decoration: underline;
+            transition: $easeinout;
+          }
         }
       }
-
-      .category h2 {
-        color: $white;
+      &.blue .heading {
+        background-color: $prussian-blue;
+      }
+      &.orange .heading {
+        background-color: $tango;
+      }
+      .heading {
+        padding-top: 10px;
+        // padding-bottom: 10px;
+        width: 100%;
+        display: inline-block;
         padding: 5px 20px;
         margin-block-start: 0;
         margin-block-end: 0.3em;
-        page-break-inside: avoid;
-        break-inside: avoid;
         letter-spacing: 0.3px;
         line-height: 1em;
-        padding-top: 10px;
-        padding-bottom: 10px;
+        color: $white;
       }
     }
   }
