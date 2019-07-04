@@ -58,8 +58,8 @@ const DownloadsTemplate = ({ data, pageContext }) => {
       <>
         <div className="downloads-container">
           {bannerImage && (
-            <div className="banner-wrapper">
-              <div className="banner-image">
+            <div className={`banner-wrapper ${themeColour}`}>
+              <div className={`banner-image ${themeColour}`}>
                 <GraphImg image={bannerImage} maxWidth={1280} />
               </div>
             </div>
