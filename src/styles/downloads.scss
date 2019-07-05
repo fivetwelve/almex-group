@@ -36,6 +36,7 @@ $spacing: 20px;
         height: 200px;
         @include media('>=tablet') {
           height: auto;
+          max-height: 340px;
           border-bottom: 15px solid $blue;
           &.blue {
             border-bottom: 15px solid $prussian-blue;
@@ -43,6 +44,9 @@ $spacing: 20px;
           &.orange {
             border-bottom: 15px solid $tango;
           }
+        }
+        img {
+          max-height: 325px;
         }
       }
     }
