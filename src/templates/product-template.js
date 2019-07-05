@@ -27,7 +27,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
           brand,
           theme,
           title,
-          subtitle,
+          // subtitle,
           images,
           youTubeIDs,
           attractText,
@@ -124,7 +124,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
             products={products}
             themeColour={themeColour}
             title={title}
-            subtitle={subtitle}
+            // subtitle={subtitle}
             youTubeIDs={youTubeIDs}
             pdfDownloads={pdfDownloads}
           />
@@ -268,7 +268,7 @@ export const query = graphql`
           brand
           theme
           title(locale: $locale)
-          subtitle(locale: $locale)
+          # subtitle(locale: $locale)
           images {
             url
           }

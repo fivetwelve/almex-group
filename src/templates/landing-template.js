@@ -215,14 +215,14 @@ export const query = graphql`
               }
               product: productSource {
                 title(locale: $locale)
-                subtitle(locale: $locale)
+                # subtitle(locale: $locale)
                 # tileImage {
                 #   url
                 # }
               }
               landing: landingSource {
                 title(locale: $locale)
-                subtitle(locale: $locale)
+                # subtitle(locale: $locale)
                 # tileImage {
                 #   url
                 # }
