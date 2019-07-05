@@ -13,8 +13,22 @@ $spacing: 20px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    .banner-image {
+    .banner-wrapper {
       border-bottom: 15px solid $blue;
+      @include media('>=tablet') {
+        border-bottom: none;
+      }
+      .banner-image {
+        height: 200px;
+        @include media('>=tablet') {
+          height: auto;
+          max-height: 340px;
+          border-bottom: 15px solid $blue;
+        }
+        img {
+          max-height: 325px;
+        }
+      }
     }
     .events-intro {
       margin-top: 40px;
@@ -34,9 +48,6 @@ $spacing: 20px;
         .description {
           font-size: 24px;
         }
-      }
-      @include media('>=desktop') {
-        width: 60%;
       }
     }
     .events-main {

@@ -19,10 +19,14 @@ $spacing: 20px;
         border-bottom: none;
       }
       .banner-image {
-        height: 325px;
+        height: 200px;
         @include media('>=tablet') {
           height: auto;
+          max-height: 340px;
           border-bottom: 15px solid $yellow-sea;
+        }
+        img {
+          max-height: 325px;
         }
       }
     }

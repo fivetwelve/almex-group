@@ -11,7 +11,7 @@ import Attraction from './attraction';
 class ProductShowcase extends React.Component {
   constructor(props) {
     super(props);
-    const { images, youTubeIDs, pdfDownloads, pdfTitles } = props;
+    const { images, youTubeIDs, pdfDownloads } = props;
     const slideArray = [];
     const pdfArray = [];
 
@@ -40,7 +40,7 @@ class ProductShowcase extends React.Component {
         <div className="pdf" key={makeid()}>
           <a href={pdfDownloads[k].url} target="_new">
             <div className="pdf-icon" />
-            {pdfTitles[k] || pdfDownloads[k].fileName}
+            {pdfDownloads[k].documentTitle || pdfDownloads[k].fileName}
           </a>
         </div>
       );
@@ -223,7 +223,6 @@ ProductShowcase.defaultProps = {
   title: '',
   youTubeIDs: [],
   pdfDownloads: [],
-  pdfTitles: [],
 };
 
 ProductShowcase.propTypes = {
@@ -244,11 +243,11 @@ ProductShowcase.propTypes = {
   youTubeIDs: PropTypes.arrayOf(PropTypes.string),
   pdfDownloads: PropTypes.arrayOf(
     PropTypes.shape({
+      documentTitle: PropTypes.string,
       fileName: PropTypes.string,
       url: PropTypes.string,
     }),
   ),
-  pdfTitles: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default ProductShowcase;

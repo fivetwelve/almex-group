@@ -11,7 +11,7 @@ $spacing: 20px;
   .contact-container {
     max-width: 1280px;
     width: 100%;
-    margin: 40px auto 0;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     .banner-wrapper {
@@ -20,10 +20,14 @@ $spacing: 20px;
         border-bottom: none;
       }
       .banner-image {
-        height: 325px;
+        height: 200px;
         @include media('>=tablet') {
           height: auto;
+          max-height: 340px;
           border-bottom: 15px solid $blue;
+        }
+        img {
+          max-height: 325px;
         }
       }
     }

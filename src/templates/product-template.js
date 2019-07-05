@@ -32,7 +32,6 @@ const ProductTemplate = ({ data, location, pageContext }) => {
           youTubeIDs,
           attractText,
           pdfDownloads,
-          pdfTitles,
           marketing,
           advantages,
           advantagesImage,
@@ -128,7 +127,6 @@ const ProductTemplate = ({ data, location, pageContext }) => {
             subtitle={subtitle}
             youTubeIDs={youTubeIDs}
             pdfDownloads={pdfDownloads}
-            pdfTitles={pdfTitles}
           />
           <div className={`product-marketing ${themeColour}`}>
             <Markdown source={marketing} options={allowHTML} />
@@ -286,9 +284,9 @@ export const query = graphql`
           options
           pdfDownloads(locale: $locale) {
             fileName
+            documentTitle
             url
           }
-          pdfTitles(locale: $locale)
           attractText
           accessories {
             slug(locale: $locale)

@@ -170,17 +170,6 @@ exports.createPages = ({ graphql, actions }) => {
                     },
                   });
                   break;
-                case PAGE_TYPES.PARTS:
-                  createPage({
-                    path: pagePath,
-                    component: path.resolve(`./src/templates/parts-and-repair-template.js`),
-                    context: {
-                      id,
-                      locale: language,
-                      region,
-                    },
-                  });
-                  break;
                 case PAGE_TYPES.PRODUCT:
                   createPage({
                     path: pagePath,
@@ -196,17 +185,6 @@ exports.createPages = ({ graphql, actions }) => {
                   createPage({
                     path: pagePath,
                     component: path.resolve(`./src/templates/landing-template.js`),
-                    context: {
-                      id,
-                      locale: language,
-                      region,
-                    },
-                  });
-                  break;
-                case PAGE_TYPES.REPAIR:
-                  createPage({
-                    path: pagePath,
-                    component: path.resolve(`./src/templates/parts-and-repair-template.js`),
                     context: {
                       id,
                       locale: language,

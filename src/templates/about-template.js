@@ -80,9 +80,13 @@ const AboutTemplate = ({ data, pageContext }) => {
         {({ location }) => (
           <>
             <div className="about-container">
-              <div className="banner-image">
-                <GraphImg image={bannerImage} maxWidth={1280} />
-              </div>
+              {bannerImage && (
+                <div className="banner-wrapper">
+                  <div className="banner-image">
+                    <GraphImg image={bannerImage} maxWidth={1280} />
+                  </div>
+                </div>
+              )}
               <BrandBanner brands={brands} location={location} />
               <div className="intro-container">
                 <div className="intro-content">

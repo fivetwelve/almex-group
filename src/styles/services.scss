@@ -21,10 +21,14 @@ $spacing: 20px;
         border-bottom: none;
       }
       .banner-image {
-        height: 325px;
+        height: 200px;
         @include media('>=tablet') {
           height: auto;
+          max-height: 340px;
           border-bottom: 15px solid $blue;
+        }
+        img {
+          max-height: 325px;
         }
       }
     }
@@ -69,6 +73,29 @@ $spacing: 20px;
               padding: 5px 20px 5px 0;
             }
           }
+          a,
+          a:active,
+          a:visited {
+            color: $prussian-blue60;
+            text-decoration: none;
+            &:hover {
+              color: $yellow-sea;
+              text-decoration: underline;
+              transition: $easeinout;
+            }
+          }
+          hr {
+            background-color: $blue;
+            height: 2px;
+            margin: 40px 0;
+            // margin-left: 10px;
+            // margin-right: 10px;
+            // @include media('>=desktop') {
+            //   margin-left: 40px;
+            //   margin-right: 40px;
+            //   margin-top: 40px;
+            // }
+          }
         }
       }
       .aside-container {
@@ -90,6 +117,17 @@ $spacing: 20px;
         p {
           font-size: 24px;
           line-height: normal;
+        }
+        a,
+        a:active,
+        a:visited {
+          color: $prussian-blue60;
+          text-decoration: none;
+          &:hover {
+            color: $yellow-sea;
+            text-decoration: underline;
+            transition: $easeinout;
+          }
         }
         & > div {
           @include media('>=tablet') {

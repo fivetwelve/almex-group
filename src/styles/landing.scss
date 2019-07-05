@@ -9,17 +9,19 @@ $spacing: 20px;
     padding-left: 0;
     padding-right: 0;
   }
-  .brand-container,
-  .industry-container {
-    width: 100%;
-    margin: 0 auto;
-    max-width: 1280px;
+  .banner-wrapper {
+    border-bottom: 15px solid $blue;
+    &.orange {
+      border-bottom: 15px solid $tango;
+    }
+    &.teal {
+      border-bottom: 15px solid $allports;
+    }
+    @include media('>=tablet') {
+      border-bottom: none;
+    }
     .banner-image {
-      height: 325px;
-      width: 100%;
-      max-width: 1280px;
-      margin: 0 auto;
-      overflow: hidden;
+      height: 200px;
       border-bottom: 15px solid $blue;
       &.orange {
         border-bottom: 15px solid $tango;
@@ -27,7 +29,21 @@ $spacing: 20px;
       &.teal {
         border-bottom: 15px solid $allports;
       }
+      @include media('>=tablet') {
+        height: auto;
+        max-height: 340px;
+        border-bottom: 15px solid $blue;
+      }
+      img {
+        max-height: 325px;
+      }
     }
+  }
+  .brand-container,
+  .industry-container {
+    width: 100%;
+    margin: 0 auto;
+    max-width: 1280px;
   }
   .brand-container {
     .logo {

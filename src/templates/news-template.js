@@ -78,11 +78,11 @@ const NewsTemplate = ({ data, pageContext }) => {
               {published[articleNum].pdfDownloads.length > 0 && (
                 <div className="downloads-container">
                   <p>{label.common.DOWNLOAD}</p>
-                  {published[articleNum].pdfDownloads.map((download, idx) => (
+                  {published[articleNum].pdfDownloads.map(download => (
                     <div key={makeid()} className="pdf">
                       <div className="pdf-icon" />
                       <a href={download.url} target="_blank" rel="noopener noreferrer">
-                        {published[articleNum].pdfTitles[idx]}
+                        {download.documentTitle}
                       </a>
                     </div>
                   ))}
@@ -115,11 +115,11 @@ const NewsTemplate = ({ data, pageContext }) => {
               <div className="archive-container">
                 <h3>{label.common.ARCHIVED}</h3>
                 {archived.map(archive =>
-                  archive.pdfDownloads.map((download, idx) => (
+                  archive.pdfDownloads.map(download => (
                     <div key={makeid()} className="pdf">
                       <div className="pdf-icon" />
                       <a href={download.url} target="_blank" rel="noopener noreferrer">
-                        {moment(archive.date).format('LL')} - {archive.pdfTitles[idx]}
+                        {moment(archive.date).format('LL')} - {download.documentTitle}
                       </a>
                     </div>
                   )),
@@ -173,10 +173,10 @@ export const query = graphql`
             excerpt(locale: $locale)
             content(locale: $locale)
             pdfDownloads(locale: $locale) {
+              documentTitle
               fileName
               url
             }
-            pdfTitles(locale: $locale)
             status
           }
         }

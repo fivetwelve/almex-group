@@ -271,9 +271,13 @@ class EventsTemplate extends Component {
           {({ location }) => (
             <>
               <div className="events-container">
-                <div className="banner-image">
-                  <GraphImg image={bannerImage} maxWidth={1280} />
-                </div>
+                {bannerImage && (
+                  <div className="banner-wrapper">
+                    <div className="banner-image">
+                      <GraphImg image={bannerImage} maxWidth={1280} />
+                    </div>
+                  </div>
+                )}
                 <div className="events-intro">
                   <h1 className="title">{title}</h1>
                   <div className="description">

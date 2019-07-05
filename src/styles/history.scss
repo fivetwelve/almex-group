@@ -25,9 +25,66 @@ $spacing: 20px;
       #bfd0da 75% 90%,
       #c8d6df 90% 100%
     );
+    .banner-wrapper {
+      border-bottom: 15px solid $blue;
+      @include media('>=tablet') {
+        border-bottom: none;
+      }
+      .banner-image {
+        height: 200px;
+        @include media('>=tablet') {
+          height: auto;
+          max-height: 340px;
+          border-bottom: 15px solid $blue;
+        }
+        img {
+          max-height: 325px;
+        }
+      }
+    }
+    .intro-container {
+      display: flex;
+      margin-top: 40px;
+      flex-direction: column;
+      width: 100%;
+      @include media('>=desktop') {
+        flex-direction: row;
+      }
+      .intro-content {
+        padding-left: 10px;
+        padding-right: 10px;
+        @include media('>=tablet') {
+          padding-left: 40px;
+          padding-right: 40px;
+        }
+        .title {
+          font-size: 20px;
+          color: $prussian-blue;
+          font-weight: 700;
+          @include media('>=tablet') {
+            font-size: 30px;
+          }
+        }
+        .description {
+          font-size: 18px;
+          line-height: normal;
+          @include media('>=tablet') {
+            font-size: 24px;
+          }
+          img {
+            padding: 0 0 5px;
+            @include media('>=tablet') {
+              float: left;
+              padding: 5px 20px 5px 0;
+            }
+          }
+        }
+      }
+    }
     .timeline {
       display: inline-block;
       position: relative;
+      margin-top: 40px;
       ul {
         &:before {
           /* timeline line */

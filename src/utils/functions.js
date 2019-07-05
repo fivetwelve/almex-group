@@ -83,17 +83,11 @@ const getTitle = page => {
     case PAGE_TYPES.NEWS:
       title = page.news.title || '';
       break;
-    case PAGE_TYPES.PARTS:
-      title = page.parts.title || '';
-      break;
     case PAGE_TYPES.PRODUCT:
       title = page.product.title || '';
       break;
     case PAGE_TYPES.PROMO:
       title = page.promo.title || '';
-      break;
-    case PAGE_TYPES.REPAIR:
-      title = page.repair.title || '';
       break;
     case PAGE_TYPES.SERVICES:
       title = page.services.title || '';

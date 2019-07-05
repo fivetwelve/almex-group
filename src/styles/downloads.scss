@@ -17,14 +17,36 @@ $spacing: 20px;
     flex-direction: column;
     .banner-wrapper {
       border-bottom: 15px solid $blue;
+      &.blue {
+        border-bottom: 15px solid $prussian-blue;
+        @include media('>=tablet') {
+          border-bottom: none;
+        }
+      }
+      &.orange {
+        border-bottom: 15px solid $tango;
+        @include media('>=tablet') {
+          border-bottom: none;
+        }
+      }
       @include media('>=tablet') {
         border-bottom: none;
       }
       .banner-image {
-        height: 325px;
+        height: 200px;
         @include media('>=tablet') {
           height: auto;
+          max-height: 340px;
           border-bottom: 15px solid $blue;
+          &.blue {
+            border-bottom: 15px solid $prussian-blue;
+          }
+          &.orange {
+            border-bottom: 15px solid $tango;
+          }
+        }
+        img {
+          max-height: 325px;
         }
       }
     }
@@ -90,12 +112,7 @@ $spacing: 20px;
     .downloads {
       font-size: 18px;
       line-height: normal;
-      &.blue {
-        column-rule: dotted 1px $blue;
-      }
-      &.orange {
-        column-rule: dotted 1px $tango;
-      }
+      column-rule: dotted 1px $blue;
       @include media('>=tablet') {
         padding: 40px;
         columns: 2 auto;
@@ -128,7 +145,6 @@ $spacing: 20px;
       }
       .heading {
         padding-top: 10px;
-        // padding-bottom: 10px;
         width: 100%;
         display: inline-block;
         padding: 5px 20px;

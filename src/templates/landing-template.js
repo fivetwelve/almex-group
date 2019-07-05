@@ -107,12 +107,19 @@ const LandingTemplate = ({ data, pageContext }) => {
             )}
             {landingType === LANDING_TYPES.BRAND && (
               <>
-                <div className="brand-container">
-                  {bannerImage && (
+                {bannerImage && (
+                  <div className={`banner-wrapper ${themeColour}`}>
                     <div className={`banner-image ${themeColour}`}>
                       <GraphImg image={bannerImage} maxWidth={1280} />
                     </div>
-                  )}
+                  </div>
+                )}
+                <div className="brand-container">
+                  {/* {bannerImage && (
+                    <div className={`banner-image ${themeColour}`}>
+                      <GraphImg image={bannerImage} maxWidth={1280} />
+                    </div>
+                  )} */}
                   {brand && (
                     <>
                       <ProductBrand brand={brand} />
