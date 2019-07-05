@@ -15,7 +15,11 @@ $spacing: 20px;
     display: flex;
     flex-direction: column;
     .banner-image {
-      border-bottom: 15px solid $blue;
+      height: 200px;
+      @include media('>=tablet') {
+        height: auto;
+        border-bottom: 15px solid $blue;
+      }
     }
     .brands {
       display: flex;

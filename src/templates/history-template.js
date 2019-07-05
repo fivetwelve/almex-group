@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 // import { Location } from '@reach/router';
+import GraphImg from 'graphcms-image';
 import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
 import '../styles/history.scss';
@@ -18,7 +19,7 @@ const HistoryTemplate = ({ data, pageContext }) => {
       label,
       navigation,
       page: {
-        history: { title, description, events },
+        history: { bannerImage, title, description, events },
       },
     },
   } = data;
@@ -40,6 +41,13 @@ const HistoryTemplate = ({ data, pageContext }) => {
         {({ location }) => ( */}
       <>
         <div className="history-container">
+          {bannerImage && (
+            <div className="banner-wrapper">
+              <div className="banner-image">
+                <GraphImg image={bannerImage} maxWidth={1280} />
+              </div>
+            </div>
+          )}
           <div className="intro-container">
             <div className="intro-content">
               <h1 className="title">{title}</h1>
@@ -82,6 +90,11 @@ export const query = graphql`
       }
       page(where: { id: $id }) {
         history: historySource {
+          bannerImage {
+            handle
+            width
+            height
+          }
           title(locale: $locale)
           description(locale: $locale)
           events: historicalEvents {

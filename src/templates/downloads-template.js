@@ -76,11 +76,7 @@ const DownloadsTemplate = ({ data, pageContext }) => {
           </div>
           {files && (
             <div className={`downloads ${themeColour}`}>
-              {/* {files.map(downloadGroup => ( */}
-              {/* <div key={makeid()} className={`category ${themeColour}`}> */}
               <Markdown source={files} options={allowHTML} />
-              {/* </div> */}
-              {/* ))} */}
             </div>
           )}
         </div>
@@ -111,9 +107,6 @@ export const query = graphql`
   query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
     cms {
       ...CommonQuery
-      # aboutLabel: label(where: { availableIn: $region }) {
-      #   about(locale: $locale)
-      # }
       page(where: { id: $id }) {
         downloads: downloadsSource {
           bannerImage {

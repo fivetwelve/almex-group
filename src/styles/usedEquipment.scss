@@ -19,7 +19,7 @@ $spacing: 20px;
         border-bottom: none;
       }
       .banner-image {
-        height: 325px;
+        height: 200px;
         @include media('>=tablet') {
           height: auto;
           border-bottom: 15px solid $yellow-sea;
