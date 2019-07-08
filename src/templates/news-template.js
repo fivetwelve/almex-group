@@ -173,7 +173,7 @@ export const query = graphql`
             excerpt(locale: $locale)
             content(locale: $locale)
             pdfDownloads(locale: $locale) {
-              documentTitle
+              documentTitle(locale: $locale)
               fileName
               url
             }

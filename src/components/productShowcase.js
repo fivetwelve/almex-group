@@ -89,8 +89,8 @@ class ProductShowcase extends React.Component {
       images,
       locale,
       products,
-      themeColour,
-      subtitle,
+      // themeColour,
+      // subtitle,
       title,
       youTubeIDs,
       pdfDownloads,
@@ -153,7 +153,7 @@ class ProductShowcase extends React.Component {
           <div className="data-container">
             {brand && <ProductBrand brand={brand} />}
             <div className="product-title">{title}</div>
-            <div className={`product-subtitle ${themeColour}`}>{subtitle}</div>
+            {/* <div className={`product-subtitle ${themeColour}`}>{subtitle}</div> */}
             {attractText.length > 0 && (
               <div className="attraction-container">
                 <Attraction attractText={attractText} locale={locale} products={products} />
@@ -218,8 +218,8 @@ ProductShowcase.defaultProps = {
   images: [],
   locale: '',
   products: {},
-  themeColour: '',
-  subtitle: '',
+  // themeColour: '',
+  // subtitle: '',
   title: '',
   youTubeIDs: [],
   pdfDownloads: [],
@@ -237,8 +237,8 @@ ProductShowcase.propTypes = {
   products: PropTypes.shape({
     SHOULD_KNOW: PropTypes.string,
   }),
-  themeColour: PropTypes.string,
-  subtitle: PropTypes.string,
+  // themeColour: PropTypes.string,
+  // subtitle: PropTypes.string,
   title: PropTypes.string,
   youTubeIDs: PropTypes.arrayOf(PropTypes.string),
   pdfDownloads: PropTypes.arrayOf(

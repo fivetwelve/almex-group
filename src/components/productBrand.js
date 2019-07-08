@@ -15,6 +15,9 @@ const ProductBrand = ({ brand }) => {
     case BRANDS.BAT:
       productBrand = 'bat';
       break;
+    case BRANDS.COBRA:
+      productBrand = 'cobra';
+      break;
     case BRANDS.EMSYS:
       productBrand = 'emsys';
       break;
@@ -23,6 +26,9 @@ const ProductBrand = ({ brand }) => {
       break;
     case BRANDS.GLOBAL_SERVICES:
       productBrand = 'knight';
+      break;
+    case BRANDS.RAMPART:
+      productBrand = 'rampart';
       break;
     case BRANDS.VOTECH:
       productBrand = 'votech';

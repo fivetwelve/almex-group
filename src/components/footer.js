@@ -121,20 +121,26 @@ const Footer = ({ brandNavigation, headerFooter, label, location }) => {
                   case BRANDS.BAT:
                     productBrand = 'bat';
                     break;
+                  case BRANDS.COBRA:
+                    productBrand = 'cobra';
+                    break;
                   case BRANDS.EMSYS:
                     productBrand = 'emsys';
                     break;
                   case BRANDS.FUSION:
                     productBrand = 'fusion';
                     break;
-                  case BRANDS.VOTECH:
-                    productBrand = 'votech';
-                    break;
                   case BRANDS.ALMEX_INSTITUTE:
                     productBrand = 'institute';
                     break;
                   case BRANDS.GLOBAL_SERVICES:
                     productBrand = 'knight';
+                    break;
+                  case BRANDS.RAMPART:
+                    productBrand = 'rampart';
+                    break;
+                  case BRANDS.VOTECH:
+                    productBrand = 'votech';
                     break;
                   default:
                     break;

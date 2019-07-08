@@ -115,11 +115,6 @@ const LandingTemplate = ({ data, pageContext }) => {
                   </div>
                 )}
                 <div className="brand-container">
-                  {/* {bannerImage && (
-                    <div className={`banner-image ${themeColour}`}>
-                      <GraphImg image={bannerImage} maxWidth={1280} />
-                    </div>
-                  )} */}
                   {brand && (
                     <>
                       <ProductBrand brand={brand} />
@@ -215,14 +210,14 @@ export const query = graphql`
               }
               product: productSource {
                 title(locale: $locale)
-                subtitle(locale: $locale)
+                # subtitle(locale: $locale)
                 # tileImage {
                 #   url
                 # }
               }
               landing: landingSource {
                 title(locale: $locale)
-                subtitle(locale: $locale)
+                # subtitle(locale: $locale)
                 # tileImage {
                 #   url
                 # }
