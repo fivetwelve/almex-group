@@ -54,10 +54,12 @@ $spacing: 20px;
       margin: 40px auto;
       &.almex-box,
       &.bat,
+      &.cobra,
       &.emsys,
       &.fusion,
       &.institute,
       &.knight,
+      &.rampart,
       &.votech {
         background-size: contain;
         background-repeat: no-repeat;
@@ -67,20 +69,20 @@ $spacing: 20px;
         background-image: url('../../static/img/logo-almex-box.svg');
         height: 80px;
       }
-      &.fusion {
-        background-image: url('../../static/img/logo-fusion.svg');
+      &.bat {
+        background-image: url('../../static/img/logo-bat.svg');
+        height: 80px;
+      }
+      &.cobra {
+        background-image: url('../../static/img/logo-cobra.svg');
         height: 80px;
       }
       &.emsys {
         background-image: url('../../static/img/logo-emsys.svg');
         height: 80px;
       }
-      &.bat {
-        background-image: url('../../static/img/logo-bat.svg');
-        height: 80px;
-      }
-      &.votech {
-        background-image: url('../../static/img/logo-votech.svg');
+      &.fusion {
+        background-image: url('../../static/img/logo-fusion.svg');
         height: 80px;
       }
       &.institute {
@@ -90,6 +92,14 @@ $spacing: 20px;
       &.knight {
         background-image: url('../../static/img/logo-knight.svg');
         height: 140px;
+      }
+      &.rampart {
+        background-image: url('../../static/img/logo-rampart.svg');
+        height: 80px;
+      }
+      &.votech {
+        background-image: url('../../static/img/logo-votech.svg');
+        height: 80px;
       }
     }
     h2.title {

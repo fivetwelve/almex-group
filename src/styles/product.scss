@@ -193,10 +193,12 @@ $spacing: 20px;
           margin-bottom: 20px;
           &.almex-box,
           &.bat,
+          &.cobra,
           &.emsys,
           &.fusion,
           &.institute,
           &.knight,
+          &.rampart,
           &.votech {
             padding-left: 30px;
             padding-right: 30px;
@@ -213,25 +215,25 @@ $spacing: 20px;
             height: 46px;
             background-image: url('../../static/img/logo-almex-box.svg');
           }
-          &.fusion {
-            width: 154px;
-            height: 35px;
-            background-image: url('../../static/img/logo-fusion.svg');
+          &.bat {
+            width: 101px;
+            height: 72px;
+            background-image: url('../../static/img/logo-bat.svg');
+          }
+          &.cobra {
+            width: 100px;
+            height: 61px;
+            background-image: url('../../static/img/logo-cobra.svg');
           }
           &.emsys {
             width: 135px;
             height: 38px;
             background-image: url('../../static/img/logo-emsys.svg');
           }
-          &.bat {
-            width: 101px;
-            height: 72px;
-            background-image: url('../../static/img/logo-bat.svg');
-          }
-          &.votech {
-            width: 179px;
-            height: 66px;
-            background-image: url('../../static/img/logo-votech.svg');
+          &.fusion {
+            width: 154px;
+            height: 35px;
+            background-image: url('../../static/img/logo-fusion.svg');
           }
           &.institute {
             width: 100px;
@@ -242,6 +244,16 @@ $spacing: 20px;
             width: 55px;
             height: 103px;
             background-image: url('../../static/img/logo-knight.svg');
+          }
+          &.rampart {
+            width: 125px;
+            height: 39px;
+            background-image: url('../../static/img/logo-rampart.svg');
+          }
+          &.votech {
+            width: 179px;
+            height: 66px;
+            background-image: url('../../static/img/logo-votech.svg');
           }
         }
         .product-title {

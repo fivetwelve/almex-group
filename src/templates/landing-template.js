@@ -115,11 +115,6 @@ const LandingTemplate = ({ data, pageContext }) => {
                   </div>
                 )}
                 <div className="brand-container">
-                  {/* {bannerImage && (
-                    <div className={`banner-image ${themeColour}`}>
-                      <GraphImg image={bannerImage} maxWidth={1280} />
-                    </div>
-                  )} */}
                   {brand && (
                     <>
                       <ProductBrand brand={brand} />

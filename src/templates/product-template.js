@@ -284,7 +284,7 @@ export const query = graphql`
           options
           pdfDownloads(locale: $locale) {
             fileName
-            documentTitle
+            documentTitle(locale: $locale)
             url
           }
           attractText
