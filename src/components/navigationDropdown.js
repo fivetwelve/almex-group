@@ -17,6 +17,30 @@ const NavigationDropdown = props => {
     }
   };
 
+  // Determine title and assign it to a new property;
+  // also avoids future redundant getTitle calls.
+  // Use getTitle here because we want the menu to use the source
+  // title and not page title which could vary for mktg purposes.
+  section.pages.forEach(page => {
+    Object.defineProperty(page, 'title', {
+      value: getTitle(page),
+      writable: true,
+      enumerable: true,
+      configurable: true,
+    });
+  });
+
+  // sort pages alphabetically
+  section.pages.sort((a, b) => {
+    const titleA = a.title.toLowerCase();
+    const titleB = b.title.toLowerCase();
+    if (titleA < titleB)
+      // sort string ascending
+      return -1;
+    if (titleA > titleB) return 1;
+    return 0; // default return i.e. no sorting
+  });
+
   return (
     <div className="section-container">
       <div className="section">
@@ -57,9 +81,7 @@ const NavigationDropdown = props => {
           {section.pages.map(page => (
             <div className="category" key={makeid()}>
               <Link to={createLinkFromPage(location, page, activeLanguage)}>
-                {/* always use getTitle instead of page.title because this 
-                reflects actual title on page not the one used for linking */}
-                <span className="link-text">{getTitle(page)}</span>
+                <span className="link-text">{page.title}</span>
               </Link>
             </div>
           ))}
