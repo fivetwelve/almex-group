@@ -32,13 +32,13 @@ const NavigationDropdown = props => {
 
   // sort pages alphabetically
   section.pages.sort((a, b) => {
+    // TODO: need to ensure activeLanguage param is valid value for localeCompare
     const titleA = a.title.toLowerCase();
     const titleB = b.title.toLowerCase();
-    if (titleA < titleB)
-      // sort string ascending
-      return -1;
-    if (titleA > titleB) return 1;
-    return 0; // default return i.e. no sorting
+    // -1 sort string ascending
+    //  1 sort string descending;
+    //  0 no sorting
+    return titleA.localeCompare(titleB, activeLanguage);
   });
 
   return (
