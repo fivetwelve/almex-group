@@ -122,7 +122,6 @@ $spacing: 20px;
         columns: 3 auto;
       }
       p {
-        display: inline-block;
         width: 100%;
         margin-bottom: 30px;
         a,
@@ -130,6 +129,8 @@ $spacing: 20px;
         a:visited {
           color: $prussian-blue60;
           text-decoration: none;
+          display: inline-flex;
+          padding: 0 10px 15px 20px;
           &:hover {
             color: $yellow-sea;
             text-decoration: underline;
@@ -144,12 +145,11 @@ $spacing: 20px;
         background-color: $tango;
       }
       .heading {
-        padding-top: 10px;
         width: 100%;
         display: inline-block;
-        padding: 5px 20px;
+        padding: 10px 20px;
         margin-block-start: 0;
-        margin-block-end: 0.3em;
+        margin-block-end: 0.5em;
         letter-spacing: 0.3px;
         line-height: 1em;
         color: $white;
