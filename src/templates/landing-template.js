@@ -85,8 +85,28 @@ const LandingTemplate = ({ data, pageContext }) => {
       );
       tileArray.push(landingTile);
     });
+
+    tileArray.sort((a, b) => {
+      // TODO: need to ensure activeLanguage param is valid value for localeCompare
+      const titleA = (a.props.data.title && a.props.data.title.toLowerCase()) || '';
+      const titleB = (b.props.data.title && b.props.data.title.toLowerCase()) || '';
+      // -1 sort string ascending
+      //  1 sort string descending;
+      //  0 no sorting
+      return titleA.localeCompare(titleB, locale);
+    });
     return tileArray;
   };
+
+  landingSections.sort((a, b) => {
+    // TODO: need to ensure activeLanguage param is valid value for localeCompare
+    const titleA = (a.title && a.title.toLowerCase()) || '';
+    const titleB = (b.title && b.title.toLowerCase()) || '';
+    // -1 sort string ascending
+    //  1 sort string descending;
+    //  0 no sorting
+    return titleA.localeCompare(titleB, locale);
+  });
 
   return (
     <Layout
