@@ -54,46 +54,46 @@ const getTitle = page => {
   let title = '';
   switch (page.pageType) {
     case PAGE_TYPES.ABOUT:
-      title = page.about.title || '';
+      title = (page.about && page.about.title) || '';
       break;
     case PAGE_TYPES.CAREERS:
-      title = page.careers.title || '';
+      title = (page.careers && page.careers.title) || '';
       break;
     case PAGE_TYPES.CONTACT:
-      title = page.contact.title || '';
+      title = (page.contact && page.contact.title) || '';
       break;
     case PAGE_TYPES.DOWNLOADS:
-      title = page.downloads.title || '';
+      title = (page.downloads && page.downloads.title) || '';
       break;
     case PAGE_TYPES.EVENTS:
-      title = page.events.title || '';
+      title = (page.events && page.events.title) || '';
       break;
     case PAGE_TYPES.HISTORY:
-      title = page.history.title || '';
+      title = (page.history && page.history.title) || '';
       break;
     case PAGE_TYPES.INDUSTRY:
-      title = page.industry.title || '';
+      title = (page.industry && page.industry.title) || '';
       break;
     case PAGE_TYPES.INSTITUTE:
-      title = page.institute.title || '';
+      title = (page.institute && page.institute.title) || '';
       break;
     case PAGE_TYPES.LANDING:
-      title = page.landing.title || '';
+      title = (page.landing && page.landing.title) || '';
       break;
     case PAGE_TYPES.NEWS:
-      title = page.news.title || '';
+      title = (page.news && page.news.title) || '';
       break;
     case PAGE_TYPES.PRODUCT:
-      title = page.product.title || '';
+      title = (page.product && page.product.title) || '';
       break;
     case PAGE_TYPES.PROMO:
-      title = page.promo.title || '';
+      title = (page.promo && page.promo.title) || '';
       break;
     case PAGE_TYPES.SERVICES:
-      title = page.services.title || '';
+      title = (page.services && page.services.title) || '';
       break;
     case PAGE_TYPES.USED:
-      title = page.usedEquipment.title || '';
+      title = (page.usedEquipment && page.usedEquipment.title) || '';
       break;
     default:
       break;

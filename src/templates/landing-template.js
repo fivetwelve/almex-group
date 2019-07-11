@@ -202,7 +202,7 @@ export const query = graphql`
           landingType
           landingSections {
             title(locale: $locale)
-            pages {
+            pages(where: { status: PUBLISHED }) {
               pageType
               slug(locale: $locale)
               tile {
