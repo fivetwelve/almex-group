@@ -156,7 +156,7 @@ Header.propTypes = {
 export const commonFragment = graphql`
   fragment CommonQuery on GraphCMS {
     brandNavigation(where: { availableIn: $region }) {
-      pages {
+      pages(where: { status: PUBLISHED }) {
         landing: landingSource {
           brand
           title(locale: $locale)
@@ -193,7 +193,7 @@ export const commonFragment = graphql`
     }
     navigation(where: { availableIn: $region }) {
       navigationSections {
-        pages {
+        pages(where: { status: PUBLISHED }) {
           id
           pageType
           slug: slug(locale: $locale)

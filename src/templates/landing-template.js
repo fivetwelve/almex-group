@@ -21,7 +21,16 @@ const LandingTemplate = ({ data, pageContext }) => {
       label,
       navigation,
       page: {
-        landing: { bannerImage, brand, description, landingType, landingSections, theme, title },
+        landing: {
+          bannerImage,
+          brand,
+          description,
+          landingType,
+          landingSections,
+          singlePages,
+          theme,
+          title,
+        },
       },
     },
   } = data;
@@ -51,10 +60,10 @@ const LandingTemplate = ({ data, pageContext }) => {
     }
   }
 
-  const renderTiles = (pages, location) => {
+  const renderTiles = (items, location) => {
     const tileArray = [];
     let tileIdx = 0;
-    pages.forEach(page => {
+    items.forEach(page => {
       let tileData = {};
       tileIdx += 1;
       switch (page.pageType) {
@@ -182,6 +191,11 @@ const LandingTemplate = ({ data, pageContext }) => {
                   </div>
                 );
               })}
+            {singlePages.length > 0 && (
+              <div className="tile-container">
+                {singlePages.length > 0 && renderTiles(singlePages, location)}
+              </div>
+            )}
           </>
         )}
       </Location>
@@ -242,6 +256,16 @@ export const query = graphql`
                 #   url
                 # }
               }
+            }
+          }
+          singlePages: pages(where: { status: PUBLISHED }) {
+            pageType
+            slug(locale: $locale)
+            tile {
+              url
+            }
+            product: productSource {
+              title(locale: $locale)
             }
           }
           title(locale: $locale)
