@@ -108,47 +108,50 @@ class ProductShowcase extends React.Component {
       <>
         <div className="showcase">
           <div className="carousel-container">
-            <Carousel
-              afterSlide={slideIndex => this.setState({ slideIdx: slideIndex })}
-              className="carousel"
-              autoGenerateStyleTag={autoGenerateStyleTag}
-              enableKeyboardControls={enableKeyboardControls}
-              renderCenterLeftControls={({ currentSlide, previousSlide }) => (
-                <button
-                  onClick={evt =>
-                    this.handleClickDirection(evt, currentSlide, previousSlide, 'PREVIOUS')
-                  }
-                  type="button"
-                  className="left-controls"
-                >
-                  <span className="sr-only">Previous</span>
-                  <span aria-hidden="true" className="left-controls-icon">
-                    <IconContext.Provider value={{ className: 'left-controls-icon' }}>
-                      <FaChevronLeft aria-hidden />
-                    </IconContext.Provider>
-                  </span>
-                </button>
-              )}
-              renderCenterRightControls={({ currentSlide, nextSlide }) => (
-                <button
-                  onClick={evt => this.handleClickDirection(evt, currentSlide, nextSlide, 'NEXT')}
-                  type="button"
-                  className="right-controls"
-                >
-                  <span className="sr-only">Next</span>
-                  <span aria-hidden="true" className="right-controls-icon">
-                    <IconContext.Provider value={{ className: 'right-controls-icon' }}>
-                      <FaChevronRight aria-hidden />
-                    </IconContext.Provider>
-                  </span>
-                </button>
-              )}
-              renderBottomCenterControls={() => null}
-              slideIndex={slideIdx}
-              wrapAround={wrapAround}
-            >
-              {slideArray}
-            </Carousel>
+            {slideArray.length === 1 && <div className="carousel">{slideArray}</div>}
+            {slideArray.length > 1 && (
+              <Carousel
+                afterSlide={slideIndex => this.setState({ slideIdx: slideIndex })}
+                className="carousel"
+                autoGenerateStyleTag={autoGenerateStyleTag}
+                enableKeyboardControls={enableKeyboardControls}
+                renderCenterLeftControls={({ currentSlide, previousSlide }) => (
+                  <button
+                    onClick={evt =>
+                      this.handleClickDirection(evt, currentSlide, previousSlide, 'PREVIOUS')
+                    }
+                    type="button"
+                    className="left-controls"
+                  >
+                    <span className="sr-only">Previous</span>
+                    <span aria-hidden="true" className="left-controls-icon">
+                      <IconContext.Provider value={{ className: 'left-controls-icon' }}>
+                        <FaChevronLeft aria-hidden />
+                      </IconContext.Provider>
+                    </span>
+                  </button>
+                )}
+                renderCenterRightControls={({ currentSlide, nextSlide }) => (
+                  <button
+                    onClick={evt => this.handleClickDirection(evt, currentSlide, nextSlide, 'NEXT')}
+                    type="button"
+                    className="right-controls"
+                  >
+                    <span className="sr-only">Next</span>
+                    <span aria-hidden="true" className="right-controls-icon">
+                      <IconContext.Provider value={{ className: 'right-controls-icon' }}>
+                        <FaChevronRight aria-hidden />
+                      </IconContext.Provider>
+                    </span>
+                  </button>
+                )}
+                renderBottomCenterControls={() => null}
+                slideIndex={slideIdx}
+                wrapAround={wrapAround}
+              >
+                {slideArray}
+              </Carousel>
+            )}
           </div>
           <div className="data-container">
             {brand && <ProductBrand brand={brand} />}
@@ -162,51 +165,54 @@ class ProductShowcase extends React.Component {
             {pdfDownloads && <div className="downloads">{pdfArray}</div>}
           </div>
         </div>
-        <div className="carousel-controls">
-          {images.map((image, idx) => {
-            const thumbStyle = {
-              backgroundImage: `url(${images[idx].url})`,
-            };
-            return (
-              <div
-                className={`thumb-container${slideIdx === idx ? ' active' : ''}`}
-                key={makeid()}
-                data-num={idx}
-              >
-                <button
-                  className="thumb-image"
-                  onClick={() => this.setState({ slideIdx: idx })}
-                  style={thumbStyle}
-                  type="button"
-                />
-              </div>
-            );
-          })}
-          {youTubeIDs.map((yt, idx) => {
-            const thumbStyle = {
-              backgroundColor: '$black',
-            };
-            const thisIdx = idx + images.length;
-            return (
-              <div
-                className={`thumb-container${slideIdx === thisIdx ? ' active' : ''}`}
-                key={makeid()}
-                data-num={images.length + thisIdx}
-              >
-                <button
-                  className="thumb-image"
-                  onClick={() => this.setState({ slideIdx: thisIdx })}
-                  style={thumbStyle}
-                  type="button"
-                >
-                  <IconContext.Provider value={{ className: 'play-icon' }}>
-                    <FaYoutube aria-hidden />
-                  </IconContext.Provider>
-                </button>
-              </div>
-            );
-          })}
-        </div>
+        {(images.length > 1 && youTubeIDs.length === 0) ||
+          (images.length > 0 && youTubeIDs.length > 0 && (
+            <div className="carousel-controls">
+              {images.map((image, idx) => {
+                const thumbStyle = {
+                  backgroundImage: `url(${images[idx].url})`,
+                };
+                return (
+                  <div
+                    className={`thumb-container${slideIdx === idx ? ' active' : ''}`}
+                    key={makeid()}
+                    data-num={idx}
+                  >
+                    <button
+                      className="thumb-image"
+                      onClick={() => this.setState({ slideIdx: idx })}
+                      style={thumbStyle}
+                      type="button"
+                    />
+                  </div>
+                );
+              })}
+              {youTubeIDs.map((yt, idx) => {
+                const thumbStyle = {
+                  backgroundColor: '$black',
+                };
+                const thisIdx = idx + images.length;
+                return (
+                  <div
+                    className={`thumb-container${slideIdx === thisIdx ? ' active' : ''}`}
+                    key={makeid()}
+                    data-num={images.length + thisIdx}
+                  >
+                    <button
+                      className="thumb-image"
+                      onClick={() => this.setState({ slideIdx: thisIdx })}
+                      style={thumbStyle}
+                      type="button"
+                    >
+                      <IconContext.Provider value={{ className: 'play-icon' }}>
+                        <FaYoutube aria-hidden />
+                      </IconContext.Provider>
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          ))}
       </>
     );
   }

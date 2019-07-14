@@ -119,8 +119,10 @@ $spacing: 20px;
         .carousel {
           // height: 56.25vw !important;
           height: auto;
-          max-height: 450px;
-          overflow: hidden;
+          max-width: 830px;
+          margin: 0 auto;
+          // max-height: 450px;
+          // overflow: hidden;
           .slide-image {
             height: 0;
             width: 100%;
@@ -408,9 +410,12 @@ $spacing: 20px;
       }
       .section-title {
         color: $white;
-        font-size: 28px;
+        font-size: 20px;
         font-weight: bold;
         padding-left: 15px;
+        @include media('>=tablet') {
+          font-size: 28px;
+        }
       }
     }
     .product-marketing,
