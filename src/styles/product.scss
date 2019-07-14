@@ -205,8 +205,8 @@ $spacing: 20px;
             padding-left: 30px;
             padding-right: 30px;
             padding-top: 20px;
-            margin-left: 10px;
-            margin-right: 10px;
+            // margin-left: 10px;
+            // margin-right: 10px;
             display: inline-block;
             background-position-y: 0;
             background-size: contain;
@@ -310,6 +310,7 @@ $spacing: 20px;
             height: 100%;
             ul {
               margin-bottom: 0;
+              margin-left: 1.5rem;
               li {
                 list-style-type: square;
                 padding-right: 5px;
@@ -533,10 +534,10 @@ $spacing: 20px;
       display: flex;
       align-items: flex-start;
       .option {
-        flex: 1 1 auto;
         svg {
           max-width: 200px;
           max-height: 200px;
+          width: 100%;
           .bg {
             fill: $prussian-blue60;
           }
