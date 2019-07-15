@@ -42,7 +42,7 @@ $spacing: 20px;
       flex-wrap: wrap;
       .almex-box,
       .bat,
-      .cobra,
+      .cmi,
       .emsys,
       .fusion,
       .institute,
@@ -82,7 +82,7 @@ $spacing: 20px;
           background-position-y: -66px;
         }
       }
-      .cobra a {
+      .cmi a {
         background-image: url('../../static/img/logo-cobra.png');
         background-size: cover;
         width: calc(110px * 0.6);

@@ -29,8 +29,8 @@ const BrandBanner = ({ brands, location }) => (
         case BRANDS.BAT:
           productBrand = 'bat';
           break;
-        case BRANDS.COBRA:
-          productBrand = 'cobra';
+        case BRANDS.CMI:
+          productBrand = 'cmi';
           break;
         case BRANDS.EMSYS:
           productBrand = 'emsys';
