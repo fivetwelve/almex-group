@@ -119,8 +119,10 @@ $spacing: 20px;
         .carousel {
           // height: 56.25vw !important;
           height: auto;
-          max-height: 450px;
-          overflow: hidden;
+          max-width: 830px;
+          margin: 0 auto;
+          // max-height: 450px;
+          // overflow: hidden;
           .slide-image {
             height: 0;
             width: 100%;
@@ -180,9 +182,13 @@ $spacing: 20px;
       }
       .data-container {
         width: 100%;
-        padding-left: $spacing;
-        padding-right: $spacing;
+        padding-left: 10px;
+        padding-right: 10px;
         @include media('>=tablet') {
+          padding-left: 50px;
+          padding-right: 50px;
+        }
+        @include media('>=desktop') {
           width: 410px;
           padding-left: $spacing;
           padding-right: $spacing;
@@ -203,8 +209,8 @@ $spacing: 20px;
             padding-left: 30px;
             padding-right: 30px;
             padding-top: 20px;
-            margin-left: 10px;
-            margin-right: 10px;
+            // margin-left: 10px;
+            // margin-right: 10px;
             display: inline-block;
             background-position-y: 0;
             background-size: contain;
@@ -308,6 +314,7 @@ $spacing: 20px;
             height: 100%;
             ul {
               margin-bottom: 0;
+              margin-left: 1.5rem;
               li {
                 list-style-type: square;
                 padding-right: 5px;
@@ -328,7 +335,7 @@ $spacing: 20px;
             letter-spacing: 1px;
           }
         }
-        .downloads {
+        .pdf-downloads {
           margin-top: 20px;
           display: flex;
           flex-direction: column;
@@ -408,9 +415,12 @@ $spacing: 20px;
       }
       .section-title {
         color: $white;
-        font-size: 28px;
+        font-size: 20px;
         font-weight: bold;
         padding-left: 15px;
+        @include media('>=tablet') {
+          font-size: 28px;
+        }
       }
     }
     .product-marketing,
@@ -420,6 +430,9 @@ $spacing: 20px;
     .product-specs {
       font-size: 20px;
       line-height: normal;
+      ul {
+        margin-left: 1.5rem;
+      }
       li {
         @include bullet-blue;
       }
@@ -438,9 +451,9 @@ $spacing: 20px;
       border-top: 2px solid $dark-blue60;
       padding: 25px 10px;
       @include media('>=tablet') {
-        margin-left: 40px;
-        margin-right: 40px;
-        padding: 25px 50px 90px 50px;
+        margin-left: 20px;
+        margin-right: 20px;
+        padding: 25px 30px 90px 30px;
       }
     }
     .product-advantages,
@@ -448,7 +461,7 @@ $spacing: 20px;
     .product-options {
       padding: 25px 10px;
       @include media('>=tablet') {
-        padding: 35px 100px;
+        padding: 35px 50px;
       }
     }
     .product-advantages {
@@ -482,9 +495,9 @@ $spacing: 20px;
       // padding-right: 100px;
       padding: 25px 10px;
       @include media('>=tablet') {
-        margin-left: 40px;
-        margin-right: 40px;
-        padding: 35px 100px;
+        margin-left: 20px;
+        margin-right: 20px;
+        padding: 35px 30px;
       }
       @include media('>=desktop') {
         flex-direction: row;
@@ -528,10 +541,10 @@ $spacing: 20px;
       display: flex;
       align-items: flex-start;
       .option {
-        flex: 1 1 auto;
         svg {
           max-width: 200px;
           max-height: 200px;
+          width: 100%;
           .bg {
             fill: $prussian-blue60;
           }
