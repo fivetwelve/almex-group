@@ -182,9 +182,13 @@ $spacing: 20px;
       }
       .data-container {
         width: 100%;
-        padding-left: $spacing;
-        padding-right: $spacing;
+        padding-left: 10px;
+        padding-right: 10px;
         @include media('>=tablet') {
+          padding-left: 50px;
+          padding-right: 50px;
+        }
+        @include media('>=desktop') {
           width: 410px;
           padding-left: $spacing;
           padding-right: $spacing;
@@ -331,7 +335,7 @@ $spacing: 20px;
             letter-spacing: 1px;
           }
         }
-        .downloads {
+        .pdf-downloads {
           margin-top: 20px;
           display: flex;
           flex-direction: column;
@@ -426,6 +430,9 @@ $spacing: 20px;
     .product-specs {
       font-size: 20px;
       line-height: normal;
+      ul {
+        margin-left: 1.5rem;
+      }
       li {
         @include bullet-blue;
       }
@@ -444,9 +451,9 @@ $spacing: 20px;
       border-top: 2px solid $dark-blue60;
       padding: 25px 10px;
       @include media('>=tablet') {
-        margin-left: 40px;
-        margin-right: 40px;
-        padding: 25px 50px 90px 50px;
+        margin-left: 20px;
+        margin-right: 20px;
+        padding: 25px 30px 90px 30px;
       }
     }
     .product-advantages,
@@ -454,7 +461,7 @@ $spacing: 20px;
     .product-options {
       padding: 25px 10px;
       @include media('>=tablet') {
-        padding: 35px 100px;
+        padding: 35px 50px;
       }
     }
     .product-advantages {
@@ -488,9 +495,9 @@ $spacing: 20px;
       // padding-right: 100px;
       padding: 25px 10px;
       @include media('>=tablet') {
-        margin-left: 40px;
-        margin-right: 40px;
-        padding: 35px 100px;
+        margin-left: 20px;
+        margin-right: 20px;
+        padding: 35px 30px;
       }
       @include media('>=desktop') {
         flex-direction: row;

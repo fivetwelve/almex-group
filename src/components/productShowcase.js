@@ -162,7 +162,7 @@ class ProductShowcase extends React.Component {
                 <Attraction attractText={attractText} locale={locale} products={products} />
               </div>
             )}
-            {pdfDownloads && <div className="downloads">{pdfArray}</div>}
+            {pdfDownloads && <div className="pdf-downloads">{pdfArray}</div>}
           </div>
         </div>
         {(images.length > 1 && youTubeIDs.length === 0) ||
