@@ -57,7 +57,6 @@ class BrandSelector extends Component {
     // const { region } = this.props;
     const { brandNavigation, label, location } = this.props;
     const brands = brandNavigation.pages;
-    // const { LANGUAGE_SLUGS, REGION_SLUGS } = constants;
     return (
       <>
         <div className="brand-selector">
@@ -107,8 +106,8 @@ class BrandSelector extends Component {
               case BRANDS.BAT:
                 productBrand = 'bat';
                 break;
-              case BRANDS.COBRA:
-                productBrand = 'cobra';
+              case BRANDS.CMI:
+                productBrand = 'cmi';
                 break;
               case BRANDS.EMSYS:
                 productBrand = 'emsys';

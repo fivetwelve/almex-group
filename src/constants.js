@@ -3,7 +3,7 @@ module.exports = {
     ALMEX_IN_A_BOX: 'ALMEX_IN_A_BOX',
     ALMEX_INSTITUTE: 'ALMEX_INSTITUTE',
     BAT: 'BAT',
-    COBRA: 'COBRA',
+    CMI: 'CMI',
     EMSYS: 'EMSYS',
     FUSION: 'FUSION',
     GLOBAL_SERVICES: 'GLOBAL_SERVICES',
