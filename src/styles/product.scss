@@ -209,8 +209,6 @@ $spacing: 20px;
             padding-left: 30px;
             padding-right: 30px;
             padding-top: 20px;
-            // margin-left: 10px;
-            // margin-right: 10px;
             display: inline-block;
             background-position-y: 0;
             background-size: contain;
@@ -489,10 +487,6 @@ $spacing: 20px;
     .features-info-container {
       display: flex;
       flex-direction: column;
-      // padding-top: 35px;
-      // padding-bottom: 35px;
-      // padding-left: 100px;
-      // padding-right: 100px;
       padding: 25px 10px;
       @include media('>=tablet') {
         margin-left: 20px;
@@ -575,7 +569,6 @@ $spacing: 20px;
       padding-left: 20px;
       padding-right: 20px;
       flex-wrap: wrap;
-      // align-items: flex-end;
       align-items: center;
       @include media('>=tablet') {
         flex-wrap: nowrap;
@@ -606,16 +599,9 @@ $spacing: 20px;
           min-width: 140px;
         }
         .image-container {
-          // display: flex;
-          // flex: 1 1 275px;
-          // height: 100%;
-          // width: 100%;
-          // // justify-content: space-between;
           max-height: 275px;
           max-width: 275px;
-          // justify-items: center;
           img {
-            // width: 100%;
             object-fit: cover;
           }
           .background {

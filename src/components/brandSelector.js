@@ -57,6 +57,7 @@ class BrandSelector extends Component {
     // const { region } = this.props;
     const { brandNavigation, label, location } = this.props;
     const brands = brandNavigation.pages;
+    // console.log(brandNavigation);
     // const { LANGUAGE_SLUGS, REGION_SLUGS } = constants;
     return (
       <>
@@ -100,6 +101,7 @@ class BrandSelector extends Component {
               default:
                 break;
             }
+            // console.log(brand.title);
             switch (brandType.brand) {
               case BRANDS.ALMEX_IN_A_BOX:
                 productBrand = 'almex-box';
@@ -107,8 +109,8 @@ class BrandSelector extends Component {
               case BRANDS.BAT:
                 productBrand = 'bat';
                 break;
-              case BRANDS.COBRA:
-                productBrand = 'cobra';
+              case BRANDS.CMI:
+                productBrand = 'cmi';
                 break;
               case BRANDS.EMSYS:
                 productBrand = 'emsys';
