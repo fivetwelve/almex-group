@@ -165,54 +165,54 @@ class ProductShowcase extends React.Component {
             {pdfDownloads && <div className="pdf-downloads">{pdfArray}</div>}
           </div>
         </div>
-        {(images.length > 1 && youTubeIDs.length === 0) ||
-          (images.length > 0 && youTubeIDs.length > 0 && (
-            <div className="carousel-controls">
-              {images.map((image, idx) => {
-                const thumbStyle = {
-                  backgroundImage: `url(${images[idx].url})`,
-                };
-                return (
-                  <div
-                    className={`thumb-container${slideIdx === idx ? ' active' : ''}`}
-                    key={makeid()}
-                    data-num={idx}
+        {((images.length > 1 && youTubeIDs.length === 0) ||
+          (images.length > 0 && youTubeIDs.length > 0)) && (
+          <div className="carousel-controls">
+            {images.map((image, idx) => {
+              const thumbStyle = {
+                backgroundImage: `url(${images[idx].url})`,
+              };
+              return (
+                <div
+                  className={`thumb-container${slideIdx === idx ? ' active' : ''}`}
+                  key={makeid()}
+                  data-num={idx}
+                >
+                  <button
+                    className="thumb-image"
+                    onClick={() => this.setState({ slideIdx: idx })}
+                    style={thumbStyle}
+                    type="button"
+                  />
+                </div>
+              );
+            })}
+            {youTubeIDs.map((yt, idx) => {
+              const thumbStyle = {
+                backgroundColor: '$black',
+              };
+              const thisIdx = idx + images.length;
+              return (
+                <div
+                  className={`thumb-container${slideIdx === thisIdx ? ' active' : ''}`}
+                  key={makeid()}
+                  data-num={images.length + thisIdx}
+                >
+                  <button
+                    className="thumb-image"
+                    onClick={() => this.setState({ slideIdx: thisIdx })}
+                    style={thumbStyle}
+                    type="button"
                   >
-                    <button
-                      className="thumb-image"
-                      onClick={() => this.setState({ slideIdx: idx })}
-                      style={thumbStyle}
-                      type="button"
-                    />
-                  </div>
-                );
-              })}
-              {youTubeIDs.map((yt, idx) => {
-                const thumbStyle = {
-                  backgroundColor: '$black',
-                };
-                const thisIdx = idx + images.length;
-                return (
-                  <div
-                    className={`thumb-container${slideIdx === thisIdx ? ' active' : ''}`}
-                    key={makeid()}
-                    data-num={images.length + thisIdx}
-                  >
-                    <button
-                      className="thumb-image"
-                      onClick={() => this.setState({ slideIdx: thisIdx })}
-                      style={thumbStyle}
-                      type="button"
-                    >
-                      <IconContext.Provider value={{ className: 'play-icon' }}>
-                        <FaYoutube aria-hidden />
-                      </IconContext.Provider>
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
-          ))}
+                    <IconContext.Provider value={{ className: 'play-icon' }}>
+                      <FaYoutube aria-hidden />
+                    </IconContext.Provider>
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </>
     );
   }
