@@ -9,7 +9,6 @@ import { IconContext } from 'react-icons';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import HomePageTile from '../components/homepageTile';
 import Layout from '../components/layout';
-// import Dump from '../utils/dump';
 import '../styles/homepage.scss';
 
 const HomepageTemplate = ({ data, pageContext }) => {
@@ -278,7 +277,6 @@ export const query = graphql`
             image {
               url
             }
-            # subtitle(locale: $locale)
             title(locale: $locale)
           }
         }
