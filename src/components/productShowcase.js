@@ -15,6 +15,9 @@ class ProductShowcase extends React.Component {
     const slideArray = [];
     const pdfArray = [];
 
+    /* ascending sort of images */
+    images.sort((a, b) => (a.sortName < b.sortName ? -1 : 1));
+
     /* populating carousel with images */
     for (let i = 0; i < images.length; i += 1) {
       const slideStyle = {

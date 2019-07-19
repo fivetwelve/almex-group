@@ -27,7 +27,6 @@ const ProductTemplate = ({ data, location, pageContext }) => {
           brand,
           theme,
           title,
-          // subtitle,
           images,
           youTubeIDs,
           attractText,
@@ -124,7 +123,6 @@ const ProductTemplate = ({ data, location, pageContext }) => {
             products={products}
             themeColour={themeColour}
             title={title}
-            // subtitle={subtitle}
             youTubeIDs={youTubeIDs}
             pdfDownloads={pdfDownloads}
           />
@@ -201,7 +199,6 @@ const ProductTemplate = ({ data, location, pageContext }) => {
                   />
                 ))}
               </div>
-              {/* {console.log(accessories)} */}
             </>
           )}
           {relatedItems.length > 1 && (
@@ -262,15 +259,14 @@ export const query = graphql`
         products(locale: $locale)
       }
       page(where: { id: $id }) {
-        # belongsTo
         pageType
         product: productSource {
           brand
           theme
           title(locale: $locale)
-          # subtitle(locale: $locale)
           images {
             url
+            sortName
           }
           youTubeIDs
           marketing(locale: $locale)
