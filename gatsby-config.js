@@ -61,19 +61,6 @@ module.exports = {
             footer
             common
           }
-          articles {
-            pageSlug
-            articleType
-            navSection
-            title
-            body
-            labels
-            images {
-              url
-            }
-            imageLabels
-            youTubeId
-          }
         }`,
         typeName: `GraphCMS`,
         fieldName: `cms`,
