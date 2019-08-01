@@ -1,0 +1,133 @@
+@import 'base';
+$spacing: 20px;
+
+.simple-content {
+  padding-left: 10px;
+  padding-right: 10px;
+  @include media('>=tablet') {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .simple-content-container {
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    .banner-wrapper {
+      border-bottom: 15px solid $blue;
+      @include media('>=tablet') {
+        border-bottom: none;
+      }
+      .banner-image {
+        height: 200px;
+        @include media('>=tablet') {
+          height: auto;
+          max-height: 340px;
+          border-bottom: 15px solid $blue;
+        }
+        img {
+          max-height: 325px;
+        }
+      }
+    }
+    .main-container {
+      display: flex;
+      margin-top: 40px;
+      flex-direction: column;
+      width: 100%;
+      @include media('>=desktop') {
+        flex-direction: row;
+      }
+      .main-content {
+        width: 100%;
+        .title {
+          font-size: 30px;
+          color: $prussian-blue;
+          font-weight: 700;
+          padding-left: 10px;
+          padding-right: 10px;
+          @include media('>=tablet') {
+            padding-left: 40px;
+            padding-right: 40px;
+          }
+        }
+        .content {
+          font-size: 16px;
+          @include media('>=tablet') {
+            font-size: 20px;
+          }
+          line-height: normal;
+          padding-left: 10px;
+          padding-right: 10px;
+          @include media('>=tablet') {
+            padding-left: 40px;
+            padding-right: 40px;
+          }
+          img {
+            padding: 0 0 5px;
+            @include media('>=tablet') {
+              float: left;
+              padding: 5px 20px 5px 0;
+            }
+          }
+          a,
+          a:active,
+          a:visited {
+            color: $prussian-blue60;
+            text-decoration: none;
+            &:hover {
+              color: $yellow-sea;
+              text-decoration: underline;
+              transition: $easeinout;
+            }
+          }
+          h1,
+          h2,
+          h3,
+          h4 {
+            margin-top: 1em;
+          }
+          h1 {
+            font-size: 1.5em;
+          }
+          h2 {
+            font-size: 1.3em;
+          }
+          h3 {
+            font-size: 1.1em;
+          }
+          h4 {
+            font-size: 1em;
+          }
+          hr {
+            background-color: $blue;
+            height: 2px;
+            margin: 40px 0;
+            // margin-left: 10px;
+            // margin-right: 10px;
+            // @include media('>=desktop') {
+            //   margin-left: 40px;
+            //   margin-right: 40px;
+            //   margin-top: 40px;
+            // }
+          }
+          ul {
+            padding-left: 1rem;
+          }
+          th {
+            background-color: $blue;
+            color: $white;
+          }
+          td {
+            font-size: 0.85rem;
+            @include media('>=tablet') {
+              font-size: 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}

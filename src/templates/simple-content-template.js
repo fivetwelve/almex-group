@@ -5,22 +5,20 @@ import { graphql } from 'gatsby';
 import GraphImg from 'graphcms-image';
 import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
-import { makeid } from '../utils/functions';
-import '../styles/services.scss';
+import '../styles/simpleContent.scss';
 
 const allowHTML = { html: true };
 
-const ServicesTemplate = ({ data, pageContext }) => {
+const SimpleContentTemplate = ({ data, pageContext }) => {
   const { locale, region } = pageContext;
   const {
     cms: {
-      // aboutLabel,
       brandNavigation,
       headerFooter,
       label,
       navigation,
       page: {
-        services: { bannerImage, description, sideContent, title },
+        simpleContent: { bannerImage, content, title },
       },
     },
   } = data;
@@ -29,7 +27,7 @@ const ServicesTemplate = ({ data, pageContext }) => {
     <Layout
       activeLanguage={locale}
       brandNavigation={brandNavigation}
-      childrenClass="services"
+      childrenClass="simple-content"
       headerFooter={headerFooter}
       label={label}
       navigation={navigation}
@@ -39,7 +37,7 @@ const ServicesTemplate = ({ data, pageContext }) => {
       {/* <Location>
         {({ location }) => ( */}
       <>
-        <div className="services-container">
+        <div className="simple-content-container">
           {bannerImage && (
             <div className="banner-wrapper">
               <div className="banner-image">
@@ -50,15 +48,10 @@ const ServicesTemplate = ({ data, pageContext }) => {
           <div className="main-container">
             <div className="main-content">
               <h1 className="title">{title}</h1>
-              <div className="description">
-                <Markdown source={description} options={allowHTML} />
+              <div className="content">
+                <Markdown source={content} options={allowHTML} />
               </div>
             </div>
-            <aside className="aside-container">
-              {sideContent.map(content => (
-                <Markdown key={makeid()} source={content} options={allowHTML} />
-              ))}
-            </aside>
           </div>
         </div>
       </>
@@ -68,12 +61,12 @@ const ServicesTemplate = ({ data, pageContext }) => {
   );
 };
 
-ServicesTemplate.defaultProps = {
+SimpleContentTemplate.defaultProps = {
   data: {},
   pageContext: {},
 };
 
-ServicesTemplate.propTypes = {
+SimpleContentTemplate.propTypes = {
   data: PropTypes.shape({
     id: PropTypes.string,
   }),
@@ -91,14 +84,13 @@ export const query = graphql`
       #   about(locale: $locale)
       # }
       page(where: { id: $id }) {
-        services: servicesSource {
+        simpleContent: simpleContentSource {
           bannerImage {
             handle
             width
             height
           }
-          description(locale: $locale)
-          sideContent(locale: $locale)
+          content(locale: $locale)
           title(locale: $locale)
         }
       }
@@ -106,4 +98,4 @@ export const query = graphql`
   }
 `;
 
-export default ServicesTemplate;
+export default SimpleContentTemplate;

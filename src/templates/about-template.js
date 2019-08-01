@@ -9,7 +9,7 @@ import Layout from '../components/layout';
 // import LandingTile from '../components/landingTile';
 import '../styles/about.scss';
 // import ProductBrand from '../components/productBrand';
-import { createLink, getTitle, makeid } from '../utils/functions';
+import { createLink, makeid } from '../utils/functions';
 
 const allowHTML = { html: true };
 
@@ -101,9 +101,7 @@ const AboutTemplate = ({ data, pageContext }) => {
                     <ul>
                       {helpfulResources.map(resource => (
                         <li key={makeid()}>
-                          <Link to={createLink(location, resource.slug)}>
-                            {getTitle(resource)} lorem
-                          </Link>
+                          <Link to={createLink(location, resource.slug)}>{resource.title}</Link>
                         </li>
                       ))}
                     </ul>
@@ -210,12 +208,7 @@ export const query = graphql`
             id
             slug
             pageType
-            landing: landingSource {
-              title(locale: $locale)
-            }
-            product: productSource {
-              title(locale: $locale)
-            }
+            title
           }
         }
       }

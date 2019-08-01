@@ -91,6 +91,7 @@ module.exports = {
     PROMO: 'PROMO',
     REPAIR: 'REPAIR',
     SERVICES: 'SERVICES',
+    SIMPLE: 'SIMPLE',
     USED: 'USED',
   },
   REGIONS: {
