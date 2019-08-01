@@ -37,7 +37,8 @@ const ProductTemplate = ({ data, location, pageContext }) => {
           features,
           productInfo,
           specs,
-          options,
+          configurations,
+          addOns,
           accessories,
           relatedItems,
         },
@@ -175,15 +176,25 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               </div>
             </>
           )}
-          {options.length > 1 && (
+          {configurations && (
             <>
               <div className={`title-container ${themeColour}`}>
-                <div className="section-title">{products.OPTIONS}</div>
+                <div className="section-title">{products.CONFIGURATIONS}</div>
               </div>
-              <Options options={options} label={products} themeColour={themeColour} />
+              <div className={`product-configurations ${themeColour}`}>
+                <Markdown source={configurations} options={allowHTML} />
+              </div>
             </>
           )}
-          {accessories.length > 1 && (
+          {addOns.length > 0 && (
+            <>
+              <div className={`title-container ${themeColour}`}>
+                <div className="section-title">{products.ADD_ONS}</div>
+              </div>
+              <Options options={addOns} label={products} themeColour={themeColour} />
+            </>
+          )}
+          {accessories.length > 0 && (
             <>
               <div className={`title-container ${themeColour}`}>
                 <div className="section-title">{products.ACCESSORIES}</div>
@@ -201,7 +212,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               </div>
             </>
           )}
-          {relatedItems.length > 1 && (
+          {relatedItems.length > 0 && (
             <>
               <div className={`title-container ${themeColour}`}>
                 <div className="section-title">{products.RELATED_ITEMS}</div>
@@ -277,7 +288,8 @@ export const query = graphql`
           features(locale: $locale)
           productInfo(locale: $locale)
           specs(locale: $locale)
-          options
+          configurations(locale: $locale)
+          addOns
           pdfDownloads(locale: $locale) {
             fileName
             documentTitle(locale: $locale)
