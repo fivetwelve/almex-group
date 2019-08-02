@@ -29,21 +29,7 @@ const mobileLanguages = (activeLanguage, languages, label, region) => {
     <>
       <div className="language-container">
         <span className="lang-title">{label}</span>
-        <div className="languages">
-          {displayLanguages}
-          <div className="lang-item">
-            <span className="link-text">FR</span>
-          </div>
-          <div className="lang-item">
-            <span className="link-text">DE</span>
-          </div>
-          <div className="lang-item">
-            <span className="link-text">RU</span>
-          </div>
-          <div className="lang-item">
-            <span className="link-text">PL</span>
-          </div>
-        </div>
+        <div className="languages">{displayLanguages}</div>
       </div>
     </>
   );
@@ -64,7 +50,7 @@ const Navigation = props => {
   /* using Hooks instead of component state */
   const [openSection, handleMenuItem] = useState('');
   const brandMenuOpen = brandNavigation.type === openSection;
-
+  console.log(languages);
   return (
     <>
       <div className="close-container">
