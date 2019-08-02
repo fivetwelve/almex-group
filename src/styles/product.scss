@@ -540,6 +540,12 @@ $spacing: 20px;
       &.orange {
         background-color: $tango20;
       }
+      table {
+        font-size: 0.8em;
+        @include media('>=tablet') {
+          font-size: 1em;
+        }
+      }
       tr > td:first-child {
         padding-left: 20px;
         background-color: $prussian-blue;
