@@ -50,7 +50,7 @@ const Navigation = props => {
   /* using Hooks instead of component state */
   const [openSection, handleMenuItem] = useState('');
   const brandMenuOpen = brandNavigation.type === openSection;
-  console.log(languages);
+
   return (
     <>
       <div className="close-container">
