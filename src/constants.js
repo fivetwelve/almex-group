@@ -60,6 +60,8 @@ module.exports = {
     FON: 'FONMAR',
   },
   OPTIONS: {
+    CANTILEVER: 'CANTILEVER',
+    HANDLES: 'HANDLES',
     MULTI_PLATEN: 'MULTI_PLATEN',
     PSI_40: 'PSI_40',
     PSI_60: 'PSI_60',
@@ -68,9 +70,9 @@ module.exports = {
     PSI_200: 'PSI_200',
     RECTANGULAR: 'RECTANGULAR',
     RHOMBOID: 'RHOMBOID',
+    SIDE_BY_SIDE: 'SIDE_BY_SIDE',
     SIDE_BY_SIDE_RECT: 'SIDE_BY_SIDE_RECT',
     SIDE_BY_SIDE_RHOM: 'SIDE_BY_SIDE_RHOM',
-    SIDE_HANDLES: 'SIDE_HANDLES',
   },
   PAGE_TYPES: {
     ABOUT: 'ABOUT',
@@ -91,6 +93,7 @@ module.exports = {
     PROMO: 'PROMO',
     REPAIR: 'REPAIR',
     SERVICES: 'SERVICES',
+    SIMPLE: 'SIMPLE',
     USED: 'USED',
   },
   REGIONS: {

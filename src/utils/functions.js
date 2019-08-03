@@ -92,6 +92,9 @@ const getTitle = page => {
     case PAGE_TYPES.SERVICES:
       title = (page.services && page.services.title) || '';
       break;
+    case PAGE_TYPES.SIMPLE:
+      title = (page.simpleContent && page.simpleContent.title) || '';
+      break;
     case PAGE_TYPES.USED:
       title = (page.usedEquipment && page.usedEquipment.title) || '';
       break;

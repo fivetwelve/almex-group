@@ -4,21 +4,21 @@ $spacing: 20px;
   list-style-image: url('../../static/img/bullet-blue.svg');
   font-size: 20px;
   @include media('>=tablet') {
-    font-weight: bold;
+    // font-weight: bold;
   }
 }
 @mixin bullet-orange {
   list-style-image: url('../../static/img/bullet-orange.svg');
   font-size: 20px;
   @include media('>=tablet') {
-    font-weight: bold;
+    // font-weight: bold;
   }
 }
 @mixin bullet-teal {
   list-style-image: url('../../static/img/bullet-teal.svg');
   font-size: 20px;
   @include media('>=tablet') {
-    font-weight: bold;
+    // font-weight: bold;
   }
 }
 
@@ -425,7 +425,8 @@ $spacing: 20px;
     .product-advantages,
     .product-features,
     .product-info,
-    .product-specs {
+    .product-specs,
+    .product-configurations {
       font-size: 20px;
       line-height: normal;
       ul {
@@ -456,6 +457,7 @@ $spacing: 20px;
     }
     .product-advantages,
     .product-specs,
+    .product-configurations,
     .product-options {
       padding: 25px 10px;
       @include media('>=tablet') {
@@ -531,10 +533,42 @@ $spacing: 20px;
         background-color: $tango20;
       }
     }
+    .product-configurations {
+      &.teal {
+        background-color: $allports20;
+      }
+      &.orange {
+        background-color: $tango20;
+      }
+      table {
+        font-size: 0.8em;
+        @include media('>=tablet') {
+          font-size: 1em;
+        }
+      }
+      tr > td:first-child {
+        padding-left: 20px;
+        background-color: $prussian-blue;
+        border-bottom-color: $white;
+        border-bottom-width: 2px;
+        color: $white;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+    }
     .product-options {
       display: flex;
       align-items: flex-start;
       .option {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        span {
+          padding-bottom: 10px;
+        }
         svg {
           max-width: 200px;
           max-height: 200px;

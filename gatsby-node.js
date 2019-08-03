@@ -203,6 +203,17 @@ exports.createPages = ({ graphql, actions }) => {
                     },
                   });
                   break;
+                case PAGE_TYPES.SIMPLE:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/simple-content-template.js`),
+                    context: {
+                      id,
+                      locale: language,
+                      region,
+                    },
+                  });
+                  break;
                 case PAGE_TYPES.USED:
                   createPage({
                     path: pagePath,

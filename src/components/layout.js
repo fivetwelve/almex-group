@@ -197,7 +197,7 @@ class Layout extends React.Component {
                     showMobileBG={this.showMobileBG}
                   />
                   <div className="bodyClass">
-                    <LocationProvider value={location}>
+                    <LocationProvider value={location} visitorRegion="test">
                       <div className={childrenClass}>{children}</div>
                     </LocationProvider>
                   </div>

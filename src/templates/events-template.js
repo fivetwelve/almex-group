@@ -65,8 +65,14 @@ class EventsTemplate extends Component {
       calendarLocale,
       continent: CONTINENTS.GLOBAL,
       events: null,
-      selectedDay: null,
+      selectedDay: undefined,
     };
+  }
+
+  componentDidMount() {
+    this.handleDayClick(new Date(), {
+      selected: undefined,
+    });
   }
 
   setContinent = continent => {
@@ -306,6 +312,15 @@ class EventsTemplate extends Component {
                     />
                   </div>
                   <div className="events-right">
+                    {selectedDay !== undefined && events && events.length === 0 && (
+                      <div className="events-results">
+                        <div className="heading">
+                          {formatDate(new Date(selectedDay), 'LL', calendarLocale)}{' '}
+                          {aboutLabel.about.EVENTS}
+                        </div>
+                        <p>{aboutLabel.about.NO_EVENTS}</p>
+                      </div>
+                    )}
                     {events && events.length > 0 && (
                       <div className="events-results">
                         <div className="heading">
