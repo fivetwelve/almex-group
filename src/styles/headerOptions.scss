@@ -129,6 +129,7 @@
       .brand {
         &.almex-box,
         &.bat,
+        &.choice,
         &.cmi,
         &.emsys,
         &.fusion,
@@ -159,6 +160,12 @@
           height: 66px;
           background-image: url('../../static/img/logo-bat.png');
           background-position-y: -66px;
+        }
+        &.choice a {
+          width: 151px;
+          height: 47px;
+          background-image: url('../../static/img/logo-choice.png');
+          background-position-y: -47px;
         }
         &.cmi a {
           width: 110px;

@@ -54,6 +54,7 @@ $spacing: 20px;
       margin: 40px auto;
       &.almex-box,
       &.bat,
+      &.choice,
       &.cmi,
       &.emsys,
       &.fusion,
@@ -71,6 +72,10 @@ $spacing: 20px;
       }
       &.bat {
         background-image: url('../../static/img/logo-bat.svg');
+        height: 80px;
+      }
+      &.choice {
+        background-image: url('../../static/img/logo-choice.svg');
         height: 80px;
       }
       &.cmi {
