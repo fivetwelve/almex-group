@@ -23,7 +23,7 @@ const AboutTemplate = ({ data, pageContext }) => {
       headerFooter,
       navigation,
       page: {
-        about: { bannerImage, title, description, helpfulResources },
+        about: { aboutUsLinks, bannerImage, title, description, helpfulResources },
       },
     },
   } = data;
@@ -109,12 +109,19 @@ const AboutTemplate = ({ data, pageContext }) => {
                   <div className="about-links">
                     <div className="label">{label.header.ABOUT}</div>
                     <ul>
-                      <li>
+                      {/* <li>
                         <a href="http://almex.com">Some link here</a>
                       </li>
                       <li>
                         <a href="http://almex.com">Some link here lorem ipsum</a>
-                      </li>
+                      </li> */}
+                      {aboutUsLinks.map(aboutUsLink => (
+                        <li key={makeid()}>
+                          <Link to={createLink(location, aboutUsLink.slug)}>
+                            {aboutUsLink.title}
+                          </Link>
+                        </li>
+                      ))}
                     </ul>
                   </div>
                 </div>
@@ -180,32 +187,14 @@ export const query = graphql`
             width
             height
           }
-          # theme
-          # landingSections {
-          #   title(locale: $locale)
-          #   pages {
-          #     slug(locale: $locale)
-          #     pageType
-          #     product: productSource {
-          #       title(locale: $locale)
-          #       subtitle(locale: $locale)
-          #       tileImage {
-          #         url
-          #       }
-          #     }
-          #     landing: landingSource {
-          #       title(locale: $locale)
-          #       subtitle(locale: $locale)
-          #       tileImage {
-          #         url
-          #       }
-          #     }
-          #   }
-          # }
           title(locale: $locale)
           description(locale: $locale)
           helpfulResources {
-            id
+            slug
+            pageType
+            title
+          }
+          aboutUsLinks {
             slug
             pageType
             title

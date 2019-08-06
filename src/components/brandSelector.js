@@ -52,11 +52,73 @@ class BrandSelector extends Component {
     // console.log(this.brandDropdown.current);
   };
 
+  renderBrands = (brand, location) => {
+    let brandType = '';
+    let productBrand = '';
+    switch (brand.pageType) {
+      case PAGE_TYPES.INSTITUTE:
+        brandType = brand.institute;
+        break;
+      case PAGE_TYPES.LANDING:
+        brandType = brand.landing;
+        break;
+      case PAGE_TYPES.SERVICES:
+        brandType = brand.services;
+        break;
+      default:
+        break;
+    }
+    switch (brandType.brand) {
+      case BRANDS.ALMEX_IN_A_BOX:
+        productBrand = 'almex-box';
+        break;
+      case BRANDS.BAT:
+        productBrand = 'bat';
+        break;
+      case BRANDS.CHOICE_TECHTOOLS:
+        productBrand = 'choice';
+        break;
+      case BRANDS.CMI:
+        productBrand = 'cmi';
+        break;
+      case BRANDS.EMSYS:
+        productBrand = 'emsys';
+        break;
+      case BRANDS.FUSION:
+        productBrand = 'fusion';
+        break;
+      case BRANDS.ALMEX_INSTITUTE:
+        productBrand = 'institute';
+        break;
+      case BRANDS.GLOBAL_SERVICES:
+        productBrand = 'knight';
+        break;
+      case BRANDS.RAMPART:
+        productBrand = 'rampart';
+        break;
+      case BRANDS.VOTECH:
+        productBrand = 'votech';
+        break;
+      default:
+        break;
+    }
+    return (
+      <div className={`brand ${productBrand}`} key={brand.slug}>
+        <Link to={createLink(location, brand.slug)}>
+          <span className="sr-only">{brandType.title}</span>
+        </Link>
+      </div>
+    );
+  };
+
   render() {
     // const { activeLanguage, languages, region } = this.props;
     // const { region } = this.props;
     const { brandNavigation, label, location } = this.props;
+    // const brands = brandNavigation.pages.sort((a, b) => (a.title < b.title ? -1 : 1));
     const brands = brandNavigation.pages;
+    brands.sort((a, b) => (a.title < b.title ? -1 : 1));
+
     return (
       <>
         <div className="brand-selector">
@@ -83,61 +145,7 @@ class BrandSelector extends Component {
           </button>
         </div>
         <div className="brand-container" ref={this.brandDropdown}>
-          {brands.map(brand => {
-            let brandType = '';
-            let productBrand = '';
-            switch (brand.pageType) {
-              case PAGE_TYPES.INSTITUTE:
-                brandType = brand.institute;
-                break;
-              case PAGE_TYPES.LANDING:
-                brandType = brand.landing;
-                break;
-              case PAGE_TYPES.SERVICES:
-                brandType = brand.services;
-                break;
-              default:
-                break;
-            }
-            switch (brandType.brand) {
-              case BRANDS.ALMEX_IN_A_BOX:
-                productBrand = 'almex-box';
-                break;
-              case BRANDS.BAT:
-                productBrand = 'bat';
-                break;
-              case BRANDS.CMI:
-                productBrand = 'cmi';
-                break;
-              case BRANDS.EMSYS:
-                productBrand = 'emsys';
-                break;
-              case BRANDS.FUSION:
-                productBrand = 'fusion';
-                break;
-              case BRANDS.ALMEX_INSTITUTE:
-                productBrand = 'institute';
-                break;
-              case BRANDS.GLOBAL_SERVICES:
-                productBrand = 'knight';
-                break;
-              case BRANDS.RAMPART:
-                productBrand = 'rampart';
-                break;
-              case BRANDS.VOTECH:
-                productBrand = 'votech';
-                break;
-              default:
-                break;
-            }
-            return (
-              <div className={`brand ${productBrand}`} key={brand.slug}>
-                <Link to={createLink(location, brand.slug)}>
-                  <span className="sr-only">{brandType.title}</span>
-                </Link>
-              </div>
-            );
-          })}
+          {brands.map(brand => this.renderBrands(brand, location))}
         </div>
       </>
     );
