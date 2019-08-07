@@ -1,5 +1,7 @@
 @import 'base';
 $spacing: 20px;
+$caption-space-tablet: 150px;
+$caption-space-desktop: 300px;
 
 .history {
   padding-left: 10px;
@@ -159,7 +161,7 @@ $spacing: 20px;
           height: auto;
           padding-left: 10px;
           padding-right: 10px;
-          cursor: default;
+          cursor: pointer;
         }
         .content {
           // display: flex;
@@ -189,6 +191,7 @@ $spacing: 20px;
           .details {
             border: 2px solid transparent;
             padding: 5px;
+            line-height: normal;
           }
           .thumbnail {
             margin-top: 15px;
@@ -290,9 +293,69 @@ $spacing: 20px;
               padding-left: 100px;
               padding-right: 100px;
             }
+            h3 {
+              font-size: 36px;
+              color: $yellow-sea;
+              @include media('>=tablet') {
+                margin-left: $caption-space-tablet;
+              }
+              @include media('>=desktop') {
+                margin-left: $caption-space-desktop;
+              }
+            }
+            p.date {
+              font-style: italic;
+              margin-top: 20px;
+              padding-bottom: 40px;
+              @include media('>=tablet') {
+                margin-left: $caption-space-tablet;
+              }
+              @include media('>=desktop') {
+                margin-left: $caption-space-desktop;
+              }
+            }
+            .description {
+              margin-top: 40px;
+              @include media('>=tablet') {
+                margin-left: $caption-space-tablet;
+              }
+              @include media('>=desktop') {
+                margin-left: $caption-space-desktop;
+              }
+            }
             p {
               font-size: 20px;
               line-height: 20px;
+            }
+            figure {
+              position: relative;
+              margin-top: 40px;
+              @include media('>=tablet') {
+                margin-left: $caption-space-tablet;
+              }
+              @include media('>=desktop') {
+                margin-left: $caption-space-desktop;
+              }
+            }
+            figcaption {
+              font-size: 16px;
+              font-style: italic;
+              line-height: normal;
+              padding-top: 20px;
+              padding-bottom: 20px;
+              border-bottom: 1px solid $yellow-sea;
+              padding-left: 20px;
+              @include media('>=tablet') {
+                position: absolute;
+                top: 0;
+                padding-left: 0;
+                width: calc(#{$caption-space-tablet} - 40px);
+                left: -$caption-space-tablet;
+              }
+              @include media('>=desktop') {
+                width: calc(#{$caption-space-desktop} - 40px);
+                left: -$caption-space-desktop;
+              }
             }
           }
         }

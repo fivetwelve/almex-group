@@ -17,6 +17,7 @@ const TimelineModal = props => {
   };
 
   const { event, label, showModal } = props;
+
   return (
     <div className={`timeline-modal ${showModal ? 'in-view' : ''}`}>
       <div className="modal-container">
@@ -35,54 +36,29 @@ const TimelineModal = props => {
             {event && (
               <>
                 <h3>{event.eventTitle}</h3>
+                <p className="date">{event.displayDate}</p>
                 {event.description.map((desc, idx) => (
                   <React.Fragment key={makeid()}>
-                    <Markdown source={desc} options={{ html: true }} />
+                    <div className="description">
+                      <Markdown source={desc} options={{ html: true }} />
+                    </div>
                     {event.images[idx] ? (
-                      <GraphImg
-                        // fit="scale"
-                        image={event.images[0]}
-                        // transform={['resize=height:100']}
-                        transform={['fit=scale']}
-                        withWebp
-                      />
+                      <figure>
+                        <GraphImg
+                          // fit="scale"
+                          image={event.images[0]}
+                          // transform={['resize=height:100']}
+                          transform={['fit=scale']}
+                          withWebp
+                        />
+                        {event.captions[idx] && <figcaption>{event.captions[idx]}</figcaption>}
+                      </figure>
                     ) : (
                       ''
                     )}
                   </React.Fragment>
                 ))}
               </>
-
-              // <>
-              //   <h3>{event.eventTitle}</h3>
-              //   <p>
-              //     Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
-              //     fermentum massa justo sit amet risus. Donec sed odio dui. Cras mattis consectetur
-              //     purus sit amet fermentum. Nulla vitae elit libero, a pharetra augue. Maecenas
-              //     faucibus mollis interdum. Vivamus sagittis lacus vel augue laoreet rutrum faucibus
-              //     dolor auctor. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
-              //   </p>
-              //   <p>
-              //     Etiam porta sem malesuada magna mollis euismod. Nullam quis risus eget urna mollis
-              //     ornare vel eu leo. Nulla vitae elit libero, a pharetra augue. Donec sed odio dui.
-              //     Etiam porta sem malesuada magna mollis euismod.
-              //   </p>
-              //   <p>
-              //     Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
-              //     fermentum massa justo sit amet risus. Sed posuere consectetur est at lobortis.
-              //     Maecenas sed diam eget risus varius blandit sit amet non magna. Curabitur blandit
-              //     tempus porttitor. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-              //     condimentum nibh, ut fermentum massa justo sit amet risus. Curabitur blandit
-              //     tempus porttitor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula,
-              //     eget lacinia odio sem nec elit.
-              //   </p>
-              //   <p>
-              //     Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio
-              //     sem nec elit. Nulla vitae elit libero, a pharetra augue. Nulla vitae elit libero,
-              //     a pharetra augue. Cum sociis natoque penatibus et magnis dis parturient montes,
-              //     nascetur ridiculus mus.
-              //   </p>
-              // </>
             )}
           </div>
         </div>
