@@ -175,6 +175,17 @@ $spacing: 20px;
             transform: translateX(-100%);
             flex-direction: column;
           }
+          .left {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            @include media('>=tablet') {
+              justify-content: flex-end;
+            }
+            & .thumbnail {
+              width: 120px;
+            }
+          }
           .details {
             border: 2px solid transparent;
             padding: 5px;

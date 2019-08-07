@@ -95,6 +95,18 @@ class Timeline extends React.Component {
                       <br />
                       {event.eventTitle}
                     </div>
+                    {event.images.length > 0 && (
+                      <div className="left">
+                        <div className="thumbnail">
+                          <GraphImg
+                            fit="scale"
+                            image={event.images[0]}
+                            transform={['resize=height:100']}
+                            withWebp
+                          />
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
               </li>
