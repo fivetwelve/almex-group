@@ -14,6 +14,11 @@
   font-stretch: normal;
 }
 
+@mixin font-med {
+  font-weight: 500;
+  font-stretch: normal;
+}
+
 @mixin about-intro {
   .intro-container {
     display: flex;

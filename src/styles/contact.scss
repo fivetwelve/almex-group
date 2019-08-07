@@ -79,7 +79,7 @@ $spacing: 20px;
     .infoWindow-content {
       padding: 10px;
       .infoWindow-name {
-        @include neue-med;
+        @include font-med;
         font-size: 16px;
       }
       .infoWindow-details {
@@ -90,7 +90,6 @@ $spacing: 20px;
         }
       }
       .infoWindow-details {
-        @include neue-light;
         font-size: 15px;
         .phone {
           margin-right: 8px;
