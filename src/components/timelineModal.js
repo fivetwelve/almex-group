@@ -18,7 +18,6 @@ const TimelineModal = props => {
 
   const { event, label, showModal } = props;
 
-  console.log(event);
   return (
     <div className={`timeline-modal ${showModal ? 'in-view' : ''}`}>
       <div className="modal-container">
