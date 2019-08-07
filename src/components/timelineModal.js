@@ -17,6 +17,8 @@ const TimelineModal = props => {
   };
 
   const { event, label, showModal } = props;
+
+  console.log(event);
   return (
     <div className={`timeline-modal ${showModal ? 'in-view' : ''}`}>
       <div className="modal-container">
@@ -35,17 +37,23 @@ const TimelineModal = props => {
             {event && (
               <>
                 <h3>{event.eventTitle}</h3>
+                <p className="date">{event.displayDate}</p>
                 {event.description.map((desc, idx) => (
                   <React.Fragment key={makeid()}>
-                    <Markdown source={desc} options={{ html: true }} />
+                    <div className="description">
+                      <Markdown source={desc} options={{ html: true }} />
+                    </div>
                     {event.images[idx] ? (
-                      <GraphImg
-                        // fit="scale"
-                        image={event.images[0]}
-                        // transform={['resize=height:100']}
-                        transform={['fit=scale']}
-                        withWebp
-                      />
+                      <figure>
+                        <GraphImg
+                          // fit="scale"
+                          image={event.images[0]}
+                          // transform={['resize=height:100']}
+                          transform={['fit=scale']}
+                          withWebp
+                        />
+                        {event.captions[idx] && <figcaption>{event.captions[idx]}</figcaption>}
+                      </figure>
                     ) : (
                       ''
                     )}

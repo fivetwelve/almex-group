@@ -99,6 +99,7 @@ export const query = graphql`
           description(locale: $locale)
           events: historicalEvents {
             almexEvent
+            captions(locale: $locale)
             sortDate
             displayDate(locale: $locale)
             eventTitle: title(locale: $locale)
