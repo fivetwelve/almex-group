@@ -122,6 +122,10 @@ $spacing: 20px;
       padding-right: 100px;
       margin-bottom: 50px;
       display: flex;
+      h2 {
+        clear: both;
+        margin-top: 40px;
+      }
       img {
         padding: 0 0 10px;
         display: block;
@@ -151,9 +155,14 @@ $spacing: 20px;
       padding-left: 10px;
       padding-right: 10px;
       margin-bottom: 50px;
+      display: flex;
       @include media('>=tablet') {
         padding-left: 40px;
         padding-right: 40px;
+      }
+      h2 {
+        clear: both;
+        margin-top: 40px;
       }
       img {
         padding: 0 0 10px;
