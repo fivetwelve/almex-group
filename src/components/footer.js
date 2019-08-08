@@ -6,7 +6,7 @@ import {
   FaPhone,
   FaEnvelope,
   FaLinkedinIn,
-  FaInstagram,
+  // FaInstagram,
   FaYoutube,
   FaTwitter,
   FaFacebookF,
@@ -184,7 +184,7 @@ class Footer extends React.Component {
     const { footerLinks, socialMedia } = headerFooter;
     const { footer } = label;
     const brands = brandNavigation.pages;
-    brands.sort((a, b) => (a.title < b.title ? -1 : 1));
+    brands.sort((a, b) => (a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1));
     return (
       <>
         <div className="footer">
@@ -223,11 +223,11 @@ class Footer extends React.Component {
                       <FaLinkedinIn aria-hidden />
                     </IconContext.Provider>
                   </a>
-                  <a href={socialMedia.INSTAGRAM} className="social-media-link">
+                  {/* <a href={socialMedia.INSTAGRAM} className="social-media-link">
                     <IconContext.Provider value={{ className: 'social-media-icon' }}>
                       <FaInstagram aria-hidden />
                     </IconContext.Provider>
-                  </a>
+                  </a> */}
                   <a href={socialMedia.YOUTUBE} className="social-media-link">
                     <IconContext.Provider value={{ className: 'social-media-icon' }}>
                       <FaYoutube aria-hidden />
