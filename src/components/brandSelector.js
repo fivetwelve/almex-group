@@ -115,9 +115,8 @@ class BrandSelector extends Component {
     // const { activeLanguage, languages, region } = this.props;
     // const { region } = this.props;
     const { brandNavigation, label, location } = this.props;
-    // const brands = brandNavigation.pages.sort((a, b) => (a.title < b.title ? -1 : 1));
     const brands = brandNavigation.pages;
-    brands.sort((a, b) => (a.title < b.title ? -1 : 1));
+    brands.sort((a, b) => (a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1));
 
     return (
       <>
