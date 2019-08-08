@@ -542,9 +542,15 @@ $spacing: 20px;
     .product-configurations {
       &.teal {
         background-color: $allports20;
+        tr > td:first-child {
+          background-color: $allports60;
+        }
       }
       &.orange {
         background-color: $tango20;
+        tr > td:first-child {
+          background-color: $tango60;
+        }
       }
       table {
         font-size: 0.8em;
@@ -554,7 +560,7 @@ $spacing: 20px;
       }
       tr > td:first-child {
         padding-left: 20px;
-        background-color: $prussian-blue;
+        background-color: $prussian-blue60;
         border-bottom-color: $white;
         border-bottom-width: 2px;
         color: $white;
@@ -614,6 +620,8 @@ $spacing: 20px;
         flex-wrap: nowrap;
         a {
           margin-right: 20px;
+          color: $grey80;
+          text-decoration: none;
           &:last-child {
             margin-right: 0;
           }
