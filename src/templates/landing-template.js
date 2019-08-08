@@ -161,8 +161,10 @@ const LandingTemplate = ({ data, pageContext }) => {
             {landingType === LANDING_TYPES.INDUSTRY && (
               <>
                 <div className="industry-container">
-                  <div className={`banner-image ${themeColour}`}>
-                    <GraphImg image={bannerImage} maxWidth={1280} />
+                  <div className={`banner-wrapper ${themeColour}`}>
+                    <div className={`banner-image ${themeColour}`}>
+                      <GraphImg image={bannerImage} maxWidth={1280} />
+                    </div>
                   </div>
                   <h2 className="title">{title}</h2>
                   {description && (
