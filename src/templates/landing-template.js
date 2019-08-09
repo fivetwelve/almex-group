@@ -55,6 +55,10 @@ const LandingTemplate = ({ data, pageContext }) => {
       themeColour = 'orange';
       break;
     }
+    case THEMES.FUSION_SPICY: {
+      themeColour = 'red';
+      break;
+    }
     default: {
       break;
     }

@@ -14,6 +14,13 @@ $spacing: 20px;
     // font-weight: bold;
   }
 }
+@mixin bullet-red {
+  list-style-image: url('../../static/img/bullet-red.svg');
+  font-size: 20px;
+  @include media('>=tablet') {
+    // font-weight: bold;
+  }
+}
 @mixin bullet-teal {
   list-style-image: url('../../static/img/bullet-teal.svg');
   font-size: 20px;
@@ -280,6 +287,9 @@ $spacing: 20px;
           &.orange {
             color: $tango;
           }
+          &.red {
+            color: $crimson;
+          }
           &.teal {
             color: $allports60;
           }
@@ -411,11 +421,14 @@ $spacing: 20px;
       display: flex;
       align-items: center;
       background-color: $prussian-blue;
-      &.teal {
-        background-color: $allports;
-      }
       &.orange {
         background-color: $tango;
+      }
+      &.red {
+        background-color: $crimson;
+      }
+      &.teal {
+        background-color: $allports;
       }
       .section-title {
         color: $white;
@@ -444,6 +457,11 @@ $spacing: 20px;
       &.orange {
         li {
           @include bullet-orange;
+        }
+      }
+      &.red {
+        li {
+          @include bullet-red;
         }
       }
       &.teal {
@@ -524,6 +542,11 @@ $spacing: 20px;
           color: $tango;
         }
       }
+      &.red {
+        h4 {
+          color: $crimson;
+        }
+      }
       &.teal {
         h4 {
           color: $allports;
@@ -532,24 +555,33 @@ $spacing: 20px;
     }
     .product-advantages {
       background-color: $prussian-blue20;
-      &.teal {
-        background-color: $allports20;
-      }
       &.orange {
         background-color: $tango20;
       }
-    }
-    .product-configurations {
+      &.red {
+        background-color: $crimson20;
+      }
       &.teal {
         background-color: $allports20;
-        tr > td:first-child {
-          background-color: $allports60;
-        }
       }
+    }
+    .product-configurations {
       &.orange {
         background-color: $tango20;
         tr > td:first-child {
           background-color: $tango60;
+        }
+      }
+      &.red {
+        background-color: $crimson20;
+        tr > td:first-child {
+          background-color: $crimson60;
+        }
+      }
+      &.teal {
+        background-color: $allports20;
+        tr > td:first-child {
+          background-color: $allports60;
         }
       }
       table {
@@ -596,6 +628,13 @@ $spacing: 20px;
           svg {
             .bg {
               fill: $tango60;
+            }
+          }
+        }
+        &.red {
+          svg {
+            .bg {
+              fill: $crimson60;
             }
           }
         }

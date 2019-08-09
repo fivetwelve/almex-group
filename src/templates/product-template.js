@@ -82,6 +82,10 @@ const ProductTemplate = ({ data, location, pageContext }) => {
       themeColour = 'orange';
       break;
     }
+    case THEMES.FUSION_SPICY: {
+      themeColour = 'red';
+      break;
+    }
     default: {
       break;
     }
