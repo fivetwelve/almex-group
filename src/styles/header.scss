@@ -452,22 +452,24 @@
                 width: calc(100% / 3);
                 display: inline-flex;
                 color: $white;
-                font-size: 13px;
-                height: 36px;
+                font-size: 18px;
+                height: 50px;
                 align-items: center;
                 padding: 0 10px;
                 border-bottom: none;
                 background-color: transparent;
+                vertical-align: middle;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.3);
                 &:nth-child(3n + 2),
                 &:nth-child(3n + 3) {
                   padding: 0 10px 0 25px;
-                  border-left: 1px solid $white;
+                  // border-left: 1px solid $white;
                 }
               }
               a {
                 color: $white;
                 text-decoration: none;
-                height: 26px;
+                // height: 26px;
                 &:hover {
                   .link-text {
                     color: $yellow-sea;

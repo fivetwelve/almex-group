@@ -173,6 +173,7 @@ export const commonFragment = graphql`
         slug(locale: $locale)
         title(locale: $locale)
       }
+      title(locale: $locale)
       type
     }
     label(where: { availableIn: $region }) {
