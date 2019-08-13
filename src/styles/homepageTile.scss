@@ -79,16 +79,17 @@ $cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
       .subtitle {
       }
     }
-
-    &:hover {
-      .background {
-        opacity: 0.8;
-      }
-      .overlay {
-        opacity: 1;
-        .overlay-title,
-        .overlay-subtitle {
+    @include media('>=desktop') {
+      &:hover {
+        .background {
+          opacity: 0.8;
+        }
+        .overlay {
           opacity: 1;
+          .overlay-title,
+          .overlay-subtitle {
+            opacity: 1;
+          }
         }
       }
     }

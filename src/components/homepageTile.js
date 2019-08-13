@@ -16,18 +16,20 @@ const HomepageTile = ({ data, labels, location }) => {
       <div className="tile-title">
         <h3>{title}</h3>
       </div>
-      <div className="image-container">
-        <div className="background" style={imageStyle} />
-        <div className="overlay">
-          <div className="text-container">
-            <span className="overlay-title">{title}</span>
-            {/* <div className="overlay-subtitle">
+      <Link to={(page && createLink(location, page.slug)) || createLink(location, '')}>
+        <div className="image-container">
+          <div className="background" style={imageStyle} />
+          <div className="overlay">
+            <div className="text-container">
+              <span className="overlay-title">{title}</span>
+              {/* <div className="overlay-subtitle">
               <span className="indicator">&#9650;</span>
               <span className="subtitle">{subtitle}</span>
             </div> */}
+            </div>
           </div>
         </div>
-      </div>
+      </Link>
       <div className="description">
         <Markdown source={description} options={{ html: true }} />
         <div className="more-container">
