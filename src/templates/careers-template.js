@@ -59,6 +59,8 @@ const CareersTemplate = ({ data, pageContext }) => {
               <h1 className="title">{title}</h1>
               <div className="description">
                 <Markdown source={description} options={allowHTML} />
+                {careerPostings.length > 0 &&
+                  `${aboutLabel.about.POSTING_AVAILABLE} ${careerPostings.length}`}
               </div>
             </div>
           </div>
@@ -107,9 +109,7 @@ const CareersTemplate = ({ data, pageContext }) => {
                                   <b>{aboutLabel.about.POSTING_STATUS}</b>:{' '}
                                   {aboutLabel.about[posting.postingStatus]}
                                 </p>
-                                <p>
-                                  <Markdown source={posting.instructions} options={allowHTML} />
-                                </p>
+                                <Markdown source={posting.instructions} options={allowHTML} />
                               </div>
                             </div>
                           </td>
