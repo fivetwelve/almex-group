@@ -10,6 +10,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import HomePageTile from '../components/homepageTile';
 import Layout from '../components/layout';
 import '../styles/homepage.scss';
+import { makeid } from '../utils/functions';
 
 const HomepageTemplate = ({ data, pageContext }) => {
   const { locale, region } = pageContext;
@@ -24,7 +25,6 @@ const HomepageTemplate = ({ data, pageContext }) => {
   } = data;
 
   let slideNum = 0;
-  let tileNum = 0;
   const eventStyle1 = {
     backgroundImage: `url(${homepage.homepageEventTiles[0].image.url})`,
   };
@@ -147,10 +147,9 @@ const HomepageTemplate = ({ data, pageContext }) => {
             <div className="no-bleed-container">
               <div className="tile-container">
                 {homepage.homepageTiles.length > 0 &&
-                  homepage.homepageTiles.map(tile => {
-                    tileNum += 1;
-                    return <HomePageTile data={tile} labels={label} key={`tile-${tileNum}`} />;
-                  })}
+                  homepage.homepageTiles.map(tile => (
+                    <HomePageTile data={tile} labels={label} location={location} key={makeid()} />
+                  ))}
               </div>
               <div className="heading2-container">
                 <div className="heading2">
@@ -278,6 +277,12 @@ export const query = graphql`
               url
             }
             title(locale: $locale)
+            page {
+              tile {
+                url
+              }
+              slug
+            }
           }
         }
       }
