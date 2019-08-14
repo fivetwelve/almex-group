@@ -318,6 +318,8 @@
             width: 100%;
             padding-left: 10px;
             border-bottom: 1px solid $grey60;
+            text-transform: uppercase;
+            font-weight: bold;
             @include media('>=tablet') {
               padding: 0;
               font-size: 20px;
@@ -329,12 +331,13 @@
             cursor: pointer;
             background-color: transparent;
             &.is-open {
-              font-weight: 700;
+              // font-weight: 700;
+              font-weight: bold;
               color: $yellow-sea;
               border-bottom: 1px solid $grey80;
               background-color: $grey80;
               @include media('>=tablet') {
-                font-weight: 500;
+                // font-weight: 500;
                 background-color: transparent;
               }
               .chevron {
@@ -430,8 +433,10 @@
               display: block;
               @include font-med;
               color: $yellow-sea;
-              font-size: 15px;
-              text-decoration: underline;
+              font-size: 16px;
+              font-weight: bold;
+              // text-decoration: underline;
+              text-transform: uppercase;
               margin-top: 20px;
             }
           }

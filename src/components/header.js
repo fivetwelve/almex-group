@@ -243,6 +243,7 @@ export const commonFragment = graphql`
         title(locale: $locale)
         type
       }
+      sortOrder
     }
   }
 `;
