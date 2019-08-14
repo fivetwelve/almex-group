@@ -50,6 +50,12 @@ const Navigation = props => {
   /* using Hooks instead of component state */
   const [openSection, handleMenuItem] = useState('');
   const brandMenuOpen = brandNavigation.type === openSection;
+  const sortedNavigationSections = [];
+  navigation.sortOrder.forEach(elem => {
+    sortedNavigationSections.push(
+      navigation.navigationSections.filter(section => section.type === elem)[0],
+    );
+  });
 
   return (
     <>
@@ -76,8 +82,8 @@ const Navigation = props => {
         )}
       </div>
       <div className="sections">
-        {navigation.navigationSections.length > 0 &&
-          navigation.navigationSections.map(section => {
+        {sortedNavigationSections.length > 0 &&
+          sortedNavigationSections.map(section => {
             const isOpen = section.type === openSection;
             return (
               <NavigationDropdown
