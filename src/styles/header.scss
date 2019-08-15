@@ -322,11 +322,15 @@
             font-weight: bold;
             @include media('>=tablet') {
               padding: 0;
-              font-size: 20px;
+              font-size: 18px;
               text-align: center;
               width: auto;
               padding-left: 0;
               border-bottom: none;
+              height: 20px;
+            }
+            @include media('>=desktop') {
+              font-size: 20px;
             }
             cursor: pointer;
             background-color: transparent;

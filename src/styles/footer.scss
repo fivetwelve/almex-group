@@ -31,6 +31,12 @@
           flex-wrap: wrap;
         }
       }
+      .top-right {
+        .social {
+          display: flex;
+          justify-content: flex-end;
+        }
+      }
     }
     .footer-middle {
       padding-bottom: 20px;

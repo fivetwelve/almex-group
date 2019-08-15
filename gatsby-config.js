@@ -32,6 +32,17 @@ module.exports = {
     //   },
     // },
     {
+      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      options: {
+        fonts: [
+          {
+            family: `Nunito Sans`,
+            variants: [`400`, `400i`, `700`, `700i`],
+          },
+        ],
+      },
+    },
+    {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         trackingId: 'UA-136510250-1',

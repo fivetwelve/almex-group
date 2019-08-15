@@ -210,6 +210,24 @@ const isDayInRange = (day, range) => {
 };
 
 /**
+ * Return `true` if the difference is greater than the gap.
+ *
+ * @export
+ * @param  {Date}     dt1
+ * @param  {Date}     dt1
+ * @param  {Number}   gap
+ * @return {Boolean}
+ */
+const daysPassed = (dt1, dt2, gap) => {
+  const MS_PER_DAY = 1000 * 60 * 60 * 24;
+  // Discard the time and time-zone information.
+  const utc1 = Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate());
+  const utc2 = Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate());
+
+  return Math.floor((utc2 - utc1) / MS_PER_DAY) > gap;
+};
+
+/**
  * @export
  * @param  {String}   countryCode
  * @param  {Array}    offices
@@ -336,6 +354,7 @@ export {
   mapToOffice,
   matchMomentLocale,
   isDayInRange,
+  daysPassed,
   normalizeTimeZone,
   scrollTo,
 };

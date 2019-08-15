@@ -143,6 +143,7 @@ class Layout extends React.Component {
             src="https://identity.netlify.com/v1/netlify-identity-widget.js"
           /> */}
           <script src="https://cdn.polyfill.io/v3/polyfill.min.js?flags=gated" />
+          <script src="https://www.youtube.com/iframe_api" />
 
           <body
             className="no-focus-outline"

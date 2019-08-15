@@ -1,15 +1,15 @@
 import Typography from 'typography';
 
 const typography = new Typography({
-  baseFontSize: '14px',
+  baseFontSize: '16px',
   baseLineHeight: 1,
   // headerFontFamily: ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
   // bodyFontFamily: ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
-  headerFontFamily: ['Arial', 'sans-serif'],
-  bodyFontFamily: ['Arial', 'sans-serif'],
+  headerFontFamily: ['Nunito Sans', 'Tahoma', 'sans-serif'],
+  bodyFontFamily: ['Nunito Sans', 'Tahoma', 'sans-serif'],
   overrideStyles: () => ({
     h1: {
-      fontWeight: 100,
+      fontWeight: 700,
     },
   }),
 });
