@@ -12,7 +12,7 @@ import {
   FaFacebookF,
 } from 'react-icons/fa';
 import Markdown from 'react-remarkable';
-import { createLink, makeid } from '../utils/functions';
+import { createLink, daysPassed, makeid } from '../utils/functions';
 import { BRANDS, PAGE_TYPES } from '../constants';
 import '../styles/footer.scss';
 
@@ -30,7 +30,14 @@ class Footer extends React.Component {
       if (!thisRegion) {
         this.getRegion();
       } else {
-        this.getOffices(thisRegion);
+        const lastVisit = new Date(localStorage.getItem('almexLastVisit'));
+        if (daysPassed(lastVisit, new Date(), 2)) {
+          // over 2 days, do another geolookup
+          this.getRegion();
+        } else {
+          // less than 2 days, use region from localStorage
+          this.getOffices(thisRegion);
+        }
       }
     }
   }
@@ -61,10 +68,12 @@ class Footer extends React.Component {
       .then(result => result.json())
       .then(json => {
         localStorage.setItem('almexVisitorRegion', json.country);
+        localStorage.setItem('almexLastVisit', new Date().toString());
         this.getOffices(json.country);
       })
       .catch(() => {
         localStorage.setItem('almexVisitorRegion', 'ALL');
+        localStorage.setItem('almexLastVisit', new Date().toString());
         this.getOffices('ALL');
       });
   };
