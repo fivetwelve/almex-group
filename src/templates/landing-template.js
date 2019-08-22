@@ -35,6 +35,7 @@ const LandingTemplate = ({ data, pageContext }) => {
       },
     },
   } = data;
+
   let themeColour = '';
   let sectionIdx = 0;
 
