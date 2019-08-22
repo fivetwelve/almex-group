@@ -4,6 +4,7 @@ import { Link } from 'gatsby';
 import { IconContext } from 'react-icons';
 import { FaTimes } from 'react-icons/fa';
 import NavigationDropdown from './navigationDropdown';
+import NavigationLink from './navigationLink';
 import { LANGUAGE_SLUGS, REGION_SLUGS } from '../constants';
 
 const mobileLanguages = (activeLanguage, languages, label, region) => {
@@ -85,10 +86,21 @@ const Navigation = props => {
         {sortedNavigationSections.length > 0 &&
           sortedNavigationSections.map(section => {
             const isOpen = section.type === openSection;
+            if (section.landingPage) {
+              return (
+                <NavigationLink
+                  activeLanguage={activeLanguage}
+                  key={section.type}
+                  location={location}
+                  section={section}
+                />
+              );
+            }
             return (
               <NavigationDropdown
                 activeLanguage={activeLanguage}
                 handleMenuItem={type => handleMenuItem(type)}
+                // key={makeid()}
                 key={section.type}
                 location={location}
                 section={section}

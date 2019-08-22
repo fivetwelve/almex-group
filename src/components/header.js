@@ -240,6 +240,7 @@ export const commonFragment = graphql`
             title(locale: $locale)
           }
         }
+        landingPage
         title(locale: $locale)
         type
       }

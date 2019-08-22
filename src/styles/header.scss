@@ -304,6 +304,7 @@
         }
         .section {
           // padding-left: 10px;
+          .section-link,
           .section-trigger {
             color: $white;
             border: 0;
@@ -338,11 +339,11 @@
               // font-weight: 700;
               font-weight: bold;
               color: $yellow-sea;
-              border-bottom: 1px solid $grey80;
+              // border-bottom: 1px solid $grey80;
               background-color: $grey80;
               @include media('>=tablet') {
-                // font-weight: 500;
                 background-color: transparent;
+                border-bottom: none;
               }
               .chevron {
                 transform: rotate(90deg);
@@ -383,6 +384,21 @@
               border-bottom: 3px solid $yellow-sea;
               opacity: 0;
               transition: $easeinout;
+            }
+          }
+          .section-link {
+            a {
+              display: block;
+              padding: 5px 0 5px;
+              color: $white;
+              text-decoration: none;
+              @include media('>=tablet') {
+                padding: 0;
+              }
+              &:hover {
+                color: $yellow-sea;
+                transition: $easeinout;
+              }
             }
           }
         }
