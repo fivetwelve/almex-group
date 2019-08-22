@@ -31,11 +31,13 @@ class Footer extends React.Component {
         this.getRegion();
       } else {
         const lastVisit = new Date(localStorage.getItem('almexLastVisit'));
-        if (daysPassed(lastVisit, new Date(), 2)) {
-          // over 2 days, do another geolookup
+        const now = new Date();
+        if (daysPassed(lastVisit, now, 2)) {
+          // over 2 days or not set, do another geolookup
           this.getRegion();
         } else {
-          // less than 2 days, use region from localStorage
+          // less than 2 days, reset date and use region from localStorage
+          localStorage.setItem('almexLastVisit', now.toString());
           this.getOffices(thisRegion);
         }
       }
@@ -60,6 +62,7 @@ class Footer extends React.Component {
   };
 
   getRegion = () => {
+    const nowString = new Date().toString();
     fetch('https://ipapi.co/json/', {
       headers: {
         Accept: 'application/json',
@@ -68,12 +71,12 @@ class Footer extends React.Component {
       .then(result => result.json())
       .then(json => {
         localStorage.setItem('almexVisitorRegion', json.country);
-        localStorage.setItem('almexLastVisit', new Date().toString());
+        localStorage.setItem('almexLastVisit', nowString);
         this.getOffices(json.country);
       })
       .catch(() => {
         localStorage.setItem('almexVisitorRegion', 'ALL');
-        localStorage.setItem('almexLastVisit', new Date().toString());
+        localStorage.setItem('almexLastVisit', nowString);
         this.getOffices('ALL');
       });
   };
