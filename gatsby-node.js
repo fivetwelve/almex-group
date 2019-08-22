@@ -125,17 +125,6 @@ exports.createPages = ({ graphql, actions }) => {
                     },
                   });
                   break;
-                case PAGE_TYPES.INDUSTRY:
-                  createPage({
-                    path: pagePath,
-                    component: path.resolve(`./src/templates/landing-template.js`),
-                    context: {
-                      id,
-                      locale: language,
-                      region,
-                    },
-                  });
-                  break;
                 case PAGE_TYPES.INSTITUTE:
                   createPage({
                     path: pagePath,

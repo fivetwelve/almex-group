@@ -71,9 +71,6 @@ const getTitle = page => {
     case PAGE_TYPES.HISTORY:
       title = (page.history && page.history.title) || '';
       break;
-    case PAGE_TYPES.INDUSTRY:
-      title = (page.industry && page.industry.title) || '';
-      break;
     case PAGE_TYPES.INSTITUTE:
       title = (page.institute && page.institute.title) || '';
       break;
@@ -228,6 +225,24 @@ const daysPassed = (dt1, dt2, gap) => {
 };
 
 /**
+ * Return `true` if the difference is greater than the gap.
+ *
+ * @export
+ * @param  {Date}     dt1
+ * @param  {Date}     dt1
+ * @param  {Number}   gap
+ * @return {Boolean}
+ */
+const hoursPassed = (dt1, dt2, gap) => {
+  const MS_PER_HOUR = 1000 * 60 * 60;
+  // Discard the time and time-zone information.
+  const utc1 = Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate(), dt1.getHours());
+  const utc2 = Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate(), dt2.getHours());
+
+  return Math.floor((utc2 - utc1) / MS_PER_HOUR) > gap;
+};
+
+/**
  * @export
  * @param  {String}   countryCode
  * @param  {Array}    offices
@@ -355,6 +370,7 @@ export {
   matchMomentLocale,
   isDayInRange,
   daysPassed,
+  hoursPassed,
   normalizeTimeZone,
   scrollTo,
 };
