@@ -12,7 +12,7 @@ import {
   FaFacebookF,
 } from 'react-icons/fa';
 import Markdown from 'react-remarkable';
-import { createLink, daysPassed, makeid } from '../utils/functions';
+import { createLink, hoursPassed, makeid } from '../utils/functions';
 import { BRANDS, PAGE_TYPES } from '../constants';
 import '../styles/footer.scss';
 
@@ -30,13 +30,16 @@ class Footer extends React.Component {
       if (!thisRegion) {
         this.getRegion();
       } else {
-        const lastVisit = new Date(localStorage.getItem('almexLastVisit'));
+        const lastVisit =
+          (localStorage.getItem('almexLastVisit') &&
+            new Date(localStorage.getItem('almexLastVisit'))) ||
+          null;
         const now = new Date();
-        if (daysPassed(lastVisit, now, 2)) {
-          // over 2 days or not set, do another geolookup
+        if (!lastVisit || (lastVisit && hoursPassed(lastVisit, now, 36))) {
+          // either not set or 36 hours have passed, do another geolookup
           this.getRegion();
         } else {
-          // less than 2 days, reset date and use region from localStorage
+          // less than 36 hours, refresh date and use region from localStorage
           localStorage.setItem('almexLastVisit', now.toString());
           this.getOffices(thisRegion);
         }
