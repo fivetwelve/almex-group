@@ -8,7 +8,6 @@ module.exports = {
     EMSYS: 'EMSYS',
     FUSION: 'FUSION',
     GLOBAL_SERVICES: 'GLOBAL_SERVICES',
-    RAMPART: 'RAMPART',
     VOTECH: 'VOTECH',
   },
   CONTINENTS: {

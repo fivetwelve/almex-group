@@ -135,7 +135,6 @@
         &.fusion,
         &.institute,
         &.knight,
-        &.rampart,
         &.votech {
           padding-left: 30px;
           padding-right: 30px;
@@ -196,12 +195,6 @@
           height: 103px;
           background-image: url('../../static/img/logo-knight.png');
           background-position-y: -103px;
-        }
-        &.rampart a {
-          width: 151px;
-          height: 47px;
-          background-image: url('../../static/img/logo-rampart.png');
-          background-position-y: -47px;
         }
         &.votech a {
           width: 179px;

@@ -59,7 +59,6 @@
         .fusion,
         .votech,
         .institute,
-        .rampart,
         .knight {
           margin: 15px 20px;
           a {
@@ -176,18 +175,6 @@
             width: 55px;
             height: 103px;
             background-position-y: -206px;
-          }
-        }
-        .rampart a {
-          background-image: url('../../static/img/logo-rampart.png');
-          background-size: cover;
-          width: calc(151px * 0.6);
-          height: calc(47px * 0.6);
-          background-position-y: calc(-94px * 0.59);
-          @include media('>=tablet') {
-            width: 151px;
-            height: 47px;
-            background-position-y: -94px;
           }
         }
       }

@@ -212,7 +212,6 @@ $spacing: 20px;
           &.fusion,
           &.institute,
           &.knight,
-          &.rampart,
           &.votech {
             padding-left: 30px;
             padding-right: 30px;
@@ -235,7 +234,7 @@ $spacing: 20px;
           &.choice {
             width: 125px;
             height: 35px;
-            background-image: url('../../static/img/logo-rampart.svg');
+            background-image: url('../../static/img/logo-choice.svg');
           }
           &.cmi {
             width: 100px;
@@ -261,11 +260,6 @@ $spacing: 20px;
             width: 55px;
             height: 103px;
             background-image: url('../../static/img/logo-knight.svg');
-          }
-          &.rampart {
-            width: 125px;
-            height: 39px;
-            background-image: url('../../static/img/logo-rampart.svg');
           }
           &.votech {
             width: 179px;
