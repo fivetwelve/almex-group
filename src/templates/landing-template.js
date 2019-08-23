@@ -6,9 +6,10 @@ import GraphImg from 'graphcms-image';
 import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
 import LandingTile from '../components/landingTile';
-import { LANDING_TYPES, PAGE_TYPES, THEMES } from '../constants';
+import { LANDING_TYPES, THEMES } from '../constants';
 import '../styles/landing.scss';
 import ProductBrand from '../components/productBrand';
+import { makeid } from '../utils/functions';
 
 const allowHTML = { html: true };
 
@@ -34,6 +35,7 @@ const LandingTemplate = ({ data, pageContext }) => {
       },
     },
   } = data;
+
   let themeColour = '';
   let sectionIdx = 0;
 
@@ -66,32 +68,39 @@ const LandingTemplate = ({ data, pageContext }) => {
 
   const renderTiles = (items, location) => {
     const tileArray = [];
-    let tileIdx = 0;
+    // let tileIdx = 0;
     items.forEach(page => {
-      let tileData = {};
-      tileIdx += 1;
-      switch (page.pageType) {
-        case PAGE_TYPES.LANDING:
-          tileData = {
-            slug: page.slug,
-            tile: page.tile,
-            ...page.landing,
-          };
-          break;
-        case PAGE_TYPES.PRODUCT:
-          tileData = {
-            slug: page.slug,
-            tile: page.tile,
-            ...page.product,
-          };
-          break;
-        default:
-          break;
-      }
+      // let tileData = {};
+      const tileData = {
+        slug: page.slug,
+        tile: page.tile,
+        title: page.title,
+      };
+      // tileIdx += 1;
+      // switch (page.pageType) {
+      //   case PAGE_TYPES.LANDING:
+      //     tileData = {
+      //       slug: page.slug,
+      //       tile: page.tile,
+      //       title: page.title
+      //       ...page.landing,
+      //     };
+      //     break;
+      //   case PAGE_TYPES.PRODUCT:
+      //     tileData = {
+      //       slug: page.slug,
+      //       tile: page.tile,
+      //       ...page.product,
+      //     };
+      //     break;
+      //   default:
+      //     break;
+      // }
       const landingTile = (
         <LandingTile
           data={tileData}
-          key={`tile-${tileIdx}`}
+          // key={`tile-${tileIdx}`}
+          key={makeid()}
           location={location}
           themeColour={themeColour}
         />
@@ -136,8 +145,25 @@ const LandingTemplate = ({ data, pageContext }) => {
         {({ location }) => (
           <>
             {(!landingType || landingType === LANDING_TYPES.PRODUCT) && (
-              <h2 className="landing-title">{title}</h2>
+              <>
+                {bannerImage && (
+                  <div className={`banner-wrapper ${themeColour}`}>
+                    <div className={`banner-image ${themeColour}`}>
+                      <GraphImg image={bannerImage} maxWidth={1280} />
+                    </div>
+                  </div>
+                )}
+                <div className="default-container">
+                  <h2 className="landing-title">{title}</h2>
+                  {description && (
+                    <div className="description">
+                      <Markdown source={description} options={allowHTML} />
+                    </div>
+                  )}
+                </div>
+              </>
             )}
+
             {landingType === LANDING_TYPES.BRAND && (
               <>
                 {bannerImage && (
@@ -248,20 +274,7 @@ export const query = graphql`
               tile {
                 url
               }
-              product: productSource {
-                title(locale: $locale)
-                # subtitle(locale: $locale)
-                # tileImage {
-                #   url
-                # }
-              }
-              landing: landingSource {
-                title(locale: $locale)
-                # subtitle(locale: $locale)
-                # tileImage {
-                #   url
-                # }
-              }
+              title(locale: $locale)
             }
           }
           singlePages: pages(where: { status: PUBLISHED }) {
@@ -270,9 +283,7 @@ export const query = graphql`
             tile {
               url
             }
-            product: productSource {
-              title(locale: $locale)
-            }
+            title(locale: $locale)
           }
           title(locale: $locale)
         }

@@ -48,7 +48,6 @@ $spacing: 20px;
       .fusion,
       .institute,
       .knight,
-      .rampart,
       .votech {
         margin: 15px 20px;
         a {
@@ -153,18 +152,6 @@ $spacing: 20px;
           width: 55px;
           height: 103px;
           background-position-y: -103px;
-        }
-      }
-      .rampart a {
-        background-image: url('../../static/img/logo-rampart.png');
-        background-size: cover;
-        width: calc(151px * 0.6);
-        height: calc(47px * 0.6);
-        background-position-y: calc(-47px * 0.59);
-        @include media('>=tablet') {
-          width: 151px;
-          height: 47px;
-          background-position-y: -47px;
         }
       }
       .votech a {

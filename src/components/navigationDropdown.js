@@ -6,7 +6,6 @@ import CloseButton from './closeButton';
 
 const NavigationDropdown = props => {
   const { activeLanguage, handleMenuItem, isOpen, label, location, section } = props;
-  // console.log(section);
 
   const handleClick = evt => {
     evt.preventDefault();

@@ -47,9 +47,6 @@ const BrandBanner = ({ brands, location }) => (
         case BRANDS.GLOBAL_SERVICES:
           productBrand = 'knight';
           break;
-        case BRANDS.RAMPART:
-          productBrand = 'rampart';
-          break;
         case BRANDS.VOTECH:
           productBrand = 'votech';
           break;

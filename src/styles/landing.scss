@@ -45,6 +45,7 @@ $spacing: 20px;
       }
     }
   }
+  .default-container,
   .brand-container,
   .industry-container {
     width: 100%;
@@ -66,7 +67,6 @@ $spacing: 20px;
       &.fusion,
       &.institute,
       &.knight,
-      &.rampart,
       &.votech {
         background-size: contain;
         background-repeat: no-repeat;
@@ -104,10 +104,6 @@ $spacing: 20px;
         background-image: url('../../static/img/logo-knight.svg');
         height: 140px;
       }
-      &.rampart {
-        background-image: url('../../static/img/logo-rampart.svg');
-        height: 80px;
-      }
       &.votech {
         background-image: url('../../static/img/logo-votech.svg');
         height: 80px;
@@ -142,7 +138,7 @@ $spacing: 20px;
       }
     }
   }
-  .industry-container {
+  .default-container {
     h2.title {
       margin: 40px auto 20px;
       padding-left: 10px;
