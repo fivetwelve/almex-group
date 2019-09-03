@@ -240,16 +240,19 @@ $spacing: 20px;
             border: 0;
             width: 100%;
             color: $grey70;
-            font-size: 18px;
+            font-size: 16px;
             text-align: left;
             text-transform: uppercase;
             background-color: $white;
             border-bottom: 1px dotted $grey60;
             height: 45px;
+            @include media('>=tablet') {
+              font-size: 18px;
+            }
             &:before {
               content: '+';
               display: inline-block;
-              width: 30px;
+              width: 20px;
             }
             &.resource-type--visible {
               color: $yellow-sea;
@@ -260,9 +263,12 @@ $spacing: 20px;
               }
             }
           }
-          .resources {
+          .category-resources {
             display: none;
-            font-size: 18px;
+            font-size: 16px;
+            @include media('>=tablet') {
+              font-size: 18px;
+            }
             &.resources--visible {
               display: block;
               border-bottom: 1px dotted $grey60;
@@ -276,14 +282,14 @@ $spacing: 20px;
               flex-direction: column;
               justify-content: center;
               width: 100%;
+              margin-bottom: 20px;
               span {
-                margin: 0 45px;
+                padding: 0 15px;
               }
             }
             .resource {
               font-size: inherit;
-              line-height: calc(1.5rem + 15px);
-              margin: 0 45px;
+              padding: 5px 15px;
               display: flex;
               flex-direction: column;
               justify-content: center;

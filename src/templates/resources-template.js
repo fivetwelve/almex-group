@@ -165,7 +165,7 @@ class ResourcesTemplate extends Component {
                         >
                           {type.title}
                         </button>
-                        <div className="resources">
+                        <div className="category-resources">
                           <div className="resources-heading">
                             <span>{resourcesLabel.resources.NAME}</span>
                           </div>
