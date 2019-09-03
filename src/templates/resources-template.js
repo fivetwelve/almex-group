@@ -12,10 +12,14 @@ import { makeid } from '../utils/functions';
 
 const allowHTML = { html: true };
 
+const checkFor = (array, property, value) => {
+  const size = array.filter(element => element[property] === value).length;
+  return size > 0;
+};
+
 class ResourcesTemplate extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
     const { categories } = props.data.cms.page.resources;
     const { resourcesLabel } = props.data.cms;
     const allResources = [];
@@ -34,36 +38,35 @@ class ResourcesTemplate extends Component {
     ];
     categories.forEach(category => {
       const resources = [];
-      const sortedResources = [];
+      const filteredResources = [];
       const unClassified = [];
       let thisTitle = '';
-      let documentNum = 0;
       // collect all documents for this category
       if (category.page.pageType === 'LANDING') {
         thisTitle = category.page.landingSource.title;
         category.page.landingSource.landingSections.forEach(section => {
           section.pages.forEach(page => {
             page.productSource.pdfDownloads.forEach(pdf => {
-              documentNum += 1;
               resources.push(pdf);
             });
           });
         });
       }
-      // sort documents
+      // filter documents
       resourcesTypes.forEach(resourceType => {
         const thisType = [];
         resources.forEach(resource => {
-          if (resource.resourceType === resourceType) {
+          if (resource.resourceType === resourceType && !checkFor(thisType, 'url', resource.url)) {
             thisType.push(resource);
-          } else if (!resource.resourceType && !unClassified.includes(resource)) {
+          } else if (!resource.resourceType && !checkFor(unClassified, 'url', resource.url)) {
             // resourceType not been set and not already added to unClassified array
             unClassified.push(resource);
           }
         });
+
         if (thisType.length > 0) {
           // we don't want groups with 0 resources
-          sortedResources.push({
+          filteredResources.push({
             title: resourcesLabel.resources[resourceType],
             documents: thisType,
           });
@@ -71,61 +74,33 @@ class ResourcesTemplate extends Component {
       });
       allResources.push({
         title: thisTitle,
-        resources: sortedResources,
+        resources: filteredResources,
         unClassified,
       });
-      console.log(`${thisTitle}: ${documentNum}`);
     });
-    console.log(allResources);
     this.state = {
       allResources,
       selectedCategory: null,
     };
   }
 
-  /* using Hooks instead of component state */
-  // const [selectedCategory, setCategory] = useState({});
-
-  // console.log('documents:');
-  // console.log(documents);
-  // console.log('allResources:');
-  // console.log(this.state.allResources);
-
-  // setCategory = continent => {
-  //   const { allEvents, selectedDay } = this.state;
-  //   const events = allEvents.filter(event => {
-  //     if (!selectedDay) {
-  //       return null;
-  //     }
-  //     if (selectedDay && continent === CONTINENTS.GLOBAL) {
-  //       return DateUtils.isDayInRange(selectedDay, {
-  //         from: new Date(event.startDate),
-  //         to: new Date(event.endDate),
-  //       })
-  //         ? event
-  //         : null;
-  //     }
-  //     return event.continent === continent &&
-  //       DateUtils.isDayInRange(selectedDay, {
-  //         from: new Date(event.startDate),
-  //         to: new Date(event.endDate),
-  //       })
-  //       ? event
-  //       : null;
-  //   });
-  //   this.setState({
-  //     continent,
-  //     events,
-  //   });
-  // };
-  // setCategory = category => {};
-
   handleSetCategory = categoryName => {
     const { allResources } = this.state;
     const category = allResources.find(resource => resource.title === categoryName);
+    if (typeof document !== 'undefined') {
+      document.querySelectorAll('.resource-type').forEach(node => {
+        node.classList.remove('resource-type--visible');
+        node.nextElementSibling.classList.remove('resources--visible');
+      });
+    }
     this.setState({
       selectedCategory: category,
     });
+  };
+
+  handleClickResourceType = evt => {
+    evt.target.classList.toggle('resource-type--visible');
+    evt.target.nextElementSibling.classList.toggle('resources--visible');
   };
 
   render() {
@@ -173,44 +148,40 @@ class ResourcesTemplate extends Component {
                 <h1 className="title">{title}</h1>
                 <div className="content">
                   <Markdown source={description} options={allowHTML} />
+                  <CategorySelector
+                    category={selectedCategory ? selectedCategory.title : ''}
+                    categories={categories}
+                    setCategory={categoryName => this.handleSetCategory(categoryName)}
+                    label={resourcesLabel.resources}
+                  />
+                  <hr />
+                  {selectedCategory &&
+                    selectedCategory.resources.map(type => (
+                      <div className="resource-type-container" key={type.title}>
+                        <button
+                          className="resource-type"
+                          onClick={evt => this.handleClickResourceType(evt)}
+                          type="button"
+                        >
+                          {type.title}
+                        </button>
+                        <div className="resources">
+                          <div className="resources-heading">
+                            <span>{resourcesLabel.resources.NAME}</span>
+                          </div>
+                          {type.documents.map(document => (
+                            <div className="resource" key={makeid()}>
+                              <a href={document.url} target="_blank" rel="noopener noreferrer">
+                                {document.documentTitle || document.fileName}
+                              </a>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
                 </div>
               </div>
             </div>
-            <div>Category: {selectedCategory && selectedCategory.title}</div>
-            {/* {console.log(
-            allResources.find(element => {
-              if (element.title === selectedCategory) {
-                return element;
-              }
-              return null;
-            }),
-          )} */}
-            <CategorySelector
-              category={selectedCategory ? selectedCategory.title : ''}
-              categories={categories}
-              setCategory={categoryName => this.handleSetCategory(categoryName)}
-              label={resourcesLabel.resources}
-            />
-            {/* <div className="resource-container"></div> */}
-            {console.log(selectedCategory)}
-            {selectedCategory &&
-              selectedCategory.resources.map(type => (
-                <div key={type.title}>
-                  {type.title}
-                  {type.documents.map(document => (
-                    <div key={makeid()}>
-                      <a href={document.url}>{document.documentTitle || document.fileName}</a>
-                    </div>
-                  ))}
-                  {/* {type.documents.map(
-                    document =>
-                      // <div key={makeid()}>
-                      // <a href={document.url}>{document.title}</a>
-                      document.title,
-                    // </div>
-                  )} */}
-                </div>
-              ))}
           </div>
         </>
         {/* )}
