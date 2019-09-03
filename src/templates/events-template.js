@@ -12,10 +12,10 @@ import 'moment/locale/de';
 import 'moment/locale/es';
 import Layout from '../components/layout';
 import EventsResults from '../components/eventsResults';
+import ContinentSelector from '../components/continentSelector';
 import { CONTINENTS, LANGUAGES } from '../constants';
 import '../styles/events.scss';
 import '../styles/dayPicker.scss';
-import ContinentSelector from '../components/continentSelector';
 
 const allowHTML = { html: true };
 

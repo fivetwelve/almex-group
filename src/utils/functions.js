@@ -86,6 +86,9 @@ const getTitle = page => {
     case PAGE_TYPES.PROMO:
       title = (page.promo && page.promo.title) || '';
       break;
+    case PAGE_TYPES.RESOURCES:
+      title = (page.resources && page.resources.title) || '';
+      break;
     case PAGE_TYPES.SERVICES:
       title = (page.services && page.services.title) || '';
       break;

@@ -66,15 +66,20 @@ const LandingTemplate = ({ data, pageContext }) => {
     }
   }
 
-  const renderTiles = (items, location) => {
+  const renderTiles = (pages, location) => {
     const tileArray = [];
     // let tileIdx = 0;
-    items.forEach(page => {
+    pages.forEach(page => {
       // let tileData = {};
+      // Use landingSource or productSource titles by default. All other cases, use title provided in Page entry.
+      const pageTitle =
+        (page.landingSource && page.landingSource.title) ||
+        (page.productSource && page.productSource.title) ||
+        page.title;
       const tileData = {
         slug: page.slug,
         tile: page.tile,
-        title: page.title,
+        title: pageTitle,
       };
       // tileIdx += 1;
       // switch (page.pageType) {
@@ -269,6 +274,12 @@ export const query = graphql`
           landingSections {
             title(locale: $locale)
             pages(where: { status: PUBLISHED }) {
+              landingSource {
+                title(locale: $locale)
+              }
+              productSource {
+                title(locale: $locale)
+              }
               pageType
               slug(locale: $locale)
               tile {
@@ -278,6 +289,12 @@ export const query = graphql`
             }
           }
           singlePages: pages(where: { status: PUBLISHED }) {
+            landingSource {
+              title(locale: $locale)
+            }
+            productSource {
+              title(locale: $locale)
+            }
             pageType
             slug(locale: $locale)
             tile {
