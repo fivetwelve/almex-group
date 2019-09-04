@@ -51,7 +51,7 @@ class Attraction extends React.Component {
         transformOrigin: '70 70',
         ease: Back.easeOut.config(1),
       })
-      .to(this.circleTextTween, 1.2, { delay: 1.2, rotation: 360, ease: Expo.easeOut })
+      .to(this.circleTextTween, 1.2, { delay: 3.5, rotation: 360, ease: Expo.easeOut })
       .to(this.circleTextTween, 0.5, { autoAlpha: 0, ease: Circ.easeOut }, '-=1')
       .to(
         this.innerCircleTween,
