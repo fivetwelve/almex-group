@@ -287,6 +287,23 @@ $spacing: 20px;
                 padding: 0 15px;
               }
             }
+            .resource-videos {
+              width: 100%;
+              display: inline-flex;
+
+              flex-direction: row;
+              flex-wrap: wrap;
+              .resource {
+                width: 100%;
+                iframe {
+                  width: 100%;
+                }
+                @include media('>=desktop') {
+                  width: calc(50% - 10px);
+                  margin-right: 10px;
+                }
+              }
+            }
             .resource {
               font-size: inherit;
               padding: 5px 15px;

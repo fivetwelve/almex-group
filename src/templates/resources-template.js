@@ -4,6 +4,7 @@ import { graphql } from 'gatsby';
 // import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
 import Markdown from 'react-remarkable';
+import YouTube from 'react-youtube';
 import Layout from '../components/layout';
 import CategorySelector from '../components/categorySelector';
 import { RESOURCE_TYPES } from '../constants';
@@ -49,6 +50,9 @@ class ResourcesTemplate extends Component {
             page.productSource.pdfDownloads.forEach(pdf => {
               resources.push(pdf);
             });
+            page.productSource.youTubeVideos.forEach(video => {
+              resources.push(video);
+            });
           });
         });
       }
@@ -56,18 +60,35 @@ class ResourcesTemplate extends Component {
       resourcesTypes.forEach(resourceType => {
         const thisType = [];
         resources.forEach(resource => {
-          if (resource.resourceType === resourceType && !checkFor(thisType, 'url', resource.url)) {
+          // look for document resources first
+          if (
+            resource.resourceType &&
+            resource.resourceType === resourceType &&
+            !checkFor(thisType, 'url', resource.url)
+          ) {
             thisType.push(resource);
-          } else if (!resource.resourceType && !checkFor(unClassified, 'url', resource.url)) {
-            // resourceType not been set and not already added to unClassified array
+          } else if (
+            // look for video resources next
+            resource.videoType &&
+            resource.videoType === resourceType &&
+            !checkFor(thisType, 'youTubeId', resource.youTubeId)
+          ) {
+            thisType.push(resource);
+          } else if (
+            !resource.resourceType &&
+            !resource.videoType &&
+            !checkFor(unClassified, 'url', resource.url) &&
+            !checkFor(unClassified, 'youTubeId', resource.youTubeId)
+          ) {
+            // resource type cannot be identified so add it to unClassified array if not already there
             unClassified.push(resource);
           }
         });
-
         if (thisType.length > 0) {
           // we don't want groups with 0 resources
           filteredResources.push({
             title: resourcesLabel.resources[resourceType],
+            resourceType,
             documents: thisType,
           });
         }
@@ -169,13 +190,36 @@ class ResourcesTemplate extends Component {
                           <div className="resources-heading">
                             <span>{resourcesLabel.resources.NAME}</span>
                           </div>
-                          {type.documents.map(document => (
-                            <div className="resource" key={makeid()}>
-                              <a href={document.url} target="_blank" rel="noopener noreferrer">
-                                {document.documentTitle || document.fileName}
-                              </a>
+                          {(type.resourceType === RESOURCE_TYPES.PROMO_VIDEO ||
+                            type.resourceType === RESOURCE_TYPES.TRAINING_VIDEO) && (
+                            <div className="resource-videos">
+                              {type.documents.map(document => (
+                                <div className="resource" key={makeid()}>
+                                  {document.title}
+                                  <YouTube
+                                    videoId={document.youTubeId}
+                                    containerClassName="video-container"
+                                  />
+                                </div>
+                              ))}
                             </div>
-                          ))}
+                          )}
+                          {type.resourceType !== RESOURCE_TYPES.PROMO_VIDEO &&
+                            type.resourceType !== RESOURCE_TYPES.TRAINING_VIDEO && (
+                              <div className="resource-documents">
+                                {type.documents.map(document => (
+                                  <div className="resource" key={makeid()}>
+                                    <a
+                                      href={document.url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                    >
+                                      {document.documentTitle || document.fileName}
+                                    </a>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
                         </div>
                       </div>
                     ))}
@@ -232,22 +276,27 @@ export const query = graphql`
                 landingSections {
                   pages {
                     productSource {
-                      pdfDownloads(locale: EN) {
-                        url
+                      youTubeVideos {
+                        title(locale: $locale)
+                        videoType
+                        youTubeId
+                      }
+                      pdfDownloads(locale: $locale) {
+                        documentTitle(locale: $locale)
                         fileName
                         resourceType
-                        documentTitle(locale: EN)
+                        url
                       }
                     }
                   }
                 }
                 orphans: pages {
                   productSource {
-                    pdfDownloads(locale: EN) {
+                    pdfDownloads(locale: $locale) {
                       url
                       fileName
                       resourceType
-                      documentTitle(locale: EN)
+                      documentTitle(locale: $locale)
                     }
                   }
                 }

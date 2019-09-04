@@ -28,7 +28,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
           theme,
           title,
           images,
-          youTubeIDs,
+          youTubeVideos,
           attractText,
           pdfDownloads,
           marketing,
@@ -128,7 +128,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
             products={products}
             themeColour={themeColour}
             title={title}
-            youTubeIDs={youTubeIDs}
+            youTubeVideos={youTubeVideos}
             pdfDownloads={pdfDownloads}
           />
           <div className={`product-marketing ${themeColour}`}>
@@ -283,7 +283,11 @@ export const query = graphql`
             url
             sortName
           }
-          youTubeIDs
+          youTubeVideos {
+            youTubeId
+            title(locale: $locale)
+            videoType
+          }
           marketing(locale: $locale)
           advantages(locale: $locale)
           advantagesImage {
