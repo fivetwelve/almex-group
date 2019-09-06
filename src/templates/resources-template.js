@@ -7,6 +7,7 @@ import Markdown from 'react-remarkable';
 import YouTube from 'react-youtube';
 import Layout from '../components/layout';
 import CategorySelector from '../components/categorySelector';
+import countryFlag from '../components/countryFlag';
 import { RESOURCE_TYPES } from '../constants';
 import '../styles/resources.scss';
 import { makeid } from '../utils/functions';
@@ -60,8 +61,8 @@ class ResourcesTemplate extends Component {
       resourcesTypes.forEach(resourceType => {
         const thisType = [];
         resources.forEach(resource => {
-          // look for document resources first
           if (
+            // look for document resources first
             resource.resourceType &&
             resource.resourceType === resourceType &&
             !checkFor(thisType, 'url', resource.url)
@@ -75,17 +76,17 @@ class ResourcesTemplate extends Component {
           ) {
             thisType.push(resource);
           } else if (
+            // resource type cannot be identified so add it to unClassified array if not already there
             !resource.resourceType &&
             !resource.videoType &&
             !checkFor(unClassified, 'url', resource.url) &&
             !checkFor(unClassified, 'youTubeId', resource.youTubeId)
           ) {
-            // resource type cannot be identified so add it to unClassified array if not already there
             unClassified.push(resource);
           }
         });
         if (thisType.length > 0) {
-          // we don't want groups with 0 resources
+          // only account for groups with 1 or more resources
           filteredResources.push({
             title: resourcesLabel.resources[resourceType],
             resourceType,
@@ -97,6 +98,7 @@ class ResourcesTemplate extends Component {
         title: thisTitle,
         resources: filteredResources,
         unClassified,
+        expert: category.expert,
       });
     });
     this.state = {
@@ -169,12 +171,29 @@ class ResourcesTemplate extends Component {
                 <h1 className="title">{title}</h1>
                 <div className="content">
                   <Markdown source={description} options={allowHTML} />
-                  <CategorySelector
-                    category={selectedCategory ? selectedCategory.title : ''}
-                    categories={categories}
-                    setCategory={categoryName => this.handleSetCategory(categoryName)}
-                    label={resourcesLabel.resources}
-                  />
+                  <div className="selector-container">
+                    <CategorySelector
+                      category={selectedCategory ? selectedCategory.title : ''}
+                      categories={categories}
+                      setCategory={categoryName => this.handleSetCategory(categoryName)}
+                      label={resourcesLabel.resources}
+                    />
+                    {selectedCategory && selectedCategory.expert && (
+                      <div className="expert">
+                        <p>{resourcesLabel.resources.CONTACT_EXPERT}</p>
+                        {selectedCategory.expert.countryCode &&
+                          countryFlag(selectedCategory.expert.countryCode)}
+                        {selectedCategory.expert.name}
+                        <br />
+                        <Markdown source={selectedCategory.expert.location} options={allowHTML} />
+                        {selectedCategory.expert.email && (
+                          <a href={`mailto:${selectedCategory.expert.email}`}>
+                            {selectedCategory.expert.email}
+                          </a>
+                        )}
+                      </div>
+                    )}
+                  </div>
                   <hr />
                   {selectedCategory &&
                     selectedCategory.resources.map(type => (
@@ -269,6 +288,12 @@ export const query = graphql`
           title(locale: $locale)
           categories {
             isProductCategory
+            expert {
+              name
+              location
+              countryCode
+              email
+            }
             page {
               pageType
               landingSource {
