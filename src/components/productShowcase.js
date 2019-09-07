@@ -11,7 +11,7 @@ import Attraction from './attraction';
 class ProductShowcase extends React.Component {
   constructor(props) {
     super(props);
-    const { images, youTubeIDs, pdfDownloads } = props;
+    const { images, youTubeVideos, pdfDownloads } = props;
     const slideArray = [];
     const pdfArray = [];
 
@@ -28,10 +28,10 @@ class ProductShowcase extends React.Component {
     }
 
     /* populating carousel with YouTube video */
-    for (let j = 0; j < youTubeIDs.length; j += 1) {
+    for (let j = 0; j < youTubeVideos.length; j += 1) {
       const slide = (
         <div className="video-container" key={makeid()}>
-          <YouTube videoId={youTubeIDs[j]} />
+          <YouTube videoId={youTubeVideos[j].youTubeId} />
         </div>
       );
       slideArray.push(slide);
@@ -95,7 +95,7 @@ class ProductShowcase extends React.Component {
       // themeColour,
       // subtitle,
       title,
-      youTubeIDs,
+      youTubeVideos,
       pdfDownloads,
     } = this.props;
     const {
@@ -168,8 +168,8 @@ class ProductShowcase extends React.Component {
             {pdfDownloads && <div className="pdf-downloads">{pdfArray}</div>}
           </div>
         </div>
-        {((images.length > 1 && youTubeIDs.length === 0) ||
-          (images.length > 0 && youTubeIDs.length > 0)) && (
+        {((images.length > 1 && youTubeVideos.length === 0) ||
+          (images.length > 0 && youTubeVideos.length > 0)) && (
           <div className="carousel-controls">
             {images.map((image, idx) => {
               const thumbStyle = {
@@ -190,7 +190,7 @@ class ProductShowcase extends React.Component {
                 </div>
               );
             })}
-            {youTubeIDs.map((yt, idx) => {
+            {youTubeVideos.map((yt, idx) => {
               const thumbStyle = {
                 backgroundColor: '$black',
               };
@@ -230,7 +230,7 @@ ProductShowcase.defaultProps = {
   // themeColour: '',
   // subtitle: '',
   title: '',
-  youTubeIDs: [],
+  youTubeVideos: [],
   pdfDownloads: [],
 };
 
@@ -249,7 +249,7 @@ ProductShowcase.propTypes = {
   // themeColour: PropTypes.string,
   // subtitle: PropTypes.string,
   title: PropTypes.string,
-  youTubeIDs: PropTypes.arrayOf(PropTypes.string),
+  youTubeVideos: PropTypes.arrayOf(PropTypes.object),
   pdfDownloads: PropTypes.arrayOf(
     PropTypes.shape({
       documentTitle: PropTypes.string,

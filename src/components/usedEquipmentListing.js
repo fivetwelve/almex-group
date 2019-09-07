@@ -143,7 +143,7 @@ class UsedEquipmentListing extends React.Component {
           </div>
           <div className="details-and-controls">
             <div className="date">{moment(date).format('MMMM DD, YYYY')}</div>
-            <div className="status">{label.support[EQUIPMENT_STATUS[equipmentStatus]]}</div>
+            <div className="status">{label.sparesRepairs[EQUIPMENT_STATUS[equipmentStatus]]}</div>
             <div className="used-icon" aria-hidden="true" />
             <div className="title">{title}</div>
             <div className="model-number">{modelNumber}</div>
@@ -207,7 +207,7 @@ UsedEquipmentListing.propTypes = {
     }),
   ),
   label: PropTypes.shape({
-    support: PropTypes.object,
+    sparesRepairs: PropTypes.object,
   }),
   modelNumber: PropTypes.string,
   title: PropTypes.string,

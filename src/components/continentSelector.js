@@ -62,7 +62,7 @@ class ContinentSelector extends Component {
           <span className="dd-text-icon">
             {labels[continent]}
             <span aria-hidden="true" className="dd-icon">
-              <IconContext.Provider value={{ className: 'brands-icon' }}>
+              <IconContext.Provider value={{ className: 'dd-color' }}>
                 {(clicked && <FaAngleUp aria-hidden />) || <FaAngleDown aria-hidden />}
               </IconContext.Provider>
             </span>

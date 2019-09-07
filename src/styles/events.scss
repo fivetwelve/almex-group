@@ -84,6 +84,7 @@ $spacing: 20px;
       align-items: center;
       height: 50px;
       margin-top: 20px;
+      font-weight: bold;
       a {
         text-decoration: none;
       }
@@ -117,6 +118,9 @@ $spacing: 20px;
           .dd-icon {
             margin-left: 10px;
             height: 20px;
+          }
+          .dd-color {
+            color: $yellow-sea;
           }
         }
       }
@@ -213,6 +217,7 @@ $spacing: 20px;
           }
         }
         .details {
+          width: 100%;
           td {
             border: none;
             font-size: 18px;
