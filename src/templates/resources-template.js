@@ -186,6 +186,16 @@ class ResourcesTemplate extends Component {
                         {selectedCategory.expert.name}
                         <br />
                         <Markdown source={selectedCategory.expert.location} options={allowHTML} />
+                        {selectedCategory.expert.telephone && (
+                          <a href={`tel:${selectedCategory.expert.telephone}`}>
+                            {selectedCategory.expert.telephone}
+                          </a>
+                        )}
+                        {selectedCategory.expert.mobile && (
+                          <a href={`tel:${selectedCategory.expert.mobile}`}>
+                            {selectedCategory.expert.mobile}
+                          </a>
+                        )}
                         {selectedCategory.expert.email && (
                           <a href={`mailto:${selectedCategory.expert.email}`}>
                             {selectedCategory.expert.email}
@@ -292,6 +302,9 @@ export const query = graphql`
               name
               location
               countryCode
+              telephone
+              fax
+              mobile
               email
             }
             page {

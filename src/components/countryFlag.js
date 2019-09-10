@@ -12,7 +12,7 @@ import flagPE from '../../static/img/flag-PE.png';
 import flagUS from '../../static/img/flag-US.png';
 import flagZA from '../../static/img/flag-ZA.png';
 
-const countryFlag = countryCode => {
+const CountryFlag = countryCode => {
   // countryCode is 2 characters, following https://www.iban.com/country-codes
   let imgSrc = null;
   switch (countryCode) {
@@ -65,4 +65,4 @@ const countryFlag = countryCode => {
   return null;
 };
 
-export default countryFlag;
+export default CountryFlag;

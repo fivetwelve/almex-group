@@ -15,7 +15,8 @@ exports.handler = (event, context, callback) => {
     destinationEmails.push(email);
   }
   let request = null;
-  console.log(params.contactFormType);
+  // console.log(params.contactFormType);
+  // console.log(destinationEmails);
   switch (params.contactFormType) {
     case FORM_TYPES.CONTACT:
       request = mailjet.post('send', { version: 'v3.1' }).request({

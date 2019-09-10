@@ -70,8 +70,15 @@ class ContactMap extends React.Component {
   render() {
     const { activeOffice, infoWindowVisible, offset, viewport } = this.state;
     const { aboutLabel, handleContactUs, locale, offices, visitorRegion } = this.props;
+
     return (
       <>
+        <div className="almex-locations">
+          <a href="#offices">
+            <span className="more">{aboutLabel.about.ALMEX_LOCATIONS}</span>
+            <span className="more-arrow">&nbsp;&raquo;</span>
+          </a>
+        </div>
         <div className="map" id="map" style={{ display: 'flex', height: '585px' }}>
           <LoadScript
             googleMapsApiKey="AIzaSyCPjZIbrcLv2B8t92OoiMoPxhnLQ4_kNpY"
@@ -162,7 +169,9 @@ class ContactMap extends React.Component {
             </GoogleMap>
           </LoadScript>
         </div>
-        <div id="offices" style={{ marginBottom: '120px' }} />
+
+        {/* <div id="offices" style={{ marginBottom: '120px' }} /> */}
+        <div id="offices" />
         <div className="table-data">
           <div className="table-entry">
             <div className="table-pin" />
@@ -172,14 +181,13 @@ class ContactMap extends React.Component {
               <div className="table-countries heading">{aboutLabel.about.HEADING_COUNTRIES}</div>
             </div>
           </div>
-          {offices.map((office, index) => (
+          {offices.map(office => (
             <ContactOffice
               goToOffice={this.goToOffice}
               key={makeid()}
               aboutLabel={aboutLabel}
               handleContactUs={handleContactUs}
               office={office}
-              officeIndex={index}
               visitorRegion={visitorRegion}
             />
           ))}
@@ -191,6 +199,7 @@ class ContactMap extends React.Component {
 
 ContactMap.defaultProps = {
   aboutLabel: {},
+  // experts: [],
   handleContactUs: () => {},
   locale: 'EN',
   offices: null,
@@ -201,6 +210,16 @@ ContactMap.propTypes = {
   aboutLabel: PropTypes.shape({
     about: PropTypes.object,
   }),
+  // experts: PropTypes.arrayOf(
+  //   PropTypes.shape({
+  //     specialty: PropTypes.string,
+  //     name: PropTypes.string,
+  //     email: PropTypes.string,
+  //     telephone: PropTypes.string,
+  //     fax: PropTypes.string,
+  //     mobile: PropTypes.string,
+  //   }),
+  // ),
   handleContactUs: PropTypes.func,
   locale: PropTypes.string,
   offices: PropTypes.arrayOf(

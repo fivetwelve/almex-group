@@ -132,6 +132,10 @@ module.exports = {
     FUSION_HOT: 'FUSION_HOT',
     FUSION_SPICY: 'FUSION_SPICY',
   },
+  CONTACT_TYPES: {
+    EXPERT: 'EXPERT',
+    OFFICE: 'OFFICE',
+  },
   FORM_TYPES: {
     CONTACT: 'CONTACT',
     INSTITUTE: 'INSTITUTE',
