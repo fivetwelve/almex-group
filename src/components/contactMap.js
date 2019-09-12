@@ -199,7 +199,6 @@ class ContactMap extends React.Component {
 
 ContactMap.defaultProps = {
   aboutLabel: {},
-  // experts: [],
   handleContactUs: () => {},
   locale: 'EN',
   offices: null,
@@ -210,16 +209,6 @@ ContactMap.propTypes = {
   aboutLabel: PropTypes.shape({
     about: PropTypes.object,
   }),
-  // experts: PropTypes.arrayOf(
-  //   PropTypes.shape({
-  //     specialty: PropTypes.string,
-  //     name: PropTypes.string,
-  //     email: PropTypes.string,
-  //     telephone: PropTypes.string,
-  //     fax: PropTypes.string,
-  //     mobile: PropTypes.string,
-  //   }),
-  // ),
   handleContactUs: PropTypes.func,
   locale: PropTypes.string,
   offices: PropTypes.arrayOf(

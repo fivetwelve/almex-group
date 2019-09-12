@@ -150,14 +150,7 @@ class ContactFormModal extends React.Component {
   };
 
   render() {
-    const {
-      // contactType,
-      label,
-      // // selectedExpert,
-      // selectedOffice,
-      showModal,
-      title,
-    } = this.props;
+    const { label, showModal, title } = this.props;
 
     const {
       contactName,
@@ -367,6 +360,7 @@ ContactFormModal.propTypes = {
     common: PropTypes.object,
   }),
   selectedExpert: PropTypes.shape({
+    // this will be moved into an array in handleSubmit() to be consistent with selectedOffice.email
     email: PropTypes.string,
   }),
   selectedOffice: PropTypes.shape({

@@ -95,7 +95,6 @@ const ContactOffice = props => {
           <p>{description}</p>
           {(visitorRegion === countryCode || backupOffice) && (
             <p>
-              {/* <button type="button" onClick={() => handleContactUs(officeIndex)}> */}
               <button type="button" onClick={() => handleContactUs(null, office)}>
                 {aboutLabel.about.CONTACT_US}
               </button>
