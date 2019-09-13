@@ -244,7 +244,7 @@ export const commonFragment = graphql`
           }
         }
         landingPage
-        sorting(locale: $locale)
+        sortOrder(locale: $locale)
         title(locale: $locale)
         type
       }

@@ -140,15 +140,11 @@ const LandingTemplate = ({ data, pageContext }) => {
   });
 
   const sortedSinglePages = [];
-  console.log(sorting);
   if (singlePages && sorting) {
     sorting.forEach(elem => {
       sortedSinglePages.push(singlePages.filter(page => page.id === elem.id)[0]);
-      // console.log(singlePages.filter(page => page.id === elem.id));
     });
   }
-
-  console.log(sortedSinglePages);
 
   return (
     <Layout
@@ -246,6 +242,11 @@ const LandingTemplate = ({ data, pageContext }) => {
             {sortedSinglePages.length > 0 && (
               <div className="tile-container">
                 {sortedSinglePages.length > 0 && renderTiles(sortedSinglePages, location, false)}
+              </div>
+            )}
+            {sortedSinglePages.length === 0 && (
+              <div className="tile-container">
+                {singlePages.length > 0 && renderTiles(singlePages, location)}
               </div>
             )}
           </>

@@ -28,10 +28,12 @@ const NavigationDropdown = props => {
     });
   });
 
-  if (section.sorting) {
+  if (section.sortOrder) {
     // sort pages if manual sorting is set in CMS
-    const pageSorting = section.sorting.map(elem => elem.id);
-    section.pages.sort((a, b) => (pageSorting.indexOf(a.id) < pageSorting.indexOf(b.id) ? -1 : 1));
+    const productCategorySortOrder = section.sortOrder.map(elem => elem.id);
+    section.pages.sort((a, b) =>
+      productCategorySortOrder.indexOf(a.id) < productCategorySortOrder.indexOf(b.id) ? -1 : 1,
+    );
   } else {
     // otherwise sort alphabetically
     section.pages.sort((a, b) => {

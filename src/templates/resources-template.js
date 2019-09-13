@@ -57,6 +57,14 @@ class ResourcesTemplate extends Component {
           });
         });
       }
+      if (category.page.pageType === 'SERVICES') {
+        thisTitle = category.page.servicesSource.title;
+        if (category.page.documents) {
+          category.page.documents.forEach(document => {
+            resources.push(document);
+          });
+        }
+      }
       // filter documents
       resourcesTypes.forEach(resourceType => {
         const thisType = [];
@@ -339,6 +347,9 @@ export const query = graphql`
                   }
                 }
               }
+              servicesSource {
+                title(locale: $locale)
+              }
               # aboutSource
               # careersSource
               # contactSource
@@ -358,6 +369,7 @@ export const query = graphql`
               documentTitle(locale: EN)
             }
           }
+          sortOrder(locale: $locale)
         }
       }
     }
