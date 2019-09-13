@@ -15,7 +15,6 @@ const NavigationDropdown = props => {
       handleMenuItem('');
     }
   };
-
   // Determine title and assign it to a new property;
   // also avoids future redundant getTitle calls.
   // Use getTitle here because we want the menu to use the source
@@ -29,16 +28,22 @@ const NavigationDropdown = props => {
     });
   });
 
-  // sort pages alphabetically
-  section.pages.sort((a, b) => {
-    // TODO: need to ensure activeLanguage param is valid value for localeCompare
-    const titleA = (a.title && a.title.toLowerCase()) || '';
-    const titleB = (a.title && b.title.toLowerCase()) || '';
-    // -1 sort string ascending
-    //  1 sort string descending;
-    //  0 no sorting
-    return titleA.localeCompare(titleB, activeLanguage);
-  });
+  if (section.sorting) {
+    // sort pages if manual sorting is set in CMS
+    const pageSorting = section.sorting.map(elem => elem.id);
+    section.pages.sort((a, b) => (pageSorting.indexOf(a.id) < pageSorting.indexOf(b.id) ? -1 : 1));
+  } else {
+    // otherwise sort alphabetically
+    section.pages.sort((a, b) => {
+      // TODO: need to ensure activeLanguage param is valid value for localeCompare
+      const titleA = (a.title && a.title.toLowerCase()) || '';
+      const titleB = (a.title && b.title.toLowerCase()) || '';
+      // -1 sort string ascending
+      //  1 sort string descending;
+      //  0 no sorting
+      return titleA.localeCompare(titleB, activeLanguage);
+    });
+  }
 
   return (
     <div className="section-container">
