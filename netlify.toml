@@ -11,6 +11,20 @@
 
 [[redirects]]
   from = "/"
+  to = "/northamerica/en"
+  status = 301
+  force = false
+  conditions = {Language = ["en-US"]}
+
+[[redirects]]
+  from = "/"
+  to = "/northamerica/en"
+  status = 301
+  force = false
+  conditions = {Language = ["en-CA"]}
+
+[[redirects]]
+  from = "/"
   to = "/northamerica/es"
   status = 301
   force = false
