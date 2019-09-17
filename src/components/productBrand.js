@@ -15,7 +15,7 @@ const ProductBrand = ({ brand }) => {
     case BRANDS.BAT:
       productBrand = 'bat';
       break;
-    case BRANDS.CHOICE_TECHTOOLS:
+    case BRANDS.CHOICETEK_TOOLS:
       productBrand = 'choice';
       break;
     case BRANDS.CMI:
