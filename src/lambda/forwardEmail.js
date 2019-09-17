@@ -23,13 +23,13 @@ exports.handler = (event, context, callback) => {
         Messages: [
           {
             From: {
-              Email: 'info@almex.com',
+              Email: 'noreply@almex.com',
               /* use the following for testing errors on FE */
               // Email: 'pilot@mailjet.com',
               Name: 'Almex website',
             },
             To: destinationEmails,
-            Subject: 'Message from Almex website',
+            Subject: 'Inquiry from Almex website',
             TextPart: params.contactMessage,
             HTMLPart: `<h3>A new message has arrived from the Almex website</h3>
               <h3>Subject: ${params.contactSubject}</h3>
