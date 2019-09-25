@@ -10,6 +10,10 @@ module.exports = {
     GLOBAL_SERVICES: 'GLOBAL_SERVICES',
     VOTECH: 'VOTECH',
   },
+  CONTACT_TYPES: {
+    EXPERT: 'EXPERT',
+    OFFICE: 'OFFICE',
+  },
   CONTINENTS: {
     GLOBAL: 'GLOBAL',
     AFRICA: 'AFRICA',
@@ -29,6 +33,10 @@ module.exports = {
     HOLD: 'HOLD',
     SOLD: 'SOLD',
   },
+  FORM_TYPES: {
+    CONTACT: 'CONTACT',
+    INSTITUTE: 'INSTITUTE',
+  },
   LANDING_TYPES: {
     BRAND: 'BRAND',
     INDUSTRY: 'INDUSTRY',
@@ -42,6 +50,17 @@ module.exports = {
     EN: 'EN',
     ES: 'ES',
     ES_ES: 'ES_ES',
+  },
+  NAV_SECTION_TYPES: {
+    ABOUT: 'ABOUT',
+    BRANDS: 'BRANDS',
+    HOME: 'HOME',
+    INDUSTRIES: 'INDUSTRIES',
+    PRODUCTS: 'PRODUCTS',
+    REPAIRS: 'REPAIRS',
+    RESOURCES: 'RESOURCES',
+    SERVICES: 'SERVICES',
+    SUPPORT: 'SUPPORT',
   },
   OFFICES: {
     API: 'INDONESIA',
@@ -96,15 +115,15 @@ module.exports = {
     SIMPLE: 'SIMPLE',
     USED: 'USED',
   },
-  REGIONS: {
-    NORTH_AMERICA: 'NORTH_AMERICA',
-    SOUTH_AMERICA: 'SOUTH_AMERICA',
-    CENTRAL_SOUTH_AMERICA: 'CENTRAL_SOUTH_AMERICA',
-  },
   REGION_SLUGS: {
     NORTH_AMERICA: 'northamerica',
     SOUTH_AMERICA: 'southamerica',
     CENTRAL_SOUTH_AMERICA: 'centralsouthamerica',
+  },
+  REGIONS: {
+    NORTH_AMERICA: 'NORTH_AMERICA',
+    SOUTH_AMERICA: 'SOUTH_AMERICA',
+    CENTRAL_SOUTH_AMERICA: 'CENTRAL_SOUTH_AMERICA',
   },
   RESOURCE_TYPES: {
     BROCHURE: 'BROCHURE',
@@ -132,13 +151,5 @@ module.exports = {
     FUSION_COLD: 'FUSION_COLD',
     FUSION_HOT: 'FUSION_HOT',
     FUSION_SPICY: 'FUSION_SPICY',
-  },
-  CONTACT_TYPES: {
-    EXPERT: 'EXPERT',
-    OFFICE: 'OFFICE',
-  },
-  FORM_TYPES: {
-    CONTACT: 'CONTACT',
-    INSTITUTE: 'INSTITUTE',
   },
 };

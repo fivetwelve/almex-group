@@ -320,7 +320,7 @@ export const query = graphql`
               landingSource {
                 title(locale: $locale)
                 landingSections {
-                  pages {
+                  pages(where: { status: PUBLISHED }) {
                     productSource {
                       youTubeVideos {
                         title(locale: $locale)
