@@ -43,7 +43,7 @@ class ProductShowcase extends React.Component {
         <div className="pdf" key={makeid()}>
           <a href={pdfDownloads[k].url} target="_new">
             <div className="pdf-icon" />
-            {pdfDownloads[k].documentTitle || pdfDownloads[k].fileName}
+            {pdfDownloads[k].documentTitle || pdfDownloads[k].fileName.split('.pdf')[0]}
           </a>
         </div>
       );
