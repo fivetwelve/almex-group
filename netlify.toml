@@ -2,37 +2,37 @@
   Functions = "lambda"
   Command = "npm run build && npm run build:lambda"
 
-[[redirects]]
-  from = "/"
-  to = "/northamerica/en"
-  status = 301
-  force = false
-  conditions = {Language = ["en"]}
-
-[[redirects]]
-  from = "/"
-  to = "/northamerica/en"
-  status = 301
-  force = false
-  conditions = {Language = ["en-US"]}
-
-[[redirects]]
-  from = "/"
-  to = "/northamerica/en"
-  status = 301
-  force = false
-  conditions = {Language = ["en-CA"]}
-
-[[redirects]]
-  from = "/"
-  to = "/northamerica/es"
-  status = 301
-  force = false
-  conditions = {Language = ["es"]}
-
-[[redirects]]
-  from = "/northamerica/en/#invite_token"
-  to = "/northamerica/en/dashboard/#invite_token"
-  status = 301
-  force = false
-  conditions = {Language = ["en"]}
+#[[redirects]]
+#  from = "/"
+#  to = "/northamerica/en"
+#  status = 301
+#  force = false
+#  conditions = {Language = ["en"]}
+#
+#[[redirects]]
+#  from = "/"
+#  to = "/northamerica/en"
+#  status = 301
+#  force = false
+#  conditions = {Language = ["en-US"]}
+#
+#[[redirects]]
+#  from = "/"
+#  to = "/northamerica/en"
+#  status = 301
+#  force = false
+#  conditions = {Language = ["en-CA"]}
+#
+#[[redirects]]
+#  from = "/"
+#  to = "/northamerica/es"
+#  status = 301
+#  force = false
+#  conditions = {Language = ["es"]}
+#
+#[[redirects]]
+#  from = "/northamerica/en/#invite_token"
+#  to = "/northamerica/en/dashboard/#invite_token"
+#  status = 301
+#  force = false
+#  conditions = {Language = ["en"]}
