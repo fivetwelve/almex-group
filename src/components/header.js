@@ -249,7 +249,6 @@ export const commonFragment = graphql`
         type
       }
       sortOrder
-      sortOrderOld
     }
   }
 `;
