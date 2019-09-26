@@ -5,9 +5,11 @@ import { graphql } from 'gatsby';
 import GraphImg from 'graphcms-image';
 import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
+import ContactExpert from '../components/contactExpert';
 import ContactMap from '../components/contactMap';
 import ContactFormModal from '../components/contactFormModal';
-import { fetch, mapToOffice } from '../utils/functions';
+import { fetch, makeid, mapToOffice } from '../utils/functions';
+import { CONTACT_TYPES } from '../constants';
 
 import '../styles/contact.scss';
 
@@ -18,9 +20,12 @@ class ContactTemplate extends React.Component {
     super(props);
     this.shroud = React.createRef();
     this.state = {
-      office: '',
+      contactType: '',
+      expert: null,
+      office: null,
       showModal: false,
       visitorRegion: null,
+      view: CONTACT_TYPES.OFFICE,
     };
   }
 
@@ -55,11 +60,23 @@ class ContactTemplate extends React.Component {
       });
   }
 
-  handleContactUs = officeIndex => {
+  handleViewToggle = evt => {
+    evt.preventDefault();
+    const { view } = this.state;
     this.setState({
-      office: String(officeIndex),
+      view: view === CONTACT_TYPES.EXPERT ? CONTACT_TYPES.OFFICE : CONTACT_TYPES.EXPERT,
+    });
+  };
+
+  handleContactUs = (expert, office) => {
+    const contactType = expert ? CONTACT_TYPES.EXPERT : CONTACT_TYPES.OFFICE;
+    this.setState({
+      expert,
+      contactType,
+      office,
       showModal: true,
     });
+
     if (typeof document !== 'undefined') {
       document.querySelector('html').classList.toggle('hide-overflow');
     }
@@ -74,13 +91,14 @@ class ContactTemplate extends React.Component {
   };
 
   render() {
-    const { office, visitorRegion, showModal } = this.state;
+    const { contactType, expert, office, visitorRegion, showModal, view } = this.state;
     const { data, pageContext } = this.props;
     const { locale, region } = pageContext;
     const {
       cms: {
         aboutLabel,
         brandNavigation,
+        experts,
         headerFooter,
         label,
         navigation,
@@ -120,25 +138,50 @@ class ContactTemplate extends React.Component {
               </div>
             </div>
 
-            <div className="almex-locations">
-              <a href="#offices">
-                <span className="more">{aboutLabel.about.ALMEX_LOCATIONS}</span>
-                <span className="more-arrow">&nbsp;&raquo;</span>
-              </a>
+            <div className="view-toggle-container">
+              <button type="button" onClick={this.handleViewToggle}>
+                {view === CONTACT_TYPES.OFFICE
+                  ? aboutLabel.about.SEE_EXPERTS
+                  : aboutLabel.about.SEE_OFFICES}
+              </button>
             </div>
-            <ContactMap
-              aboutLabel={aboutLabel}
-              locale={locale}
-              offices={offices}
-              handleContactUs={this.handleContactUs}
-              visitorRegion={visitorRegion}
-            />
+
+            <div className={`offices-view ${view === CONTACT_TYPES.OFFICE ? 'active' : ''}`}>
+              <ContactMap
+                aboutLabel={aboutLabel}
+                experts={experts}
+                locale={locale}
+                offices={offices}
+                handleContactUs={this.handleContactUs}
+                visitorRegion={visitorRegion}
+              />
+            </div>
+            <div className={`experts-view ${view === CONTACT_TYPES.EXPERT ? 'active' : ''}`}>
+              <div className="table-data">
+                <div className="table-entry">
+                  <div className="table-pin" />
+                  <div className="table-details heading">{aboutLabel.about.CENTERS}</div>
+                </div>
+                {experts.map(eachExpert => (
+                  <ContactExpert
+                    key={makeid()}
+                    aboutLabel={aboutLabel}
+                    expert={eachExpert}
+                    handleContactUs={this.handleContactUs}
+                  />
+                ))}
+              </div>
+            </div>
+
             <div className="contact-shroud" ref={this.shroud} />
+
             <ContactFormModal
               hideModal={this.handleHideModal}
               label={label}
               offices={offices}
               selectedOffice={office}
+              selectedExpert={expert}
+              contactType={contactType}
               showModal={showModal}
               title={title}
             />
@@ -172,6 +215,17 @@ export const query = graphql`
       ...CommonQuery
       aboutLabel: label(where: { availableIn: $region }) {
         about(locale: $locale)
+      }
+      experts {
+        specialty(locale: $locale)
+        name
+        title
+        location
+        countryCode
+        telephone
+        fax
+        mobile
+        email
       }
       page(where: { id: $id }) {
         contact: contactSource {

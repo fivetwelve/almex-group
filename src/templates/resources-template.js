@@ -57,6 +57,14 @@ class ResourcesTemplate extends Component {
           });
         });
       }
+      if (category.page.pageType === 'SERVICES') {
+        thisTitle = category.page.servicesSource.title;
+        if (category.page.documents) {
+          category.page.documents.forEach(document => {
+            resources.push(document);
+          });
+        }
+      }
       // filter documents
       resourcesTypes.forEach(resourceType => {
         const thisType = [];
@@ -186,6 +194,16 @@ class ResourcesTemplate extends Component {
                         {selectedCategory.expert.name}
                         <br />
                         <Markdown source={selectedCategory.expert.location} options={allowHTML} />
+                        {selectedCategory.expert.telephone && (
+                          <a href={`tel:${selectedCategory.expert.telephone}`}>
+                            {selectedCategory.expert.telephone}
+                          </a>
+                        )}
+                        {selectedCategory.expert.mobile && (
+                          <a href={`tel:${selectedCategory.expert.mobile}`}>
+                            {selectedCategory.expert.mobile}
+                          </a>
+                        )}
                         {selectedCategory.expert.email && (
                           <a href={`mailto:${selectedCategory.expert.email}`}>
                             {selectedCategory.expert.email}
@@ -292,6 +310,9 @@ export const query = graphql`
               name
               location
               countryCode
+              telephone
+              fax
+              mobile
               email
             }
             page {
@@ -299,7 +320,7 @@ export const query = graphql`
               landingSource {
                 title(locale: $locale)
                 landingSections {
-                  pages {
+                  pages(where: { status: PUBLISHED }) {
                     productSource {
                       youTubeVideos {
                         title(locale: $locale)
@@ -326,6 +347,9 @@ export const query = graphql`
                   }
                 }
               }
+              servicesSource {
+                title(locale: $locale)
+              }
               # aboutSource
               # careersSource
               # contactSource
@@ -345,6 +369,7 @@ export const query = graphql`
               documentTitle(locale: EN)
             }
           }
+          sortOrder(locale: $locale)
         }
       }
     }

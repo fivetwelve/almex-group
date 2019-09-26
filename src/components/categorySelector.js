@@ -16,15 +16,15 @@ class CategorySelector extends Component {
   }
 
   getCategoryTitles = categories => {
-    // console.log(categories);
     const titleArray = [];
     categories.forEach(category => {
-      // console.log(category);
       if (category.page.pageType === 'LANDING') {
         titleArray.push(category.page.landingSource.title);
       }
+      if (category.page.pageType === 'SERVICES') {
+        titleArray.push(category.page.servicesSource.title);
+      }
     });
-    // console.log(titleArray);
     return titleArray;
   };
 

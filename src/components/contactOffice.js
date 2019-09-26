@@ -8,28 +8,22 @@ import { makeid } from '../utils/functions';
 import pin from '../../static/img/map-pin.svg';
 
 const ContactOffice = props => {
+  const { aboutLabel, goToOffice, handleContactUs, office, visitorRegion } = props;
   const {
-    aboutLabel,
-    goToOffice,
-    handleContactUs,
-    office: {
-      backupOffice,
-      address,
-      contactPerson,
-      countries,
-      countryCode,
-      description,
-      fax,
-      latitude,
-      longitude,
-      mobile,
-      name,
-      telephone,
-      tollFree,
-    },
-    officeIndex,
-    visitorRegion,
-  } = props;
+    backupOffice,
+    address,
+    contactPerson,
+    countries,
+    countryCode,
+    description,
+    fax,
+    latitude,
+    longitude,
+    mobile,
+    name,
+    telephone,
+    tollFree,
+  } = office;
 
   return (
     <div className="table-entry">
@@ -91,8 +85,8 @@ const ContactOffice = props => {
               </div>
             ))}
           {contactPerson && (
-            <div>
-              <span className="contact-person">{aboutLabel.about.CONTACT}: </span>
+            <div className="contact-person-container">
+              <span className="contact-person">{aboutLabel.about.CONTACT_PERSON}: </span>
               <em>{contactPerson}</em>
             </div>
           )}
@@ -101,7 +95,7 @@ const ContactOffice = props => {
           <p>{description}</p>
           {(visitorRegion === countryCode || backupOffice) && (
             <p>
-              <button type="button" onClick={() => handleContactUs(officeIndex)}>
+              <button type="button" onClick={() => handleContactUs(null, office)}>
                 {aboutLabel.about.CONTACT_US}
               </button>
             </p>
@@ -131,7 +125,6 @@ ContactOffice.defaultProps = {
     telephone: [],
     tollFree: [],
   },
-  officeIndex: null,
   visitorRegion: null,
 };
 
@@ -155,7 +148,6 @@ ContactOffice.propTypes = {
     telephone: PropTypes.array,
     tollFree: PropTypes.array,
   }),
-  officeIndex: PropTypes.number,
   visitorRegion: PropTypes.string,
 };
 

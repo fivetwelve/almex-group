@@ -15,20 +15,21 @@ exports.handler = (event, context, callback) => {
     destinationEmails.push(email);
   }
   let request = null;
-  console.log(params.contactFormType);
+  // console.log(params.contactFormType);
+  // console.log(destinationEmails);
   switch (params.contactFormType) {
     case FORM_TYPES.CONTACT:
       request = mailjet.post('send', { version: 'v3.1' }).request({
         Messages: [
           {
             From: {
-              Email: 'info@almex.com',
+              Email: 'noreply@almex.com',
               /* use the following for testing errors on FE */
               // Email: 'pilot@mailjet.com',
               Name: 'Almex website',
             },
             To: destinationEmails,
-            Subject: 'Message from Almex website',
+            Subject: 'Inquiry from Almex website',
             TextPart: params.contactMessage,
             HTMLPart: `<h3>A new message has arrived from the Almex website</h3>
               <h3>Subject: ${params.contactSubject}</h3>

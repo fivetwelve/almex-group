@@ -4,8 +4,7 @@ import { IconContext } from 'react-icons';
 import { FaTimes } from 'react-icons/fa';
 import Recaptcha from 'react-google-recaptcha';
 import { apiUrl, makeid } from '../utils/functions';
-import { FORM_TYPES } from '../constants';
-// import 'dotenv/config';
+import { CONTACT_TYPES, FORM_TYPES } from '../constants';
 
 class ContactFormModal extends React.Component {
   constructor(props) {
@@ -23,7 +22,6 @@ class ContactFormModal extends React.Component {
       contactCompany: '',
       contactPhone: '',
       contactCountry: '',
-      contactOffice: '',
       contactSubject: '',
       contactMessage: '',
       contactFormType: FORM_TYPES.CONTACT,
@@ -37,10 +35,15 @@ class ContactFormModal extends React.Component {
   componentWillReceiveProps(nextProps) {
     // When there is a selectedOffice, set contactOffice to that value
     // this should only happen once when user clicks on Contact Us in parent component
-    const { selectedOffice } = this.props;
+    const { selectedExpert, selectedOffice } = this.props;
     if (nextProps.selectedOffice !== selectedOffice) {
       this.setState({
         contactOffice: nextProps.selectedOffice,
+      });
+    }
+    if (nextProps.selectedExpert !== selectedExpert) {
+      this.setState({
+        contactExpert: nextProps.selectedExpert,
       });
     }
   }
@@ -59,6 +62,7 @@ class ContactFormModal extends React.Component {
   handleHideModal = evt => {
     const { hideModal } = this.props;
     evt.preventDefault();
+    this.recaptchaRef.current.reset();
     hideModal();
     if (typeof document !== 'undefined') {
       document.querySelector('html').classList.toggle('hide-overflow');
@@ -79,8 +83,8 @@ class ContactFormModal extends React.Component {
 
   handleSubmit = async evt => {
     evt.preventDefault();
-    const { label, offices } = this.props;
-    const { contactOffice } = this.state;
+    const { contactType, label } = this.props;
+    const { contactExpert, contactOffice } = this.state;
     const params = {};
     const keys = Object.keys(this.state);
     const values = Object.values(this.state);
@@ -89,8 +93,11 @@ class ContactFormModal extends React.Component {
         params[elem] = values[index];
       }
     });
-
-    params.destination = offices[Number(contactOffice)].email;
+    if (contactType === CONTACT_TYPES.EXPERT) {
+      params.destination = [contactExpert.email];
+    } else {
+      params.destination = contactOffice.email;
+    }
     try {
       const response = await fetch(`${apiUrl()}/forwardEmail`, {
         method: 'POST',
@@ -143,7 +150,7 @@ class ContactFormModal extends React.Component {
   };
 
   render() {
-    const { label, offices, selectedOffice, showModal, title } = this.props;
+    const { label, showModal, title } = this.props;
 
     const {
       contactName,
@@ -152,7 +159,6 @@ class ContactFormModal extends React.Component {
       contactPosition,
       contactCompany,
       contactCountry,
-      contactOffice,
       contactSubject,
       contactMessage,
       message,
@@ -276,33 +282,6 @@ class ContactFormModal extends React.Component {
                   </label>
                 </div>
                 <div className="field">
-                  <label htmlFor="contactOffice">
-                    <div className="label">
-                      <span className="label-input">{label.common.FORM_ALMEX_OFFICE}</span>
-                      <span className="required">* {label.common.FORM_REQUIRED}</span>
-                    </div>
-                    <select
-                      name="contactOffice"
-                      value={contactOffice === '' ? selectedOffice : contactOffice}
-                      onChange={evt => this.handleChange(evt)}
-                      required
-                    >
-                      <option value="">{label.common.FORM_PLEASE_SELECT}</option>
-                      {offices &&
-                        offices.map((office, idx) => {
-                          if (String(idx) === selectedOffice || office.backupOffice) {
-                            return (
-                              <option key={makeid()} value={idx}>
-                                {office.name}
-                              </option>
-                            );
-                          }
-                          return false;
-                        })}
-                    </select>
-                  </label>
-                </div>
-                <div className="field">
                   <label htmlFor="contactSubject">
                     <div className="label">
                       <span className="label-input">{label.common.FORM_SUBJECT}</span>
@@ -365,27 +344,28 @@ class ContactFormModal extends React.Component {
 }
 
 ContactFormModal.defaultProps = {
+  contactType: '',
   hideModal: () => {},
   label: {},
-  offices: null,
-  selectedOffice: '',
+  selectedExpert: null,
+  selectedOffice: null,
   showModal: false,
   title: '',
 };
 
 ContactFormModal.propTypes = {
+  contactType: PropTypes.string,
   hideModal: PropTypes.func,
   label: PropTypes.shape({
     common: PropTypes.object,
   }),
-  offices: PropTypes.arrayOf(
-    PropTypes.shape({
-      backupOffice: PropTypes.bool,
-      email: PropTypes.array,
-      name: PropTypes.string,
-    }),
-  ),
-  selectedOffice: PropTypes.string,
+  selectedExpert: PropTypes.shape({
+    // this will be moved into an array in handleSubmit() to be consistent with selectedOffice.email
+    email: PropTypes.string,
+  }),
+  selectedOffice: PropTypes.shape({
+    email: PropTypes.array,
+  }),
   showModal: PropTypes.bool,
   title: PropTypes.string,
 };

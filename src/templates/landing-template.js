@@ -29,6 +29,7 @@ const LandingTemplate = ({ data, pageContext }) => {
           landingType,
           landingSections,
           singlePages,
+          sorting,
           theme,
           title,
         },
@@ -66,7 +67,7 @@ const LandingTemplate = ({ data, pageContext }) => {
     }
   }
 
-  const renderTiles = (pages, location) => {
+  const renderTiles = (pages, location, sort = true) => {
     const tileArray = [];
     // let tileIdx = 0;
     pages.forEach(page => {
@@ -75,6 +76,7 @@ const LandingTemplate = ({ data, pageContext }) => {
       const pageTitle =
         (page.landingSource && page.landingSource.title) ||
         (page.productSource && page.productSource.title) ||
+        (page.servicesSource && page.servicesSource.title) ||
         page.title;
       const tileData = {
         slug: page.slug,
@@ -113,15 +115,17 @@ const LandingTemplate = ({ data, pageContext }) => {
       tileArray.push(landingTile);
     });
 
-    tileArray.sort((a, b) => {
-      // TODO: need to ensure activeLanguage param is valid value for localeCompare
-      const titleA = (a.props.data.title && a.props.data.title.toLowerCase()) || '';
-      const titleB = (b.props.data.title && b.props.data.title.toLowerCase()) || '';
-      // -1 sort string ascending
-      //  1 sort string descending;
-      //  0 no sorting
-      return titleA.localeCompare(titleB, locale);
-    });
+    if (sort) {
+      tileArray.sort((a, b) => {
+        // TODO: need to ensure activeLanguage param is valid value for localeCompare
+        const titleA = (a.props.data.title && a.props.data.title.toLowerCase()) || '';
+        const titleB = (b.props.data.title && b.props.data.title.toLowerCase()) || '';
+        // -1 sort string ascending
+        //  1 sort string descending;
+        //  0 no sorting
+        return titleA.localeCompare(titleB, locale);
+      });
+    }
     return tileArray;
   };
 
@@ -134,6 +138,13 @@ const LandingTemplate = ({ data, pageContext }) => {
     //  0 no sorting
     return titleA.localeCompare(titleB, locale);
   });
+
+  const sortedSinglePages = [];
+  if (singlePages && sorting) {
+    sorting.forEach(elem => {
+      sortedSinglePages.push(singlePages.filter(page => page.id === elem.id)[0]);
+    });
+  }
 
   return (
     <Layout
@@ -228,7 +239,12 @@ const LandingTemplate = ({ data, pageContext }) => {
                   </div>
                 );
               })}
-            {singlePages.length > 0 && (
+            {sortedSinglePages.length > 0 && (
+              <div className="tile-container">
+                {sortedSinglePages.length > 0 && renderTiles(sortedSinglePages, location, false)}
+              </div>
+            )}
+            {sortedSinglePages.length === 0 && (
               <div className="tile-container">
                 {singlePages.length > 0 && renderTiles(singlePages, location)}
               </div>
@@ -280,6 +296,9 @@ export const query = graphql`
               productSource {
                 title(locale: $locale)
               }
+              servicesSource {
+                title(locale: $locale)
+              }
               pageType
               slug(locale: $locale)
               tile {
@@ -289,10 +308,14 @@ export const query = graphql`
             }
           }
           singlePages: pages(where: { status: PUBLISHED }) {
+            id
             landingSource {
               title(locale: $locale)
             }
             productSource {
+              title(locale: $locale)
+            }
+            servicesSource {
               title(locale: $locale)
             }
             pageType
@@ -302,6 +325,7 @@ export const query = graphql`
             }
             title(locale: $locale)
           }
+          sorting(locale: $locale)
           title(locale: $locale)
         }
       }

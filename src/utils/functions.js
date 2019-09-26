@@ -29,7 +29,7 @@ const createLink = (location, slug) => {
 
 const createLinkFromPage = (location, page, language) => {
   /* Given a page object with multiple slugs, return language-specific URL. */
-  const slug = page[`slug${language.toUpperCase()}`] || page.slug;
+  const slug = page[`slug${language.toUpperCase()}`] || page.slug || '';
   return createLink(location, slug);
 };
 

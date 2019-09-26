@@ -244,10 +244,12 @@ export const commonFragment = graphql`
           }
         }
         landingPage
+        sortOrder(locale: $locale)
         title(locale: $locale)
         type
       }
       sortOrder
+      sortOrderOld
     }
   }
 `;

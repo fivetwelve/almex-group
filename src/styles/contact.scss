@@ -1,5 +1,16 @@
 @import 'base';
 $spacing: 20px;
+@mixin button-ui {
+  border: 4px solid $yellow-sea;
+  border-radius: 5px;
+  background-color: $white;
+  color: $yellow-sea;
+  font-size: 18px;
+  font-weight: bold;
+  height: auto;
+  padding: 10px 40px;
+  margin-top: 1rem;
+}
 
 .contact {
   padding-left: 10px;
@@ -46,6 +57,19 @@ $spacing: 20px;
         }
       }
     }
+    .view-toggle-container {
+      button {
+        @include button-ui;
+      }
+      padding-bottom: 40px;
+    }
+    .offices-view,
+    .experts-view {
+      display: none;
+      &.active {
+        display: initial;
+      }
+    }
     .almex-locations {
       padding-bottom: 20px;
       a {
@@ -61,7 +85,8 @@ $spacing: 20px;
           font-size: 150%;
           line-height: 14px;
           position: relative;
-          top: 2px;
+          display: inline-block;
+          transform: rotate(90deg);
         }
       }
     }
@@ -71,9 +96,9 @@ $spacing: 20px;
     }
     #offices {
       position: absolute;
-      top: 780px;
+      top: 1050px;
       @include media('>=tablet') {
-        top: 710px;
+        top: 1150px;
       }
     }
     .infoWindow-content {
@@ -107,6 +132,16 @@ $spacing: 20px;
         }
       }
     }
+    .experts-view {
+      .table-data {
+        margin-top: 0;
+        .table-entry {
+          .table-pin {
+            width: 0;
+          }
+        }
+      }
+    }
     .table-data {
       margin-top: 40px;
       color: $grey80;
@@ -116,6 +151,9 @@ $spacing: 20px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.3);
         padding-bottom: 20px;
         margin-bottom: 20px;
+        &:first-of-type {
+          padding-bottom: 0;
+        }
         .table-pin {
           width: 60px;
           button {
@@ -149,12 +187,32 @@ $spacing: 20px;
             text-decoration: none;
             border-bottom: 1px dashed;
           }
+          &.heading {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+          }
+          .expert {
+            button {
+              @include button-ui;
+            }
+          }
+          .flag {
+            margin-bottom: 0;
+          }
+          .phone {
+            transform: translateY(3px) scaleX(-1);
+          }
+          .fax,
+          .mobile {
+            transform: translateY(3px);
+          }
           .table-office,
           .table-desc,
           .table-countries {
             &.heading {
               font-size: 18px;
-              font-weight: 500;
+              font-weight: bold;
               display: none;
               @include media('>=desktop') {
                 display: initial;
@@ -170,8 +228,9 @@ $spacing: 20px;
               width: 50%;
             }
             @include media('>=desktop') {
-              width: 25%;
+              width: 30%;
               border-bottom: none;
+              padding-right: 20px;
             }
             .flag {
               border: 1px solid $grey20;
@@ -184,12 +243,14 @@ $spacing: 20px;
             }
             .phone {
               margin-right: 8px;
-              transform: scaleX(-1);
               text-decoration: dotted;
             }
             .toll-free,
             .contact-person {
               text-transform: lowercase;
+            }
+            .contact-person-container {
+              margin-top: 10px;
             }
           }
           .table-desc {
@@ -201,18 +262,12 @@ $spacing: 20px;
               width: 50%;
             }
             @include media('>=desktop') {
-              width: 25%;
+              width: 20%;
               border-bottom: none;
+              padding-right: 20px;
             }
             button {
-              border: 4px solid $yellow-sea;
-              border-radius: 5px;
-              background-color: $white;
-              color: $yellow-sea;
-              font-size: 18px;
-              font-weight: bold;
-              height: auto;
-              padding: 10px 40px;
+              @include button-ui;
             }
           }
           .table-countries {
