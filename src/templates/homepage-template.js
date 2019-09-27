@@ -257,7 +257,7 @@ export const query = graphql`
               url
             }
             page {
-              slug
+              slug(locale: $locale)
             }
             slideText(locale: $locale)
             slideType
@@ -281,7 +281,7 @@ export const query = graphql`
               tile {
                 url
               }
-              slug
+              slug(locale: $locale)
             }
           }
         }

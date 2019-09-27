@@ -190,12 +190,12 @@ export const query = graphql`
           title(locale: $locale)
           description(locale: $locale)
           helpfulResources {
-            slug
+            slug(locale: $locale)
             pageType
             title
           }
           aboutUsLinks {
-            slug
+            slug(locale: $locale)
             pageType
             title
           }
