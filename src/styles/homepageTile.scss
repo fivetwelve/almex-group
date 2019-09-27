@@ -20,6 +20,13 @@ $cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
     }
   }
 
+  .tile-title {
+    @include media('>=tablet') {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  }
+
   .image-container {
     height: 235px;
     background-color: $gold;
@@ -101,6 +108,10 @@ $cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
     font-size: 18px;
     letter-spacing: 0.2px;
     line-height: initial;
+    @include media('>=tablet') {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
     p {
       font-size: 18px;
     }
