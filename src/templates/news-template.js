@@ -119,7 +119,8 @@ const NewsTemplate = ({ data, pageContext }) => {
                     <div key={makeid()} className="pdf">
                       <div className="pdf-icon" />
                       <a href={download.url} target="_blank" rel="noopener noreferrer">
-                        {moment(archive.date).format('LL')} - {download.documentTitle}
+                        {moment(archive.date).format('LL')} -{' '}
+                        {download.documentTitle || download.fileName.split('.pdf')[0]}
                       </a>
                     </div>
                   )),

@@ -251,7 +251,7 @@ class ResourcesTemplate extends Component {
                                       target="_blank"
                                       rel="noopener noreferrer"
                                     >
-                                      {document.documentTitle || document.fileName}
+                                      {document.documentTitle || document.fileName.split('.pdf')[0]}
                                     </a>
                                   </div>
                                 ))}
