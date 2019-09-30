@@ -114,7 +114,9 @@ const InstituteTemplate = ({ data, pageContext }) => {
                   {pdfDownloads.map(download => (
                     <div key={makeid()} className="pdf">
                       <div className="pdf-icon" />
-                      <a href={download.url}>{download.documentTitle || download.fileName}</a>
+                      <a href={download.url}>
+                        {download.documentTitle || download.fileName.split('.pdf')[0]}
+                      </a>
                     </div>
                   ))}
                 </div>
