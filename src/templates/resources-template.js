@@ -336,7 +336,7 @@ export const query = graphql`
                     }
                   }
                 }
-                orphans: pages {
+                singlePages: pages(where: { status: PUBLISHED }) {
                   productSource {
                     pdfDownloads(locale: $locale) {
                       url
