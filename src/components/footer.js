@@ -197,6 +197,7 @@ class Footer extends React.Component {
     const { footer } = label;
     const brands = brandNavigation.pages;
     brands.sort((a, b) => (a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1));
+    console.log(location);
     return (
       <>
         <div className="footer">
@@ -267,16 +268,16 @@ class Footer extends React.Component {
             <div className="footer-bottom">
               <div className="bottom-left">{footer.COPYRIGHT}</div>
               <div className="bottom-center">
-                <Link to="/northamerica/en/about" className="footer-link">
+                <Link to={createLink(location, footerLinks.ABOUT.PATH)} className="footer-link">
                   {footerLinks.ABOUT.LABEL}
                 </Link>
-                <Link to="/northamerica/en/about" className="footer-link">
+                <Link to={createLink(location, footerLinks.CONTACT.PATH)} className="footer-link">
                   {footerLinks.CONTACT.LABEL}
                 </Link>
-                <Link to="/northamerica/en/about" className="footer-link">
+                <Link to={createLink(location, footerLinks.PRIVACY.PATH)} className="footer-link">
                   {footerLinks.PRIVACY.LABEL}
                 </Link>
-                <Link to="/northamerica/en/about" className="footer-link">
+                <Link to={createLink(location, footerLinks.CAREERS.PATH)} className="footer-link">
                   {footerLinks.CAREERS.LABEL}
                 </Link>
               </div>
