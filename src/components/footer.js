@@ -197,7 +197,6 @@ class Footer extends React.Component {
     const { footer } = label;
     const brands = brandNavigation.pages;
     brands.sort((a, b) => (a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1));
-    console.log(location);
     return (
       <>
         <div className="footer">
