@@ -115,8 +115,8 @@ class ProductShowcase extends React.Component {
             {slideArray.length > 1 && (
               <Carousel
                 afterSlide={slideIndex => this.setState({ slideIdx: slideIndex })}
-                className="carousel"
                 autoGenerateStyleTag={autoGenerateStyleTag}
+                className="carousel"
                 enableKeyboardControls={enableKeyboardControls}
                 renderCenterLeftControls={({ currentSlide, previousSlide }) => (
                   <button
