@@ -27,10 +27,6 @@ class Header extends React.Component {
     this.navWrapperRef = React.createRef();
   }
 
-  componentDidUpdate() {
-    // console.log(this.myRef);
-  }
-
   handleMobileMenuClick = evt => {
     evt.preventDefault();
     const { showMobileBG } = this.props;

@@ -5,6 +5,7 @@ import { IconContext } from 'react-icons';
 import { FaTimes } from 'react-icons/fa';
 import NavigationDropdown from './navigationDropdown';
 import NavigationLink from './navigationLink';
+import checkKeyPress from '../utils/checkKeyPress';
 import { LANGUAGE_SLUGS, REGION_SLUGS } from '../constants';
 
 const mobileLanguages = (activeLanguage, languages, label, region) => {
@@ -56,6 +57,10 @@ const Navigation = props => {
     sortedNavigationSections.push(
       navigation.navigationSections.filter(section => section.type === elem)[0],
     );
+  });
+
+  checkKeyPress('Escape', () => {
+    handleMenuItem('');
   });
 
   return (

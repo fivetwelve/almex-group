@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
+// import useEventListener from '@use-it/event-listener';
 import { createLinkFromPage, getTitle, makeid } from '../utils/functions';
+// import handleKeyEvent from '../utils/handleKeyEvent';
+// import checkKeyPress from '../utils/checkKeyPress';
 import CloseButton from './closeButton';
 
 const NavigationDropdown = props => {
@@ -15,6 +18,9 @@ const NavigationDropdown = props => {
       handleMenuItem('');
     }
   };
+
+  const navClose = useRef(null);
+
   // Determine title and assign it to a new property;
   // also avoids future redundant getTitle calls.
   // Use getTitle here because we want the menu to use the source
@@ -51,6 +57,7 @@ const NavigationDropdown = props => {
     <div className="section-container">
       <div className="section">
         <button
+          id="nav-close"
           type="button"
           aria-expanded="false"
           aria-haspopup="true"
@@ -58,6 +65,7 @@ const NavigationDropdown = props => {
           onClick={evt => {
             handleClick(evt);
           }}
+          ref={navClose}
         >
           {section.title}
           <span className="chevron">
