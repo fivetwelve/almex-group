@@ -10,10 +10,14 @@ const checkKeyPress = (key, fn) => {
         fn();
       }
     };
-    window.addEventListener('keydown', downHandler);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('keydown', downHandler);
+    }
 
     return () => {
-      window.removeEventListener('keydown', downHandler);
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('keydown', downHandler);
+      }
     };
   });
 
