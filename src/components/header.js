@@ -71,11 +71,7 @@ class Header extends React.Component {
                   }
                 </IconContext.Provider>
               </div> */}
-              <BrandSelector
-                brandNavigation={brandNavigation}
-                label={label.header.BRANDS}
-                location={location}
-              />
+              <BrandSelector brandNavigation={brandNavigation} label={label} location={location} />
               <LanguageSelector
                 activeLanguage={activeLanguage}
                 languages={headerFooter.language}

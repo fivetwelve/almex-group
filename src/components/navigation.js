@@ -51,7 +51,7 @@ const Navigation = props => {
   } = props;
   /* using Hooks instead of component state */
   const [openSection, handleMenuItem] = useState('');
-  const brandMenuOpen = brandNavigation.type === openSection;
+  const mobileBrandMenuOpen = brandNavigation.type === openSection;
   const sortedNavigationSections = [];
   navigation.sortOrder.forEach(elem => {
     sortedNavigationSections.push(
@@ -63,6 +63,7 @@ const Navigation = props => {
     handleMenuItem('');
   });
 
+  /* Brand menu below is for mobile. Desktop brand menu is BrandSelector in Header */
   return (
     <>
       <div className="close-container">
@@ -82,7 +83,7 @@ const Navigation = props => {
             handleMenuItem={type => handleMenuItem(type)}
             location={location}
             section={brandNavigation}
-            isOpen={brandMenuOpen}
+            isOpen={mobileBrandMenuOpen}
             label={label.common}
           />
         )}

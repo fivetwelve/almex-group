@@ -1,58 +1,29 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'gatsby';
 import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
 import { FaAngleDown } from 'react-icons/fa';
+import CloseButton from './closeButton';
 import { createLink } from '../utils/functions';
+import checkKeyPress from '../utils/checkKeyPress';
 import { BRANDS, PAGE_TYPES } from '../constants';
-// import constants from '../constants';
-// import '../styles/brandSelector.scss';
 
-class BrandSelector extends Component {
-  constructor(props) {
-    super(props);
-    this.brandDropdown = React.createRef();
-  }
+const BrandSelector = props => {
+  const [openMenu, handleMenuState] = useState(false);
+  const { brandNavigation, label, location } = props;
+  const brands = brandNavigation.pages;
+  brands.sort((a, b) => (a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1));
 
-  // handleKeyDown = evt => {
-  //   let dropdownSibling = document.activeElement.nextElementSibling;
-  //   if (evt.keyCode == 38) {
-  //     if (dropdownSibling) {
-  //       dropdownSibling.childNodes[0].previousElementSibling.firstElementChild.focus();
-  //     } else {
-  //       dropdownSibling = document.activeElement.parentElement.previousElementSibling.firstElementChild;
-  //       dropdownSibling.focus();
-  //     }
-  //   }
-  //   if (evt.keyCode == 40) {
-  //     if (dropdownSibling) {
-  //       dropdownSibling.childNodes[0].nextElementSibling.firstElementChild.focus();
-  //     } else {
-  //       dropdownSibling = document.activeElement.parentElement.nextElementSibling.firstElementChild;
-  //       dropdownSibling.focus();
-  //     }
-  //   }
-  //   if (evt.keyCode == 27) {
-  //     evt.preventDefault();
-  //     document.activeElement.parentElement.parentElement.classList.remove('nav__dropdown--visible');
-  //     document.activeElement.parentElement.parentElement.previousElementSibling.setAttribute(
-  //       'aria-expanded',
-  //       'false'
-  //     );
-  //     // Bring focus back to top level parent
-  //     document.activeElement.parentElement.parentElement.previousElementSibling.focus();
-  //   }
-  // }
-
-  handleClickDropDown = evt => {
+  const handleClickDropDown = evt => {
     evt.preventDefault();
-    evt.target.classList.toggle('is-open');
-    // evt.target.nextElementSibling.classList.toggle('brand-dropdown--visible');
-    this.brandDropdown.current.classList.toggle('visible');
-    // console.log(this.brandDropdown.current);
+    handleMenuState(!openMenu);
   };
 
-  renderBrands = (brand, location) => {
+  checkKeyPress('Escape', () => {
+    handleMenuState(false);
+  });
+
+  const renderBrands = (brand, loc) => {
     let brandType = '';
     let productBrand = '';
     switch (brand.pageType) {
@@ -101,70 +72,56 @@ class BrandSelector extends Component {
     }
     return (
       <div className={`brand ${productBrand}`} key={brand.slug}>
-        <Link to={createLink(location, brand.slug)}>
+        <Link to={createLink(loc, brand.slug)}>
           <span className="sr-only">{brandType.title}</span>
         </Link>
       </div>
     );
   };
 
-  render() {
-    // const { activeLanguage, languages, region } = this.props;
-    // const { region } = this.props;
-    const { brandNavigation, label, location } = this.props;
-    const brands = brandNavigation.pages;
-    brands.sort((a, b) => (a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1));
-
-    return (
-      <>
-        <div className="brand-selector">
-          <button
-            type="button"
-            aria-expanded="false"
-            aria-haspopup="true"
-            className="nav__trigger"
-            onClick={evt => {
-              this.handleClickDropDown(evt);
-            }}
-            // onKeyDown={evt => {
-            //   this.handleKeyDown(evt);
-            // }}
-          >
-            <span className="dd-text-icon text">
-              {label}
-              <span aria-hidden="true" className="dd-icon">
-                <IconContext.Provider value={{ className: 'brands-icon' }}>
-                  <FaAngleDown aria-hidden />
-                </IconContext.Provider>
-              </span>
+  return (
+    <>
+      <div className="brand-selector">
+        <button
+          type="button"
+          aria-expanded="false"
+          aria-haspopup="true"
+          className={`nav__trigger ${openMenu && 'is-open'}`}
+          onClick={evt => {
+            handleClickDropDown(evt);
+          }}
+        >
+          <span className="dd-text-icon text">
+            {label.header.BRANDS}
+            <span aria-hidden="true" className="dd-icon">
+              <IconContext.Provider value={{ className: 'brands-icon' }}>
+                <FaAngleDown aria-hidden />
+              </IconContext.Provider>
             </span>
-          </button>
-        </div>
-        <div className="brand-container" ref={this.brandDropdown}>
-          {brands.map(brand => this.renderBrands(brand, location))}
-        </div>
-      </>
-    );
-  }
-}
+          </span>
+        </button>
+      </div>
+      <div className={`brand-container ${openMenu && 'visible'}`}>
+        <CloseButton closeMenu={handleMenuState} label={label.common} />
+        {brands.map(brand => renderBrands(brand, location))}
+      </div>
+    </>
+  );
+};
 
 BrandSelector.defaultProps = {
-  // activeLanguage: '',
-  // languages: [],
-  // region: '',
   brandNavigation: {},
-  label: '',
+  label: {},
   location: {},
 };
 
 BrandSelector.propTypes = {
-  // activeLanguage: PropTypes.string,
-  // languages: PropTypes.arrayOf(PropTypes.string),
-  // region: PropTypes.string,
   brandNavigation: PropTypes.shape({
     pages: PropTypes.array,
   }),
-  label: PropTypes.string,
+  label: PropTypes.shape({
+    common: PropTypes.object,
+  }),
   location: PropTypes.shape({
     pathname: PropTypes.string,
   }),
