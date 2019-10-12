@@ -21,6 +21,49 @@ const creationObservers = [createPageObserver, createProductObserver];
 const updateObservers = [updatePageObserver, updateProductObserver];
 const deletionObservers = [deletePageObserver, deleteProductObserver];
 
+const getPage = async pageID => {
+  const pageData = {
+    query: `query($locale: Locale) {\n  page (where: {id: \"${pageID}\"}) {\n    availableIn\n    status\n    tile {\n      url\n    }\n    slugEN(locale: "EN")\n    slugES(locale: "ES")\n  }\n}`,
+    variables: { locale: locale },
+  };
+
+  try {
+    const response = await fetch(CMS_ENDPOINT, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: CMS_TOKEN,
+      },
+      method: 'POST',
+      body: JSON.stringify(pageData),
+    });
+
+    if (!response.ok) {
+      /* NOT res.status >= 200 && res.status < 300 */
+      console.log('err1 ------');
+      console.log(response); // output to netlify function log
+      // return { statusCode: response.status, body: response.statusText };
+      return null;
+    }
+
+    const data = await response.json();
+    console.log('response ------');
+    console.log(data);
+    // return {
+    //   statusCode: 200,
+    //   body: JSON.stringify({ msg: data }),
+    // };
+    return data;
+  } catch (err) {
+    console.log('err2 ------');
+    console.log(err); // output to netlify function log
+    // return {
+    //   statusCode: 500,
+    //   body: JSON.stringify({ msg: err.message }), // Could be a custom message or object i.e. JSON.stringify(err) };
+    // };
+    return null;
+  }
+};
+
 exports.handler = async (event, context) => {
   console.log(' ');
   console.log('---+---+---+---+---');
@@ -31,49 +74,6 @@ exports.handler = async (event, context) => {
     info: { fieldName, responseData },
   } = response;
   const pageID = responseData.page.id;
-
-  const getPage = async (pageID, locale) => {
-    const pageData = {
-      query: `query($locale: Locale) {\n  page (where: {id: \"${pageID}\"}) {\n    tile {\n      url\n    }\n    slug(locale: $locale)\n    status\n  }\n}`,
-      variables: { locale: locale },
-    };
-
-    try {
-      const response = await fetch(CMS_ENDPOINT, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: CMS_TOKEN,
-        },
-        method: 'POST',
-        body: JSON.stringify(pageData),
-      });
-
-      if (!response.ok) {
-        /* NOT res.status >= 200 && res.status < 300 */
-        console.log('err1 ------');
-        console.log(response); // output to netlify function log
-        // return { statusCode: response.status, body: response.statusText };
-        return null;
-      }
-
-      const data = await response.json();
-      console.log('response ------');
-      console.log(data);
-      // return {
-      //   statusCode: 200,
-      //   body: JSON.stringify({ msg: data }),
-      // };
-      return data;
-    } catch (err) {
-      console.log('err2 ------');
-      console.log(err); // output to netlify function log
-      // return {
-      //   statusCode: 500,
-      //   body: JSON.stringify({ msg: err.message }), // Could be a custom message or object i.e. JSON.stringify(err) };
-      // };
-      return null;
-    }
-  };
 
   /* reject if the incoming mutation is not meant to be synced */
   if (
@@ -94,7 +94,7 @@ exports.handler = async (event, context) => {
   /* use this try-catch for content */
   try {
     const index = algolia.initIndex(INDEX_NAME);
-    const pageRes = await getPage(pageID, 'EN');
+    const pageRes = await getPage(pageID);
     console.log('---page start---');
     console.log(pageRes);
     console.log('---page start---');
