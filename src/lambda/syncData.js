@@ -23,8 +23,8 @@ const deletionObservers = [deletePageObserver, deleteProductObserver];
 
 const getPage = async pageID => {
   const pageData = {
-    query: `query($locale: Locale) {\n  page (where: {id: \"${pageID}\"}) {\n    availableIn\n    status\n    tile {\n      url\n    }\n    slugEN(locale: "EN")\n    slugES(locale: "ES")\n  }\n}`,
-    variables: { locale: locale },
+    // query: `query {\n  page (where: {id: \"${pageID}\"}) {\n    availableIn\n    status\n    tile {\n      url\n    }\n    slugEN: slug(locale: EN)\n    slugES: slug(locale: ES)\n  }\n}`,
+    query: `query {page (where: {id: \"${pageID}\"}) {availableIn status tile {url} slugEN: slug(locale: EN) slugES: slug(locale: ES)}}`,
   };
 
   try {

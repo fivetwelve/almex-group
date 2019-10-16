@@ -303,7 +303,7 @@ export const query = graphql`
             documentTitle(locale: $locale)
             url
           }
-          attractText
+          attractText(locale: $locale)
           accessories {
             slug(locale: $locale)
             tile {
