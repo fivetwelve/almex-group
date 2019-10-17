@@ -14,6 +14,7 @@ module.exports = {
     EXPERT: 'EXPERT',
     OFFICE: 'OFFICE',
   },
+  // used for Event location
   CONTINENTS: {
     GLOBAL: 'GLOBAL',
     AFRICA: 'AFRICA',
@@ -117,13 +118,11 @@ module.exports = {
   },
   REGION_SLUGS: {
     NORTH_AMERICA: 'northamerica',
-    SOUTH_AMERICA: 'southamerica',
-    CENTRAL_SOUTH_AMERICA: 'centralsouthamerica',
+    CHILE: 'chile',
   },
   REGIONS: {
     NORTH_AMERICA: 'NORTH_AMERICA',
-    SOUTH_AMERICA: 'SOUTH_AMERICA',
-    CENTRAL_SOUTH_AMERICA: 'CENTRAL_SOUTH_AMERICA',
+    CHILE: 'CHILE',
   },
   RESOURCE_TYPES: {
     BROCHURE: 'BROCHURE',

@@ -38,6 +38,16 @@ exports.createPages = ({ graphql, actions }) => {
       } = result;
 
       siteRegions.forEach(({ region, languages }) => {
+        languages.forEach(language => {
+          createPage({
+            path: `${REGION_SLUGS[region]}/${LANGUAGE_SLUGS[language]}/search`,
+            component: path.resolve(`./src/templates/search-template.js`),
+            context: {
+              locale: language,
+              region,
+            },
+          });
+        });
         pages.forEach(page => {
           const { id, availableIn, pageType } = page;
           if (availableIn.includes(region)) {

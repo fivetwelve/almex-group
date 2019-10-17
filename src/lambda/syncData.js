@@ -94,10 +94,10 @@ exports.handler = async (event, context) => {
   /* use this try-catch for content */
   try {
     const index = algolia.initIndex(INDEX_NAME);
-    const pageRes = await getPage(pageID);
+    const pageResponse = await getPage(pageID);
     console.log('---page start---');
-    console.log(pageRes);
-    console.log('---page start---');
+    console.log(pageResponse);
+    console.log('---page end---');
     let body;
 
     if (deletionObservers.includes(fieldName)) {
@@ -107,12 +107,34 @@ exports.handler = async (event, context) => {
       return { statusCode: 202, body: JSON.stringify(body) };
     }
 
-    if (pageRes) {
+    if (pageResponse) {
       const {
         data: { page },
-      } = pageRes;
-      const { id: objectID, page: pageData, ...rest } = responseData;
-      const indexable = { objectID, page, ...rest };
+      } = pageResponse;
+      const {
+        id: objectID,
+        category,
+        keywordsEN,
+        keywordsES,
+        marketingEN,
+        marketingES,
+        titleEN,
+        titleES,
+        updatedAt,
+        ...rest
+      } = responseData;
+      const indexable = {
+        objectID,
+        category,
+        keywordsEN,
+        keywordsES,
+        marketingEN,
+        marketingES,
+        titleEN,
+        titleES,
+        updatedAt,
+        page,
+      };
 
       if (creationObservers.includes(fieldName)) {
         body = await index.addObject(indexable);
@@ -123,7 +145,7 @@ exports.handler = async (event, context) => {
         throw new Error(`${fieldName} could not be processed.`);
       }
     } else {
-      throw new Error('page information does not exist');
+      throw new Error('Page information does not exist');
     }
 
     // res.status(200).send(body);
