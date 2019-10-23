@@ -109,7 +109,9 @@ exports.handler = async (event, context) => {
 
     if (pageResponse) {
       const {
-        data: { page },
+        data: {
+          page: { status, ...rest },
+        },
       } = pageResponse;
       const {
         id: objectID,
@@ -133,7 +135,10 @@ exports.handler = async (event, context) => {
         titleEN,
         titleES,
         updatedAt,
-        page,
+        status,
+        page: {
+          ...rest,
+        },
       };
 
       if (creationObservers.includes(fieldName)) {

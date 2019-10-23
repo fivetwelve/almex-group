@@ -9,13 +9,6 @@ const NavigationLink = props => {
   return (
     <div className="section-container" key={makeid()}>
       <div className="section">
-        {/* <button
-          type="button"
-          aria-expanded="false"
-          aria-haspopup="true"
-          className={`section-trigger ${isOpen ? 'is-open' : ''}`}
-        > */}
-        {/* <Link to="global-services">{section.title}</Link> */}
         <div className="section-link">
           <Link to={createLinkFromPage(location, section.pages[0], activeLanguage)}>
             {section.title}
@@ -39,7 +32,6 @@ const NavigationLink = props => {
             <span className="indicator" />
           </Link>
         </div>
-        {/* </button> */}
       </div>
     </div>
   );

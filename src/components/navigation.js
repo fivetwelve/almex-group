@@ -92,7 +92,7 @@ const Navigation = props => {
         {sortedNavigationSections.length > 0 &&
           sortedNavigationSections.map(section => {
             const isOpen = section.type === openSection;
-            if (section.landingPage) {
+            if (section.isLandingPage) {
               return (
                 <NavigationLink
                   activeLanguage={activeLanguage}
@@ -106,7 +106,6 @@ const Navigation = props => {
               <NavigationDropdown
                 activeLanguage={activeLanguage}
                 handleMenuItem={type => handleMenuItem(type)}
-                // key={makeid()}
                 key={section.type}
                 location={location}
                 section={section}

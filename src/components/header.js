@@ -235,7 +235,7 @@ export const commonFragment = graphql`
             title(locale: $locale)
           }
         }
-        landingPage
+        isLandingPage
         sortOrder(locale: $locale)
         title(locale: $locale)
         type

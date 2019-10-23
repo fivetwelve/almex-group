@@ -38,6 +38,7 @@ exports.createPages = ({ graphql, actions }) => {
       } = result;
 
       siteRegions.forEach(({ region, languages }) => {
+        /* Search page */
         languages.forEach(language => {
           createPage({
             path: `${REGION_SLUGS[region]}/${LANGUAGE_SLUGS[language]}/search`,
@@ -48,8 +49,10 @@ exports.createPages = ({ graphql, actions }) => {
             },
           });
         });
+        /* Pages with PUBLISHED status in CMS */
         pages.forEach(page => {
           const { id, availableIn, pageType } = page;
+          /* ensure Page belongs to region */
           if (availableIn.includes(region)) {
             languages.forEach(language => {
               const pagePath =
