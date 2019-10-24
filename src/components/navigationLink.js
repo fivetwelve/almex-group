@@ -49,6 +49,8 @@ NavigationLink.propTypes = {
     pathname: PropTypes.string,
   }),
   section: PropTypes.shape({
+    pages: PropTypes.array,
+    title: PropTypes.string,
     type: PropTypes.string,
   }),
 };

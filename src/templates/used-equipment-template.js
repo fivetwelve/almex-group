@@ -20,7 +20,7 @@ const UsedEquipmentTemplate = ({ data, pageContext }) => {
       headerFooter,
       label,
       navigation,
-      sparesRepairsLabel,
+      // sparesRepairsLabel,
       page: {
         usedEquipment: { bannerImage, description, disclaimer, title, usedEquipmentListings },
       },
@@ -57,7 +57,7 @@ const UsedEquipmentTemplate = ({ data, pageContext }) => {
           </div>
         </div>
         {usedEquipmentListings.map(listing => (
-          <UsedEquipmentListing {...listing} key={makeid()} label={sparesRepairsLabel} />
+          <UsedEquipmentListing {...listing} key={makeid()} label={label} />
         ))}
         <div className="disclaimer">{disclaimer}</div>
       </div>
@@ -76,7 +76,12 @@ UsedEquipmentTemplate.defaultProps = {
 UsedEquipmentTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      page: PropTypes.shape({}),
+      brandNavigation: PropTypes.object,
+      headerFooter: PropTypes.object,
+      label: PropTypes.object,
+      navigation: PropTypes.object,
+      sparesRepairsLabel: PropTypes.object,
+      page: PropTypes.object,
     }),
   }),
   location: PropTypes.shape({
@@ -95,7 +100,8 @@ export const query = graphql`
   query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
     cms {
       ...CommonQuery
-      sparesRepairsLabel: label(where: { availableIn: $region }) {
+      # sparesRepairsLabel: label(where: { availableIn: $region }) {
+      label(where: { availableIn: $region }) {
         # products(locale: $locale)
         sparesRepairs(locale: $locale)
       }

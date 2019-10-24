@@ -121,6 +121,7 @@ BrandSelector.propTypes = {
   }),
   label: PropTypes.shape({
     common: PropTypes.object,
+    header: PropTypes.object,
   }),
   location: PropTypes.shape({
     pathname: PropTypes.string,

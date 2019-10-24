@@ -77,8 +77,11 @@ TimelineModal.defaultProps = {
 TimelineModal.propTypes = {
   hideThisModal: PropTypes.func,
   event: PropTypes.shape({
+    displayDate: PropTypes.string,
     eventTitle: PropTypes.string,
+    captions: PropTypes.array,
     description: PropTypes.array,
+    images: PropTypes.array,
   }),
   label: PropTypes.shape({
     common: PropTypes.object,

@@ -124,6 +124,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
             attractText={attractText}
             brand={brand}
             images={images}
+            label={label}
             locale={locale}
             products={products}
             themeColour={themeColour}
@@ -251,7 +252,11 @@ ProductTemplate.defaultProps = {
 ProductTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      page: PropTypes.shape({}),
+      brandNavigation: PropTypes.object,
+      headerFooter: PropTypes.object,
+      label: PropTypes.object,
+      navigation: PropTypes.object,
+      page: PropTypes.object,
     }),
   }),
   location: PropTypes.shape({

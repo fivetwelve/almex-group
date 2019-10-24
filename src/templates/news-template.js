@@ -143,6 +143,7 @@ NewsTemplate.defaultProps = {
 
 NewsTemplate.propTypes = {
   data: PropTypes.shape({
+    cms: PropTypes.object,
     id: PropTypes.string,
   }),
   pageContext: PropTypes.shape({

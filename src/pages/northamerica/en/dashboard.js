@@ -45,10 +45,13 @@ import Dashboard from '../../../components/dashboard';
 const { fetch } = fetchPonyfill();
 
 class DashboardPage extends React.Component {
-  state = {
-    data: null,
-    error: null,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: null,
+      error: null,
+    };
+  }
   // componentDidMount() {
 
   //   // netlifyIdentity.init({

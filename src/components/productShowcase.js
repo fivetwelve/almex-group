@@ -90,6 +90,7 @@ class ProductShowcase extends React.Component {
       attractText,
       brand,
       images,
+      label,
       locale,
       products,
       // themeColour,
@@ -125,6 +126,7 @@ class ProductShowcase extends React.Component {
                     }
                     type="button"
                     className="left-controls"
+                    aria-label=""
                   >
                     <span className="sr-only">Previous</span>
                     <span aria-hidden="true" className="left-controls-icon">
@@ -186,6 +188,7 @@ class ProductShowcase extends React.Component {
                     onClick={() => this.setState({ slideIdx: idx })}
                     style={thumbStyle}
                     type="button"
+                    aria-label={label.common.VIEW_IMAGE}
                   />
                 </div>
               );
@@ -225,6 +228,7 @@ ProductShowcase.defaultProps = {
   attractText: [],
   brand: '',
   images: [],
+  label: {},
   locale: '',
   products: {},
   // themeColour: '',
@@ -242,6 +246,9 @@ ProductShowcase.propTypes = {
       url: PropTypes.string,
     }),
   ),
+  label: PropTypes.shape({
+    common: PropTypes.object,
+  }),
   locale: PropTypes.string,
   products: PropTypes.shape({
     SHOULD_KNOW: PropTypes.string,

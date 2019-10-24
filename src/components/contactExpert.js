@@ -94,6 +94,9 @@ ContactExpert.propTypes = {
     telephone: PropTypes.string,
     fax: PropTypes.string,
     mobile: PropTypes.string,
+    countryCode: PropTypes.string,
+    title: PropTypes.string,
+    location: PropTypes.string,
   }),
   handleContactUs: PropTypes.func,
   office: PropTypes.shape({

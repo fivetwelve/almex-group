@@ -25,8 +25,6 @@ const searchClient = {
 };
 
 const SearchTemplate = props => {
-  // console.log(this.props);
-  // const { error, searchData, searchQuery } = this.state;
   const { data, location, pageContext } = props;
   const { locale, region } = pageContext;
   const {
@@ -45,8 +43,6 @@ const SearchTemplate = props => {
       title=""
     >
       <div className="search-container">
-        {/* {error && <p>{error}</p>}
-        {searchData && <div>{searchData}</div>} */}
         <InstantSearch indexName="CMS" searchClient={searchClient}>
           {/* <SearchBox searchAsYouType={false} onSubmit={evt => this.handleSubmit(evt)} /> */}
           <SearchBox searchAsYouType={false} />
@@ -71,7 +67,11 @@ SearchTemplate.defaultProps = {
 SearchTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      page: PropTypes.shape({}),
+      brandNavigation: PropTypes.object,
+      headerFooter: PropTypes.object,
+      label: PropTypes.object,
+      navigation: PropTypes.object,
+      page: PropTypes.object,
     }),
   }),
   location: PropTypes.shape({

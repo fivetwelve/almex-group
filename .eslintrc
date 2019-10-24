@@ -9,6 +9,7 @@
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "prettier/prettier": ["error"],
-    "jsx-a11y/label-has-for": "off"
+    "jsx-a11y/label-has-for": "off",
+    "react/jsx-props-no-spreading": [1, { "custom": "ignore" }]
   }
 }

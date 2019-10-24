@@ -121,6 +121,9 @@ NavigationDropdown.propTypes = {
     pathname: PropTypes.string,
   }),
   section: PropTypes.shape({
+    pages: PropTypes.array,
+    sortOrder: PropTypes.array,
+    title: PropTypes.string,
     type: PropTypes.string,
   }),
 };

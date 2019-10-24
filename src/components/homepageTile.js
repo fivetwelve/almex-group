@@ -51,9 +51,10 @@ HomepageTile.defaultProps = {
 
 HomepageTile.propTypes = {
   data: PropTypes.shape({
-    title: PropTypes.string,
     description: PropTypes.string,
-    // subtitle: PropTypes.string,
+    image: PropTypes.object,
+    page: PropTypes.object,
+    title: PropTypes.string,
   }),
   labels: PropTypes.shape({
     common: PropTypes.object,

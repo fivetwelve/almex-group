@@ -94,7 +94,13 @@ DownloadsTemplate.defaultProps = {
 
 DownloadsTemplate.propTypes = {
   data: PropTypes.shape({
-    id: PropTypes.string,
+    cms: PropTypes.shape({
+      brandNavigation: PropTypes.object,
+      headerFooter: PropTypes.object,
+      label: PropTypes.object,
+      navigation: PropTypes.object,
+      page: PropTypes.object,
+    }),
   }),
   pageContext: PropTypes.shape({
     landingSections: PropTypes.array,

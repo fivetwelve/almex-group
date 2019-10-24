@@ -134,6 +134,7 @@ Navigation.propTypes = {
   activeLanguage: PropTypes.string,
   brandNavigation: PropTypes.shape({
     pages: PropTypes.array,
+    type: PropTypes.string,
   }),
   handleCloseMenuClick: PropTypes.func,
   label: PropTypes.shape({
@@ -147,6 +148,7 @@ Navigation.propTypes = {
   }),
   navigation: PropTypes.shape({
     navigationSections: PropTypes.array,
+    sortOrder: PropTypes.array,
   }),
   region: PropTypes.string,
 };
