@@ -36,7 +36,6 @@ const LandingTemplate = ({ data, pageContext }) => {
       },
     },
   } = data;
-
   let themeColour = '';
   let sectionIdx = 0;
 
@@ -74,9 +73,9 @@ const LandingTemplate = ({ data, pageContext }) => {
       // let tileData = {};
       // Use landingSource or productSource titles by default. All other cases, use title provided in Page entry.
       const pageTitle =
-        (page.landingSource && page.landingSource.title) ||
-        (page.productSource && page.productSource.title) ||
-        (page.servicesSource && page.servicesSource.title) ||
+        // (page.landingSource && page.landingSource.title) ||
+        // (page.productSource && page.productSource.title) ||
+        // (page.servicesSource && page.servicesSource.title) ||
         page.title;
       const tileData = {
         slug: page.slug,
@@ -142,7 +141,12 @@ const LandingTemplate = ({ data, pageContext }) => {
   const sortedSinglePages = [];
   if (singlePages && sorting) {
     sorting.forEach(elem => {
-      sortedSinglePages.push(singlePages.filter(page => page.id === elem.id)[0]);
+      const foundPage = singlePages.filter(page => page.id === elem.id)[0];
+      /* conditional needed in case landingSource's sort field does not match up with children; 
+         prevents an undefined from being inserted into array */
+      if (foundPage) {
+        sortedSinglePages.push(foundPage);
+      }
     });
   }
 
