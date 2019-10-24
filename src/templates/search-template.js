@@ -7,7 +7,10 @@ import CustomSearchResults from '../components/customSearchResults';
 import Layout from '../components/layout';
 import '../styles/search.scss';
 
-const algoliaClient = algoliasearch(process.env.ALGOLIA_APP_ID, process.env.ALGOLIA_SEARCH_KEY);
+const algoliaClient = algoliasearch(
+  process.env.GATSBY_ALGOLIA_APP_ID,
+  process.env.GATSBY_ALGOLIA_SEARCH_KEY,
+);
 const searchClient = {
   search(requests) {
     if (requests.every(({ params }) => !params.query)) {
