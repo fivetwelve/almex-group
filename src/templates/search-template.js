@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
+import { globalHistory } from '@reach/router';
 import algoliasearch from 'algoliasearch/lite';
+import qs from 'qs';
 import { InstantSearch, SearchBox, PoweredBy } from 'react-instantsearch-dom';
 import CustomSearchResults from '../components/customSearchResults';
 import Layout from '../components/layout';
+import { makeid } from '../utils/functions';
 import '../styles/search.scss';
 
 const algoliaClient = algoliasearch(
@@ -27,12 +30,40 @@ const searchClient = {
   },
 };
 
+// const history = createHistory(window);
+// console.log('history');
+// console.log(history);
+
+/* utility functions */
+const createURL = state => `?${qs.stringify(state)}`;
+
+const searchStateToUrl = searchState => (searchState ? createURL(searchState) : '');
+
+const urlToSearchState = ({ search }) => qs.parse(search.slice(1));
+
 const SearchTemplate = props => {
   const { data, location, pageContext } = props;
   const { locale, region } = pageContext;
   const {
     cms: { brandNavigation, headerFooter, label, navigation },
   } = data;
+  const [searchState, setSearchState] = useState(urlToSearchState(location));
+
+  useEffect(() => {
+    return globalHistory.listen(({ action }) => {
+      if (action === 'POP') {
+        setSearchState(urlToSearchState(globalHistory.location));
+      }
+    });
+  }, []);
+
+  const onSearchStateChange = updatedSearchState => {
+    if (typeof window !== 'undefined') {
+      window.history.pushState({ key: makeid() }, '', searchStateToUrl(updatedSearchState));
+    }
+    // history.location.pushState({ key: makeid() }, '', searchStateToUrl(updatedSearchState));
+    setSearchState(updatedSearchState);
+  };
 
   return (
     <Layout
@@ -46,13 +77,17 @@ const SearchTemplate = props => {
       title=""
     >
       <div className="search-container">
-        <InstantSearch indexName="CMS" searchClient={searchClient}>
+        <InstantSearch
+          indexName="CMS"
+          searchClient={searchClient}
+          searchState={searchState}
+          onSearchStateChange={onSearchStateChange}
+          createURL={createURL}
+        >
           {/* <SearchBox searchAsYouType={false} onSubmit={evt => this.handleSubmit(evt)} /> */}
           <SearchBox searchAsYouType={false} />
-          {/* <Configure query={searchQuery} /> */}
           <PoweredBy />
           <CustomSearchResults locale={locale} location={location} />
-          {/* <CustomStateResults /> */}
         </InstantSearch>
       </div>
     </Layout>
@@ -79,9 +114,9 @@ SearchTemplate.propTypes = {
   }),
   location: PropTypes.shape({
     pathname: PropTypes.string,
-    state: PropTypes.shape({
-      prevLocation: PropTypes.string,
-    }),
+    // state: PropTypes.shape({
+    //   prevLocation: PropTypes.string,
+    // }),
   }),
   pageContext: PropTypes.shape({
     locale: PropTypes.string,

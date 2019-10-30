@@ -3,8 +3,8 @@ import fetch from 'node-fetch';
 import algoliasearch from 'algoliasearch';
 import 'dotenv/config';
 
-const { ALGOLIA_API_KEY, ALGOLIA_APP_ID, CMS_ENDPOINT, CMS_TOKEN } = process.env;
-const algolia = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_API_KEY);
+const { ALGOLIA_API_KEY, GATSBY_ALGOLIA_APP_ID, CMS_ENDPOINT, CMS_TOKEN } = process.env;
+const algolia = algoliasearch(GATSBY_ALGOLIA_APP_ID, ALGOLIA_API_KEY);
 const INDEX_NAME = 'CMS';
 
 const cmsUrl = 'https://api-useast.graphcms.com/v1/cjp38sm4l76js01dg55spmgn6/master';
@@ -123,7 +123,7 @@ exports.handler = async (event, context) => {
         titleEN,
         titleES,
         updatedAt,
-        ...rest
+        ...responseRest
       } = responseData;
       const indexable = {
         objectID,

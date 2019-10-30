@@ -52,9 +52,9 @@ StateResults.propTypes = {
   locale: PropTypes.string,
   location: PropTypes.shape({
     pathname: PropTypes.string,
-    state: PropTypes.shape({
-      prevLocation: PropTypes.string,
-    }),
+    // state: PropTypes.shape({
+    //   prevLocation: PropTypes.string,
+    // }),
   }),
   searchResults: PropTypes.shape({
     query: PropTypes.string,
