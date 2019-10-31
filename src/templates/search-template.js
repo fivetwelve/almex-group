@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import { globalHistory } from '@reach/router';
 import algoliasearch from 'algoliasearch/lite';
-import qs from 'qs';
 import { InstantSearch, SearchBox, PoweredBy } from 'react-instantsearch-dom';
+import qs from 'qs';
 import CustomSearchResults from '../components/customSearchResults';
 import Layout from '../components/layout';
 import { makeid } from '../utils/functions';
@@ -35,7 +35,11 @@ const searchClient = {
 // console.log(history);
 
 /* utility functions */
-const createURL = state => `?${qs.stringify(state)}`;
+const createURL = state => {
+  const value = `?${qs.stringify(state)}`;
+
+  return value;
+};
 
 const searchStateToUrl = searchState => (searchState ? createURL(searchState) : '');
 

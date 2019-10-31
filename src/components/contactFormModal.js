@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
 import { FaTimes } from 'react-icons/fa';
 import Recaptcha from 'react-google-recaptcha';
-import { apiUrl, makeid } from '../utils/functions';
+import { apiUrl, fetch, makeid } from '../utils/functions';
 import { CONTACT_TYPES, FORM_TYPES } from '../constants';
 
 class ContactFormModal extends React.Component {

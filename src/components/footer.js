@@ -12,7 +12,7 @@ import {
   FaFacebookF,
 } from 'react-icons/fa';
 import Markdown from 'react-remarkable';
-import { createLink, hoursPassed, makeid } from '../utils/functions';
+import { createLink, fetch, hoursPassed, makeid } from '../utils/functions';
 import { BRANDS, PAGE_TYPES } from '../constants';
 import '../styles/footer.scss';
 
