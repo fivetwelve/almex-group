@@ -14,6 +14,7 @@ const algoliaClient = algoliasearch(
   process.env.GATSBY_ALGOLIA_APP_ID,
   process.env.GATSBY_ALGOLIA_SEARCH_KEY,
 );
+
 const searchClient = {
   search(requests) {
     if (requests.every(({ params }) => !params.query)) {
@@ -30,20 +31,18 @@ const searchClient = {
   },
 };
 
-// const history = createHistory(window);
-// console.log('history');
-// console.log(history);
+/* utility functions begin */
+const createURL = state => `?${qs.stringify(state)}`;
 
-/* utility functions */
-const createURL = state => {
-  const value = `?${qs.stringify(state)}`;
-
-  return value;
+const searchStateToUrl = (searchState, location) => {
+  if (searchState && searchState.query !== '') {
+    return createURL(searchState);
+  }
+  return location.pathname;
 };
 
-const searchStateToUrl = searchState => (searchState ? createURL(searchState) : '');
-
 const urlToSearchState = ({ search }) => qs.parse(search.slice(1));
+/* utility functions end */
 
 const SearchTemplate = props => {
   const { data, location, pageContext } = props;
@@ -62,11 +61,19 @@ const SearchTemplate = props => {
   }, []);
 
   const onSearchStateChange = updatedSearchState => {
+    const { query, ...rest } = updatedSearchState;
+    const trimmedSearchState = {
+      query: query.trim(),
+      ...rest,
+    };
     if (typeof window !== 'undefined') {
-      window.history.pushState({ key: makeid() }, '', searchStateToUrl(updatedSearchState));
+      window.history.pushState(
+        { key: makeid() },
+        '',
+        searchStateToUrl(trimmedSearchState, location),
+      );
     }
-    // history.location.pushState({ key: makeid() }, '', searchStateToUrl(updatedSearchState));
-    setSearchState(updatedSearchState);
+    setSearchState(trimmedSearchState);
   };
 
   return (
@@ -88,7 +95,6 @@ const SearchTemplate = props => {
           onSearchStateChange={onSearchStateChange}
           createURL={createURL}
         >
-          {/* <SearchBox searchAsYouType={false} onSubmit={evt => this.handleSubmit(evt)} /> */}
           <SearchBox searchAsYouType={false} />
           <PoweredBy />
           <CustomSearchResults locale={locale} location={location} />
@@ -118,9 +124,6 @@ SearchTemplate.propTypes = {
   }),
   location: PropTypes.shape({
     pathname: PropTypes.string,
-    // state: PropTypes.shape({
-    //   prevLocation: PropTypes.string,
-    // }),
   }),
   pageContext: PropTypes.shape({
     locale: PropTypes.string,
