@@ -7,7 +7,7 @@ import { IconContext } from 'react-icons';
 import { FaAngleUp } from 'react-icons/fa';
 import Header from './header';
 import Footer from './footer';
-import { LocationProvider } from '../utils/locationContext';
+// import { LocationProvider } from '../utils/locationContext';
 import { scrollTo } from '../utils/functions';
 import '../styles/layout.scss';
 
@@ -183,36 +183,40 @@ class Layout extends React.Component {
               </IconContext.Provider>
             </div>
             <Location>
-              {({ location }) => (
-                <>
-                  <div className="mobile-menu-bg" ref={this.mobileMenuBg} />
-                  <div className="mobile-shroud" ref={this.mobileShroud} />
-                  <Header
-                    activeLanguage={activeLanguage}
-                    brandNavigation={brandNavigation}
-                    headerFooter={headerFooter}
-                    label={label}
-                    navigation={navigation}
-                    region={region}
-                    location={location}
-                    showMobileBG={this.showMobileBG}
-                  />
-                  <div className="bodyClass">
-                    <LocationProvider value={location} visitorRegion="test">
+              {props => {
+                const { location } = props;
+                return (
+                  <>
+                    <div className="mobile-menu-bg" ref={this.mobileMenuBg} />
+                    <div className="mobile-shroud" ref={this.mobileShroud} />
+                    <Header
+                      activeLanguage={activeLanguage}
+                      brandNavigation={brandNavigation}
+                      headerFooter={headerFooter}
+                      label={label}
+                      navigation={navigation}
+                      region={region}
+                      location={location}
+                      showMobileBG={this.showMobileBG}
+                    />
+                    <div className="bodyClass">
+                      {/* TODO address visitorRegion or remove if not needed */}
+                      {/* <LocationProvider value={location} visitorRegion="test"> */}
                       <div className={childrenClass}>{children}</div>
-                    </LocationProvider>
-                  </div>
-                  <Footer
-                    brandNavigation={brandNavigation}
-                    headerFooter={headerFooter}
-                    label={label}
-                    lang={lang}
-                    locale={activeLanguage}
-                    location={location}
-                    region={region}
-                  />
-                </>
-              )}
+                      {/* </LocationProvider> */}
+                    </div>
+                    <Footer
+                      brandNavigation={brandNavigation}
+                      headerFooter={headerFooter}
+                      label={label}
+                      lang={lang}
+                      locale={activeLanguage}
+                      location={location}
+                      region={region}
+                    />
+                  </>
+                );
+              }}
             </Location>
           </div>
         </div>

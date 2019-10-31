@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
 import { createLinkFromPage, getTitle, makeid } from '../utils/functions';
@@ -6,7 +6,6 @@ import CloseButton from './closeButton';
 
 const NavigationDropdown = props => {
   const { activeLanguage, handleMenuItem, isOpen, label, location, section } = props;
-
   const handleClick = evt => {
     evt.preventDefault();
     if (!isOpen) {
@@ -15,10 +14,13 @@ const NavigationDropdown = props => {
       handleMenuItem('');
     }
   };
-  // Determine title and assign it to a new property;
-  // also avoids future redundant getTitle calls.
-  // Use getTitle here because we want the menu to use the source
-  // title and not page title which could vary for mktg purposes.
+
+  const navClose = useRef(null);
+
+  /* Determine title and assign it to a new property;
+     also avoids future redundant getTitle calls. */
+  /* Use getTitle here because we want the menu to use the source
+     title and not page title which could vary for mktg purposes. */
   section.pages.forEach(page => {
     Object.defineProperty(page, 'title', {
       value: getTitle(page),
@@ -40,9 +42,9 @@ const NavigationDropdown = props => {
       // TODO: need to ensure activeLanguage param is valid value for localeCompare
       const titleA = (a.title && a.title.toLowerCase()) || '';
       const titleB = (a.title && b.title.toLowerCase()) || '';
-      // -1 sort string ascending
-      //  1 sort string descending;
-      //  0 no sorting
+      /* -1 sort string ascending
+          1 sort string descending;
+          0 no sorting              */
       return titleA.localeCompare(titleB, activeLanguage);
     });
   }
@@ -51,6 +53,7 @@ const NavigationDropdown = props => {
     <div className="section-container">
       <div className="section">
         <button
+          id="nav-close"
           type="button"
           aria-expanded="false"
           aria-haspopup="true"
@@ -58,6 +61,7 @@ const NavigationDropdown = props => {
           onClick={evt => {
             handleClick(evt);
           }}
+          ref={navClose}
         >
           {section.title}
           <span className="chevron">
@@ -117,6 +121,9 @@ NavigationDropdown.propTypes = {
     pathname: PropTypes.string,
   }),
   section: PropTypes.shape({
+    pages: PropTypes.array,
+    sortOrder: PropTypes.array,
+    title: PropTypes.string,
     type: PropTypes.string,
   }),
 };

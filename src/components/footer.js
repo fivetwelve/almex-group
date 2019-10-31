@@ -12,7 +12,7 @@ import {
   FaFacebookF,
 } from 'react-icons/fa';
 import Markdown from 'react-remarkable';
-import { createLink, hoursPassed, makeid } from '../utils/functions';
+import { createLink, fetch, hoursPassed, makeid } from '../utils/functions';
 import { BRANDS, PAGE_TYPES } from '../constants';
 import '../styles/footer.scss';
 
@@ -267,16 +267,16 @@ class Footer extends React.Component {
             <div className="footer-bottom">
               <div className="bottom-left">{footer.COPYRIGHT}</div>
               <div className="bottom-center">
-                <Link to="/northamerica/en/about" className="footer-link">
+                <Link to={createLink(location, footerLinks.ABOUT.PATH)} className="footer-link">
                   {footerLinks.ABOUT.LABEL}
                 </Link>
-                <Link to="/northamerica/en/about" className="footer-link">
+                <Link to={createLink(location, footerLinks.CONTACT.PATH)} className="footer-link">
                   {footerLinks.CONTACT.LABEL}
                 </Link>
-                <Link to="/northamerica/en/about" className="footer-link">
+                <Link to={createLink(location, footerLinks.PRIVACY.PATH)} className="footer-link">
                   {footerLinks.PRIVACY.LABEL}
                 </Link>
-                <Link to="/northamerica/en/about" className="footer-link">
+                <Link to={createLink(location, footerLinks.CAREERS.PATH)} className="footer-link">
                   {footerLinks.CAREERS.LABEL}
                 </Link>
               </div>

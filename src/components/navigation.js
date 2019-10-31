@@ -5,6 +5,7 @@ import { IconContext } from 'react-icons';
 import { FaTimes } from 'react-icons/fa';
 import NavigationDropdown from './navigationDropdown';
 import NavigationLink from './navigationLink';
+import checkKeyPress from '../utils/checkKeyPress';
 import { LANGUAGE_SLUGS, REGION_SLUGS } from '../constants';
 
 const mobileLanguages = (activeLanguage, languages, label, region) => {
@@ -50,7 +51,7 @@ const Navigation = props => {
   } = props;
   /* using Hooks instead of component state */
   const [openSection, handleMenuItem] = useState('');
-  const brandMenuOpen = brandNavigation.type === openSection;
+  const mobileBrandMenuOpen = brandNavigation.type === openSection;
   const sortedNavigationSections = [];
   navigation.sortOrder.forEach(elem => {
     sortedNavigationSections.push(
@@ -58,6 +59,11 @@ const Navigation = props => {
     );
   });
 
+  checkKeyPress('Escape', () => {
+    handleMenuItem('');
+  });
+
+  /* Brand menu below is for mobile. Desktop brand menu is BrandSelector in Header */
   return (
     <>
       <div className="close-container">
@@ -77,7 +83,7 @@ const Navigation = props => {
             handleMenuItem={type => handleMenuItem(type)}
             location={location}
             section={brandNavigation}
-            isOpen={brandMenuOpen}
+            isOpen={mobileBrandMenuOpen}
             label={label.common}
           />
         )}
@@ -86,7 +92,7 @@ const Navigation = props => {
         {sortedNavigationSections.length > 0 &&
           sortedNavigationSections.map(section => {
             const isOpen = section.type === openSection;
-            if (section.landingPage) {
+            if (section.isLandingPage) {
               return (
                 <NavigationLink
                   activeLanguage={activeLanguage}
@@ -100,7 +106,6 @@ const Navigation = props => {
               <NavigationDropdown
                 activeLanguage={activeLanguage}
                 handleMenuItem={type => handleMenuItem(type)}
-                // key={makeid()}
                 key={section.type}
                 location={location}
                 section={section}
@@ -129,6 +134,7 @@ Navigation.propTypes = {
   activeLanguage: PropTypes.string,
   brandNavigation: PropTypes.shape({
     pages: PropTypes.array,
+    type: PropTypes.string,
   }),
   handleCloseMenuClick: PropTypes.func,
   label: PropTypes.shape({
@@ -142,6 +148,7 @@ Navigation.propTypes = {
   }),
   navigation: PropTypes.shape({
     navigationSections: PropTypes.array,
+    sortOrder: PropTypes.array,
   }),
   region: PropTypes.string,
 };

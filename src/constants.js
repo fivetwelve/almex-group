@@ -14,6 +14,7 @@ module.exports = {
     EXPERT: 'EXPERT',
     OFFICE: 'OFFICE',
   },
+  // used for Event location
   CONTINENTS: {
     GLOBAL: 'GLOBAL',
     AFRICA: 'AFRICA',
@@ -51,17 +52,18 @@ module.exports = {
     ES: 'ES',
     ES_ES: 'ES_ES',
   },
-  NAV_SECTION_TYPES: {
-    ABOUT: 'ABOUT',
-    BRANDS: 'BRANDS',
-    HOME: 'HOME',
-    INDUSTRIES: 'INDUSTRIES',
-    PRODUCTS: 'PRODUCTS',
-    REPAIRS: 'REPAIRS',
-    RESOURCES: 'RESOURCES',
-    SERVICES: 'SERVICES',
-    SUPPORT: 'SUPPORT',
-  },
+  // NAV_SECTION_TYPES: {
+  //   ABOUT: 'ABOUT',
+  //   BRANDS: 'BRANDS',
+  //   HOME: 'HOME',
+  //   INDUSTRIES: 'INDUSTRIES',
+  //   PRODUCTS: 'PRODUCTS',
+  //   REPAIRS: 'REPAIRS',
+  //   RESOURCES: 'RESOURCES',
+  //   SERVICES: 'SERVICES',
+  //   SUPPORT: 'SUPPORT',
+  //   TRAINING: 'TRAINING',
+  // },
   OFFICES: {
     API: 'INDONESIA',
     AUS: 'AUSTRALIA',
@@ -117,13 +119,11 @@ module.exports = {
   },
   REGION_SLUGS: {
     NORTH_AMERICA: 'northamerica',
-    SOUTH_AMERICA: 'southamerica',
-    CENTRAL_SOUTH_AMERICA: 'centralsouthamerica',
+    CHILE: 'chile',
   },
   REGIONS: {
     NORTH_AMERICA: 'NORTH_AMERICA',
-    SOUTH_AMERICA: 'SOUTH_AMERICA',
-    CENTRAL_SOUTH_AMERICA: 'CENTRAL_SOUTH_AMERICA',
+    CHILE: 'CHILE',
   },
   RESOURCE_TYPES: {
     BROCHURE: 'BROCHURE',

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Carousel from 'nuka-carousel';
-// import YouTube from 'react-youtube';
+import YouTube from 'react-youtube';
 import { IconContext } from 'react-icons';
 import { FaChevronLeft, FaChevronRight, FaYoutube } from 'react-icons/fa';
 import { makeid } from '../utils/functions';
@@ -31,16 +31,7 @@ class ProductShowcase extends React.Component {
     for (let j = 0; j < youTubeVideos.length; j += 1) {
       const slide = (
         <div className="video-container" key={makeid()}>
-          {/* <YouTube videoId={youTubeVideos[j].youTubeId} /> */}
-          <iframe
-            // width="560"
-            // height="315"
-            src={`https://www.youtube.com/embed/${youTubeVideos[j].youTubeId}`}
-            frameBorder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowFullscreen
-            title="youtube-video"
-          />
+          <YouTube videoId={youTubeVideos[j].youTubeId} />
         </div>
       );
       slideArray.push(slide);
@@ -99,6 +90,7 @@ class ProductShowcase extends React.Component {
       attractText,
       brand,
       images,
+      label,
       locale,
       products,
       // themeColour,
@@ -124,8 +116,8 @@ class ProductShowcase extends React.Component {
             {slideArray.length > 1 && (
               <Carousel
                 afterSlide={slideIndex => this.setState({ slideIdx: slideIndex })}
-                className="carousel"
                 autoGenerateStyleTag={autoGenerateStyleTag}
+                className="carousel"
                 enableKeyboardControls={enableKeyboardControls}
                 renderCenterLeftControls={({ currentSlide, previousSlide }) => (
                   <button
@@ -134,6 +126,7 @@ class ProductShowcase extends React.Component {
                     }
                     type="button"
                     className="left-controls"
+                    aria-label=""
                   >
                     <span className="sr-only">Previous</span>
                     <span aria-hidden="true" className="left-controls-icon">
@@ -195,6 +188,7 @@ class ProductShowcase extends React.Component {
                     onClick={() => this.setState({ slideIdx: idx })}
                     style={thumbStyle}
                     type="button"
+                    aria-label={label.common.VIEW_IMAGE}
                   />
                 </div>
               );
@@ -234,6 +228,7 @@ ProductShowcase.defaultProps = {
   attractText: [],
   brand: '',
   images: [],
+  label: {},
   locale: '',
   products: {},
   // themeColour: '',
@@ -251,6 +246,9 @@ ProductShowcase.propTypes = {
       url: PropTypes.string,
     }),
   ),
+  label: PropTypes.shape({
+    common: PropTypes.object,
+  }),
   locale: PropTypes.string,
   products: PropTypes.shape({
     SHOULD_KNOW: PropTypes.string,

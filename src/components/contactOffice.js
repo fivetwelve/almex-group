@@ -143,6 +143,8 @@ ContactOffice.propTypes = {
     countryCode: PropTypes.string,
     description: PropTypes.string,
     fax: PropTypes.array,
+    latitude: PropTypes.number,
+    longitude: PropTypes.number,
     mobile: PropTypes.array,
     name: PropTypes.string,
     telephone: PropTypes.array,

@@ -1,0 +1,47 @@
+@mixin multiLineEllipsis($lineHeight: 1.2em, $lineCount: 1, $bgColor: white) {
+  overflow: hidden;
+  position: relative;
+  line-height: $lineHeight;
+  max-height: $lineHeight * $lineCount;
+  text-align: justify;
+  margin-right: -1em;
+  padding-right: 1em;
+  &:before {
+    content: '...';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 1em;
+    height: 1em;
+    margin-top: 0.2em;
+    background: $bgColor;
+  }
+}
+
+@import 'base';
+$spacing: 20px;
+.search {
+  padding-left: 10px;
+  padding-right: 10px;
+  @include media('>=tablet') {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .search-container {
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    .result {
+      .body > div > span > p {
+        @include multiLineEllipsis($lineHeight: 1.2em, $lineCount: 3, $bgColor: white);
+      }
+    }
+  }
+}

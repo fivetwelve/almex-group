@@ -30,7 +30,7 @@ AccessoryAndRelatedTile.propTypes = {
   }),
   slug: PropTypes.string,
   tile: PropTypes.shape({
-    // url: PropTypes.string,
+    url: PropTypes.string,
     handle: PropTypes.string,
     height: PropTypes.number,
     width: PropTypes.number,

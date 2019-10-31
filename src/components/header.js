@@ -27,10 +27,6 @@ class Header extends React.Component {
     this.navWrapperRef = React.createRef();
   }
 
-  componentDidUpdate() {
-    // console.log(this.myRef);
-  }
-
   handleMobileMenuClick = evt => {
     evt.preventDefault();
     const { showMobileBG } = this.props;
@@ -75,11 +71,7 @@ class Header extends React.Component {
                   }
                 </IconContext.Provider>
               </div> */}
-              <BrandSelector
-                brandNavigation={brandNavigation}
-                label={label.header.BRANDS}
-                location={location}
-              />
+              <BrandSelector brandNavigation={brandNavigation} label={label} location={location} />
               <LanguageSelector
                 activeLanguage={activeLanguage}
                 languages={headerFooter.language}
@@ -243,7 +235,7 @@ export const commonFragment = graphql`
             title(locale: $locale)
           }
         }
-        landingPage
+        isLandingPage
         sortOrder(locale: $locale)
         title(locale: $locale)
         type

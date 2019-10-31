@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
 import { FaTimes } from 'react-icons/fa';
 import Recaptcha from 'react-google-recaptcha';
-import { apiUrl, makeid } from '../utils/functions';
+import { apiUrl, fetch, makeid } from '../utils/functions';
 import { CONTACT_TYPES, FORM_TYPES } from '../constants';
 
 class ContactFormModal extends React.Component {
@@ -32,20 +32,23 @@ class ContactFormModal extends React.Component {
     this.recaptchaRef = React.createRef();
   }
 
-  componentWillReceiveProps(nextProps) {
+  static getDerivedStateFromProps(props, state) {
     // When there is a selectedOffice, set contactOffice to that value
     // this should only happen once when user clicks on Contact Us in parent component
-    const { selectedExpert, selectedOffice } = this.props;
-    if (nextProps.selectedOffice !== selectedOffice) {
-      this.setState({
-        contactOffice: nextProps.selectedOffice,
-      });
+    const { selectedExpert, selectedOffice } = props;
+    if (state.selectedOffice !== selectedOffice) {
+      return {
+        contactOffice: selectedOffice,
+        contactExpert: null,
+      };
     }
-    if (nextProps.selectedExpert !== selectedExpert) {
-      this.setState({
-        contactExpert: nextProps.selectedExpert,
-      });
+    if (state.selectedExpert !== selectedExpert) {
+      return {
+        contactExpert: selectedExpert,
+        contactOffice: null,
+      };
     }
+    return null;
   }
 
   handleChange = evt => {

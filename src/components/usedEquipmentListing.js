@@ -167,6 +167,7 @@ class UsedEquipmentListing extends React.Component {
                         onClick={() => this.setState({ slideIdx: idx })}
                         style={thumbStyle}
                         type="button"
+                        aria-label={label.common.VIEW_IMAGE}
                       />
                     </div>
                   );
@@ -207,6 +208,7 @@ UsedEquipmentListing.propTypes = {
     }),
   ),
   label: PropTypes.shape({
+    common: PropTypes.object,
     sparesRepairs: PropTypes.object,
   }),
   modelNumber: PropTypes.string,

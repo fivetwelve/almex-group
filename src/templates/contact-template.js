@@ -201,7 +201,15 @@ ContactTemplate.defaultProps = {
 
 ContactTemplate.propTypes = {
   data: PropTypes.shape({
-    id: PropTypes.string,
+    cms: PropTypes.shape({
+      aboutLabel: PropTypes.object,
+      brandNavigation: PropTypes.object,
+      experts: PropTypes.array,
+      headerFooter: PropTypes.object,
+      label: PropTypes.object,
+      navigation: PropTypes.object,
+      page: PropTypes.object,
+    }),
   }),
   pageContext: PropTypes.shape({
     locale: PropTypes.string,

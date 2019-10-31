@@ -36,6 +36,8 @@ const HomepageTemplate = ({ data, pageContext }) => {
   };
   const slides = homepage.homepageCarouselSlides;
   const options = {
+    autoplay: true,
+    autoplayInterval: 20000,
     autoGenerateStyleTag: false,
     enableKeyboardControls: true,
     frameOverflow: 'hidden',
@@ -109,6 +111,8 @@ const HomepageTemplate = ({ data, pageContext }) => {
           <>
             <Carousel
               className="carousel"
+              autoplay={options.autoplay}
+              autoplayInterval={options.autoplayInterval}
               autoGenerateStyleTag={options.autoGenerateStyleTag}
               enableKeyboardControls={options.enableKeyboardControls}
               renderCenterLeftControls={({ previousSlide }) => (
@@ -235,7 +239,13 @@ HomepageTemplate.defaultProps = {
 
 HomepageTemplate.propTypes = {
   data: PropTypes.shape({
-    tagLine: PropTypes.string,
+    cms: PropTypes.shape({
+      brandNavigation: PropTypes.object,
+      headerFooter: PropTypes.object,
+      label: PropTypes.object,
+      navigation: PropTypes.object,
+      page: PropTypes.object,
+    }),
   }),
   pageContext: PropTypes.shape({
     landingSections: PropTypes.array,

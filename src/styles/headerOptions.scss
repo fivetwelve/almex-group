@@ -125,7 +125,6 @@
       &.visible {
         display: flex;
       }
-
       .brand {
         &.almex-box,
         &.bat,
@@ -202,6 +201,17 @@
           background-image: url('../../static/img/logo-votech.png');
           background-position-y: -66px;
         }
+      }
+      .close {
+        font-size: 16px;
+        background: none;
+        border: 0;
+        color: $grey80;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 10px;
+        margin: 5px;
       }
     }
   }
