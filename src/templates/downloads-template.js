@@ -51,7 +51,7 @@ const DownloadsTemplate = ({ data, pageContext }) => {
       label={label}
       navigation={navigation}
       region={region}
-      title=""
+      title={title}
     >
       {/* <Location>
         {({ location }) => ( */}

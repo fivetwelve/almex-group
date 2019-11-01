@@ -85,7 +85,7 @@ const SearchTemplate = props => {
       label={label}
       navigation={navigation}
       region={region}
-      title=""
+      // title={title}
     >
       <div className="search-container">
         <InstantSearch

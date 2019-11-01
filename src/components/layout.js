@@ -104,7 +104,7 @@ class Layout extends React.Component {
 
     return (
       <>
-        <Helmet defaultTitle={title} titleTemplate={`Almex Group | ${title}`}>
+        <Helmet defaultTitle="Almex Group" titleTemplate="Almex Group | %s">
           <html lang={lang} ref={this.htmlRef} />
           {/* <link rel="canonical" href={`${siteUrl}${pathname}`} /> */}
           <meta name="docsearch:version" content="2.0" />

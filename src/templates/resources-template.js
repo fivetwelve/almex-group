@@ -161,7 +161,7 @@ class ResourcesTemplate extends Component {
         label={label}
         navigation={navigation}
         region={region}
-        title=""
+        title={title}
       >
         {/* <Location>
         {({ location }) => ( */}

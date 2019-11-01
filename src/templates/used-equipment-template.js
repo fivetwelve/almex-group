@@ -38,7 +38,7 @@ const UsedEquipmentTemplate = ({ data, pageContext }) => {
       label={label}
       navigation={navigation}
       region={region}
-      title=""
+      title={title}
     >
       <div className="used-equipment-container">
         {bannerImage && (
