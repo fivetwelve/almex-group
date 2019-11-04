@@ -49,6 +49,24 @@ const NavigationDropdown = props => {
     });
   }
 
+  // console.log(section.pages.length);
+  // console.log(section.pages.length > 3);
+
+  const menuHeight = () => {
+    const pageQuant = section.pages.length;
+    if (pageQuant > 3) {
+      return `menuHeight${Math.ceil(pageQuant / 3)}`;
+    }
+    return 'menuHeight1';
+  };
+
+  // const menuWrapper = {
+  //   flexDirection: 'column',
+  //   display: 'inline-flex',
+  //   flexWrap: 'wrap',
+  //   height: wrapperHeight(),
+  // };
+
   return (
     <div className="section-container">
       <div className="section">
@@ -87,7 +105,7 @@ const NavigationDropdown = props => {
       <div className={`section-menu-container ${isOpen ? 'visible' : ''}`}>
         <CloseButton closeMenu={handleMenuItem} label={label} />
         <div className="title">{section.title}</div>
-        <div className="menu-container">
+        <div className={`menu-container ${menuHeight()}`}>
           {section.pages.map(page => (
             <div className="category" key={makeid()}>
               <Link to={createLinkFromPage(location, page, activeLanguage)}>
