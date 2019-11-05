@@ -15,7 +15,7 @@ $spacing: 20px;
     }
     .slider-control-bottomcenter {
       // display: none;
-      margin-bottom: -25px;
+      margin-bottom: -15px;
       @include media('>=tablet') {
         margin-bottom: 0px;
         display: block;
@@ -77,20 +77,69 @@ $spacing: 20px;
         right: 12px;
       }
     }
-
     .heading-container {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      position: relative;
+      .heading {
+        position: absolute;
+        bottom: 0;
+        padding: 55px 90px 20px;
+        color: white;
+        text-shadow: 1px 1px 0 $grey80, -1px -1px 0 $grey80, 1px -1px 0 $grey80, -1px 1px 0 $grey80,
+          1px 1px 0 $grey80;
+        @include media('>=tablet') {
+          padding: 55px 90px 40px;
+        }
+        a {
+          color: $white;
+          text-decoration: none;
+          position: relative;
+          display: inline;
+          font-size: 32px;
+          font-weight: 700;
+          line-height: normal;
+          @include media('>=tablet') {
+            font-size: 50px;
+          }
+          &:hover {
+            p {
+              display: inline=block;
+              background-color: rgba(255, 255, 255, 0.3);
+              &:before {
+                content: '\00a0';
+                width: 15px;
+                left: -15px;
+                display: inline-block;
+                background-color: rgba(255, 255, 255, 0.3);
+                position: absolute;
+              }
+              &:after {
+                content: '\00a0';
+                width: 15px;
+                display: inline-block;
+                background-color: rgba(255, 255, 255, 0.3);
+                position: absolute;
+              }
+            }
+          }
+        }
+      }
+    }
+    .description-container {
       width: 100%;
       background-color: $yellow-sea;
       height: 70px;
       display: flex;
       position: absolute;
       bottom: -70px;
-      .heading {
+      .description {
         width: 100%;
         max-width: 1280px;
         margin: 0 auto;
         color: $white;
-        font-size: 14px;
+        font-size: 18px;
         display: flex;
         align-items: center;
         line-height: 16px;
@@ -101,6 +150,7 @@ $spacing: 20px;
           font-size: 24px;
           padding-left: 90px;
           padding-right: 90px;
+          padding-bottom: 10px;
         }
         a {
           color: $white;
@@ -235,7 +285,7 @@ $spacing: 20px;
         width: calc(25% - #{$spacing} * 0.75);
       }
       .content-container {
-        padding-top: 80px;
+        padding-top: 40px;
         padding-left: 20px;
         padding-right: 15px;
         padding-bottom: 10px;
@@ -243,6 +293,9 @@ $spacing: 20px;
         position: relative;
         height: 100%;
         overflow: hidden;
+        @include media('>=tablet') {
+          padding-top: 20px;
+        }
         .event-background {
           background-position: center center;
           background-size: cover;
@@ -285,7 +338,6 @@ $spacing: 20px;
       }
     }
     .event1 {
-      // background-color: $blue60;
       margin-bottom: $spacing;
       @include media('>=tablet') {
         margin-right: $spacing;
@@ -296,7 +348,6 @@ $spacing: 20px;
       }
     }
     .event2 {
-      // background-color: $yellow-sea80;
       @include media('>=desktop') {
         margin-right: $spacing;
       }
@@ -319,9 +370,13 @@ $spacing: 20px;
         position: absolute;
         right: 0;
         background-color: rgba(255, 255, 255, 0.8);
-        padding: 30px 15px 20px 20px;
+        padding: 40px 15px 20px 20px;
         @include media('>=tablet') {
           width: 40%;
+          padding-top: 20px;
+        }
+        @include media('>=desktop') {
+          width: 60%;
         }
       }
     }
@@ -334,10 +389,20 @@ $spacing: 20px;
       .description {
         font-size: 18px;
         line-height: normal;
+        li {
+          margin-bottom: 0;
+        }
       }
-      .event-more {
+      a.event-more {
         background-color: $grey80;
         border: 0;
+        display: inline-flex;
+        align-content: center;
+        height: 36px;
+        color: $white;
+        padding-left: 15px;
+        padding-right: 15px;
+        text-decoration: none;
         &:hover {
           background-color: $grey60;
         }
