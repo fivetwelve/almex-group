@@ -49,6 +49,25 @@ const NavigationDropdown = props => {
     });
   }
 
+  /* determine vertical height and column designations */
+  const rows = Math.ceil(section.pages.length / 3);
+  const menuHeight = () => {
+    const pageQuant = section.pages.length;
+    if (pageQuant > 3) {
+      return `menuHeight${rows}`;
+    }
+    return 'menuHeight1';
+  };
+  const colType = idx => {
+    if (idx < rows) {
+      return 'col-1';
+    }
+    if (idx < rows * 2) {
+      return 'col-2';
+    }
+    return 'col-3';
+  };
+
   return (
     <div className="section-container">
       <div className="section">
@@ -87,9 +106,9 @@ const NavigationDropdown = props => {
       <div className={`section-menu-container ${isOpen ? 'visible' : ''}`}>
         <CloseButton closeMenu={handleMenuItem} label={label} />
         <div className="title">{section.title}</div>
-        <div className="menu-container">
-          {section.pages.map(page => (
-            <div className="category" key={makeid()}>
+        <div className={`menu-container ${menuHeight()}`}>
+          {section.pages.map((page, idx) => (
+            <div className={`category ${colType(idx)}`} key={makeid()}>
               <Link to={createLinkFromPage(location, page, activeLanguage)}>
                 <span className="link-text">{page.title}</span>
               </Link>

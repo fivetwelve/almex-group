@@ -116,7 +116,7 @@ class ContactTemplate extends React.Component {
         label={label}
         navigation={navigation}
         region={region}
-        title=""
+        title={title}
       >
         {/* <Location>
           {({ location }) => ( */}

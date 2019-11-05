@@ -159,10 +159,6 @@ class EventsTemplate extends Component {
             }),
         );
     }
-    // if (bool) {
-    //   console.log(day);
-    //   console.log(bool);
-    // }
     return bool;
   };
 
@@ -172,17 +168,7 @@ class EventsTemplate extends Component {
   };
 
   renderDay = day => {
-    // console.log(`day: ${day}`);
     const date = day.getDate();
-    // const bool = this.isDayHighlighted(day);
-    // if (bool) {
-    // console.log(date);
-    // console.log(bool);
-    // }
-    // const thisClass = bool ? 'DayPicker-Day--inner-lit' : 'DayPicker-Day--inner';
-    // const thisClass = this.isDayHighlighted(day)
-    //   ? 'DayPicker-Day--inner-lit'
-    //   : 'DayPicker-Day--inner';
     return (
       <div>
         <span>{date}</span>
@@ -235,33 +221,6 @@ class EventsTemplate extends Component {
       return bool;
     };
 
-    // const highlighted = new Date(allEvents[1].startDate);
-
-    // const eventDay = day => {
-    //   const daySelected = new Date(day.getFullYear(), day.getMonth(), day.getDate());
-    //   // console.log('--->', day.toUTCString());
-    //   // console.log(new Date(allEvents[0].startDate));
-    //   // if (daySelected.getDate() === new Date(allEvents[0].startDate).getDate()) {
-    //   //   console.log(daySelected);
-    //   //   console.log(allEvents[0].startDate);
-    //   // }
-    //   if (daySelected.toUTCString() === new Date(allEvents[0].startDate).toUTCString()) {
-    //     console.log(daySelected);
-    //     return true;
-    //   }
-    //   return false;
-    // };
-
-    // const weekends = {
-    //   daysOfWeek: [0, 6],
-    // };
-
-    // const future = {
-    //   after: new Date(2016, 3, 1),
-    // };
-
-    // const event = day => {};
-
     return (
       <Layout
         activeLanguage={locale}
@@ -271,7 +230,7 @@ class EventsTemplate extends Component {
         label={label}
         navigation={navigation}
         region={region}
-        title=""
+        title={title}
       >
         <Location>
           {({ location }) => (

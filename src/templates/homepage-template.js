@@ -10,7 +10,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import HomePageTile from '../components/homepageTile';
 import Layout from '../components/layout';
 import '../styles/homepage.scss';
-import { makeid } from '../utils/functions';
+import { createLink, makeid } from '../utils/functions';
 
 const HomepageTemplate = ({ data, pageContext }) => {
   const { locale, region } = pageContext;
@@ -62,6 +62,13 @@ const HomepageTemplate = ({ data, pageContext }) => {
             <div className="heading-container">
               <div className="heading">
                 <Link to={location.pathname + slides[i].page.slug}>
+                  <Markdown source={slides[i].slideHeading} options={{ html: true }} />
+                </Link>
+              </div>
+            </div>
+            <div className="description-container">
+              <div className="description">
+                <Link to={location.pathname + slides[i].page.slug}>
                   <Markdown source={slides[i].slideText} options={{ html: true }} />
                 </Link>
               </div>
@@ -82,6 +89,13 @@ const HomepageTemplate = ({ data, pageContext }) => {
             </div>
             <div className="heading-container">
               <div className="heading">
+                <Link to={location.pathname + slides[i].page.slug}>
+                  <Markdown source={slides[i].slideHeading} options={{ html: true }} />
+                </Link>
+              </div>
+            </div>
+            <div className="description-container">
+              <div className="description">
                 <Link to={location.pathname + slides[i].page.slug}>
                   <Markdown source={slides[i].slideText} options={{ html: true }} />
                 </Link>
@@ -141,13 +155,13 @@ const HomepageTemplate = ({ data, pageContext }) => {
               {/* {slideArray} */}
               {renderSlides(location)}
             </Carousel>
-            <div className="tagline-anchor">
+            {/* <div className="tagline-anchor">
               <div className="tagline-container">
                 <div className="tagline">
                   <Markdown source={headerFooter.formattedTagline} options={{ html: true }} />
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="no-bleed-container">
               <div className="tile-container">
                 {homepage.homepageTiles.length > 0 &&
@@ -176,9 +190,11 @@ const HomepageTemplate = ({ data, pageContext }) => {
                         options={{ html: true }}
                       />
                     </div>
-                    <button type="button" className="event-more">
-                      {label.common.MORE}
-                    </button>
+                    {homepage.homepageEventTiles[0].page && (
+                      <Link to={createLink(location, homepage.homepageEventTiles[0].page.slug)}>
+                        {label.common.MORE}
+                      </Link>
+                    )}
                     <div className="event-overlay-blue" />
                   </div>
                 </div>
@@ -198,9 +214,11 @@ const HomepageTemplate = ({ data, pageContext }) => {
                         options={{ html: true }}
                       />
                     </div>
-                    <button type="button" className="event-more">
-                      {label.common.MORE}
-                    </button>
+                    {homepage.homepageEventTiles[1].page && (
+                      <Link to={createLink(location, homepage.homepageEventTiles[1].page.slug)}>
+                        {label.common.MORE}
+                      </Link>
+                    )}
                   </div>
                 </div>
                 <div className="event3" style={eventStyle3}>
@@ -218,9 +236,11 @@ const HomepageTemplate = ({ data, pageContext }) => {
                         options={{ html: true }}
                       />
                     </div>
-                    <button type="button" className="event-more">
-                      {label.common.MORE}
-                    </button>
+                    {homepage.homepageEventTiles[2].page && (
+                      <Link to={createLink(location, homepage.homepageEventTiles[2].page.slug)}>
+                        {label.common.MORE}
+                      </Link>
+                    )}
                   </div>
                 </div>
               </div>
@@ -269,6 +289,7 @@ export const query = graphql`
             page {
               slug(locale: $locale)
             }
+            slideHeading(locale: $locale)
             slideText(locale: $locale)
             slideType
           }
@@ -278,6 +299,9 @@ export const query = graphql`
             description(locale: $locale)
             image {
               url
+            }
+            page {
+              slug(locale: $locale)
             }
           }
           homepageTiles(orderBy: sort_ASC) {
