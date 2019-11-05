@@ -516,16 +516,27 @@
                 font-size: 18px;
                 height: 50px;
                 align-items: center;
-                padding: 0 10px;
                 border-bottom: none;
                 background-color: transparent;
                 vertical-align: middle;
-                // border-right: 1px solid rgba(255, 255, 255, 0.3);
                 // &:nth-child(3n + 2),
                 // &:nth-child(3n + 3) {
                 //   padding: 0 10px 0 25px;
                 //   // border-left: 1px solid $white;
                 // }
+                &.col-1 {
+                  border-right: 1px solid rgba(255, 255, 255, 0.3);
+                  padding: 0;
+                  margin-right: 10px;
+                }
+                &.col-2 {
+                  border-right: 1px solid rgba(255, 255, 255, 0.3);
+                  padding: 0 0px 0 5px;
+                  margin-right: 5px;
+                }
+                &.col-3 {
+                  padding: 0 0px 0 10px;
+                }
               }
               a {
                 color: $white;

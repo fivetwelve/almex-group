@@ -49,23 +49,24 @@ const NavigationDropdown = props => {
     });
   }
 
-  // console.log(section.pages.length);
-  // console.log(section.pages.length > 3);
-
+  /* determine vertical height and column designations */
+  const rows = Math.ceil(section.pages.length / 3);
   const menuHeight = () => {
     const pageQuant = section.pages.length;
     if (pageQuant > 3) {
-      return `menuHeight${Math.ceil(pageQuant / 3)}`;
+      return `menuHeight${rows}`;
     }
     return 'menuHeight1';
   };
-
-  // const menuWrapper = {
-  //   flexDirection: 'column',
-  //   display: 'inline-flex',
-  //   flexWrap: 'wrap',
-  //   height: wrapperHeight(),
-  // };
+  const colType = idx => {
+    if (idx < rows) {
+      return 'col-1';
+    }
+    if (idx < rows * 2) {
+      return 'col-2';
+    }
+    return 'col-3';
+  };
 
   return (
     <div className="section-container">
@@ -106,8 +107,8 @@ const NavigationDropdown = props => {
         <CloseButton closeMenu={handleMenuItem} label={label} />
         <div className="title">{section.title}</div>
         <div className={`menu-container ${menuHeight()}`}>
-          {section.pages.map(page => (
-            <div className="category" key={makeid()}>
+          {section.pages.map((page, idx) => (
+            <div className={`category ${colType(idx)}`} key={makeid()}>
               <Link to={createLinkFromPage(location, page, activeLanguage)}>
                 <span className="link-text">{page.title}</span>
               </Link>
