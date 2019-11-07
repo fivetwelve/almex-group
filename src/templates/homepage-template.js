@@ -61,14 +61,14 @@ const HomepageTemplate = ({ data, pageContext }) => {
             <div className="slide-image" style={slideStyle} />
             <div className="heading-container">
               <div className="heading">
-                <Link to={location.pathname + slides[i].page.slug}>
+                <Link to={createLink(location, slides[i].page.slug)}>
                   <Markdown source={slides[i].slideHeading} options={{ html: true }} />
                 </Link>
               </div>
             </div>
             <div className="description-container">
               <div className="description">
-                <Link to={location.pathname + slides[i].page.slug}>
+                <Link to={createLink(location, slides[i].page.slug)}>
                   <Markdown source={slides[i].slideText} options={{ html: true }} />
                 </Link>
               </div>
@@ -96,7 +96,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
             </div>
             <div className="description-container">
               <div className="description">
-                <Link to={location.pathname + slides[i].page.slug}>
+                <Link to={`${location.pathname}/${slides[i].page.slug}`}>
                   <Markdown source={slides[i].slideText} options={{ html: true }} />
                 </Link>
               </div>
