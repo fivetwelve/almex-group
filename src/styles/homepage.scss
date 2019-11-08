@@ -403,13 +403,12 @@ $spacing: 20px;
         align-content: center;
         height: 36px;
         color: $white;
-        padding-left: 15px;
-        padding-right: 15px;
+        padding: 10px 15px;
         text-decoration: none;
+        transition: $easeinout;
         &:hover {
           background-color: $grey60;
         }
-        transition: $easeinout;
       }
     }
   }
