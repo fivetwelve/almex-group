@@ -315,7 +315,7 @@ export const query = graphql`
               mobile
               email
             }
-            page {
+            page(where: { status: PUBLISHED }) {
               pageType
               landingSource {
                 title(locale: $locale)
