@@ -304,7 +304,7 @@ export const query = graphql`
           }
           description(locale: $locale)
           title(locale: $locale)
-          categories {
+          categories(where: { page: { status: PUBLISHED } }) {
             isProductCategory
             expert {
               name
@@ -315,7 +315,7 @@ export const query = graphql`
               mobile
               email
             }
-            page(where: { status: PUBLISHED }) {
+            page {
               pageType
               landingSource {
                 title(locale: $locale)
