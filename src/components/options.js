@@ -11,14 +11,14 @@ const optionSVG = (option, label) => {
     case OPTIONS.MULTI_PLATEN:
       return (
         <>
-          <span>{label.MULT_PLATEN}</span>
+          <span>{label.MULTI_PLATEN}</span>
           <svg
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 200 200"
             aria-labelledby="title"
           >
-            <title>{label.MULT_PLATEN}</title>
+            <title>{label.MULTI_PLATEN}</title>
             <path
               className="bg"
               style={{
