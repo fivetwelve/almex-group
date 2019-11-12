@@ -41,6 +41,9 @@ $spacing: 20px;
       background-position: center;
     }
     .slide-video {
+      @include media('>=wide') {
+        max-height: 536px;
+      }
       // height: 0;
       // width: 100%;
       // padding-bottom: 42%;
@@ -97,15 +100,16 @@ $spacing: 20px;
           text-decoration: none;
           position: relative;
           display: inline;
-          font-size: 32px;
+          font-size: 24px;
           font-weight: 700;
-          line-height: normal;
+          line-height: 24px;
           @include media('>=tablet') {
             font-size: 50px;
+            line-height: normal;
           }
           &:hover {
             p {
-              display: inline=block;
+              display: inline;
               background-color: rgba(255, 255, 255, 0.3);
               &:before {
                 content: '\00a0';
@@ -400,13 +404,12 @@ $spacing: 20px;
         align-content: center;
         height: 36px;
         color: $white;
-        padding-left: 15px;
-        padding-right: 15px;
+        padding: 10px 15px;
         text-decoration: none;
+        transition: $easeinout;
         &:hover {
           background-color: $grey60;
         }
-        transition: $easeinout;
       }
     }
   }

@@ -61,14 +61,14 @@ const HomepageTemplate = ({ data, pageContext }) => {
             <div className="slide-image" style={slideStyle} />
             <div className="heading-container">
               <div className="heading">
-                <Link to={location.pathname + slides[i].page.slug}>
+                <Link to={createLink(location, slides[i].page.slug)}>
                   <Markdown source={slides[i].slideHeading} options={{ html: true }} />
                 </Link>
               </div>
             </div>
             <div className="description-container">
               <div className="description">
-                <Link to={location.pathname + slides[i].page.slug}>
+                <Link to={createLink(location, slides[i].page.slug)}>
                   <Markdown source={slides[i].slideText} options={{ html: true }} />
                 </Link>
               </div>
@@ -96,7 +96,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
             </div>
             <div className="description-container">
               <div className="description">
-                <Link to={location.pathname + slides[i].page.slug}>
+                <Link to={`${location.pathname}/${slides[i].page.slug}`}>
                   <Markdown source={slides[i].slideText} options={{ html: true }} />
                 </Link>
               </div>
@@ -107,6 +107,29 @@ const HomepageTemplate = ({ data, pageContext }) => {
       slideArray.push(element);
     }
     return slideArray;
+  };
+
+  const eventLink = (eventTile, location) => {
+    if (eventTile.page && eventTile.page.slug) {
+      return (
+        <Link to={createLink(location, eventTile.page.slug)} className="event-more">
+          {label.common.MORE}
+        </Link>
+      );
+    }
+    if (eventTile.externalLink) {
+      return (
+        <a
+          href={eventTile.externalLink}
+          className="event-more"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {label.common.MORE}
+        </a>
+      );
+    }
+    return null;
   };
 
   return (
@@ -190,11 +213,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
                         options={{ html: true }}
                       />
                     </div>
-                    {homepage.homepageEventTiles[0].page && (
-                      <Link to={createLink(location, homepage.homepageEventTiles[0].page.slug)}>
-                        {label.common.MORE}
-                      </Link>
-                    )}
+                    {eventLink(homepage.homepageEventTiles[0], location)}
                     <div className="event-overlay-blue" />
                   </div>
                 </div>
@@ -214,11 +233,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
                         options={{ html: true }}
                       />
                     </div>
-                    {homepage.homepageEventTiles[1].page && (
-                      <Link to={createLink(location, homepage.homepageEventTiles[1].page.slug)}>
-                        {label.common.MORE}
-                      </Link>
-                    )}
+                    {eventLink(homepage.homepageEventTiles[1], location)}
                   </div>
                 </div>
                 <div className="event3" style={eventStyle3}>
@@ -236,11 +251,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
                         options={{ html: true }}
                       />
                     </div>
-                    {homepage.homepageEventTiles[2].page && (
-                      <Link to={createLink(location, homepage.homepageEventTiles[2].page.slug)}>
-                        {label.common.MORE}
-                      </Link>
-                    )}
+                    {eventLink(homepage.homepageEventTiles[2], location)}
                   </div>
                 </div>
               </div>
@@ -303,6 +314,7 @@ export const query = graphql`
             page {
               slug(locale: $locale)
             }
+            externalLink(locale: $locale)
           }
           homepageTiles(orderBy: sort_ASC) {
             sort
