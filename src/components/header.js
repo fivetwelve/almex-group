@@ -4,7 +4,7 @@ import { graphql, Link } from 'gatsby';
 import { IconContext } from 'react-icons';
 import { FaBars } from 'react-icons/fa';
 import BrandSelector from './brandSelector';
-import LanguageSelector from './languageSelector';
+// import LanguageSelector from './languageSelector';
 import Navigation from './navigation';
 import NavWrapper from './navWrapper';
 import { createLink } from '../utils/functions';
@@ -72,11 +72,12 @@ class Header extends React.Component {
                 </IconContext.Provider>
               </div> */}
               <BrandSelector brandNavigation={brandNavigation} label={label} location={location} />
-              <LanguageSelector
+              {/* TODO Re-activate when Spanish becomes available */}
+              {/* <LanguageSelector
                 activeLanguage={activeLanguage}
                 languages={headerFooter.language}
                 region={region}
-              />
+              /> */}
               {/* <div className="login">{label.header.LOGIN}</div> */}
             </div>
             <div className="tagline-container">
