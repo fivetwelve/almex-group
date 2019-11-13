@@ -109,9 +109,19 @@ class ResourcesTemplate extends Component {
         expert: category.expert,
       });
     });
+
+    /* state.selectedCategory is set to first category by default with code below. If we want to set it to the placeholder text ("Select a Category") then set state.selectedCategory: null */
+    let categoryName;
+    if (categories[0].page.pageType === 'LANDING') {
+      categoryName = categories[0].page.landingSource.title;
+    } else if (categories[0].page.pageType === 'SERVICES') {
+      categoryName = categories[0].page.servicesSource.title;
+    }
+
     this.state = {
       allResources,
-      selectedCategory: null,
+      selectedCategory:
+        (categoryName && allResources.find(resource => resource.title === categoryName)) || null,
     };
   }
 
