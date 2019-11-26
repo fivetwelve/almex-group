@@ -42,6 +42,7 @@ class EventsTemplate extends Component {
     super(props);
     /* need to simplify date from GraphCMS by ignoring its timezone */
     const { events } = props.data.cms.page.eventsSource;
+    console.log(events);
     const { locale } = props.pageContext;
     const parsedEvents = [];
     // console.log('events', events);
