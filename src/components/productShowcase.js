@@ -108,6 +108,9 @@ class ProductShowcase extends React.Component {
       wrapAround,
     } = this.state;
 
+    console.log(images);
+    console.log('-----');
+    console.log(slideArray);
     return (
       <>
         <div className="showcase">
