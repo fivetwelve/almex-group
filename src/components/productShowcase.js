@@ -83,6 +83,8 @@ class ProductShowcase extends React.Component {
     const newSlide = this.calcSlideIndex(currentSlide, direction);
     func();
     this.setState({ slideIdx: newSlide });
+    const { images } = this.props;
+    console.log(images);
   };
 
   render() {
