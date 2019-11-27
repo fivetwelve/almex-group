@@ -55,6 +55,7 @@ class ProductShowcase extends React.Component {
       enableKeyboardControls: true,
       slideIdx: 0,
       slideArray,
+      sortedImages: images,
       pdfArray,
       wrapAround: true,
     };
@@ -95,8 +96,6 @@ class ProductShowcase extends React.Component {
       label,
       locale,
       products,
-      // themeColour,
-      // subtitle,
       title,
       youTubeVideos,
       pdfDownloads,
@@ -106,6 +105,7 @@ class ProductShowcase extends React.Component {
       enableKeyboardControls,
       slideIdx,
       slideArray,
+      sortedImages,
       pdfArray,
       wrapAround,
     } = this.state;
@@ -175,10 +175,10 @@ class ProductShowcase extends React.Component {
             {pdfDownloads && <div className="pdf-downloads">{pdfArray}</div>}
           </div>
         </div>
-        {((images.length > 1 && youTubeVideos.length === 0) ||
-          (images.length > 0 && youTubeVideos.length > 0)) && (
+        {((sortedImages.length > 1 && youTubeVideos.length === 0) ||
+          (sortedImages.length > 0 && youTubeVideos.length > 0)) && (
           <div className="carousel-controls">
-            {images.map((image, idx) => {
+            {sortedImages.map((image, idx) => {
               const thumbStyle = {
                 backgroundImage: `url(${images[idx].url})`,
               };
