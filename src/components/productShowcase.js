@@ -180,7 +180,7 @@ class ProductShowcase extends React.Component {
           <div className="carousel-controls">
             {sortedImages.map((image, idx) => {
               const thumbStyle = {
-                backgroundImage: `url(${images[idx].url})`,
+                backgroundImage: `url(${sortedImages[idx].url})`,
               };
               return (
                 <div
@@ -202,12 +202,12 @@ class ProductShowcase extends React.Component {
               const thumbStyle = {
                 backgroundColor: '$black',
               };
-              const thisIdx = idx + images.length;
+              const thisIdx = idx + sortedImages.length;
               return (
                 <div
                   className={`thumb-container${slideIdx === thisIdx ? ' active' : ''}`}
                   key={makeid()}
-                  data-num={images.length + thisIdx}
+                  data-num={sortedImages.length + thisIdx}
                 >
                   <button
                     className="thumb-image"
