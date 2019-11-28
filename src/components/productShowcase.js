@@ -16,7 +16,11 @@ class ProductShowcase extends React.Component {
     const pdfArray = [];
 
     /* ascending sort of images */
-    images.sort((a, b) => (a.sortName < b.sortName ? -1 : 1));
+    images.sort((a, b) => {
+      if (a.sortName > b.sortName) return 1;
+      if (a.sortName < b.sortName) return -1;
+      return 0;
+    });
 
     /* populating carousel with images */
     for (let i = 0; i < images.length; i += 1) {
@@ -84,15 +88,12 @@ class ProductShowcase extends React.Component {
     const newSlide = this.calcSlideIndex(currentSlide, direction);
     func();
     this.setState({ slideIdx: newSlide });
-    const { images } = this.props;
-    console.log(images);
   };
 
   render() {
     const {
       attractText,
       brand,
-      images,
       label,
       locale,
       products,
@@ -110,9 +111,6 @@ class ProductShowcase extends React.Component {
       wrapAround,
     } = this.state;
 
-    console.log(images);
-    console.log('-----');
-    console.log(slideArray);
     return (
       <>
         <div className="showcase">
@@ -166,7 +164,6 @@ class ProductShowcase extends React.Component {
           <div className="data-container">
             {brand && <ProductBrand brand={brand} />}
             <div className="product-title">{title}</div>
-            {/* <div className={`product-subtitle ${themeColour}`}>{subtitle}</div> */}
             {attractText.length > 0 && (
               <div className="attraction-container">
                 <Attraction attractText={attractText} locale={locale} products={products} />
@@ -186,7 +183,6 @@ class ProductShowcase extends React.Component {
                 <div
                   className={`thumb-container${slideIdx === idx ? ' active' : ''}`}
                   key={makeid()}
-                  data-num={idx}
                 >
                   <button
                     className="thumb-image"
@@ -207,7 +203,6 @@ class ProductShowcase extends React.Component {
                 <div
                   className={`thumb-container${slideIdx === thisIdx ? ' active' : ''}`}
                   key={makeid()}
-                  data-num={sortedImages.length + thisIdx}
                 >
                   <button
                     className="thumb-image"
@@ -236,8 +231,6 @@ ProductShowcase.defaultProps = {
   label: {},
   locale: '',
   products: {},
-  // themeColour: '',
-  // subtitle: '',
   title: '',
   youTubeVideos: [],
   pdfDownloads: [],
@@ -258,8 +251,6 @@ ProductShowcase.propTypes = {
   products: PropTypes.shape({
     SHOULD_KNOW: PropTypes.string,
   }),
-  // themeColour: PropTypes.string,
-  // subtitle: PropTypes.string,
   title: PropTypes.string,
   youTubeVideos: PropTypes.arrayOf(PropTypes.object),
   pdfDownloads: PropTypes.arrayOf(

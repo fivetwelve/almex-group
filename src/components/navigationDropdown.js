@@ -33,9 +33,15 @@ const NavigationDropdown = props => {
   if (section.sortOrder) {
     // sort pages if manual sorting is set in CMS
     const productCategorySortOrder = section.sortOrder.map(elem => elem.id);
-    section.pages.sort((a, b) =>
-      productCategorySortOrder.indexOf(a.id) < productCategorySortOrder.indexOf(b.id) ? -1 : 1,
-    );
+    section.pages.sort((a, b) => {
+      if (productCategorySortOrder.indexOf(a.id) > productCategorySortOrder.indexOf(b.id)) {
+        return 1;
+      }
+      if (productCategorySortOrder.indexOf(a.id) < productCategorySortOrder.indexOf(b.id)) {
+        return -1;
+      }
+      return 0;
+    });
   } else {
     // otherwise sort alphabetically
     section.pages.sort((a, b) => {
