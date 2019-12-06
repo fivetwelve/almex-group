@@ -174,6 +174,7 @@ const LandingTemplate = ({ data, pageContext }) => {
                   </div>
                 )}
                 <div className="default-container">
+                  {brand && <ProductBrand brand={brand} />}
                   <h2 className="landing-title">{title}</h2>
                   {description && (
                     <div className="description">

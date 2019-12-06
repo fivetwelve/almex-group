@@ -288,7 +288,6 @@ const matchMomentLocale = locale => {
 const normalizeTimeZone = day => `${day}T00:00:00.Z`;
 
 /* Thanks to James Doyle for this: https://gist.github.com/james2doyle/5694700 */
-
 const requestAnimFrame = func => {
   if (typeof window !== 'undefined') {
     return (
