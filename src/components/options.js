@@ -289,6 +289,29 @@ const optionSVG = (option, label) => {
           </svg>
         </>
       );
+    case OPTIONS.REMOTE_CONTROL:
+      return (
+        <>
+          <span>{label.REMOTE_CONTROL}</span>
+          <svg
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 200 200"
+            aria-labelledby="title"
+          >
+            <title>{label.REMOTE_CONTROL}</title>
+            <path
+              className="bg"
+              style={{
+                clipRule: 'evenodd',
+                fillRule: 'evenodd',
+              }}
+              d="m0 72c0-33.9 0-50.9 10.5-61.5 10.6-10.5 27.6-10.5 61.5-10.5h56c33.9 0 50.9 0 61.5 10.5 10.5 10.6 10.5 27.6 10.5 61.5v56c0 33.9 0 50.9-10.5 61.5-10.6 10.5-27.6 10.5-61.5 10.5h-56c-33.9 0-50.9 0-61.5-10.5-10.5-10.6-10.5-27.6-10.5-61.5z"
+            />
+            <path d="m50 40h100v120h-100z" fill="#fff" />
+          </svg>
+        </>
+      );
     case OPTIONS.RHOMBOID:
       return (
         <>
