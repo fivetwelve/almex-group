@@ -193,9 +193,12 @@ $spacing: 20px;
         display: flex;
         flex-direction: column;
         margin-top: 60px;
+        font-size: 20px;
+        line-height: normal;
         @include media('>=tablet') {
           flex-direction: row;
           flex-wrap: wrap;
+          font-size: 24px;
           > div {
             width: 50%;
             &:nth-last-child(1):nth-child(odd) {
