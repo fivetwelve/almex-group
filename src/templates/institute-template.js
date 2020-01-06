@@ -46,7 +46,7 @@ const InstituteTemplate = ({ data, pageContext }) => {
     <Layout
       activeLanguage={locale}
       brandNavigation={brandNavigation}
-      childrenClass="institute"
+      childrenClass="institute-page"
       headerFooter={headerFooter}
       label={label}
       navigation={navigation}

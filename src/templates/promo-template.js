@@ -5,11 +5,11 @@ import { graphql } from 'gatsby';
 import GraphImg from 'graphcms-image';
 import Markdown from 'react-remarkable';
 import Layout from '../components/layout';
-import '../styles/simpleContent.scss';
+import '../styles/promo.scss';
 
 const allowHTML = { html: true };
 
-const SimpleContentTemplate = ({ data, pageContext }) => {
+const PromoTemplate = ({ data, pageContext }) => {
   const { locale, region } = pageContext;
   const {
     cms: {
@@ -18,7 +18,7 @@ const SimpleContentTemplate = ({ data, pageContext }) => {
       label,
       navigation,
       page: {
-        simpleContent: { bannerImage, content, title },
+        promoContent: { bannerImage, marketing, title },
       },
     },
   } = data;
@@ -27,7 +27,7 @@ const SimpleContentTemplate = ({ data, pageContext }) => {
     <Layout
       activeLanguage={locale}
       brandNavigation={brandNavigation}
-      childrenClass="simple-content-page"
+      childrenClass="promo-page"
       headerFooter={headerFooter}
       label={label}
       navigation={navigation}
@@ -37,7 +37,7 @@ const SimpleContentTemplate = ({ data, pageContext }) => {
       {/* <Location>
         {({ location }) => ( */}
       <>
-        <div className="simple-content-container">
+        <div className="promo-container">
           {bannerImage && (
             <div className="banner-wrapper">
               <div className="banner-image">
@@ -48,8 +48,8 @@ const SimpleContentTemplate = ({ data, pageContext }) => {
           <div className="main-container">
             <div className="main-content">
               <h1 className="title">{title}</h1>
-              <div className="content">
-                <Markdown source={content} options={allowHTML} />
+              <div className="marketing">
+                <Markdown source={marketing} options={allowHTML} />
               </div>
             </div>
           </div>
@@ -61,12 +61,12 @@ const SimpleContentTemplate = ({ data, pageContext }) => {
   );
 };
 
-SimpleContentTemplate.defaultProps = {
+PromoTemplate.defaultProps = {
   data: {},
   pageContext: {},
 };
 
-SimpleContentTemplate.propTypes = {
+PromoTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.object,
     id: PropTypes.string,
@@ -85,13 +85,13 @@ export const query = graphql`
       #   about(locale: $locale)
       # }
       page(where: { id: $id }) {
-        simpleContent: simpleContentSource {
+        promoContent: promoSource {
           bannerImage {
             handle
             width
             height
           }
-          content(locale: $locale)
+          marketing(locale: $locale)
           title(locale: $locale)
         }
       }
@@ -99,4 +99,4 @@ export const query = graphql`
   }
 `;
 
-export default SimpleContentTemplate;
+export default PromoTemplate;

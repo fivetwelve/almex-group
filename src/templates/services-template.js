@@ -29,7 +29,7 @@ const ServicesTemplate = ({ data, pageContext }) => {
     <Layout
       activeLanguage={locale}
       brandNavigation={brandNavigation}
-      childrenClass="services"
+      childrenClass="services-page"
       headerFooter={headerFooter}
       label={label}
       navigation={navigation}

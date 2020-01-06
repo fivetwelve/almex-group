@@ -186,7 +186,7 @@ exports.createPages = ({ graphql, actions }) => {
                 case PAGE_TYPES.PROMO:
                   createPage({
                     path: pagePath,
-                    component: path.resolve(`./src/templates/landing-template.js`),
+                    component: path.resolve(`./src/templates/promo-template.js`),
                     context: {
                       id,
                       locale: language,

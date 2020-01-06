@@ -69,7 +69,7 @@ const AboutTemplate = ({ data, pageContext }) => {
     <Layout
       activeLanguage={locale}
       brandNavigation={brandNavigation}
-      childrenClass="about"
+      childrenClass="about-page"
       headerFooter={headerFooter}
       label={label}
       navigation={navigation}

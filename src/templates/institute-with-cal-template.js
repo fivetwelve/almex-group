@@ -210,7 +210,7 @@ class InstituteTemplate extends Component {
       <Layout
         activeLanguage={locale}
         brandNavigation={brandNavigation}
-        childrenClass="institute"
+        childrenClass="institute-page"
         headerFooter={headerFooter}
         label={label}
         navigation={navigation}
