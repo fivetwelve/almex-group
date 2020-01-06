@@ -223,7 +223,11 @@ class ResourcesTemplate extends Component {
                     )}
                   </div>
                   <hr />
+                  {selectedCategory && selectedCategory.resources.length === 0 && (
+                    <div className="no-resource">{resourcesLabel.resources.NO_RESOURCE}</div>
+                  )}
                   {selectedCategory &&
+                    selectedCategory.resources.length > 0 &&
                     selectedCategory.resources.map(type => (
                       <div className="resource-type-container" key={type.title}>
                         <button
