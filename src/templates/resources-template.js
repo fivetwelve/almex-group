@@ -166,7 +166,7 @@ class ResourcesTemplate extends Component {
       <Layout
         activeLanguage={locale}
         brandNavigation={brandNavigation}
-        childrenClass="resources"
+        childrenClass="resources-page"
         headerFooter={headerFooter}
         label={label}
         navigation={navigation}

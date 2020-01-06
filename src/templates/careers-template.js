@@ -36,7 +36,7 @@ const CareersTemplate = ({ data, pageContext }) => {
     <Layout
       activeLanguage={locale}
       brandNavigation={brandNavigation}
-      childrenClass="careers"
+      childrenClass="careers-page"
       headerFooter={headerFooter}
       label={label}
       navigation={navigation}

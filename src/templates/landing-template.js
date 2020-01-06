@@ -154,7 +154,7 @@ const LandingTemplate = ({ data, pageContext }) => {
     <Layout
       activeLanguage={locale}
       brandNavigation={brandNavigation}
-      childrenClass="landing"
+      childrenClass="landing-page"
       headerFooter={headerFooter}
       label={label}
       navigation={navigation}

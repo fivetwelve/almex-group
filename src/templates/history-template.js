@@ -30,7 +30,7 @@ const HistoryTemplate = ({ data, pageContext }) => {
     <Layout
       activeLanguage={locale}
       brandNavigation={brandNavigation}
-      childrenClass="history"
+      childrenClass="history-page"
       headerFooter={headerFooter}
       label={label}
       navigation={navigation}

@@ -40,7 +40,7 @@ const NewsTemplate = ({ data, pageContext }) => {
     <Layout
       activeLanguage={locale}
       brandNavigation={brandNavigation}
-      childrenClass="news"
+      childrenClass="news-page"
       headerFooter={headerFooter}
       label={label}
       navigation={navigation}

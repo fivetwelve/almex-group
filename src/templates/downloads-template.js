@@ -46,7 +46,7 @@ const DownloadsTemplate = ({ data, pageContext }) => {
     <Layout
       activeLanguage={locale}
       brandNavigation={brandNavigation}
-      childrenClass="downloads"
+      childrenClass="downloads-page"
       headerFooter={headerFooter}
       label={label}
       navigation={navigation}

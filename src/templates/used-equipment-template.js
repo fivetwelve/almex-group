@@ -33,7 +33,7 @@ const UsedEquipmentTemplate = ({ data, pageContext }) => {
     <Layout
       activeLanguage={locale}
       brandNavigation={brandNavigation}
-      childrenClass="used-equipment"
+      childrenClass="used-equipment-page"
       headerFooter={headerFooter}
       label={label}
       navigation={navigation}
