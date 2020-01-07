@@ -2,31 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
+import { makeid } from '../utils/functions';
 
 class CategorySelector extends Component {
   constructor(props) {
     super(props);
-    const { categories } = props;
+
     this.dropdownTrigger = React.createRef();
     this.state = {
       clicked: false,
-      /* want to use following sort order rather than just equating to CONTINENTS */
-      categories: this.getCategoryTitles(categories),
     };
   }
-
-  getCategoryTitles = categories => {
-    const titleArray = [];
-    categories.forEach(category => {
-      if (category.page.pageType === 'LANDING') {
-        titleArray.push(category.page.landingSource.title);
-      }
-      if (category.page.pageType === 'SERVICES') {
-        titleArray.push(category.page.servicesSource.title);
-      }
-    });
-    return titleArray;
-  };
 
   handleClickDropDown = evt => {
     evt.preventDefault();
@@ -37,10 +23,10 @@ class CategorySelector extends Component {
     });
   };
 
-  handleClickCategory = (evt, category) => {
+  handleClickCategory = (evt, key) => {
     const { setCategory } = this.props;
     evt.preventDefault();
-    setCategory(category);
+    setCategory(key);
     this.dropdownTrigger.current.nextElementSibling.classList.toggle('category-dropdown--visible');
     this.setState(prevState => {
       const clickBool = prevState.clicked;
@@ -49,9 +35,8 @@ class CategorySelector extends Component {
   };
 
   render() {
-    const { clicked, categories } = this.state;
-    const { category, label } = this.props;
-
+    const { clicked } = this.state;
+    const { selectedCategory, categories, label } = this.props;
     return (
       <div className="category-selector">
         <button
@@ -65,7 +50,7 @@ class CategorySelector extends Component {
           ref={this.dropdownTrigger}
         >
           <span className="dd-text-icon">
-            {category === '' ? label.SELECT : category}
+            {!selectedCategory ? label.SELECT : selectedCategory.title}
             <span aria-hidden="true" className="dd-icon">
               <IconContext.Provider value={{ className: 'dd-color' }}>
                 {(clicked && <FaAngleUp aria-hidden />) || <FaAngleDown aria-hidden />}
@@ -75,18 +60,18 @@ class CategorySelector extends Component {
         </button>
         <ul role="menu" className="category-dropdown">
           {categories.map(eachCategory => {
-            if (eachCategory !== category) {
+            if (!selectedCategory || eachCategory.key !== selectedCategory.key) {
               return (
-                <li className="category-list-item" key={eachCategory}>
+                <li className="category-list-item" key={makeid()}>
                   <button
                     type="button"
                     aria-expanded="false"
                     aria-haspopup="false"
                     onClick={evt => {
-                      this.handleClickCategory(evt, eachCategory);
+                      this.handleClickCategory(evt, eachCategory.key);
                     }}
                   >
-                    <span className="category-link">{eachCategory}</span>
+                    <span className="category-link">{eachCategory.title}</span>
                   </button>
                 </li>
               );
@@ -100,15 +85,13 @@ class CategorySelector extends Component {
 }
 
 CategorySelector.defaultProps = {
-  category: '',
   categories: [],
+  selectedCategory: null,
   label: {},
-  // setCategory: () => CONTINENTS.ALL_EVENTS,
   setCategory: () => {},
 };
 
 CategorySelector.propTypes = {
-  category: PropTypes.string,
   categories: PropTypes.arrayOf(
     PropTypes.shape({
       isProductCategory: PropTypes.bool,
@@ -117,6 +100,10 @@ CategorySelector.propTypes = {
     }),
   ),
   label: PropTypes.objectOf(PropTypes.string),
+  selectedCategory: PropTypes.shape({
+    key: PropTypes.string,
+    title: PropTypes.string,
+  }),
   setCategory: PropTypes.func,
 };
 

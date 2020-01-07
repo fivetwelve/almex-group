@@ -42,10 +42,8 @@ class ResourcesTemplate extends Component {
       const resources = [];
       const filteredResources = [];
       const unClassified = [];
-      let thisTitle = '';
-      // collect all documents for this category
+      /* collect all documents for each category */
       if (category.page.pageType === 'LANDING') {
-        thisTitle = category.page.landingSource.title;
         category.page.landingSource.landingSections.forEach(section => {
           section.pages.forEach(page => {
             page.productSource.pdfDownloads.forEach(pdf => {
@@ -57,34 +55,34 @@ class ResourcesTemplate extends Component {
           });
         });
       }
-      if (category.page.pageType === 'SERVICES') {
-        thisTitle = category.page.servicesSource.title;
-        if (category.page.documents) {
+
+      if (category.page.pageType === 'SERVICES' || category.page.pageType === 'INSTITUTE') {
+        if (category.documents.length > 0) {
           category.page.documents.forEach(document => {
             resources.push(document);
           });
         }
       }
-      // filter documents
+      /*  filter documents */
       resourcesTypes.forEach(resourceType => {
         const thisType = [];
         resources.forEach(resource => {
           if (
-            // look for document resources first
+            /* look for document resources first */
             resource.resourceType &&
             resource.resourceType === resourceType &&
             !checkFor(thisType, 'url', resource.url)
           ) {
             thisType.push(resource);
           } else if (
-            // look for video resources next
+            /* look for video resources next */
             resource.videoType &&
             resource.videoType === resourceType &&
             !checkFor(thisType, 'youTubeId', resource.youTubeId)
           ) {
             thisType.push(resource);
           } else if (
-            // resource type cannot be identified so add it to unClassified array if not already there
+            /* resource type cannot be identified so add it to unClassified array if not already there */
             !resource.resourceType &&
             !resource.videoType &&
             !checkFor(unClassified, 'url', resource.url) &&
@@ -102,32 +100,26 @@ class ResourcesTemplate extends Component {
           });
         }
       });
+      const key = makeid();
       allResources.push({
-        title: thisTitle,
+        title: category.name,
         resources: filteredResources,
         unClassified,
         expert: category.expert,
+        key,
       });
     });
 
     /* state.selectedCategory is set to first category by default with code below. If we want to set it to the placeholder text ("Select a Category") then set state.selectedCategory: null */
-    let categoryName;
-    if (categories[0].page.pageType === 'LANDING') {
-      categoryName = categories[0].page.landingSource.title;
-    } else if (categories[0].page.pageType === 'SERVICES') {
-      categoryName = categories[0].page.servicesSource.title;
-    }
-
     this.state = {
       allResources,
-      selectedCategory:
-        (categoryName && allResources.find(resource => resource.title === categoryName)) || null,
+      selectedCategory: allResources[0] || null,
     };
   }
 
-  handleSetCategory = categoryName => {
+  handleSetCategory = key => {
     const { allResources } = this.state;
-    const category = allResources.find(resource => resource.title === categoryName);
+    const category = allResources.find(resource => resource.key === key);
     if (typeof document !== 'undefined') {
       document.querySelectorAll('.resource-type').forEach(node => {
         node.classList.remove('resource-type--visible');
@@ -153,14 +145,14 @@ class ResourcesTemplate extends Component {
           label,
           navigation,
           page: {
-            resources: { bannerImage, categories, description, title },
+            resources: { bannerImage, description, title },
           },
           resourcesLabel,
         },
       },
       pageContext: { locale, region },
     } = this.props;
-    const { selectedCategory } = this.state;
+    const { allResources, selectedCategory } = this.state;
 
     return (
       <Layout
@@ -191,9 +183,9 @@ class ResourcesTemplate extends Component {
                   <Markdown source={description} options={allowHTML} />
                   <div className="selector-container">
                     <CategorySelector
-                      category={selectedCategory ? selectedCategory.title : ''}
-                      categories={categories}
-                      setCategory={categoryName => this.handleSetCategory(categoryName)}
+                      categories={allResources}
+                      selectedCategory={selectedCategory}
+                      setCategory={categoryKey => this.handleSetCategory(categoryKey)}
                       label={resourcesLabel.resources}
                     />
                     {selectedCategory && selectedCategory.expert && (
@@ -229,7 +221,7 @@ class ResourcesTemplate extends Component {
                   {selectedCategory &&
                     selectedCategory.resources.length > 0 &&
                     selectedCategory.resources.map(type => (
-                      <div className="resource-type-container" key={type.title}>
+                      <div className="resource-type-container" key={makeid()}>
                         <button
                           className="resource-type"
                           onClick={evt => this.handleClickResourceType(evt)}
@@ -332,7 +324,6 @@ export const query = graphql`
             page {
               pageType
               landingSource {
-                title(locale: $locale)
                 landingSections {
                   pages(where: { status: PUBLISHED }) {
                     productSource {
@@ -361,21 +352,8 @@ export const query = graphql`
                   }
                 }
               }
-              servicesSource {
-                title(locale: $locale)
-              }
-              # aboutSource
-              # careersSource
-              # contactSource
-              # downloadsSource
-              # eventsSource
-              # historySource
-              # instituteSource
-              # newsSource
-              # servicesSource
-              # simpleContentSource
-              # usedEquipmentSource
             }
+            name(locale: $locale)
             documents {
               url
               fileName
