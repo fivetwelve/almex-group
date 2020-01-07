@@ -318,7 +318,7 @@ export const query = graphql`
           }
           description(locale: $locale)
           title(locale: $locale)
-          categories(where: { page: { status: PUBLISHED } }) {
+          categories(where: { AND: [{ status: PUBLISHED }, { page: { status: PUBLISHED } }] }) {
             isProductCategory
             expert {
               name
