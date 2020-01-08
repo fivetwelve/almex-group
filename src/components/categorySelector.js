@@ -7,10 +7,11 @@ import { makeid } from '../utils/functions';
 class CategorySelector extends Component {
   constructor(props) {
     super(props);
-
+    const { categories } = props;
     this.dropdownTrigger = React.createRef();
     this.state = {
       clicked: false,
+      categories,
     };
   }
 
@@ -35,8 +36,8 @@ class CategorySelector extends Component {
   };
 
   render() {
-    const { clicked } = this.state;
-    const { selectedCategory, categories, label } = this.props;
+    const { clicked, categories } = this.state;
+    const { selectedCategory, label } = this.props;
     return (
       <div className="category-selector">
         <button
@@ -59,8 +60,8 @@ class CategorySelector extends Component {
           </span>
         </button>
         <ul role="menu" className="category-dropdown">
-          {categories.map(eachCategory => {
-            if (!selectedCategory || eachCategory.key !== selectedCategory.key) {
+          {categories.map(category => {
+            if (!selectedCategory || category.key !== selectedCategory.key) {
               return (
                 <li className="category-list-item" key={makeid()}>
                   <button
@@ -68,10 +69,10 @@ class CategorySelector extends Component {
                     aria-expanded="false"
                     aria-haspopup="false"
                     onClick={evt => {
-                      this.handleClickCategory(evt, eachCategory.key);
+                      this.handleClickCategory(evt, category.key);
                     }}
                   >
-                    <span className="category-link">{eachCategory.title}</span>
+                    <span className="category-link">{category.title}</span>
                   </button>
                 </li>
               );
@@ -94,6 +95,7 @@ CategorySelector.defaultProps = {
 CategorySelector.propTypes = {
   categories: PropTypes.arrayOf(
     PropTypes.shape({
+      id: PropTypes.string,
       isProductCategory: PropTypes.bool,
       page: PropTypes.object,
       documents: PropTypes.array,

@@ -22,9 +22,9 @@ const checkFor = (array, property, value) => {
 class ResourcesTemplate extends Component {
   constructor(props) {
     super(props);
-    const { categories } = props.data.cms.page.resources;
+    const { categories, sortOrder } = props.data.cms.page.resources;
     const { resourcesLabel } = props.data.cms;
-    const allResources = [];
+    const allCategories = [];
     const resourcesTypes = [
       RESOURCE_TYPES.BROCHURE,
       RESOURCE_TYPES.CATALOG,
@@ -38,6 +38,7 @@ class ResourcesTemplate extends Component {
       RESOURCE_TYPES.TRAINING_MANUAL,
       RESOURCE_TYPES.TRAINING_VIDEO,
     ];
+
     categories.forEach(category => {
       const resources = [];
       const filteredResources = [];
@@ -92,7 +93,6 @@ class ResourcesTemplate extends Component {
           }
         });
         if (thisType.length > 0) {
-          // only account for groups with 1 or more resources
           filteredResources.push({
             title: resourcesLabel.resources[resourceType],
             resourceType,
@@ -101,7 +101,8 @@ class ResourcesTemplate extends Component {
         }
       });
       const key = makeid();
-      allResources.push({
+      allCategories.push({
+        id: category.id,
         title: category.name,
         resources: filteredResources,
         unClassified,
@@ -110,16 +111,30 @@ class ResourcesTemplate extends Component {
       });
     });
 
+    let sortedCategories = [];
+    if (sortOrder && sortOrder.length > 0) {
+      /* sortOrder Array used to sort but when Sortable Relations feature becomes available in CMS,
+         sortOrder can be set to empty and fn will resolve to whatever order is returned from CMS */
+      sortOrder.forEach(elem => {
+        const found = allCategories.filter(category => category.id === elem.id)[0];
+        if (found) {
+          sortedCategories.push(found);
+        }
+      });
+    } else {
+      sortedCategories = Array.assign(allCategories);
+    }
+
     /* state.selectedCategory is set to first category by default with code below. If we want to set it to the placeholder text ("Select a Category") then set state.selectedCategory: null */
     this.state = {
-      allResources,
-      selectedCategory: allResources[0] || null,
+      allCategories: sortedCategories,
+      selectedCategory: sortedCategories[0] || null,
     };
   }
 
   handleSetCategory = key => {
-    const { allResources } = this.state;
-    const category = allResources.find(resource => resource.key === key);
+    const { allCategories } = this.state;
+    const category = allCategories.find(resource => resource.key === key);
     if (typeof document !== 'undefined') {
       document.querySelectorAll('.resource-type').forEach(node => {
         node.classList.remove('resource-type--visible');
@@ -145,14 +160,14 @@ class ResourcesTemplate extends Component {
           label,
           navigation,
           page: {
-            resources: { bannerImage, description, title },
+            resources: { bannerImage, description, title, sortOrder },
           },
           resourcesLabel,
         },
       },
       pageContext: { locale, region },
     } = this.props;
-    const { allResources, selectedCategory } = this.state;
+    const { allCategories, selectedCategory } = this.state;
 
     return (
       <Layout
@@ -183,9 +198,10 @@ class ResourcesTemplate extends Component {
                   <Markdown source={description} options={allowHTML} />
                   <div className="selector-container">
                     <CategorySelector
-                      categories={allResources}
+                      categories={allCategories}
                       selectedCategory={selectedCategory}
                       setCategory={categoryKey => this.handleSetCategory(categoryKey)}
+                      sortOrder={sortOrder}
                       label={resourcesLabel.resources}
                     />
                     {selectedCategory && selectedCategory.expert && (
@@ -311,6 +327,7 @@ export const query = graphql`
           description(locale: $locale)
           title(locale: $locale)
           categories(where: { AND: [{ status: PUBLISHED }, { page: { status: PUBLISHED } }] }) {
+            id
             isProductCategory
             expert {
               name
