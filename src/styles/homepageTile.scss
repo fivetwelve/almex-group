@@ -13,7 +13,10 @@ $cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
   }
 
   @include media('>=desktop') {
-    width: calc((100% - (#{$spacing} * 2)) / 3);
+    /* Edge doesn't handle this precision very well */
+    /* width: calc((100% - (#{$spacing} * 2)) / 3); */
+    /* Use the following instead to round downwards */
+    width: calc(33% - (#{$spacing} * 0.67));
     margin-right: $spacing;
     &:nth-child(3n) {
       margin-right: 0;
