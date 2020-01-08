@@ -279,7 +279,7 @@ $spacing: 20px;
     .event1,
     .event2 {
       width: 100%;
-      height: 390px;
+      height: 400px;
       background-size: cover;
       background-position: center center;
       @include media('>=tablet') {
@@ -358,7 +358,7 @@ $spacing: 20px;
     }
     .event3 {
       width: 100%;
-      height: 390px;
+      height: 400px;
       position: relative;
       background-color: $white;
       background-position: center center;
@@ -388,11 +388,11 @@ $spacing: 20px;
       .title {
         font-weight: bold;
         font-size: 22px;
-        line-height: initial;
+        line-height: 22px;
       }
       .description {
         font-size: 18px;
-        line-height: normal;
+        line-height: 22px;
         li {
           margin-bottom: 0;
         }
