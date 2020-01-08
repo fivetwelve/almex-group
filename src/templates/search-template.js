@@ -80,7 +80,7 @@ const SearchTemplate = props => {
     <Layout
       activeLanguage={locale}
       brandNavigation={brandNavigation}
-      childrenClass="search"
+      childrenClass="search-page"
       headerFooter={headerFooter}
       label={label}
       navigation={navigation}

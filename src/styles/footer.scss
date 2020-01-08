@@ -51,6 +51,7 @@
         padding-top: 10px;
         padding-bottom: 10px;
         flex-wrap: wrap;
+        line-height: 1px;
         .almex-box,
         .bat,
         .choice,
@@ -168,13 +169,13 @@
         .knight a {
           background-image: url('../../static/img/logo-knight.png');
           background-size: cover;
-          width: calc(55px * 0.6);
-          height: calc(103px * 0.6);
-          background-position-y: calc(-206px * 0.6);
+          width: calc(125px * 0.6);
+          height: calc(67px * 0.6);
+          background-position-y: calc(-134px * 0.6);
           @include media('>=tablet') {
-            width: 55px;
-            height: 103px;
-            background-position-y: -206px;
+            width: 125px;
+            height: 67px;
+            background-position-y: -134px;
           }
         }
       }

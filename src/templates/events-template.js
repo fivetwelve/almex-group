@@ -225,7 +225,7 @@ class EventsTemplate extends Component {
       <Layout
         activeLanguage={locale}
         brandNavigation={brandNavigation}
-        childrenClass="events"
+        childrenClass="events-page"
         headerFooter={headerFooter}
         label={label}
         navigation={navigation}

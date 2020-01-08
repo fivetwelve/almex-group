@@ -1,7 +1,7 @@
 @import 'base';
 $spacing: 20px;
 
-.resources {
+.resources-page {
   padding-left: 10px;
   padding-right: 10px;
   @include media('>=tablet') {
@@ -263,6 +263,10 @@ $spacing: 20px;
                 margin: 0 0 5px;
               }
             }
+          }
+          .no-resource {
+            color: $grey70;
+            padding-left: 20px;
           }
           .resource-type {
             border: 0;

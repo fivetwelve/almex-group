@@ -1,7 +1,7 @@
 @import 'base';
 $spacing: 20px;
 
-.institute {
+.institute-page {
   padding-left: 10px;
   padding-right: 10px;
   @include media('>=tablet') {
@@ -193,9 +193,12 @@ $spacing: 20px;
         display: flex;
         flex-direction: column;
         margin-top: 60px;
+        font-size: 20px;
+        line-height: normal;
         @include media('>=tablet') {
           flex-direction: row;
           flex-wrap: wrap;
+          font-size: 24px;
           > div {
             width: 50%;
             &:nth-last-child(1):nth-child(odd) {
@@ -258,6 +261,92 @@ $spacing: 20px;
             padding-left: 20px;
           }
           margin-bottom: 40px;
+        }
+      }
+    }
+    .training-events-container {
+      display: flex;
+      margin-top: 40px;
+      flex-direction: column;
+      width: 100%;
+      padding-left: 10px;
+      padding-right: 10px;
+      @include media('>=desktop') {
+        padding-left: 40px;
+        padding-right: 40px;
+      }
+      .training-events-main {
+        display: flex;
+        flex-direction: column;
+        @include media('>=desktop') {
+          flex-direction: row;
+        }
+        .training-events-left {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          @include media('>=desktop') {
+            width: 400px;
+          }
+        }
+        .training-events-right {
+          width: 100%;
+          padding-left: 0;
+          margin-top: 40px;
+          @include media('>=desktop') {
+            display: flex;
+            flex: 1 1 0;
+            flex-direction: row;
+            width: 60%;
+            margin-top: 0;
+            padding-left: 60px;
+          }
+          .training-events-results {
+            width: 100%;
+            .heading {
+              font-size: 24px;
+              padding-bottom: 15px;
+              border-bottom: 5px solid $blue;
+              margin-bottom: 30px;
+            }
+            .title {
+              color: $blue;
+              font-size: 24px;
+              margin-left: 10px;
+            }
+            p {
+              font-size: 18px;
+              margin-left: 10px;
+            }
+            .result {
+              border: 1px solid $black;
+              width: 100%;
+              display: flex;
+              flex-direction: column;
+              margin: 10px 0px 40px;
+              padding: 10px;
+              @include media('>=tablet') {
+                flex-direction: row;
+              }
+              .details {
+                width: 100%;
+                td {
+                  border: none;
+                  font-size: 18px;
+                  line-height: normal;
+                }
+                .label {
+                  white-space: nowrap;
+                  vertical-align: top;
+                  font-weight: bold;
+                }
+                .date,
+                .location {
+                  width: 100%;
+                }
+              }
+            }
+          }
         }
       }
     }

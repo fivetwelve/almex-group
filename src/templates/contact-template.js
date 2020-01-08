@@ -111,7 +111,7 @@ class ContactTemplate extends React.Component {
       <Layout
         activeLanguage={locale}
         brandNavigation={brandNavigation}
-        childrenClass="contact"
+        childrenClass="contact-page"
         headerFooter={headerFooter}
         label={label}
         navigation={navigation}

@@ -16,7 +16,11 @@ class ProductShowcase extends React.Component {
     const pdfArray = [];
 
     /* ascending sort of images */
-    images.sort((a, b) => (a.sortName < b.sortName ? -1 : 1));
+    images.sort((a, b) => {
+      if (a.sortName > b.sortName) return 1;
+      if (a.sortName < b.sortName) return -1;
+      return 0;
+    });
 
     /* populating carousel with images */
     for (let i = 0; i < images.length; i += 1) {
@@ -55,6 +59,7 @@ class ProductShowcase extends React.Component {
       enableKeyboardControls: true,
       slideIdx: 0,
       slideArray,
+      sortedImages: images,
       pdfArray,
       wrapAround: true,
     };
@@ -89,12 +94,9 @@ class ProductShowcase extends React.Component {
     const {
       attractText,
       brand,
-      images,
       label,
       locale,
       products,
-      // themeColour,
-      // subtitle,
       title,
       youTubeVideos,
       pdfDownloads,
@@ -104,6 +106,7 @@ class ProductShowcase extends React.Component {
       enableKeyboardControls,
       slideIdx,
       slideArray,
+      sortedImages,
       pdfArray,
       wrapAround,
     } = this.state;
@@ -161,7 +164,6 @@ class ProductShowcase extends React.Component {
           <div className="data-container">
             {brand && <ProductBrand brand={brand} />}
             <div className="product-title">{title}</div>
-            {/* <div className={`product-subtitle ${themeColour}`}>{subtitle}</div> */}
             {attractText.length > 0 && (
               <div className="attraction-container">
                 <Attraction attractText={attractText} locale={locale} products={products} />
@@ -170,18 +172,17 @@ class ProductShowcase extends React.Component {
             {pdfDownloads && <div className="pdf-downloads">{pdfArray}</div>}
           </div>
         </div>
-        {((images.length > 1 && youTubeVideos.length === 0) ||
-          (images.length > 0 && youTubeVideos.length > 0)) && (
+        {((sortedImages.length > 1 && youTubeVideos.length === 0) ||
+          (sortedImages.length > 0 && youTubeVideos.length > 0)) && (
           <div className="carousel-controls">
-            {images.map((image, idx) => {
+            {sortedImages.map((image, idx) => {
               const thumbStyle = {
-                backgroundImage: `url(${images[idx].url})`,
+                backgroundImage: `url(${sortedImages[idx].url})`,
               };
               return (
                 <div
                   className={`thumb-container${slideIdx === idx ? ' active' : ''}`}
                   key={makeid()}
-                  data-num={idx}
                 >
                   <button
                     className="thumb-image"
@@ -197,12 +198,11 @@ class ProductShowcase extends React.Component {
               const thumbStyle = {
                 backgroundColor: '$black',
               };
-              const thisIdx = idx + images.length;
+              const thisIdx = idx + sortedImages.length;
               return (
                 <div
                   className={`thumb-container${slideIdx === thisIdx ? ' active' : ''}`}
                   key={makeid()}
-                  data-num={images.length + thisIdx}
                 >
                   <button
                     className="thumb-image"
@@ -231,8 +231,6 @@ ProductShowcase.defaultProps = {
   label: {},
   locale: '',
   products: {},
-  // themeColour: '',
-  // subtitle: '',
   title: '',
   youTubeVideos: [],
   pdfDownloads: [],
@@ -253,8 +251,6 @@ ProductShowcase.propTypes = {
   products: PropTypes.shape({
     SHOULD_KNOW: PropTypes.string,
   }),
-  // themeColour: PropTypes.string,
-  // subtitle: PropTypes.string,
   title: PropTypes.string,
   youTubeVideos: PropTypes.arrayOf(PropTypes.object),
   pdfDownloads: PropTypes.arrayOf(

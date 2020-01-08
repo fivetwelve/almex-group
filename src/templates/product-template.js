@@ -95,7 +95,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
     <Layout
       activeLanguage={locale}
       brandNavigation={brandNavigation}
-      childrenClass="product"
+      childrenClass="product-page"
       headerFooter={headerFooter}
       label={label}
       locale={locale}

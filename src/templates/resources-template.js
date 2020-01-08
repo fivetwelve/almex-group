@@ -22,9 +22,9 @@ const checkFor = (array, property, value) => {
 class ResourcesTemplate extends Component {
   constructor(props) {
     super(props);
-    const { categories } = props.data.cms.page.resources;
+    const { categories, sortOrder } = props.data.cms.page.resources;
     const { resourcesLabel } = props.data.cms;
-    const allResources = [];
+    const allCategories = [];
     const resourcesTypes = [
       RESOURCE_TYPES.BROCHURE,
       RESOURCE_TYPES.CATALOG,
@@ -38,14 +38,13 @@ class ResourcesTemplate extends Component {
       RESOURCE_TYPES.TRAINING_MANUAL,
       RESOURCE_TYPES.TRAINING_VIDEO,
     ];
+
     categories.forEach(category => {
       const resources = [];
       const filteredResources = [];
       const unClassified = [];
-      let thisTitle = '';
-      // collect all documents for this category
+      /* collect all documents for each category */
       if (category.page.pageType === 'LANDING') {
-        thisTitle = category.page.landingSource.title;
         category.page.landingSource.landingSections.forEach(section => {
           section.pages.forEach(page => {
             page.productSource.pdfDownloads.forEach(pdf => {
@@ -57,34 +56,34 @@ class ResourcesTemplate extends Component {
           });
         });
       }
-      if (category.page.pageType === 'SERVICES') {
-        thisTitle = category.page.servicesSource.title;
-        if (category.page.documents) {
+
+      if (category.page.pageType === 'SERVICES' || category.page.pageType === 'INSTITUTE') {
+        if (category.documents.length > 0) {
           category.page.documents.forEach(document => {
             resources.push(document);
           });
         }
       }
-      // filter documents
+      /*  filter documents */
       resourcesTypes.forEach(resourceType => {
         const thisType = [];
         resources.forEach(resource => {
           if (
-            // look for document resources first
+            /* look for document resources first */
             resource.resourceType &&
             resource.resourceType === resourceType &&
             !checkFor(thisType, 'url', resource.url)
           ) {
             thisType.push(resource);
           } else if (
-            // look for video resources next
+            /* look for video resources next */
             resource.videoType &&
             resource.videoType === resourceType &&
             !checkFor(thisType, 'youTubeId', resource.youTubeId)
           ) {
             thisType.push(resource);
           } else if (
-            // resource type cannot be identified so add it to unClassified array if not already there
+            /* resource type cannot be identified so add it to unClassified array if not already there */
             !resource.resourceType &&
             !resource.videoType &&
             !checkFor(unClassified, 'url', resource.url) &&
@@ -94,7 +93,6 @@ class ResourcesTemplate extends Component {
           }
         });
         if (thisType.length > 0) {
-          // only account for groups with 1 or more resources
           filteredResources.push({
             title: resourcesLabel.resources[resourceType],
             resourceType,
@@ -102,22 +100,41 @@ class ResourcesTemplate extends Component {
           });
         }
       });
-      allResources.push({
-        title: thisTitle,
+      const key = makeid();
+      allCategories.push({
+        id: category.id,
+        title: category.name,
         resources: filteredResources,
         unClassified,
         expert: category.expert,
+        key,
       });
     });
+
+    let sortedCategories = [];
+    if (sortOrder && sortOrder.length > 0) {
+      /* sortOrder Array used to sort but when Sortable Relations feature becomes available in CMS,
+         sortOrder can be set to empty and fn will resolve to whatever order is returned from CMS */
+      sortOrder.forEach(elem => {
+        const found = allCategories.filter(category => category.id === elem.id)[0];
+        if (found) {
+          sortedCategories.push(found);
+        }
+      });
+    } else {
+      sortedCategories = Array.assign(allCategories);
+    }
+
+    /* state.selectedCategory is set to first category by default with code below. If we want to set it to the placeholder text ("Select a Category") then set state.selectedCategory: null */
     this.state = {
-      allResources,
-      selectedCategory: null,
+      allCategories: sortedCategories,
+      selectedCategory: sortedCategories[0] || null,
     };
   }
 
-  handleSetCategory = categoryName => {
-    const { allResources } = this.state;
-    const category = allResources.find(resource => resource.title === categoryName);
+  handleSetCategory = key => {
+    const { allCategories } = this.state;
+    const category = allCategories.find(resource => resource.key === key);
     if (typeof document !== 'undefined') {
       document.querySelectorAll('.resource-type').forEach(node => {
         node.classList.remove('resource-type--visible');
@@ -143,20 +160,20 @@ class ResourcesTemplate extends Component {
           label,
           navigation,
           page: {
-            resources: { bannerImage, categories, description, title },
+            resources: { bannerImage, description, title, sortOrder },
           },
           resourcesLabel,
         },
       },
       pageContext: { locale, region },
     } = this.props;
-    const { selectedCategory } = this.state;
+    const { allCategories, selectedCategory } = this.state;
 
     return (
       <Layout
         activeLanguage={locale}
         brandNavigation={brandNavigation}
-        childrenClass="resources"
+        childrenClass="resources-page"
         headerFooter={headerFooter}
         label={label}
         navigation={navigation}
@@ -181,9 +198,10 @@ class ResourcesTemplate extends Component {
                   <Markdown source={description} options={allowHTML} />
                   <div className="selector-container">
                     <CategorySelector
-                      category={selectedCategory ? selectedCategory.title : ''}
-                      categories={categories}
-                      setCategory={categoryName => this.handleSetCategory(categoryName)}
+                      categories={allCategories}
+                      selectedCategory={selectedCategory}
+                      setCategory={categoryKey => this.handleSetCategory(categoryKey)}
+                      sortOrder={sortOrder}
                       label={resourcesLabel.resources}
                     />
                     {selectedCategory && selectedCategory.expert && (
@@ -213,9 +231,13 @@ class ResourcesTemplate extends Component {
                     )}
                   </div>
                   <hr />
+                  {selectedCategory && selectedCategory.resources.length === 0 && (
+                    <div className="no-resource">{resourcesLabel.resources.NO_RESOURCE}</div>
+                  )}
                   {selectedCategory &&
+                    selectedCategory.resources.length > 0 &&
                     selectedCategory.resources.map(type => (
-                      <div className="resource-type-container" key={type.title}>
+                      <div className="resource-type-container" key={makeid()}>
                         <button
                           className="resource-type"
                           onClick={evt => this.handleClickResourceType(evt)}
@@ -304,7 +326,8 @@ export const query = graphql`
           }
           description(locale: $locale)
           title(locale: $locale)
-          categories(where: { page: { status: PUBLISHED } }) {
+          categories(where: { AND: [{ status: PUBLISHED }, { page: { status: PUBLISHED } }] }) {
+            id
             isProductCategory
             expert {
               name
@@ -318,7 +341,6 @@ export const query = graphql`
             page {
               pageType
               landingSource {
-                title(locale: $locale)
                 landingSections {
                   pages(where: { status: PUBLISHED }) {
                     productSource {
@@ -347,21 +369,8 @@ export const query = graphql`
                   }
                 }
               }
-              servicesSource {
-                title(locale: $locale)
-              }
-              # aboutSource
-              # careersSource
-              # contactSource
-              # downloadsSource
-              # eventsSource
-              # historySource
-              # instituteSource
-              # newsSource
-              # servicesSource
-              # simpleContentSource
-              # usedEquipmentSource
             }
+            name(locale: $locale)
             documents {
               url
               fileName

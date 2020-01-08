@@ -12,6 +12,7 @@ import '../styles/header.scss';
 import '../styles/headerOptions.scss';
 import hLogo from '../../static/img/logo-almex-hori.svg';
 import vLogo from '../../static/img/logo-almex-vert.svg';
+import plane from '../../static/img/airliner.svg';
 
 class Header extends React.Component {
   constructor(props) {
@@ -71,6 +72,11 @@ class Header extends React.Component {
                   }
                 </IconContext.Provider>
               </div> */}
+              <div className="fusion-club">
+                <a href="https://fusion-club.netlify.com">
+                  <img src={plane} width="30" alt="Visit Fusion Club" />
+                </a>
+              </div>
               <BrandSelector brandNavigation={brandNavigation} label={label} location={location} />
               {/* TODO Re-activate when Spanish becomes available */}
               {/* <LanguageSelector

@@ -29,7 +29,7 @@ $spacing: 20px;
   }
 }
 
-.product {
+.product-page {
   padding-left: 10px;
   padding-right: 10px;
   @include media('>=tablet') {
@@ -257,8 +257,8 @@ $spacing: 20px;
             background-image: url('../../static/img/logo-institute.svg');
           }
           &.knight {
-            width: 55px;
-            height: 103px;
+            width: 125px;
+            height: 67px;
             background-image: url('../../static/img/logo-knight.svg');
           }
           &.votech {
@@ -596,7 +596,9 @@ $spacing: 20px;
     }
     .product-options {
       display: flex;
-      align-items: flex-start;
+      align-items: flex-end;
+      flex-wrap: wrap;
+
       .option {
         display: flex;
         flex-direction: column;
@@ -604,19 +606,32 @@ $spacing: 20px;
         font-size: 20px;
         font-weight: 700;
         margin-bottom: 20px;
+        width: calc(50% - 20px);
+        max-width: 235px;
+        @include media('>=tablet') {
+          width: calc(20% - 20px);
+        }
         span {
           padding-bottom: 10px;
         }
+
         svg {
-          max-width: 200px;
-          max-height: 200px;
-          width: 100%;
           .bg {
             fill: $prussian-blue60;
           }
         }
-        &:not(:first-child) {
-          margin-left: 9%;
+        margin-left: 40px;
+        &:nth-of-type(2n + 1) {
+          margin-left: 0px;
+        }
+        @include media('>=tablet') {
+          margin-left: 20px;
+          &:nth-of-type(2n + 1) {
+            margin-left: 20px;
+          }
+          &:nth-of-type(5n + 1) {
+            margin-left: 0px;
+          }
         }
         &.orange {
           svg {
@@ -648,13 +663,15 @@ $spacing: 20px;
       padding-left: 20px;
       padding-right: 20px;
       flex-wrap: wrap;
-      align-items: center;
+      align-items: flex-end;
+      a {
+        color: $grey80;
+        text-decoration: none;
+      }
       @include media('>=tablet') {
         flex-wrap: nowrap;
         a {
           margin-right: 20px;
-          color: $grey80;
-          text-decoration: none;
           &:last-child {
             margin-right: 0;
           }
@@ -666,6 +683,8 @@ $spacing: 20px;
           font-weight: bold;
           margin-top: 30px;
           margin-bottom: 15px;
+          padding-right: 20px;
+          text-align: center;
         }
         flex: 1 1 275px;
         display: flex;
