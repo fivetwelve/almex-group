@@ -307,8 +307,9 @@ $spacing: 20px;
             height: 100%;
             display: flex;
             display: row;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
+            margin-left: 20px;
           }
           .circular-text {
             img {
@@ -439,6 +440,7 @@ $spacing: 20px;
     .product-features,
     .product-info,
     .product-specs,
+    .product-case-studies,
     .product-configurations {
       font-size: 20px;
       line-height: normal;
@@ -475,6 +477,7 @@ $spacing: 20px;
     }
     .product-advantages,
     .product-specs,
+    .product-case-studies,
     .product-configurations,
     .product-options {
       padding: 25px 10px;
@@ -557,6 +560,37 @@ $spacing: 20px;
       }
       &.teal {
         background-color: $allports20;
+      }
+    }
+    .product-case-studies {
+      display: flex;
+      flex-direction: column;
+      .pdf {
+        display: inline-flex;
+        a,
+        a:visited {
+          color: $prussian-blue60;
+          font-size: 18px;
+          text-decoration: none;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding-bottom: 18px;
+          &:hover {
+            color: $yellow-sea;
+            text-decoration: underline;
+            transition: $easeinout;
+          }
+        }
+        .pdf-icon {
+          display: inline-block;
+          height: 32px;
+          width: 24px;
+          background-image: url('../../static/img/icon-file-pdf.svg');
+          background-size: cover;
+          background-position: center;
+          margin-right: 10px;
+        }
       }
     }
     .product-configurations {
