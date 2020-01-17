@@ -60,6 +60,7 @@
       flex-direction: row;
       align-items: center;
       pointer-events: none;
+      white-space: nowrap;
       &.text {
         font-weight: bold;
       }
