@@ -138,10 +138,6 @@ class Layout extends React.Component {
           <meta property="og:image:height" content="512" /> */}
           {/* <meta name="twitter:card" content="summary" />
           <meta name="twitter:site" content={twitter} /> */}
-          {/* <script
-            type="text/javascript"
-            src="https://identity.netlify.com/v1/netlify-identity-widget.js"
-          /> */}
           <script src="https://cdn.polyfill.io/v3/polyfill.min.js?flags=gated" />
           <script src="https://www.youtube.com/iframe_api" />
 

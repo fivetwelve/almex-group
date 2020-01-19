@@ -8342,10 +8342,6 @@ neon-js@^1.1.2:
   resolved "https://registry.yarnpkg.com/neon-js/-/neon-js-1.1.2.tgz#af85d8e2bb8099cfc7f6fe256a896a5464b00623"
   integrity sha1-r4XY4ruAmc/H9v4laolqVGSwBiM=
 
-netlify-identity-widget@fivetwelve/netlify-identity-widget:
-  version "1.5.2"
-  resolved "https://codeload.github.com/fivetwelve/netlify-identity-widget/tar.gz/4edc7fca07cc242b24c2fd3a42fde97f91b6a38d"
-
 netlify-lambda@^1.6.3:
   version "1.6.3"
   resolved "https://registry.yarnpkg.com/netlify-lambda/-/netlify-lambda-1.6.3.tgz#296d65b5f024d4872648f50664cf7a0e62ae8653"

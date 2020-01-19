@@ -45,7 +45,6 @@
     "immutable": "^4.0.0-rc.12",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
-    "netlify-identity-widget": "fivetwelve/netlify-identity-widget",
     "netlify-lambda": "^1.6.3",
     "node-fetch": "^2.3.0",
     "node-mailjet": "^3.3.1",
