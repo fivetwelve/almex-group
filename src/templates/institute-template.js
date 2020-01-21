@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 // import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
-import Markdown from 'react-remarkable';
+import ReactMarkdown from 'react-markdown';
 import Layout from '../components/layout';
 import InstituteForm from '../components/instituteForm';
 import { makeid } from '../utils/functions';
@@ -71,11 +71,11 @@ const InstituteTemplate = ({ data, pageContext }) => {
                 <div className="institute-logo-mobile">
                   <img src={logo} alt="Almex Institute logo" />
                 </div>
-                <Markdown source={description} options={allowHTML} />
+                <ReactMarkdown source={description} options={allowHTML} />
               </div>
               <div className="topics-container">
                 <div className="topics">
-                  <Markdown source={topics} options={allowHTML} />
+                  <ReactMarkdown source={topics} options={allowHTML} />
                 </div>
                 {topicsImages.length > 0 && (
                   <div className="images">
@@ -94,12 +94,12 @@ const InstituteTemplate = ({ data, pageContext }) => {
                   </div>
                 )}
                 <div className="presentation">
-                  <Markdown source={presentation} options={allowHTML} />
+                  <ReactMarkdown source={presentation} options={allowHTML} />
                 </div>
               </div>
               <div className="instructors-container">
                 <div className="instructors">
-                  <Markdown source={instructors} options={allowHTML} />
+                  <ReactMarkdown source={instructors} options={allowHTML} />
                 </div>
                 {instructorsImages.length > 0 && (
                   <div className="images">
@@ -127,13 +127,13 @@ const InstituteTemplate = ({ data, pageContext }) => {
                 <img src={logo} alt="Almex Institute logo" />
               </div>
               {sideContent.map(content => (
-                <Markdown key={makeid()} source={content} options={allowHTML} />
+                <ReactMarkdown key={makeid()} source={content} options={allowHTML} />
               ))}
             </aside>
           </div>
           <hr className="divider" />
           <div className="form-container">
-            <Markdown source={contactAndForm} options={allowHTML} />
+            <ReactMarkdown source={contactAndForm} options={allowHTML} />
             <InstituteForm label={label} email={email} />
           </div>
         </div>

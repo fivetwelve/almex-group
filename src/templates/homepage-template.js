@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, Link } from 'gatsby';
 import { Location } from '@reach/router';
-import Markdown from 'react-remarkable';
+import ReactMarkdown from 'react-markdown';
 import Carousel from 'nuka-carousel';
 import { IconContext } from 'react-icons';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
@@ -62,14 +62,14 @@ const HomepageTemplate = ({ data, pageContext }) => {
             <div className="heading-container">
               <div className="heading">
                 <Link to={createLink(location, slides[i].page.slug)}>
-                  <Markdown source={slides[i].slideHeading} options={{ html: true }} />
+                  <ReactMarkdown source={slides[i].slideHeading} options={{ html: true }} />
                 </Link>
               </div>
             </div>
             <div className="description-container">
               <div className="description">
                 <Link to={createLink(location, slides[i].page.slug)}>
-                  <Markdown source={slides[i].slideText} options={{ html: true }} />
+                  <ReactMarkdown source={slides[i].slideText} options={{ html: true }} />
                 </Link>
               </div>
             </div>
@@ -90,14 +90,14 @@ const HomepageTemplate = ({ data, pageContext }) => {
             <div className="heading-container">
               <div className="heading">
                 <Link to={location.pathname + slides[i].page.slug}>
-                  <Markdown source={slides[i].slideHeading} options={{ html: true }} />
+                  <ReactMarkdown source={slides[i].slideHeading} options={{ html: true }} />
                 </Link>
               </div>
             </div>
             <div className="description-container">
               <div className="description">
                 <Link to={`${location.pathname}/${slides[i].page.slug}`}>
-                  <Markdown source={slides[i].slideText} options={{ html: true }} />
+                  <ReactMarkdown source={slides[i].slideText} options={{ html: true }} />
                 </Link>
               </div>
             </div>
@@ -181,7 +181,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
             {/* <div className="tagline-anchor">
               <div className="tagline-container">
                 <div className="tagline">
-                  <Markdown source={headerFooter.formattedTagline} options={{ html: true }} />
+                  <ReactMarkdown source={headerFooter.formattedTagline} options={{ html: true }} />
                 </div>
               </div>
             </div> */}
@@ -194,7 +194,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
               </div>
               <div className="heading2-container">
                 <div className="heading2">
-                  <Markdown source={homepage.heading[1]} options={{ html: true }} />
+                  <ReactMarkdown source={homepage.heading[1]} options={{ html: true }} />
                 </div>
               </div>
               <div className="event-container">
@@ -202,13 +202,13 @@ const HomepageTemplate = ({ data, pageContext }) => {
                   <div className="content-container">
                     <div className="event-background" style={eventStyle1} />
                     <div className="title">
-                      <Markdown
+                      <ReactMarkdown
                         source={homepage.homepageEventTiles[0].title}
                         options={{ html: true }}
                       />
                     </div>
                     <div className="description">
-                      <Markdown
+                      <ReactMarkdown
                         source={homepage.homepageEventTiles[0].description}
                         options={{ html: true }}
                       />
@@ -222,13 +222,13 @@ const HomepageTemplate = ({ data, pageContext }) => {
                     <div className="event-background" style={eventStyle2} />
                     <div className="event-overlay-gold" />
                     <div className="title">
-                      <Markdown
+                      <ReactMarkdown
                         source={homepage.homepageEventTiles[1].title}
                         options={{ html: true }}
                       />
                     </div>
                     <div className="description">
-                      <Markdown
+                      <ReactMarkdown
                         source={homepage.homepageEventTiles[1].description}
                         options={{ html: true }}
                       />
@@ -240,13 +240,13 @@ const HomepageTemplate = ({ data, pageContext }) => {
                   <div className="content-container">
                     <div className="event-overlay-blue" />
                     <div className="title">
-                      <Markdown
+                      <ReactMarkdown
                         source={homepage.homepageEventTiles[2].title}
                         options={{ html: true }}
                       />
                     </div>
                     <div className="description">
-                      <Markdown
+                      <ReactMarkdown
                         source={homepage.homepageEventTiles[2].description}
                         options={{ html: true }}
                       />

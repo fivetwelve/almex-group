@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 // import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
-import Markdown from 'react-remarkable';
+import ReactMarkdown from 'react-markdown';
 import Layout from '../components/layout';
 import '../styles/simpleContent.scss';
 
@@ -49,7 +49,7 @@ const SimpleContentTemplate = ({ data, pageContext }) => {
             <div className="main-content">
               <h1 className="title">{title}</h1>
               <div className="content">
-                <Markdown source={content} options={allowHTML} />
+                <ReactMarkdown source={content} options={allowHTML} />
               </div>
             </div>
           </div>

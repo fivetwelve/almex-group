@@ -113,6 +113,9 @@ $spacing: 20px;
       }
       .result {
         margin-right: 40px;
+        &:first-of-type {
+          margin-top: 40px;
+        }
         .title {
           font-size: 20px;
           font-style: italic;

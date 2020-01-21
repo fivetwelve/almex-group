@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 // import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
-import Markdown from 'react-remarkable';
+import ReactMarkdown from 'react-markdown';
 import Layout from '../components/layout';
 import '../styles/careers.scss';
 import { makeid } from '../utils/functions';
@@ -58,7 +58,7 @@ const CareersTemplate = ({ data, pageContext }) => {
             <div className="intro-content">
               <h1 className="title">{title}</h1>
               <div className="description">
-                <Markdown source={description} options={allowHTML} />
+                <ReactMarkdown source={description} options={allowHTML} />
                 {careerPostings.length > 0 &&
                   `${aboutLabel.about.POSTING_AVAILABLE} ${careerPostings.length}`}
               </div>
@@ -68,13 +68,13 @@ const CareersTemplate = ({ data, pageContext }) => {
           <div className="postings-container">
             {careerPostings.length <= 0 && (
               <div className="heading">
-                <Markdown source={noPostingsInstructions} options={allowHTML} />
+                <ReactMarkdown source={noPostingsInstructions} options={allowHTML} />
               </div>
             )}
             {careerPostings.length > 0 && (
               <>
                 <div className="heading">
-                  <Markdown source={instructions} options={allowHTML} />
+                  <ReactMarkdown source={instructions} options={allowHTML} />
                 </div>
                 <div className="postings">
                   <table>
@@ -97,25 +97,28 @@ const CareersTemplate = ({ data, pageContext }) => {
                           <td>
                             <div className="position">{posting.position}</div>
                             <div className="companyAndLocation">
-                              <Markdown source={posting.companyAndLocation} options={allowHTML} />
+                              <ReactMarkdown
+                                source={posting.companyAndLocation}
+                                options={allowHTML}
+                              />
                             </div>
                             <div className="description">
                               {aboutLabel.about.POSTING_DESCRIPTION}
                             </div>
                             <div>
-                              <Markdown source={posting.description} options={allowHTML} />
+                              <ReactMarkdown source={posting.description} options={allowHTML} />
                               <div className="mobile">
                                 <p>
                                   <b>{aboutLabel.about.POSTING_STATUS}</b>:{' '}
                                   {aboutLabel.about[posting.postingStatus]}
                                 </p>
-                                <Markdown source={posting.instructions} options={allowHTML} />
+                                <ReactMarkdown source={posting.instructions} options={allowHTML} />
                               </div>
                             </div>
                           </td>
                           <td>{aboutLabel.about[posting.postingStatus]}</td>
                           <td>
-                            <Markdown source={posting.instructions} options={allowHTML} />
+                            <ReactMarkdown source={posting.instructions} options={allowHTML} />
                           </td>
                         </tr>
                       ))}

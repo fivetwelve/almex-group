@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 // import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
-import Markdown from 'react-remarkable';
+import ReactMarkdown from 'react-markdown';
 import Layout from '../components/layout';
 import '../styles/history.scss';
 import TimelineManager from '../components/timelineManager';
@@ -52,7 +52,7 @@ const HistoryTemplate = ({ data, pageContext }) => {
             <div className="intro-content">
               <h1 className="title">{title}</h1>
               <div className="description">
-                <Markdown source={description} options={allowHTML} />
+                <ReactMarkdown source={description} options={allowHTML} />
               </div>
             </div>
           </div>

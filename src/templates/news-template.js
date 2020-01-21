@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 // import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
-import Markdown from 'react-remarkable';
+import ReactMarkdown from 'react-markdown';
 import moment from 'moment';
 import 'moment/locale/es';
 import Layout from '../components/layout';
@@ -63,7 +63,7 @@ const NewsTemplate = ({ data, pageContext }) => {
               <h1 className="title">{title}</h1>
               {description && (
                 <div className="description">
-                  <Markdown source={description} options={allowHTML} />
+                  <ReactMarkdown source={description} options={allowHTML} />
                 </div>
               )}
             </div>
@@ -73,7 +73,7 @@ const NewsTemplate = ({ data, pageContext }) => {
               <hr className="divider" />
               <div className="article-container">
                 <p>{moment(published[articleNum].date).format('LL')}</p>
-                <Markdown source={published[articleNum].content} options={allowHTML} />
+                <ReactMarkdown source={published[articleNum].content} options={allowHTML} />
               </div>
               {published[articleNum].pdfDownloads.length > 0 && (
                 <div className="downloads-container">

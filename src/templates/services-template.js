@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 // import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
-import Markdown from 'react-remarkable';
+import ReactMarkdown from 'react-markdown';
 import Layout from '../components/layout';
 import { makeid } from '../utils/functions';
 import '../styles/services.scss';
@@ -51,12 +51,12 @@ const ServicesTemplate = ({ data, pageContext }) => {
             <div className="main-content">
               <h1 className="title">{title}</h1>
               <div className="description">
-                <Markdown source={description} options={allowHTML} />
+                <ReactMarkdown source={description} options={allowHTML} />
               </div>
             </div>
             <aside className="aside-container">
               {sideContent.map(content => (
-                <Markdown key={makeid()} source={content} options={allowHTML} />
+                <ReactMarkdown key={makeid()} source={content} options={allowHTML} />
               ))}
             </aside>
           </div>

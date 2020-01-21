@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connectStateResults } from 'react-instantsearch-dom';
-import Markdown from 'react-remarkable';
+import ReactMarkdown from 'react-markdown';
 import { Link } from 'gatsby';
 import { createLink } from '../utils/functions';
 
@@ -32,7 +32,7 @@ const StateResults = ({ label, locale, location, searchResults }) => {
                         </Link>
                       </div>
                       <div className="body">
-                        <Markdown source={hit[`marketing${locale}`]} />
+                        <ReactMarkdown source={hit[`marketing${locale}`]} />
                       </div>
                     </>
                   )}
