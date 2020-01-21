@@ -37,6 +37,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
           features,
           productInfo,
           specs,
+          caseStudies,
           configurations,
           addOns,
           accessories,
@@ -181,6 +182,23 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               </div>
             </>
           )}
+          {caseStudies.length > 0 && (
+            <>
+              <div className={`title-container ${themeColour}`}>
+                <div className="section-title">{products.CASE_STUDIES}</div>
+              </div>
+              <div className={`product-case-studies ${themeColour}`}>
+                {caseStudies.map(study => (
+                  <div className="pdf" key={makeid()}>
+                    <a href={study.url} target="_new">
+                      <div className="pdf-icon" />
+                      {study.documentTitle || study.fileName.split('.pdf')[0]}
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
           {configurations && (
             <>
               <div className={`title-container ${themeColour}`}>
@@ -301,6 +319,11 @@ export const query = graphql`
           features(locale: $locale)
           productInfo(locale: $locale)
           specs(locale: $locale)
+          caseStudies(locale: $locale) {
+            documentTitle
+            fileName
+            url
+          }
           configurations(locale: $locale)
           addOns
           pdfDownloads(locale: $locale) {

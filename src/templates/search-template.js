@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import { globalHistory } from '@reach/router';
 import algoliasearch from 'algoliasearch/lite';
-import { InstantSearch, SearchBox, PoweredBy } from 'react-instantsearch-dom';
+import { InstantSearch, SearchBox } from 'react-instantsearch-dom';
 import qs from 'qs';
 import CustomSearchResults from '../components/customSearchResults';
 import Layout from '../components/layout';
-import { makeid } from '../utils/functions';
+// import { makeid } from '../utils/functions';
 import '../styles/search.scss';
 
+/* Algolia declarations begin */
 const algoliaClient = algoliasearch(
   process.env.GATSBY_ALGOLIA_APP_ID,
   process.env.GATSBY_ALGOLIA_SEARCH_KEY,
@@ -31,15 +32,17 @@ const searchClient = {
   },
 };
 
+/* Algolia declarations end */
+
 /* utility functions begin */
 const createURL = state => `?${qs.stringify(state)}`;
 
-const searchStateToUrl = (searchState, location) => {
-  if (searchState && searchState.query !== '') {
-    return createURL(searchState);
-  }
-  return location.pathname;
-};
+// const searchStateToUrl = (searchState, location) => {
+//   if (searchState && searchState.query !== '') {
+//     return createURL(searchState);
+//   }
+//   return location.pathname;
+// };
 
 const urlToSearchState = ({ search }) => qs.parse(search.slice(1));
 /* utility functions end */
@@ -52,6 +55,11 @@ const SearchTemplate = props => {
   } = data;
   const [searchState, setSearchState] = useState(urlToSearchState(location));
 
+  /* use this to 'reload' page query from header */
+  if (location.search !== '' && urlToSearchState(location).query !== searchState.query) {
+    setSearchState(urlToSearchState(location));
+  }
+
   useEffect(() => {
     return globalHistory.listen(({ action }) => {
       if (action === 'POP') {
@@ -60,21 +68,21 @@ const SearchTemplate = props => {
     });
   }, []);
 
-  const onSearchStateChange = updatedSearchState => {
-    const { query, ...rest } = updatedSearchState;
-    const trimmedSearchState = {
-      query: query.trim(),
-      ...rest,
-    };
-    if (typeof window !== 'undefined') {
-      window.history.pushState(
-        { key: makeid() },
-        '',
-        searchStateToUrl(trimmedSearchState, location),
-      );
-    }
-    setSearchState(trimmedSearchState);
-  };
+  // const onSearchStateChange = updatedSearchState => {
+  //   const { query, ...rest } = updatedSearchState;
+  //   const trimmedSearchState = {
+  //     query: query.trim(),
+  //     ...rest,
+  //   };
+  //   if (typeof window !== 'undefined') {
+  //     window.history.pushState(
+  //       { key: makeid() },
+  //       '',
+  //       searchStateToUrl(trimmedSearchState, location),
+  //     );
+  //   }
+  //   setSearchState(trimmedSearchState);
+  // };
 
   return (
     <Layout
@@ -92,12 +100,14 @@ const SearchTemplate = props => {
           indexName="CMS"
           searchClient={searchClient}
           searchState={searchState}
-          onSearchStateChange={onSearchStateChange}
+          // onSearchStateChange={onSearchStateChange}
           createURL={createURL}
         >
-          <SearchBox searchAsYouType={false} />
-          <PoweredBy />
-          <CustomSearchResults locale={locale} location={location} />
+          <div className="search-top" hidden>
+            <SearchBox searchAsYouType={false} />
+          </div>
+          {/* <PoweredBy /> */}
+          <CustomSearchResults label={label.search} locale={locale} location={location} />
         </InstantSearch>
       </div>
     </Layout>
@@ -107,6 +117,8 @@ const SearchTemplate = props => {
 SearchTemplate.defaultProps = {
   data: {},
   location: {
+    pathname: '',
+    search: '',
     state: {},
   },
   pageContext: {},
@@ -124,6 +136,8 @@ SearchTemplate.propTypes = {
   }),
   location: PropTypes.shape({
     pathname: PropTypes.string,
+    search: PropTypes.string,
+    state: PropTypes.object,
   }),
   pageContext: PropTypes.shape({
     locale: PropTypes.string,

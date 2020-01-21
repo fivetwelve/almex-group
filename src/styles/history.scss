@@ -160,7 +160,7 @@ $caption-space-desktop: 300px;
             transform: translateX(0);
             text-align: left;
             .details {
-              min-width: 120px;
+              min-width: 240px;
             }
             border: 2px solid rgba(255, 255, 255, 0);
             &:hover {
@@ -201,7 +201,7 @@ $caption-space-desktop: 300px;
               justify-content: flex-end;
             }
             .thumbnail {
-              width: 120px;
+              width: 240px;
             }
           }
           .details {
@@ -211,7 +211,7 @@ $caption-space-desktop: 300px;
           }
           .thumbnail {
             margin-top: 10px;
-            max-width: 120px;
+            max-width: 240px;
             margin-bottom: 10px;
           }
         }

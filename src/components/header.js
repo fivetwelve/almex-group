@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql, Link } from 'gatsby';
+import { graphql, Link, navigate } from 'gatsby';
+import { navigate as reload } from '@reach/router';
 import { IconContext } from 'react-icons';
-import { FaBars } from 'react-icons/fa';
+import { FaBars, FaSearch } from 'react-icons/fa';
 import BrandSelector from './brandSelector';
 // import LanguageSelector from './languageSelector';
 import Navigation from './navigation';
@@ -17,22 +18,53 @@ import plane from '../../static/img/airliner.svg';
 class Header extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
-    // this.myRef = {};
-    // const { headerFooter } = this.props;
-    // const nav = headerFooter.navigation;
-    // for (let i = 0; i < nav.length; i += 1) {
-    //   const navType = nav[i].TYPE;
-    //   this.myRef[navType] = React.createRef();
-    // }
+    this.state = {
+      search: '',
+    };
     this.navWrapperRef = React.createRef();
   }
+
+  // componentDidUpdate() {
+  //   const { location } = this.props;
+  //   // console.log(location);
+  // }
 
   handleMobileMenuClick = evt => {
     evt.preventDefault();
     const { showMobileBG } = this.props;
     showMobileBG();
     this.navWrapperRef.current.classList.toggle('is-open');
+  };
+
+  handleInput = evt => {
+    const { target } = evt;
+    this.setState({
+      [target.name]: target.value,
+    });
+  };
+
+  handleKeyPress = evt => {
+    const { location } = this.props;
+    const { search } = this.state;
+    const charCode = typeof evt.which === 'number' ? evt.which : evt.keyCode;
+    if (charCode === 13 && search.trim() !== '') {
+      // navigate(
+      //   `${createLink(location, 'search')}?query=${encodeURIComponent(search.trim())}&page=1`,
+      // );
+      reload(`${createLink(location, 'search')}?query=${encodeURIComponent(search.trim())}&page=1`);
+    }
+  };
+
+  handleSearchClick = evt => {
+    evt.preventDefault();
+    const { location } = this.props;
+    const { search } = this.state;
+    if (search.trim() !== '') {
+      navigate(
+        `${createLink(location, 'search')}?query=${encodeURIComponent(search.trim())}&page=1`,
+        { replace: true },
+      );
+    }
   };
 
   render() {
@@ -45,6 +77,7 @@ class Header extends React.Component {
       navigation,
       region,
     } = this.props;
+    const { search } = this.state;
 
     return (
       <div className="header">
@@ -57,23 +90,29 @@ class Header extends React.Component {
           </Link>
           <div className="options-container">
             <div className="options">
-              {/* <div className="search">
-                <input placeholder="e.g. rubber tank lining, etc..." />
-                {
-                  // {label.header.SEARCH}
-                }
-                <IconContext.Provider value={{ className: 'search-icon' }}>
-                  {
-                    // <button type="button" className="mobile-menu">
-                  }
-                  <FaSearch aria-hidden />
-                  {
-                    // </button>
-                  }
-                </IconContext.Provider>
-              </div> */}
+              <div className="search">
+                <input
+                  type="text"
+                  name="search"
+                  onChange={evt => this.handleInput(evt)}
+                  onKeyPress={evt => this.handleKeyPress(evt)}
+                  value={search}
+                  placeholder="e.g. rubber tank lining, etc..."
+                />
+                {/* {label.header.SEARCH} */}
+                {/* <button type="button" className="mobile-menu"></button> */}
+                <button
+                  type="button"
+                  className="button"
+                  onClick={evt => this.handleSearchClick(evt)}
+                >
+                  <IconContext.Provider value={{ className: 'search-icon' }}>
+                    <FaSearch aria-hidden />
+                  </IconContext.Provider>
+                </button>
+              </div>
               <div className="fusion-club">
-                <a href="https://fusion-club.netlify.com">
+                <a href="https://fusionclubpoints.com">
                   <img src={plane} width="30" alt="Visit Fusion Club" />
                 </a>
               </div>

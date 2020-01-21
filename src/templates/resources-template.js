@@ -25,19 +25,7 @@ class ResourcesTemplate extends Component {
     const { categories, sortOrder } = props.data.cms.page.resources;
     const { resourcesLabel } = props.data.cms;
     const allCategories = [];
-    const resourcesTypes = [
-      RESOURCE_TYPES.BROCHURE,
-      RESOURCE_TYPES.CATALOG,
-      RESOURCE_TYPES.OPERATING_MANUAL,
-      RESOURCE_TYPES.PRESS_RELEASE,
-      RESOURCE_TYPES.PRODUCT_SHEET,
-      RESOURCE_TYPES.PROMO_VIDEO,
-      RESOURCE_TYPES.SAFETY_ALERT_CERTIFICATION,
-      RESOURCE_TYPES.SAFETY_DATA_SHEET,
-      RESOURCE_TYPES.TEST_RESULT,
-      RESOURCE_TYPES.TRAINING_MANUAL,
-      RESOURCE_TYPES.TRAINING_VIDEO,
-    ];
+    const resourceTypes = Object.keys(RESOURCE_TYPES);
 
     categories.forEach(category => {
       const resources = [];
@@ -48,6 +36,9 @@ class ResourcesTemplate extends Component {
         category.page.landingSource.landingSections.forEach(section => {
           section.pages.forEach(page => {
             page.productSource.pdfDownloads.forEach(pdf => {
+              resources.push(pdf);
+            });
+            page.productSource.caseStudies.forEach(pdf => {
               resources.push(pdf);
             });
             page.productSource.youTubeVideos.forEach(video => {
@@ -65,7 +56,7 @@ class ResourcesTemplate extends Component {
         }
       }
       /*  filter documents */
-      resourcesTypes.forEach(resourceType => {
+      resourceTypes.forEach(resourceType => {
         const thisType = [];
         resources.forEach(resource => {
           if (
@@ -231,6 +222,7 @@ class ResourcesTemplate extends Component {
                     )}
                   </div>
                   <hr />
+                  {/* shown when there are no resources for this category */}
                   {selectedCategory && selectedCategory.resources.length === 0 && (
                     <div className="no-resource">{resourcesLabel.resources.NO_RESOURCE}</div>
                   )}
@@ -243,7 +235,7 @@ class ResourcesTemplate extends Component {
                           onClick={evt => this.handleClickResourceType(evt)}
                           type="button"
                         >
-                          {type.title}
+                          {type.title || resourcesLabel.resources.MISC}
                         </button>
                         <div className="category-resources">
                           <div className="resources-heading">
@@ -355,12 +347,24 @@ export const query = graphql`
                         resourceType
                         url
                       }
+                      caseStudies(locale: $locale) {
+                        documentTitle(locale: $locale)
+                        fileName
+                        resourceType
+                        url
+                      }
                     }
                   }
                 }
                 singlePages: pages(where: { status: PUBLISHED }) {
                   productSource {
                     pdfDownloads(locale: $locale) {
+                      url
+                      fileName
+                      resourceType
+                      documentTitle(locale: $locale)
+                    }
+                    caseStudies(locale: $locale) {
                       url
                       fileName
                       resourceType

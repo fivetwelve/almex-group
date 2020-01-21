@@ -103,7 +103,7 @@ export const query = graphql`
           }
           title(locale: $locale)
           description(locale: $locale)
-          events: historicalEvents {
+          events: historicalEvents(where: { status: PUBLISHED }) {
             almexEvent
             captions(locale: $locale)
             sortDate

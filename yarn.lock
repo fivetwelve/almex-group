@@ -935,6 +935,11 @@
   dependencies:
     "@turf/helpers" "6.x"
 
+"@types/algoliasearch@^3.30.16":
+  version "3.34.8"
+  resolved "https://registry.yarnpkg.com/@types/algoliasearch/-/algoliasearch-3.34.8.tgz#a5b002e2b4256839c50fa1bdfcb94a137cd1721a"
+  integrity sha512-lQUO+rAGW1QgUknnGUjtFAuPJwp9h5CYe1az42oISHd1kqIhW1iEwvEUag1bUo3+UAcq2IxASViUF/yAOvirEA==
+
 "@types/configstore@^2.1.1":
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/@types/configstore/-/configstore-2.1.1.tgz#cd1e8553633ad3185c3f2f239ecff5d2643e92b6"
@@ -1353,16 +1358,14 @@ ajv@^6.1.0, ajv@^6.10.0, ajv@^6.10.2, ajv@^6.5.5:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-algoliasearch-helper@^2.26.0:
-  version "2.28.0"
-  resolved "https://registry.yarnpkg.com/algoliasearch-helper/-/algoliasearch-helper-2.28.0.tgz#1cafa7fcd02c15e9411c4d1778e9a4e89581916d"
-  integrity sha512-ZWczpkns2tw9sAtFL+1Cn3XAGkaunYS+ckldBrHHHQZj1/vw9n8SOGUO7lwpjuKXG9+TWgzx6XP3ZsG3iM+6hw==
+algoliasearch-helper@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/algoliasearch-helper/-/algoliasearch-helper-3.0.0.tgz#830f0017408df16d47618400bed9eed00930b27b"
+  integrity sha512-urO9Yq6gMj93qfuCK5wFK250LfRSVFanJrSyOevJWgN6o6H3Km3wl04er0NaiHGZorqOyEAEU1us1aqFLO3YSA==
   dependencies:
     events "^1.1.1"
-    lodash "^4.17.5"
-    qs "^6.5.1"
 
-algoliasearch@^3.27.1, algoliasearch@^3.35.1:
+algoliasearch@^3.35.1:
   version "3.35.1"
   resolved "https://registry.yarnpkg.com/algoliasearch/-/algoliasearch-3.35.1.tgz#297d15f534a3507cab2f5dfb996019cac7568f0c"
   integrity sha512-K4yKVhaHkXfJ/xcUnil04xiSrB8B8yHZoFEhWNpXg23eiCnqvTZw1tn/SqvdsANlYHLJlKl0qi3I/Q2Sqo7LwQ==
@@ -5287,12 +5290,10 @@ gatsby-plugin-prefetch-google-fonts@^1.4.3:
     google-fonts-plugin "2.0.2"
     object-hash "^1.3.0"
 
-gatsby-plugin-react-helmet@^3.0.5:
-  version "3.1.13"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-react-helmet/-/gatsby-plugin-react-helmet-3.1.13.tgz#0ba9e2e902ae490b45c898cffece6e17689da9ee"
-  integrity sha512-O3Fvxm76t58RPVUz0Fo2tbXeJnXV6vmlLnKBPMz+smr0Mtx8vnGP1Pi6DuWdRepJsnVespNNth/L8n7iucQCYQ==
-  dependencies:
-    "@babel/runtime" "^7.6.3"
+gatsby-plugin-react-helmet-async@^1.0.14:
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-react-helmet-async/-/gatsby-plugin-react-helmet-async-1.0.14.tgz#0b156c113ce9f9fbbba46f552234b65710e1ceb4"
+  integrity sha512-Xcvbmx2lgFycnPQlIsKMypR2PVm2BDR4o3aKnPwmd1cZgf76IgNq7smUZ+pRHJRsc4SVH+8DmiECrTSC5dxqEw==
 
 gatsby-plugin-remote-images@^1.0.1:
   version "1.0.7"
@@ -8339,10 +8340,6 @@ neon-js@^1.1.2:
   resolved "https://registry.yarnpkg.com/neon-js/-/neon-js-1.1.2.tgz#af85d8e2bb8099cfc7f6fe256a896a5464b00623"
   integrity sha1-r4XY4ruAmc/H9v4laolqVGSwBiM=
 
-netlify-identity-widget@fivetwelve/netlify-identity-widget:
-  version "1.5.2"
-  resolved "https://codeload.github.com/fivetwelve/netlify-identity-widget/tar.gz/4edc7fca07cc242b24c2fd3a42fde97f91b6a38d"
-
 netlify-lambda@^1.6.3:
   version "1.6.3"
   resolved "https://registry.yarnpkg.com/netlify-lambda/-/netlify-lambda-1.6.3.tgz#296d65b5f024d4872648f50664cf7a0e62ae8653"
@@ -9883,7 +9880,7 @@ prompts@^2.2.1:
     kleur "^3.0.3"
     sisteransi "^1.0.3"
 
-prop-types@^15.0.0, prop-types@^15.5.0, prop-types@^15.5.10, prop-types@^15.5.3, prop-types@^15.5.4, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.0.0, prop-types@^15.5.0, prop-types@^15.5.10, prop-types@^15.5.3, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -10164,7 +10161,7 @@ react-error-overlay@^3.0.0:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-3.0.0.tgz#c2bc8f4d91f1375b3dad6d75265d51cd5eeaf655"
   integrity sha512-XzgvowFrwDo6TWcpJ/WTiarb9UI6lhA4PMzS7n1joK3sHfBBBOQHUc0U4u57D6DWO9vHv6lVSWx2Q/Ymfyv4hw==
 
-react-fast-compare@^2.0.2:
+react-fast-compare@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
   integrity sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==
@@ -10177,15 +10174,16 @@ react-google-recaptcha@^2.0.1:
     prop-types "^15.5.0"
     react-async-script "^1.1.1"
 
-react-helmet@^5.2.0:
-  version "5.2.1"
-  resolved "https://registry.yarnpkg.com/react-helmet/-/react-helmet-5.2.1.tgz#16a7192fdd09951f8e0fe22ffccbf9bb3e591ffa"
-  integrity sha512-CnwD822LU8NDBnjCpZ4ySh8L6HYyngViTZLfBBb3NjtrpN8m49clH8hidHouq20I51Y6TpCTISCBbqiY5GamwA==
+react-helmet-async@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-helmet-async/-/react-helmet-async-1.0.4.tgz#079ef10b7fefcaee6240fefd150711e62463cc97"
+  integrity sha512-KTGHE9sz8N7+fCkZ2a3vzXH9eIkiTNhL2NhKR7XzzQl3WsGlCHh76arauJUIiGdfhjeMp7DY7PkASAmYFXeJYg==
   dependencies:
-    object-assign "^4.1.1"
-    prop-types "^15.5.4"
-    react-fast-compare "^2.0.2"
-    react-side-effect "^1.1.0"
+    "@babel/runtime" "^7.3.4"
+    invariant "^2.2.4"
+    prop-types "^15.7.2"
+    react-fast-compare "^2.0.4"
+    shallowequal "^1.1.0"
 
 react-hot-loader@^4.12.15:
   version "4.12.15"
@@ -10208,28 +10206,27 @@ react-icons@^3.3.0:
   dependencies:
     camelcase "^5.0.0"
 
-react-instantsearch-core@^5.7.0:
-  version "5.7.0"
-  resolved "https://registry.yarnpkg.com/react-instantsearch-core/-/react-instantsearch-core-5.7.0.tgz#6979ec419d2711033f6c83181de6cae9e1f064c2"
-  integrity sha512-fjexlv+hR8OyZraAmjwM+GmiVcJFzLUnufIKPMLO7/L4Mg5h0pETSXNBT22cCXTnda6XML//+GqQmWJFf+PBrA==
+react-instantsearch-core@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/react-instantsearch-core/-/react-instantsearch-core-6.1.0.tgz#1d757e8558021dbdf65ca78a4bd75d727a5aac84"
+  integrity sha512-u9fdHXG9ay9t99Ea5lO9esnIkwBMl7nATzLOm00DNhaOdT0DyvNKDqzjX6rdAuG2DGMPpo36VMxBD/TEgB5jyw==
   dependencies:
     "@babel/runtime" "^7.1.2"
-    algoliasearch-helper "^2.26.0"
-    lodash "^4.17.4"
+    "@types/algoliasearch" "^3.30.16"
+    algoliasearch-helper "^3.0.0"
+    fast-deep-equal "^2.0.1"
     prop-types "^15.5.10"
 
-react-instantsearch-dom@^5.7.0:
-  version "5.7.0"
-  resolved "https://registry.yarnpkg.com/react-instantsearch-dom/-/react-instantsearch-dom-5.7.0.tgz#5a9b0cfb461c08a349a5fdc5d1cff50b8f5fcf56"
-  integrity sha512-FwFZZXwgaYtLrXD9KJNlrPVkfw8JOqVgpDBvra547udF4zbacZUuX7/qTyMHjVW/Lz59t5T25vCGLzmQiO89YA==
+react-instantsearch-dom@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/react-instantsearch-dom/-/react-instantsearch-dom-6.1.0.tgz#dc5b7b15fd0e331d86a5fc83e4bed87d3600fafb"
+  integrity sha512-EVAIDjKBhPFNEVSMTnuORKM32KyB4sK/mPw3UzSkIGtgok6DIRFPQ6W45pQOJmAcyS9GS8sQj7LxwR4e0DP/pg==
   dependencies:
     "@babel/runtime" "^7.1.2"
-    algoliasearch "^3.27.1"
-    algoliasearch-helper "^2.26.0"
+    algoliasearch-helper "^3.0.0"
     classnames "^2.2.5"
-    lodash "^4.17.4"
     prop-types "^15.5.10"
-    react-instantsearch-core "^5.7.0"
+    react-instantsearch-core "^6.1.0"
 
 react-is@^16.6.3, react-is@^16.7.0, react-is@^16.8.1:
   version "16.11.0"
@@ -10274,13 +10271,6 @@ react-remarkable@^1.1.3:
   integrity sha512-H4kfiT0Q84OzNAcNfWKDMe1Xhm/7jJAIHV5n4mAff2N0nGpPtRN2M7zhLXaTalD5DNGCGKEq1b4XApZ/1QpKbg==
   dependencies:
     remarkable "^1.x"
-
-react-side-effect@^1.1.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/react-side-effect/-/react-side-effect-1.2.0.tgz#0e940c78faba0c73b9b0eba9cd3dda8dfb7e7dae"
-  integrity sha512-v1ht1aHg5k/thv56DRcjw+WtojuuDHFUgGfc+bFHOWsF4ZK6C2V57DO0Or0GPsg6+LSTE0M6Ry/gfzhzSwbc5w==
-  dependencies:
-    shallowequal "^1.0.1"
 
 react-typography@^0.16.18:
   version "0.16.19"
@@ -11176,7 +11166,7 @@ shallow-compare@^1.2.2:
   resolved "https://registry.yarnpkg.com/shallow-compare/-/shallow-compare-1.2.2.tgz#fa4794627bf455a47c4f56881d8a6132d581ffdb"
   integrity sha512-LUMFi+RppPlrHzbqmFnINTrazo0lPNwhcgzuAXVVcfy/mqPDrQmHAyz5bvV0gDAuRFrk804V0HpQ6u9sZ0tBeg==
 
-shallowequal@^1.0.1, shallowequal@^1.1.0:
+shallowequal@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/shallowequal/-/shallowequal-1.1.0.tgz#188d521de95b9087404fd4dcb68b13df0ae4e7f8"
   integrity sha512-y0m1JoUZSlPAjXVtPPW70aZWfIL/dSP7AFkRnniLCrK/8MDKog3TySTBmckD+RObVxH0v4Tox67+F14PdED2oQ==
