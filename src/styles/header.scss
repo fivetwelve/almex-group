@@ -295,9 +295,13 @@
         align-items: center;
         position: relative;
         justify-content: space-around;
+        padding-left: 5px;
+        padding-right: 5px;
       }
       @include media('>=desktop') {
         justify-content: center;
+        padding-left: 0;
+        padding-right: 0;
       }
     }
 

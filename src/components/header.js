@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, Link, navigate } from 'gatsby';
+import { navigate as reload } from '@reach/router';
 import { IconContext } from 'react-icons';
 import { FaBars, FaSearch } from 'react-icons/fa';
 import BrandSelector from './brandSelector';
@@ -23,6 +24,11 @@ class Header extends React.Component {
     this.navWrapperRef = React.createRef();
   }
 
+  // componentDidUpdate() {
+  //   const { location } = this.props;
+  //   // console.log(location);
+  // }
+
   handleMobileMenuClick = evt => {
     evt.preventDefault();
     const { showMobileBG } = this.props;
@@ -42,9 +48,10 @@ class Header extends React.Component {
     const { search } = this.state;
     const charCode = typeof evt.which === 'number' ? evt.which : evt.keyCode;
     if (charCode === 13 && search.trim() !== '') {
-      navigate(
-        `${createLink(location, 'search')}?query=${encodeURIComponent(search.trim())}&page=1`,
-      );
+      // navigate(
+      //   `${createLink(location, 'search')}?query=${encodeURIComponent(search.trim())}&page=1`,
+      // );
+      reload(`${createLink(location, 'search')}?query=${encodeURIComponent(search.trim())}&page=1`);
     }
   };
 
@@ -55,6 +62,7 @@ class Header extends React.Component {
     if (search.trim() !== '') {
       navigate(
         `${createLink(location, 'search')}?query=${encodeURIComponent(search.trim())}&page=1`,
+        { replace: true },
       );
     }
   };

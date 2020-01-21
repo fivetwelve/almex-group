@@ -5,17 +5,20 @@ import Markdown from 'react-remarkable';
 import { Link } from 'gatsby';
 import { createLink } from '../utils/functions';
 
-const StateResults = ({ searchResults, locale, location }) => {
+const StateResults = ({ label, locale, location, searchResults }) => {
   // const hasResults = searchResults && searchResults.nbHits !== 0;
   // const nbHits = searchResults && searchResults.nbHits;
   const hits = searchResults && searchResults.hits;
   const query = searchResults && searchResults.query;
-  // console.log(searchResults);
-
+  // console.log('searchResults:', searchResults);
   return (
     <div>
       <div className="results">
-        {query && <h1>Search Results</h1>}
+        {query && (
+          <h1>
+            {label.RESULTS}: {`"${query}"`}
+          </h1>
+        )}
         {query &&
           hits.map(
             hit =>
@@ -36,6 +39,8 @@ const StateResults = ({ searchResults, locale, location }) => {
                 </div>
               ),
           )}
+        {query && hits.length === 0 && <h2>{label.NO_RESULTS}</h2>}
+        {!query && <h1>{label.PLEASE_ENTER}</h1>}
         <hr />
       </div>
     </div>
@@ -43,18 +48,21 @@ const StateResults = ({ searchResults, locale, location }) => {
 };
 
 StateResults.defaultProps = {
+  label: {},
   locale: '',
   location: {},
   searchResults: {},
 };
 
 StateResults.propTypes = {
+  label: PropTypes.shape({
+    NO_RESULTS: PropTypes.string,
+    PLEASE_ENTER: PropTypes.string,
+    RESULTS: PropTypes.string,
+  }),
   locale: PropTypes.string,
   location: PropTypes.shape({
     pathname: PropTypes.string,
-    // state: PropTypes.shape({
-    //   prevLocation: PropTypes.string,
-    // }),
   }),
   searchResults: PropTypes.shape({
     query: PropTypes.string,
