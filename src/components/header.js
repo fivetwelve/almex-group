@@ -24,11 +24,6 @@ class Header extends React.Component {
     this.navWrapperRef = React.createRef();
   }
 
-  // componentDidUpdate() {
-  //   const { location } = this.props;
-  //   // console.log(location);
-  // }
-
   handleMobileMenuClick = evt => {
     evt.preventDefault();
     const { showMobileBG } = this.props;
@@ -229,6 +224,9 @@ export const commonFragment = graphql`
       navigation(locale: $locale)
       simpleTagline(locale: $locale)
       socialMedia(locale: $locale)
+      privacyPage {
+        slug(locale: $locale)
+      }
     }
     navigation(where: { availableIn: $region }) {
       navigationSections {
