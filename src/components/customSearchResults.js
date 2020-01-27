@@ -4,13 +4,19 @@ import { connectStateResults } from 'react-instantsearch-dom';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'gatsby';
 import { createLink } from '../utils/functions';
+import { STATUS } from '../constants';
 
 const StateResults = ({ label, locale, location, searchResults }) => {
-  // const hasResults = searchResults && searchResults.nbHits !== 0;
-  // const nbHits = searchResults && searchResults.nbHits;
   const hits = searchResults && searchResults.hits;
   const query = searchResults && searchResults.query;
-  // console.log('searchResults:', searchResults);
+  let publishedHits = 0;
+  if (hits) {
+    hits.forEach(elem => {
+      if (elem.page.status === STATUS.PUBLISHED) {
+        publishedHits += 1;
+      }
+    });
+  }
   return (
     <div>
       <div className="results">
@@ -20,11 +26,12 @@ const StateResults = ({ label, locale, location, searchResults }) => {
           </h1>
         )}
         {query &&
+          publishedHits !== 0 &&
           hits.map(
             hit =>
               hit.page && (
                 <div className="result" key={hit.objectID}>
-                  {hit.page && hit.page.status === 'PUBLISHED' && (
+                  {hit.page && hit.page.status === STATUS.PUBLISHED && (
                     <>
                       <div className="title">
                         <Link to={createLink(location, hit.page[`slug${locale}`])}>
@@ -32,14 +39,14 @@ const StateResults = ({ label, locale, location, searchResults }) => {
                         </Link>
                       </div>
                       <div className="body">
-                        <ReactMarkdown source={hit[`marketing${locale}`]} />
+                        <ReactMarkdown source={hit.page[`excerpt${locale}`]} />
                       </div>
                     </>
                   )}
                 </div>
               ),
           )}
-        {query && hits.length === 0 && <h2>{label.NO_RESULTS}</h2>}
+        {query && publishedHits === 0 && <h2>{label.NO_RESULTS}</h2>}
         {!query && <h1>{label.PLEASE_ENTER}</h1>}
         <hr />
       </div>
