@@ -1,22 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'gatsby';
 import { connectStateResults } from 'react-instantsearch-dom';
 import ReactMarkdown from 'react-markdown';
-import { Link } from 'gatsby';
 import { createLink } from '../utils/functions';
-import { STATUS } from '../constants';
 
 const StateResults = ({ label, locale, location, searchResults }) => {
   const hits = searchResults && searchResults.hits;
   const query = searchResults && searchResults.query;
-  let publishedHits = 0;
-  if (hits) {
-    hits.forEach(elem => {
-      if (elem.page.status === STATUS.PUBLISHED) {
-        publishedHits += 1;
-      }
-    });
-  }
+
   return (
     <div>
       <div className="results">
@@ -25,30 +17,25 @@ const StateResults = ({ label, locale, location, searchResults }) => {
             {label.RESULTS}: {`"${query}"`}
           </h1>
         )}
-        {query &&
-          publishedHits !== 0 &&
-          hits.map(
-            hit =>
-              hit.page && (
-                <div className="result" key={hit.objectID}>
-                  {hit.page && hit.page.status === STATUS.PUBLISHED && (
-                    <>
-                      <div className="title">
-                        <Link to={createLink(location, hit.page[`slug${locale}`])}>
-                          {hit[`title${locale}`]}
-                        </Link>
-                      </div>
-                      <div className="body">
-                        <ReactMarkdown source={hit.page[`excerpt${locale}`]} />
-                      </div>
-                    </>
-                  )}
-                </div>
-              ),
-          )}
-        {query && publishedHits === 0 && <h2>{label.NO_RESULTS}</h2>}
         {!query && <h1>{label.PLEASE_ENTER}</h1>}
         <hr />
+        {query &&
+          hits.length > 0 &&
+          hits.map(hit => (
+            <div className="result" key={hit.objectID}>
+              <>
+                <div className="title">
+                  <Link to={createLink(location, hit.page[`slug${locale}`])}>
+                    {hit[`title${locale}`]}
+                  </Link>
+                </div>
+                <div className="body">
+                  <ReactMarkdown source={hit.page[`excerpt${locale}`]} />
+                </div>
+              </>
+            </div>
+          ))}
+        {query && hits.length === 0 && <h2>{label.NO_RESULTS}</h2>}
       </div>
     </div>
   );

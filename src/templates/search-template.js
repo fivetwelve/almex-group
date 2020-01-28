@@ -3,11 +3,16 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import { globalHistory } from '@reach/router';
 import algoliasearch from 'algoliasearch/lite';
-import { InstantSearch, SearchBox } from 'react-instantsearch-dom';
+import {
+  Configure,
+  connectRefinementList,
+  InstantSearch,
+  SearchBox,
+} from 'react-instantsearch-dom';
 import qs from 'qs';
-import CustomSearchResults from '../components/customSearchResults';
 import Layout from '../components/layout';
-// import { makeid } from '../utils/functions';
+import CustomSearchResults from '../components/customSearchResults';
+import { STATUS } from '../constants';
 import '../styles/search.scss';
 
 /* Algolia declarations begin */
@@ -31,18 +36,10 @@ const searchClient = {
     return algoliaClient.search(requests);
   },
 };
-
 /* Algolia declarations end */
 
 /* utility functions begin */
 const createURL = state => `?${qs.stringify(state)}`;
-
-// const searchStateToUrl = (searchState, location) => {
-//   if (searchState && searchState.query !== '') {
-//     return createURL(searchState);
-//   }
-//   return location.pathname;
-// };
 
 const urlToSearchState = ({ search }) => qs.parse(search.slice(1));
 /* utility functions end */
@@ -68,21 +65,7 @@ const SearchTemplate = props => {
     });
   }, []);
 
-  // const onSearchStateChange = updatedSearchState => {
-  //   const { query, ...rest } = updatedSearchState;
-  //   const trimmedSearchState = {
-  //     query: query.trim(),
-  //     ...rest,
-  //   };
-  //   if (typeof window !== 'undefined') {
-  //     window.history.pushState(
-  //       { key: makeid() },
-  //       '',
-  //       searchStateToUrl(trimmedSearchState, location),
-  //     );
-  //   }
-  //   setSearchState(trimmedSearchState);
-  // };
+  const VirtualRefinementList = connectRefinementList(() => null);
 
   return (
     <Layout
@@ -93,16 +76,29 @@ const SearchTemplate = props => {
       label={label}
       navigation={navigation}
       region={region}
-      // title={title}
     >
       <div className="search-container">
         <InstantSearch
           indexName="CMS"
           searchClient={searchClient}
           searchState={searchState}
-          // onSearchStateChange={onSearchStateChange}
           createURL={createURL}
         >
+          <VirtualRefinementList attribute="page.availableIn" defaultRefinement={[region]} />
+          <VirtualRefinementList attribute="page.status" defaultRefinement={[STATUS.PUBLISHED]} />
+          <Configure
+            attributesToRetrieve={[
+              'brand',
+              `excerpt${locale}`,
+              `keywords${locale}`,
+              `title${locale}`,
+              'page.status',
+              'page.availableIn',
+              `page.excerpt${locale}`,
+              `page.slug${locale}`,
+            ]}
+            restrictSearchableAttributes={['brand', `keywords${locale}`, `title${locale}`]}
+          />
           <div className="search-top" hidden>
             <SearchBox searchAsYouType={false} />
           </div>
