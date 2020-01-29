@@ -83,6 +83,7 @@
           width: 71px;
           border-left: 1px solid #c7c7cc;
           a img {
+            overflow: hidden;
             min-width: 30px;
           }
         }
@@ -151,7 +152,7 @@
             height: 40px;
             input {
               transition: $easeinout;
-              margin-right: 5px;
+              margin-right: 15px;
               width: 250px;
               font-size: 18px;
               height: 30px;
@@ -167,15 +168,15 @@
               }
             }
             .button {
-              outline: none;
               background: none;
               border: 0;
-              margin: 0;
+              margin: 5px;
               padding: 0;
               height: 25px;
+              overflow: hidden;
             }
             .search-icon {
-              margin-left: 10px;
+              // margin-left: 10px;
             }
           }
           .brands {

@@ -7,7 +7,7 @@ import DayPicker, { DateUtils } from 'react-day-picker';
 import MomentLocaleUtils, { formatDate } from 'react-day-picker/moment';
 import { IconContext } from 'react-icons';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
-import Markdown from 'react-remarkable';
+import ReactMarkdown from 'react-markdown';
 import 'moment/locale/de';
 import 'moment/locale/es';
 import Layout from '../components/layout';
@@ -246,7 +246,7 @@ class EventsTemplate extends Component {
                 <div className="events-intro">
                   <h1 className="title">{title}</h1>
                   <div className="description">
-                    <Markdown source={description} options={allowHTML} />
+                    <ReactMarkdown source={description} options={allowHTML} />
                   </div>
                 </div>
                 <div className="daypicker-dropdown">

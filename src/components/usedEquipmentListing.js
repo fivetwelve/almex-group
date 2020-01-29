@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Carousel from 'nuka-carousel';
-import Markdown from 'react-remarkable';
+import ReactMarkdown from 'react-markdown';
 import { IconContext } from 'react-icons';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import moment from 'moment';
@@ -148,7 +148,7 @@ class UsedEquipmentListing extends React.Component {
             <div className="title">{title}</div>
             <div className="model-number">{modelNumber}</div>
             <div className="contact-info">
-              <Markdown source={contactInformation} options={allowHTML} />
+              <ReactMarkdown source={contactInformation} options={allowHTML} />
             </div>
             {slideArray.length > 1 && (
               <div className="carousel-controls">
@@ -178,7 +178,7 @@ class UsedEquipmentListing extends React.Component {
         </div>
         <div className="listing-specs">
           <div className="listing-description">
-            <Markdown source={equipmentDescription} allowHTML={allowHTML} />
+            <ReactMarkdown source={equipmentDescription} allowHTML={allowHTML} />
           </div>
         </div>
       </>

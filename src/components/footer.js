@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, Link, StaticQuery } from 'gatsby';
 import { IconContext } from 'react-icons';
+import CookieConsent from 'react-cookie-consent';
 import {
   FaPhone,
   FaEnvelope,
@@ -11,7 +12,7 @@ import {
   FaTwitter,
   FaFacebookF,
 } from 'react-icons/fa';
-import Markdown from 'react-remarkable';
+import ReactMarkdown from 'react-markdown';
 import { createLink, fetch, hoursPassed, makeid } from '../utils/functions';
 import { BRANDS, PAGE_TYPES } from '../constants';
 import '../styles/footer.scss';
@@ -87,10 +88,10 @@ class Footer extends React.Component {
   renderOffice = office => (
     <div className="office" key={makeid()}>
       <div className="name">
-        <Markdown source={office.name} options={{ html: true }} />
+        <ReactMarkdown source={office.name} options={{ html: true }} />
       </div>
       <div className="address">
-        <Markdown source={office.address} options={{ html: true }} />
+        <ReactMarkdown source={office.address} options={{ html: true }} />
       </div>
       <div className="phone">
         <IconContext.Provider value={{ className: 'contact-icon' }}>
@@ -199,12 +200,26 @@ class Footer extends React.Component {
     brands.sort((a, b) => (a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1));
     return (
       <>
+        <CookieConsent
+          enableDeclineButton
+          onDecline={() => {
+            window.gaOptout();
+          }}
+          style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
+          buttonText={label.footer.CONSENT_ACCEPT}
+          declineButtonText={label.footer.CONSENT_DECLINE}
+        >
+          {`${label.footer.CONSENT_TEXT} `}
+          <Link to={createLink(location, headerFooter.privacyPage.slug)}>
+            {label.footer.CONSENT_LINK_TEXT}
+          </Link>
+        </CookieConsent>
         <div className="footer">
           <div className="footer-container">
             <div className="footer-top">
               <div className="top-left">
                 {/* <div className="address">
-                  <Markdown source={companyAddress} options={{ html: true }} />
+                  <ReactMarkdown source={companyAddress} options={{ html: true }} />
                 </div>
                 <div className="phone">
                   <IconContext.Provider value={{ className: 'contact-icon' }}>
@@ -311,6 +326,7 @@ Footer.propTypes = {
     companyEmail: PropTypes.string,
     companyPhone: PropTypes.string,
     footerLinks: PropTypes.object,
+    privacyPage: PropTypes.object,
     socialMedia: PropTypes.object,
   }),
   label: PropTypes.shape({

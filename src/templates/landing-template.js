@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
-import Markdown from 'react-remarkable';
+import ReactMarkdown from 'react-markdown';
 import Layout from '../components/layout';
 import LandingTile from '../components/landingTile';
 import { LANDING_TYPES, THEMES } from '../constants';
@@ -178,7 +178,7 @@ const LandingTemplate = ({ data, pageContext }) => {
                   <h2 className="landing-title">{title}</h2>
                   {description && (
                     <div className="description">
-                      <Markdown source={description} options={allowHTML} />
+                      <ReactMarkdown source={description} options={allowHTML} />
                     </div>
                   )}
                 </div>
@@ -203,7 +203,7 @@ const LandingTemplate = ({ data, pageContext }) => {
                   )}
                   {description && (
                     <div className="description">
-                      <Markdown source={description} options={allowHTML} />
+                      <ReactMarkdown source={description} options={allowHTML} />
                     </div>
                   )}
                 </div>
@@ -220,7 +220,7 @@ const LandingTemplate = ({ data, pageContext }) => {
                   <h2 className="title">{title}</h2>
                   {description && (
                     <div className="description">
-                      <Markdown source={description} options={allowHTML} />
+                      <ReactMarkdown source={description} options={allowHTML} />
                     </div>
                   )}
                 </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
 import { FaFax, FaMobileAlt, FaPhone } from 'react-icons/fa';
-import Markdown from 'react-remarkable';
+import ReactMarkdown from 'react-markdown';
 import countryFlag from './countryFlag';
 import { makeid } from '../utils/functions';
 import pin from '../../static/img/map-pin.svg';
@@ -43,7 +43,7 @@ const ContactOffice = props => {
           <br />
           <em>{name}</em>
           <br />
-          <Markdown source={address} />
+          <ReactMarkdown source={address} />
           {telephone.length > 0 &&
             telephone.map(num => (
               <div key={`tel-${makeid()}`}>

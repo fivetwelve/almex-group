@@ -108,8 +108,14 @@ $spacing: 20px;
       h1 {
         margin-bottom: 20px;
       }
+      @include media('>=tablet') {
+        min-height: calc(100vh - 150px - 592px - 100px);
+      }
       .result {
         margin-right: 40px;
+        &:first-of-type {
+          margin-top: 40px;
+        }
         .title {
           font-size: 20px;
           font-style: italic;

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
-import Markdown from 'react-remarkable';
+import ReactMarkdown from 'react-markdown';
 import Layout from '../components/layout';
 import LinkWithPrevious from '../components/linkWithPrevious';
 import ProductShowcase from '../components/productShowcase';
@@ -134,7 +134,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
             pdfDownloads={pdfDownloads}
           />
           <div className={`product-marketing ${themeColour}`}>
-            <Markdown source={marketing} options={allowHTML} />
+            <ReactMarkdown source={marketing} options={allowHTML} />
           </div>
           {advantages && (
             <>
@@ -143,7 +143,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               </div>
               <div className={`product-advantages ${themeColour}`}>
                 <div className="advantages-text">
-                  <Markdown source={advantages} options={allowHTML} />
+                  <ReactMarkdown source={advantages} options={allowHTML} />
                 </div>
                 {advantagesImage && (
                   <div className="advantages-image" style={advantagesImageStyle} />
@@ -160,13 +160,13 @@ const ProductTemplate = ({ data, location, pageContext }) => {
                 {features && (
                   <div className={`product-features ${themeColour}`}>
                     <h4>{products.FEATURES}</h4>
-                    <Markdown source={features} options={allowHTML} />
+                    <ReactMarkdown source={features} options={allowHTML} />
                   </div>
                 )}
                 {productInfo && (
                   <div className={`product-info ${themeColour}`}>
                     <h4>{products.PROD_INFO}</h4>
-                    <Markdown source={productInfo} options={allowHTML} />
+                    <ReactMarkdown source={productInfo} options={allowHTML} />
                   </div>
                 )}
               </div>
@@ -178,7 +178,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
                 <div className="section-title">{products.SPECS}</div>
               </div>
               <div className={`product-specs ${themeColour}`}>
-                <Markdown source={specs} options={allowHTML} />
+                <ReactMarkdown source={specs} options={allowHTML} />
               </div>
             </>
           )}
@@ -205,7 +205,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
                 <div className="section-title">{products.CONFIGURATIONS}</div>
               </div>
               <div className={`product-configurations ${themeColour}`}>
-                <Markdown source={configurations} options={allowHTML} />
+                <ReactMarkdown source={configurations} options={allowHTML} />
               </div>
             </>
           )}

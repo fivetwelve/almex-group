@@ -195,12 +195,14 @@ class Layout extends React.Component {
                       location={location}
                       showMobileBG={this.showMobileBG}
                     />
-                    <div className="bodyClass">
-                      {/* TODO address visitorRegion or remove if not needed */}
-                      {/* <LocationProvider value={location} visitorRegion="test"> */}
-                      <div className={childrenClass}>{children}</div>
-                      {/* </LocationProvider> */}
-                    </div>
+                    <main>
+                      <div className="bodyClass">
+                        {/* TODO address visitorRegion or remove if not needed */}
+                        {/* <LocationProvider value={location} visitorRegion="test"> */}
+                        <div className={childrenClass}>{children}</div>
+                        {/* </LocationProvider> */}
+                      </div>
+                    </main>
                     <Footer
                       brandNavigation={brandNavigation}
                       headerFooter={headerFooter}

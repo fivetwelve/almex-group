@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import GraphImg from 'graphcms-image';
-import Markdown from 'react-remarkable';
+import ReactMarkdown from 'react-markdown';
 import moment from 'moment';
 import 'moment/locale/es';
 import Layout from '../components/layout';
@@ -53,7 +53,7 @@ const UsedEquipmentTemplate = ({ data, pageContext }) => {
             <div className="title">{title}</div>
           </div>
           <div className="description">
-            <Markdown source={description} options={allowHTML} />
+            <ReactMarkdown source={description} options={allowHTML} />
           </div>
         </div>
         {usedEquipmentListings.map(listing => (

@@ -7,7 +7,7 @@ import MomentLocaleUtils, { formatDate } from 'react-day-picker/moment';
 import { IconContext } from 'react-icons';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 import GraphImg from 'graphcms-image';
-import Markdown from 'react-remarkable';
+import ReactMarkdown from 'react-markdown';
 import Layout from '../components/layout';
 import TrainingEventsResults from '../components/trainingEventsResults';
 import InstituteForm from '../components/instituteForm';
@@ -235,11 +235,11 @@ class InstituteTemplate extends Component {
                   <div className="institute-logo-mobile">
                     <img src={logo} alt="Almex Institute logo" />
                   </div>
-                  <Markdown source={description} options={allowHTML} />
+                  <ReactMarkdown source={description} options={allowHTML} />
                 </div>
                 <div className="topics-container">
                   <div className="topics">
-                    <Markdown source={topics} options={allowHTML} />
+                    <ReactMarkdown source={topics} options={allowHTML} />
                   </div>
                   {topicsImages.length > 0 && (
                     <div className="images">
@@ -258,12 +258,12 @@ class InstituteTemplate extends Component {
                     </div>
                   )}
                   <div className="presentation">
-                    <Markdown source={presentation} options={allowHTML} />
+                    <ReactMarkdown source={presentation} options={allowHTML} />
                   </div>
                 </div>
                 <div className="instructors-container">
                   <div className="instructors">
-                    <Markdown source={instructors} options={allowHTML} />
+                    <ReactMarkdown source={instructors} options={allowHTML} />
                   </div>
                   {instructorsImages.length > 0 && (
                     <div className="images">
@@ -291,7 +291,7 @@ class InstituteTemplate extends Component {
                   <img src={logo} alt="Almex Institute logo" />
                 </div>
                 {sideContent.map(content => (
-                  <Markdown key={makeid()} source={content} options={allowHTML} />
+                  <ReactMarkdown key={makeid()} source={content} options={allowHTML} />
                 ))}
               </aside>
             </div>
@@ -346,7 +346,7 @@ class InstituteTemplate extends Component {
 
             <hr className="divider" />
             <div className="form-container">
-              <Markdown source={contactAndForm} options={allowHTML} />
+              <ReactMarkdown source={contactAndForm} options={allowHTML} />
               <InstituteForm label={label} email={email} />
             </div>
           </div>

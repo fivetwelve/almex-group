@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
-import Markdown from 'react-remarkable';
+import ReactMarkdown from 'react-markdown';
 import { createLink } from '../utils/functions';
 import '../styles/homepageTile.scss';
 
@@ -31,7 +31,7 @@ const HomepageTile = ({ data, labels, location }) => {
         </div>
       </Link>
       <div className="description">
-        <Markdown source={description} options={{ html: true }} />
+        <ReactMarkdown source={description} options={{ html: true }} />
         <div className="more-container">
           <Link to={(page && createLink(location, page.slug)) || createLink(location, '')}>
             <span className="more">{labels.common.MORE}</span>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 // import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
-import Markdown from 'react-remarkable';
+import ReactMarkdown from 'react-markdown';
 import YouTube from 'react-youtube';
 import Layout from '../components/layout';
 import CategorySelector from '../components/categorySelector';
@@ -186,7 +186,7 @@ class ResourcesTemplate extends Component {
               <div className="main-content">
                 <h1 className="title">{title}</h1>
                 <div className="content">
-                  <Markdown source={description} options={allowHTML} />
+                  <ReactMarkdown source={description} options={allowHTML} />
                   <div className="selector-container">
                     <CategorySelector
                       categories={allCategories}
@@ -202,7 +202,10 @@ class ResourcesTemplate extends Component {
                           countryFlag(selectedCategory.expert.countryCode)}
                         {selectedCategory.expert.name}
                         <br />
-                        <Markdown source={selectedCategory.expert.location} options={allowHTML} />
+                        <ReactMarkdown
+                          source={selectedCategory.expert.location}
+                          options={allowHTML}
+                        />
                         {selectedCategory.expert.telephone && (
                           <a href={`tel:${selectedCategory.expert.telephone}`}>
                             {selectedCategory.expert.telephone}

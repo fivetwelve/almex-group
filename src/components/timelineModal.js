@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Markdown from 'react-remarkable';
+import ReactMarkdown from 'react-markdown';
 import GraphImg from 'graphcms-image';
 import { IconContext } from 'react-icons';
 import { FaTimes } from 'react-icons/fa';
@@ -40,7 +40,7 @@ const TimelineModal = props => {
                 {event.description.map((desc, idx) => (
                   <React.Fragment key={makeid()}>
                     <div className="description">
-                      <Markdown source={desc} options={{ html: true }} />
+                      <ReactMarkdown source={desc} options={{ html: true }} />
                     </div>
                     {event.images[idx] ? (
                       <figure>

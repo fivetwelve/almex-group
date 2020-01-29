@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { GoogleMap, InfoWindow, LoadScript, Marker } from '@react-google-maps/api';
-import Markdown from 'react-remarkable';
+import ReactMarkdown from 'react-markdown';
 import { IconContext } from 'react-icons';
 import { FaFax, FaMobileAlt, FaPhone } from 'react-icons/fa';
 import ContactOffice from './contactOffice';
@@ -115,7 +115,7 @@ class ContactMap extends React.Component {
                   <div className="infoWindow-content">
                     <div className="infoWindow-name">{activeOffice.name}</div>
                     <div className="infoWindow-details">
-                      <Markdown source={activeOffice.address} />
+                      <ReactMarkdown source={activeOffice.address} />
                       {activeOffice.telephone.length > 0 &&
                         activeOffice.telephone.map(num => (
                           <div key={`tel-${makeid()}`}>
