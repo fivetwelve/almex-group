@@ -5,6 +5,11 @@ $spacing: 20px;
 .landing-page {
   padding-left: 10px;
   padding-right: 10px;
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
   @include media('>=tablet') {
     padding-left: 0;
     padding-right: 0;
@@ -181,6 +186,7 @@ $spacing: 20px;
   }
   h2.landing-title {
     margin: 40px auto;
+    padding-left: 15px;
     width: 100%;
     max-width: 1280px;
     font-size: 36px;
