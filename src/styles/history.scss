@@ -42,6 +42,10 @@ $caption-space-desktop: 300px;
         img {
           max-height: 325px;
         }
+        .graphcms-image-outer-wrapper,
+        .graphcms-image-wrapper {
+          max-height: inherit;
+        }
       }
     }
     .intro-container {
