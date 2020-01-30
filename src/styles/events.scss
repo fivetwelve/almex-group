@@ -32,14 +32,6 @@ $spacing: 20px;
     }
     .events-intro {
       margin-top: 40px;
-      @include media('>=tablet') {
-        .title {
-          font-size: 30px;
-        }
-        .description {
-          font-size: 24px;
-        }
-      }
       .title {
         font-size: 18px;
         color: $prussian-blue;
@@ -52,6 +44,14 @@ $spacing: 20px;
       .graphcms-image-outer-wrapper,
       .graphcms-image-wrapper {
         max-height: inherit;
+      }
+      @include media('>=tablet') {
+        .title {
+          font-size: 30px;
+        }
+        .description {
+          font-size: 24px;
+        }
       }
     }
     .events-main {
