@@ -14,6 +14,7 @@ import Layout from '../components/layout';
 import CustomSearchResults from '../components/customSearchResults';
 import { STATUS } from '../constants';
 import '../styles/search.scss';
+import CustomPagination from '../components/customPagination';
 
 /* Algolia declarations begin */
 const algoliaClient = algoliasearch(
@@ -104,6 +105,8 @@ const SearchTemplate = props => {
           </div>
           {/* <PoweredBy /> */}
           <CustomSearchResults label={label.search} locale={locale} location={location} />
+          <hr />
+          <CustomPagination defaultRefinement={0} showLast />
         </InstantSearch>
       </div>
     </Layout>

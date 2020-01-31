@@ -146,5 +146,49 @@ $spacing: 20px;
         margin-bottom: 30px;
       }
     }
+    .pagination {
+      display: inline-flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: baseline;
+      margin-left: 0;
+      li {
+        display: block;
+        font-size: 18px;
+        margin-left: 10px;
+        margin-right: 10px;
+        @include media('>=tablet') {
+          font-size: 20px;
+          margin-left: 10px;
+          margin-right: 10px;
+        }
+        &.nav-arrow {
+          font-size: 28px;
+          font-weight: bold;
+          a {
+            font-weight: bold;
+          }
+        }
+        a,
+        a:active,
+        a:visited {
+          color: $yellow-sea;
+          font-weight: normal;
+          text-decoration: none;
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+        a:hover {
+          border-bottom: 2px solid $yellow-sea;
+        }
+        .no-link {
+          padding-left: 5px;
+          padding-right: 5px;
+          color: $light-grey;
+          font-weight: bold;
+        }
+      }
+    }
   }
 }
