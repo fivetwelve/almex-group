@@ -135,6 +135,23 @@ class Header extends React.Component {
             </button>
           </IconContext.Provider>
         </div>
+        <div className="mobile-search-container">
+          <div className="mobile-search">
+            <input
+              type="text"
+              name="search"
+              onChange={evt => this.handleInput(evt)}
+              onKeyPress={evt => this.handleKeyPress(evt)}
+              value={search}
+              placeholder="e.g. rubber tank lining, etc..."
+            />
+            <button type="button" className="button" onClick={evt => this.handleSearchClick(evt)}>
+              <IconContext.Provider value={{ className: 'search-icon' }}>
+                <FaSearch aria-hidden />
+              </IconContext.Provider>
+            </button>
+          </div>
+        </div>
         <NavWrapper ref={this.navWrapperRef}>
           <Navigation
             activeLanguage={activeLanguage}

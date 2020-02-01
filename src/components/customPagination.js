@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { connectPagination } from 'react-instantsearch-dom';
 import { makeid } from '../utils/functions';
 
-const pagesWithNoBreak = (createURL, currentRefinement, nbPages) =>
+const PAGE_DISPLAY_LIMIT = 6;
+
+const pagesWithNoOverflow = (createURL, currentRefinement, nbPages) =>
   new Array(nbPages).fill(null).map((_, index) => {
     const page = index + 1;
 
@@ -18,10 +20,15 @@ const pagesWithNoBreak = (createURL, currentRefinement, nbPages) =>
     );
   });
 
-const pagesWithBreak = (createURL, currentRefinement, nbPages) =>
-  new Array(nbPages).fill(null).map((_, index) => {
-    const page = index + 1;
+const pagesWithOverflow = (createURL, currentRefinement, nbPages) => {
+  /* n.b. currentRefinement is the page # */
+  const distanceFromEnd = nbPages - currentRefinement;
+  const startIndex =
+    distanceFromEnd >= PAGE_DISPLAY_LIMIT ? currentRefinement - 1 : nbPages - PAGE_DISPLAY_LIMIT;
+  const endIndex = startIndex + PAGE_DISPLAY_LIMIT;
 
+  return new Array(nbPages).fill(null, startIndex, endIndex).map((_, index) => {
+    const page = index + 1;
     return (
       <li key={makeid()}>
         {currentRefinement === page ? (
@@ -32,6 +39,7 @@ const pagesWithBreak = (createURL, currentRefinement, nbPages) =>
       </li>
     );
   });
+};
 
 const Pagination = ({ currentRefinement, nbPages, createURL }) => {
   return (
@@ -45,8 +53,9 @@ const Pagination = ({ currentRefinement, nbPages, createURL }) => {
             <span className="no-link">&lsaquo;</span>
           )}
         </li>
-        {nbPages <= 6 && pagesWithNoBreak(createURL, currentRefinement, nbPages)}
-        {nbPages > 6 && pagesWithBreak(createURL, currentRefinement, nbPages)}
+        {nbPages <= PAGE_DISPLAY_LIMIT &&
+          pagesWithNoOverflow(createURL, currentRefinement, nbPages)}
+        {nbPages > PAGE_DISPLAY_LIMIT && pagesWithOverflow(createURL, currentRefinement, nbPages)}
         {/* next page arrow */}
         <li className="nav-arrow">
           {currentRefinement < nbPages ? (

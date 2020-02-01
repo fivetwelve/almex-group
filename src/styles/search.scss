@@ -151,13 +151,14 @@ $spacing: 20px;
       flex-direction: row;
       flex-wrap: nowrap;
       justify-content: center;
-      align-items: baseline;
+      align-items: center;
       margin-left: 0;
       li {
         display: block;
         font-size: 18px;
         margin-left: 10px;
         margin-right: 10px;
+        margin-bottom: 0;
         @include media('>=tablet') {
           font-size: 20px;
           margin-left: 10px;
@@ -166,27 +167,45 @@ $spacing: 20px;
         &.nav-arrow {
           font-size: 28px;
           font-weight: bold;
+          padding-top: 0;
           a {
             font-weight: bold;
+            padding-top: 0;
           }
         }
         a,
-        a:active,
+        .no-link {
+          display: inline-flex;
+          height: 30px;
+          min-width: 22px;
+          padding-left: 5px;
+          padding-right: 5px;
+          padding-top: 2px;
+          align-items: center;
+        }
+        a,
         a:visited {
           color: $yellow-sea;
           font-weight: normal;
           text-decoration: none;
-          padding-left: 5px;
-          padding-right: 5px;
+          // padding-left: 5px;
+          // padding-right: 5px;
+          border: 1px solid $yellow-sea40;
+          // height: 30px;
+          // display: inline-flex;
+          // align-items: center;
         }
+        a:active,
         a:hover {
-          border-bottom: 2px solid $yellow-sea;
+          color: $white;
+          background-color: $yellow-sea;
         }
         .no-link {
-          padding-left: 5px;
-          padding-right: 5px;
+          // padding-left: 5px;
+          // padding-right: 5px;
           color: $light-grey;
-          font-weight: bold;
+          border: 1px solid transparent;
+          // min-width: 22px;
         }
       }
     }
