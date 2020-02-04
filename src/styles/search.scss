@@ -146,5 +146,56 @@ $spacing: 20px;
         margin-bottom: 30px;
       }
     }
+    .pagination {
+      display: inline-flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: center;
+      margin-left: 0;
+      li {
+        display: block;
+        font-size: 18px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 0;
+        @include media('>=tablet') {
+          font-size: 20px;
+          margin-left: 10px;
+          margin-right: 10px;
+        }
+        button.page,
+        .no-link {
+          display: inline-flex;
+          height: 26px;
+          min-width: 22px;
+          padding: 2px 5px 0 5px;
+          align-items: center;
+          .l-arrow {
+            transform: rotate(180deg) translate(-1px, 1px);
+          }
+          .l-arrow,
+          .r-arrow {
+            line-height: 1px;
+            font-size: 16px;
+          }
+        }
+        button.page {
+          background-color: transparent;
+          color: $yellow-sea;
+          font-weight: normal;
+          text-decoration: none;
+          border: 1px solid $yellow-sea40;
+        }
+        button.page:hover {
+          color: $white;
+          background-color: $yellow-sea;
+        }
+        .no-link {
+          color: $light-grey;
+          border: 1px solid transparent;
+        }
+      }
+    }
   }
 }

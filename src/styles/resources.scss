@@ -30,6 +30,10 @@ $spacing: 20px;
         img {
           max-height: 325px;
         }
+        .graphcms-image-outer-wrapper,
+        .graphcms-image-wrapper {
+          max-height: inherit;
+        }
       }
     }
     .main-container {

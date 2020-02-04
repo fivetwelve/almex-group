@@ -8,15 +8,15 @@ import { IconContext } from 'react-icons';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown';
-import Layout from '../components/layout';
-import TrainingEventsResults from '../components/trainingEventsResults';
-import InstituteForm from '../components/instituteForm';
-import { makeid } from '../utils/functions';
-import { LANGUAGES } from '../constants';
-import '../styles/institute.scss';
-import '../styles/dayPicker.scss';
+import Layout from '../src/components/layout';
+import TrainingEventsResults from '../src/components/trainingEventsResults';
+import InstituteForm from '../src/components/instituteForm';
+import { makeid } from '../src/utils/functions';
+import { LANGUAGES } from '../src/constants';
+import '../src/styles/institute.scss';
+import '../src/styles/dayPicker.scss';
 
-import logo from '../../static/img/logo-institute.svg';
+import logo from '../static/img/logo-institute.svg';
 
 const allowHTML = { html: true };
 

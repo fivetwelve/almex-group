@@ -28,6 +28,7 @@ const InstituteTemplate = ({ data, pageContext }) => {
           contactAndForm,
           description,
           email,
+          emailSubject,
           instructors,
           instructorsImages,
           pdfDownloads,
@@ -132,10 +133,12 @@ const InstituteTemplate = ({ data, pageContext }) => {
             </aside>
           </div>
           <hr className="divider" />
-          <div className="form-container">
-            <ReactMarkdown source={contactAndForm} options={allowHTML} />
-            <InstituteForm label={label} email={email} />
-          </div>
+          {email && (
+            <div className="form-container">
+              <ReactMarkdown source={contactAndForm} options={allowHTML} />
+              <InstituteForm label={label} email={email} emailSubject={emailSubject} />
+            </div>
+          )}
         </div>
       </>
       {/* )}
@@ -179,6 +182,7 @@ export const query = graphql`
           contactAndForm(locale: $locale)
           description(locale: $locale)
           email
+          emailSubject
           sideContent(locale: $locale)
           pdfDownloads(locale: $locale) {
             documentTitle(locale: $locale)

@@ -107,6 +107,41 @@
       height: 25px;
     }
   }
+  .mobile-search-container {
+    display: block;
+    width: calc(100% - 10px);
+    padding-bottom: 10px;
+    .mobile-search {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      input {
+        margin-right: 15px;
+        font-size: 16px;
+        height: 30px;
+        width: 100%;
+        margin-right: 5px;
+        padding-left: 5px;
+        padding-right: 5px;
+        outline: 1px solid $grey40;
+        border: 1px solid $grey40;
+      }
+      button {
+        background: none;
+        border: 0;
+        margin: 5px;
+        padding: 0;
+        height: 25px;
+        width: 20px;
+        overflow: hidden;
+        .search-icon {
+          color: $black;
+          opacity: 0.65;
+          height: 25px;
+        }
+      }
+    }
+  }
   @include media('>=tablet') {
     height: 150px;
     position: fixed;
@@ -158,6 +193,7 @@
               height: 30px;
               padding-left: 5px;
               padding-right: 5px;
+              outline: 1px solid $grey40;
               &:focus {
                 width: 350px;
               }
@@ -201,6 +237,9 @@
           }
         }
       }
+    }
+    .mobile-search-container {
+      display: none;
     }
   }
   nav {
@@ -501,6 +540,10 @@
           .menu-container {
             display: flex;
             flex-direction: column;
+            &:after {
+              content: '';
+              width: 100%;
+            }
             @include media('>=tablet') {
               display: inline-flex;
               flex-wrap: wrap;
@@ -550,11 +593,6 @@
                 border-bottom: none;
                 background-color: transparent;
                 vertical-align: middle;
-                // &:nth-child(3n + 2),
-                // &:nth-child(3n + 3) {
-                //   padding: 0 10px 0 25px;
-                //   // border-left: 1px solid $white;
-                // }
                 &.col-1 {
                   border-right: 1px solid rgba(255, 255, 255, 0.3);
                   padding: 0;

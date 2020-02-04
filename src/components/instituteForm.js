@@ -51,7 +51,7 @@ class InstituteForm extends React.Component {
 
   handleSubmit = async evt => {
     evt.preventDefault();
-    const { email, label } = this.props;
+    const { email, emailSubject, label } = this.props;
     const params = {};
     const keys = Object.keys(this.state);
     const values = Object.values(this.state);
@@ -61,7 +61,7 @@ class InstituteForm extends React.Component {
       }
     });
     params.destination = email;
-    params.contactSubject = 'Almex Institute message';
+    params.contactSubject = emailSubject || label.common.FORM_TRAINING_SUBJECT;
 
     try {
       const response = await fetch(`${apiUrl()}/forwardEmail`, {
@@ -288,11 +288,13 @@ class InstituteForm extends React.Component {
 
 InstituteForm.defaultProps = {
   email: [],
+  emailSubject: null,
   label: {},
 };
 
 InstituteForm.propTypes = {
   email: PropTypes.arrayOf(PropTypes.string),
+  emailSubject: PropTypes.string,
   label: PropTypes.shape({
     common: PropTypes.object,
   }),

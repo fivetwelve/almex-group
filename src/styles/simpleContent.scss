@@ -30,6 +30,10 @@ $spacing: 20px;
         img {
           max-height: 325px;
         }
+        .graphcms-image-outer-wrapper,
+        .graphcms-image-wrapper {
+          max-height: inherit;
+        }
       }
     }
     .main-container {
@@ -75,12 +79,10 @@ $spacing: 20px;
           a,
           a:active,
           a:visited {
-            color: $prussian-blue60;
+            color: $yellow-sea;
             text-decoration: none;
             &:hover {
-              color: $yellow-sea;
               text-decoration: underline;
-              transition: $easeinout;
             }
           }
           h1,

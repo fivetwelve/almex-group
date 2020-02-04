@@ -352,7 +352,7 @@ $spacing: 20px;
             display: inline-flex;
             a,
             a:visited {
-              color: $prussian-blue60;
+              color: $yellow-sea;
               font-size: 18px;
               text-decoration: none;
               display: flex;
@@ -360,9 +360,7 @@ $spacing: 20px;
               align-items: center;
               padding-bottom: 18px;
               &:hover {
-                color: $yellow-sea;
                 text-decoration: underline;
-                transition: $easeinout;
               }
             }
             .pdf-icon {
@@ -432,6 +430,23 @@ $spacing: 20px;
         padding-left: 15px;
         @include media('>=tablet') {
           font-size: 28px;
+        }
+      }
+    }
+
+    .product-marketing,
+    .product-advantages,
+    .product-features,
+    .product-info,
+    .product-specs,
+    .product-case-studies {
+      a,
+      a:active,
+      a:visited {
+        color: $yellow-sea;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
         }
       }
     }
@@ -568,8 +583,9 @@ $spacing: 20px;
       .pdf {
         display: inline-flex;
         a,
+        a:active,
         a:visited {
-          color: $prussian-blue60;
+          color: $yellow-sea;
           font-size: 18px;
           text-decoration: none;
           display: flex;
@@ -577,9 +593,7 @@ $spacing: 20px;
           align-items: center;
           padding-bottom: 18px;
           &:hover {
-            color: $yellow-sea;
             text-decoration: underline;
-            transition: $easeinout;
           }
         }
         .pdf-icon {

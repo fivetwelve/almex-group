@@ -41,6 +41,10 @@ $spacing: 20px;
         font-size: 16px;
         line-height: normal;
       }
+      .graphcms-image-outer-wrapper,
+      .graphcms-image-wrapper {
+        max-height: inherit;
+      }
       @include media('>=tablet') {
         .title {
           font-size: 30px;
