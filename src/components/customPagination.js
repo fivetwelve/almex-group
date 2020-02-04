@@ -5,22 +5,25 @@ import { makeid } from '../utils/functions';
 
 const PAGE_DISPLAY_LIMIT = 6;
 
-const pagesWithNoOverflow = (createURL, currentRefinement, nbPages) =>
+const pagesWithNoOverflow = (currentRefinement, goToPage, nbPages) =>
   new Array(nbPages).fill(null).map((_, index) => {
     const page = index + 1;
 
     return (
       <li key={makeid()}>
         {currentRefinement === page ? (
-          <span className="no-link">{page}</span>
+          <div className="no-link">{page}</div>
         ) : (
-          <a href={createURL(page)}>{page}</a>
+          // <a href={createURL(page)}>{page}</a>
+          <button className="page" type="button" onClick={evt => goToPage(evt, page)}>
+            {page}
+          </button>
         )}
       </li>
     );
   });
 
-const pagesWithOverflow = (createURL, currentRefinement, nbPages) => {
+const pagesWithOverflow = (currentRefinement, goToPage, nbPages) => {
   /* n.b. currentRefinement is the page # */
   const distanceFromEnd = nbPages - currentRefinement;
   const startIndex =
@@ -32,36 +35,55 @@ const pagesWithOverflow = (createURL, currentRefinement, nbPages) => {
     return (
       <li key={makeid()}>
         {currentRefinement === page ? (
-          <span className="no-link">{page}</span>
+          <div className="no-link">{page}</div>
         ) : (
-          <a href={createURL(page)}>{page}</a>
+          <button className="page" type="button" onClick={evt => goToPage(evt, page)}>
+            {page}
+          </button>
         )}
       </li>
     );
   });
 };
 
-const Pagination = ({ currentRefinement, nbPages, createURL }) => {
+const Pagination = ({ currentRefinement, goToPage, nbPages, query }) => {
   return (
     nbPages > 1 && (
       <ul className="pagination">
         {/* prev page arrow */}
-        <li className="nav-arrow">
+        <li className="arrow">
           {currentRefinement > 1 ? (
-            <a href={createURL(currentRefinement - 1)}>&lsaquo;</a>
+            <button
+              className="page"
+              type="button"
+              onClick={evt => goToPage(evt, currentRefinement - 1)}
+            >
+              <div className="l-arrow">&#x25B8;</div>
+            </button>
           ) : (
-            <span className="no-link">&lsaquo;</span>
+            <div className="no-link">
+              <span className="l-arrow">&#x25B8;</span>
+            </div>
           )}
         </li>
         {nbPages <= PAGE_DISPLAY_LIMIT &&
-          pagesWithNoOverflow(createURL, currentRefinement, nbPages)}
-        {nbPages > PAGE_DISPLAY_LIMIT && pagesWithOverflow(createURL, currentRefinement, nbPages)}
+          pagesWithNoOverflow(currentRefinement, goToPage, nbPages, query)}
+        {nbPages > PAGE_DISPLAY_LIMIT &&
+          pagesWithOverflow(currentRefinement, goToPage, nbPages, query)}
         {/* next page arrow */}
-        <li className="nav-arrow">
+        <li className="arrow">
           {currentRefinement < nbPages ? (
-            <a href={createURL(currentRefinement + 1)}>&rsaquo;</a>
+            <button
+              className="page r-arrow"
+              type="button"
+              onClick={evt => goToPage(evt, currentRefinement + 1)}
+            >
+              <div className="r-arrow">&#x25B8;</div>
+            </button>
           ) : (
-            <span className="no-link">&rsaquo;</span>
+            <div className="no-link">
+              <span className="r-arrow">&#x25B8;</span>
+            </div>
           )}
         </li>
       </ul>
@@ -71,10 +93,12 @@ const Pagination = ({ currentRefinement, nbPages, createURL }) => {
 
 Pagination.defaultProps = {
   // currentRefinement: '';
+  goToPage: () => null,
   nbPages: 0,
 };
 
 Pagination.propTypes = {
+  goToPage: PropTypes.func,
   nbPages: PropTypes.number,
 };
 

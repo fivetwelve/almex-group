@@ -12,6 +12,7 @@ import {
 import qs from 'qs';
 import Layout from '../components/layout';
 import CustomSearchResults from '../components/customSearchResults';
+import { scrollTo } from '../utils/functions';
 import { STATUS } from '../constants';
 import '../styles/search.scss';
 import CustomPagination from '../components/customPagination';
@@ -40,14 +41,28 @@ const searchClient = {
 /* Algolia declarations end */
 
 /* utility functions begin */
-const createURL = state => `?${qs.stringify(state)}`;
+// const createURL = state => `?${qs.stringify(state)}`;
+/* Not using createURL to avoid unnecessary reloading of page UI;
+   instead using window.history.pushState and setSearchState to update URL
+   and query results for better responsiveness */
 
 const urlToSearchState = ({ search }) => qs.parse(search.slice(1));
+
+const updateURL = (query, page) => {
+  if (typeof window !== 'undefined') {
+    const loc = window.location;
+    const url = `${loc.origin}${loc.pathname}?${qs.stringify({ query, page })}`;
+    window.history.pushState({ url }, null, url);
+  }
+};
 /* utility functions end */
 
 const SearchTemplate = props => {
-  const { data, location, pageContext } = props;
-  const { locale, region } = pageContext;
+  const {
+    data,
+    location,
+    pageContext: { locale, region },
+  } = props;
   const {
     cms: { brandNavigation, headerFooter, label, navigation },
   } = data;
@@ -66,6 +81,14 @@ const SearchTemplate = props => {
     });
   }, []);
 
+  const goToPage = (evt, page) => {
+    evt.preventDefault();
+    const currentSearchState = Object.assign(urlToSearchState(globalHistory.location), { page });
+    setSearchState(currentSearchState);
+    updateURL(currentSearchState.query, page);
+    scrollTo(0);
+  };
+
   const VirtualRefinementList = connectRefinementList(() => null);
 
   return (
@@ -83,7 +106,7 @@ const SearchTemplate = props => {
           indexName="CMS"
           searchClient={searchClient}
           searchState={searchState}
-          createURL={createURL}
+          // createURL={createURL}
         >
           <VirtualRefinementList attribute="page.availableIn" defaultRefinement={[region]} />
           <VirtualRefinementList attribute="page.status" defaultRefinement={[STATUS.PUBLISHED]} />
@@ -106,7 +129,7 @@ const SearchTemplate = props => {
           {/* <PoweredBy /> */}
           <CustomSearchResults label={label.search} locale={locale} location={location} />
           <hr />
-          <CustomPagination defaultRefinement={0} showLast />
+          <CustomPagination defaultRefinement={0} goToPage={goToPage} query={searchState.query} />
         </InstantSearch>
       </div>
     </Layout>
