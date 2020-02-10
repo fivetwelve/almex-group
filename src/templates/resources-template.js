@@ -207,17 +207,17 @@ class ResourcesTemplate extends Component {
                           options={allowHTML}
                         />
                         {selectedCategory.expert.telephone && (
-                          <a href={`tel:${selectedCategory.expert.telephone}`}>
+                          <a href={`tel:${selectedCategory.expert.telephone}`} rel="nofollow">
                             {selectedCategory.expert.telephone}
                           </a>
                         )}
                         {selectedCategory.expert.mobile && (
-                          <a href={`tel:${selectedCategory.expert.mobile}`}>
+                          <a href={`tel:${selectedCategory.expert.mobile}`} rel="nofollow">
                             {selectedCategory.expert.mobile}
                           </a>
                         )}
                         {selectedCategory.expert.email && (
-                          <a href={`mailto:${selectedCategory.expert.email}`}>
+                          <a href={`mailto:${selectedCategory.expert.email}`} rel="nofollow">
                             {selectedCategory.expert.email}
                           </a>
                         )}
@@ -266,7 +266,7 @@ class ResourcesTemplate extends Component {
                                     <a
                                       href={document.url}
                                       target="_blank"
-                                      rel="noopener noreferrer"
+                                      rel="noopener noreferrer nofollow"
                                     >
                                       {document.documentTitle || document.fileName.split('.pdf')[0]}
                                     </a>

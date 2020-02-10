@@ -278,7 +278,7 @@ class InstituteTemplate extends Component {
                     {pdfDownloads.map(download => (
                       <div key={makeid()} className="pdf">
                         <div className="pdf-icon" />
-                        <a href={download.url}>
+                        <a href={download.url} rel="nofollow">
                           {download.documentTitle || download.fileName.split('.pdf')[0]}
                         </a>
                       </div>

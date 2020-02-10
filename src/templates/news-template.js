@@ -81,7 +81,7 @@ const NewsTemplate = ({ data, pageContext }) => {
                   {published[articleNum].pdfDownloads.map(download => (
                     <div key={makeid()} className="pdf">
                       <div className="pdf-icon" />
-                      <a href={download.url} target="_blank" rel="noopener noreferrer">
+                      <a href={download.url} target="_blank" rel="noopener noreferrer nofollow">
                         {download.documentTitle}
                       </a>
                     </div>
@@ -118,7 +118,7 @@ const NewsTemplate = ({ data, pageContext }) => {
                   archive.pdfDownloads.map(download => (
                     <div key={makeid()} className="pdf">
                       <div className="pdf-icon" />
-                      <a href={download.url} target="_blank" rel="noopener noreferrer">
+                      <a href={download.url} target="_blank" rel="noopener noreferrer nofollow">
                         {moment(archive.date).format('LL')} -{' '}
                         {download.documentTitle || download.fileName.split('.pdf')[0]}
                       </a>
