@@ -7,7 +7,7 @@ import MomentLocaleUtils, { formatDate } from 'react-day-picker/moment';
 import { IconContext } from 'react-icons';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 import GraphImg from 'graphcms-image';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown/with-html';
 import Layout from '../src/components/layout';
 import TrainingEventsResults from '../src/components/trainingEventsResults';
 import InstituteForm from '../src/components/instituteForm';
@@ -17,8 +17,6 @@ import '../src/styles/institute.scss';
 import '../src/styles/dayPicker.scss';
 
 import logo from '../static/img/logo-institute.svg';
-
-const allowHTML = { html: true };
 
 // eslint-disable-next-line react/prop-types
 const Navbar = ({ onPreviousClick, onNextClick }) => (
@@ -235,11 +233,11 @@ class InstituteTemplate extends Component {
                   <div className="institute-logo-mobile">
                     <img src={logo} alt="Almex Institute logo" />
                   </div>
-                  <ReactMarkdown source={description} options={allowHTML} />
+                  <ReactMarkdown source={description} escapeHtml={false} />
                 </div>
                 <div className="topics-container">
                   <div className="topics">
-                    <ReactMarkdown source={topics} options={allowHTML} />
+                    <ReactMarkdown source={topics} escapeHtml={false} />
                   </div>
                   {topicsImages.length > 0 && (
                     <div className="images">
@@ -258,12 +256,12 @@ class InstituteTemplate extends Component {
                     </div>
                   )}
                   <div className="presentation">
-                    <ReactMarkdown source={presentation} options={allowHTML} />
+                    <ReactMarkdown source={presentation} escapeHtml={false} />
                   </div>
                 </div>
                 <div className="instructors-container">
                   <div className="instructors">
-                    <ReactMarkdown source={instructors} options={allowHTML} />
+                    <ReactMarkdown source={instructors} escapeHtml={false} />
                   </div>
                   {instructorsImages.length > 0 && (
                     <div className="images">
@@ -291,7 +289,7 @@ class InstituteTemplate extends Component {
                   <img src={logo} alt="Almex Institute logo" />
                 </div>
                 {sideContent.map(content => (
-                  <ReactMarkdown key={makeid()} source={content} options={allowHTML} />
+                  <ReactMarkdown key={makeid()} source={content} escapeHtml={false} />
                 ))}
               </aside>
             </div>
@@ -346,7 +344,7 @@ class InstituteTemplate extends Component {
 
             <hr className="divider" />
             <div className="form-container">
-              <ReactMarkdown source={contactAndForm} options={allowHTML} />
+              <ReactMarkdown source={contactAndForm} escapeHtml={false} />
               <InstituteForm label={label} email={email} />
             </div>
           </div>

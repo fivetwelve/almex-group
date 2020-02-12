@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 // import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown/with-html';
 import YouTube from 'react-youtube';
 import Layout from '../components/layout';
 import CategorySelector from '../components/categorySelector';
@@ -11,8 +11,6 @@ import countryFlag from '../components/countryFlag';
 import { RESOURCE_TYPES } from '../constants';
 import '../styles/resources.scss';
 import { makeid } from '../utils/functions';
-
-const allowHTML = { html: true };
 
 const checkFor = (array, property, value) => {
   const size = array.filter(element => element[property] === value).length;
@@ -186,7 +184,7 @@ class ResourcesTemplate extends Component {
               <div className="main-content">
                 <h1 className="title">{title}</h1>
                 <div className="content">
-                  <ReactMarkdown source={description} options={allowHTML} />
+                  <ReactMarkdown source={description} escapeHtml={false} />
                   <div className="selector-container">
                     <CategorySelector
                       categories={allCategories}
@@ -204,7 +202,7 @@ class ResourcesTemplate extends Component {
                         <br />
                         <ReactMarkdown
                           source={selectedCategory.expert.location}
-                          options={allowHTML}
+                          escapeHtml={false}
                         />
                         {selectedCategory.expert.telephone && (
                           <a href={`tel:${selectedCategory.expert.telephone}`} rel="nofollow">

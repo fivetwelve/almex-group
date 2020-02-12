@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 // import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown/with-html';
 import Layout from '../components/layout';
 import '../styles/history.scss';
 import TimelineManager from '../components/timelineManager';
-
-const allowHTML = { html: true };
 
 const HistoryTemplate = ({ data, pageContext }) => {
   const { locale, region } = pageContext;
@@ -52,7 +50,7 @@ const HistoryTemplate = ({ data, pageContext }) => {
             <div className="intro-content">
               <h1 className="title">{title}</h1>
               <div className="description">
-                <ReactMarkdown source={description} options={allowHTML} />
+                <ReactMarkdown source={description} escapeHtml={false} />
               </div>
             </div>
           </div>

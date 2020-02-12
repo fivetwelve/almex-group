@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
 import { FaFax, FaMobileAlt, FaPhone } from 'react-icons/fa';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown/with-html';
 import countryFlag from './countryFlag';
 import { makeid } from '../utils/functions';
 import pin from '../../static/img/map-pin.svg';

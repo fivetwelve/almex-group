@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 // import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown/with-html';
 import Layout from '../components/layout';
 import '../styles/simpleContent.scss';
-
-const allowHTML = { html: true };
 
 const SimpleContentTemplate = ({ data, pageContext }) => {
   const { locale, region } = pageContext;
@@ -49,7 +47,7 @@ const SimpleContentTemplate = ({ data, pageContext }) => {
             <div className="main-content">
               <h1 className="title">{title}</h1>
               <div className="content">
-                <ReactMarkdown source={content} options={allowHTML} />
+                <ReactMarkdown source={content} escapeHtml={false} />
               </div>
             </div>
           </div>

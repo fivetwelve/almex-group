@@ -3,15 +3,13 @@ import PropTypes from 'prop-types';
 import { graphql, Link } from 'gatsby';
 import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown/with-html';
 import BrandBanner from '../components/brandBanner';
 import Layout from '../components/layout';
 // import LandingTile from '../components/landingTile';
 import '../styles/about.scss';
 // import ProductBrand from '../components/productBrand';
 import { createLink, makeid } from '../utils/functions';
-
-const allowHTML = { html: true };
 
 const AboutTemplate = ({ data, pageContext }) => {
   const { locale, region } = pageContext;
@@ -92,7 +90,7 @@ const AboutTemplate = ({ data, pageContext }) => {
                 <div className="intro-content">
                   <h1 className="title">{title}</h1>
                   <div className="description">
-                    <ReactMarkdown source={description} options={allowHTML} />
+                    <ReactMarkdown source={description} escapeHtml={false} />
                   </div>
                 </div>
                 <div className="links">

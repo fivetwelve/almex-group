@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 // import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown/with-html';
 import 'moment/locale/es';
 import Layout from '../components/layout';
 import { DOWNLOAD_TYPES } from '../constants';
 import '../styles/downloads.scss';
-
-const allowHTML = { html: true };
 
 const DownloadsTemplate = ({ data, pageContext }) => {
   const { locale, region } = pageContext;
@@ -69,14 +67,14 @@ const DownloadsTemplate = ({ data, pageContext }) => {
               <h1 className="title">{title}</h1>
               {description && (
                 <div className="description">
-                  <ReactMarkdown source={description} options={allowHTML} />
+                  <ReactMarkdown source={description} escapeHtml={false} />
                 </div>
               )}
             </div>
           </div>
           {files && (
             <div className={`downloads ${themeColour}`}>
-              <ReactMarkdown source={files} options={allowHTML} />
+              <ReactMarkdown source={files} escapeHtml={false} />
             </div>
           )}
         </div>
