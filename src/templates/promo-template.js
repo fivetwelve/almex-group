@@ -5,6 +5,7 @@ import { graphql } from 'gatsby';
 import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import Layout from '../components/layout';
+import renderLink from '../utils/functions';
 import '../styles/promo.scss';
 
 const PromoTemplate = ({ data, pageContext }) => {
@@ -47,7 +48,13 @@ const PromoTemplate = ({ data, pageContext }) => {
             <div className="main-content">
               <h1 className="title">{title}</h1>
               <div className="marketing">
-                <ReactMarkdown source={marketing} escapeHtml={false} />
+                <ReactMarkdown
+                  source={marketing}
+                  escapeHtml={false}
+                  renderers={{
+                    link: props => renderLink(props),
+                  }}
+                />
               </div>
             </div>
           </div>

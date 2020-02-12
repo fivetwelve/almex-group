@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown/with-html';
 import GraphImg from 'graphcms-image';
 import { IconContext } from 'react-icons';
 import { FaTimes } from 'react-icons/fa';
-import { makeid } from '../utils/functions';
+import { makeid, renderLink } from '../utils/functions';
 
 const TimelineModal = props => {
   const handleHideModal = evt => {
@@ -40,7 +40,13 @@ const TimelineModal = props => {
                 {event.description.map((desc, idx) => (
                   <React.Fragment key={makeid()}>
                     <div className="description">
-                      <ReactMarkdown source={desc} options={{ html: true }} />
+                      <ReactMarkdown
+                        source={desc}
+                        options={{ html: true }}
+                        renderers={{
+                          link: theseProps => renderLink(theseProps),
+                        }}
+                      />
                     </div>
                     {event.images[idx] ? (
                       <figure>

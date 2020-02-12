@@ -6,6 +6,7 @@ import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import 'moment/locale/es';
 import Layout from '../components/layout';
+import { renderLink } from '../utils/functions';
 import { DOWNLOAD_TYPES } from '../constants';
 import '../styles/downloads.scss';
 
@@ -67,14 +68,26 @@ const DownloadsTemplate = ({ data, pageContext }) => {
               <h1 className="title">{title}</h1>
               {description && (
                 <div className="description">
-                  <ReactMarkdown source={description} escapeHtml={false} />
+                  <ReactMarkdown
+                    source={description}
+                    escapeHtml={false}
+                    renderers={{
+                      link: props => renderLink(props),
+                    }}
+                  />
                 </div>
               )}
             </div>
           </div>
           {files && (
             <div className={`downloads ${themeColour}`}>
-              <ReactMarkdown source={files} escapeHtml={false} />
+              <ReactMarkdown
+                source={files}
+                escapeHtml={false}
+                renderers={{
+                  link: props => renderLink(props),
+                }}
+              />
             </div>
           )}
         </div>

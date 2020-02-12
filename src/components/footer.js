@@ -88,10 +88,10 @@ class Footer extends React.Component {
   renderOffice = office => (
     <div className="office" key={makeid()}>
       <div className="name">
-        <ReactMarkdown source={office.name} options={{ html: true }} />
+        <ReactMarkdown source={office.name} escapeHtml={false} />
       </div>
       <div className="address">
-        <ReactMarkdown source={office.address} options={{ html: true }} />
+        <ReactMarkdown source={office.address} escapeHtml={false} />
       </div>
       <div className="phone">
         <IconContext.Provider value={{ className: 'contact-icon' }}>
@@ -219,7 +219,7 @@ class Footer extends React.Component {
             <div className="footer-top">
               <div className="top-left">
                 {/* <div className="address">
-                  <ReactMarkdown source={companyAddress} options={{ html: true }} />
+                  <ReactMarkdown source={companyAddress} escapeHtml={false} />
                 </div>
                 <div className="phone">
                   <IconContext.Provider value={{ className: 'contact-icon' }}>

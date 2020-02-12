@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown/with-html';
 import { IconContext } from 'react-icons';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import moment from 'moment';
-import { makeid } from '../utils/functions';
+import { makeid, renderLink } from '../utils/functions';
 import { EQUIPMENT_STATUS } from '../constants';
 import defaultImage from '../../static/img/icon-used-wide.svg';
 
@@ -146,7 +146,13 @@ class UsedEquipmentListing extends React.Component {
             <div className="title">{title}</div>
             <div className="model-number">{modelNumber}</div>
             <div className="contact-info">
-              <ReactMarkdown source={contactInformation} escapeHtml={false} />
+              <ReactMarkdown
+                source={contactInformation}
+                escapeHtml={false}
+                renderers={{
+                  link: props => renderLink(props),
+                }}
+              />
             </div>
             {slideArray.length > 1 && (
               <div className="carousel-controls">
@@ -176,7 +182,13 @@ class UsedEquipmentListing extends React.Component {
         </div>
         <div className="listing-specs">
           <div className="listing-description">
-            <ReactMarkdown source={equipmentDescription} escapeHtml={false} />
+            <ReactMarkdown
+              source={equipmentDescription}
+              escapeHtml={false}
+              renderers={{
+                link: props => renderLink(props),
+              }}
+            />
           </div>
         </div>
       </>

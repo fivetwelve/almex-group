@@ -10,7 +10,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import HomePageTile from '../components/homepageTile';
 import Layout from '../components/layout';
 import '../styles/homepage.scss';
-import { createLink, makeid } from '../utils/functions';
+import { createLink, makeid, renderLink } from '../utils/functions';
 
 const HomepageTemplate = ({ data, pageContext }) => {
   const { locale, region } = pageContext;
@@ -62,14 +62,14 @@ const HomepageTemplate = ({ data, pageContext }) => {
             <div className="heading-container">
               <div className="heading">
                 <Link to={createLink(location, slides[i].page.slug)}>
-                  <ReactMarkdown source={slides[i].slideHeading} options={{ html: true }} />
+                  <ReactMarkdown source={slides[i].slideHeading} escapeHtml={false} />
                 </Link>
               </div>
             </div>
             <div className="description-container">
               <div className="description">
                 <Link to={createLink(location, slides[i].page.slug)}>
-                  <ReactMarkdown source={slides[i].slideText} options={{ html: true }} />
+                  <ReactMarkdown source={slides[i].slideText} escapeHtml={false} />
                 </Link>
               </div>
             </div>
@@ -90,14 +90,14 @@ const HomepageTemplate = ({ data, pageContext }) => {
             <div className="heading-container">
               <div className="heading">
                 <Link to={location.pathname + slides[i].page.slug}>
-                  <ReactMarkdown source={slides[i].slideHeading} options={{ html: true }} />
+                  <ReactMarkdown source={slides[i].slideHeading} escapeHtml={false} />
                 </Link>
               </div>
             </div>
             <div className="description-container">
               <div className="description">
                 <Link to={`${location.pathname}/${slides[i].page.slug}`}>
-                  <ReactMarkdown source={slides[i].slideText} options={{ html: true }} />
+                  <ReactMarkdown source={slides[i].slideText} escapeHtml={false} />
                 </Link>
               </div>
             </div>
@@ -181,7 +181,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
             {/* <div className="tagline-anchor">
               <div className="tagline-container">
                 <div className="tagline">
-                  <ReactMarkdown source={headerFooter.formattedTagline} options={{ html: true }} />
+                  <ReactMarkdown source={headerFooter.formattedTagline} escapeHtml={false} />
                 </div>
               </div>
             </div> */}
@@ -194,7 +194,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
               </div>
               <div className="heading2-container">
                 <div className="heading2">
-                  <ReactMarkdown source={homepage.heading[1]} options={{ html: true }} />
+                  <ReactMarkdown source={homepage.heading[1]} escapeHtml={false} />
                 </div>
               </div>
               <div className="event-container">
@@ -204,13 +204,16 @@ const HomepageTemplate = ({ data, pageContext }) => {
                     <div className="title">
                       <ReactMarkdown
                         source={homepage.homepageEventTiles[0].title}
-                        options={{ html: true }}
+                        escapeHtml={false}
                       />
                     </div>
                     <div className="description">
                       <ReactMarkdown
                         source={homepage.homepageEventTiles[0].description}
-                        options={{ html: true }}
+                        escapeHtml={false}
+                        renderers={{
+                          link: props => renderLink(props),
+                        }}
                       />
                     </div>
                     {eventLink(homepage.homepageEventTiles[0], location)}
@@ -224,13 +227,16 @@ const HomepageTemplate = ({ data, pageContext }) => {
                     <div className="title">
                       <ReactMarkdown
                         source={homepage.homepageEventTiles[1].title}
-                        options={{ html: true }}
+                        escapeHtml={false}
                       />
                     </div>
                     <div className="description">
                       <ReactMarkdown
                         source={homepage.homepageEventTiles[1].description}
-                        options={{ html: true }}
+                        escapeHtml={false}
+                        renderers={{
+                          link: props => renderLink(props),
+                        }}
                       />
                     </div>
                     {eventLink(homepage.homepageEventTiles[1], location)}
@@ -242,13 +248,16 @@ const HomepageTemplate = ({ data, pageContext }) => {
                     <div className="title">
                       <ReactMarkdown
                         source={homepage.homepageEventTiles[2].title}
-                        options={{ html: true }}
+                        escapeHtml={false}
                       />
                     </div>
                     <div className="description">
                       <ReactMarkdown
                         source={homepage.homepageEventTiles[2].description}
-                        options={{ html: true }}
+                        escapeHtml={false}
+                        renderers={{
+                          link: props => renderLink(props),
+                        }}
                       />
                     </div>
                     {eventLink(homepage.homepageEventTiles[2], location)}

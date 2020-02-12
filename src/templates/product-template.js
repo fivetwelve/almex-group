@@ -8,7 +8,7 @@ import ProductShowcase from '../components/productShowcase';
 import Options from '../components/options';
 import AccessoryAndRelatedTile from '../components/accessoryAndRelatedTile';
 import { THEMES } from '../constants';
-import { getSlug, makeid } from '../utils/functions';
+import { getSlug, makeid, renderLink } from '../utils/functions';
 import '../styles/product.scss';
 
 /* location prop is received from LinkWithPrevious's composition with Location */
@@ -132,7 +132,13 @@ const ProductTemplate = ({ data, location, pageContext }) => {
             pdfDownloads={pdfDownloads}
           />
           <div className={`product-marketing ${themeColour}`}>
-            <ReactMarkdown source={marketing} escapeHtml={false} />
+            <ReactMarkdown
+              source={marketing}
+              escapeHtml={false}
+              renderers={{
+                link: props => renderLink(props),
+              }}
+            />
           </div>
           {advantages && (
             <>
@@ -141,7 +147,13 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               </div>
               <div className={`product-advantages ${themeColour}`}>
                 <div className="advantages-text">
-                  <ReactMarkdown source={advantages} escapeHtml={false} />
+                  <ReactMarkdown
+                    source={advantages}
+                    escapeHtml={false}
+                    renderers={{
+                      link: props => renderLink(props),
+                    }}
+                  />
                 </div>
                 {advantagesImage && (
                   <div className="advantages-image" style={advantagesImageStyle} />
@@ -158,13 +170,25 @@ const ProductTemplate = ({ data, location, pageContext }) => {
                 {features && (
                   <div className={`product-features ${themeColour}`}>
                     <h4>{products.FEATURES}</h4>
-                    <ReactMarkdown source={features} escapeHtml={false} />
+                    <ReactMarkdown
+                      source={features}
+                      escapeHtml={false}
+                      renderers={{
+                        link: props => renderLink(props),
+                      }}
+                    />
                   </div>
                 )}
                 {productInfo && (
                   <div className={`product-info ${themeColour}`}>
                     <h4>{products.PROD_INFO}</h4>
-                    <ReactMarkdown source={productInfo} escapeHtml={false} />
+                    <ReactMarkdown
+                      source={productInfo}
+                      escapeHtml={false}
+                      renderers={{
+                        link: props => renderLink(props),
+                      }}
+                    />
                   </div>
                 )}
               </div>
@@ -176,7 +200,13 @@ const ProductTemplate = ({ data, location, pageContext }) => {
                 <div className="section-title">{products.SPECS}</div>
               </div>
               <div className={`product-specs ${themeColour}`}>
-                <ReactMarkdown source={specs} escapeHtml={false} />
+                <ReactMarkdown
+                  source={specs}
+                  escapeHtml={false}
+                  renderers={{
+                    link: props => renderLink(props),
+                  }}
+                />
               </div>
             </>
           )}

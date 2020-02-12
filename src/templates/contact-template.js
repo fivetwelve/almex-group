@@ -8,7 +8,7 @@ import Layout from '../components/layout';
 import ContactExpert from '../components/contactExpert';
 import ContactMap from '../components/contactMap';
 import ContactFormModal from '../components/contactFormModal';
-import { fetch, makeid, mapToOffice } from '../utils/functions';
+import { fetch, makeid, mapToOffice, renderLink } from '../utils/functions';
 import { CONTACT_TYPES } from '../constants';
 
 import '../styles/contact.scss';
@@ -131,7 +131,13 @@ class ContactTemplate extends React.Component {
               <div className="intro-content">
                 <h1 className="title">{title}</h1>
                 <div className="description">
-                  <ReactMarkdown source={description} escapeHtml={false} />
+                  <ReactMarkdown
+                    source={description}
+                    escapeHtml={false}
+                    renderers={{
+                      link: props => renderLink(props),
+                    }}
+                  />
                 </div>
               </div>
             </div>

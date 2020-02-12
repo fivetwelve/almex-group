@@ -5,6 +5,7 @@ import { graphql } from 'gatsby';
 import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import Layout from '../components/layout';
+import { renderLink } from '../utils/functions';
 import '../styles/simpleContent.scss';
 
 const SimpleContentTemplate = ({ data, pageContext }) => {
@@ -47,7 +48,13 @@ const SimpleContentTemplate = ({ data, pageContext }) => {
             <div className="main-content">
               <h1 className="title">{title}</h1>
               <div className="content">
-                <ReactMarkdown source={content} escapeHtml={false} />
+                <ReactMarkdown
+                  source={content}
+                  escapeHtml={false}
+                  renderers={{
+                    link: props => renderLink(props),
+                  }}
+                />
               </div>
             </div>
           </div>

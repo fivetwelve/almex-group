@@ -7,7 +7,7 @@ import moment from 'moment';
 import 'moment/locale/es';
 import Layout from '../components/layout';
 import UsedEquipmentListing from '../components/usedEquipmentListing';
-import { makeid, matchMomentLocale } from '../utils/functions';
+import { makeid, matchMomentLocale, renderLink } from '../utils/functions';
 import '../styles/usedEquipment.scss';
 
 const UsedEquipmentTemplate = ({ data, pageContext }) => {
@@ -51,7 +51,13 @@ const UsedEquipmentTemplate = ({ data, pageContext }) => {
             <div className="title">{title}</div>
           </div>
           <div className="description">
-            <ReactMarkdown source={description} escapeHtml={false} />
+            <ReactMarkdown
+              source={description}
+              escapeHtml={false}
+              renderers={{
+                link: props => renderLink(props),
+              }}
+            />
           </div>
         </div>
         {usedEquipmentListings.map(listing => (

@@ -6,7 +6,7 @@ import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import Layout from '../components/layout';
 import '../styles/careers.scss';
-import { makeid } from '../utils/functions';
+import { makeid, renderLink } from '../utils/functions';
 
 const CareersTemplate = ({ data, pageContext }) => {
   const { locale, region } = pageContext;
@@ -66,13 +66,25 @@ const CareersTemplate = ({ data, pageContext }) => {
           <div className="postings-container">
             {careerPostings.length <= 0 && (
               <div className="heading">
-                <ReactMarkdown source={noPostingsInstructions} escapeHtml={false} />
+                <ReactMarkdown
+                  source={noPostingsInstructions}
+                  escapeHtml={false}
+                  renderers={{
+                    link: props => renderLink(props),
+                  }}
+                />
               </div>
             )}
             {careerPostings.length > 0 && (
               <>
                 <div className="heading">
-                  <ReactMarkdown source={instructions} escapeHtml={false} />
+                  <ReactMarkdown
+                    source={instructions}
+                    escapeHtml={false}
+                    renderers={{
+                      link: props => renderLink(props),
+                    }}
+                  />
                 </div>
                 <div className="postings">
                   <table>
@@ -104,19 +116,37 @@ const CareersTemplate = ({ data, pageContext }) => {
                               {aboutLabel.about.POSTING_DESCRIPTION}
                             </div>
                             <div>
-                              <ReactMarkdown source={posting.description} escapeHtml={false} />
+                              <ReactMarkdown
+                                source={posting.description}
+                                escapeHtml={false}
+                                renderers={{
+                                  link: props => renderLink(props),
+                                }}
+                              />
                               <div className="mobile">
                                 <p>
                                   <b>{aboutLabel.about.POSTING_STATUS}</b>:{' '}
                                   {aboutLabel.about[posting.postingStatus]}
                                 </p>
-                                <ReactMarkdown source={posting.instructions} escapeHtml={false} />
+                                <ReactMarkdown
+                                  source={posting.instructions}
+                                  escapeHtml={false}
+                                  renderers={{
+                                    link: props => renderLink(props),
+                                  }}
+                                />
                               </div>
                             </div>
                           </td>
                           <td>{aboutLabel.about[posting.postingStatus]}</td>
                           <td>
-                            <ReactMarkdown source={posting.instructions} escapeHtml={false} />
+                            <ReactMarkdown
+                              source={posting.instructions}
+                              escapeHtml={false}
+                              renderers={{
+                                link: props => renderLink(props),
+                              }}
+                            />
                           </td>
                         </tr>
                       ))}

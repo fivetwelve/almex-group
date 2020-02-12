@@ -11,7 +11,7 @@ import ReactMarkdown from 'react-markdown/with-html';
 import Layout from '../src/components/layout';
 import TrainingEventsResults from '../src/components/trainingEventsResults';
 import InstituteForm from '../src/components/instituteForm';
-import { makeid } from '../src/utils/functions';
+import { makeid, renderLink } from '../src/utils/functions';
 import { LANGUAGES } from '../src/constants';
 import '../src/styles/institute.scss';
 import '../src/styles/dayPicker.scss';
@@ -233,11 +233,23 @@ class InstituteTemplate extends Component {
                   <div className="institute-logo-mobile">
                     <img src={logo} alt="Almex Institute logo" />
                   </div>
-                  <ReactMarkdown source={description} escapeHtml={false} />
+                  <ReactMarkdown
+                    source={description}
+                    escapeHtml={false}
+                    renderers={{
+                      link: props => renderLink(props),
+                    }}
+                  />
                 </div>
                 <div className="topics-container">
                   <div className="topics">
-                    <ReactMarkdown source={topics} escapeHtml={false} />
+                    <ReactMarkdown
+                      source={topics}
+                      escapeHtml={false}
+                      renderers={{
+                        link: props => renderLink(props),
+                      }}
+                    />
                   </div>
                   {topicsImages.length > 0 && (
                     <div className="images">
@@ -256,12 +268,24 @@ class InstituteTemplate extends Component {
                     </div>
                   )}
                   <div className="presentation">
-                    <ReactMarkdown source={presentation} escapeHtml={false} />
+                    <ReactMarkdown
+                      source={presentation}
+                      escapeHtml={false}
+                      renderers={{
+                        link: props => renderLink(props),
+                      }}
+                    />
                   </div>
                 </div>
                 <div className="instructors-container">
                   <div className="instructors">
-                    <ReactMarkdown source={instructors} escapeHtml={false} />
+                    <ReactMarkdown
+                      source={instructors}
+                      escapeHtml={false}
+                      renderers={{
+                        link: props => renderLink(props),
+                      }}
+                    />
                   </div>
                   {instructorsImages.length > 0 && (
                     <div className="images">
@@ -289,7 +313,14 @@ class InstituteTemplate extends Component {
                   <img src={logo} alt="Almex Institute logo" />
                 </div>
                 {sideContent.map(content => (
-                  <ReactMarkdown key={makeid()} source={content} escapeHtml={false} />
+                  <ReactMarkdown
+                    key={makeid()}
+                    source={content}
+                    escapeHtml={false}
+                    renderers={{
+                      link: props => renderLink(props),
+                    }}
+                  />
                 ))}
               </aside>
             </div>
@@ -344,7 +375,13 @@ class InstituteTemplate extends Component {
 
             <hr className="divider" />
             <div className="form-container">
-              <ReactMarkdown source={contactAndForm} escapeHtml={false} />
+              <ReactMarkdown
+                source={contactAndForm}
+                escapeHtml={false}
+                renderers={{
+                  link: props => renderLink(props),
+                }}
+              />
               <InstituteForm label={label} email={email} />
             </div>
           </div>

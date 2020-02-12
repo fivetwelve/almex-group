@@ -13,6 +13,7 @@ import 'moment/locale/es';
 import Layout from '../components/layout';
 import EventsResults from '../components/eventsResults';
 import ContinentSelector from '../components/continentSelector';
+import { renderLink } from '../utils/functions';
 import { CONTINENTS, LANGUAGES } from '../constants';
 import '../styles/events.scss';
 import '../styles/dayPicker.scss';
@@ -244,7 +245,13 @@ class EventsTemplate extends Component {
                 <div className="events-intro">
                   <h1 className="title">{title}</h1>
                   <div className="description">
-                    <ReactMarkdown source={description} escapeHtml={false} />
+                    <ReactMarkdown
+                      source={description}
+                      escapeHtml={false}
+                      renderers={{
+                        link: props => renderLink(props),
+                      }}
+                    />
                   </div>
                 </div>
                 <div className="daypicker-dropdown">

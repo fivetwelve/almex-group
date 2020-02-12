@@ -8,9 +8,9 @@ import YouTube from 'react-youtube';
 import Layout from '../components/layout';
 import CategorySelector from '../components/categorySelector';
 import countryFlag from '../components/countryFlag';
+import { makeid, renderLink } from '../utils/functions';
 import { RESOURCE_TYPES } from '../constants';
 import '../styles/resources.scss';
-import { makeid } from '../utils/functions';
 
 const checkFor = (array, property, value) => {
   const size = array.filter(element => element[property] === value).length;
@@ -184,7 +184,13 @@ class ResourcesTemplate extends Component {
               <div className="main-content">
                 <h1 className="title">{title}</h1>
                 <div className="content">
-                  <ReactMarkdown source={description} escapeHtml={false} />
+                  <ReactMarkdown
+                    source={description}
+                    escapeHtml={false}
+                    renderers={{
+                      link: props => renderLink(props),
+                    }}
+                  />
                   <div className="selector-container">
                     <CategorySelector
                       categories={allCategories}
