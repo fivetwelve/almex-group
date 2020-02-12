@@ -5,7 +5,7 @@ import { graphql } from 'gatsby';
 import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import Layout from '../components/layout';
-import renderLink from '../utils/functions';
+import { renderLink } from '../utils/functions';
 import '../styles/promo.scss';
 
 const PromoTemplate = ({ data, pageContext }) => {
