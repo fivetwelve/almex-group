@@ -10,21 +10,36 @@ const INDEX_NAME = 'CMS';
 const CREATE_ABOUT_OBSERVER = 'createAboutSource';
 const UPDATE_ABOUT_OBSERVER = 'updateAboutSource';
 const DELETE_ABOUT_OBSERVER = 'deleteAboutSource';
+const DELETE_MULTIPLE_ABOUT_OBSERVER = 'deleteManyAboutSource';
 const CREATE_PAGE_OBSERVER = 'createPage';
 const UPDATE_PAGE_OBSERVER = 'updatePage';
 const DELETE_PAGE_OBSERVER = 'deletePage';
+const DELETE_MULTIPLE_PAGE_OBSERVER = 'deleteManyPage';
 const CREATE_PRODUCT_OBSERVER = 'createProductSource';
 const UPDATE_PRODUCT_OBSERVER = 'updateProductSource';
 const DELETE_PRODUCT_OBSERVER = 'deleteProductSource';
+const DELETE_MULTIPLE_PRODUCT_OBSERVER = 'deleteManyProductSource';
 const CREATE_PROMO_OBSERVER = 'createPromoSource';
 const UPDATE_PROMO_OBSERVER = 'updatePromoSource';
 const DELETE_PROMO_OBSERVER = 'deletePromoSource';
+const DELETE_MULTIPLE_PROMO_OBSERVER = 'deleteManyPromoSource';
 const CREATE_SERVICES_OBSERVER = 'createServicesSource';
 const UPDATE_SERVICES_OBSERVER = 'updateServicesSource';
 const DELETE_SERVICES_OBSERVER = 'deleteServicesSource';
+const DELETE_MULTIPLE_SERVICES_OBSERVER = 'deleteManyServicesSource';
 const CREATE_SIMPLE_OBSERVER = 'createSimpleSource';
 const UPDATE_SIMPLE_OBSERVER = 'updateSimpleSource';
 const DELETE_SIMPLE_OBSERVER = 'deleteSimpleSource';
+const DELETE_MULTIPLE_SIMPLE_OBSERVER = 'deleteManySimpleSource';
+
+const deleteManyObservers = [
+  DELETE_MULTIPLE_ABOUT_OBSERVER,
+  DELETE_MULTIPLE_PAGE_OBSERVER,
+  DELETE_MULTIPLE_PRODUCT_OBSERVER,
+  DELETE_MULTIPLE_PROMO_OBSERVER,
+  DELETE_MULTIPLE_SERVICES_OBSERVER,
+  DELETE_MULTIPLE_SIMPLE_OBSERVER,
+];
 
 /* update acceptedPageTypes and associated Observors if/when
    new content source types need to be indexed on Algolia */
