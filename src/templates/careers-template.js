@@ -56,7 +56,13 @@ const CareersTemplate = ({ data, pageContext }) => {
             <div className="intro-content">
               <h1 className="title">{title}</h1>
               <div className="description">
-                <ReactMarkdown source={description} escapeHtml={false} />
+                <ReactMarkdown
+                  source={description}
+                  escapeHtml={false}
+                  renderers={{
+                    link: props => renderLink(props),
+                  }}
+                />
                 {careerPostings.length > 0 &&
                   `${aboutLabel.about.POSTING_AVAILABLE} ${careerPostings.length}`}
               </div>

@@ -6,7 +6,7 @@ import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import Layout from '../components/layout';
 import InstituteForm from '../components/instituteForm';
-import { makeid } from '../utils/functions';
+import { makeid, renderLink } from '../utils/functions';
 import '../styles/institute.scss';
 
 import logo from '../../static/img/logo-institute.svg';
@@ -70,11 +70,23 @@ const InstituteTemplate = ({ data, pageContext }) => {
                 <div className="institute-logo-mobile">
                   <img src={logo} alt="Almex Institute logo" />
                 </div>
-                <ReactMarkdown source={description} escapeHtml={false} />
+                <ReactMarkdown
+                  source={description}
+                  escapeHtml={false}
+                  renderers={{
+                    link: props => renderLink(props),
+                  }}
+                />
               </div>
               <div className="topics-container">
                 <div className="topics">
-                  <ReactMarkdown source={topics} escapeHtml={false} />
+                  <ReactMarkdown
+                    source={topics}
+                    escapeHtml={false}
+                    renderers={{
+                      link: props => renderLink(props),
+                    }}
+                  />
                 </div>
                 {topicsImages.length > 0 && (
                   <div className="images">
@@ -93,12 +105,24 @@ const InstituteTemplate = ({ data, pageContext }) => {
                   </div>
                 )}
                 <div className="presentation">
-                  <ReactMarkdown source={presentation} escapeHtml={false} />
+                  <ReactMarkdown
+                    source={presentation}
+                    escapeHtml={false}
+                    renderers={{
+                      link: props => renderLink(props),
+                    }}
+                  />
                 </div>
               </div>
               <div className="instructors-container">
                 <div className="instructors">
-                  <ReactMarkdown source={instructors} escapeHtml={false} />
+                  <ReactMarkdown
+                    source={instructors}
+                    escapeHtml={false}
+                    renderers={{
+                      link: props => renderLink(props),
+                    }}
+                  />
                 </div>
                 {instructorsImages.length > 0 && (
                   <div className="images">
@@ -113,7 +137,7 @@ const InstituteTemplate = ({ data, pageContext }) => {
                   {pdfDownloads.map(download => (
                     <div key={makeid()} className="pdf">
                       <div className="pdf-icon" />
-                      <a href={download.url} rel="nofollow">
+                      <a href={download.url} rel="noopener noreferrer nofollow" target="_blank">
                         {download.documentTitle || download.fileName.split('.pdf')[0]}
                       </a>
                     </div>
@@ -126,7 +150,14 @@ const InstituteTemplate = ({ data, pageContext }) => {
                 <img src={logo} alt="Almex Institute logo" />
               </div>
               {sideContent.map(content => (
-                <ReactMarkdown key={makeid()} source={content} escapeHtml={false} />
+                <ReactMarkdown
+                  key={makeid()}
+                  source={content}
+                  escapeHtml={false}
+                  renderers={{
+                    link: props => renderLink(props),
+                  }}
+                />
               ))}
             </aside>
           </div>

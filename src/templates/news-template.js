@@ -7,7 +7,7 @@ import ReactMarkdown from 'react-markdown/with-html';
 import moment from 'moment';
 import 'moment/locale/es';
 import Layout from '../components/layout';
-import { makeid, matchMomentLocale } from '../utils/functions';
+import { makeid, matchMomentLocale, renderLink } from '../utils/functions';
 import { STATUS } from '../constants';
 import '../styles/news.scss';
 
@@ -61,7 +61,13 @@ const NewsTemplate = ({ data, pageContext }) => {
               <h1 className="title">{title}</h1>
               {description && (
                 <div className="description">
-                  <ReactMarkdown source={description} escapeHtml={false} />
+                  <ReactMarkdown
+                    source={description}
+                    escapeHtml={false}
+                    renderers={{
+                      link: props => renderLink(props),
+                    }}
+                  />
                 </div>
               )}
             </div>
@@ -71,7 +77,13 @@ const NewsTemplate = ({ data, pageContext }) => {
               <hr className="divider" />
               <div className="article-container">
                 <p>{moment(published[articleNum].date).format('LL')}</p>
-                <ReactMarkdown source={published[articleNum].content} escapeHtml={false} />
+                <ReactMarkdown
+                  source={published[articleNum].content}
+                  escapeHtml={false}
+                  renderers={{
+                    link: props => renderLink(props),
+                  }}
+                />
               </div>
               {published[articleNum].pdfDownloads.length > 0 && (
                 <div className="downloads-container">

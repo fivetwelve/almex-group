@@ -9,7 +9,7 @@ import LandingTile from '../components/landingTile';
 import { LANDING_TYPES, THEMES } from '../constants';
 import '../styles/landing.scss';
 import ProductBrand from '../components/productBrand';
-import { makeid } from '../utils/functions';
+import { makeid, renderLink } from '../utils/functions';
 
 const LandingTemplate = ({ data, pageContext }) => {
   const { locale, region } = pageContext;
@@ -176,7 +176,13 @@ const LandingTemplate = ({ data, pageContext }) => {
                   <h2 className="landing-title">{title}</h2>
                   {description && (
                     <div className="description">
-                      <ReactMarkdown source={description} escapeHtml={false} />
+                      <ReactMarkdown
+                        source={description}
+                        escapeHtml={false}
+                        renderers={{
+                          link: props => renderLink(props),
+                        }}
+                      />
                     </div>
                   )}
                 </div>
@@ -201,7 +207,13 @@ const LandingTemplate = ({ data, pageContext }) => {
                   )}
                   {description && (
                     <div className="description">
-                      <ReactMarkdown source={description} escapeHtml={false} />
+                      <ReactMarkdown
+                        source={description}
+                        escapeHtml={false}
+                        renderers={{
+                          link: props => renderLink(props),
+                        }}
+                      />
                     </div>
                   )}
                 </div>
@@ -218,7 +230,13 @@ const LandingTemplate = ({ data, pageContext }) => {
                   <h2 className="title">{title}</h2>
                   {description && (
                     <div className="description">
-                      <ReactMarkdown source={description} escapeHtml={false} />
+                      <ReactMarkdown
+                        source={description}
+                        escapeHtml={false}
+                        renderers={{
+                          link: props => renderLink(props),
+                        }}
+                      />
                     </div>
                   )}
                 </div>

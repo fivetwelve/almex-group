@@ -5,8 +5,9 @@ import { graphql } from 'gatsby';
 import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import Layout from '../components/layout';
-import '../styles/history.scss';
 import TimelineManager from '../components/timelineManager';
+import { renderLink } from '../utils/functions';
+import '../styles/history.scss';
 
 const HistoryTemplate = ({ data, pageContext }) => {
   const { locale, region } = pageContext;
@@ -50,7 +51,13 @@ const HistoryTemplate = ({ data, pageContext }) => {
             <div className="intro-content">
               <h1 className="title">{title}</h1>
               <div className="description">
-                <ReactMarkdown source={description} escapeHtml={false} />
+                <ReactMarkdown
+                  source={description}
+                  escapeHtml={false}
+                  renderers={{
+                    link: props => renderLink(props),
+                  }}
+                />
               </div>
             </div>
           </div>
