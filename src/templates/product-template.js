@@ -50,6 +50,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
         backgroundImage: `url(${advantagesImage.url})`,
       }
     : '';
+  const defaultColour = 'default';
   let themeColour = '';
   let featuresProdInfoTitle = '';
 
@@ -227,14 +228,12 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               </div>
             </>
           )}
-          {configurations && (
+          {configurations.length > 0 && (
             <>
-              <div className={`title-container ${themeColour}`}>
+              <div className={`title-container ${defaultColour}`}>
                 <div className="section-title">{products.CONFIGURATIONS}</div>
               </div>
-              <div className={`product-configurations ${themeColour}`}>
-                <ReactMarkdown source={configurations} escapeHtml={false} />
-              </div>
+              <Options options={configurations} label={products} themeColour={defaultColour} />
             </>
           )}
           {addOns.length > 0 && (
@@ -352,7 +351,7 @@ export const query = graphql`
             fileName
             url
           }
-          configurations(locale: $locale)
+          configurations
           addOns
           pdfDownloads(locale: $locale) {
             fileName
