@@ -143,10 +143,30 @@ class ContactTemplate extends React.Component {
             </div>
 
             <div className="view-toggle-container">
-              <button type="button" onClick={this.handleViewToggle}>
+              {/* <button type="button" onClick={this.handleViewToggle}>
                 {view === CONTACT_TYPES.OFFICE
                   ? aboutLabel.about.SEE_EXPERTS
                   : aboutLabel.about.SEE_OFFICES}
+              </button> */}
+              <button
+                type="button"
+                onClick={this.handleViewToggle}
+                disabled={view === CONTACT_TYPES.OFFICE}
+                className={view === CONTACT_TYPES.OFFICE ? 'active' : ''}
+              >
+                <span className={view === CONTACT_TYPES.OFFICE ? 'highlight' : ''}>
+                  {aboutLabel.about.SEE_OFFICES}
+                </span>
+              </button>
+              <button
+                type="button"
+                onClick={this.handleViewToggle}
+                disabled={view !== CONTACT_TYPES.OFFICE}
+                className={view !== CONTACT_TYPES.OFFICE ? 'active' : ''}
+              >
+                <span className={view !== CONTACT_TYPES.OFFICE ? 'highlight' : ''}>
+                  {aboutLabel.about.SEE_EXPERTS}
+                </span>
               </button>
             </div>
 
