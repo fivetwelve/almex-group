@@ -81,6 +81,8 @@ module.exports = {
     FON: 'FONMAR',
   },
   OPTIONS: {
+    BIAS_17: 'BIAS_17',
+    BIAS_22: 'BIAS_22',
     CANTILEVER: 'CANTILEVER',
     HANDLES: 'HANDLES',
     MULTI_PLATEN: 'MULTI_PLATEN',
