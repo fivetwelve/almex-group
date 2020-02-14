@@ -1,6 +1,6 @@
 [build]
   Functions = "lambda"
-  Command = "npm run build && npm run build:lambda"
+  Command = "yarn build && yarn build:lambda"
 
 #[[redirects]]
 #  from = "/"

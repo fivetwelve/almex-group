@@ -7,18 +7,16 @@ import MomentLocaleUtils, { formatDate } from 'react-day-picker/moment';
 import { IconContext } from 'react-icons';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 import GraphImg from 'graphcms-image';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown/with-html';
 import Layout from '../src/components/layout';
 import TrainingEventsResults from '../src/components/trainingEventsResults';
 import InstituteForm from '../src/components/instituteForm';
-import { makeid } from '../src/utils/functions';
+import { makeid, renderLink } from '../src/utils/functions';
 import { LANGUAGES } from '../src/constants';
 import '../src/styles/institute.scss';
 import '../src/styles/dayPicker.scss';
 
 import logo from '../static/img/logo-institute.svg';
-
-const allowHTML = { html: true };
 
 // eslint-disable-next-line react/prop-types
 const Navbar = ({ onPreviousClick, onNextClick }) => (
@@ -235,11 +233,23 @@ class InstituteTemplate extends Component {
                   <div className="institute-logo-mobile">
                     <img src={logo} alt="Almex Institute logo" />
                   </div>
-                  <ReactMarkdown source={description} options={allowHTML} />
+                  <ReactMarkdown
+                    source={description}
+                    escapeHtml={false}
+                    renderers={{
+                      link: props => renderLink(props),
+                    }}
+                  />
                 </div>
                 <div className="topics-container">
                   <div className="topics">
-                    <ReactMarkdown source={topics} options={allowHTML} />
+                    <ReactMarkdown
+                      source={topics}
+                      escapeHtml={false}
+                      renderers={{
+                        link: props => renderLink(props),
+                      }}
+                    />
                   </div>
                   {topicsImages.length > 0 && (
                     <div className="images">
@@ -258,12 +268,24 @@ class InstituteTemplate extends Component {
                     </div>
                   )}
                   <div className="presentation">
-                    <ReactMarkdown source={presentation} options={allowHTML} />
+                    <ReactMarkdown
+                      source={presentation}
+                      escapeHtml={false}
+                      renderers={{
+                        link: props => renderLink(props),
+                      }}
+                    />
                   </div>
                 </div>
                 <div className="instructors-container">
                   <div className="instructors">
-                    <ReactMarkdown source={instructors} options={allowHTML} />
+                    <ReactMarkdown
+                      source={instructors}
+                      escapeHtml={false}
+                      renderers={{
+                        link: props => renderLink(props),
+                      }}
+                    />
                   </div>
                   {instructorsImages.length > 0 && (
                     <div className="images">
@@ -278,7 +300,7 @@ class InstituteTemplate extends Component {
                     {pdfDownloads.map(download => (
                       <div key={makeid()} className="pdf">
                         <div className="pdf-icon" />
-                        <a href={download.url}>
+                        <a href={download.url} rel="nofollow">
                           {download.documentTitle || download.fileName.split('.pdf')[0]}
                         </a>
                       </div>
@@ -291,7 +313,14 @@ class InstituteTemplate extends Component {
                   <img src={logo} alt="Almex Institute logo" />
                 </div>
                 {sideContent.map(content => (
-                  <ReactMarkdown key={makeid()} source={content} options={allowHTML} />
+                  <ReactMarkdown
+                    key={makeid()}
+                    source={content}
+                    escapeHtml={false}
+                    renderers={{
+                      link: props => renderLink(props),
+                    }}
+                  />
                 ))}
               </aside>
             </div>
@@ -346,7 +375,13 @@ class InstituteTemplate extends Component {
 
             <hr className="divider" />
             <div className="form-container">
-              <ReactMarkdown source={contactAndForm} options={allowHTML} />
+              <ReactMarkdown
+                source={contactAndForm}
+                escapeHtml={false}
+                renderers={{
+                  link: props => renderLink(props),
+                }}
+              />
               <InstituteForm label={label} email={email} />
             </div>
           </div>

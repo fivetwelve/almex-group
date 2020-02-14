@@ -1,7 +1,7 @@
 @import 'base';
 
 .header {
-  .brand-selector,
+  // .brand-selector,
   .lang-selector {
     display: none;
     @include media('>=tablet') {
@@ -9,7 +9,7 @@
       display: flex;
       align-items: center;
       height: 30px;
-      border-left: 1px solid $grey40;
+      // border-left: 1px solid $grey40;
     }
     a {
       text-decoration: none;
@@ -47,7 +47,6 @@
     }
     li:hover,
     li:focus-within {
-      // background: $grey60;
       cursor: pointer;
     }
 
@@ -68,7 +67,8 @@
         height: 20px;
       }
     }
-
+  }
+  .lang-selector {
     .lang-dropdown {
       background-color: $white;
       min-width: 5rem;
@@ -101,6 +101,59 @@
         color: $red-piper;
       }
       transition-duration: 0.5s;
+    }
+  }
+
+  .brand-selector {
+    button {
+      background: $yellow-sea;
+      border: 0;
+      color: $white;
+      &:hover {
+        transition: $easeinout;
+        .dd-icon {
+          transition: $easeinout;
+          .brands-icon {
+            color: $black;
+          }
+        }
+        .dd-text-icon {
+          color: $black;
+          transition: $easeinout;
+        }
+      }
+      &.is-open {
+        .dd-icon {
+          transform: rotate(180deg);
+          transition: $easeinout;
+          .brands-icon {
+            color: $black;
+          }
+        }
+        .dd-text-icon {
+          color: $black;
+          transition: $easeinout;
+        }
+      }
+      .dd-icon {
+        transform: rotate(0);
+        transition: $easeinout;
+      }
+
+      .dd-text-icon {
+        color: $white;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        pointer-events: none;
+        white-space: nowrap;
+        &.text {
+          font-weight: bold;
+        }
+        .dd-icon {
+          height: 20px;
+        }
+      }
     }
   }
   .brand-container {

@@ -2,15 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import GraphImg from 'graphcms-image';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown/with-html';
 import moment from 'moment';
 import 'moment/locale/es';
 import Layout from '../components/layout';
 import UsedEquipmentListing from '../components/usedEquipmentListing';
-import { makeid, matchMomentLocale } from '../utils/functions';
+import { makeid, matchMomentLocale, renderLink } from '../utils/functions';
 import '../styles/usedEquipment.scss';
-
-const allowHTML = { html: true };
 
 const UsedEquipmentTemplate = ({ data, pageContext }) => {
   const { locale, region } = pageContext;
@@ -53,7 +51,13 @@ const UsedEquipmentTemplate = ({ data, pageContext }) => {
             <div className="title">{title}</div>
           </div>
           <div className="description">
-            <ReactMarkdown source={description} options={allowHTML} />
+            <ReactMarkdown
+              source={description}
+              escapeHtml={false}
+              renderers={{
+                link: props => renderLink(props),
+              }}
+            />
           </div>
         </div>
         {usedEquipmentListings.map(listing => (

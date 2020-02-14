@@ -7,17 +7,16 @@ import DayPicker, { DateUtils } from 'react-day-picker';
 import MomentLocaleUtils, { formatDate } from 'react-day-picker/moment';
 import { IconContext } from 'react-icons';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown/with-html';
 import 'moment/locale/de';
 import 'moment/locale/es';
 import Layout from '../components/layout';
 import EventsResults from '../components/eventsResults';
 import ContinentSelector from '../components/continentSelector';
+import { renderLink } from '../utils/functions';
 import { CONTINENTS, LANGUAGES } from '../constants';
 import '../styles/events.scss';
 import '../styles/dayPicker.scss';
-
-const allowHTML = { html: true };
 
 // eslint-disable-next-line react/prop-types
 const Navbar = ({ onPreviousClick, onNextClick }) => (
@@ -246,7 +245,13 @@ class EventsTemplate extends Component {
                 <div className="events-intro">
                   <h1 className="title">{title}</h1>
                   <div className="description">
-                    <ReactMarkdown source={description} options={allowHTML} />
+                    <ReactMarkdown
+                      source={description}
+                      escapeHtml={false}
+                      renderers={{
+                        link: props => renderLink(props),
+                      }}
+                    />
                   </div>
                 </div>
                 <div className="daypicker-dropdown">

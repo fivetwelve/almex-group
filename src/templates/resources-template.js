@@ -3,16 +3,14 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 // import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown/with-html';
 import YouTube from 'react-youtube';
 import Layout from '../components/layout';
 import CategorySelector from '../components/categorySelector';
 import countryFlag from '../components/countryFlag';
+import { makeid, renderLink } from '../utils/functions';
 import { RESOURCE_TYPES } from '../constants';
 import '../styles/resources.scss';
-import { makeid } from '../utils/functions';
-
-const allowHTML = { html: true };
 
 const checkFor = (array, property, value) => {
   const size = array.filter(element => element[property] === value).length;
@@ -186,7 +184,13 @@ class ResourcesTemplate extends Component {
               <div className="main-content">
                 <h1 className="title">{title}</h1>
                 <div className="content">
-                  <ReactMarkdown source={description} options={allowHTML} />
+                  <ReactMarkdown
+                    source={description}
+                    escapeHtml={false}
+                    renderers={{
+                      link: props => renderLink(props),
+                    }}
+                  />
                   <div className="selector-container">
                     <CategorySelector
                       categories={allCategories}
@@ -204,20 +208,20 @@ class ResourcesTemplate extends Component {
                         <br />
                         <ReactMarkdown
                           source={selectedCategory.expert.location}
-                          options={allowHTML}
+                          escapeHtml={false}
                         />
                         {selectedCategory.expert.telephone && (
-                          <a href={`tel:${selectedCategory.expert.telephone}`}>
+                          <a href={`tel:${selectedCategory.expert.telephone}`} rel="nofollow">
                             {selectedCategory.expert.telephone}
                           </a>
                         )}
                         {selectedCategory.expert.mobile && (
-                          <a href={`tel:${selectedCategory.expert.mobile}`}>
+                          <a href={`tel:${selectedCategory.expert.mobile}`} rel="nofollow">
                             {selectedCategory.expert.mobile}
                           </a>
                         )}
                         {selectedCategory.expert.email && (
-                          <a href={`mailto:${selectedCategory.expert.email}`}>
+                          <a href={`mailto:${selectedCategory.expert.email}`} rel="nofollow">
                             {selectedCategory.expert.email}
                           </a>
                         )}
@@ -266,7 +270,7 @@ class ResourcesTemplate extends Component {
                                     <a
                                       href={document.url}
                                       target="_blank"
-                                      rel="noopener noreferrer"
+                                      rel="noopener noreferrer nofollow"
                                     >
                                       {document.documentTitle || document.fileName.split('.pdf')[0]}
                                     </a>

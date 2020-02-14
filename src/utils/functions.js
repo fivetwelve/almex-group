@@ -1,3 +1,4 @@
+import React from 'react';
 import fetchPonyfill from 'fetch-ponyfill';
 import { PAGE_TYPES } from '../constants';
 
@@ -313,6 +314,18 @@ Math.easeInOutQuad = (ti, b, c, d) => {
   return (-c / 2) * (t * (t - 2) - 1) + b;
 };
 
+/* need to add "rel" attributes to anchor tags in Markdown that links to external content */
+
+const renderLink = props => {
+  // eslint-disable-next-line react/prop-types
+  const { children, href } = props;
+  return (
+    <a href={href} rel="noopener noreferrer nofollow">
+      {children}
+    </a>
+  );
+};
+
 const scrollTo = (to, callback, duration) => {
   // because it's so f*cking difficult to detect the scrolling element, just move them all
   const move = amount => {
@@ -374,5 +387,6 @@ export {
   daysPassed,
   hoursPassed,
   normalizeTimeZone,
+  renderLink,
   scrollTo,
 };

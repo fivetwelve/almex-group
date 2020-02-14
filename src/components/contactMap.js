@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { GoogleMap, InfoWindow, LoadScript, Marker } from '@react-google-maps/api';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown/with-html';
 import { IconContext } from 'react-icons';
 import { FaFax, FaMobileAlt, FaPhone } from 'react-icons/fa';
 import ContactOffice from './contactOffice';

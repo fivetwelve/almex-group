@@ -3,17 +3,15 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 // import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown/with-html';
 import Layout from '../components/layout';
 import ContactExpert from '../components/contactExpert';
 import ContactMap from '../components/contactMap';
 import ContactFormModal from '../components/contactFormModal';
-import { fetch, makeid, mapToOffice } from '../utils/functions';
+import { fetch, makeid, mapToOffice, renderLink } from '../utils/functions';
 import { CONTACT_TYPES } from '../constants';
 
 import '../styles/contact.scss';
-
-const allowHTML = { html: true };
 
 class ContactTemplate extends React.Component {
   constructor(props) {
@@ -133,7 +131,13 @@ class ContactTemplate extends React.Component {
               <div className="intro-content">
                 <h1 className="title">{title}</h1>
                 <div className="description">
-                  <ReactMarkdown source={description} options={allowHTML} />
+                  <ReactMarkdown
+                    source={description}
+                    escapeHtml={false}
+                    renderers={{
+                      link: props => renderLink(props),
+                    }}
+                  />
                 </div>
               </div>
             </div>

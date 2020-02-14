@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactMarkdown from 'react-markdown';
-import { makeid } from '../utils/functions';
+import ReactMarkdown from 'react-markdown/with-html';
+import { makeid, renderLink } from '../utils/functions';
 
 const EventsResults = ({ events, labels }) => (
   <>
@@ -30,7 +30,12 @@ const EventsResults = ({ events, labels }) => (
                 <tr>
                   <td className="label">{labels.LOCATION}</td>
                   <td className="location">
-                    <ReactMarkdown source={event.location} />
+                    <ReactMarkdown
+                      source={event.location}
+                      renderers={{
+                        link: props => renderLink(props),
+                      }}
+                    />
                   </td>
                 </tr>
                 <tr>

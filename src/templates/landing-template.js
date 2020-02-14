@@ -3,15 +3,13 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown/with-html';
 import Layout from '../components/layout';
 import LandingTile from '../components/landingTile';
 import { LANDING_TYPES, THEMES } from '../constants';
 import '../styles/landing.scss';
 import ProductBrand from '../components/productBrand';
-import { makeid } from '../utils/functions';
-
-const allowHTML = { html: true };
+import { makeid, renderLink } from '../utils/functions';
 
 const LandingTemplate = ({ data, pageContext }) => {
   const { locale, region } = pageContext;
@@ -178,7 +176,13 @@ const LandingTemplate = ({ data, pageContext }) => {
                   <h2 className="landing-title">{title}</h2>
                   {description && (
                     <div className="description">
-                      <ReactMarkdown source={description} options={allowHTML} />
+                      <ReactMarkdown
+                        source={description}
+                        escapeHtml={false}
+                        renderers={{
+                          link: props => renderLink(props),
+                        }}
+                      />
                     </div>
                   )}
                 </div>
@@ -203,7 +207,13 @@ const LandingTemplate = ({ data, pageContext }) => {
                   )}
                   {description && (
                     <div className="description">
-                      <ReactMarkdown source={description} options={allowHTML} />
+                      <ReactMarkdown
+                        source={description}
+                        escapeHtml={false}
+                        renderers={{
+                          link: props => renderLink(props),
+                        }}
+                      />
                     </div>
                   )}
                 </div>
@@ -220,7 +230,13 @@ const LandingTemplate = ({ data, pageContext }) => {
                   <h2 className="title">{title}</h2>
                   {description && (
                     <div className="description">
-                      <ReactMarkdown source={description} options={allowHTML} />
+                      <ReactMarkdown
+                        source={description}
+                        escapeHtml={false}
+                        renderers={{
+                          link: props => renderLink(props),
+                        }}
+                      />
                     </div>
                   )}
                 </div>

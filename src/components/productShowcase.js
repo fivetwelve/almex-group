@@ -45,7 +45,7 @@ class ProductShowcase extends React.Component {
     for (let k = 0; k < pdfDownloads.length; k += 1) {
       const pdf = (
         <div className="pdf" key={makeid()}>
-          <a href={pdfDownloads[k].url} target="_new">
+          <a href={pdfDownloads[k].url} target="_new" rel="nofollow">
             <div className="pdf-icon" />
             {pdfDownloads[k].documentTitle || pdfDownloads[k].fileName.split('.pdf')[0]}
           </a>
