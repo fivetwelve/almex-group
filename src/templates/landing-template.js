@@ -247,18 +247,21 @@ const LandingTemplate = ({ data, pageContext }) => {
                 const { pages } = landingSection;
                 const sectionTitle = landingSection.title || null;
                 sectionIdx += 1;
-                return (
-                  <div className="landing-section" key={`landing-section-${sectionIdx}`}>
-                    {sectionTitle && (
-                      <div className={`title-container ${themeColour}`}>
-                        <div className="section-title">{sectionTitle}</div>
+                if (pages.length > 0) {
+                  return (
+                    <div className="landing-section" key={`landing-section-${sectionIdx}`}>
+                      {sectionTitle && (
+                        <div className={`title-container ${themeColour}`}>
+                          <div className="section-title">{sectionTitle}</div>
+                        </div>
+                      )}
+                      <div className="tile-container">
+                        {pages.length > 0 && renderTiles(pages, location)}
                       </div>
-                    )}
-                    <div className="tile-container">
-                      {pages.length > 0 && renderTiles(pages, location)}
                     </div>
-                  </div>
-                );
+                  );
+                }
+                return null;
               })}
             {sortedSinglePages.length > 0 && (
               <div className="tile-container">
