@@ -1,10 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { OPTIONS } from '../constants';
-// import PSI_100 from '../../static/img/press_option-PSI_100.svg';
-// import PSI_200 from '../../static/img/press_option-PSI_200.svg';
-// import RECTANGULAR from '../../static/img/press_option-RECTANGULAR.svg';
-// import RHOMBOID from '../../static/img/press_option-RHOMBOID.svg';
 
 const optionSVG = (option, label) => {
   switch (option) {
@@ -377,29 +373,6 @@ const optionSVG = (option, label) => {
                 fill="#fff"
               />
             </g>
-          </svg>
-        </>
-      );
-    case OPTIONS.RHOMBOID:
-      return (
-        <>
-          <span>{label.RHOMBOID}</span>
-          <svg
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 200 200"
-            aria-labelledby="title"
-          >
-            <title>{label.RHOMBOID}</title>
-            <path
-              className="bg"
-              style={{
-                clipRule: 'evenodd',
-                fillRule: 'evenodd',
-              }}
-              d="m0 72c0-33.9 0-50.9 10.5-61.5 10.6-10.5 27.6-10.5 61.5-10.5h56c33.9 0 50.9 0 61.5 10.5 10.5 10.6 10.5 27.6 10.5 61.5v56c0 33.9 0 50.9-10.5 61.5-10.6 10.5-27.6 10.5-61.5 10.5h-56c-33.9 0-50.9 0-61.5-10.5-10.5-10.6-10.5-27.6-10.5-61.5z"
-            />
-            <path d="m75.7 56.7h97.9l-48.9 86.6h-98.3z" fill="#fff" />
           </svg>
         </>
       );
