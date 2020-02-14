@@ -4,6 +4,9 @@ import { graphql } from 'gatsby';
 // import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown/with-html';
+import { IconContext } from 'react-icons';
+import { FaBuilding, FaUser } from 'react-icons/fa';
+
 import Layout from '../components/layout';
 import ContactExpert from '../components/contactExpert';
 import ContactMap from '../components/contactMap';
@@ -154,6 +157,14 @@ class ContactTemplate extends React.Component {
                 disabled={view === CONTACT_TYPES.OFFICE}
                 className={view === CONTACT_TYPES.OFFICE ? 'active' : ''}
               >
+                <span
+                  aria-hidden="true"
+                  className={view === CONTACT_TYPES.OFFICE ? 'icon highlight' : 'icon'}
+                >
+                  <IconContext.Provider value={{ className: 'tab-icon' }}>
+                    <FaBuilding aria-hidden />
+                  </IconContext.Provider>
+                </span>
                 <span className={view === CONTACT_TYPES.OFFICE ? 'highlight' : ''}>
                   {aboutLabel.about.SEE_OFFICES}
                 </span>
@@ -164,6 +175,14 @@ class ContactTemplate extends React.Component {
                 disabled={view !== CONTACT_TYPES.OFFICE}
                 className={view !== CONTACT_TYPES.OFFICE ? 'active' : ''}
               >
+                <span
+                  aria-hidden="true"
+                  className={view !== CONTACT_TYPES.OFFICE ? 'icon highlight' : 'icon'}
+                >
+                  <IconContext.Provider value={{ className: 'tab-icon' }}>
+                    <FaUser aria-hidden />
+                  </IconContext.Provider>
+                </span>
                 <span className={view !== CONTACT_TYPES.OFFICE ? 'highlight' : ''}>
                   {aboutLabel.about.SEE_EXPERTS}
                 </span>
@@ -184,7 +203,7 @@ class ContactTemplate extends React.Component {
               <div className="table-data">
                 <div className="table-entry">
                   <div className="table-pin" />
-                  <div className="table-details heading">{aboutLabel.about.CENTERS}</div>
+                  <div className="table-details heading">{aboutLabel.about.EXPERTS}</div>
                 </div>
                 {experts.map(eachExpert => (
                   <ContactExpert

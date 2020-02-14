@@ -19,6 +19,17 @@ $spacing: 20px;
     padding-left: 0;
     padding-right: 0;
   }
+  .intro-container,
+  .view-toggle-container,
+  .offices-view,
+  .experts-view {
+    padding-left: 10px;
+    padding-right: 10px;
+    @include media('>=tablet') {
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+  }
   .contact-container {
     max-width: 1280px;
     width: 100%;
@@ -81,9 +92,12 @@ $spacing: 20px;
         }
         span {
           padding: 0 10px;
+          &.icon {
+            padding: 0;
+          }
           &.highlight {
-            color: $white;
-            background-color: $yellow-sea;
+            color: $grey80;
+            // background-color: $yellow-sea20;
           }
         }
 
