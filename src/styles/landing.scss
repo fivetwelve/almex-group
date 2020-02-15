@@ -71,12 +71,12 @@ $spacing: 20px;
       margin: 40px auto;
       &.almex-box,
       &.bat,
-      &.choice,
       &.cmi,
       &.emsys,
       &.fusion,
       &.institute,
       &.knight,
+      &.lightweight,
       &.votech {
         background-size: contain;
         background-repeat: no-repeat;
@@ -88,10 +88,6 @@ $spacing: 20px;
       }
       &.bat {
         background-image: url('../../static/img/logo-bat.svg');
-        height: 80px;
-      }
-      &.choice {
-        background-image: url('../../static/img/logo-choicetek.svg');
         height: 80px;
       }
       &.cmi {
@@ -113,6 +109,10 @@ $spacing: 20px;
       &.knight {
         background-image: url('../../static/img/logo-knight.svg');
         height: 140px;
+      }
+      &.lightweight {
+        background-image: url('../../static/img/logo-lightweight.svg');
+        height: 80px;
       }
       &.votech {
         background-image: url('../../static/img/logo-votech.svg');
