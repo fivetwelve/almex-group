@@ -356,6 +356,7 @@ export const query = graphql`
           pdfDownloads(locale: $locale) {
             fileName
             documentTitle(locale: $locale)
+            resourceType
             url
           }
           attractText(locale: $locale)

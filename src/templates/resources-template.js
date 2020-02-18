@@ -17,13 +17,17 @@ const checkFor = (array, property, value) => {
   return size > 0;
 };
 
+const excludeList = [RESOURCE_TYPES.OPERATING_MANUAL, RESOURCE_TYPES.SAFETY_DATA_SHEET];
+
 class ResourcesTemplate extends Component {
   constructor(props) {
     super(props);
     const { categories, sortOrder } = props.data.cms.page.resources;
     const { resourcesLabel } = props.data.cms;
     const allCategories = [];
-    const resourceTypes = Object.keys(RESOURCE_TYPES);
+    /* get resource types and remove any ones that are on the exempt list */
+    let resourceTypes = Object.keys(RESOURCE_TYPES);
+    resourceTypes = resourceTypes.filter(element => !excludeList.includes(element));
 
     categories.forEach(category => {
       const resources = [];

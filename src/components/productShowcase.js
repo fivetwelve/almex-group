@@ -5,8 +5,11 @@ import YouTube from 'react-youtube';
 import { IconContext } from 'react-icons';
 import { FaChevronLeft, FaChevronRight, FaYoutube } from 'react-icons/fa';
 import { makeid } from '../utils/functions';
+import { RESOURCE_TYPES } from '../constants';
 import ProductBrand from './productBrand';
 import Attraction from './attraction';
+
+const excludeList = [RESOURCE_TYPES.OPERATING_MANUAL, RESOURCE_TYPES.SAFETY_DATA_SHEET];
 
 class ProductShowcase extends React.Component {
   constructor(props) {
@@ -43,15 +46,18 @@ class ProductShowcase extends React.Component {
 
     /* creating list of PDFs */
     for (let k = 0; k < pdfDownloads.length; k += 1) {
-      const pdf = (
-        <div className="pdf" key={makeid()}>
-          <a href={pdfDownloads[k].url} target="_new" rel="nofollow noindex">
-            <div className="pdf-icon" />
-            {pdfDownloads[k].documentTitle || pdfDownloads[k].fileName.split('.pdf')[0]}
-          </a>
-        </div>
-      );
-      pdfArray.push(pdf);
+      /* if PDF type is not in the excludeList, proceed */
+      if (!excludeList.includes(pdfDownloads[k].resourceType)) {
+        const pdf = (
+          <div className="pdf" key={makeid()}>
+            <a href={pdfDownloads[k].url} target="_new" rel="nofollow noindex">
+              <div className="pdf-icon" />
+              {pdfDownloads[k].documentTitle || pdfDownloads[k].fileName.split('.pdf')[0]}
+            </a>
+          </div>
+        );
+        pdfArray.push(pdf);
+      }
     }
 
     this.state = {
@@ -255,6 +261,7 @@ ProductShowcase.propTypes = {
   youTubeVideos: PropTypes.arrayOf(PropTypes.object),
   pdfDownloads: PropTypes.arrayOf(
     PropTypes.shape({
+      resourceType: PropTypes.string,
       documentTitle: PropTypes.string,
       fileName: PropTypes.string,
       url: PropTypes.string,
