@@ -7,10 +7,12 @@ import ReactMarkdown from 'react-markdown/with-html';
 import YouTube from 'react-youtube';
 import Layout from '../components/layout';
 import CategorySelector from '../components/categorySelector';
+import ContactForm from '../components/contactForm';
 import countryFlag from '../components/countryFlag';
 import { makeid, renderLink } from '../utils/functions';
-import { RESOURCE_TYPES } from '../constants';
+import { FORM_TYPES, RESOURCE_TYPES } from '../constants';
 import '../styles/resources.scss';
+import '../styles/contactForm.scss';
 
 const checkFor = (array, property, value) => {
   const size = array.filter(element => element[property] === value).length;
@@ -25,7 +27,7 @@ class ResourcesTemplate extends Component {
     const { categories, sortOrder } = props.data.cms.page.resources;
     const { resourcesLabel } = props.data.cms;
     const allCategories = [];
-    /* get resource types and remove any ones that are on the exempt list */
+    /* get resource types and remove any ones that are on the exclude list */
     let resourceTypes = Object.keys(RESOURCE_TYPES);
     resourceTypes = resourceTypes.filter(element => !excludeList.includes(element));
 
@@ -153,7 +155,15 @@ class ResourcesTemplate extends Component {
           label,
           navigation,
           page: {
-            resources: { bannerImage, description, title, sortOrder },
+            resources: {
+              bannerImage,
+              contactAndForm,
+              description,
+              email,
+              emailSubject,
+              title,
+              sortOrder,
+            },
           },
           resourcesLabel,
         },
@@ -291,6 +301,24 @@ class ResourcesTemplate extends Component {
                         </div>
                       </div>
                     ))}
+                  <hr />
+                  {email && (
+                    <div className="form-container">
+                      <ReactMarkdown
+                        source={contactAndForm}
+                        escapeHtml={false}
+                        renderers={{
+                          link: props => renderLink(props),
+                        }}
+                      />
+                      <ContactForm
+                        label={label}
+                        email={email}
+                        emailSubject={emailSubject}
+                        formType={FORM_TYPES.CONTACT}
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -400,6 +428,9 @@ export const query = graphql`
             }
           }
           sortOrder(locale: $locale)
+          contactAndForm(locale: $locale)
+          email
+          emailSubject(locale: $locale)
         }
       }
     }
