@@ -314,13 +314,12 @@ Math.easeInOutQuad = (ti, b, c, d) => {
   return (-c / 2) * (t * (t - 2) - 1) + b;
 };
 
-/* need to add "rel" attributes to anchor tags in Markdown that links to external content */
-
+// helper function for Markdown parser to add rel attribute and values to prevent indexing
 const renderLink = props => {
   // eslint-disable-next-line react/prop-types
   const { children, href } = props;
   return (
-    <a href={href} rel="noopener noreferrer nofollow">
+    <a href={href} rel="noopener noreferrer nofollow noindex">
       {children}
     </a>
   );

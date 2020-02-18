@@ -211,17 +211,23 @@ class ResourcesTemplate extends Component {
                           escapeHtml={false}
                         />
                         {selectedCategory.expert.telephone && (
-                          <a href={`tel:${selectedCategory.expert.telephone}`} rel="nofollow">
+                          <a
+                            href={`tel:${selectedCategory.expert.telephone}`}
+                            rel="nofollow noindex"
+                          >
                             {selectedCategory.expert.telephone}
                           </a>
                         )}
                         {selectedCategory.expert.mobile && (
-                          <a href={`tel:${selectedCategory.expert.mobile}`} rel="nofollow">
+                          <a href={`tel:${selectedCategory.expert.mobile}`} rel="nofollow noindex">
                             {selectedCategory.expert.mobile}
                           </a>
                         )}
                         {selectedCategory.expert.email && (
-                          <a href={`mailto:${selectedCategory.expert.email}`} rel="nofollow">
+                          <a
+                            href={`mailto:${selectedCategory.expert.email}`}
+                            rel="nofollow noindex"
+                          >
                             {selectedCategory.expert.email}
                           </a>
                         )}
@@ -270,7 +276,7 @@ class ResourcesTemplate extends Component {
                                     <a
                                       href={document.url}
                                       target="_blank"
-                                      rel="noopener noreferrer nofollow"
+                                      rel="noopener noreferrer nofollow noindex"
                                     >
                                       {document.documentTitle || document.fileName.split('.pdf')[0]}
                                     </a>
