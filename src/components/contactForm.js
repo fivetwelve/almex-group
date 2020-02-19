@@ -173,7 +173,6 @@ class ContactForm extends React.Component {
           <label htmlFor="contactPosition">
             <div className="label">
               <span className="label-input">{label.common.FORM_POSITION}</span>
-              <span className="required">* {label.common.FORM_REQUIRED}</span>
             </div>
             <input
               type="text"
@@ -188,7 +187,6 @@ class ContactForm extends React.Component {
           <label htmlFor="contactCompany">
             <div className="label">
               <span className="label-input">{label.common.FORM_COMPANY}</span>
-              <span className="required">* {label.common.FORM_REQUIRED}</span>
             </div>
             <input
               type="text"
@@ -203,7 +201,6 @@ class ContactForm extends React.Component {
           <label htmlFor="contactCountry">
             <div className="label">
               <span className="label-input">{label.common.FORM_COUNTRY}</span>
-              <span className="required">* {label.common.FORM_REQUIRED}</span>
             </div>
             <input
               type="text"

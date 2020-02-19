@@ -40,6 +40,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
           addOns,
           accessories,
           relatedItems,
+          visitResourcesForMore,
         },
       },
     },
@@ -126,11 +127,13 @@ const ProductTemplate = ({ data, location, pageContext }) => {
             images={images}
             label={label}
             locale={locale}
+            location={location}
             products={products}
             themeColour={themeColour}
             title={title}
             youTubeVideos={youTubeVideos}
             pdfDownloads={pdfDownloads}
+            showResourcesLink={visitResourcesForMore}
           />
           <div className={`product-marketing ${themeColour}`}>
             <ReactMarkdown
@@ -322,6 +325,9 @@ export const query = graphql`
       ...CommonQuery
       label(where: { availableIn: $region }) {
         products(locale: $locale)
+        resourcesLink {
+          slug(locale: $locale)
+        }
       }
       page(where: { id: $id }) {
         pageType
@@ -338,6 +344,7 @@ export const query = graphql`
             title(locale: $locale)
             videoType
           }
+          visitResourcesForMore
           marketing(locale: $locale)
           advantages(locale: $locale)
           advantagesImage {

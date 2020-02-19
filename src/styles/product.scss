@@ -381,6 +381,31 @@ $spacing: 20px;
             }
           }
         }
+        .resources-link {
+          @include media('>=desktop') {
+            padding-bottom: 18px;
+          }
+          a,
+          a:visited {
+            color: $yellow-sea;
+            font-size: 16px;
+            line-height: 18px;
+            text-decoration: none;
+            .more-arrow {
+              white-space: nowrap;
+              display: inline-block;
+              font-size: 18px;
+              line-height: 18px;
+              margin-left: 5px;
+            }
+            &:hover {
+              text-decoration: underline;
+              span.more-arrow {
+                text-decoration: none;
+              }
+            }
+          }
+        }
       }
     }
     .carousel-controls {

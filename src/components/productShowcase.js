@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'gatsby';
 import PropTypes from 'prop-types';
 import Carousel from 'nuka-carousel';
 import YouTube from 'react-youtube';
 import { IconContext } from 'react-icons';
 import { FaChevronLeft, FaChevronRight, FaYoutube } from 'react-icons/fa';
-import { makeid } from '../utils/functions';
+import { createLink, makeid } from '../utils/functions';
 import { RESOURCE_TYPES } from '../constants';
 import ProductBrand from './productBrand';
 import Attraction from './attraction';
@@ -102,10 +103,12 @@ class ProductShowcase extends React.Component {
       brand,
       label,
       locale,
+      location,
       products,
       title,
       youTubeVideos,
       pdfDownloads,
+      showResourcesLink,
     } = this.props;
     const {
       autoGenerateStyleTag,
@@ -176,6 +179,14 @@ class ProductShowcase extends React.Component {
               </div>
             )}
             {pdfDownloads && <div className="pdf-downloads">{pdfArray}</div>}
+            {showResourcesLink && (
+              <div className="resources-link">
+                <Link to={createLink(location, label.resourcesLink.slug)}>
+                  {label.products.REQUEST_DOCUMENTS}
+                  <div className="more-arrow">&nbsp;&raquo;</div>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
         {((sortedImages.length > 1 && youTubeVideos.length === 0) ||
@@ -236,10 +247,12 @@ ProductShowcase.defaultProps = {
   images: [],
   label: {},
   locale: '',
+  location: {},
   products: {},
   title: '',
   youTubeVideos: [],
   pdfDownloads: [],
+  showResourcesLink: false,
 };
 
 ProductShowcase.propTypes = {
@@ -252,8 +265,13 @@ ProductShowcase.propTypes = {
   ),
   label: PropTypes.shape({
     common: PropTypes.object,
+    products: PropTypes.object,
+    resourcesLink: PropTypes.object,
   }),
   locale: PropTypes.string,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+  }),
   products: PropTypes.shape({
     SHOULD_KNOW: PropTypes.string,
   }),
@@ -267,6 +285,7 @@ ProductShowcase.propTypes = {
       url: PropTypes.string,
     }),
   ),
+  showResourcesLink: PropTypes.bool,
 };
 
 export default ProductShowcase;
