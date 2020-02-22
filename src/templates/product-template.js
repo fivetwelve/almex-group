@@ -253,15 +253,20 @@ const ProductTemplate = ({ data, location, pageContext }) => {
                 <div className="section-title">{products.ACCESSORIES}</div>
               </div>
               <div className="product-accessories">
-                {accessories.map(accessory => (
-                  <AccessoryAndRelatedTile
-                    location={location}
-                    slug={accessory.slug}
-                    tile={accessory.tile}
-                    title={accessory.title}
-                    key={makeid()}
-                  />
-                ))}
+                {accessories.map((accessory, idx) => {
+                  if (idx < 5) {
+                    return (
+                      <AccessoryAndRelatedTile
+                        location={location}
+                        slug={accessory.slug}
+                        tile={accessory.tile}
+                        title={accessory.title}
+                        key={makeid()}
+                      />
+                    );
+                  }
+                  return null;
+                })}
               </div>
             </>
           )}
@@ -271,15 +276,20 @@ const ProductTemplate = ({ data, location, pageContext }) => {
                 <div className="section-title">{products.RELATED_ITEMS}</div>
               </div>
               <div className="product-related-items">
-                {relatedItems.map(relatedItem => (
-                  <AccessoryAndRelatedTile
-                    location={location}
-                    slug={relatedItem.slug}
-                    tile={relatedItem.tile}
-                    title={relatedItem.title}
-                    key={makeid()}
-                  />
-                ))}
+                {relatedItems.map((relatedItem, idx) => {
+                  if (idx < 5) {
+                    return (
+                      <AccessoryAndRelatedTile
+                        location={location}
+                        slug={relatedItem.slug}
+                        tile={relatedItem.tile}
+                        title={relatedItem.title}
+                        key={makeid()}
+                      />
+                    );
+                  }
+                  return null;
+                })}
               </div>
             </>
           )}
