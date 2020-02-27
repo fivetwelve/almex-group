@@ -88,6 +88,7 @@ const statusAndMessage = (statusCode, message) => ({
   }),
 });
 
+/* retrieve supplemental data from GraphCMS */
 const getQueryData = async (isSource, id, sourceType = '') => {
   let queryData;
   if (isSource) {
@@ -122,8 +123,9 @@ const getQueryData = async (isSource, id, sourceType = '') => {
     return { errors: [err] };
   }
 };
+/* end of retrieve supplemental data */
 
-/* create/update/delete from Algolia */
+/* retrieve supplemental data from GraphCMS */
 const syncToAlgolia = async incomingRecord => {
   try {
     const index = algolia.initIndex(INDEX_NAME);
@@ -154,7 +156,6 @@ const removeFromAlgolia = async (isSource, id) => {
 /* end of create/update/delete */
 
 /* ------------------------------------------------------------ */
-
 exports.handler = async (event, context) => {
   if (!event.body || event.body === '') {
     return statusAndMessage(400, 'No data provided.');
