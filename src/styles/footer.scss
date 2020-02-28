@@ -199,8 +199,8 @@
         padding: 5px 0;
         &.bottom-center {
           @include media('>=tablet') {
-            position: absolute;
-            width: 100%;
+            // position: absolute;
+            width: 50%;
             text-align: center;
           }
         }

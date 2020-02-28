@@ -77,14 +77,55 @@
       .options {
         display: none;
         .fusion-club {
-          padding-right: 20px;
-          padding-left: 20px;
+          padding-right: 5px;
+          padding-left: 5px;
           height: 30px;
-          width: 71px;
+          width: 70px;
           border-left: 1px solid #c7c7cc;
-          a img {
+          a {
+            display: block;
+            position: relative;
+            height: 30px;
+            width: 60px;
             overflow: hidden;
-            min-width: 30px;
+            .text-top,
+            .text-bottom {
+              position: absolute;
+              color: $black;
+              text-decoration: none;
+              font-weight: 700;
+              font-size: 12px;
+              z-index: 1;
+            }
+            .text-top {
+              top: -20px;
+              left: 8px;
+              transition: $easeinout;
+            }
+            .text-bottom {
+              bottom: -23px;
+              left: 15px;
+              transition: $easeinout;
+            }
+            img {
+              overflow: hidden;
+              min-width: 30px;
+              margin-left: 15px;
+              transition: $easeinout;
+              filter: brightness(0) saturate(100%) invert(16%) sepia(70%) saturate(4720%)
+                hue-rotate(354deg) brightness(84%) contrast(121%);
+            }
+          }
+          a:hover {
+            .text-top {
+              top: 2px;
+            }
+            .text-bottom {
+              bottom: 0px;
+            }
+            img {
+              opacity: 0.2;
+            }
           }
         }
       }
