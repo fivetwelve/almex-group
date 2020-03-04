@@ -21,9 +21,6 @@ class ProductShowcase extends React.Component {
     const { images, youTubeVideos, pdfDownloads } = props;
     const slideArray = [];
     const pdfArray = [];
-    const opts = {
-      rel: 0,
-    };
     /* ascending sort of images */
     images.sort((a, b) => {
       if (a.sortName > b.sortName) return 1;
@@ -47,7 +44,7 @@ class ProductShowcase extends React.Component {
       if (j < $videoLimit) {
         const slide = (
           <div className="video-container" key={makeid()}>
-            <YouTube videoId={youTubeVideos[j].youTubeId} opts={opts} />
+            <YouTube videoId={youTubeVideos[j].youTubeId} opts={{ playerVars: { rel: 0 } }} />
           </div>
         );
         slideArray.push(slide);
