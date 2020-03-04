@@ -12,13 +12,18 @@ import Attraction from './attraction';
 
 const excludeList = [RESOURCE_TYPES.OPERATING_MANUAL, RESOURCE_TYPES.SAFETY_DATA_SHEET];
 
+const $imageLimit = 5; // max # of images we're permitting in the gallery
+const $videoLimit = 2; // max # of videos we're permitting in the gallery
+
 class ProductShowcase extends React.Component {
   constructor(props) {
     super(props);
     const { images, youTubeVideos, pdfDownloads } = props;
     const slideArray = [];
     const pdfArray = [];
-
+    const opts = {
+      rel: 0,
+    };
     /* ascending sort of images */
     images.sort((a, b) => {
       if (a.sortName > b.sortName) return 1;
@@ -28,21 +33,25 @@ class ProductShowcase extends React.Component {
 
     /* populating carousel with images */
     for (let i = 0; i < images.length; i += 1) {
-      const slideStyle = {
-        backgroundImage: `url(${images[i].url})`,
-      };
-      const slide = <div className="slide-image" style={slideStyle} key={makeid()} />;
-      slideArray.push(slide);
+      if (i < $imageLimit) {
+        const slideStyle = {
+          backgroundImage: `url(${images[i].url})`,
+        };
+        const slide = <div className="slide-image" style={slideStyle} key={makeid()} />;
+        slideArray.push(slide);
+      }
     }
 
     /* populating carousel with YouTube video */
     for (let j = 0; j < youTubeVideos.length; j += 1) {
-      const slide = (
-        <div className="video-container" key={makeid()}>
-          <YouTube videoId={youTubeVideos[j].youTubeId} />
-        </div>
-      );
-      slideArray.push(slide);
+      if (j < $videoLimit) {
+        const slide = (
+          <div className="video-container" key={makeid()}>
+            <YouTube videoId={youTubeVideos[j].youTubeId} opts={opts} />
+          </div>
+        );
+        slideArray.push(slide);
+      }
     }
 
     /* creating list of PDFs */
@@ -193,46 +202,55 @@ class ProductShowcase extends React.Component {
           (sortedImages.length > 0 && youTubeVideos.length > 0)) && (
           <div className="carousel-controls">
             {sortedImages.map((image, idx) => {
-              const thumbStyle = {
-                backgroundImage: `url(${sortedImages[idx].url})`,
-              };
-              return (
-                <div
-                  className={`thumb-container${slideIdx === idx ? ' active' : ''}`}
-                  key={makeid()}
-                >
-                  <button
-                    className="thumb-image"
-                    onClick={() => this.setState({ slideIdx: idx })}
-                    style={thumbStyle}
-                    type="button"
-                    aria-label={label.common.VIEW_IMAGE}
-                  />
-                </div>
-              );
+              if (idx < $imageLimit) {
+                const thumbStyle = {
+                  backgroundImage: `url(${sortedImages[idx].url})`,
+                };
+                return (
+                  <div
+                    className={`thumb-container${slideIdx === idx ? ' active' : ''}`}
+                    key={makeid()}
+                  >
+                    <button
+                      className="thumb-image"
+                      onClick={() => this.setState({ slideIdx: idx })}
+                      style={thumbStyle}
+                      type="button"
+                      aria-label={label.common.VIEW_IMAGE}
+                    />
+                  </div>
+                );
+              }
+              return null;
             })}
             {youTubeVideos.map((yt, idx) => {
-              const thumbStyle = {
-                backgroundColor: '$black',
-              };
-              const thisIdx = idx + sortedImages.length;
-              return (
-                <div
-                  className={`thumb-container${slideIdx === thisIdx ? ' active' : ''}`}
-                  key={makeid()}
-                >
-                  <button
-                    className="thumb-image"
-                    onClick={() => this.setState({ slideIdx: thisIdx })}
-                    style={thumbStyle}
-                    type="button"
+              if (idx < $videoLimit) {
+                const thumbStyle = {
+                  backgroundColor: '$black',
+                };
+                /* we may have more images than we can display so we have to impose a limit and we check 
+                   whether to use given size of images, or the limit imposed */
+                const thisIdx =
+                  idx + (sortedImages.length >= $imageLimit ? $imageLimit : sortedImages.length);
+                return (
+                  <div
+                    className={`thumb-container${slideIdx === thisIdx ? ' active' : ''}`}
+                    key={makeid()}
                   >
-                    <IconContext.Provider value={{ className: 'play-icon' }}>
-                      <FaYoutube aria-hidden />
-                    </IconContext.Provider>
-                  </button>
-                </div>
-              );
+                    <button
+                      className="thumb-image"
+                      onClick={() => this.setState({ slideIdx: thisIdx })}
+                      style={thumbStyle}
+                      type="button"
+                    >
+                      <IconContext.Provider value={{ className: 'play-icon' }}>
+                        <FaYoutube aria-hidden />
+                      </IconContext.Provider>
+                    </button>
+                  </div>
+                );
+              }
+              return null;
             })}
           </div>
         )}
