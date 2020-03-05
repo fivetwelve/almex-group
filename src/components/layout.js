@@ -102,6 +102,7 @@ class Layout extends React.Component {
     const { scrollToTopEnabled } = this.state;
     const lang = activeLanguage.toLowerCase();
 
+    console.log(label);
     return (
       <>
         <Helmet defaultTitle="Almex Group" titleTemplate="Almex Group | %s">
@@ -122,17 +123,11 @@ class Layout extends React.Component {
           <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
           <meta name="msapplication-TileColor" content="#2b5797" />
           <meta name="theme-color" content="#ffffff" />
-          <meta property="og:url" content="http://almex.com" />
+          <meta property="og:url" content="https://www.almex.com" />
           <meta property="og:type" content="website" />
           <meta property="og:locale" content={activeLanguage} />
-          <meta
-            property="og:title"
-            content="Conveyor Belt Vulcanizers | Vulcanizing Equipment | Almex"
-          />
-          <meta
-            property="og:description"
-            content="Almex provides conveyer belt vulcanizer products, tools and services required to maintain peak levels of operating efficiency. Learn about the global leader."
-          />
+          <meta property="og:title" content={label.common.META_TITLE} />
+          <meta property="og:description" content={label.common.META_DESCRIPTION} />
           {/* <meta property="og:image" content={`${siteUrl}${gatsbyIcon}`} />
           <meta property="og:image:width" content="512" />
           <meta property="og:image:height" content="512" /> */}
@@ -229,7 +224,12 @@ Layout.defaultProps = {
   childrenClass: '',
   brandNavigation: {},
   headerFooter: {},
-  label: {},
+  label: {
+    common: {
+      META_DESCRIPTION: '',
+      META_TITLE: '',
+    },
+  },
   navigation: {},
   region: '',
   title: '',
@@ -252,6 +252,7 @@ Layout.propTypes = {
   label: PropTypes.shape({
     header: PropTypes.object,
     footer: PropTypes.object,
+    common: PropTypes.object,
   }),
   navigation: PropTypes.shape({
     navigationSections: PropTypes.array,
