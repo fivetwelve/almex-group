@@ -10,7 +10,7 @@ import CategorySelector from '../components/categorySelector';
 import ContactForm from '../components/contactForm';
 import countryFlag from '../components/countryFlag';
 import { makeid, renderLink } from '../utils/functions';
-import { FORM_TYPES, RESOURCE_TYPES } from '../constants';
+import { FORM_TYPES, PAGE_TYPES, RESOURCE_TYPES } from '../constants';
 import '../styles/resources.scss';
 import '../styles/contactForm.scss';
 
@@ -38,16 +38,25 @@ class ResourcesTemplate extends Component {
       /* collect all documents for each category */
       if (category.page.pageType === 'LANDING') {
         category.page.landingSource.landingSections.forEach(section => {
+          // console.log(section.title);
+          /* for now just ensure that this loop is for products only */
+          // TODO add additional logic for landing sources > products, landing sources > sections > products */
+
           section.pages.forEach(page => {
-            page.productSource.pdfDownloads.forEach(pdf => {
-              resources.push(pdf);
-            });
-            page.productSource.caseStudies.forEach(pdf => {
-              resources.push(pdf);
-            });
-            page.productSource.youTubeVideos.forEach(video => {
-              resources.push(video);
-            });
+            // console.log('productSource-------------------');
+            // console.log(page);
+            // console.log(page.productSource);
+            if (page.pageType === PAGE_TYPES.PRODUCT) {
+              page.productSource.pdfDownloads.forEach(pdf => {
+                resources.push(pdf);
+              });
+              page.productSource.caseStudies.forEach(pdf => {
+                resources.push(pdf);
+              });
+              page.productSource.youTubeVideos.forEach(video => {
+                resources.push(video);
+              });
+            }
           });
         });
       }
@@ -378,8 +387,11 @@ export const query = graphql`
             page {
               pageType
               landingSource {
+                title(locale: $locale)
                 landingSections {
+                  title(locale: $locale)
                   pages(where: { status: PUBLISHED }) {
+                    pageType
                     productSource {
                       youTubeVideos {
                         title(locale: $locale)
