@@ -102,7 +102,6 @@ class Layout extends React.Component {
     const { scrollToTopEnabled } = this.state;
     const lang = activeLanguage.toLowerCase();
 
-    console.log(label);
     return (
       <>
         <Helmet defaultTitle="Almex Group" titleTemplate="Almex Group | %s">
