@@ -35,7 +35,7 @@ const TrainingEventsResults = ({ events, labels }) => (
             </table>
             {event.website && (
               <div className="website">
-                <a href={event.website} target="_blank" rel="noopener noreferrer">
+                <a href={event.website} target="_blank" rel="noopener noreferrer nofollow noindex">
                   <span className="visit">{labels.WEBSITE}</span>
                   <span className="visit-arrow">&nbsp;&raquo;</span>
                 </a>

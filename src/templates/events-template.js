@@ -46,17 +46,14 @@ class EventsTemplate extends Component {
     // console.log('events', events);
     events.forEach(event => {
       const { startDate, endDate, ...rest } = event;
-      /* normalize dates to simplify date comparison when selecting and filtering */
-      const normalizedDate1 = formatDate(event.startDate);
-      const normalizedDate2 = !endDate ? normalizedDate1 : formatDate(event.endDate);
+      /* remove UTC timestamp and normalize dates to simplify date comparison when selecting and filtering */
+      const normalizedDate1 = formatDate(event.startDate.slice(0, 10));
+      const normalizedDate2 = !endDate ? normalizedDate1 : formatDate(event.endDate.slice(0, 10));
       const newEvent = { startDate: normalizedDate1, endDate: normalizedDate2, ...rest };
       parsedEvents.push(newEvent);
-      // console.log(event.startDate.substring(0, 10));
     });
+    // console.log('parsedevents', parsedEvents);
 
-    // console.log('events');
-    // console.log('parsedEvents', parsedEvents);
-    // console.log(parsedEvents);
     /* For dates, ensure Spain's Spanish uses generic Spanish locale */
     const calendarLocale = locale === LANGUAGES.ES_ES ? LANGUAGES.ES : locale;
     this.state = {

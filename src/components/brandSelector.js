@@ -46,9 +46,6 @@ const BrandSelector = props => {
       case BRANDS.BAT:
         productBrand = 'bat';
         break;
-      case BRANDS.CHOICETEK_TOOLS:
-        productBrand = 'choice';
-        break;
       case BRANDS.CMI:
         productBrand = 'cmi';
         break;
@@ -63,6 +60,9 @@ const BrandSelector = props => {
         break;
       case BRANDS.GLOBAL_SERVICES:
         productBrand = 'knight';
+        break;
+      case BRANDS.LIGHTWEIGHT:
+        productBrand = 'lightweight';
         break;
       case BRANDS.VOTECH:
         productBrand = 'votech';

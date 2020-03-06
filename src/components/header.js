@@ -108,7 +108,15 @@ class Header extends React.Component {
               </div>
               <div className="fusion-club">
                 <a href="https://fusionclubpoints.com">
-                  <img src={plane} width="30" alt="Visit Fusion Club" />
+                  <div className="text-top">FUSION</div>
+                  <img
+                    src={plane}
+                    width="30"
+                    alt="Fusion Club"
+                    className="logo"
+                    aria-hidden="true"
+                  />
+                  <div className="text-bottom">CLUB</div>
                 </a>
               </div>
               <BrandSelector brandNavigation={brandNavigation} label={label} location={location} />

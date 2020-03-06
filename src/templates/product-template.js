@@ -40,6 +40,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
           addOns,
           accessories,
           relatedItems,
+          visitResourcesForMore,
         },
       },
     },
@@ -126,11 +127,13 @@ const ProductTemplate = ({ data, location, pageContext }) => {
             images={images}
             label={label}
             locale={locale}
+            location={location}
             products={products}
             themeColour={themeColour}
             title={title}
             youTubeVideos={youTubeVideos}
             pdfDownloads={pdfDownloads}
+            showResourcesLink={visitResourcesForMore}
           />
           <div className={`product-marketing ${themeColour}`}>
             <ReactMarkdown
@@ -250,15 +253,20 @@ const ProductTemplate = ({ data, location, pageContext }) => {
                 <div className="section-title">{products.ACCESSORIES}</div>
               </div>
               <div className="product-accessories">
-                {accessories.map(accessory => (
-                  <AccessoryAndRelatedTile
-                    location={location}
-                    slug={accessory.slug}
-                    tile={accessory.tile}
-                    title={accessory.title}
-                    key={makeid()}
-                  />
-                ))}
+                {accessories.map((accessory, idx) => {
+                  if (idx < 5) {
+                    return (
+                      <AccessoryAndRelatedTile
+                        location={location}
+                        slug={accessory.slug}
+                        tile={accessory.tile}
+                        title={accessory.title}
+                        key={makeid()}
+                      />
+                    );
+                  }
+                  return null;
+                })}
               </div>
             </>
           )}
@@ -268,15 +276,20 @@ const ProductTemplate = ({ data, location, pageContext }) => {
                 <div className="section-title">{products.RELATED_ITEMS}</div>
               </div>
               <div className="product-related-items">
-                {relatedItems.map(relatedItem => (
-                  <AccessoryAndRelatedTile
-                    location={location}
-                    slug={relatedItem.slug}
-                    tile={relatedItem.tile}
-                    title={relatedItem.title}
-                    key={makeid()}
-                  />
-                ))}
+                {relatedItems.map((relatedItem, idx) => {
+                  if (idx < 5) {
+                    return (
+                      <AccessoryAndRelatedTile
+                        location={location}
+                        slug={relatedItem.slug}
+                        tile={relatedItem.tile}
+                        title={relatedItem.title}
+                        key={makeid()}
+                      />
+                    );
+                  }
+                  return null;
+                })}
               </div>
             </>
           )}
@@ -322,6 +335,9 @@ export const query = graphql`
       ...CommonQuery
       label(where: { availableIn: $region }) {
         products(locale: $locale)
+        resourcesLink {
+          slug(locale: $locale)
+        }
       }
       page(where: { id: $id }) {
         pageType
@@ -338,6 +354,7 @@ export const query = graphql`
             title(locale: $locale)
             videoType
           }
+          visitResourcesForMore
           marketing(locale: $locale)
           advantages(locale: $locale)
           advantagesImage {
@@ -356,6 +373,7 @@ export const query = graphql`
           pdfDownloads(locale: $locale) {
             fileName
             documentTitle(locale: $locale)
+            resourceType
             url
           }
           attractText(locale: $locale)

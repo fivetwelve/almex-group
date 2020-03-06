@@ -137,7 +137,11 @@ const InstituteTemplate = ({ data, pageContext }) => {
                   {pdfDownloads.map(download => (
                     <div key={makeid()} className="pdf">
                       <div className="pdf-icon" />
-                      <a href={download.url} rel="noopener noreferrer nofollow" target="_blank">
+                      <a
+                        href={download.url}
+                        rel="noopener noreferrer nofollow noindex"
+                        target="_blank"
+                      >
                         {download.documentTitle || download.fileName.split('.pdf')[0]}
                       </a>
                     </div>
@@ -164,7 +168,13 @@ const InstituteTemplate = ({ data, pageContext }) => {
           <hr className="divider" />
           {email && (
             <div className="form-container">
-              <ReactMarkdown source={contactAndForm} escapeHtml={false} />
+              <ReactMarkdown
+                source={contactAndForm}
+                escapeHtml={false}
+                renderers={{
+                  link: props => renderLink(props),
+                }}
+              />
               <InstituteForm label={label} email={email} emailSubject={emailSubject} />
             </div>
           )}
@@ -211,7 +221,7 @@ export const query = graphql`
           contactAndForm(locale: $locale)
           description(locale: $locale)
           email
-          emailSubject
+          emailSubject(locale: $locale)
           sideContent(locale: $locale)
           pdfDownloads(locale: $locale) {
             documentTitle(locale: $locale)

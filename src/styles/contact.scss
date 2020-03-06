@@ -19,6 +19,17 @@ $spacing: 20px;
     padding-left: 0;
     padding-right: 0;
   }
+  .intro-container,
+  .view-toggle-container,
+  .offices-view,
+  .experts-view {
+    padding-left: 10px;
+    padding-right: 10px;
+    @include media('>=tablet') {
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+  }
   .contact-container {
     max-width: 1280px;
     width: 100%;
@@ -64,8 +75,41 @@ $spacing: 20px;
     .view-toggle-container {
       button {
         @include button-ui;
+        margin-bottom: -3px;
+        padding: 10px 20px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        // border-bottom: 3px solid $white;
+        border-bottom: 3px solid $yellow-sea;
+        &:first-of-type {
+          margin-right: 20px;
+        }
+        &.active {
+          // background-color: $yellow-sea;
+          // color: $white;
+          border-bottom: 3px solid $white;
+          cursor: default;
+        }
+        span {
+          padding: 0 10px;
+          &.icon {
+            padding: 0;
+          }
+          &.highlight {
+            color: $grey80;
+            // background-color: $yellow-sea20;
+          }
+        }
+
+        &:not(.active):hover {
+          background-color: $yellow-sea;
+          color: $white;
+          transition: $easeinout;
+        }
       }
-      padding-bottom: 40px;
+      margin-bottom: 40px;
+      border-bottom: 3px solid $yellow-sea;
+      // border-bottom: 3px solid rgba(0, 0, 0, 0.2);
     }
     .offices-view,
     .experts-view {

@@ -81,6 +81,16 @@ const allObservers = [
   ...sourceDeletionObservers,
 ];
 
+/* update this as needed when schema changes or more sources need to sync with Algolia */
+const sourcesWithBrand = [
+  SOURCE_TYPES.INSTITUTE,
+  SOURCE_TYPES.LANDING,
+  SOURCE_TYPES.PRODUCT,
+  SOURCE_TYPES.PROMO,
+  SOURCE_TYPES.SERVICES,
+  SOURCE_TYPES.SIMPLE,
+];
+
 const statusAndMessage = (statusCode, message) => ({
   statusCode,
   body: JSON.stringify({
@@ -88,11 +98,13 @@ const statusAndMessage = (statusCode, message) => ({
   }),
 });
 
-const getQueryData = async (isSource, id, sourceType = '') => {
+/* retrieve supplemental data from GraphCMS */
+const getQueryData = async (isSource, id, sourceType = '', hasBrand) => {
+  const brand = hasBrand ? 'brand' : '';
   let queryData;
   if (isSource) {
     queryData = {
-      query: `query {${sourceType} (where: {id: \"${id}\"}) {brand keywordsEN: keywords(locale: EN) keywordsES: keywords(locale: ES) titleEN: title(locale: EN) titleES: title(locale: ES)}}`,
+      query: `query {${sourceType} (where: {id: \"${id}\"}) {${brand} keywordsEN: keywords(locale: EN) keywordsES: keywords(locale: ES) titleEN: title(locale: EN) titleES: title(locale: ES)}}`,
     };
   } else {
     queryData = {
@@ -122,9 +134,11 @@ const getQueryData = async (isSource, id, sourceType = '') => {
     return { errors: [err] };
   }
 };
+/* end of retrieve supplemental data */
 
-/* create/update/delete from Algolia */
+/* retrieve supplemental data from GraphCMS */
 const syncToAlgolia = async incomingRecord => {
+  // console.log('---sync to Algolia');
   try {
     const index = algolia.initIndex(INDEX_NAME);
     const record = await index.saveObject(incomingRecord);
@@ -136,6 +150,7 @@ const syncToAlgolia = async incomingRecord => {
 
 const removeFromAlgolia = async (isSource, id) => {
   /* n.b. in Algolia page.id must be a facetFilter, otherwise deletion using it would not work */
+  // console.log('---remove from Algolia');
   let resp;
   try {
     const index = algolia.initIndex(INDEX_NAME);
@@ -154,7 +169,6 @@ const removeFromAlgolia = async (isSource, id) => {
 /* end of create/update/delete */
 
 /* ------------------------------------------------------------ */
-
 exports.handler = async (event, context) => {
   if (!event.body || event.body === '') {
     return statusAndMessage(400, 'No data provided.');
@@ -191,6 +205,7 @@ exports.handler = async (event, context) => {
 
     /* proceed with page addition/update */
     const contentSourceType = SOURCE_TYPES[PAGE_TYPES[sourceType]];
+    const hasBrand = sourcesWithBrand.includes(sourceType);
     const contentSourceRef = responseData[contentSourceType];
     /* check that the appropriate content source was linked */
     if (contentSourceRef) {
@@ -205,7 +220,7 @@ exports.handler = async (event, context) => {
       }
     }
 
-    queryData = await getQueryData(true, recordID, contentSourceType);
+    queryData = await getQueryData(true, recordID, contentSourceType, hasBrand);
     if (queryData.errors) {
       return statusAndMessage(424, queryData.errors[0].message.toString());
     }
@@ -259,7 +274,7 @@ exports.handler = async (event, context) => {
     }
 
     recordUpdate = {
-      brand: responseData.brand,
+      brand: responseData.brand || null,
       keywordsEN: responseData.keywordsEN,
       keywordsES: responseData.keywordsES,
       titleEN: responseData.titleEN,

@@ -182,12 +182,12 @@
       .brand {
         &.almex-box,
         &.bat,
-        &.choice,
         &.cmi,
         &.emsys,
         &.fusion,
         &.institute,
         &.knight,
+        &.lightweight,
         &.votech {
           padding-left: 30px;
           padding-right: 30px;
@@ -213,11 +213,11 @@
           background-image: url('../../static/img/logo-bat.png');
           background-position-y: -66px;
         }
-        &.choice a {
-          width: 151px;
-          height: 47px;
-          background-image: url('../../static/img/logo-choicetek.png');
-          background-position-y: -47px;
+        &.lightweight a {
+          width: 125px;
+          height: 53px;
+          background-image: url('../../static/img/logo-lightweight.png');
+          background-position-y: -53px;
         }
         &.cmi a {
           width: 110px;

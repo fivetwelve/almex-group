@@ -4,9 +4,10 @@ import Recaptcha from 'react-google-recaptcha';
 import { apiUrl, fetch } from '../utils/functions';
 import { FORM_TYPES } from '../constants';
 
-class InstituteForm extends React.Component {
+class ContactForm extends React.Component {
   constructor(props) {
     super(props);
+    const { formType } = props;
     this.state = {
       contactName: '',
       contactEmail: '',
@@ -19,7 +20,7 @@ class InstituteForm extends React.Component {
       contactCountry: '',
       contactSubject: '',
       contactMessage: '',
-      contactFormType: FORM_TYPES.INSTITUTE,
+      contactFormType: formType,
       message: null,
       submitDisabled: true,
     };
@@ -61,7 +62,7 @@ class InstituteForm extends React.Component {
       }
     });
     params.destination = email;
-    params.contactSubject = emailSubject || label.common.FORM_SUBJECT_TRAINING;
+    params.contactSubject = emailSubject || label.common.FORM_SUBJECT_DEFAULT;
 
     try {
       const response = await fetch(`${apiUrl()}/forwardEmail`, {
@@ -96,6 +97,7 @@ class InstituteForm extends React.Component {
       contactName: '',
       contactEmail: '',
       contactPhone: '',
+      contactPosition: '',
       contactCompany: '',
       contactAddress1: '',
       contactAddress2: '',
@@ -113,11 +115,8 @@ class InstituteForm extends React.Component {
       contactName,
       contactEmail,
       contactPhone,
+      contactPosition,
       contactCompany,
-      contactAddress1,
-      contactAddress2,
-      contactCity,
-      contactStateProvince,
       contactCountry,
       contactMessage,
       message,
@@ -171,10 +170,23 @@ class InstituteForm extends React.Component {
           </label>
         </div>
         <div className="field">
+          <label htmlFor="contactPosition">
+            <div className="label">
+              <span className="label-input">{label.common.FORM_POSITION}</span>
+            </div>
+            <input
+              type="text"
+              name="contactPosition"
+              onChange={evt => this.handleChange(evt)}
+              required
+              value={contactPosition}
+            />
+          </label>
+        </div>
+        <div className="field">
           <label htmlFor="contactCompany">
             <div className="label">
               <span className="label-input">{label.common.FORM_COMPANY}</span>
-              <span className="required">* {label.common.FORM_REQUIRED}</span>
             </div>
             <input
               type="text"
@@ -182,58 +194,6 @@ class InstituteForm extends React.Component {
               onChange={evt => this.handleChange(evt)}
               required
               value={contactCompany}
-            />
-          </label>
-        </div>
-        <div className="field">
-          <label htmlFor="contactAddress1">
-            <div className="label">
-              <span className="label-input">{label.common.FORM_ADDRESS_1}</span>
-            </div>
-            <input
-              type="text"
-              name="contactAddress1"
-              onChange={evt => this.handleChange(evt)}
-              value={contactAddress1}
-            />
-          </label>
-        </div>
-        <div className="field">
-          <label htmlFor="contactAddress2">
-            <div className="label">
-              <span className="label-input">{label.common.FORM_ADDRESS_2}</span>
-            </div>
-            <input
-              type="text"
-              name="contactAddress2"
-              onChange={evt => this.handleChange(evt)}
-              value={contactAddress2}
-            />
-          </label>
-        </div>
-        <div className="field">
-          <label htmlFor="contactCity">
-            <div className="label">
-              <span className="label-input">{label.common.FORM_CITY}</span>
-            </div>
-            <input
-              type="text"
-              name="contactCity"
-              onChange={evt => this.handleChange(evt)}
-              value={contactCity}
-            />
-          </label>
-        </div>
-        <div className="field">
-          <label htmlFor="contactStateProvince">
-            <div className="label">
-              <span className="label-input">{label.common.FORM_STATE_PROV}</span>
-            </div>
-            <input
-              type="text"
-              name="contactStateProvince"
-              onChange={evt => this.handleChange(evt)}
-              value={contactStateProvince}
             />
           </label>
         </div>
@@ -246,6 +206,7 @@ class InstituteForm extends React.Component {
               type="text"
               name="contactCountry"
               onChange={evt => this.handleChange(evt)}
+              required
               value={contactCountry}
             />
           </label>
@@ -286,18 +247,20 @@ class InstituteForm extends React.Component {
   }
 }
 
-InstituteForm.defaultProps = {
+ContactForm.defaultProps = {
   email: [],
   emailSubject: null,
+  formType: FORM_TYPES.CONTACT,
   label: {},
 };
 
-InstituteForm.propTypes = {
+ContactForm.propTypes = {
   email: PropTypes.arrayOf(PropTypes.string),
   emailSubject: PropTypes.string,
+  formType: PropTypes.string,
   label: PropTypes.shape({
     common: PropTypes.object,
   }),
 };
 
-export default InstituteForm;
+export default ContactForm;

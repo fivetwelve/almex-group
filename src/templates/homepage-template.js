@@ -123,7 +123,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
           href={eventTile.externalLink}
           className="event-more"
           target="_blank"
-          rel="noopener noreferrer"
+          rel="noopener noreferrer nofollow noindex"
         >
           {label.common.MORE}
         </a>

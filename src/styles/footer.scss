@@ -54,13 +54,13 @@
         line-height: 1px;
         .almex-box,
         .bat,
-        .choice,
         .cmi,
         .emsys,
         .fusion,
-        .votech,
         .institute,
-        .knight {
+        .knight,
+        .lightweight,
+        .votech {
           margin: 15px 20px;
           a {
             opacity: 0.8;
@@ -94,16 +94,16 @@
             background-position-y: -132px;
           }
         }
-        .choice a {
-          background-image: url('../../static/img/logo-choicetek.png');
+        .lightweight a {
+          background-image: url('../../static/img/logo-lightweight.png');
           background-size: cover;
-          width: calc(151px * 0.6);
-          height: calc(47px * 0.6);
-          background-position-y: calc(-94px * 0.59);
+          width: calc(125px * 0.6);
+          height: calc(53px * 0.6);
+          background-position-y: calc(-106px * 0.59);
           @include media('>=tablet') {
-            width: 151px;
-            height: 47px;
-            background-position-y: -94px;
+            width: 125px;
+            height: 53px;
+            background-position-y: -106px;
           }
         }
         .cmi a {
@@ -199,8 +199,8 @@
         padding: 5px 0;
         &.bottom-center {
           @include media('>=tablet') {
-            position: absolute;
-            width: 100%;
+            // position: absolute;
+            width: 50%;
             text-align: center;
           }
         }
