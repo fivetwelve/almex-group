@@ -19,6 +19,49 @@ const checkFor = (array, property, value) => {
   return size > 0;
 };
 
+const collateFromPages = pages => {
+  let additions = [];
+  // console.log(pages);
+  pages.forEach(page => {
+    if (page.pageType === PAGE_TYPES.PRODUCT) {
+      page.productSource.pdfDownloads.forEach(pdf => {
+        additions.push(pdf);
+      });
+      page.productSource.caseStudies.forEach(pdf => {
+        additions.push(pdf);
+      });
+      page.productSource.youTubeVideos.forEach(video => {
+        additions.push(video);
+      });
+    }
+    if (page.pageType === PAGE_TYPES.LANDING) {
+      if (page.landingSource.landingSections) {
+        page.landingSource.landingSections.forEach(section => {
+          // console.log('2nd level');
+          // console.log(section);
+          additions = additions.concat(collateFromPages(section.pages));
+        });
+      }
+      if (page.landingSource.pages) {
+        page.landingSource.pages.forEach(childPage => {
+          if (childPage.pageType === PAGE_TYPES.PRODUCT) {
+            childPage.productSource.pdfDownloads.forEach(pdf => {
+              additions.push(pdf);
+            });
+            childPage.productSource.caseStudies.forEach(pdf => {
+              additions.push(pdf);
+            });
+            childPage.productSource.youTubeVideos.forEach(video => {
+              additions.push(video);
+            });
+          }
+        });
+      }
+    }
+  });
+  return additions;
+};
+
 const excludeList = [RESOURCE_TYPES.OPERATING_MANUAL, RESOURCE_TYPES.SAFETY_DATA_SHEET];
 
 class ResourcesTemplate extends Component {
@@ -31,37 +74,59 @@ class ResourcesTemplate extends Component {
     let resourceTypes = Object.keys(RESOURCE_TYPES);
     resourceTypes = resourceTypes.filter(element => !excludeList.includes(element));
 
+    // console.log(categories);
+
     categories.forEach(category => {
-      const resources = [];
+      let resources = [];
       const filteredResources = [];
       const unClassified = [];
       /* collect all documents for each category */
-      if (category.page.pageType === 'LANDING') {
-        category.page.landingSource.landingSections.forEach(section => {
-          // console.log(section.title);
-          /* for now just ensure that this loop is for products only */
-          // TODO add additional logic for landing sources > products, landing sources > sections > products */
 
-          section.pages.forEach(page => {
-            // console.log('productSource-------------------');
-            // console.log(page);
-            // console.log(page.productSource);
-            if (page.pageType === PAGE_TYPES.PRODUCT) {
-              page.productSource.pdfDownloads.forEach(pdf => {
-                resources.push(pdf);
-              });
-              page.productSource.caseStudies.forEach(pdf => {
-                resources.push(pdf);
-              });
-              page.productSource.youTubeVideos.forEach(video => {
-                resources.push(video);
-              });
-            }
-          });
+      if (category.page.pageType === PAGE_TYPES.LANDING) {
+        /* while searching for resources, we expect the structural limit of the hierarchy to be:
+
+          landingSource
+          |
+          |-- landingSection(s)
+          |   |-- page(s)
+          |       |-- productSource
+          |       |
+          |       |-- landingSource(s)
+          |           |-- page(s)
+          |           |   |-- productSource
+          |           |
+          |           |-- landingSection(s)
+          |               |-- page(s)
+          |                   |-- productSource
+          |-- page(s)
+              |-- productSource
+        */
+
+        category.page.landingSource.landingSections.forEach(section => {
+          // console.log('1st level');
+          // console.log(section);
+          resources = resources.concat(collateFromPages(section.pages));
+        });
+
+        category.page.landingSource.pages.forEach(childPage => {
+          if (childPage.pageType === PAGE_TYPES.PRODUCT) {
+            childPage.productSource.pdfDownloads.forEach(pdf => {
+              resources.push(pdf);
+            });
+            childPage.productSource.caseStudies.forEach(pdf => {
+              resources.push(pdf);
+            });
+            childPage.productSource.youTubeVideos.forEach(video => {
+              resources.push(video);
+            });
+          }
         });
       }
 
-      if (category.page.pageType === 'SERVICES' || category.page.pageType === 'INSTITUTE') {
+      if (
+        category.page.pageType === PAGE_TYPES.SERVICES ||
+        category.page.pageType === PAGE_TYPES.INSTITUTE
+      ) {
         if (category.documents.length > 0) {
           category.page.documents.forEach(document => {
             resources.push(document);
@@ -387,9 +452,9 @@ export const query = graphql`
             page {
               pageType
               landingSource {
-                title(locale: $locale)
+                # title(locale: $locale)
                 landingSections {
-                  title(locale: $locale)
+                  # title(locale: $locale)
                   pages(where: { status: PUBLISHED }) {
                     pageType
                     productSource {
@@ -411,10 +476,65 @@ export const query = graphql`
                         url
                       }
                     }
+                    landingSource {
+                      landingSections {
+                        # title(locale: $locale)
+                        pages(where: { status: PUBLISHED }) {
+                          pageType
+                          productSource {
+                            youTubeVideos {
+                              title(locale: $locale)
+                              videoType
+                              youTubeId
+                            }
+                            pdfDownloads(locale: $locale) {
+                              url
+                              fileName
+                              resourceType
+                              documentTitle(locale: $locale)
+                            }
+                            caseStudies(locale: $locale) {
+                              url
+                              fileName
+                              resourceType
+                              documentTitle(locale: $locale)
+                            }
+                          }
+                        }
+                      }
+                      pages(where: { status: PUBLISHED }) {
+                        pageType
+                        productSource {
+                          youTubeVideos {
+                            title(locale: $locale)
+                            videoType
+                            youTubeId
+                          }
+                          pdfDownloads(locale: $locale) {
+                            url
+                            fileName
+                            resourceType
+                            documentTitle(locale: $locale)
+                          }
+                          caseStudies(locale: $locale) {
+                            url
+                            fileName
+                            resourceType
+                            documentTitle(locale: $locale)
+                          }
+                        }
+                      }
+                    }
                   }
                 }
-                singlePages: pages(where: { status: PUBLISHED }) {
+                pages(where: { status: PUBLISHED }) {
+                  pageType
                   productSource {
+                    youTubeVideos {
+                      title(locale: $locale)
+                      videoType
+                      youTubeId
+                    }
                     pdfDownloads(locale: $locale) {
                       url
                       fileName
