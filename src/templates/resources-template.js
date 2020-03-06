@@ -21,7 +21,6 @@ const checkFor = (array, property, value) => {
 
 const collateFromPages = pages => {
   let additions = [];
-  // console.log(pages);
   pages.forEach(page => {
     if (page.pageType === PAGE_TYPES.PRODUCT) {
       page.productSource.pdfDownloads.forEach(pdf => {
@@ -37,8 +36,6 @@ const collateFromPages = pages => {
     if (page.pageType === PAGE_TYPES.LANDING) {
       if (page.landingSource.landingSections) {
         page.landingSource.landingSections.forEach(section => {
-          // console.log('2nd level');
-          // console.log(section);
           additions = additions.concat(collateFromPages(section.pages));
         });
       }
@@ -103,8 +100,6 @@ class ResourcesTemplate extends Component {
         */
 
         category.page.landingSource.landingSections.forEach(section => {
-          // console.log('1st level');
-          // console.log(section);
           resources = resources.concat(collateFromPages(section.pages));
         });
 
