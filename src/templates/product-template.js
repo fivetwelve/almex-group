@@ -5,8 +5,9 @@ import ReactMarkdown from 'react-markdown/with-html';
 import Layout from '../components/layout';
 import LinkWithPrevious from '../components/linkWithPrevious';
 import ProductShowcase from '../components/productShowcase';
-import Options from '../components/options';
 import AccessoryAndRelatedTile from '../components/accessoryAndRelatedTile';
+import AddOn from '../icons/addOns';
+import Configuration from '../icons/configurations';
 import { THEMES } from '../constants';
 import { getSlug, makeid, renderLink } from '../utils/functions';
 import '../styles/product.scss';
@@ -236,7 +237,11 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               <div className={`title-container ${defaultColour}`}>
                 <div className="section-title">{products.CONFIGURATIONS}</div>
               </div>
-              <Options options={configurations} label={products} themeColour={defaultColour} />
+              <Configuration
+                options={configurations}
+                label={products}
+                themeColour={defaultColour}
+              />
             </>
           )}
           {addOns.length > 0 && (
@@ -244,7 +249,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               <div className={`title-container ${themeColour}`}>
                 <div className="section-title">{products.ADD_ONS}</div>
               </div>
-              <Options options={addOns} label={products} themeColour={themeColour} />
+              <AddOn options={addOns} label={products} themeColour={themeColour} />
             </>
           )}
           {accessories.length > 0 && (
