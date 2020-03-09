@@ -92,8 +92,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
       break;
     }
   }
-  console.log(addOns);
-  addOns.push('DATA_LOGGING');
+
   return (
     <Layout
       activeLanguage={locale}
