@@ -382,14 +382,14 @@ export const query = graphql`
             url
           }
           attractText(locale: $locale)
-          accessories {
+          accessories(where: { status: PUBLISHED }) {
             slug(locale: $locale)
             tile {
               url
             }
             title(locale: $locale)
           }
-          relatedItems {
+          relatedItems(where: { status: PUBLISHED }) {
             slug(locale: $locale)
             tile {
               url
