@@ -88,12 +88,15 @@ $spacing: 20px;
       .heading {
         position: absolute;
         bottom: 0;
-        padding: 55px 90px 20px;
+        padding: 55px 20px 20px 20px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
         color: white;
         text-shadow: 1px 1px 0 $grey80, -1px -1px 0 $grey80, 1px -1px 0 $grey80, -1px 1px 0 $grey80,
           1px 1px 0 $grey80;
         @include media('>=tablet') {
-          padding: 55px 90px 40px;
+          padding: 55px 20px 40px 20px;
         }
         a {
           color: $white;
@@ -106,6 +109,9 @@ $spacing: 20px;
           @include media('>=tablet') {
             font-size: 50px;
             line-height: normal;
+          }
+          p {
+            text-align: center;
           }
           &:hover {
             p {
