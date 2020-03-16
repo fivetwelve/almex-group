@@ -146,38 +146,40 @@ const HomepageTemplate = ({ data, pageContext }) => {
       <Location>
         {({ location }) => (
           <>
-            <Carousel
-              className="carousel"
-              autoplay={options.autoplay}
-              autoplayInterval={options.autoplayInterval}
-              autoGenerateStyleTag={options.autoGenerateStyleTag}
-              enableKeyboardControls={options.enableKeyboardControls}
-              renderCenterLeftControls={({ previousSlide }) => (
-                <button onClick={previousSlide} type="button" className="left-controls">
-                  <span className="sr-only">Previous</span>
-                  <span aria-hidden="true" className="left-controls-icon">
-                    <IconContext.Provider value={{ className: 'left-controls-icon' }}>
-                      <FaChevronLeft aria-hidden />
-                    </IconContext.Provider>
-                  </span>
-                </button>
-              )}
-              renderCenterRightControls={({ nextSlide }) => (
-                <button onClick={nextSlide} type="button" className="right-controls">
-                  <span className="sr-only">Next</span>
-                  <span aria-hidden="true" className="right-controls-icon">
-                    <IconContext.Provider value={{ className: 'right-controls-icon' }}>
-                      <FaChevronRight aria-hidden />
-                    </IconContext.Provider>
-                  </span>
-                </button>
-              )}
-              // renderBottomCenterControls={() => null}
-              wrapAround={options.wrapAround}
-            >
-              {/* {slideArray} */}
-              {renderSlides(location)}
-            </Carousel>
+            <div className="carousel-container">
+              <Carousel
+                className="carousel"
+                autoplay={options.autoplay}
+                autoplayInterval={options.autoplayInterval}
+                autoGenerateStyleTag={options.autoGenerateStyleTag}
+                enableKeyboardControls={options.enableKeyboardControls}
+                renderCenterLeftControls={({ previousSlide }) => (
+                  <button onClick={previousSlide} type="button" className="left-controls">
+                    <span className="sr-only">Previous</span>
+                    <span aria-hidden="true" className="left-controls-icon">
+                      <IconContext.Provider value={{ className: 'left-controls-icon' }}>
+                        <FaChevronLeft aria-hidden />
+                      </IconContext.Provider>
+                    </span>
+                  </button>
+                )}
+                renderCenterRightControls={({ nextSlide }) => (
+                  <button onClick={nextSlide} type="button" className="right-controls">
+                    <span className="sr-only">Next</span>
+                    <span aria-hidden="true" className="right-controls-icon">
+                      <IconContext.Provider value={{ className: 'right-controls-icon' }}>
+                        <FaChevronRight aria-hidden />
+                      </IconContext.Provider>
+                    </span>
+                  </button>
+                )}
+                // renderBottomCenterControls={() => null}
+                wrapAround={options.wrapAround}
+              >
+                {/* {slideArray} */}
+                {renderSlides(location)}
+              </Carousel>
+            </div>
             {/* <div className="tagline-anchor">
               <div className="tagline-container">
                 <div className="tagline">

@@ -65,6 +65,7 @@
           a {
             opacity: 0.8;
             display: inline-block;
+            background-repeat: no-repeat;
             &:hover {
               opacity: 1;
             }
@@ -75,11 +76,11 @@
           background-size: cover;
           width: calc(135px * 0.6);
           height: calc(46px * 0.6);
-          background-position-y: calc(-92px * 0.6);
+          background-position-y: calc(-96px * 0.6);
           @include media('>=tablet') {
             width: 135px;
             height: 46px;
-            background-position-y: -92px;
+            background-position-y: -96px;
           }
         }
         .bat a {
@@ -87,11 +88,11 @@
           background-size: cover;
           width: calc(110px * 0.6);
           height: calc(66px * 0.6);
-          background-position-y: calc(-132px * 0.6);
+          background-position-y: calc(-136px * 0.6);
           @include media('>=tablet') {
             width: 110px;
             height: 66px;
-            background-position-y: -132px;
+            background-position-y: -136px;
           }
         }
         .lightweight a {
@@ -99,11 +100,11 @@
           background-size: cover;
           width: calc(125px * 0.6);
           height: calc(53px * 0.6);
-          background-position-y: calc(-106px * 0.59);
+          background-position-y: calc(-110px * 0.59);
           @include media('>=tablet') {
             width: 125px;
             height: 53px;
-            background-position-y: -106px;
+            background-position-y: -110px;
           }
         }
         .cmi a {
@@ -111,11 +112,11 @@
           background-size: cover;
           width: calc(110px * 0.6);
           height: calc(67px * 0.6);
-          background-position-y: calc(-134px * 0.6);
+          background-position-y: calc(-138px * 0.6);
           @include media('>=tablet') {
             width: 110px;
             height: 67px;
-            background-position-y: -134px;
+            background-position-y: -138px;
           }
         }
         .emsys a {
@@ -123,11 +124,11 @@
           background-size: cover;
           width: calc(135px * 0.6);
           height: calc(38px * 0.6);
-          background-position-y: calc(-76px * 0.6);
+          background-position-y: calc(-80px * 0.6);
           @include media('>=tablet') {
             width: 135px;
             height: 38px;
-            background-position-y: -76px;
+            background-position-y: -80px;
           }
         }
         .fusion a {
@@ -135,11 +136,11 @@
           background-size: cover;
           width: calc(154px * 0.6);
           height: calc(35px * 0.6);
-          background-position-y: calc(-70px * 0.6);
+          background-position-y: calc(-74px * 0.6);
           @include media('>=tablet') {
             width: 154px;
             height: 35px;
-            background-position-y: -70px;
+            background-position-y: -74px;
           }
         }
         .votech a {
@@ -147,11 +148,11 @@
           background-size: cover;
           width: calc(179px * 0.6);
           height: calc(66px * 0.6);
-          background-position-y: calc(-132px * 0.59);
+          background-position-y: calc(-136px * 0.59);
           @include media('>=tablet') {
             width: 179px;
             height: 66px;
-            background-position-y: -132px;
+            background-position-y: -136px;
           }
         }
         .institute a {
@@ -159,11 +160,11 @@
           background-size: cover;
           width: calc(100px * 0.6);
           height: calc(84px * 0.6);
-          background-position-y: calc(-168px * 0.6);
+          background-position-y: calc(-172px * 0.6);
           @include media('>=tablet') {
             width: 100px;
             height: 84px;
-            background-position-y: -168px;
+            background-position-y: -172px;
           }
         }
         .knight a {
@@ -171,11 +172,11 @@
           background-size: cover;
           width: calc(125px * 0.6);
           height: calc(67px * 0.6);
-          background-position-y: calc(-134px * 0.6);
+          background-position-y: calc(-138px * 0.6);
           @include media('>=tablet') {
             width: 125px;
             height: 67px;
-            background-position-y: -134px;
+            background-position-y: -138px;
           }
         }
       }
