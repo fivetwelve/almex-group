@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
-// import { Location } from '@reach/router';
+import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import moment from 'moment';
@@ -45,111 +45,111 @@ const NewsTemplate = ({ data, pageContext }) => {
       region={region}
       title={title}
     >
-      {/* <Location>
-        {({ location }) => ( */}
-      <>
-        <div className="news-container">
-          {bannerImage && (
-            <div className="banner-wrapper">
-              <div className="banner-image">
-                <GraphImg image={bannerImage} maxWidth={1280} />
-              </div>
-            </div>
-          )}
-          <div className="intro-container">
-            <div className="intro-content">
-              <h1 className="title">{title}</h1>
-              {description && (
-                <div className="description">
-                  <ReactMarkdown
-                    source={description}
-                    escapeHtml={false}
-                    renderers={{
-                      link: props => renderLink(props),
-                    }}
-                  />
+      <Location>
+        {({ location }) => (
+          <>
+            <div className="news-container">
+              {bannerImage && (
+                <div className="banner-wrapper">
+                  <div className="banner-image">
+                    <GraphImg image={bannerImage} maxWidth={1280} />
+                  </div>
                 </div>
               )}
-            </div>
-          </div>
-          {published.length > 0 && (
-            <>
-              <hr className="divider" />
-              <div className="article-container">
-                <p>{moment(published[articleNum].date).format('LL')}</p>
-                <ReactMarkdown
-                  source={published[articleNum].content}
-                  escapeHtml={false}
-                  renderers={{
-                    link: props => renderLink(props),
-                  }}
-                />
-              </div>
-              {published[articleNum].pdfDownloads.length > 0 && (
-                <div className="downloads-container">
-                  <p>{label.common.DOWNLOAD}</p>
-                  {published[articleNum].pdfDownloads.map(download => (
-                    <div key={makeid()} className="pdf">
-                      <div className="pdf-icon" />
-                      <a
-                        href={download.url}
-                        target="_blank"
-                        rel="noopener noreferrer nofollow noindex"
-                      >
-                        {download.documentTitle}
-                      </a>
+              <div className="intro-container">
+                <div className="intro-content">
+                  <h1 className="title">{title}</h1>
+                  {description && (
+                    <div className="description">
+                      <ReactMarkdown
+                        source={description}
+                        escapeHtml={false}
+                        renderers={{
+                          link: props => renderLink(props, location),
+                        }}
+                      />
                     </div>
-                  ))}
+                  )}
                 </div>
-              )}
-              <hr className="divider" />
-              <div className="tile-container">
-                {published.map((article, idx) => (
-                  <button
-                    className={idx === articleNum ? 'active' : ''}
-                    key={makeid()}
-                    type="button"
-                    onClick={() => setArticleNum(idx)}
-                  >
-                    <div className="date">{moment(article.date).format('LL')}</div>
-                    <div className="tile">
-                      <div className="image">
-                        <img src={article.tile.url} alt="" />
-                      </div>
-                      <div className="excerpt">{article.excerpt}</div>
-                    </div>
-                  </button>
-                ))}
               </div>
-            </>
-          )}
-          {archived.length > 0 && (
-            <>
-              <hr className="divider" />
-              <div className="archive-container">
-                <h3>{label.common.ARCHIVED}</h3>
-                {archived.map(archive =>
-                  archive.pdfDownloads.map(download => (
-                    <div key={makeid()} className="pdf">
-                      <div className="pdf-icon" />
-                      <a
-                        href={download.url}
-                        target="_blank"
-                        rel="noopener noreferrer nofollow noindex"
+              {published.length > 0 && (
+                <>
+                  <hr className="divider" />
+                  <div className="article-container">
+                    <p>{moment(published[articleNum].date).format('LL')}</p>
+                    <ReactMarkdown
+                      source={published[articleNum].content}
+                      escapeHtml={false}
+                      renderers={{
+                        link: props => renderLink(props, location),
+                      }}
+                    />
+                  </div>
+                  {published[articleNum].pdfDownloads.length > 0 && (
+                    <div className="downloads-container">
+                      <p>{label.common.DOWNLOAD}</p>
+                      {published[articleNum].pdfDownloads.map(download => (
+                        <div key={makeid()} className="pdf">
+                          <div className="pdf-icon" />
+                          <a
+                            href={download.url}
+                            target="_blank"
+                            rel="noopener noreferrer nofollow noindex"
+                          >
+                            {download.documentTitle}
+                          </a>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  <hr className="divider" />
+                  <div className="tile-container">
+                    {published.map((article, idx) => (
+                      <button
+                        className={idx === articleNum ? 'active' : ''}
+                        key={makeid()}
+                        type="button"
+                        onClick={() => setArticleNum(idx)}
                       >
-                        {moment(archive.date).format('LL')} -{' '}
-                        {download.documentTitle || download.fileName.split('.pdf')[0]}
-                      </a>
-                    </div>
-                  )),
-                )}
-              </div>
-            </>
-          )}
-        </div>
-      </>
-      {/* )}
-      </Location> */}
+                        <div className="date">{moment(article.date).format('LL')}</div>
+                        <div className="tile">
+                          <div className="image">
+                            <img src={article.tile.url} alt="" />
+                          </div>
+                          <div className="excerpt">{article.excerpt}</div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
+              {archived.length > 0 && (
+                <>
+                  <hr className="divider" />
+                  <div className="archive-container">
+                    <h3>{label.common.ARCHIVED}</h3>
+                    {archived.map(archive =>
+                      archive.pdfDownloads.map(download => (
+                        <div key={makeid()} className="pdf">
+                          <div className="pdf-icon" />
+                          <a
+                            href={download.url}
+                            target="_blank"
+                            rel="noopener noreferrer nofollow noindex"
+                          >
+                            {moment(archive.date).format('LL')} -{' '}
+                            {download.documentTitle || download.fileName.split('.pdf')[0]}
+                          </a>
+                        </div>
+                      )),
+                    )}
+                  </div>
+                </>
+              )}
+            </div>
+          </>
+        )}
+      </Location>
     </Layout>
   );
 };

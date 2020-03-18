@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
-// import { Location } from '@reach/router';
+import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import Layout from '../components/layout';
@@ -33,35 +33,35 @@ const SimpleContentTemplate = ({ data, pageContext }) => {
       region={region}
       title={title}
     >
-      {/* <Location>
-        {({ location }) => ( */}
-      <>
-        <div className="simple-content-container">
-          {bannerImage && (
-            <div className="banner-wrapper">
-              <div className="banner-image">
-                <GraphImg image={bannerImage} maxWidth={1280} />
+      <Location>
+        {({ location }) => (
+          <>
+            <div className="simple-content-container">
+              {bannerImage && (
+                <div className="banner-wrapper">
+                  <div className="banner-image">
+                    <GraphImg image={bannerImage} maxWidth={1280} />
+                  </div>
+                </div>
+              )}
+              <div className="main-container">
+                <div className="main-content">
+                  <h1 className="title">{title}</h1>
+                  <div className="content">
+                    <ReactMarkdown
+                      source={content}
+                      escapeHtml={false}
+                      renderers={{
+                        link: props => renderLink(props, location),
+                      }}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
-          )}
-          <div className="main-container">
-            <div className="main-content">
-              <h1 className="title">{title}</h1>
-              <div className="content">
-                <ReactMarkdown
-                  source={content}
-                  escapeHtml={false}
-                  renderers={{
-                    link: props => renderLink(props),
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </>
-      {/* )}
-      </Location> */}
+          </>
+        )}
+      </Location>
     </Layout>
   );
 };

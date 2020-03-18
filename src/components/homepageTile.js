@@ -35,7 +35,7 @@ const HomepageTile = ({ data, labels, location }) => {
           source={description}
           escapeHtml={false}
           renderers={{
-            link: props => renderLink(props),
+            link: props => renderLink(props, location),
           }}
         />
         <div className="more-container">

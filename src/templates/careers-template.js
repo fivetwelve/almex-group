@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
-// import { Location } from '@reach/router';
+import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import Layout from '../components/layout';
@@ -41,132 +41,135 @@ const CareersTemplate = ({ data, pageContext }) => {
       region={region}
       title={title}
     >
-      {/* <Location>
-        {({ location }) => ( */}
-      <>
-        <div className="careers-container">
-          {bannerImage && (
-            <div className="banner-wrapper">
-              <div className="banner-image">
-                <GraphImg image={bannerImage} maxWidth={1280} />
-              </div>
-            </div>
-          )}
-          <div className="intro-container">
-            <div className="intro-content">
-              <h1 className="title">{title}</h1>
-              <div className="description">
-                <ReactMarkdown
-                  source={description}
-                  escapeHtml={false}
-                  renderers={{
-                    link: props => renderLink(props),
-                  }}
-                />
-                {careerPostings.length > 0 &&
-                  `${aboutLabel.about.POSTING_AVAILABLE} ${careerPostings.length}`}
-              </div>
-            </div>
-          </div>
-          <hr className="divider" />
-          <div className="postings-container">
-            {careerPostings.length <= 0 && (
-              <div className="heading">
-                <ReactMarkdown
-                  source={noPostingsInstructions}
-                  escapeHtml={false}
-                  renderers={{
-                    link: props => renderLink(props),
-                  }}
-                />
-              </div>
-            )}
-            {careerPostings.length > 0 && (
-              <>
-                <div className="heading">
-                  <ReactMarkdown
-                    source={instructions}
-                    escapeHtml={false}
-                    renderers={{
-                      link: props => renderLink(props),
-                    }}
-                  />
+      <Location>
+        {({ location }) => (
+          <>
+            <div className="careers-container">
+              {bannerImage && (
+                <div className="banner-wrapper">
+                  <div className="banner-image">
+                    <GraphImg image={bannerImage} maxWidth={1280} />
+                  </div>
                 </div>
-                <div className="postings">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>
-                          <span>{aboutLabel.about.POSTING_TITLE}</span>
-                        </th>
-                        <th>
-                          <span>{aboutLabel.about.POSTING_STATUS}</span>
-                        </th>
-                        <th>
-                          <span>{aboutLabel.about.POSTING_SEND}</span>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {careerPostings.map(posting => (
-                        <tr key={makeid()}>
-                          <td>
-                            <div className="position">{posting.position}</div>
-                            <div className="companyAndLocation">
-                              <ReactMarkdown
-                                source={posting.companyAndLocation}
-                                escapeHtml={false}
-                              />
-                            </div>
-                            <div className="description">
-                              {aboutLabel.about.POSTING_DESCRIPTION}
-                            </div>
-                            <div>
-                              <ReactMarkdown
-                                source={posting.description}
-                                escapeHtml={false}
-                                renderers={{
-                                  link: props => renderLink(props),
-                                }}
-                              />
-                              <div className="mobile">
-                                <p>
-                                  <b>{aboutLabel.about.POSTING_STATUS}</b>:{' '}
-                                  {aboutLabel.about[posting.postingStatus]}
-                                </p>
+              )}
+              <div className="intro-container">
+                <div className="intro-content">
+                  <h1 className="title">{title}</h1>
+                  <div className="description">
+                    <ReactMarkdown
+                      source={description}
+                      escapeHtml={false}
+                      renderers={{
+                        link: props => renderLink(props, location),
+                      }}
+                    />
+                    {careerPostings.length > 0 &&
+                      `${aboutLabel.about.POSTING_AVAILABLE} ${careerPostings.length}`}
+                  </div>
+                </div>
+              </div>
+              <hr className="divider" />
+              <div className="postings-container">
+                {careerPostings.length <= 0 && (
+                  <div className="heading">
+                    <ReactMarkdown
+                      source={noPostingsInstructions}
+                      escapeHtml={false}
+                      renderers={{
+                        link: props => renderLink(props, location),
+                      }}
+                    />
+                  </div>
+                )}
+                {careerPostings.length > 0 && (
+                  <>
+                    <div className="heading">
+                      <ReactMarkdown
+                        source={instructions}
+                        escapeHtml={false}
+                        renderers={{
+                          link: props => renderLink(props, location),
+                        }}
+                      />
+                    </div>
+                    <div className="postings">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>
+                              <span>{aboutLabel.about.POSTING_TITLE}</span>
+                            </th>
+                            <th>
+                              <span>{aboutLabel.about.POSTING_STATUS}</span>
+                            </th>
+                            <th>
+                              <span>{aboutLabel.about.POSTING_SEND}</span>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {careerPostings.map(posting => (
+                            <tr key={makeid()}>
+                              <td>
+                                <div className="position">{posting.position}</div>
+                                <div className="companyAndLocation">
+                                  <ReactMarkdown
+                                    source={posting.companyAndLocation}
+                                    escapeHtml={false}
+                                    renderers={{
+                                      link: props => renderLink(props, location),
+                                    }}
+                                  />
+                                </div>
+                                <div className="description">
+                                  {aboutLabel.about.POSTING_DESCRIPTION}
+                                </div>
+                                <div>
+                                  <ReactMarkdown
+                                    source={posting.description}
+                                    escapeHtml={false}
+                                    renderers={{
+                                      link: props => renderLink(props, location),
+                                    }}
+                                  />
+                                  <div className="mobile">
+                                    <p>
+                                      <b>{aboutLabel.about.POSTING_STATUS}</b>:{' '}
+                                      {aboutLabel.about[posting.postingStatus]}
+                                    </p>
+                                    <ReactMarkdown
+                                      source={posting.instructions}
+                                      escapeHtml={false}
+                                      renderers={{
+                                        link: props => renderLink(props, location),
+                                      }}
+                                    />
+                                  </div>
+                                </div>
+                              </td>
+                              <td>{aboutLabel.about[posting.postingStatus]}</td>
+                              <td>
                                 <ReactMarkdown
                                   source={posting.instructions}
                                   escapeHtml={false}
                                   renderers={{
-                                    link: props => renderLink(props),
+                                    link: props => renderLink(props, location),
                                   }}
                                 />
-                              </div>
-                            </div>
-                          </td>
-                          <td>{aboutLabel.about[posting.postingStatus]}</td>
-                          <td>
-                            <ReactMarkdown
-                              source={posting.instructions}
-                              escapeHtml={false}
-                              renderers={{
-                                link: props => renderLink(props),
-                              }}
-                            />
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <hr className="divider" />
-              </>
-            )}
-          </div>
-        </div>
-      </>
-      {/* )}
-      </Location> */}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                    <hr className="divider" />
+                  </>
+                )}
+              </div>
+            </div>
+          </>
+        )}
+      </Location>
     </Layout>
   );
 };

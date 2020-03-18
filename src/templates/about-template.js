@@ -95,7 +95,7 @@ const AboutTemplate = ({ data, pageContext }) => {
                       source={description}
                       escapeHtml={false}
                       renderers={{
-                        link: props => renderLink(props),
+                        link: props => renderLink(props, location),
                       }}
                     />
                   </div>

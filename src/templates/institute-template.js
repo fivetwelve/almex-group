@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
-// import { Location } from '@reach/router';
+import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import Layout from '../components/layout';
@@ -52,136 +52,136 @@ const InstituteTemplate = ({ data, pageContext }) => {
       region={region}
       title={title}
     >
-      {/* <Location>
-        {({ location }) => ( */}
-      <>
-        <div className="institute-container">
-          {bannerImage && (
-            <div className="banner-wrapper">
-              <div className="banner-image">
-                <GraphImg image={bannerImage} maxWidth={1280} />
-              </div>
-            </div>
-          )}
-          <div className="main-container">
-            <div className="main-content">
-              <h1 className="title">{title}</h1>
-              <div className="description">
-                <div className="institute-logo-mobile">
-                  <img src={logo} alt="Almex Institute logo" />
-                </div>
-                <ReactMarkdown
-                  source={description}
-                  escapeHtml={false}
-                  renderers={{
-                    link: props => renderLink(props),
-                  }}
-                />
-              </div>
-              <div className="topics-container">
-                <div className="topics">
-                  <ReactMarkdown
-                    source={topics}
-                    escapeHtml={false}
-                    renderers={{
-                      link: props => renderLink(props),
-                    }}
-                  />
-                </div>
-                {topicsImages.length > 0 && (
-                  <div className="images">
-                    {topicsImages.map(image => (
-                      <GraphImg key={makeid()} image={image} maxWidth={400} />
-                    ))}
+      <Location>
+        {({ location }) => (
+          <>
+            <div className="institute-container">
+              {bannerImage && (
+                <div className="banner-wrapper">
+                  <div className="banner-image">
+                    <GraphImg image={bannerImage} maxWidth={1280} />
                   </div>
-                )}
-              </div>
-              <div className="presentation-container">
-                {presentationImages.length > 0 && (
-                  <div className="images">
-                    {presentationImages.map(image => (
-                      <GraphImg key={makeid()} image={image} maxWidth={400} />
-                    ))}
-                  </div>
-                )}
-                <div className="presentation">
-                  <ReactMarkdown
-                    source={presentation}
-                    escapeHtml={false}
-                    renderers={{
-                      link: props => renderLink(props),
-                    }}
-                  />
                 </div>
-              </div>
-              <div className="instructors-container">
-                <div className="instructors">
-                  <ReactMarkdown
-                    source={instructors}
-                    escapeHtml={false}
-                    renderers={{
-                      link: props => renderLink(props),
-                    }}
-                  />
-                </div>
-                {instructorsImages.length > 0 && (
-                  <div className="images">
-                    {instructorsImages.map(image => (
-                      <GraphImg key={makeid()} image={image} maxWidth={400} />
-                    ))}
-                  </div>
-                )}
-              </div>
-              {pdfDownloads.length > 0 && (
-                <div className="downloads">
-                  {pdfDownloads.map(download => (
-                    <div key={makeid()} className="pdf">
-                      <div className="pdf-icon" />
-                      <a
-                        href={download.url}
-                        rel="noopener noreferrer nofollow noindex"
-                        target="_blank"
-                      >
-                        {download.documentTitle || download.fileName.split('.pdf')[0]}
-                      </a>
+              )}
+              <div className="main-container">
+                <div className="main-content">
+                  <h1 className="title">{title}</h1>
+                  <div className="description">
+                    <div className="institute-logo-mobile">
+                      <img src={logo} alt="Almex Institute logo" />
                     </div>
+                    <ReactMarkdown
+                      source={description}
+                      escapeHtml={false}
+                      renderers={{
+                        link: props => renderLink(props, location),
+                      }}
+                    />
+                  </div>
+                  <div className="topics-container">
+                    <div className="topics">
+                      <ReactMarkdown
+                        source={topics}
+                        escapeHtml={false}
+                        renderers={{
+                          link: props => renderLink(props, location),
+                        }}
+                      />
+                    </div>
+                    {topicsImages.length > 0 && (
+                      <div className="images">
+                        {topicsImages.map(image => (
+                          <GraphImg key={makeid()} image={image} maxWidth={400} />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  <div className="presentation-container">
+                    {presentationImages.length > 0 && (
+                      <div className="images">
+                        {presentationImages.map(image => (
+                          <GraphImg key={makeid()} image={image} maxWidth={400} />
+                        ))}
+                      </div>
+                    )}
+                    <div className="presentation">
+                      <ReactMarkdown
+                        source={presentation}
+                        escapeHtml={false}
+                        renderers={{
+                          link: props => renderLink(props, location),
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="instructors-container">
+                    <div className="instructors">
+                      <ReactMarkdown
+                        source={instructors}
+                        escapeHtml={false}
+                        renderers={{
+                          link: props => renderLink(props, location),
+                        }}
+                      />
+                    </div>
+                    {instructorsImages.length > 0 && (
+                      <div className="images">
+                        {instructorsImages.map(image => (
+                          <GraphImg key={makeid()} image={image} maxWidth={400} />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  {pdfDownloads.length > 0 && (
+                    <div className="downloads">
+                      {pdfDownloads.map(download => (
+                        <div key={makeid()} className="pdf">
+                          <div className="pdf-icon" />
+                          <a
+                            href={download.url}
+                            rel="noopener noreferrer nofollow noindex"
+                            target="_blank"
+                          >
+                            {download.documentTitle || download.fileName.split('.pdf')[0]}
+                          </a>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <aside className="aside-container">
+                  <div className="institute-logo">
+                    <img src={logo} alt="Almex Institute logo" />
+                  </div>
+                  {sideContent.map(content => (
+                    <ReactMarkdown
+                      key={makeid()}
+                      source={content}
+                      escapeHtml={false}
+                      renderers={{
+                        link: props => renderLink(props, location),
+                      }}
+                    />
                   ))}
+                </aside>
+              </div>
+              <hr className="divider" />
+              {email && (
+                <div className="form-container">
+                  <ReactMarkdown
+                    source={contactAndForm}
+                    escapeHtml={false}
+                    renderers={{
+                      link: props => renderLink(props, location),
+                    }}
+                  />
+                  <InstituteForm label={label} email={email} emailSubject={emailSubject} />
                 </div>
               )}
             </div>
-            <aside className="aside-container">
-              <div className="institute-logo">
-                <img src={logo} alt="Almex Institute logo" />
-              </div>
-              {sideContent.map(content => (
-                <ReactMarkdown
-                  key={makeid()}
-                  source={content}
-                  escapeHtml={false}
-                  renderers={{
-                    link: props => renderLink(props),
-                  }}
-                />
-              ))}
-            </aside>
-          </div>
-          <hr className="divider" />
-          {email && (
-            <div className="form-container">
-              <ReactMarkdown
-                source={contactAndForm}
-                escapeHtml={false}
-                renderers={{
-                  link: props => renderLink(props),
-                }}
-              />
-              <InstituteForm label={label} email={email} emailSubject={emailSubject} />
-            </div>
-          )}
-        </div>
-      </>
-      {/* )}
-      </Location> */}
+          </>
+        )}
+      </Location>
     </Layout>
   );
 };

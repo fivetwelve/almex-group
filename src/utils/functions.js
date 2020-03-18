@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import fetchPonyfill from 'fetch-ponyfill';
 import { PAGE_TYPES } from '../constants';
 
@@ -315,14 +316,31 @@ Math.easeInOutQuad = (ti, b, c, d) => {
 };
 
 // helper function for Markdown parser to add rel attribute and values to prevent indexing
-const renderLink = props => {
-  // eslint-disable-next-line react/prop-types
+const renderLink = (props, location) => {
   const { children, href } = props;
+  let updateHref = href;
+  // if location was not passed, then field is not meant to support local links, only regular URLs
+  if (location) {
+    if (
+      href.indexOf('http:') < 0 &&
+      href.indexOf('https:') < 0 &&
+      href.indexOf('mailto:') < 0 &&
+      href.indexOf('tel:') < 0
+    ) {
+      updateHref = createLink(location, href);
+    }
+  }
+
   return (
-    <a href={href} rel="noopener noreferrer nofollow noindex">
+    <a href={updateHref} rel="noopener noreferrer nofollow noindex">
       {children}
     </a>
   );
+};
+
+renderLink.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
+  href: PropTypes.string.isRequired,
 };
 
 const scrollTo = (to, callback, duration) => {

@@ -69,7 +69,13 @@ const HomepageTemplate = ({ data, pageContext }) => {
             <div className="description-container">
               <div className="description">
                 <Link to={createLink(location, slides[i].page.slug)}>
-                  <ReactMarkdown source={slides[i].slideText} escapeHtml={false} />
+                  <ReactMarkdown
+                    source={slides[i].slideText}
+                    escapeHtml={false}
+                    renderers={{
+                      link: props => renderLink(props, location),
+                    }}
+                  />
                 </Link>
               </div>
             </div>
@@ -97,7 +103,13 @@ const HomepageTemplate = ({ data, pageContext }) => {
             <div className="description-container">
               <div className="description">
                 <Link to={`${location.pathname}/${slides[i].page.slug}`}>
-                  <ReactMarkdown source={slides[i].slideText} escapeHtml={false} />
+                  <ReactMarkdown
+                    source={slides[i].slideText}
+                    escapeHtml={false}
+                    renderers={{
+                      link: props => renderLink(props, location),
+                    }}
+                  />
                 </Link>
               </div>
             </div>
@@ -214,7 +226,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
                         source={homepage.homepageEventTiles[0].description}
                         escapeHtml={false}
                         renderers={{
-                          link: props => renderLink(props),
+                          link: props => renderLink(props, location),
                         }}
                       />
                     </div>
@@ -237,7 +249,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
                         source={homepage.homepageEventTiles[1].description}
                         escapeHtml={false}
                         renderers={{
-                          link: props => renderLink(props),
+                          link: props => renderLink(props, location),
                         }}
                       />
                     </div>
@@ -258,7 +270,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
                         source={homepage.homepageEventTiles[2].description}
                         escapeHtml={false}
                         renderers={{
-                          link: props => renderLink(props),
+                          link: props => renderLink(props, location),
                         }}
                       />
                     </div>

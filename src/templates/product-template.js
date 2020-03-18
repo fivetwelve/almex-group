@@ -141,7 +141,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               source={marketing}
               escapeHtml={false}
               renderers={{
-                link: props => renderLink(props),
+                link: props => renderLink(props, location),
               }}
             />
           </div>
@@ -156,7 +156,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
                     source={advantages}
                     escapeHtml={false}
                     renderers={{
-                      link: props => renderLink(props),
+                      link: props => renderLink(props, location),
                     }}
                   />
                 </div>
@@ -179,7 +179,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
                       source={features}
                       escapeHtml={false}
                       renderers={{
-                        link: props => renderLink(props),
+                        link: props => renderLink(props, location),
                       }}
                     />
                   </div>
@@ -191,7 +191,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
                       source={productInfo}
                       escapeHtml={false}
                       renderers={{
-                        link: props => renderLink(props),
+                        link: props => renderLink(props, location),
                       }}
                     />
                   </div>
@@ -209,7 +209,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
                   source={specs}
                   escapeHtml={false}
                   renderers={{
-                    link: props => renderLink(props),
+                    link: props => renderLink(props, location),
                   }}
                 />
               </div>
