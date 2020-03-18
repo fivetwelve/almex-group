@@ -14,6 +14,9 @@ const apiUrl = () => {
   return false;
 };
 
+const countryFlag = countryCode => (
+  <img className="flag" src={`/img/flag-${countryCode}.png`} alt="" />
+);
 const createLink = (location, slug) => {
   /*
     - Have established that URLs will always be formed as: /region/locale/slug/
@@ -392,6 +395,7 @@ const scrollTo = (to, callback, duration) => {
 
 export {
   apiUrl,
+  countryFlag,
   createLink,
   createLinkFromPage,
   fetch,
