@@ -115,7 +115,7 @@ $spacing: 20px;
     .experts-view {
       display: none;
       &.active {
-        display: initial;
+        display: block;
       }
     }
     .almex-locations {
@@ -265,7 +265,7 @@ $spacing: 20px;
               font-weight: bold;
               display: none;
               @include media('>=desktop') {
-                display: initial;
+                display: block;
               }
             }
           }
