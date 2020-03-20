@@ -35,139 +35,141 @@ $spacing: 20px;
         }
       }
     }
-    .brands {
-      display: flex;
-      flex: 1;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      flex-wrap: wrap;
-      .almex-box,
-      .bat,
-      .cmi,
-      .emsys,
-      .fusion,
-      .institute,
-      .knight,
-      .lightweight,
-      .votech {
-        margin: 15px 20px;
-        a {
-          // opacity: 0.8;
-          display: inline-block;
-          &:hover {
-            opacity: 1;
+    .brands-container {
+      .brands {
+        display: flex;
+        flex: 1;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        flex-wrap: wrap;
+        .almex-box,
+        .bat,
+        .cmi,
+        .emsys,
+        .fusion,
+        .institute,
+        .knight,
+        .lightweight,
+        .votech {
+          margin: 15px 20px;
+          a {
+            // opacity: 0.8;
+            display: inline-block;
+            &:hover {
+              opacity: 1;
+            }
           }
         }
-      }
-      .almex-box a {
-        background-image: url('../../static/img/logo-almex-box.png');
-        background-size: cover;
-        width: calc(135px * 0.6);
-        height: calc(46px * 0.6);
-        background-position-y: calc(-46px * 0.6);
-        @include media('>=tablet') {
-          width: 135px;
-          height: 46px;
-          background-position-y: -46px;
+        .almex-box a {
+          background-image: url('../../static/img/logo-almex-box.png');
+          background-size: cover;
+          width: calc(135px * 0.6);
+          height: calc(46px * 0.6);
+          background-position-y: calc(-46px * 0.6);
+          @include media('>=tablet') {
+            width: 135px;
+            height: 46px;
+            background-position-y: -46px;
+          }
         }
-      }
-      .bat a {
-        background-image: url('../../static/img/logo-bat.png');
-        background-size: cover;
-        width: calc(110px * 0.6);
-        height: calc(66px * 0.6);
-        background-position-y: calc(-66px * 0.6);
-        @include media('>=tablet') {
-          width: 110px;
-          height: 66px;
-          background-position-y: -66px;
+        .bat a {
+          background-image: url('../../static/img/logo-bat.png');
+          background-size: cover;
+          width: calc(110px * 0.6);
+          height: calc(66px * 0.6);
+          background-position-y: calc(-66px * 0.6);
+          @include media('>=tablet') {
+            width: 110px;
+            height: 66px;
+            background-position-y: -66px;
+          }
         }
-      }
-      .lightweight a {
-        background-image: url('../../static/img/logo-lightweight.png');
-        background-size: cover;
-        width: calc(125px * 0.6);
-        height: calc(53px * 0.6);
-        background-position-y: calc(-53px * 0.59);
-        @include media('>=tablet') {
-          width: 125px;
-          height: 53px;
-          background-position-y: -53px;
+        .lightweight a {
+          background-image: url('../../static/img/logo-lightweight.png');
+          background-size: cover;
+          width: calc(125px * 0.6);
+          height: calc(53px * 0.6);
+          background-position-y: calc(-53px * 0.59);
+          @include media('>=tablet') {
+            width: 125px;
+            height: 53px;
+            background-position-y: -53px;
+          }
         }
-      }
-      .cmi a {
-        background-image: url('../../static/img/logo-cobra.png');
-        background-size: cover;
-        width: calc(110px * 0.6);
-        height: calc(67px * 0.6);
-        background-position-y: calc(-67px * 0.6);
-        @include media('>=tablet') {
-          width: 110px;
-          height: 67px;
-          background-position-y: -67px;
+        .cmi a {
+          background-image: url('../../static/img/logo-cobra.png');
+          background-size: cover;
+          width: calc(110px * 0.6);
+          height: calc(67px * 0.6);
+          background-position-y: calc(-67px * 0.6);
+          @include media('>=tablet') {
+            width: 110px;
+            height: 67px;
+            background-position-y: -67px;
+          }
         }
-      }
-      .emsys a {
-        background-image: url('../../static/img/logo-emsys.png');
-        background-size: cover;
-        width: calc(135px * 0.6);
-        height: calc(38px * 0.6);
-        background-position-y: calc(-38px * 0.6);
-        @include media('>=tablet') {
-          width: 135px;
-          height: 38px;
-          background-position-y: -38px;
+        .emsys a {
+          background-image: url('../../static/img/logo-emsys.png');
+          background-size: cover;
+          width: calc(135px * 0.6);
+          height: calc(38px * 0.6);
+          background-position-y: calc(-38px * 0.6);
+          @include media('>=tablet') {
+            width: 135px;
+            height: 38px;
+            background-position-y: -38px;
+          }
         }
-      }
-      .fusion a {
-        background-image: url('../../static/img/logo-fusion.png');
-        background-size: cover;
-        width: calc(154px * 0.6);
-        height: calc(35px * 0.6);
-        background-position-y: calc(-35px * 0.6);
-        @include media('>=tablet') {
-          width: 154px;
-          height: 35px;
-          background-position-y: -35px;
+        .fusion a {
+          background-image: url('../../static/img/logo-fusion.png');
+          background-size: cover;
+          width: calc(154px * 0.6);
+          height: calc(35px * 0.6);
+          background-position-y: calc(-35px * 0.6);
+          @include media('>=tablet') {
+            width: 154px;
+            height: 35px;
+            background-position-y: -35px;
+          }
         }
-      }
-      .institute a {
-        background-image: url('../../static/img/logo-institute.png');
-        background-size: cover;
-        width: calc(100px * 0.6);
-        height: calc(84px * 0.6);
-        background-position-y: calc(-84px * 0.6);
-        @include media('>=tablet') {
-          width: 100px;
-          height: 84px;
-          background-position-y: -84px;
+        .institute a {
+          background-image: url('../../static/img/logo-institute.png');
+          background-size: cover;
+          width: calc(100px * 0.6);
+          height: calc(84px * 0.6);
+          background-position-y: calc(-84px * 0.6);
+          @include media('>=tablet') {
+            width: 100px;
+            height: 84px;
+            background-position-y: -84px;
+          }
         }
-      }
-      .knight a {
-        background-image: url('../../static/img/logo-knight.png');
-        background-size: cover;
-        width: calc(125px * 0.6);
-        height: calc(67px * 0.6);
-        background-position-y: calc(-67px * 0.6);
-        @include media('>=tablet') {
-          width: 125px;
-          height: 67px;
-          background-position-y: -67px;
+        .knight a {
+          background-image: url('../../static/img/logo-knight.png');
+          background-size: cover;
+          width: calc(125px * 0.6);
+          height: calc(67px * 0.6);
+          background-position-y: calc(-67px * 0.6);
+          @include media('>=tablet') {
+            width: 125px;
+            height: 67px;
+            background-position-y: -67px;
+          }
         }
-      }
-      .votech a {
-        background-image: url('../../static/img/logo-votech.png');
-        background-size: cover;
-        width: calc(179px * 0.6);
-        height: calc(66px * 0.6);
-        background-position-y: calc(-66px * 0.59);
-        @include media('>=tablet') {
-          width: 179px;
-          height: 66px;
-          background-position-y: -66px;
+        .votech a {
+          background-image: url('../../static/img/logo-votech.png');
+          background-size: cover;
+          width: calc(179px * 0.6);
+          height: calc(66px * 0.6);
+          background-position-y: calc(-66px * 0.59);
+          @include media('>=tablet') {
+            width: 179px;
+            height: 66px;
+            background-position-y: -66px;
+          }
         }
       }
     }
