@@ -62,7 +62,7 @@ class ContactForm extends React.Component {
       }
     });
     params.destination = email;
-    params.contactSubject = emailSubject || label.common.FORM_SUBJECT_DEFAULT;
+    params.contactSubject = emailSubject || label.common.FORM_SUBJECTLINE_DEFAULT;
 
     try {
       const response = await fetch(`${apiUrl()}/forwardEmail`, {

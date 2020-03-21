@@ -299,7 +299,7 @@ $caption-space-desktop: 300px;
         }
         .content-container {
           display: flex;
-          flex: 1 1 0;
+          flex: 1 1 auto;
           width: 100%;
           flex-direction: column;
           background: $white;
@@ -310,6 +310,7 @@ $caption-space-desktop: 300px;
             margin: 0 auto;
             padding-left: 10px;
             padding-right: 10px;
+            background-color: $white;
             @include media('>=tablet') {
               padding-left: 100px;
               padding-right: 100px;

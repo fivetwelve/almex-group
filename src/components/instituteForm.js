@@ -61,7 +61,7 @@ class InstituteForm extends React.Component {
       }
     });
     params.destination = email;
-    params.contactSubject = emailSubject || label.common.FORM_SUBJECT_TRAINING;
+    params.contactSubject = emailSubject || label.common.FORM_SUBJECTLINE_TRAINING;
 
     try {
       const response = await fetch(`${apiUrl()}/forwardEmail`, {
