@@ -68,46 +68,15 @@ const LandingTemplate = ({ data, pageContext }) => {
     const tileArray = [];
     // let tileIdx = 0;
     pages.forEach(page => {
-      // let tileData = {};
-      // Use landingSource or productSource titles by default. All other cases, use title provided in Page entry.
-      const pageTitle =
-        // (page.landingSource && page.landingSource.title) ||
-        // (page.productSource && page.productSource.title) ||
-        // (page.servicesSource && page.servicesSource.title) ||
-        page.title;
+      // Use page titles by default. This allows some flexibility if there needs to be a shorter title than what is stored in source.
+      const pageTitle = page.title;
       const tileData = {
         slug: page.slug,
         tile: page.tile,
         title: pageTitle,
       };
-      // tileIdx += 1;
-      // switch (page.pageType) {
-      //   case PAGE_TYPES.LANDING:
-      //     tileData = {
-      //       slug: page.slug,
-      //       tile: page.tile,
-      //       title: page.title
-      //       ...page.landing,
-      //     };
-      //     break;
-      //   case PAGE_TYPES.PRODUCT:
-      //     tileData = {
-      //       slug: page.slug,
-      //       tile: page.tile,
-      //       ...page.product,
-      //     };
-      //     break;
-      //   default:
-      //     break;
-      // }
       const landingTile = (
-        <LandingTile
-          data={tileData}
-          // key={`tile-${tileIdx}`}
-          key={makeid()}
-          location={location}
-          themeColour={themeColour}
-        />
+        <LandingTile data={tileData} key={makeid()} location={location} themeColour={themeColour} />
       );
       tileArray.push(landingTile);
     });

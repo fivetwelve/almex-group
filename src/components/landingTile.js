@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import LinkWithPrevious from './linkWithPrevious';
 import { createLink } from '../utils/functions';
 import '../styles/landingTile.scss';
+import fallbackTile from '../../static/img/fallback_500x235.jpg';
 
 const LandingTile = ({ data, location, themeColour }) => {
   const { slug, tile, title } = data;
   const imageStyle = {
-    backgroundImage: tile && `url(${tile.url})`,
+    backgroundImage: (tile && `url(${tile.url})`) || `url(${fallbackTile})`,
     backgroundColor: !tile && '#e5e6e8',
   };
 
