@@ -95,7 +95,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
             </div>
             <div className="heading-container">
               <div className="heading">
-                <Link to={location.pathname + slides[i].page.slug}>
+                <Link to={createLink(location, slides[i].page.slug)}>
                   <ReactMarkdown source={slides[i].slideHeading} escapeHtml={false} />
                 </Link>
               </div>
