@@ -60,14 +60,16 @@ const ServicesTemplate = ({ data, pageContext }) => {
                 </div>
                 <aside className="aside-container">
                   {sideContent.map(content => (
-                    <ReactMarkdown
-                      key={makeid()}
-                      source={content}
-                      escapeHtml={false}
-                      renderers={{
-                        link: props => renderLink(props, location),
-                      }}
-                    />
+                    <div className="aside-block">
+                      <ReactMarkdown
+                        key={makeid()}
+                        source={content}
+                        escapeHtml={false}
+                        renderers={{
+                          link: props => renderLink(props, location),
+                        }}
+                      />
+                    </div>
                   ))}
                 </aside>
               </div>

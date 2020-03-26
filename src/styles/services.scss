@@ -46,9 +46,7 @@ $spacing: 20px;
       }
       .main-content {
         @include media('>=desktop') {
-          width: calc(75% - 20px);
-          // padding-left: 20px;
-          padding-right: 20px;
+          width: 75%;
         }
         .title {
           font-size: 30px;
@@ -73,6 +71,9 @@ $spacing: 20px;
           h2,
           h3 {
             margin-top: 40px;
+          }
+          p {
+            clear: both;
           }
           img {
             padding: 0 0 5px;
@@ -106,11 +107,15 @@ $spacing: 20px;
         line-height: normal;
         @include media('>=tablet') {
           font-size: 24px;
-          flex-direction: row;
+          padding-left: 40px;
+          padding-right: 40px;
+          margin-top: 40px;
         }
         @include media('>=desktop') {
-          flex-direction: column;
           width: calc(25% - 21px);
+          padding-left: 0;
+          padding-right: 0;
+          margin-top: 0;
         }
         h2,
         h3 {
@@ -126,6 +131,9 @@ $spacing: 20px;
         p {
           font-size: 24px;
           line-height: normal;
+          &:last-of-type {
+            margin-bottom: 0;
+          }
         }
         a,
         a:active,

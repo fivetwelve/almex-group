@@ -127,6 +127,18 @@ const SearchTemplate = props => {
             <SearchBox searchAsYouType={false} />
           </div>
           {/* <PoweredBy /> */}
+
+          <div className="heading">
+            {searchState.query && (
+              <h1>
+                {label.search.RESULTS}: {`"${searchState.query}"`}
+              </h1>
+            )}
+            {!searchState.query && <h1>{label.search.PLEASE_ENTER}</h1>}
+          </div>
+          <CustomPagination defaultRefinement={0} goToPage={goToPage} query={searchState.query} />
+          <hr />
+
           <CustomSearchResults label={label.search} locale={locale} location={location} />
           <hr />
           <CustomPagination defaultRefinement={0} goToPage={goToPage} query={searchState.query} />

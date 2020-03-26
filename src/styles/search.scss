@@ -103,11 +103,13 @@ $spacing: 20px;
       //   }
       // }
     }
-    .results {
+    .heading {
       margin-top: 40px;
       h1 {
         margin-bottom: 20px;
       }
+    }
+    .results {
       @include media('>=tablet') {
         min-height: calc(100vh - 150px - 592px - 100px);
       }
@@ -115,6 +117,9 @@ $spacing: 20px;
         margin-right: 40px;
         &:first-of-type {
           margin-top: 40px;
+        }
+        &:last-of-type {
+          margin-bottom: 60px;
         }
         .title {
           font-size: 20px;

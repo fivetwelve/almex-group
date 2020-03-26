@@ -126,7 +126,9 @@ class Footer extends React.Component {
               style={{ transform: 'scaleX(-1)', position: 'relative', top: '2px' }}
             />
           </IconContext.Provider>
-          {office.tollFree}
+          <a href={`tel:${office.tollFree}`} className="phone-link">
+            {office.tollFree}
+          </a>
           <br />
         </div>
       );
