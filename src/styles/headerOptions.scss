@@ -196,6 +196,7 @@
           margin-right: 10px;
           a {
             display: inline-block;
+            background-repeat: no-repeat;
             &:hover {
               background-position-y: 0;
             }
@@ -205,55 +206,55 @@
           width: 135px;
           height: 46px;
           background-image: url('../../static/img/logo-almex-box.png');
-          background-position-y: -46px;
+          background-position-y: -48px;
         }
         &.bat a {
           width: 110px;
           height: 66px;
           background-image: url('../../static/img/logo-bat.png');
-          background-position-y: -66px;
+          background-position-y: -68px;
         }
         &.lightweight a {
           width: 125px;
           height: 53px;
           background-image: url('../../static/img/logo-lightweight.png');
-          background-position-y: -53px;
+          background-position-y: -55px;
         }
         &.cmi a {
           width: 110px;
           height: 67px;
           background-image: url('../../static/img/logo-cobra.png');
-          background-position-y: -67px;
+          background-position-y: -69px;
         }
         &.emsys a {
           width: 135px;
           height: 38px;
           background-image: url('../../static/img/logo-emsys.png');
-          background-position-y: -38px;
+          background-position-y: -40px;
         }
         &.fusion a {
           width: 154px;
           height: 35px;
           background-image: url('../../static/img/logo-fusion.png');
-          background-position-y: -35px;
+          background-position-y: -37px;
         }
         &.institute a {
           width: 100px;
           height: 84px;
           background-image: url('../../static/img/logo-institute.png');
-          background-position-y: -84px;
+          background-position-y: -86px;
         }
         &.knight a {
           width: 125px;
           height: 67px;
           background-image: url('../../static/img/logo-knight.png');
-          background-position-y: -67px;
+          background-position-y: -69px;
         }
         &.votech a {
           width: 179px;
           height: 66px;
           background-image: url('../../static/img/logo-votech.png');
-          background-position-y: -66px;
+          background-position-y: -68px;
         }
       }
       .close {

@@ -4,11 +4,12 @@ import { Link } from 'gatsby';
 import ReactMarkdown from 'react-markdown/with-html';
 import { createLink, renderLink } from '../utils/functions';
 import '../styles/homepageTile.scss';
+import fallbackTile from '../../static/img/fallback_500x235.jpg';
 
 const HomepageTile = ({ data, labels, location }) => {
   const { image, title, description, page } = data;
   const imageStyle = {
-    backgroundImage: `url(${(image && image.url) || page.tile.url})`,
+    backgroundImage: `url(${(image && image.url) || page.tile.url || fallbackTile})`,
   };
 
   return (
@@ -35,7 +36,7 @@ const HomepageTile = ({ data, labels, location }) => {
           source={description}
           escapeHtml={false}
           renderers={{
-            link: props => renderLink(props),
+            link: props => renderLink(props, location),
           }}
         />
         <div className="more-container">

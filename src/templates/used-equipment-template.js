@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
+import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import moment from 'moment';
@@ -38,33 +39,37 @@ const UsedEquipmentTemplate = ({ data, pageContext }) => {
       region={region}
       title={title}
     >
-      <div className="used-equipment-container">
-        {bannerImage && (
-          <div className="banner-wrapper">
-            <div className="banner-image">
-              <GraphImg image={bannerImage} maxWidth={1280} />
+      <Location>
+        {({ location }) => (
+          <div className="used-equipment-container">
+            {bannerImage && (
+              <div className="banner-wrapper">
+                <div className="banner-image">
+                  <GraphImg image={bannerImage} maxWidth={1280} />
+                </div>
+              </div>
+            )}
+            <div className="heading">
+              <div className="title-container">
+                <div className="title">{title}</div>
+              </div>
+              <div className="description">
+                <ReactMarkdown
+                  source={description}
+                  escapeHtml={false}
+                  renderers={{
+                    link: props => renderLink(props, location),
+                  }}
+                />
+              </div>
             </div>
+            {usedEquipmentListings.map(listing => (
+              <UsedEquipmentListing {...listing} key={makeid()} label={label} />
+            ))}
+            <div className="disclaimer">{disclaimer}</div>
           </div>
         )}
-        <div className="heading">
-          <div className="title-container">
-            <div className="title">{title}</div>
-          </div>
-          <div className="description">
-            <ReactMarkdown
-              source={description}
-              escapeHtml={false}
-              renderers={{
-                link: props => renderLink(props),
-              }}
-            />
-          </div>
-        </div>
-        {usedEquipmentListings.map(listing => (
-          <UsedEquipmentListing {...listing} key={makeid()} label={label} />
-        ))}
-        <div className="disclaimer">{disclaimer}</div>
-      </div>
+      </Location>
     </Layout>
   );
 };

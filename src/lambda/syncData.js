@@ -11,6 +11,10 @@ const CREATE_ABOUT_OBSERVER = 'createAboutSource';
 const UPDATE_ABOUT_OBSERVER = 'updateAboutSource';
 const DELETE_ABOUT_OBSERVER = 'deleteAboutSource';
 const DELETE_MULTIPLE_ABOUT_OBSERVER = 'deleteManyAboutSource';
+const CREATE_INSTITUTE_OBSERVER = 'createInstituteSource';
+const UPDATE_INSTITUTE_OBSERVER = 'updateInstituteSource';
+const DELETE_INSTITUTE_OBSERVER = 'deleteInstituteSource';
+const DELETE_MULTIPLE_INSTITUTE_OBSERVER = 'deleteManyInstituteSource';
 const CREATE_PAGE_OBSERVER = 'createPage';
 const UPDATE_PAGE_OBSERVER = 'updatePage';
 const DELETE_PAGE_OBSERVER = 'deletePage';
@@ -34,6 +38,7 @@ const DELETE_MULTIPLE_SIMPLE_OBSERVER = 'deleteManySimpleSource';
 
 const deleteManyObservers = [
   DELETE_MULTIPLE_ABOUT_OBSERVER,
+  DELETE_MULTIPLE_INSTITUTE_OBSERVER,
   DELETE_MULTIPLE_PAGE_OBSERVER,
   DELETE_MULTIPLE_PRODUCT_OBSERVER,
   DELETE_MULTIPLE_PROMO_OBSERVER,
@@ -45,6 +50,7 @@ const deleteManyObservers = [
    new content source types need to be indexed on Algolia */
 const acceptedPageTypes = [
   PAGE_TYPES.ABOUT,
+  PAGE_TYPES.INSTITUTE,
   PAGE_TYPES.PRODUCT,
   PAGE_TYPES.PROMO,
   PAGE_TYPES.SERVICES,
@@ -54,6 +60,7 @@ const acceptedPageTypes = [
 const pageObservers = [CREATE_PAGE_OBSERVER, UPDATE_PAGE_OBSERVER, DELETE_PAGE_OBSERVER];
 const sourceCreationObservers = [
   CREATE_ABOUT_OBSERVER,
+  CREATE_INSTITUTE_OBSERVER,
   CREATE_PRODUCT_OBSERVER,
   CREATE_PROMO_OBSERVER,
   CREATE_SERVICES_OBSERVER,
@@ -61,6 +68,7 @@ const sourceCreationObservers = [
 ];
 const sourceUpdateObservers = [
   UPDATE_ABOUT_OBSERVER,
+  UPDATE_INSTITUTE_OBSERVER,
   UPDATE_PRODUCT_OBSERVER,
   UPDATE_PROMO_OBSERVER,
   UPDATE_SERVICES_OBSERVER,
@@ -68,6 +76,7 @@ const sourceUpdateObservers = [
 ];
 const sourceDeletionObservers = [
   DELETE_ABOUT_OBSERVER,
+  DELETE_INSTITUTE_OBSERVER,
   DELETE_PRODUCT_OBSERVER,
   DELETE_PROMO_OBSERVER,
   DELETE_SERVICES_OBSERVER,

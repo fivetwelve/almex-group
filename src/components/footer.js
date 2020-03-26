@@ -109,7 +109,8 @@ class Footer extends React.Component {
           <FaEnvelope aria-hidden style={{ position: 'relative', top: '2px' }} />
         </IconContext.Provider>
         <a href={`mailto:${office.email[0]}`} className="email-link">
-          {office.email[0]}
+          {/* {office.email[0]} */}
+          {office.contactPerson}
         </a>
       </div>
     </div>
@@ -348,6 +349,7 @@ export default props => (
             telephone
             tollFree
             email
+            contactPerson
             countryCodes
           }
         }

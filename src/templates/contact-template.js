@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
-// import { Location } from '@reach/router';
+import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import { IconContext } from 'react-icons';
@@ -119,119 +119,119 @@ class ContactTemplate extends React.Component {
         region={region}
         title={title}
       >
-        {/* <Location>
-          {({ location }) => ( */}
-        <>
-          <div className="contact-container">
-            {bannerImage && (
-              <div className="banner-wrapper">
-                <div className="banner-image">
-                  <GraphImg image={bannerImage} maxWidth={1280} />
+        <Location>
+          {({ location }) => (
+            <>
+              <div className="contact-container">
+                {bannerImage && (
+                  <div className="banner-wrapper">
+                    <div className="banner-image">
+                      <GraphImg image={bannerImage} maxWidth={1280} />
+                    </div>
+                  </div>
+                )}
+                <div className="intro-container">
+                  <div className="intro-content">
+                    <h1 className="title">{title}</h1>
+                    <div className="description">
+                      <ReactMarkdown
+                        source={description}
+                        escapeHtml={false}
+                        renderers={{
+                          link: props => renderLink(props, location),
+                        }}
+                      />
+                    </div>
+                  </div>
                 </div>
-              </div>
-            )}
-            <div className="intro-container">
-              <div className="intro-content">
-                <h1 className="title">{title}</h1>
-                <div className="description">
-                  <ReactMarkdown
-                    source={description}
-                    escapeHtml={false}
-                    renderers={{
-                      link: props => renderLink(props),
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
 
-            <div className="view-toggle-container">
-              {/* <button type="button" onClick={this.handleViewToggle}>
+                <div className="view-toggle-container">
+                  {/* <button type="button" onClick={this.handleViewToggle}>
                 {view === CONTACT_TYPES.OFFICE
                   ? aboutLabel.about.SEE_EXPERTS
                   : aboutLabel.about.SEE_OFFICES}
               </button> */}
-              <button
-                type="button"
-                onClick={this.handleViewToggle}
-                disabled={view === CONTACT_TYPES.OFFICE}
-                className={view === CONTACT_TYPES.OFFICE ? 'active' : ''}
-              >
-                <span
-                  aria-hidden="true"
-                  className={view === CONTACT_TYPES.OFFICE ? 'icon highlight' : 'icon'}
-                >
-                  <IconContext.Provider value={{ className: 'tab-icon' }}>
-                    <FaBuilding aria-hidden />
-                  </IconContext.Provider>
-                </span>
-                <span className={view === CONTACT_TYPES.OFFICE ? 'highlight' : ''}>
-                  {aboutLabel.about.SEE_OFFICES}
-                </span>
-              </button>
-              <button
-                type="button"
-                onClick={this.handleViewToggle}
-                disabled={view !== CONTACT_TYPES.OFFICE}
-                className={view !== CONTACT_TYPES.OFFICE ? 'active' : ''}
-              >
-                <span
-                  aria-hidden="true"
-                  className={view !== CONTACT_TYPES.OFFICE ? 'icon highlight' : 'icon'}
-                >
-                  <IconContext.Provider value={{ className: 'tab-icon' }}>
-                    <FaUser aria-hidden />
-                  </IconContext.Provider>
-                </span>
-                <span className={view !== CONTACT_TYPES.OFFICE ? 'highlight' : ''}>
-                  {aboutLabel.about.SEE_EXPERTS}
-                </span>
-              </button>
-            </div>
-
-            <div className={`offices-view ${view === CONTACT_TYPES.OFFICE ? 'active' : ''}`}>
-              <ContactMap
-                aboutLabel={aboutLabel}
-                experts={experts}
-                locale={locale}
-                offices={offices}
-                handleContactUs={this.handleContactUs}
-                visitorRegion={visitorRegion}
-              />
-            </div>
-            <div className={`experts-view ${view === CONTACT_TYPES.EXPERT ? 'active' : ''}`}>
-              <div className="table-data">
-                <div className="table-entry">
-                  <div className="table-pin" />
-                  <div className="table-details heading">{aboutLabel.about.EXPERTS}</div>
+                  <button
+                    type="button"
+                    onClick={this.handleViewToggle}
+                    disabled={view === CONTACT_TYPES.OFFICE}
+                    className={view === CONTACT_TYPES.OFFICE ? 'active' : ''}
+                  >
+                    <span
+                      aria-hidden="true"
+                      className={view === CONTACT_TYPES.OFFICE ? 'icon highlight' : 'icon'}
+                    >
+                      <IconContext.Provider value={{ className: 'tab-icon' }}>
+                        <FaBuilding aria-hidden />
+                      </IconContext.Provider>
+                    </span>
+                    <span className={view === CONTACT_TYPES.OFFICE ? 'highlight' : ''}>
+                      {aboutLabel.about.SEE_OFFICES}
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={this.handleViewToggle}
+                    disabled={view !== CONTACT_TYPES.OFFICE}
+                    className={view !== CONTACT_TYPES.OFFICE ? 'active' : ''}
+                  >
+                    <span
+                      aria-hidden="true"
+                      className={view !== CONTACT_TYPES.OFFICE ? 'icon highlight' : 'icon'}
+                    >
+                      <IconContext.Provider value={{ className: 'tab-icon' }}>
+                        <FaUser aria-hidden />
+                      </IconContext.Provider>
+                    </span>
+                    <span className={view !== CONTACT_TYPES.OFFICE ? 'highlight' : ''}>
+                      {aboutLabel.about.SEE_EXPERTS}
+                    </span>
+                  </button>
                 </div>
-                {experts.map(eachExpert => (
-                  <ContactExpert
-                    key={makeid()}
+
+                <div className={`offices-view ${view === CONTACT_TYPES.OFFICE ? 'active' : ''}`}>
+                  <ContactMap
                     aboutLabel={aboutLabel}
-                    expert={eachExpert}
+                    experts={experts}
+                    locale={locale}
+                    offices={offices}
                     handleContactUs={this.handleContactUs}
+                    visitorRegion={visitorRegion}
                   />
-                ))}
+                </div>
+                <div className={`experts-view ${view === CONTACT_TYPES.EXPERT ? 'active' : ''}`}>
+                  <div className="table-data">
+                    <div className="table-entry">
+                      <div className="table-pin" />
+                      <div className="table-details heading">{aboutLabel.about.EXPERTS}</div>
+                    </div>
+                    {experts.map(eachExpert => (
+                      <ContactExpert
+                        key={makeid()}
+                        aboutLabel={aboutLabel}
+                        expert={eachExpert}
+                        handleContactUs={this.handleContactUs}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                <div className="contact-shroud" ref={this.shroud} />
+
+                <ContactFormModal
+                  hideModal={this.handleHideModal}
+                  label={label}
+                  offices={offices}
+                  selectedOffice={office}
+                  selectedExpert={expert}
+                  contactType={contactType}
+                  showModal={showModal}
+                  title={title}
+                />
               </div>
-            </div>
-
-            <div className="contact-shroud" ref={this.shroud} />
-
-            <ContactFormModal
-              hideModal={this.handleHideModal}
-              label={label}
-              offices={offices}
-              selectedOffice={office}
-              selectedExpert={expert}
-              contactType={contactType}
-              showModal={showModal}
-              title={title}
-            />
-          </div>
-        </>
-        {/* )}
-        </Location> */}
+            </>
+          )}
+        </Location>
       </Layout>
     );
   }

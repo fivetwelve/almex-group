@@ -88,12 +88,15 @@ $spacing: 20px;
       .heading {
         position: absolute;
         bottom: 0;
-        padding: 55px 90px 20px;
+        padding: 55px 20px 20px 20px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
         color: white;
         text-shadow: 1px 1px 0 $grey80, -1px -1px 0 $grey80, 1px -1px 0 $grey80, -1px 1px 0 $grey80,
           1px 1px 0 $grey80;
         @include media('>=tablet') {
-          padding: 55px 90px 40px;
+          padding: 55px 20px 40px 20px;
         }
         a {
           color: $white;
@@ -106,6 +109,9 @@ $spacing: 20px;
           @include media('>=tablet') {
             font-size: 50px;
             line-height: normal;
+          }
+          p {
+            text-align: center;
           }
           &:hover {
             p {
@@ -137,14 +143,15 @@ $spacing: 20px;
       height: 70px;
       display: flex;
       position: absolute;
-      bottom: -70px;
+      // bottom: -70px;
       .description {
+        display: flex;
+        justify-content: center;
         width: 100%;
         max-width: 1280px;
         margin: 0 auto;
         color: $white;
         font-size: 18px;
-        display: flex;
         align-items: center;
         line-height: 16px;
         padding-left: 10px;
@@ -166,6 +173,7 @@ $spacing: 20px;
 
         p {
           margin-bottom: 0;
+          text-align: center;
         }
       }
     }
@@ -255,17 +263,20 @@ $spacing: 20px;
       max-width: 1280px;
       margin: 0 auto;
       padding-left: 20px;
+      padding-right: 20px;
       color: $white;
       font-size: 18px;
       line-height: 18px;
       display: flex;
       align-items: center;
+      justify-content: center;
       @include media('>=tablet') {
         padding-left: 90px;
         font-size: 24px;
         line-height: 24px;
       }
       p {
+        font-weight: 700;
         margin-bottom: 0;
       }
     }

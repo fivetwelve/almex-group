@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
-// import { Location } from '@reach/router';
+import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import YouTube from 'react-youtube';
 import Layout from '../components/layout';
 import CategorySelector from '../components/categorySelector';
 import ContactForm from '../components/contactForm';
-import countryFlag from '../components/countryFlag';
-import { makeid, renderLink } from '../utils/functions';
+import { countryFlag, makeid, renderLink } from '../utils/functions';
 import { FORM_TYPES, PAGE_TYPES, RESOURCE_TYPES } from '../constants';
 import '../styles/resources.scss';
 import '../styles/contactForm.scss';
@@ -21,7 +20,6 @@ const checkFor = (array, property, value) => {
 
 const collateFromPages = pages => {
   let additions = [];
-  // console.log(pages);
   pages.forEach(page => {
     if (page.pageType === PAGE_TYPES.PRODUCT) {
       page.productSource.pdfDownloads.forEach(pdf => {
@@ -37,8 +35,6 @@ const collateFromPages = pages => {
     if (page.pageType === PAGE_TYPES.LANDING) {
       if (page.landingSource.landingSections) {
         page.landingSource.landingSections.forEach(section => {
-          // console.log('2nd level');
-          // console.log(section);
           additions = additions.concat(collateFromPages(section.pages));
         });
       }
@@ -103,8 +99,6 @@ class ResourcesTemplate extends Component {
         */
 
         category.page.landingSource.landingSections.forEach(section => {
-          // console.log('1st level');
-          // console.log(section);
           resources = resources.concat(collateFromPages(section.pages));
         });
 
@@ -257,149 +251,153 @@ class ResourcesTemplate extends Component {
         region={region}
         title={title}
       >
-        {/* <Location>
-        {({ location }) => ( */}
-        <>
-          <div className="resources-container">
-            {bannerImage && (
-              <div className="banner-wrapper">
-                <div className="banner-image">
-                  <GraphImg image={bannerImage} maxWidth={1280} />
-                </div>
-              </div>
-            )}
-            <div className="main-container">
-              <div className="main-content">
-                <h1 className="title">{title}</h1>
-                <div className="content">
-                  <ReactMarkdown
-                    source={description}
-                    escapeHtml={false}
-                    renderers={{
-                      link: props => renderLink(props),
-                    }}
-                  />
-                  <div className="selector-container">
-                    <CategorySelector
-                      categories={allCategories}
-                      selectedCategory={selectedCategory}
-                      setCategory={categoryKey => this.handleSetCategory(categoryKey)}
-                      sortOrder={sortOrder}
-                      label={resourcesLabel.resources}
-                    />
-                    {selectedCategory && selectedCategory.expert && (
-                      <div className="expert">
-                        <p>{resourcesLabel.resources.CONTACT_EXPERT}</p>
-                        {selectedCategory.expert.countryCode &&
-                          countryFlag(selectedCategory.expert.countryCode)}
-                        {selectedCategory.expert.name}
-                        <br />
-                        <ReactMarkdown
-                          source={selectedCategory.expert.location}
-                          escapeHtml={false}
-                        />
-                        {selectedCategory.expert.telephone && (
-                          <a
-                            href={`tel:${selectedCategory.expert.telephone}`}
-                            rel="nofollow noindex"
-                          >
-                            {selectedCategory.expert.telephone}
-                          </a>
-                        )}
-                        {selectedCategory.expert.mobile && (
-                          <a href={`tel:${selectedCategory.expert.mobile}`} rel="nofollow noindex">
-                            {selectedCategory.expert.mobile}
-                          </a>
-                        )}
-                        {selectedCategory.expert.email && (
-                          <a
-                            href={`mailto:${selectedCategory.expert.email}`}
-                            rel="nofollow noindex"
-                          >
-                            {selectedCategory.expert.email}
-                          </a>
-                        )}
-                      </div>
-                    )}
+        <Location>
+          {({ location }) => (
+            <>
+              <div className="resources-container">
+                {bannerImage && (
+                  <div className="banner-wrapper">
+                    <div className="banner-image">
+                      <GraphImg image={bannerImage} maxWidth={1280} />
+                    </div>
                   </div>
-                  <hr />
-                  {/* shown when there are no resources for this category */}
-                  {selectedCategory && selectedCategory.resources.length === 0 && (
-                    <div className="no-resource">{resourcesLabel.resources.NO_RESOURCE}</div>
-                  )}
-                  {selectedCategory &&
-                    selectedCategory.resources.length > 0 &&
-                    selectedCategory.resources.map(type => (
-                      <div className="resource-type-container" key={makeid()}>
-                        <button
-                          className="resource-type"
-                          onClick={evt => this.handleClickResourceType(evt)}
-                          type="button"
-                        >
-                          {type.title || resourcesLabel.resources.MISC}
-                        </button>
-                        <div className="category-resources">
-                          <div className="resources-heading">
-                            <span>{resourcesLabel.resources.NAME}</span>
-                          </div>
-                          {(type.resourceType === RESOURCE_TYPES.PROMO_VIDEO ||
-                            type.resourceType === RESOURCE_TYPES.TRAINING_VIDEO) && (
-                            <div className="resource-videos">
-                              {type.documents.map(document => (
-                                <div className="resource" key={makeid()}>
-                                  {document.title}
-                                  <YouTube
-                                    videoId={document.youTubeId}
-                                    containerClassName="video-container"
-                                  />
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                          {type.resourceType !== RESOURCE_TYPES.PROMO_VIDEO &&
-                            type.resourceType !== RESOURCE_TYPES.TRAINING_VIDEO && (
-                              <div className="resource-documents">
-                                {type.documents.map(document => (
-                                  <div className="resource" key={makeid()}>
-                                    <a
-                                      href={document.url}
-                                      target="_blank"
-                                      rel="noopener noreferrer nofollow noindex"
-                                    >
-                                      {document.documentTitle || document.fileName.split('.pdf')[0]}
-                                    </a>
-                                  </div>
-                                ))}
-                              </div>
-                            )}
-                        </div>
-                      </div>
-                    ))}
-                  <hr />
-                  {email && (
-                    <div className="form-container">
+                )}
+                <div className="main-container">
+                  <div className="main-content">
+                    <h1 className="title">{title}</h1>
+                    <div className="content">
                       <ReactMarkdown
-                        source={contactAndForm}
+                        source={description}
                         escapeHtml={false}
                         renderers={{
-                          link: props => renderLink(props),
+                          link: props => renderLink(props, location),
                         }}
                       />
-                      <ContactForm
-                        label={label}
-                        email={email}
-                        emailSubject={emailSubject}
-                        formType={FORM_TYPES.CONTACT}
-                      />
+                      <div className="selector-container">
+                        <CategorySelector
+                          categories={allCategories}
+                          selectedCategory={selectedCategory}
+                          setCategory={categoryKey => this.handleSetCategory(categoryKey)}
+                          sortOrder={sortOrder}
+                          label={resourcesLabel.resources}
+                        />
+                        {selectedCategory && selectedCategory.expert && (
+                          <div className="expert">
+                            <p>{resourcesLabel.resources.CONTACT_EXPERT}</p>
+                            {selectedCategory.expert.countryCode &&
+                              countryFlag(selectedCategory.expert.countryCode)}
+                            {selectedCategory.expert.name}
+                            <br />
+                            <ReactMarkdown
+                              source={selectedCategory.expert.location}
+                              escapeHtml={false}
+                            />
+                            {selectedCategory.expert.telephone && (
+                              <a
+                                href={`tel:${selectedCategory.expert.telephone}`}
+                                rel="nofollow noindex"
+                              >
+                                {selectedCategory.expert.telephone}
+                              </a>
+                            )}
+                            {selectedCategory.expert.mobile && (
+                              <a
+                                href={`tel:${selectedCategory.expert.mobile}`}
+                                rel="nofollow noindex"
+                              >
+                                {selectedCategory.expert.mobile}
+                              </a>
+                            )}
+                            {selectedCategory.expert.email && (
+                              <a
+                                href={`mailto:${selectedCategory.expert.email}`}
+                                rel="nofollow noindex"
+                              >
+                                {selectedCategory.expert.email}
+                              </a>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                      <hr />
+                      {/* shown when there are no resources for this category */}
+                      {selectedCategory && selectedCategory.resources.length === 0 && (
+                        <div className="no-resource">{resourcesLabel.resources.NO_RESOURCE}</div>
+                      )}
+                      {selectedCategory &&
+                        selectedCategory.resources.length > 0 &&
+                        selectedCategory.resources.map(type => (
+                          <div className="resource-type-container" key={makeid()}>
+                            <button
+                              className="resource-type"
+                              onClick={evt => this.handleClickResourceType(evt)}
+                              type="button"
+                            >
+                              {type.title || resourcesLabel.resources.MISC}
+                            </button>
+                            <div className="category-resources">
+                              <div className="resources-heading">
+                                <span>{resourcesLabel.resources.NAME}</span>
+                              </div>
+                              {(type.resourceType === RESOURCE_TYPES.PROMO_VIDEO ||
+                                type.resourceType === RESOURCE_TYPES.TRAINING_VIDEO) && (
+                                <div className="resource-videos">
+                                  {type.documents.map(document => (
+                                    <div className="resource" key={makeid()}>
+                                      {document.title}
+                                      <YouTube
+                                        videoId={document.youTubeId}
+                                        containerClassName="video-container"
+                                      />
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                              {type.resourceType !== RESOURCE_TYPES.PROMO_VIDEO &&
+                                type.resourceType !== RESOURCE_TYPES.TRAINING_VIDEO && (
+                                  <div className="resource-documents">
+                                    {type.documents.map(document => (
+                                      <div className="resource" key={makeid()}>
+                                        <a
+                                          href={document.url}
+                                          target="_blank"
+                                          rel="noopener noreferrer nofollow noindex"
+                                        >
+                                          {document.documentTitle ||
+                                            document.fileName.split('.pdf')[0]}
+                                        </a>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+                            </div>
+                          </div>
+                        ))}
+                      <hr />
+                      {email && (
+                        <div className="form-container">
+                          <ReactMarkdown
+                            source={contactAndForm}
+                            escapeHtml={false}
+                            renderers={{
+                              link: props => renderLink(props, location),
+                            }}
+                          />
+                          <ContactForm
+                            label={label}
+                            email={email}
+                            emailSubject={emailSubject}
+                            formType={FORM_TYPES.CONTACT}
+                          />
+                        </div>
+                      )}
                     </div>
-                  )}
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </>
-        {/* )}
-      </Location> */}
+            </>
+          )}
+        </Location>
       </Layout>
     );
   }

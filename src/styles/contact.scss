@@ -5,11 +5,15 @@ $spacing: 20px;
   border-radius: 5px;
   background-color: $white;
   color: $yellow-sea;
-  font-size: 18px;
   font-weight: bold;
-  height: auto;
-  padding: 10px 40px;
+  height: 48px;
+  font-size: 14px;
+  padding: 10px 10px;
   margin-top: 1rem;
+  @include media('>=tablet') {
+    font-size: 18px;
+    padding: 10px 20px;
+  }
 }
 
 .contact-page {
@@ -73,10 +77,11 @@ $spacing: 20px;
       }
     }
     .view-toggle-container {
+      height: 64px;
       button {
         @include button-ui;
         margin-bottom: -3px;
-        padding: 10px 20px;
+        // padding: 10px 20px;
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
         // border-bottom: 3px solid $white;
@@ -115,7 +120,7 @@ $spacing: 20px;
     .experts-view {
       display: none;
       &.active {
-        display: initial;
+        display: block;
       }
     }
     .almex-locations {
@@ -247,6 +252,8 @@ $spacing: 20px;
           }
           .flag {
             margin-bottom: 0;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1px;
           }
           .phone {
             transform: translateY(3px) scaleX(-1);
@@ -263,7 +270,7 @@ $spacing: 20px;
               font-weight: bold;
               display: none;
               @include media('>=desktop') {
-                display: initial;
+                display: block;
               }
             }
           }
@@ -281,7 +288,9 @@ $spacing: 20px;
               padding-right: 20px;
             }
             .flag {
-              border: 1px solid $grey20;
+              margin-bottom: 0;
+              border: 1px solid rgba(0, 0, 0, 0.05);
+              padding: 1px;
             }
             .fax {
               margin-right: 8px;
@@ -401,7 +410,7 @@ $spacing: 20px;
         }
         .content-container {
           display: flex;
-          flex: 1 1 0;
+          flex: 1 1 auto;
           width: 100%;
           flex-direction: column;
           background: $white;
@@ -412,6 +421,7 @@ $spacing: 20px;
             margin: 0 auto;
             padding-left: 10px;
             padding-right: 10px;
+            background-color: $white;
             @include media('>=tablet') {
               padding-left: 100px;
               padding-right: 100px;
@@ -426,7 +436,6 @@ $spacing: 20px;
             .contact-form {
               button {
                 &.disabled {
-                  // opacity: 0.5;
                   color: $grey30;
                   border: 4px solid $grey30;
                 }
@@ -468,6 +477,9 @@ $spacing: 20px;
                 flex-direction: row;
                 justify-content: space-between;
                 margin-bottom: 2px;
+                @include media('>=tablet') {
+                  width: 400px;
+                }
               }
               .required {
                 font-size: 12px;

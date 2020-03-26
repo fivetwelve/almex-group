@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
 import { createLink } from '../utils/functions';
+import fallbackTile from '../../static/img/fallback_500x235.jpg';
 
 const AccessoryAndRelatedTile = ({ location, slug, tile, title }) => (
   <>
@@ -10,7 +11,7 @@ const AccessoryAndRelatedTile = ({ location, slug, tile, title }) => (
         <div className="title">{title}</div>
         <div className="sr-only">{title}</div>
         <div className="image-container">
-          <img src={(tile && tile.url) || 'https://placehold.it/275x275'} alt={title} />
+          <img src={(tile && tile.url) || fallbackTile} alt={title} />
         </div>
       </div>
     </Link>

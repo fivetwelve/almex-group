@@ -378,6 +378,10 @@ $spacing: 20px;
               background-size: cover;
               background-position: center;
               margin-right: 10px;
+              @include media('>=desktop') {
+                height: 32px;
+                width: 40px;
+              }
             }
           }
         }

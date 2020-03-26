@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
 import { FaFax, FaMobileAlt, FaPhone } from 'react-icons/fa';
-import CountryFlag from './countryFlag';
-import { makeid } from '../utils/functions';
+import { countryFlag, makeid } from '../utils/functions';
 
 const ContactExpert = props => {
   const { aboutLabel, expert, handleContactUs } = props;
@@ -15,7 +14,7 @@ const ContactExpert = props => {
       <div className="table-details">
         <div className="expert">
           <p>
-            {countryCode && CountryFlag(countryCode)}
+            {countryCode && countryFlag(countryCode)}
             <br />
             {specialty}
           </p>

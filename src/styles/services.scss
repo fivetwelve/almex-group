@@ -76,6 +76,7 @@ $spacing: 20px;
           }
           img {
             padding: 0 0 5px;
+            margin-bottom: 0;
             @include media('>=tablet') {
               float: left;
               padding: 5px 20px 5px 0;

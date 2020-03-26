@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
-// import { Location } from '@reach/router';
+import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import 'moment/locale/es';
@@ -52,48 +52,48 @@ const DownloadsTemplate = ({ data, pageContext }) => {
       region={region}
       title={title}
     >
-      {/* <Location>
-        {({ location }) => ( */}
-      <>
-        <div className="downloads-container">
-          {bannerImage && (
-            <div className={`banner-wrapper ${themeColour}`}>
-              <div className={`banner-image ${themeColour}`}>
-                <GraphImg image={bannerImage} maxWidth={1280} />
+      <Location>
+        {({ location }) => (
+          <>
+            <div className="downloads-container">
+              {bannerImage && (
+                <div className={`banner-wrapper ${themeColour}`}>
+                  <div className={`banner-image ${themeColour}`}>
+                    <GraphImg image={bannerImage} maxWidth={1280} />
+                  </div>
+                </div>
+              )}
+              <div className="intro-container">
+                <div className="intro-content">
+                  <h1 className="title">{title}</h1>
+                  {description && (
+                    <div className="description">
+                      <ReactMarkdown
+                        source={description}
+                        escapeHtml={false}
+                        renderers={{
+                          link: props => renderLink(props, location),
+                        }}
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          )}
-          <div className="intro-container">
-            <div className="intro-content">
-              <h1 className="title">{title}</h1>
-              {description && (
-                <div className="description">
+              {files && (
+                <div className={`downloads ${themeColour}`}>
                   <ReactMarkdown
-                    source={description}
+                    source={files}
                     escapeHtml={false}
                     renderers={{
-                      link: props => renderLink(props),
+                      link: props => renderLink(props, location),
                     }}
                   />
                 </div>
               )}
             </div>
-          </div>
-          {files && (
-            <div className={`downloads ${themeColour}`}>
-              <ReactMarkdown
-                source={files}
-                escapeHtml={false}
-                renderers={{
-                  link: props => renderLink(props),
-                }}
-              />
-            </div>
-          )}
-        </div>
-      </>
-      {/* )}
-      </Location> */}
+          </>
+        )}
+      </Location>
     </Layout>
   );
 };

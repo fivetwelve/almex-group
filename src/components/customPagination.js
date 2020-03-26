@@ -92,14 +92,17 @@ const Pagination = ({ currentRefinement, goToPage, nbPages, query }) => {
 };
 
 Pagination.defaultProps = {
-  // currentRefinement: '';
+  currentRefinement: 0,
   goToPage: () => null,
   nbPages: 0,
+  query: '',
 };
 
 Pagination.propTypes = {
+  currentRefinement: PropTypes.number,
   goToPage: PropTypes.func,
   nbPages: PropTypes.number,
+  query: PropTypes.string,
 };
 
 const CustomPagination = connectPagination(Pagination);

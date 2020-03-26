@@ -6,7 +6,7 @@ import { IconContext } from 'react-icons';
 import { FaFax, FaMobileAlt, FaPhone } from 'react-icons/fa';
 import ContactOffice from './contactOffice';
 import { makeid, scrollTo } from '../utils/functions';
-import pin from '../../static/img/map-pin.svg';
+import pin from '../../static/img/map-pin.png';
 
 class ContactMap extends React.Component {
   constructor(props) {

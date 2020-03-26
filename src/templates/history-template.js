@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
-// import { Location } from '@reach/router';
+import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import Layout from '../components/layout';
@@ -36,37 +36,37 @@ const HistoryTemplate = ({ data, pageContext }) => {
       region={region}
       title={title}
     >
-      {/* <Location>
-        {({ location }) => ( */}
-      <>
-        <div className="history-container">
-          {bannerImage && (
-            <div className="banner-wrapper">
-              <div className="banner-image">
-                <GraphImg image={bannerImage} maxWidth={1280} />
+      <Location>
+        {({ location }) => (
+          <>
+            <div className="history-container">
+              {bannerImage && (
+                <div className="banner-wrapper">
+                  <div className="banner-image">
+                    <GraphImg image={bannerImage} maxWidth={1280} />
+                  </div>
+                </div>
+              )}
+              <div className="intro-container">
+                <div className="intro-content">
+                  <h1 className="title">{title}</h1>
+                  <div className="description">
+                    <ReactMarkdown
+                      source={description}
+                      escapeHtml={false}
+                      renderers={{
+                        link: props => renderLink(props, location),
+                      }}
+                    />
+                  </div>
+                </div>
               </div>
+              <TimelineManager events={events} label={label} />
+              <div className="other-content">...</div>
             </div>
-          )}
-          <div className="intro-container">
-            <div className="intro-content">
-              <h1 className="title">{title}</h1>
-              <div className="description">
-                <ReactMarkdown
-                  source={description}
-                  escapeHtml={false}
-                  renderers={{
-                    link: props => renderLink(props),
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-          <TimelineManager events={events} label={label} />
-          <div className="other-content">...</div>
-        </div>
-      </>
-      {/* )}
-      </Location> */}
+          </>
+        )}
+      </Location>
     </Layout>
   );
 };
