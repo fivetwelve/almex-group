@@ -19,7 +19,6 @@ const UsedEquipmentTemplate = ({ data, pageContext }) => {
       headerFooter,
       label,
       navigation,
-      // sparesRepairsLabel,
       page: {
         usedEquipment: { bannerImage, description, disclaimer, title, usedEquipmentListings },
       },
@@ -109,9 +108,7 @@ export const query = graphql`
   query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
     cms {
       ...CommonQuery
-      # sparesRepairsLabel: label(where: { availableIn: $region }) {
       label(where: { availableIn: $region }) {
-        # products(locale: $locale)
         sparesRepairs(locale: $locale)
       }
       page(where: { id: $id }) {

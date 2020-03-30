@@ -9,12 +9,8 @@ $spacing: 20px;
     .slider-control-centerleft,
     .slider-control-centerright {
       margin-top: -30px;
-      @include media('>=tablet') {
-        // margin-top: 0;
-      }
     }
     .slider-control-bottomcenter {
-      // display: none;
       margin-bottom: -15px;
       @include media('>=tablet') {
         margin-bottom: 0px;
@@ -44,9 +40,6 @@ $spacing: 20px;
       @include media('>=wide') {
         max-height: 536px;
       }
-      // height: 0;
-      // width: 100%;
-      // padding-bottom: 42%;
     }
     .left-controls,
     .right-controls {
@@ -143,7 +136,6 @@ $spacing: 20px;
       height: 70px;
       display: flex;
       position: absolute;
-      // bottom: -70px;
       .description {
         display: flex;
         justify-content: center;

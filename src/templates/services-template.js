@@ -12,7 +12,6 @@ const ServicesTemplate = ({ data, pageContext }) => {
   const { locale, region } = pageContext;
   const {
     cms: {
-      // aboutLabel,
       brandNavigation,
       headerFooter,
       label,
@@ -106,9 +105,6 @@ export const query = graphql`
   query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
     cms {
       ...CommonQuery
-      # aboutLabel: label(where: { availableIn: $region }) {
-      #   about(locale: $locale)
-      # }
       page(where: { id: $id }) {
         services: servicesSource {
           bannerImage {

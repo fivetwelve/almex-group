@@ -450,9 +450,7 @@ export const query = graphql`
             page {
               pageType
               landingSource {
-                # title(locale: $locale)
                 landingSections {
-                  # title(locale: $locale)
                   pages(where: { status: PUBLISHED }) {
                     pageType
                     productSource {
@@ -476,7 +474,6 @@ export const query = graphql`
                     }
                     landingSource {
                       landingSections {
-                        # title(locale: $locale)
                         pages(where: { status: PUBLISHED }) {
                           pageType
                           productSource {

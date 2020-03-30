@@ -185,20 +185,11 @@ const HomepageTemplate = ({ data, pageContext }) => {
                     </span>
                   </button>
                 )}
-                // renderBottomCenterControls={() => null}
                 wrapAround={options.wrapAround}
               >
-                {/* {slideArray} */}
                 {renderSlides(location)}
               </Carousel>
             </div>
-            {/* <div className="tagline-anchor">
-              <div className="tagline-container">
-                <div className="tagline">
-                  <ReactMarkdown source={headerFooter.formattedTagline} escapeHtml={false} />
-                </div>
-              </div>
-            </div> */}
             <div className="no-bleed-container">
               <div className="tile-container">
                 {homepage.homepageTiles.length > 0 &&

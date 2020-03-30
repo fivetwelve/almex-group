@@ -51,7 +51,6 @@ $spacing: 20px;
       .main-content {
         @include media('>=desktop') {
           width: calc(75% - 40px);
-          // padding-left: 20px;
           padding-right: 40px;
         }
         .title {

@@ -14,7 +14,6 @@ const DownloadsTemplate = ({ data, pageContext }) => {
   const { locale, region } = pageContext;
   const {
     cms: {
-      // aboutLabel,
       brandNavigation,
       headerFooter,
       label,

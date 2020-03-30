@@ -130,11 +130,8 @@ class EventsTemplate extends Component {
 
   isDayHighlighted = day => {
     const { allEvents, continent } = this.state;
-    // const daySelected = new Date(day.getFullYear(), day.getMonth(), day.getDate());
-    // console.log(daySelected);
     let bool = false;
     if (continent === CONTINENTS.GLOBAL) {
-      // console.log(day);
       bool =
         allEvents &&
         allEvents.some(event =>
@@ -321,7 +318,6 @@ class EventsTemplate extends Component {
 
 EventsTemplate.defaultProps = {
   data: {},
-  // events: [],
   pageContext: {},
 };
 
@@ -329,12 +325,6 @@ EventsTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.object,
   }),
-  // events: PropTypes.arrayOf(
-  //   PropTypes.shape({
-  //     title: PropTypes.string,
-  //     date: PropTypes.string,
-  //   }),
-  // ),
   pageContext: PropTypes.shape({
     landingSections: PropTypes.array,
     locale: PropTypes.string,

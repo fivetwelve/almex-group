@@ -146,11 +146,6 @@ class ContactTemplate extends React.Component {
                 </div>
 
                 <div className="view-toggle-container">
-                  {/* <button type="button" onClick={this.handleViewToggle}>
-                {view === CONTACT_TYPES.OFFICE
-                  ? aboutLabel.about.SEE_EXPERTS
-                  : aboutLabel.about.SEE_OFFICES}
-              </button> */}
                   <button
                     type="button"
                     onClick={this.handleViewToggle}

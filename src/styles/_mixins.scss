@@ -107,7 +107,6 @@
       }
       .about-links {
         width: calc(50% - 10px);
-        // padding: 20px;
         margin-left: 10px;
         @include media('>=desktop') {
           width: calc(55% - 10px);
