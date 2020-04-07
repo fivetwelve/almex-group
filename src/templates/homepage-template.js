@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { graphql, Link } from 'gatsby';
 import { Location } from '@reach/router';
@@ -13,6 +13,51 @@ import '../styles/homepage.scss';
 import { createLink, makeid, renderLink } from '../utils/functions';
 
 const HomepageTemplate = ({ data, pageContext }) => {
+  /* Ad-hoc code for adding temporary geo-filtering on homagepage carousel */
+  const [visitorCountry, setCountry] = useState(null);
+
+  const lookupCountry = async () => {
+    fetch('https://ipapi.co/json/', {
+      headers: {
+        Accept: 'application/json',
+      },
+    })
+      .then(result => result.json())
+      .then(json => {
+        console.log(json);
+        return json.country;
+      })
+      .catch(() => {
+        console.error('Country not found');
+        return '';
+      });
+  };
+
+  if (typeof window !== 'undefined' && !visitorCountry) {
+    const savedCountry =
+      (navigator.cookieEnabled && localStorage.getItem('almexVisitorRegion')) || null;
+
+    console.log('1', savedCountry);
+
+    if (!savedCountry) {
+      useEffect(() => {
+        const initLookup = async () => {
+          const countryLookup = await lookupCountry();
+          setCountry(countryLookup);
+        };
+        initLookup();
+      });
+    } else {
+      setCountry(savedCountry);
+    }
+  }
+
+  console.log('3 region:', visitorCountry);
+
+  // const checkGeoRestriction = () =>
+  //   if
+  /* end ad-hoc code */
+
   const { locale, region } = pageContext;
   const {
     cms: {
@@ -52,6 +97,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
     for (let i = 0; i < slides.length; i += 1) {
       let element = null;
       slideNum += 1;
+      console.log(slides[i].geoRestrict);
       if (slides[i].slideType === 'IMAGE') {
         const slideStyle = {
           backgroundImage: `url(${slides[i].asset.url})`,
@@ -307,6 +353,7 @@ export const query = graphql`
         homepage: homepageSource {
           heading(locale: $locale)
           homepageCarouselSlides(orderBy: sort_ASC) {
+            geoRestrict
             sort
             asset {
               url

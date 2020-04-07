@@ -83,6 +83,8 @@ class Footer extends React.Component {
           localStorage.setItem('almexLastVisit', nowString);
         }
         this.getOffices(json.country);
+        console.log('country----');
+        console.log(json.country);
       })
       .catch(() => {
         if (navigator.cookieEnabled) {
