@@ -14,8 +14,9 @@ import { createLink, makeid, renderLink } from '../utils/functions';
 
 const HomepageTemplate = ({ data, pageContext }) => {
   /* Ad-hoc code for adding temporary geo-filtering on homagepage carousel */
-  const [visitorCountry, setCountry] = useState(null);
-  const [allowedCountry, setCountryBool] = useState(false);
+  // const [country, setCountry] = useState(null);
+  const [countryPermitted, setCountryPermission] = useState(false);
+  // const [allowedCountry, setCountryBool] = useState(false);
   const allowedCountries = ['CA', 'US'];
 
   // const lookupCountry = async () => {
@@ -35,15 +36,13 @@ const HomepageTemplate = ({ data, pageContext }) => {
   //     });
   // };
 
-  if (typeof window !== 'undefined' && !visitorCountry) {
-    const savedCountry =
-      (navigator.cookieEnabled && localStorage.getItem('almexVisitorRegion')) || null;
-
-    console.log('1', savedCountry);
-
-    if (!savedCountry) {
-      useEffect(() => {
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedCountry =
+        (navigator.cookieEnabled && localStorage.getItem('almexVisitorRegion')) || null;
+      if (!savedCountry) {
         fetch('https://ipapi.co/json/', {
+          method: 'GET',
           headers: {
             Accept: 'application/json',
           },
@@ -52,20 +51,57 @@ const HomepageTemplate = ({ data, pageContext }) => {
           .then(json => {
             console.log('json');
             console.log(json);
-            setCountry(json.country);
-            setCountryBool(allowedCountries.includes(json.country));
+            // setCountry({abbrev: json.country});
+            setCountryPermission(allowedCountries.includes(json.country));
           })
-          .catch(() => {
-            console.error('Country not found');
-            setCountry('');
+          .catch(err => {
+            console.log('Country not found');
+            console.log(err);
+          });
+      } else {
+        // setCountry(savedCountry);
+        const permission = allowedCountries.includes(savedCountry);
+        setCountryPermission(permission);
+      }
+    }
+  }, []);
+
+  /*
+  if (typeof window !== 'undefined') {
+    const savedCountry =
+      (navigator.cookieEnabled && localStorage.getItem('almexVisitorRegion')) || null;
+
+    console.log('1---country', savedCountry);
+
+    if (!savedCountry) {
+      useEffect(() => {
+        fetch('https://ipapi.co/json/', {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+          },
+        })
+          .then(result => result.json())
+          .then(json => {
+            console.log('json');
+            console.log(json);
+            // setCountry({abbrev: json.country});
+            setCountryPermission(allowedCountries.includes(json.country));
+          })
+          .catch(err => {
+            console.log('Country not found');
+            console.log(err);
           });
       }, []);
     } else {
-      setCountry(savedCountry);
+      // setCountry(savedCountry);
+      const permission = allowedCountries.includes(savedCountry);
+      setCountryPermission(permission);
     }
   }
+*/
 
-  console.log('3 region:', visitorCountry);
+  console.log('3---permission:', countryPermitted);
 
   // const checkGeoRestriction = () =>
   //   if
@@ -110,7 +146,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
     for (let i = 0; i < slides.length; i += 1) {
       let element = null;
       slideNum += 1;
-      if (!slides[i].geoRestrict || (slides[i].geoRestrict && allowedCountry)) {
+      if (!slides[i].geoRestrict || (slides[i].geoRestrict && countryPermitted)) {
         if (slides[i].slideType === 'IMAGE') {
           const slideStyle = {
             backgroundImage: `url(${slides[i].asset.url})`,
