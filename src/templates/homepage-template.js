@@ -14,6 +14,7 @@ import { createLink, makeid, renderLink } from '../utils/functions';
 
 const HomepageTemplate = ({ data, pageContext }) => {
   /* Ad-hoc code for adding temporary geo-filtering on homagepage carousel */
+  const [isLoading, setLoadingState] = useState(true);
   const [countryPermitted, setCountryPermission] = useState(false);
   const allowedCountries = ['CA', 'US'];
 
@@ -31,13 +32,16 @@ const HomepageTemplate = ({ data, pageContext }) => {
           .then(result => result.json())
           .then(json => {
             setCountryPermission(allowedCountries.includes(json.country));
+            setLoadingState(false);
           })
           // eslint-disable-next-line no-unused-vars
           .catch(err => {
             setCountryPermission(false);
+            setLoadingState(false);
           });
       } else {
         setCountryPermission(allowedCountries.includes(savedCountry));
+        setLoadingState(false);
       }
     }
   }, []);
@@ -221,7 +225,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
                 )}
                 wrapAround={options.wrapAround}
               >
-                {renderSlides(location)}
+                {!isLoading && renderSlides(location)}
               </Carousel>
             </div>
             <div className="no-bleed-container">
