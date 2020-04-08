@@ -336,9 +336,9 @@ class ResourcesTemplate extends Component {
                               {type.title || resourcesLabel.resources.MISC}
                             </button>
                             <div className="category-resources">
-                              <div className="resources-heading">
+                              {/* <div className="resources-heading">
                                 <span>{resourcesLabel.resources.NAME}</span>
-                              </div>
+                              </div> */}
                               {(type.resourceType === RESOURCE_TYPES.PROMO_VIDEO ||
                                 type.resourceType === RESOURCE_TYPES.TRAINING_VIDEO) && (
                                 <div className="resource-videos">
