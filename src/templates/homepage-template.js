@@ -15,23 +15,25 @@ import { createLink, makeid, renderLink } from '../utils/functions';
 const HomepageTemplate = ({ data, pageContext }) => {
   /* Ad-hoc code for adding temporary geo-filtering on homagepage carousel */
   const [visitorCountry, setCountry] = useState(null);
+  const [allowedCountry, setCountryBool] = useState(false);
+  const allowedCountries = ['CA', 'US'];
 
-  const lookupCountry = async () => {
-    fetch('https://ipapi.co/json/', {
-      headers: {
-        Accept: 'application/json',
-      },
-    })
-      .then(result => result.json())
-      .then(json => {
-        console.log(json);
-        return json.country;
-      })
-      .catch(() => {
-        console.error('Country not found');
-        return '';
-      });
-  };
+  // const lookupCountry = async () => {
+  //   fetch('https://ipapi.co/json/', {
+  //     headers: {
+  //       Accept: 'application/json',
+  //     },
+  //   })
+  //     .then(result => result.json())
+  //     .then(json => {
+  //       console.log(json);
+  //       return json.country;
+  //     })
+  //     .catch(() => {
+  //       console.error('Country not found');
+  //       return '';
+  //     });
+  // };
 
   if (typeof window !== 'undefined' && !visitorCountry) {
     const savedCountry =
@@ -41,12 +43,23 @@ const HomepageTemplate = ({ data, pageContext }) => {
 
     if (!savedCountry) {
       useEffect(() => {
-        const initLookup = async () => {
-          const countryLookup = await lookupCountry();
-          setCountry(countryLookup);
-        };
-        initLookup();
-      });
+        fetch('https://ipapi.co/json/', {
+          headers: {
+            Accept: 'application/json',
+          },
+        })
+          .then(result => result.json())
+          .then(json => {
+            console.log('json');
+            console.log(json);
+            setCountry(json.country);
+            setCountryBool(allowedCountries.includes(json.country));
+          })
+          .catch(() => {
+            console.error('Country not found');
+            setCountry('');
+          });
+      }, []);
     } else {
       setCountry(savedCountry);
     }
@@ -97,72 +110,75 @@ const HomepageTemplate = ({ data, pageContext }) => {
     for (let i = 0; i < slides.length; i += 1) {
       let element = null;
       slideNum += 1;
-      console.log(slides[i].geoRestrict);
-      if (slides[i].slideType === 'IMAGE') {
-        const slideStyle = {
-          backgroundImage: `url(${slides[i].asset.url})`,
-        };
-        element = (
-          <React.Fragment key={slideNum}>
-            <div className="slide-image" style={slideStyle} />
-            <div className="heading-container">
-              <div className="heading">
-                <Link to={createLink(location, slides[i].page.slug)}>
-                  <ReactMarkdown source={slides[i].slideHeading} escapeHtml={false} />
-                </Link>
+      if (!slides[i].geoRestrict || (slides[i].geoRestrict && allowedCountry)) {
+        if (slides[i].slideType === 'IMAGE') {
+          const slideStyle = {
+            backgroundImage: `url(${slides[i].asset.url})`,
+          };
+          element = (
+            <React.Fragment key={slideNum}>
+              <div className="slide-image" style={slideStyle} />
+              <div className="heading-container">
+                <div className="heading">
+                  <Link to={createLink(location, slides[i].page.slug)}>
+                    <ReactMarkdown source={slides[i].slideHeading} escapeHtml={false} />
+                  </Link>
+                </div>
               </div>
-            </div>
-            <div className="description-container">
-              <div className="description">
-                <Link to={createLink(location, slides[i].page.slug)}>
-                  <ReactMarkdown
-                    source={slides[i].slideText}
-                    escapeHtml={false}
-                    renderers={{
-                      link: props => renderLink(props, location),
-                    }}
-                  />
-                </Link>
+              <div className="description-container">
+                <div className="description">
+                  <Link to={createLink(location, slides[i].page.slug)}>
+                    <ReactMarkdown
+                      source={slides[i].slideText}
+                      escapeHtml={false}
+                      renderers={{
+                        link: props => renderLink(props, location),
+                      }}
+                    />
+                  </Link>
+                </div>
               </div>
-            </div>
-          </React.Fragment>
-        );
+            </React.Fragment>
+          );
+        }
+        if (slides[i].slideType === 'VIDEO') {
+          const slideStyle = {};
+          element = (
+            <React.Fragment key={slideNum}>
+              <div className="slide-video" style={slideStyle}>
+                <div className="video-container">
+                  <video width="100%" height="auto" autoPlay loop muted>
+                    <source src={slides[0].asset.url} type="video/mp4" />
+                  </video>
+                </div>
+              </div>
+              <div className="heading-container">
+                <div className="heading">
+                  <Link to={createLink(location, slides[i].page.slug)}>
+                    <ReactMarkdown source={slides[i].slideHeading} escapeHtml={false} />
+                  </Link>
+                </div>
+              </div>
+              <div className="description-container">
+                <div className="description">
+                  <Link to={`${location.pathname}/${slides[i].page.slug}`}>
+                    <ReactMarkdown
+                      source={slides[i].slideText}
+                      escapeHtml={false}
+                      renderers={{
+                        link: props => renderLink(props, location),
+                      }}
+                    />
+                  </Link>
+                </div>
+              </div>
+            </React.Fragment>
+          );
+        }
       }
-      if (slides[i].slideType === 'VIDEO') {
-        const slideStyle = {};
-        element = (
-          <React.Fragment key={slideNum}>
-            <div className="slide-video" style={slideStyle}>
-              <div className="video-container">
-                <video width="100%" height="auto" autoPlay loop muted>
-                  <source src={slides[0].asset.url} type="video/mp4" />
-                </video>
-              </div>
-            </div>
-            <div className="heading-container">
-              <div className="heading">
-                <Link to={createLink(location, slides[i].page.slug)}>
-                  <ReactMarkdown source={slides[i].slideHeading} escapeHtml={false} />
-                </Link>
-              </div>
-            </div>
-            <div className="description-container">
-              <div className="description">
-                <Link to={`${location.pathname}/${slides[i].page.slug}`}>
-                  <ReactMarkdown
-                    source={slides[i].slideText}
-                    escapeHtml={false}
-                    renderers={{
-                      link: props => renderLink(props, location),
-                    }}
-                  />
-                </Link>
-              </div>
-            </div>
-          </React.Fragment>
-        );
+      if (element) {
+        slideArray.push(element);
       }
-      slideArray.push(element);
     }
     return slideArray;
   };
