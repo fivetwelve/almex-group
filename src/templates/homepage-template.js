@@ -14,27 +14,8 @@ import { createLink, makeid, renderLink } from '../utils/functions';
 
 const HomepageTemplate = ({ data, pageContext }) => {
   /* Ad-hoc code for adding temporary geo-filtering on homagepage carousel */
-  // const [country, setCountry] = useState(null);
   const [countryPermitted, setCountryPermission] = useState(false);
-  // const [allowedCountry, setCountryBool] = useState(false);
   const allowedCountries = ['CA', 'US'];
-
-  // const lookupCountry = async () => {
-  //   fetch('https://ipapi.co/json/', {
-  //     headers: {
-  //       Accept: 'application/json',
-  //     },
-  //   })
-  //     .then(result => result.json())
-  //     .then(json => {
-  //       console.log(json);
-  //       return json.country;
-  //     })
-  //     .catch(() => {
-  //       console.error('Country not found');
-  //       return '';
-  //     });
-  // };
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -49,62 +30,17 @@ const HomepageTemplate = ({ data, pageContext }) => {
         })
           .then(result => result.json())
           .then(json => {
-            console.log('json');
-            console.log(json);
-            // setCountry({abbrev: json.country});
             setCountryPermission(allowedCountries.includes(json.country));
           })
+          // eslint-disable-next-line no-unused-vars
           .catch(err => {
-            console.log('Country not found');
-            console.log(err);
+            setCountryPermission(false);
           });
       } else {
-        // setCountry(savedCountry);
-        const permission = allowedCountries.includes(savedCountry);
-        setCountryPermission(permission);
+        setCountryPermission(allowedCountries.includes(savedCountry));
       }
     }
   }, []);
-
-  /*
-  if (typeof window !== 'undefined') {
-    const savedCountry =
-      (navigator.cookieEnabled && localStorage.getItem('almexVisitorRegion')) || null;
-
-    console.log('1---country', savedCountry);
-
-    if (!savedCountry) {
-      useEffect(() => {
-        fetch('https://ipapi.co/json/', {
-          method: 'GET',
-          headers: {
-            Accept: 'application/json',
-          },
-        })
-          .then(result => result.json())
-          .then(json => {
-            console.log('json');
-            console.log(json);
-            // setCountry({abbrev: json.country});
-            setCountryPermission(allowedCountries.includes(json.country));
-          })
-          .catch(err => {
-            console.log('Country not found');
-            console.log(err);
-          });
-      }, []);
-    } else {
-      // setCountry(savedCountry);
-      const permission = allowedCountries.includes(savedCountry);
-      setCountryPermission(permission);
-    }
-  }
-*/
-
-  console.log('3---permission:', countryPermitted);
-
-  // const checkGeoRestriction = () =>
-  //   if
   /* end ad-hoc code */
 
   const { locale, region } = pageContext;
