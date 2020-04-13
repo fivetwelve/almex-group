@@ -153,7 +153,7 @@ const InstituteTemplate = ({ data, pageContext }) => {
                     <img src={logo} alt="Almex Institute logo" />
                   </div>
                   {sideContent.map(content => (
-                    <div className="aside-block">
+                    <div className="aside-block" key={makeid()}>
                       <ReactMarkdown
                         key={makeid()}
                         source={content}

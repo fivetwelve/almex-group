@@ -59,7 +59,7 @@ const ServicesTemplate = ({ data, pageContext }) => {
                 </div>
                 <aside className="aside-container">
                   {sideContent.map(content => (
-                    <div className="aside-block">
+                    <div className="aside-block" key={makeid()}>
                       <ReactMarkdown
                         key={makeid()}
                         source={content}
