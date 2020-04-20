@@ -1,31 +1,5 @@
 @import 'base';
 
-// .corporate-page {
-//   .banner-container {
-//     background: url('../../static/bg-corporate-sm.png') no-repeat;
-//     background-position: center;
-//     background-size: cover;
-//     height: 250px;
-//     display: flex;
-//     flex-direction: column-reverse;
-//     padding: 20px;
-//     @include media('>=tablet') {
-//       background: url('../../static/bg-corporate.png') no-repeat;
-//       background-position: center;
-//     }
-//     @include media('>=tablet') {
-//       height: 300px;
-//     }
-//     h1 {
-//       color: $white;
-//       margin: 0;
-//       @include media('>=desktop') {
-//         font-size: 72px;
-//         letter-spacing: 0;
-//       }
-//     }
-//   }
-
   .breadcrumb {
     display: none;
     @include media('>=desktop') {

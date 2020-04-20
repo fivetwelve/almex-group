@@ -86,9 +86,6 @@ export const query = graphql`
   query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
     cms {
       ...CommonQuery
-      # aboutLabel: label(where: { availableIn: $region }) {
-      #   about(locale: $locale)
-      # }
       page(where: { id: $id }) {
         promoContent: promoSource {
           bannerImage {

@@ -336,9 +336,9 @@ class ResourcesTemplate extends Component {
                               {type.title || resourcesLabel.resources.MISC}
                             </button>
                             <div className="category-resources">
-                              <div className="resources-heading">
+                              {/* <div className="resources-heading">
                                 <span>{resourcesLabel.resources.NAME}</span>
-                              </div>
+                              </div> */}
                               {(type.resourceType === RESOURCE_TYPES.PROMO_VIDEO ||
                                 type.resourceType === RESOURCE_TYPES.TRAINING_VIDEO) && (
                                 <div className="resource-videos">
@@ -450,9 +450,7 @@ export const query = graphql`
             page {
               pageType
               landingSource {
-                # title(locale: $locale)
                 landingSections {
-                  # title(locale: $locale)
                   pages(where: { status: PUBLISHED }) {
                     pageType
                     productSource {
@@ -476,7 +474,6 @@ export const query = graphql`
                     }
                     landingSource {
                       landingSections {
-                        # title(locale: $locale)
                         pages(where: { status: PUBLISHED }) {
                           pageType
                           productSource {

@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { graphql, Link } from 'gatsby';
 import { Location } from '@reach/router';
@@ -13,6 +13,40 @@ import '../styles/homepage.scss';
 import { createLink, makeid, renderLink } from '../utils/functions';
 
 const HomepageTemplate = ({ data, pageContext }) => {
+  /* Ad-hoc code for adding temporary geo-filtering on homagepage carousel */
+  const [isLoading, setLoadingState] = useState(true);
+  const [countryPermitted, setCountryPermission] = useState(false);
+  const allowedCountries = ['CA', 'US'];
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedCountry =
+        (navigator.cookieEnabled && localStorage.getItem('almexVisitorRegion')) || null;
+      if (!savedCountry) {
+        fetch('https://ipapi.co/json/', {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+          },
+        })
+          .then(result => result.json())
+          .then(json => {
+            setCountryPermission(allowedCountries.includes(json.country));
+            setLoadingState(false);
+          })
+          // eslint-disable-next-line no-unused-vars
+          .catch(err => {
+            setCountryPermission(false);
+            setLoadingState(false);
+          });
+      } else {
+        setCountryPermission(allowedCountries.includes(savedCountry));
+        setLoadingState(false);
+      }
+    }
+  }, []);
+  /* end ad-hoc code */
+
   const { locale, region } = pageContext;
   const {
     cms: {
@@ -52,71 +86,75 @@ const HomepageTemplate = ({ data, pageContext }) => {
     for (let i = 0; i < slides.length; i += 1) {
       let element = null;
       slideNum += 1;
-      if (slides[i].slideType === 'IMAGE') {
-        const slideStyle = {
-          backgroundImage: `url(${slides[i].asset.url})`,
-        };
-        element = (
-          <React.Fragment key={slideNum}>
-            <div className="slide-image" style={slideStyle} />
-            <div className="heading-container">
-              <div className="heading">
-                <Link to={createLink(location, slides[i].page.slug)}>
-                  <ReactMarkdown source={slides[i].slideHeading} escapeHtml={false} />
-                </Link>
+      if (!slides[i].geoRestrict || (slides[i].geoRestrict && countryPermitted)) {
+        if (slides[i].slideType === 'IMAGE') {
+          const slideStyle = {
+            backgroundImage: `url(${slides[i].asset.url})`,
+          };
+          element = (
+            <React.Fragment key={slideNum}>
+              <div className="slide-image" style={slideStyle} />
+              <div className="heading-container">
+                <div className="heading">
+                  <Link to={createLink(location, slides[i].page.slug)}>
+                    <ReactMarkdown source={slides[i].slideHeading} escapeHtml={false} />
+                  </Link>
+                </div>
               </div>
-            </div>
-            <div className="description-container">
-              <div className="description">
-                <Link to={createLink(location, slides[i].page.slug)}>
-                  <ReactMarkdown
-                    source={slides[i].slideText}
-                    escapeHtml={false}
-                    renderers={{
-                      link: props => renderLink(props, location),
-                    }}
-                  />
-                </Link>
+              <div className="description-container">
+                <div className="description">
+                  <Link to={createLink(location, slides[i].page.slug)}>
+                    <ReactMarkdown
+                      source={slides[i].slideText}
+                      escapeHtml={false}
+                      renderers={{
+                        link: props => renderLink(props, location),
+                      }}
+                    />
+                  </Link>
+                </div>
               </div>
-            </div>
-          </React.Fragment>
-        );
+            </React.Fragment>
+          );
+        }
+        if (slides[i].slideType === 'VIDEO') {
+          const slideStyle = {};
+          element = (
+            <React.Fragment key={slideNum}>
+              <div className="slide-video" style={slideStyle}>
+                <div className="video-container">
+                  <video width="100%" height="auto" autoPlay loop muted>
+                    <source src={slides[0].asset.url} type="video/mp4" />
+                  </video>
+                </div>
+              </div>
+              <div className="heading-container">
+                <div className="heading">
+                  <Link to={createLink(location, slides[i].page.slug)}>
+                    <ReactMarkdown source={slides[i].slideHeading} escapeHtml={false} />
+                  </Link>
+                </div>
+              </div>
+              <div className="description-container">
+                <div className="description">
+                  <Link to={`${location.pathname}/${slides[i].page.slug}`}>
+                    <ReactMarkdown
+                      source={slides[i].slideText}
+                      escapeHtml={false}
+                      renderers={{
+                        link: props => renderLink(props, location),
+                      }}
+                    />
+                  </Link>
+                </div>
+              </div>
+            </React.Fragment>
+          );
+        }
       }
-      if (slides[i].slideType === 'VIDEO') {
-        const slideStyle = {};
-        element = (
-          <React.Fragment key={slideNum}>
-            <div className="slide-video" style={slideStyle}>
-              <div className="video-container">
-                <video width="100%" height="auto" autoPlay loop muted>
-                  <source src={slides[0].asset.url} type="video/mp4" />
-                </video>
-              </div>
-            </div>
-            <div className="heading-container">
-              <div className="heading">
-                <Link to={createLink(location, slides[i].page.slug)}>
-                  <ReactMarkdown source={slides[i].slideHeading} escapeHtml={false} />
-                </Link>
-              </div>
-            </div>
-            <div className="description-container">
-              <div className="description">
-                <Link to={`${location.pathname}/${slides[i].page.slug}`}>
-                  <ReactMarkdown
-                    source={slides[i].slideText}
-                    escapeHtml={false}
-                    renderers={{
-                      link: props => renderLink(props, location),
-                    }}
-                  />
-                </Link>
-              </div>
-            </div>
-          </React.Fragment>
-        );
+      if (element) {
+        slideArray.push(element);
       }
-      slideArray.push(element);
     }
     return slideArray;
   };
@@ -185,20 +223,11 @@ const HomepageTemplate = ({ data, pageContext }) => {
                     </span>
                   </button>
                 )}
-                // renderBottomCenterControls={() => null}
                 wrapAround={options.wrapAround}
               >
-                {/* {slideArray} */}
-                {renderSlides(location)}
+                {!isLoading && renderSlides(location)}
               </Carousel>
             </div>
-            {/* <div className="tagline-anchor">
-              <div className="tagline-container">
-                <div className="tagline">
-                  <ReactMarkdown source={headerFooter.formattedTagline} escapeHtml={false} />
-                </div>
-              </div>
-            </div> */}
             <div className="no-bleed-container">
               <div className="tile-container">
                 {homepage.homepageTiles.length > 0 &&
@@ -316,6 +345,7 @@ export const query = graphql`
         homepage: homepageSource {
           heading(locale: $locale)
           homepageCarouselSlides(orderBy: sort_ASC) {
+            geoRestrict
             sort
             asset {
               url

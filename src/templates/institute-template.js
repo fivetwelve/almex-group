@@ -15,7 +15,6 @@ const InstituteTemplate = ({ data, pageContext }) => {
   const { locale, region } = pageContext;
   const {
     cms: {
-      // aboutLabel,
       brandNavigation,
       headerFooter,
       label,
@@ -154,14 +153,16 @@ const InstituteTemplate = ({ data, pageContext }) => {
                     <img src={logo} alt="Almex Institute logo" />
                   </div>
                   {sideContent.map(content => (
-                    <ReactMarkdown
-                      key={makeid()}
-                      source={content}
-                      escapeHtml={false}
-                      renderers={{
-                        link: props => renderLink(props, location),
-                      }}
-                    />
+                    <div className="aside-block" key={makeid()}>
+                      <ReactMarkdown
+                        key={makeid()}
+                        source={content}
+                        escapeHtml={false}
+                        renderers={{
+                          link: props => renderLink(props, location),
+                        }}
+                      />
+                    </div>
                   ))}
                 </aside>
               </div>

@@ -91,12 +91,6 @@ $spacing: 20px;
           width: calc(100% - 410px - (2 * #{$spacing}));
         }
         .carousel {
-          // height: 56.25vw !important;
-          // max-height: 450px;
-          // @include media('>=desktop') {
-          //   max-height: 28.125vw;
-          // }
-
           overflow: hidden;
           .slide-image {
             height: 0;

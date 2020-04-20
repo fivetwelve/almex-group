@@ -11,13 +11,13 @@ const StateResults = ({ label, locale, location, searchResults }) => {
 
   return (
     <div className="results">
-      {query && (
+      {/* {query && (
         <h1>
           {label.RESULTS}: {`"${query}"`}
         </h1>
       )}
       {!query && <h1>{label.PLEASE_ENTER}</h1>}
-      <hr />
+      <hr /> */}
       {query &&
         hits.length > 0 &&
         hits.map(hit => (

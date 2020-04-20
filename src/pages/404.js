@@ -1,35 +1,22 @@
 import React from 'react';
-// import { graphql } from 'gatsby';
-// import ReactMarkdown from 'react-markdown/with-html';
-// import { articleType } from '../types';
+import { Link } from 'gatsby';
+import '../styles/404.scss';
 
-//
-// const NotFoundPage = ({ data }) => (
+import hLogo from '../../static/img/logo-almex-hori.svg';
+
 const NotFoundPage = () => (
-  <div>
-    <h2>Sorry, that page could not be found!</h2>
-    {/* <h2>{data.cms.articles[0].title}</h2>
-    <ReactMarkdown source={data.cms.articles[0].body[0]} escapeHtml={false} /> */}
+  <div className="not-found">
+    <img className="logo" src={hLogo} alt="Almex Group" />
+    <h3>Sorry, that page could not be found!</h3>
+
+    <p>
+      You may be able to find what you were looking for from the <Link to="/">homepage</Link>.
+    </p>
   </div>
 );
 
-NotFoundPage.defaultProps = {
-  // data: {},
-};
+NotFoundPage.defaultProps = {};
 
-NotFoundPage.propTypes = {
-  // data: articleType,
-};
+NotFoundPage.propTypes = {};
 
 export default NotFoundPage;
-
-// export const query = graphql`
-//   query NotFoundPageQuery {
-//     cms {
-//       # articles(where: { articleType: NotFound }) {
-//       #   title
-//       #   body
-//       # }
-//     }
-//   }
-// `;

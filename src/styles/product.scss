@@ -374,14 +374,15 @@ $spacing: 20px;
               display: inline-block;
               height: 32px;
               width: 24px;
+              min-width: 24px;
               background-image: url('../../static/img/icon-file-pdf.svg');
               background-size: cover;
               background-position: center;
               margin-right: 10px;
-              @include media('>=desktop') {
-                height: 32px;
-                width: 40px;
-              }
+              // @include media('>=desktop') {
+              //   height: 32px;
+              //   width: 24px;
+              // }
             }
           }
         }
@@ -643,6 +644,7 @@ $spacing: 20px;
           display: inline-block;
           height: 32px;
           width: 24px;
+          min-width: 24px;
           background-image: url('../../static/img/icon-file-pdf.svg');
           background-size: cover;
           background-position: center;

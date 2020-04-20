@@ -12,7 +12,6 @@ const ServicesTemplate = ({ data, pageContext }) => {
   const { locale, region } = pageContext;
   const {
     cms: {
-      // aboutLabel,
       brandNavigation,
       headerFooter,
       label,
@@ -60,14 +59,16 @@ const ServicesTemplate = ({ data, pageContext }) => {
                 </div>
                 <aside className="aside-container">
                   {sideContent.map(content => (
-                    <ReactMarkdown
-                      key={makeid()}
-                      source={content}
-                      escapeHtml={false}
-                      renderers={{
-                        link: props => renderLink(props, location),
-                      }}
-                    />
+                    <div className="aside-block" key={makeid()}>
+                      <ReactMarkdown
+                        key={makeid()}
+                        source={content}
+                        escapeHtml={false}
+                        renderers={{
+                          link: props => renderLink(props, location),
+                        }}
+                      />
+                    </div>
                   ))}
                 </aside>
               </div>
@@ -104,9 +105,6 @@ export const query = graphql`
   query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
     cms {
       ...CommonQuery
-      # aboutLabel: label(where: { availableIn: $region }) {
-      #   about(locale: $locale)
-      # }
       page(where: { id: $id }) {
         services: servicesSource {
           bannerImage {

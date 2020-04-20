@@ -27,12 +27,14 @@ class Footer extends React.Component {
 
   componentDidMount() {
     if (typeof window !== 'undefined') {
-      const thisRegion = localStorage.getItem('almexVisitorRegion');
+      const thisRegion =
+        (navigator.cookieEnabled && localStorage.getItem('almexVisitorRegion')) || null;
       if (!thisRegion) {
         this.getRegion();
       } else {
         const lastVisit =
-          (localStorage.getItem('almexLastVisit') &&
+          (navigator.cookieEnabled &&
+            localStorage.getItem('almexLastVisit') &&
             new Date(localStorage.getItem('almexLastVisit'))) ||
           null;
         const now = new Date();
@@ -41,7 +43,9 @@ class Footer extends React.Component {
           this.getRegion();
         } else {
           // less than 36 hours, refresh date and use region from localStorage
-          localStorage.setItem('almexLastVisit', now.toString());
+          if (navigator.cookieEnabled) {
+            localStorage.setItem('almexLastVisit', now.toString());
+          }
           this.getOffices(thisRegion);
         }
       }
@@ -74,13 +78,17 @@ class Footer extends React.Component {
     })
       .then(result => result.json())
       .then(json => {
-        localStorage.setItem('almexVisitorRegion', json.country);
-        localStorage.setItem('almexLastVisit', nowString);
+        if (navigator.cookieEnabled) {
+          localStorage.setItem('almexVisitorRegion', json.country);
+          localStorage.setItem('almexLastVisit', nowString);
+        }
         this.getOffices(json.country);
       })
       .catch(() => {
-        localStorage.setItem('almexVisitorRegion', 'ALL');
-        localStorage.setItem('almexLastVisit', nowString);
+        if (navigator.cookieEnabled) {
+          localStorage.setItem('almexVisitorRegion', 'ALL');
+          localStorage.setItem('almexLastVisit', nowString);
+        }
         this.getOffices('ALL');
       });
   };
@@ -109,7 +117,6 @@ class Footer extends React.Component {
           <FaEnvelope aria-hidden style={{ position: 'relative', top: '2px' }} />
         </IconContext.Provider>
         <a href={`mailto:${office.email[0]}`} className="email-link">
-          {/* {office.email[0]} */}
           {office.contactPerson}
         </a>
       </div>
@@ -126,7 +133,9 @@ class Footer extends React.Component {
               style={{ transform: 'scaleX(-1)', position: 'relative', top: '2px' }}
             />
           </IconContext.Provider>
-          {office.tollFree}
+          <a href={`tel:${office.tollFree}`} className="phone-link">
+            {office.tollFree}
+          </a>
           <br />
         </div>
       );
@@ -219,28 +228,6 @@ class Footer extends React.Component {
           <div className="footer-container">
             <div className="footer-top">
               <div className="top-left">
-                {/* <div className="address">
-                  <ReactMarkdown source={companyAddress} escapeHtml={false} />
-                </div>
-                <div className="phone">
-                  <IconContext.Provider value={{ className: 'contact-icon' }}>
-                    <FaPhone
-                      aria-hidden
-                      style={{ transform: 'scaleX(-1)', position: 'relative', top: '2px' }}
-                    />
-                  </IconContext.Provider>
-                  <a href={`tel:${companyPhone}`} className="phone-link">
-                    {companyPhone}
-                  </a>
-                </div>
-                <div className="email">
-                  <IconContext.Provider value={{ className: 'contact-icon' }}>
-                    <FaEnvelope aria-hidden style={{ position: 'relative', top: '2px' }} />
-                  </IconContext.Provider>
-                  <a href="mailto:info@almex.com" className="email-link">
-                    {companyEmail}
-                  </a>
-                </div> */}
                 {regionOffices.map(office => this.renderOffice(office))}
               </div>
               <div className="top-center" />

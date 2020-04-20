@@ -6,9 +6,7 @@ import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import BrandBanner from '../components/brandBanner';
 import Layout from '../components/layout';
-// import LandingTile from '../components/landingTile';
 import '../styles/about.scss';
-// import ProductBrand from '../components/productBrand';
 import { createLink, makeid, renderLink } from '../utils/functions';
 
 const AboutTemplate = ({ data, pageContext }) => {
@@ -28,42 +26,6 @@ const AboutTemplate = ({ data, pageContext }) => {
 
   const brands = brandNavigation.pages;
 
-  // let sectionIdx = 0;
-
-  // const renderTiles = (pages, location) => {
-  //   const tileArray = [];
-  //   let tileIdx = 0;
-  //   pages.forEach(page => {
-  //     let tileData = {};
-  //     tileIdx += 1;
-  //     switch (page.pageType) {
-  //       case PAGE_TYPES.LANDING:
-  //         tileData = {
-  //           slug: page.slug,
-  //           ...page.landing,
-  //         };
-  //         break;
-  //       case PAGE_TYPES.PRODUCT:
-  //         tileData = {
-  //           slug: page.slug,
-  //           ...page.product,
-  //         };
-  //         break;
-  //       default:
-  //         break;
-  //     }
-  //     const landingTile = (
-  //       <LandingTile
-  //         data={tileData}
-  //         key={`tile-${tileIdx}`}
-  //         location={location}
-  //         themeColour={themeColour}
-  //       />
-  //     );
-  //     tileArray.push(landingTile);
-  //   });
-  //   return tileArray;
-  // };
   return (
     <Layout
       activeLanguage={locale}
@@ -114,12 +76,6 @@ const AboutTemplate = ({ data, pageContext }) => {
                   <div className="about-links">
                     <div className="label">{label.header.ABOUT}</div>
                     <ul>
-                      {/* <li>
-                        <a href="http://almex.com">Some link here</a>
-                      </li>
-                      <li>
-                        <a href="http://almex.com">Some link here lorem ipsum</a>
-                      </li> */}
                       {aboutUsLinks.map(aboutUsLink => (
                         <li key={makeid()}>
                           <Link to={createLink(location, aboutUsLink.slug)}>
@@ -131,29 +87,6 @@ const AboutTemplate = ({ data, pageContext }) => {
                   </div>
                 </div>
               </div>
-              {/* {brand && !bannerImage && (
-                <div className="brand-container">
-                  <ProductBrand brand={brand} />
-                </div>
-              )} */}
-              {/* {landingSections.length > 0 &&
-                landingSections.map(landingSection => {
-                  const { pages } = landingSection;
-                  const sectionTitle = landingSection.title || null;
-                  sectionIdx += 1;
-                  return (
-                    <div className="landing-section" key={`landing-section-${sectionIdx}`}>
-                      {sectionTitle && (
-                        <div className={`title-container ${themeColour}`}>
-                          <div className="section-title">{sectionTitle}</div>
-                        </div>
-                      )}
-                      <div className="tile-container">
-                        {pages.length > 0 && renderTiles(pages, location)}
-                      </div>
-                    </div>
-                  );
-                })} */}
             </div>
           </>
         )}
@@ -181,7 +114,6 @@ AboutTemplate.propTypes = {
   pageContext: PropTypes.shape({
     locale: PropTypes.string,
     region: PropTypes.string,
-    // title: PropTypes.string,
   }),
 };
 

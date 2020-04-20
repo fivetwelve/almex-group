@@ -44,8 +44,6 @@ $dateHeight: 35px;
   .DayPicker-NavBar {
     position: relative;
     width: calc(80% - 40px);
-    // padding-left: 20px;
-    // padding-right: 20px;
     margin: 0 auto;
     font-size: 14px;
     color: $grey80;
@@ -109,8 +107,6 @@ $dateHeight: 35px;
 
   .DayPicker-Caption {
     display: table-caption;
-    // margin-bottom: 0.5em;
-    // padding: 0 0.5em;
     text-align: center;
     height: $captionHeight;
   }
@@ -138,7 +134,6 @@ $dateHeight: 35px;
     padding: 0.5em;
     color: $white;
     text-align: center;
-    // font-size: 0.875em;
     font-size: 14px;
   }
 
@@ -199,7 +194,6 @@ $dateHeight: 35px;
     box-shadow: none;
     color: #4a90e2;
     font-size: 0.875em;
-    // font-size: 28px;
     cursor: pointer;
   }
 
@@ -263,13 +257,11 @@ $dateHeight: 35px;
 
   .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
     position: relative;
-
     div {
       color: $white;
       border: 5px solid $yellow-sea;
       background-color: $yellow-sea;
     }
-    // }
   }
 
   .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside):hover {
