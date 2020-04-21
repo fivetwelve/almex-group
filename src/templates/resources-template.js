@@ -185,7 +185,8 @@ class ResourcesTemplate extends Component {
         }
       });
     } else {
-      sortedCategories = Array.assign(allCategories);
+      /*  making a shallow copy */
+      sortedCategories = Object.assign(allCategories);
     }
 
     /* state.selectedCategory is set to first category by default with code below. If we want to set it to the placeholder text ("Select a Category") then set state.selectedCategory: null */

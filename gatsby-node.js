@@ -19,8 +19,9 @@ exports.createPages = ({ graphql, actions }) => {
             pageType
             slugEN: slug(locale: EN)
             slugES: slug(locale: ES)
+            slugDE: slug(locale: DE)
           }
-          siteRegions {
+          siteRegions(where: { status: PUBLISHED }) {
             region
             languages
           }
