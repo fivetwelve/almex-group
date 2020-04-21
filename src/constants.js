@@ -46,11 +46,13 @@ module.exports = {
   LANGUAGE_SLUGS: {
     EN: 'en',
     ES: 'es',
+    DE: 'de',
   },
   LANGUAGES: {
     EN: 'EN',
     ES: 'ES',
     ES_ES: 'ES_ES',
+    DE: 'DE',
   },
   // NAV_SECTION_TYPES: {
   //   ABOUT: 'ABOUT',
@@ -167,10 +169,12 @@ module.exports = {
   },
   REGION_SLUGS: {
     NORTH_AMERICA: 'northamerica',
+    EUROPE: 'europe',
     CHILE: 'chile',
   },
   REGIONS: {
     NORTH_AMERICA: 'NORTH_AMERICA',
+    EUROPE: 'EUROPE',
     CHILE: 'CHILE',
   },
   RESOURCE_TYPES: {
