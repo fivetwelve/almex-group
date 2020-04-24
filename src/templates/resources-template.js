@@ -460,13 +460,13 @@ export const query = graphql`
                         videoType
                         youTubeId
                       }
-                      pdfDownloads(locale: $locale) {
+                      pdfDownloads {
                         documentTitle(locale: $locale)
                         fileName
                         resourceType
                         url
                       }
-                      caseStudies(locale: $locale) {
+                      caseStudies {
                         documentTitle(locale: $locale)
                         fileName
                         resourceType
@@ -483,13 +483,13 @@ export const query = graphql`
                               videoType
                               youTubeId
                             }
-                            pdfDownloads(locale: $locale) {
+                            pdfDownloads {
                               url
                               fileName
                               resourceType
                               documentTitle(locale: $locale)
                             }
-                            caseStudies(locale: $locale) {
+                            caseStudies {
                               url
                               fileName
                               resourceType
@@ -506,13 +506,13 @@ export const query = graphql`
                             videoType
                             youTubeId
                           }
-                          pdfDownloads(locale: $locale) {
+                          pdfDownloads {
                             url
                             fileName
                             resourceType
                             documentTitle(locale: $locale)
                           }
-                          caseStudies(locale: $locale) {
+                          caseStudies {
                             url
                             fileName
                             resourceType
@@ -531,13 +531,13 @@ export const query = graphql`
                       videoType
                       youTubeId
                     }
-                    pdfDownloads(locale: $locale) {
+                    pdfDownloads {
                       url
                       fileName
                       resourceType
                       documentTitle(locale: $locale)
                     }
-                    caseStudies(locale: $locale) {
+                    caseStudies {
                       url
                       fileName
                       resourceType

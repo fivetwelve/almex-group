@@ -192,7 +192,7 @@ export const query = graphql`
             title(locale: $locale)
             excerpt(locale: $locale)
             content(locale: $locale)
-            pdfDownloads(locale: $locale) {
+            pdfDownloads {
               documentTitle(locale: $locale)
               fileName
               url

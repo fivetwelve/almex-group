@@ -368,14 +368,14 @@ export const query = graphql`
           features(locale: $locale)
           productInfo(locale: $locale)
           specs(locale: $locale)
-          caseStudies(locale: $locale) {
+          caseStudies {
             documentTitle
             fileName
             url
           }
           configurations
           addOns
-          pdfDownloads(locale: $locale) {
+          pdfDownloads {
             fileName
             documentTitle(locale: $locale)
             resourceType

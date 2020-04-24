@@ -224,7 +224,7 @@ export const query = graphql`
           email
           emailSubject(locale: $locale)
           sideContent(locale: $locale)
-          pdfDownloads(locale: $locale) {
+          pdfDownloads {
             documentTitle(locale: $locale)
             fileName
             url
