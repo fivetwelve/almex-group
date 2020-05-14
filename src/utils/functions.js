@@ -273,7 +273,13 @@ const matchMomentLocale = locale => {
   switch (thisLocale) {
     case 'en':
       break;
+    case 'de':
+      momentLocale = 'de';
+      break;
     case 'es':
+      momentLocale = 'es';
+      break;
+    case 'es_cl':
       momentLocale = 'es';
       break;
     case 'es_es':

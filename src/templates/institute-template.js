@@ -209,30 +209,30 @@ InstituteTemplate.propTypes = {
 };
 
 export const query = graphql`
-  query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
+  query($id: ID!, $locale: [GraphCMS_Locale!]!, $region: GraphCMS_Region!) {
     cms {
       ...CommonQuery
-      page(where: { id: $id }) {
+      page(locales: $locale, where: { id: $id }) {
         institute: instituteSource {
           bannerImage {
             handle
             width
             height
           }
-          contactAndForm(locale: $locale)
-          description(locale: $locale)
+          contactAndForm
+          description
           email
-          emailSubject(locale: $locale)
-          sideContent(locale: $locale)
+          emailSubject
+          sideContent
           pdfDownloads {
-            documentTitle(locale: $locale)
+            documentTitle
             fileName
             url
           }
-          title(locale: $locale)
-          topics(locale: $locale)
-          presentation(locale: $locale)
-          instructors(locale: $locale)
+          title
+          topics
+          presentation
+          instructors
           topicsImages {
             handle
             width

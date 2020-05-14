@@ -335,39 +335,38 @@ ProductTemplate.propTypes = {
 };
 
 export const query = graphql`
-  query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
+  query($id: ID!, $locale: [GraphCMS_Locale!]!, $region: GraphCMS_Region!) {
     cms {
       ...CommonQuery
-      label(where: { availableIn: $region }) {
-        products(locale: $locale)
+      label(locales: $locale, where: { availableIn: $region }) {
+        products
         resourcesLink {
-          slug(locale: $locale)
+          slug
         }
       }
-      page(where: { id: $id }) {
+      page(locales: $locale, where: { id: $id }) {
         pageType
         product: productSource {
           brand
           theme
-          title(locale: $locale)
+          title
           images {
             url
-            sortName
           }
           youTubeVideos {
             youTubeId
-            title(locale: $locale)
+            title
             videoType
           }
           visitResourcesForMore
-          marketing(locale: $locale)
-          advantages(locale: $locale)
+          marketing
+          advantages
           advantagesImage {
             url
           }
-          features(locale: $locale)
-          productInfo(locale: $locale)
-          specs(locale: $locale)
+          features
+          productInfo
+          specs
           caseStudies {
             documentTitle
             fileName
@@ -377,24 +376,24 @@ export const query = graphql`
           addOns
           pdfDownloads {
             fileName
-            documentTitle(locale: $locale)
+            documentTitle
             resourceType
             url
           }
-          attractText(locale: $locale)
-          accessories(where: { status: PUBLISHED }) {
-            slug(locale: $locale)
+          attractText
+          accessories {
+            slug
             tile {
               url
             }
-            title(locale: $locale)
+            title
           }
-          relatedItems(where: { status: PUBLISHED }) {
-            slug(locale: $locale)
+          relatedItems {
+            slug
             tile {
               url
             }
-            title(locale: $locale)
+            title
           }
         }
       }

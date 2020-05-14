@@ -106,19 +106,21 @@ class Header extends React.Component {
                   </IconContext.Provider>
                 </button>
               </div>
-              <div className="fusion-club">
-                <a href="https://fusionclubpoints.com">
-                  <div className="text-top">FUSION</div>
-                  <img
-                    src={plane}
-                    width="30"
-                    alt="Fusion Club"
-                    className="logo"
-                    aria-hidden="true"
-                  />
-                  <div className="text-bottom">CLUB</div>
-                </a>
-              </div>
+              {headerFooter.fusionClub && (
+                <div className="fusion-club">
+                  <a href="https://fusionclubpoints.com">
+                    <div className="text-top">FUSION</div>
+                    <img
+                      src={plane}
+                      width="30"
+                      alt="Fusion Club"
+                      className="logo"
+                      aria-hidden="true"
+                    />
+                    <div className="text-bottom">CLUB</div>
+                  </a>
+                </div>
+              )}
               <BrandSelector brandNavigation={brandNavigation} label={label} location={location} />
               {/* TODO Re-activate when Spanish becomes available */}
               {/* <LanguageSelector
@@ -194,6 +196,7 @@ Header.propTypes = {
     pages: PropTypes.array,
   }),
   headerFooter: PropTypes.shape({
+    fusionClub: PropTypes.bool,
     language: PropTypes.array,
     navigation: PropTypes.array,
     simpleTagline: PropTypes.string,
@@ -213,103 +216,102 @@ Header.propTypes = {
 
 export const commonFragment = graphql`
   fragment CommonQuery on GraphCMS {
-    brandNavigation(where: { availableIn: $region }) {
-      pages(where: { status: PUBLISHED }) {
+    brandNavigation(locales: $locale, where: { availableIn: $region }) {
+      pages {
         landing: landingSource {
           brand
-          title(locale: $locale)
+          title
         }
         institute: instituteSource {
           brand
-          title(locale: $locale)
+          title
         }
         services: servicesSource {
           brand
-          title(locale: $locale)
+          title
         }
         pageType
-        slug(locale: $locale)
-        title(locale: $locale)
+        slug
+        title
       }
-      title(locale: $locale)
+      title
       type
     }
-    label(where: { availableIn: $region }) {
-      header(locale: $locale)
-      footer(locale: $locale)
-      common(locale: $locale)
+    label(locales: $locale, where: { availableIn: $region }) {
+      header
+      footer
+      common
     }
-    headerFooter(where: { availableIn: $region }) {
-      companyAddress(locale: $locale)
+    headerFooter(locales: $locale, where: { availableIn: $region }) {
+      companyAddress
       companyEmail
       companyPhone
-      footerLinks(locale: $locale)
-      formattedTagline(locale: $locale)
+      footerLinks
+      formattedTagline
+      fusionClub
       language
-      navigation(locale: $locale)
-      simpleTagline(locale: $locale)
-      socialMedia(locale: $locale)
+      navigation
+      simpleTagline
+      socialMedia
       privacyPage {
-        slug(locale: $locale)
+        slug
       }
     }
-    navigation(where: { availableIn: $region }) {
+    navigation(locales: $locale, where: { availableIn: $region }) {
       navigationSections {
-        pages(where: { status: PUBLISHED }) {
+        pages {
           id
           pageType
-          slug: slug(locale: $locale)
+          slug: slug
           about: aboutSource {
-            title(locale: $locale)
+            title
           }
           careers: careersSource {
-            title(locale: $locale)
+            title
           }
           contact: contactSource {
-            title(locale: $locale)
+            title
           }
           downloads: downloadsSource {
-            title(locale: $locale)
+            title
           }
           events: eventsSource {
-            title(locale: $locale)
+            title
           }
           history: historySource {
-            title(locale: $locale)
+            title
           }
           institute: instituteSource {
-            title(locale: $locale)
+            title
           }
           landing: landingSource {
             brand
-            title(locale: $locale)
+            title
           }
           news: newsSource {
-            title(locale: $locale)
+            title
           }
           product: productSource {
-            title(locale: $locale)
+            title
           }
           promo: promoSource {
-            title(locale: $locale)
+            title
           }
           resources: resourcesSource {
-            title(locale: $locale)
+            title
           }
           services: servicesSource {
             brand
-            title(locale: $locale)
+            title
           }
           usedEquipment: usedEquipmentSource {
-            title(locale: $locale)
+            title
           }
         }
         isLandingPage
-        sortOrder(locale: $locale)
-        title(locale: $locale)
+        title
         type
       }
-      sortOrder
     }
   }
 `;

@@ -102,19 +102,19 @@ ServicesTemplate.propTypes = {
 };
 
 export const query = graphql`
-  query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
+  query($id: ID!, $locale: [GraphCMS_Locale!]!, $region: GraphCMS_Region!) {
     cms {
       ...CommonQuery
-      page(where: { id: $id }) {
+      page(locales: $locale, where: { id: $id }) {
         services: servicesSource {
           bannerImage {
             handle
             width
             height
           }
-          description(locale: $locale)
-          sideContent(locale: $locale)
-          title(locale: $locale)
+          description
+          sideContent
+          title
         }
       }
     }

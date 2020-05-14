@@ -13,7 +13,7 @@ import qs from 'qs';
 import Layout from '../components/layout';
 import CustomSearchResults from '../components/customSearchResults';
 import { scrollTo } from '../utils/functions';
-import { STATUS } from '../constants';
+// import { STATUS } from '../constants';
 import '../styles/search.scss';
 import CustomPagination from '../components/customPagination';
 
@@ -104,14 +104,14 @@ const SearchTemplate = props => {
       <div className="search-container">
         <InstantSearch indexName="CMS" searchClient={searchClient} searchState={searchState}>
           <VirtualRefinementList attribute="page.availableIn" defaultRefinement={[region]} />
-          <VirtualRefinementList attribute="page.status" defaultRefinement={[STATUS.PUBLISHED]} />
+          {/* <VirtualRefinementList attribute="page.status" defaultRefinement={[STATUS.PUBLISHED]} /> */}
           <Configure
             attributesToRetrieve={[
               'brand',
               `excerpt${locale}`,
               `keywords${locale}`,
               `title${locale}`,
-              'page.status',
+              // 'page.status',
               'page.availableIn',
               `page.excerpt${locale}`,
               `page.slug${locale}`,
@@ -175,11 +175,11 @@ SearchTemplate.propTypes = {
 };
 
 export const query = graphql`
-  query($locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
+  query($locale: [GraphCMS_Locale!]!, $region: GraphCMS_Region!) {
     cms {
       ...CommonQuery
-      label(where: { availableIn: $region }) {
-        search(locale: $locale)
+      label(locales: $locale, where: { availableIn: $region }) {
+        search
       }
     }
   }

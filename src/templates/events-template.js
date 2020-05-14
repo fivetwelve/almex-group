@@ -333,29 +333,29 @@ EventsTemplate.propTypes = {
 };
 
 export const query = graphql`
-  query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
+  query($id: ID!, $locale: [GraphCMS_Locale!]!, $region: GraphCMS_Region!) {
     cms {
       ...CommonQuery
-      aboutLabel: label(where: { availableIn: $region }) {
-        about(locale: $locale)
+      aboutLabel: label(locales: $locale, where: { availableIn: $region }) {
+        about
       }
-      page(where: { id: $id }) {
+      page(locales: $locale, where: { id: $id }) {
         eventsSource {
           bannerImage {
             handle
             width
             height
           }
-          title(locale: $locale)
-          description(locale: $locale)
+          title
+          description
           events {
             startDate
             endDate
             continent
             almexAttending
-            title(locale: $locale)
-            description(locale: $locale)
-            location(locale: $locale)
+            title
+            description
+            location
             website
             thumbnail {
               url

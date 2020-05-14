@@ -4,8 +4,14 @@ $spacing: 20px;
 .homepage {
   .carousel {
     overflow: hidden;
-    height: calc(41.85vw + 70px) !important;
-    max-height: 606px;
+    height: calc(41.85vw + 100px) !important;
+    max-height: 626px;
+    @include media('>=desktop') {
+      max-height: 640px;
+    }
+    @include media('>=wide') {
+      max-height: 648px;
+    }
     .slider-control-centerleft,
     .slider-control-centerright {
       margin-top: -30px;
@@ -16,6 +22,9 @@ $spacing: 20px;
         margin-bottom: 0px;
         display: block;
         bottom: -15px !important;
+      }
+      @include media('>=wide') {
+        bottom: -20px !important;
       }
     }
     .slider-frame {
@@ -101,30 +110,32 @@ $spacing: 20px;
           line-height: 24px;
           @include media('>=tablet') {
             font-size: 50px;
-            line-height: normal;
+            line-height: 54px;
           }
           p {
             text-align: center;
+            padding-left: 15px;
+            padding-right: 15px;
           }
           &:hover {
             p {
-              display: inline;
+              display: inline-block;
               background-color: rgba(255, 255, 255, 0.3);
-              &:before {
-                content: '\00a0';
-                width: 15px;
-                left: -15px;
-                display: inline-block;
-                background-color: rgba(255, 255, 255, 0.3);
-                position: absolute;
-              }
-              &:after {
-                content: '\00a0';
-                width: 15px;
-                display: inline-block;
-                background-color: rgba(255, 255, 255, 0.3);
-                position: absolute;
-              }
+              // &:before {
+              //   content: '\00a0';
+              //   width: 15px;
+              //   left: -15px;
+              //   display: inline-block;
+              //   background-color: rgba(255, 255, 255, 0.3);
+              //   position: absolute;
+              // }
+              // &:after {
+              //   content: '\00a0';
+              //   width: 15px;
+              //   display: inline-block;
+              //   background-color: rgba(255, 255, 255, 0.3);
+              //   position: absolute;
+              // }
             }
           }
         }
@@ -149,11 +160,11 @@ $spacing: 20px;
         padding-left: 10px;
         padding-right: 10px;
         @include media('>=tablet') {
-          line-height: 24px;
+          line-height: 28px;
           font-size: 24px;
           padding-left: 90px;
           padding-right: 90px;
-          padding-bottom: 10px;
+          // padding-bottom: 10px;
         }
         a {
           color: $white;

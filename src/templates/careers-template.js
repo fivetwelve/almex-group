@@ -198,29 +198,29 @@ CareersTemplate.propTypes = {
 };
 
 export const query = graphql`
-  query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
+  query($id: ID!, $locale: [GraphCMS_Locale!]!, $region: GraphCMS_Region!) {
     cms {
       ...CommonQuery
-      aboutLabel: label(where: { availableIn: $region }) {
-        about(locale: $locale)
+      aboutLabel: label(locales: $locale, where: { availableIn: $region }) {
+        about
       }
-      page(where: { id: $id }) {
+      page(locales: $locale, where: { id: $id }) {
         careers: careersSource {
           bannerImage {
             handle
             width
             height
           }
-          description(locale: $locale)
-          instructions(locale: $locale)
-          noPostingsInstructions(locale: $locale)
-          title(locale: $locale)
+          description
+          instructions
+          noPostingsInstructions
+          title
           careerPostings {
             postingStatus
-            position(locale: $locale)
-            companyAndLocation(locale: $locale)
-            description(locale: $locale)
-            instructions(locale: $locale)
+            position
+            companyAndLocation
+            description
+            instructions
           }
         }
       }

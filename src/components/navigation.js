@@ -50,18 +50,12 @@ const Navigation = props => {
     label,
     // languages,
     location,
-    navigation,
+    navigation: { navigationSections },
     // region,
   } = props;
   /* using Hooks instead of component state */
   const [openSection, handleMenuItem] = useState('');
   const mobileBrandMenuOpen = brandNavigation.type === openSection;
-  const sortedNavigationSections = [];
-  navigation.sortOrder.forEach(elem => {
-    sortedNavigationSections.push(
-      navigation.navigationSections.filter(section => section.type === elem)[0],
-    );
-  });
 
   checkKeyPress('Escape', () => {
     handleMenuItem('');
@@ -93,8 +87,8 @@ const Navigation = props => {
         )}
       </div>
       <div className="sections">
-        {sortedNavigationSections.length > 0 &&
-          sortedNavigationSections.map(section => {
+        {navigationSections.length > 0 &&
+          navigationSections.map(section => {
             const isOpen = section.type === openSection;
             if (section.isLandingPage) {
               return (
@@ -152,7 +146,6 @@ Navigation.propTypes = {
   }),
   navigation: PropTypes.shape({
     navigationSections: PropTypes.array,
-    sortOrder: PropTypes.array,
   }),
   // region: PropTypes.string,
 };

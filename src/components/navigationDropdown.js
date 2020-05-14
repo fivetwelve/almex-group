@@ -21,6 +21,7 @@ const NavigationDropdown = props => {
      also avoids future redundant getTitle calls. */
   /* Use getTitle here because we want the menu to use the source
      title and not page title which could vary for mktg purposes. */
+
   section.pages.forEach(page => {
     Object.defineProperty(page, 'title', {
       value: getTitle(page),
@@ -29,31 +30,6 @@ const NavigationDropdown = props => {
       configurable: true,
     });
   });
-
-  if (section.sortOrder) {
-    // sort pages if manual sorting is set in CMS
-    const productCategorySortOrder = section.sortOrder.map(elem => elem.id);
-    section.pages.sort((a, b) => {
-      if (productCategorySortOrder.indexOf(a.id) > productCategorySortOrder.indexOf(b.id)) {
-        return 1;
-      }
-      if (productCategorySortOrder.indexOf(a.id) < productCategorySortOrder.indexOf(b.id)) {
-        return -1;
-      }
-      return 0;
-    });
-  } else {
-    // otherwise sort alphabetically
-    section.pages.sort((a, b) => {
-      // TODO: need to ensure activeLanguage param is valid value for localeCompare
-      const titleA = (a.title && a.title.toLowerCase()) || '';
-      const titleB = (a.title && b.title.toLowerCase()) || '';
-      /* -1 sort string ascending
-          1 sort string descending;
-          0 no sorting              */
-      return titleA.localeCompare(titleB, activeLanguage);
-    });
-  }
 
   /* determine vertical height and column designations */
   const rows = Math.ceil(section.pages.length / 3);
@@ -147,7 +123,6 @@ NavigationDropdown.propTypes = {
   }),
   section: PropTypes.shape({
     pages: PropTypes.array,
-    sortOrder: PropTypes.array,
     title: PropTypes.string,
     type: PropTypes.string,
   }),

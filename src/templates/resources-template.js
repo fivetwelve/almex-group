@@ -63,7 +63,7 @@ const excludeList = [RESOURCE_TYPES.OPERATING_MANUAL, RESOURCE_TYPES.SAFETY_DATA
 class ResourcesTemplate extends Component {
   constructor(props) {
     super(props);
-    const { categories, sortOrder } = props.data.cms.page.resources;
+    const { categories } = props.data.cms.page.resources;
     const { resourcesLabel } = props.data.cms;
     const allCategories = [];
     /* get resource types and remove any ones that are on the exclude list */
@@ -174,25 +174,10 @@ class ResourcesTemplate extends Component {
       });
     });
 
-    let sortedCategories = [];
-    if (sortOrder && sortOrder.length > 0) {
-      /* sortOrder Array used to sort but when Sortable Relations feature becomes available in CMS,
-         sortOrder can be set to empty and fn will resolve to whatever order is returned from CMS */
-      sortOrder.forEach(elem => {
-        const found = allCategories.filter(category => category.id === elem.id)[0];
-        if (found) {
-          sortedCategories.push(found);
-        }
-      });
-    } else {
-      /*  making a shallow copy */
-      sortedCategories = Object.assign(allCategories);
-    }
-
     /* state.selectedCategory is set to first category by default with code below. If we want to set it to the placeholder text ("Select a Category") then set state.selectedCategory: null */
     this.state = {
-      allCategories: sortedCategories,
-      selectedCategory: sortedCategories[0] || null,
+      allCategories,
+      selectedCategory: allCategories[0] || null,
     };
   }
 
@@ -224,15 +209,7 @@ class ResourcesTemplate extends Component {
           label,
           navigation,
           page: {
-            resources: {
-              bannerImage,
-              contactAndForm,
-              description,
-              email,
-              emailSubject,
-              title,
-              sortOrder,
-            },
+            resources: { bannerImage, contactAndForm, description, email, emailSubject, title },
           },
           resourcesLabel,
         },
@@ -279,7 +256,6 @@ class ResourcesTemplate extends Component {
                           categories={allCategories}
                           selectedCategory={selectedCategory}
                           setCategory={categoryKey => this.handleSetCategory(categoryKey)}
-                          sortOrder={sortOrder}
                           label={resourcesLabel.resources}
                         />
                         {selectedCategory && selectedCategory.expert && (
@@ -322,9 +298,9 @@ class ResourcesTemplate extends Component {
                       </div>
                       <hr />
                       {/* shown when there are no resources for this category */}
-                      {selectedCategory && selectedCategory.resources.length === 0 && (
+                      {/* {selectedCategory && selectedCategory.resources.length === 0 && (
                         <div className="no-resource">{resourcesLabel.resources.NO_RESOURCE}</div>
-                      )}
+                      )} */}
                       {selectedCategory &&
                         selectedCategory.resources.length > 0 &&
                         selectedCategory.resources.map(type => (
@@ -421,22 +397,22 @@ ResourcesTemplate.propTypes = {
 };
 
 export const query = graphql`
-  query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
+  query($id: ID!, $locale: [GraphCMS_Locale!]!, $region: GraphCMS_Region!) {
     cms {
       ...CommonQuery
-      resourcesLabel: label(where: { availableIn: $region }) {
-        resources(locale: $locale)
+      resourcesLabel: label(locales: $locale, where: { availableIn: $region }) {
+        resources
       }
-      page(where: { id: $id }) {
+      page(locales: $locale, where: { id: $id }) {
         resources: resourcesSource {
           bannerImage {
             handle
             width
             height
           }
-          description(locale: $locale)
-          title(locale: $locale)
-          categories(where: { AND: [{ status: PUBLISHED }, { page: { status: PUBLISHED } }] }) {
+          description
+          title
+          categories {
             id
             isProductCategory
             expert {
@@ -452,22 +428,23 @@ export const query = graphql`
               pageType
               landingSource {
                 landingSections {
-                  pages(where: { status: PUBLISHED }) {
+                  pages {
+                    id
                     pageType
                     productSource {
                       youTubeVideos {
-                        title(locale: $locale)
+                        title
                         videoType
                         youTubeId
                       }
                       pdfDownloads {
-                        documentTitle(locale: $locale)
+                        documentTitle
                         fileName
                         resourceType
                         url
                       }
                       caseStudies {
-                        documentTitle(locale: $locale)
+                        documentTitle
                         fileName
                         resourceType
                         url
@@ -475,11 +452,11 @@ export const query = graphql`
                     }
                     landingSource {
                       landingSections {
-                        pages(where: { status: PUBLISHED }) {
+                        pages {
                           pageType
                           productSource {
                             youTubeVideos {
-                              title(locale: $locale)
+                              title
                               videoType
                               youTubeId
                             }
@@ -487,22 +464,23 @@ export const query = graphql`
                               url
                               fileName
                               resourceType
-                              documentTitle(locale: $locale)
+                              documentTitle
                             }
                             caseStudies {
                               url
                               fileName
                               resourceType
-                              documentTitle(locale: $locale)
+                              documentTitle
                             }
                           }
                         }
                       }
-                      pages(where: { status: PUBLISHED }) {
+                      pages {
+                        id
                         pageType
                         productSource {
                           youTubeVideos {
-                            title(locale: $locale)
+                            title
                             videoType
                             youTubeId
                           }
@@ -510,24 +488,25 @@ export const query = graphql`
                             url
                             fileName
                             resourceType
-                            documentTitle(locale: $locale)
+                            documentTitle
                           }
                           caseStudies {
                             url
                             fileName
                             resourceType
-                            documentTitle(locale: $locale)
+                            documentTitle
                           }
                         }
                       }
                     }
                   }
                 }
-                pages(where: { status: PUBLISHED }) {
+                pages {
+                  id
                   pageType
                   productSource {
                     youTubeVideos {
-                      title(locale: $locale)
+                      title
                       videoType
                       youTubeId
                     }
@@ -535,30 +514,29 @@ export const query = graphql`
                       url
                       fileName
                       resourceType
-                      documentTitle(locale: $locale)
+                      documentTitle
                     }
                     caseStudies {
                       url
                       fileName
                       resourceType
-                      documentTitle(locale: $locale)
+                      documentTitle
                     }
                   }
                 }
               }
             }
-            name(locale: $locale)
+            name
             documents {
               url
               fileName
               resourceType
-              documentTitle(locale: EN)
+              documentTitle
             }
           }
-          sortOrder(locale: $locale)
-          contactAndForm(locale: $locale)
+          contactAndForm
           email
-          emailSubject(locale: $locale)
+          emailSubject
         }
       }
     }
