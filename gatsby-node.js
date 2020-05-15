@@ -193,6 +193,7 @@ exports.createPages = ({ graphql, actions }) => {
                         context: {
                           id,
                           locale,
+                          locales,
                           region,
                         },
                       });
