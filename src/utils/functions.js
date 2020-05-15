@@ -67,9 +67,6 @@ const getTitle = page => {
     case PAGE_TYPES.CONTACT:
       title = (page.contact && page.contact.title) || '';
       break;
-    case PAGE_TYPES.DOWNLOADS:
-      title = (page.downloads && page.downloads.title) || '';
-      break;
     case PAGE_TYPES.EVENTS:
       title = (page.events && page.events.title) || '';
       break;

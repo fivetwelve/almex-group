@@ -335,7 +335,12 @@ ProductTemplate.propTypes = {
 };
 
 export const query = graphql`
-  query($id: ID!, $locale: [GraphCMS_Locale!]!, $region: GraphCMS_Region!) {
+  query(
+    $id: ID!
+    $locale: [GraphCMS_Locale!]!
+    $locales: [GraphCMS_Locale!]!
+    $region: GraphCMS_Region!
+  ) {
     cms {
       ...CommonQuery
       label(locales: $locale, where: { availableIn: $region }) {
@@ -344,7 +349,7 @@ export const query = graphql`
           slug
         }
       }
-      page(locales: $locale, where: { id: $id }) {
+      page(locales: $locales, where: { id: $id }) {
         pageType
         product: productSource {
           brand

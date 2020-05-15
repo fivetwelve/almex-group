@@ -13,7 +13,7 @@ exports.createPages = ({ graphql, actions }) => {
     graphql(`
       {
         cms {
-          pages(locales: [EN], first: 1000) {
+          pages(locales: [EN, ES], first: 1000) {
             id
             availableIn
             pageType
@@ -58,6 +58,8 @@ exports.createPages = ({ graphql, actions }) => {
           if (availableIn.includes(region)) {
             languages.forEach(language => {
               localizations.forEach(localization => {
+                const { locale } = localization;
+                const locales = locale === 'EN' ? [locale] : [locale, 'EN'];
                 if (localization.locale === language) {
                   const pagePath =
                     pageType !== PAGE_TYPES.HOMEPAGE
@@ -71,7 +73,7 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/about-template.js`),
                         context: {
                           id,
-                          locale: localization.locale,
+                          locale,
                           region,
                         },
                       });
@@ -82,7 +84,7 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/careers-template.js`),
                         context: {
                           id,
-                          locale: localization.locale,
+                          locale,
                           region,
                         },
                       });
@@ -93,7 +95,7 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/contact-template.js`),
                         context: {
                           id,
-                          locale: localization.locale,
+                          locale,
                           region,
                         },
                       });
@@ -104,7 +106,8 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/events-template.js`),
                         context: {
                           id,
-                          locale: localization.locale,
+                          locale,
+                          locales,
                           region,
                         },
                       });
@@ -115,7 +118,8 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/history-template.js`),
                         context: {
                           id,
-                          locale: localization.locale,
+                          locale,
+                          locales,
                           region,
                         },
                       });
@@ -126,7 +130,8 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/homepage-template.js`),
                         context: {
                           id,
-                          locale: localization.locale,
+                          locale,
+                          locales,
                           page: 'index',
                           region,
                         },
@@ -138,7 +143,8 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/institute-template.js`),
                         context: {
                           id,
-                          locale: localization.locale,
+                          locale,
+                          locales,
                           region,
                         },
                       });
@@ -149,7 +155,8 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/landing-template.js`),
                         context: {
                           id,
-                          locale: localization.locale,
+                          locale,
+                          locales,
                           region,
                         },
                       });
@@ -161,7 +168,8 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/news-template.js`),
                         context: {
                           id,
-                          locale: localization.locale,
+                          locale,
+                          locales,
                           region,
                         },
                       });
@@ -172,7 +180,8 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/product-template.js`),
                         context: {
                           id,
-                          locale: localization.locale,
+                          locale,
+                          locales,
                           region,
                         },
                       });
@@ -183,7 +192,7 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/promo-template.js`),
                         context: {
                           id,
-                          locale: localization.locale,
+                          locale,
                           region,
                         },
                       });
@@ -194,7 +203,8 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/resources-template.js`),
                         context: {
                           id,
-                          locale: localization.locale,
+                          locale,
+                          locales,
                           region,
                         },
                       });
@@ -205,7 +215,7 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/services-template.js`),
                         context: {
                           id,
-                          locale: localization.locale,
+                          locale,
                           region,
                         },
                       });
@@ -216,7 +226,7 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/simple-content-template.js`),
                         context: {
                           id,
-                          locale: localization.locale,
+                          locale,
                           region,
                         },
                       });
@@ -227,7 +237,8 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/used-equipment-template.js`),
                         context: {
                           id,
-                          locale: localization.locale,
+                          locale,
+                          locales,
                           region,
                         },
                       });

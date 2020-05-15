@@ -333,13 +333,18 @@ EventsTemplate.propTypes = {
 };
 
 export const query = graphql`
-  query($id: ID!, $locale: [GraphCMS_Locale!]!, $region: GraphCMS_Region!) {
+  query(
+    $id: ID!
+    $locale: [GraphCMS_Locale!]!
+    $locales: [GraphCMS_Locale!]!
+    $region: GraphCMS_Region!
+  ) {
     cms {
       ...CommonQuery
       aboutLabel: label(locales: $locale, where: { availableIn: $region }) {
         about
       }
-      page(locales: $locale, where: { id: $id }) {
+      page(locales: $locales, where: { id: $id }) {
         eventsSource {
           bannerImage {
             handle

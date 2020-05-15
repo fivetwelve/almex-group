@@ -272,9 +272,6 @@ export const commonFragment = graphql`
           contact: contactSource {
             title
           }
-          downloads: downloadsSource {
-            title
-          }
           events: eventsSource {
             title
           }

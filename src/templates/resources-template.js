@@ -397,13 +397,18 @@ ResourcesTemplate.propTypes = {
 };
 
 export const query = graphql`
-  query($id: ID!, $locale: [GraphCMS_Locale!]!, $region: GraphCMS_Region!) {
+  query(
+    $id: ID!
+    $locale: [GraphCMS_Locale!]!
+    $locales: [GraphCMS_Locale!]!
+    $region: GraphCMS_Region!
+  ) {
     cms {
       ...CommonQuery
       resourcesLabel: label(locales: $locale, where: { availableIn: $region }) {
         resources
       }
-      page(locales: $locale, where: { id: $id }) {
+      page(locales: $locales, where: { id: $id }) {
         resources: resourcesSource {
           bannerImage {
             handle
