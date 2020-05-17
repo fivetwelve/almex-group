@@ -12,7 +12,7 @@ import ProductBrand from '../components/productBrand';
 import { makeid, renderLink } from '../utils/functions';
 
 const LandingTemplate = ({ data, pageContext }) => {
-  const { locale, region } = pageContext;
+  const { languages, locale, region } = pageContext;
   const {
     cms: {
       brandNavigation,
@@ -89,6 +89,7 @@ const LandingTemplate = ({ data, pageContext }) => {
       childrenClass="landing-page"
       headerFooter={headerFooter}
       label={label}
+      languages={languages}
       navigation={navigation}
       region={region}
       title={title}
@@ -224,6 +225,7 @@ LandingTemplate.propTypes = {
   }),
   pageContext: PropTypes.shape({
     landingSections: PropTypes.array,
+    languages: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
   }),

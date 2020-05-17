@@ -1,45 +1,41 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-// import { Link } from 'gatsby';
+import { Link } from 'gatsby';
 import { IconContext } from 'react-icons';
 import { FaTimes } from 'react-icons/fa';
 import NavigationDropdown from './navigationDropdown';
 import NavigationLink from './navigationLink';
 import checkKeyPress from '../utils/checkKeyPress';
-/* TODO re-enable when translations become available */
-// import { LANGUAGE_SLUGS, REGION_SLUGS } from '../constants';
-/* TODO */
+import { LANGUAGE_SLUGS, REGION_SLUGS } from '../constants';
 
-/* TODO re-enable when translations become available */
-// const mobileLanguages = (activeLanguage, languages, label, region) => {
-//   const displayLanguages = [];
-//   languages.forEach(language => {
-//     if (language === activeLanguage) {
-//       displayLanguages.push(
-//         <div className="lang-item" key={language}>
-//           <span className="link-text active">{language}</span>
-//         </div>,
-//       );
-//     } else {
-//       displayLanguages.push(
-//         <div className="lang-item" key={language}>
-//           <Link to={`/${REGION_SLUGS[region]}/${LANGUAGE_SLUGS[language]}`}>
-//             <span className="link-text">{language}</span>
-//           </Link>
-//         </div>,
-//       );
-//     }
-//   });
-//   return (
-//     <>
-//       <div className="language-container">
-//         <span className="lang-title">{label}</span>
-//         <div className="languages">{displayLanguages}</div>
-//       </div>
-//     </>
-//   );
-// };
-/* TODO */
+const mobileLanguages = (activeLanguage, languages, label, region) => {
+  const displayLanguages = [];
+  languages.forEach(language => {
+    if (language === activeLanguage) {
+      displayLanguages.push(
+        <div className="lang-item" key={language}>
+          <span className="link-text active">{language}</span>
+        </div>,
+      );
+    } else {
+      displayLanguages.push(
+        <div className="lang-item" key={language}>
+          <Link to={`/${REGION_SLUGS[region]}/${LANGUAGE_SLUGS[language]}`}>
+            <span className="link-text">{language}</span>
+          </Link>
+        </div>,
+      );
+    }
+  });
+  return (
+    <>
+      <div className="language-container">
+        <span className="lang-title">{label}</span>
+        <div className="languages">{displayLanguages}</div>
+      </div>
+    </>
+  );
+};
 
 /* n.b. Parent <nav> element is in NavWrapper so we may use forwardRef in Header component. */
 const Navigation = props => {
@@ -48,10 +44,10 @@ const Navigation = props => {
     brandNavigation,
     handleCloseMenuClick,
     label,
-    // languages,
+    languages,
     location,
     navigation: { navigationSections },
-    // region,
+    region,
   } = props;
   /* using Hooks instead of component state */
   const [openSection, handleMenuItem] = useState('');
@@ -73,8 +69,8 @@ const Navigation = props => {
         </IconContext.Provider>
       </div>
       <div className="mobile-options">
-        {/* {languages.length > 1 &&
-          mobileLanguages(activeLanguage, languages, label.header.LANGUAGES, region)} */}
+        {languages.length > 1 &&
+          mobileLanguages(activeLanguage, languages, label.header.LANGUAGES, region)}
         {brandNavigation.pages && brandNavigation.pages.length > 0 && (
           <NavigationDropdown
             activeLanguage={activeLanguage}
@@ -122,10 +118,10 @@ Navigation.defaultProps = {
   brandNavigation: {},
   handleCloseMenuClick: () => {},
   label: {},
-  // languages: [],
+  languages: [],
   location: {},
   navigation: {},
-  // region: '',
+  region: '',
 };
 
 Navigation.propTypes = {
@@ -140,14 +136,14 @@ Navigation.propTypes = {
     footer: PropTypes.object,
     common: PropTypes.object,
   }),
-  // languages: PropTypes.arrayOf(PropTypes.string),
+  languages: PropTypes.arrayOf(PropTypes.string),
   location: PropTypes.shape({
     pathname: PropTypes.string,
   }),
   navigation: PropTypes.shape({
     navigationSections: PropTypes.array,
   }),
-  // region: PropTypes.string,
+  region: PropTypes.string,
 };
 
 export default Navigation;

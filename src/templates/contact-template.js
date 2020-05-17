@@ -94,7 +94,7 @@ class ContactTemplate extends React.Component {
   render() {
     const { contactType, expert, office, visitorRegion, showModal, view } = this.state;
     const { data, pageContext } = this.props;
-    const { locale, region } = pageContext;
+    const { languages, locale, region } = pageContext;
     const {
       cms: {
         aboutLabel,
@@ -115,6 +115,7 @@ class ContactTemplate extends React.Component {
         childrenClass="contact-page"
         headerFooter={headerFooter}
         label={label}
+        languages={languages}
         navigation={navigation}
         region={region}
         title={title}
@@ -250,6 +251,7 @@ ContactTemplate.propTypes = {
     }),
   }),
   pageContext: PropTypes.shape({
+    languages: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
   }),

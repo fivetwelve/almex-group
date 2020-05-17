@@ -183,7 +183,7 @@ class EventsTemplate extends Component {
           },
         },
       },
-      pageContext: { locale, region },
+      pageContext: { languages, locale, region },
     } = this.props;
     const { allEvents, calendarLocale, continent, events, selectedDay } = this.state;
 
@@ -221,6 +221,7 @@ class EventsTemplate extends Component {
         childrenClass="events-page"
         headerFooter={headerFooter}
         label={label}
+        languages={languages}
         navigation={navigation}
         region={region}
         title={title}
@@ -327,6 +328,7 @@ EventsTemplate.propTypes = {
   }),
   pageContext: PropTypes.shape({
     landingSections: PropTypes.array,
+    languages: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
   }),

@@ -5,7 +5,7 @@ import { navigate as reload } from '@reach/router';
 import { IconContext } from 'react-icons';
 import { FaBars, FaSearch } from 'react-icons/fa';
 import BrandSelector from './brandSelector';
-// import LanguageSelector from './languageSelector';
+import LanguageSelector from './languageSelector';
 import Navigation from './navigation';
 import NavWrapper from './navWrapper';
 import { createLink } from '../utils/functions';
@@ -43,9 +43,6 @@ class Header extends React.Component {
     const { search } = this.state;
     const charCode = typeof evt.which === 'number' ? evt.which : evt.keyCode;
     if (charCode === 13 && search.trim() !== '') {
-      // navigate(
-      //   `${createLink(location, 'search')}?query=${encodeURIComponent(search.trim())}&page=1`,
-      // );
       reload(`${createLink(location, 'search')}?query=${encodeURIComponent(search.trim())}&page=1`);
     }
   };
@@ -68,6 +65,7 @@ class Header extends React.Component {
       brandNavigation,
       headerFooter,
       label,
+      languages,
       location,
       navigation,
       region,
@@ -94,8 +92,8 @@ class Header extends React.Component {
                   value={search}
                   placeholder="e.g. rubber tank lining, etc..."
                 />
-                {/* {label.header.SEARCH} */}
-                {/* <button type="button" className="mobile-menu"></button> */}
+                {/* {label.header.SEARCH}
+                <button type="button" className="mobile-menu"></button> */}
                 <button
                   type="button"
                   className="button"
@@ -122,13 +120,11 @@ class Header extends React.Component {
                 </div>
               )}
               <BrandSelector brandNavigation={brandNavigation} label={label} location={location} />
-              {/* TODO Re-activate when Spanish becomes available */}
-              {/* <LanguageSelector
+              <LanguageSelector
                 activeLanguage={activeLanguage}
-                languages={headerFooter.language}
+                languages={languages}
                 region={region}
-              /> */}
-              {/* <div className="login">{label.header.LOGIN}</div> */}
+              />
             </div>
             <div className="tagline-container">
               <span className="tagline">{headerFooter.simpleTagline}</span>
@@ -168,7 +164,7 @@ class Header extends React.Component {
             brandNavigation={brandNavigation}
             handleCloseMenuClick={this.handleMobileMenuClick}
             label={label}
-            languages={headerFooter.language}
+            languages={languages}
             location={location}
             navigation={navigation}
             region={region}
@@ -182,8 +178,10 @@ class Header extends React.Component {
 Header.defaultProps = {
   activeLanguage: '',
   brandNavigation: {},
+  // data: {},
   headerFooter: {},
   label: {},
+  languages: [],
   location: {},
   navigation: {},
   region: '',
@@ -195,15 +193,19 @@ Header.propTypes = {
   brandNavigation: PropTypes.shape({
     pages: PropTypes.array,
   }),
+  // data: PropTypes.shape({
+  //   cms: PropTypes.object,
+  // }),
   headerFooter: PropTypes.shape({
     fusionClub: PropTypes.bool,
-    language: PropTypes.array,
+    // language: PropTypes.array,
     navigation: PropTypes.array,
     simpleTagline: PropTypes.string,
   }),
   label: PropTypes.shape({
     header: PropTypes.object,
   }),
+  languages: PropTypes.arrayOf(PropTypes.string),
   location: PropTypes.shape({
     pathname: PropTypes.string,
   }),
@@ -249,7 +251,7 @@ export const commonFragment = graphql`
       footerLinks
       formattedTagline
       fusionClub
-      language
+      # language
       navigation
       simpleTagline
       socialMedia

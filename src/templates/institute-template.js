@@ -12,7 +12,7 @@ import '../styles/institute.scss';
 import logo from '../../static/img/logo-institute.svg';
 
 const InstituteTemplate = ({ data, pageContext }) => {
-  const { locale, region } = pageContext;
+  const { languages, locale, region } = pageContext;
   const {
     cms: {
       brandNavigation,
@@ -47,6 +47,7 @@ const InstituteTemplate = ({ data, pageContext }) => {
       childrenClass="institute-page"
       headerFooter={headerFooter}
       label={label}
+      languages={languages}
       navigation={navigation}
       region={region}
       title={title}
@@ -203,6 +204,7 @@ InstituteTemplate.propTypes = {
     }),
   }),
   pageContext: PropTypes.shape({
+    languages: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
   }),

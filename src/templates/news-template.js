@@ -12,7 +12,7 @@ import { ARTICLE_STATUS } from '../constants';
 import '../styles/news.scss';
 
 const NewsTemplate = ({ data, pageContext }) => {
-  const { locale, region } = pageContext;
+  const { languages, locale, region } = pageContext;
   const {
     cms: {
       brandNavigation,
@@ -41,6 +41,7 @@ const NewsTemplate = ({ data, pageContext }) => {
       childrenClass="news-page"
       headerFooter={headerFooter}
       label={label}
+      languages={languages}
       navigation={navigation}
       region={region}
       title={title}
@@ -166,6 +167,7 @@ NewsTemplate.propTypes = {
   }),
   pageContext: PropTypes.shape({
     landingSections: PropTypes.array,
+    languages: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
   }),

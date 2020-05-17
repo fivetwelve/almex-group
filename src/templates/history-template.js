@@ -10,7 +10,7 @@ import { renderLink } from '../utils/functions';
 import '../styles/history.scss';
 
 const HistoryTemplate = ({ data, pageContext }) => {
-  const { locale, region } = pageContext;
+  const { languages, locale, region } = pageContext;
   const {
     cms: {
       brandNavigation,
@@ -32,6 +32,7 @@ const HistoryTemplate = ({ data, pageContext }) => {
       childrenClass="history-page"
       headerFooter={headerFooter}
       label={label}
+      languages={languages}
       navigation={navigation}
       region={region}
       title={title}
@@ -87,6 +88,7 @@ HistoryTemplate.propTypes = {
     }),
   }),
   pageContext: PropTypes.shape({
+    languages: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
   }),

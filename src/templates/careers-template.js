@@ -9,7 +9,7 @@ import '../styles/careers.scss';
 import { makeid, renderLink } from '../utils/functions';
 
 const CareersTemplate = ({ data, pageContext }) => {
-  const { locale, region } = pageContext;
+  const { languages, locale, region } = pageContext;
   const {
     cms: {
       aboutLabel,
@@ -37,6 +37,7 @@ const CareersTemplate = ({ data, pageContext }) => {
       childrenClass="careers-page"
       headerFooter={headerFooter}
       label={label}
+      languages={languages}
       navigation={navigation}
       region={region}
       title={title}
@@ -192,6 +193,7 @@ CareersTemplate.propTypes = {
   }),
   pageContext: PropTypes.shape({
     landingSections: PropTypes.array,
+    languages: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
   }),

@@ -214,7 +214,7 @@ class ResourcesTemplate extends Component {
           resourcesLabel,
         },
       },
-      pageContext: { locale, region },
+      pageContext: { languages, locale, region },
     } = this.props;
     const { allCategories, selectedCategory } = this.state;
 
@@ -225,6 +225,7 @@ class ResourcesTemplate extends Component {
         childrenClass="resources-page"
         headerFooter={headerFooter}
         label={label}
+        languages={languages}
         navigation={navigation}
         region={region}
         title={title}
@@ -391,6 +392,7 @@ ResourcesTemplate.propTypes = {
     id: PropTypes.string,
   }),
   pageContext: PropTypes.shape({
+    languages: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
   }),

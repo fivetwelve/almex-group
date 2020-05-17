@@ -73,6 +73,7 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/about-template.js`),
                         context: {
                           id,
+                          languages,
                           locale,
                           region,
                         },
@@ -84,6 +85,7 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/careers-template.js`),
                         context: {
                           id,
+                          languages,
                           locale,
                           region,
                         },
@@ -95,6 +97,7 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/contact-template.js`),
                         context: {
                           id,
+                          languages,
                           locale,
                           region,
                         },
@@ -106,6 +109,7 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/events-template.js`),
                         context: {
                           id,
+                          languages,
                           locale,
                           locales,
                           region,
@@ -118,6 +122,7 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/history-template.js`),
                         context: {
                           id,
+                          languages,
                           locale,
                           locales,
                           region,
@@ -130,6 +135,7 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/homepage-template.js`),
                         context: {
                           id,
+                          languages,
                           locale,
                           locales,
                           page: 'index',
@@ -143,6 +149,7 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/institute-template.js`),
                         context: {
                           id,
+                          languages,
                           locale,
                           locales,
                           region,
@@ -155,6 +162,7 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/landing-template.js`),
                         context: {
                           id,
+                          languages,
                           locale,
                           locales,
                           region,
@@ -168,6 +176,7 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/news-template.js`),
                         context: {
                           id,
+                          languages,
                           locale,
                           locales,
                           region,
@@ -180,6 +189,7 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/product-template.js`),
                         context: {
                           id,
+                          languages,
                           locale,
                           locales,
                           region,
@@ -192,6 +202,7 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/promo-template.js`),
                         context: {
                           id,
+                          languages,
                           locale,
                           locales,
                           region,
@@ -204,6 +215,7 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/resources-template.js`),
                         context: {
                           id,
+                          languages,
                           locale,
                           locales,
                           region,
@@ -216,6 +228,7 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/services-template.js`),
                         context: {
                           id,
+                          languages,
                           locale,
                           region,
                         },
@@ -227,6 +240,7 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/simple-content-template.js`),
                         context: {
                           id,
+                          languages,
                           locale,
                           region,
                         },
@@ -238,6 +252,7 @@ exports.createPages = ({ graphql, actions }) => {
                         component: path.resolve(`./src/templates/used-equipment-template.js`),
                         context: {
                           id,
+                          languages,
                           locale,
                           locales,
                           region,

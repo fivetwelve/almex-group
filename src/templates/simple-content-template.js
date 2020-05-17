@@ -9,7 +9,7 @@ import { renderLink } from '../utils/functions';
 import '../styles/simpleContent.scss';
 
 const SimpleContentTemplate = ({ data, pageContext }) => {
-  const { locale, region } = pageContext;
+  const { languages, locale, region } = pageContext;
   const {
     cms: {
       brandNavigation,
@@ -29,6 +29,7 @@ const SimpleContentTemplate = ({ data, pageContext }) => {
       childrenClass="simple-content-page"
       headerFooter={headerFooter}
       label={label}
+      languages={languages}
       navigation={navigation}
       region={region}
       title={title}
@@ -77,6 +78,7 @@ SimpleContentTemplate.propTypes = {
     id: PropTypes.string,
   }),
   pageContext: PropTypes.shape({
+    languages: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
   }),

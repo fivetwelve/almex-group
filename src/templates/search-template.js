@@ -61,7 +61,7 @@ const SearchTemplate = props => {
   const {
     data,
     location,
-    pageContext: { locale, region },
+    pageContext: { languages, locale, region },
   } = props;
   const {
     cms: { brandNavigation, headerFooter, label, navigation },
@@ -98,6 +98,7 @@ const SearchTemplate = props => {
       childrenClass="search-page"
       headerFooter={headerFooter}
       label={label}
+      languages={languages}
       navigation={navigation}
       region={region}
     >
@@ -169,6 +170,7 @@ SearchTemplate.propTypes = {
     state: PropTypes.object,
   }),
   pageContext: PropTypes.shape({
+    languages: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
   }),

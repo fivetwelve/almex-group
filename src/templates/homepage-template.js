@@ -47,7 +47,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
   }, []);
   /* end ad-hoc code */
 
-  const { locale, region } = pageContext;
+  const { languages, locale, region } = pageContext;
   const {
     cms: {
       brandNavigation,
@@ -188,6 +188,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
       childrenClass="homepage"
       headerFooter={headerFooter}
       label={label}
+      languages={languages}
       navigation={navigation}
       region={region}
       title=""
@@ -331,6 +332,7 @@ HomepageTemplate.propTypes = {
   }),
   pageContext: PropTypes.shape({
     landingSections: PropTypes.array,
+    languages: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
   }),

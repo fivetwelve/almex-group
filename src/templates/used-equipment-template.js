@@ -12,7 +12,7 @@ import { makeid, matchMomentLocale, renderLink } from '../utils/functions';
 import '../styles/usedEquipment.scss';
 
 const UsedEquipmentTemplate = ({ data, pageContext }) => {
-  const { locale, region } = pageContext;
+  const { languages, locale, region } = pageContext;
   const {
     cms: {
       brandNavigation,
@@ -34,6 +34,7 @@ const UsedEquipmentTemplate = ({ data, pageContext }) => {
       childrenClass="used-equipment-page"
       headerFooter={headerFooter}
       label={label}
+      languages={languages}
       navigation={navigation}
       region={region}
       title={title}
@@ -98,6 +99,7 @@ UsedEquipmentTemplate.propTypes = {
     }),
   }),
   pageContext: PropTypes.shape({
+    languages: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
   }),

@@ -14,7 +14,7 @@ import '../styles/product.scss';
 
 /* location prop is received from LinkWithPrevious's composition with Location */
 const ProductTemplate = ({ data, location, pageContext }) => {
-  const { locale, region } = pageContext;
+  const { languages, locale, region } = pageContext;
   const {
     cms: {
       brandNavigation,
@@ -100,6 +100,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
       childrenClass="product-page"
       headerFooter={headerFooter}
       label={label}
+      languages={languages}
       locale={locale}
       navigation={navigation}
       region={region}
@@ -329,6 +330,7 @@ ProductTemplate.propTypes = {
     }),
   }),
   pageContext: PropTypes.shape({
+    languages: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
   }),
