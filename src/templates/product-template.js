@@ -388,14 +388,14 @@ export const query = graphql`
             url
           }
           attractText
-          accessories {
+          accessories(where: { OR: [{ archived: false }, { archived: null }] }) {
             slug
             tile {
               url
             }
             title
           }
-          relatedItems {
+          relatedItems(where: { OR: [{ archived: false }, { archived: null }] }) {
             slug
             tile {
               url

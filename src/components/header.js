@@ -120,11 +120,13 @@ class Header extends React.Component {
                 </div>
               )}
               <BrandSelector brandNavigation={brandNavigation} label={label} location={location} />
-              <LanguageSelector
-                activeLanguage={activeLanguage}
-                languages={languages}
-                region={region}
-              />
+              {languages.length > 1 && (
+                <LanguageSelector
+                  activeLanguage={activeLanguage}
+                  languages={languages}
+                  region={region}
+                />
+              )}
             </div>
             <div className="tagline-container">
               <span className="tagline">{headerFooter.simpleTagline}</span>
@@ -219,7 +221,7 @@ Header.propTypes = {
 export const commonFragment = graphql`
   fragment CommonQuery on GraphCMS {
     brandNavigation(locales: $locale, where: { availableIn: $region }) {
-      pages {
+      pages(where: { OR: [{ archived: false }, { archived: null }] }) {
         landing: landingSource {
           brand
           title
@@ -261,7 +263,7 @@ export const commonFragment = graphql`
     }
     navigation(locales: $locale, where: { availableIn: $region }) {
       navigationSections {
-        pages {
+        pages(where: { OR: [{ archived: false }, { archived: null }] }) {
           id
           pageType
           slug: slug

@@ -77,101 +77,101 @@ class ResourcesTemplate extends Component {
       const filteredResources = [];
       const unClassified = [];
       /* collect all documents for each category */
+      const { page } = category;
+      /* check if product category is archived */
+      if (!page.archived) {
+        if (page.pageType === PAGE_TYPES.LANDING) {
+          /* while searching for resources, we expect the structural limit of the hierarchy to be:
+  
+            landingSource
+            |
+            |-- landingSection(s)
+            |   |-- page(s)
+            |       |-- productSource
+            |       |
+            |       |-- landingSource(s)
+            |           |-- page(s)
+            |           |   |-- productSource
+            |           |
+            |           |-- landingSection(s)
+            |               |-- page(s)
+            |                   |-- productSource
+            |-- page(s)
+                |-- productSource
+          */
 
-      if (category.page.pageType === PAGE_TYPES.LANDING) {
-        /* while searching for resources, we expect the structural limit of the hierarchy to be:
+          page.landingSource.landingSections.forEach(section => {
+            resources = resources.concat(collateFromPages(section.pages));
+          });
 
-          landingSource
-          |
-          |-- landingSection(s)
-          |   |-- page(s)
-          |       |-- productSource
-          |       |
-          |       |-- landingSource(s)
-          |           |-- page(s)
-          |           |   |-- productSource
-          |           |
-          |           |-- landingSection(s)
-          |               |-- page(s)
-          |                   |-- productSource
-          |-- page(s)
-              |-- productSource
-        */
+          page.landingSource.pages.forEach(childPage => {
+            if (childPage.pageType === PAGE_TYPES.PRODUCT) {
+              childPage.productSource.pdfDownloads.forEach(pdf => {
+                resources.push(pdf);
+              });
+              childPage.productSource.caseStudies.forEach(pdf => {
+                resources.push(pdf);
+              });
+              childPage.productSource.youTubeVideos.forEach(video => {
+                resources.push(video);
+              });
+            }
+          });
+        }
 
-        category.page.landingSource.landingSections.forEach(section => {
-          resources = resources.concat(collateFromPages(section.pages));
-        });
-
-        category.page.landingSource.pages.forEach(childPage => {
-          if (childPage.pageType === PAGE_TYPES.PRODUCT) {
-            childPage.productSource.pdfDownloads.forEach(pdf => {
-              resources.push(pdf);
+        if (page.pageType === PAGE_TYPES.SERVICES || page.pageType === PAGE_TYPES.INSTITUTE) {
+          if (category.documents.length > 0) {
+            category.page.documents.forEach(document => {
+              resources.push(document);
             });
-            childPage.productSource.caseStudies.forEach(pdf => {
-              resources.push(pdf);
-            });
-            childPage.productSource.youTubeVideos.forEach(video => {
-              resources.push(video);
+          }
+        }
+        /*  filter documents */
+        resourceTypes.forEach(resourceType => {
+          const thisType = [];
+          resources.forEach(resource => {
+            if (
+              /* look for document resources first */
+              resource.resourceType &&
+              resource.resourceType === resourceType &&
+              !checkFor(thisType, 'url', resource.url)
+            ) {
+              thisType.push(resource);
+            } else if (
+              /* look for video resources next */
+              resource.videoType &&
+              resource.videoType === resourceType &&
+              !checkFor(thisType, 'youTubeId', resource.youTubeId)
+            ) {
+              thisType.push(resource);
+            } else if (
+              /* resource type cannot be identified so add it to unClassified array if not already there */
+              !resource.resourceType &&
+              !resource.videoType &&
+              !checkFor(unClassified, 'url', resource.url) &&
+              !checkFor(unClassified, 'youTubeId', resource.youTubeId)
+            ) {
+              unClassified.push(resource);
+            }
+          });
+          if (thisType.length > 0) {
+            filteredResources.push({
+              title: resourcesLabel.resources[resourceType],
+              resourceType,
+              documents: thisType,
             });
           }
         });
-      }
-
-      if (
-        category.page.pageType === PAGE_TYPES.SERVICES ||
-        category.page.pageType === PAGE_TYPES.INSTITUTE
-      ) {
-        if (category.documents.length > 0) {
-          category.page.documents.forEach(document => {
-            resources.push(document);
-          });
-        }
-      }
-      /*  filter documents */
-      resourceTypes.forEach(resourceType => {
-        const thisType = [];
-        resources.forEach(resource => {
-          if (
-            /* look for document resources first */
-            resource.resourceType &&
-            resource.resourceType === resourceType &&
-            !checkFor(thisType, 'url', resource.url)
-          ) {
-            thisType.push(resource);
-          } else if (
-            /* look for video resources next */
-            resource.videoType &&
-            resource.videoType === resourceType &&
-            !checkFor(thisType, 'youTubeId', resource.youTubeId)
-          ) {
-            thisType.push(resource);
-          } else if (
-            /* resource type cannot be identified so add it to unClassified array if not already there */
-            !resource.resourceType &&
-            !resource.videoType &&
-            !checkFor(unClassified, 'url', resource.url) &&
-            !checkFor(unClassified, 'youTubeId', resource.youTubeId)
-          ) {
-            unClassified.push(resource);
-          }
+        const key = makeid();
+        allCategories.push({
+          id: category.id,
+          title: category.name,
+          resources: filteredResources,
+          unClassified,
+          expert: category.expert,
+          key,
         });
-        if (thisType.length > 0) {
-          filteredResources.push({
-            title: resourcesLabel.resources[resourceType],
-            resourceType,
-            documents: thisType,
-          });
-        }
-      });
-      const key = makeid();
-      allCategories.push({
-        id: category.id,
-        title: category.name,
-        resources: filteredResources,
-        unClassified,
-        expert: category.expert,
-        key,
-      });
+      }
     });
 
     /* state.selectedCategory is set to first category by default with code below. If we want to set it to the placeholder text ("Select a Category") then set state.selectedCategory: null */
@@ -432,10 +432,11 @@ export const query = graphql`
               email
             }
             page {
+              archived
               pageType
               landingSource {
                 landingSections {
-                  pages {
+                  pages(where: { OR: [{ archived: false }, { archived: null }] }) {
                     id
                     pageType
                     productSource {
@@ -459,7 +460,7 @@ export const query = graphql`
                     }
                     landingSource {
                       landingSections {
-                        pages {
+                        pages(where: { OR: [{ archived: false }, { archived: null }] }) {
                           pageType
                           productSource {
                             youTubeVideos {
@@ -482,7 +483,7 @@ export const query = graphql`
                           }
                         }
                       }
-                      pages {
+                      pages(where: { OR: [{ archived: false }, { archived: null }] }) {
                         id
                         pageType
                         productSource {
@@ -508,7 +509,7 @@ export const query = graphql`
                     }
                   }
                 }
-                pages {
+                pages(where: { OR: [{ archived: false }, { archived: null }] }) {
                   id
                   pageType
                   productSource {

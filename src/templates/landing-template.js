@@ -253,7 +253,7 @@ export const query = graphql`
           landingType
           landingSections {
             title
-            pages {
+            pages(where: { OR: [{ archived: false }, { archived: null }] }) {
               landingSource {
                 title
               }
@@ -271,7 +271,7 @@ export const query = graphql`
               title
             }
           }
-          singlePages: pages {
+          singlePages: pages(where: { OR: [{ archived: false }, { archived: null }] }) {
             id
             landingSource {
               title

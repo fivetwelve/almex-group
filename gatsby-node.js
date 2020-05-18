@@ -14,6 +14,7 @@ exports.createPages = ({ graphql, actions }) => {
       {
         cms {
           pages(locales: [EN, ES], first: 1000) {
+            archived
             id
             availableIn
             pageType
@@ -53,9 +54,9 @@ exports.createPages = ({ graphql, actions }) => {
         });
         /* Pages with PUBLISHED status in CMS */
         pages.forEach(page => {
-          const { id, availableIn, pageType, localizations } = page;
+          const { id, archived, availableIn, pageType, localizations } = page;
           /* ensure Page belongs to region */
-          if (availableIn.includes(region)) {
+          if (!archived && availableIn.includes(region)) {
             languages.forEach(language => {
               localizations.forEach(localization => {
                 const { locale } = localization;
