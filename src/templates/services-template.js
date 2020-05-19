@@ -9,6 +9,9 @@ import { makeid, renderLink } from '../utils/functions';
 import '../styles/services.scss';
 
 const ServicesTemplate = ({ data, pageContext }) => {
+  if (!data.cms.page.services) {
+    throw Error('servicesSource is either not connected or not published');
+  }
   const { languages, locale, region } = pageContext;
   const {
     cms: {

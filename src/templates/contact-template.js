@@ -92,8 +92,10 @@ class ContactTemplate extends React.Component {
   };
 
   render() {
-    const { contactType, expert, office, visitorRegion, showModal, view } = this.state;
     const { data, pageContext } = this.props;
+    if (!data.cms.page.contact) {
+      throw Error('contactSource is either not connected or not published');
+    }
     const { languages, locale, region } = pageContext;
     const {
       cms: {
@@ -108,6 +110,8 @@ class ContactTemplate extends React.Component {
         },
       },
     } = data;
+    const { contactType, expert, office, visitorRegion, showModal, view } = this.state;
+
     return (
       <Layout
         activeLanguage={locale}

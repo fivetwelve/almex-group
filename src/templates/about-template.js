@@ -10,6 +10,9 @@ import '../styles/about.scss';
 import { createLink, makeid, renderLink } from '../utils/functions';
 
 const AboutTemplate = ({ data, pageContext }) => {
+  if (!data.cms.page.about) {
+    throw Error('aboutSource is either not connected or not published');
+  }
   const { languages, locale, region } = pageContext;
   const {
     cms: {

@@ -10,6 +10,9 @@ import { renderLink } from '../utils/functions';
 import '../styles/history.scss';
 
 const HistoryTemplate = ({ data, pageContext }) => {
+  if (!data.cms.page.history) {
+    throw Error('historySource is either not connected or not published');
+  }
   const { languages, locale, region } = pageContext;
   const {
     cms: {

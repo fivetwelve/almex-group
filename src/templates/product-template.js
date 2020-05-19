@@ -14,6 +14,9 @@ import '../styles/product.scss';
 
 /* location prop is received from LinkWithPrevious's composition with Location */
 const ProductTemplate = ({ data, location, pageContext }) => {
+  if (!data.cms.page.product) {
+    throw Error('productSource is either not connected or not published');
+  }
   const { languages, locale, region } = pageContext;
   const {
     cms: {
