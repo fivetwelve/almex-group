@@ -9,6 +9,9 @@ import '../styles/careers.scss';
 import { makeid, renderLink } from '../utils/functions';
 
 const CareersTemplate = ({ data, pageContext }) => {
+  if (!data.cms.page.careers) {
+    throw Error('careersSource is either not connected or not published');
+  }
   const { languages, locale, region } = pageContext;
   const {
     cms: {

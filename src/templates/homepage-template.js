@@ -57,6 +57,9 @@ const HomepageTemplate = ({ data, pageContext }) => {
       page: { homepage },
     },
   } = data;
+  if (!data.cms.page.homepage) {
+    throw Error('homepageSource is either not connected or not published');
+  }
   let slideNum = 0;
   const eventStyle1 = {
     backgroundImage: `url(${homepage.homepageEventTiles[0].image.url})`,

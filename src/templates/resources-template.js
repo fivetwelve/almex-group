@@ -202,20 +202,24 @@ class ResourcesTemplate extends Component {
 
   render() {
     const {
-      data: {
-        cms: {
-          brandNavigation,
-          headerFooter,
-          label,
-          navigation,
-          page: {
-            resources: { bannerImage, contactAndForm, description, email, emailSubject, title },
-          },
-          resourcesLabel,
-        },
-      },
+      data,
       pageContext: { languages, locale, region },
     } = this.props;
+    if (!data.cms.page.resources) {
+      throw Error('resourcesSource is either not connected or not published');
+    }
+    const {
+      cms: {
+        brandNavigation,
+        headerFooter,
+        label,
+        navigation,
+        page: {
+          resources: { bannerImage, contactAndForm, description, email, emailSubject, title },
+        },
+        resourcesLabel,
+      },
+    } = data;
     const { allCategories, selectedCategory } = this.state;
 
     return (

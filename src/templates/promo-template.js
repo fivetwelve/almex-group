@@ -9,6 +9,9 @@ import { renderLink } from '../utils/functions';
 import '../styles/promo.scss';
 
 const PromoTemplate = ({ data, pageContext }) => {
+  if (!data.cms.page.promoContent) {
+    throw Error('promoSource is either not connected or not published');
+  }
   const { languages, locale, region } = pageContext;
   const {
     cms: {

@@ -9,6 +9,9 @@ import { renderLink } from '../utils/functions';
 import '../styles/simpleContent.scss';
 
 const SimpleContentTemplate = ({ data, pageContext }) => {
+  if (!data.cms.page.simpleContent) {
+    throw Error('simpleContentSource is either not connected or not published');
+  }
   const { languages, locale, region } = pageContext;
   const {
     cms: {

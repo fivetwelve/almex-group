@@ -12,6 +12,9 @@ import { makeid, matchMomentLocale, renderLink } from '../utils/functions';
 import '../styles/usedEquipment.scss';
 
 const UsedEquipmentTemplate = ({ data, pageContext }) => {
+  if (!data.cms.page.usedEquipment) {
+    throw Error('usedEquipmentSource is either not connected or not published');
+  }
   const { languages, locale, region } = pageContext;
   const {
     cms: {

@@ -12,6 +12,9 @@ import ProductBrand from '../components/productBrand';
 import { makeid, renderLink } from '../utils/functions';
 
 const LandingTemplate = ({ data, pageContext }) => {
+  if (!data.cms.page.landing) {
+    throw Error('landingSource is either not connected or not published');
+  }
   const { languages, locale, region } = pageContext;
   const {
     cms: {

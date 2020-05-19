@@ -13,6 +13,9 @@ import logo from '../../static/img/logo-institute.svg';
 
 const InstituteTemplate = ({ data, pageContext }) => {
   const { languages, locale, region } = pageContext;
+  if (!data.cms.page.institute) {
+    throw Error('instituteSource is either not connected or not published');
+  }
   const {
     cms: {
       brandNavigation,

@@ -171,20 +171,24 @@ class EventsTemplate extends Component {
 
   render() {
     const {
-      data: {
-        cms: {
-          aboutLabel,
-          brandNavigation,
-          headerFooter,
-          label,
-          navigation,
-          page: {
-            eventsSource: { bannerImage, title, description },
-          },
-        },
-      },
+      data,
       pageContext: { languages, locale, region },
     } = this.props;
+    if (!data.cms.page.eventsSource) {
+      throw Error('eventsSource is either not connected or not published');
+    }
+    const {
+      cms: {
+        aboutLabel,
+        brandNavigation,
+        headerFooter,
+        label,
+        navigation,
+        page: {
+          eventsSource: { bannerImage, title, description },
+        },
+      },
+    } = data;
     const { allEvents, calendarLocale, continent, events, selectedDay } = this.state;
 
     const eventHighlight = day => {
