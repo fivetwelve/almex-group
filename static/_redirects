@@ -1,13 +1,13 @@
 # Redirect users based on country
 /  /northamerica/  302  Country=ca,us
-#/  /europe/  302  Country=ca,us
+/  /europe/  302  Country=af,dz,am,at,bh,be,ba,bg,bf,es,hr,cy,cz,dk,eg,gb,er,ee,et,fo,fi,fr,ga,ge,de,gh,gr,gl,gg,gn,hu,is,ir,iq,ie,im,il,it,ci,je,jo,kz,kw,kg,lv,lb,lr,ly,li,lt,lu,mk,ml,mt,mr,md,me,ma,np,nl,ng,gb,no,om,pk,pl,pt,qa,ro,ru,sa,gb,sn,rs,sl,sk,si,es,sd,se,ch,sy,tj,tn,tr,tm,ua,ae,gb,uz,gb,ye
 
 
 # After base country path, supplemental redirect based on language
 /northamerica/*  /northamerica/en/:splat  302  Language=en
 /northamerica/*  /northamerica/es/:splat  302  Language=es
-#/europe/*  /europe/en/:splat  302  Language=en
-#/europe/*  /europe/de/:splat  302  Language=de
+/europe/*  /europe/en/:splat  302  Language=en
+/europe/*  /europe/de/:splat  302  Language=de
 
 
 # Fallback redirect failing all of the above
