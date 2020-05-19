@@ -29,10 +29,7 @@
 #  status = 301
 #  force = false
 #  conditions = {Language = ["es"]}
-#
-#[[redirects]]
-#  from = "/northamerica/en/#invite_token"
-#  to = "/northamerica/en/dashboard/#invite_token"
-#  status = 301
-#  force = false
-#  conditions = {Language = ["en"]}
+
+#use DRAFT content from CMS
+[context.content]
+  CMS_NEW_TOKEN="eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImdjbXMtbWFpbi1wcm9kdWN0aW9uIn0.eyJ2ZXJzaW9uIjozLCJpYXQiOjE1ODk3NzUwMDUsImF1ZCI6WyJodHRwczovL2FwaS11cy1lYXN0LTEuZ3JhcGhjbXMuY29tL3YyL2NqcDM4c200bDc2anMwMWRnNTVzcG1nbjYvbWFzdGVyIl0sImlzcyI6Imh0dHBzOi8vbWFuYWdlbWVudC5ncmFwaGNtcy5jb20vIiwic3ViIjoiZWU0ZDI2OWQtZWUxZS00ZDFhLWI2M2QtZTc4N2I2MGM0YWQxIiwianRpIjoiY2thYnl6b3lqMGR4NTAxeHZjdjFtMWoybyJ9.nTovVAeGQ39XZvZ3EdudBlJQ4XnMRifl6Cd7iGRlxNVuNy1rK57zfrwVywZmbHa8ludh_15lxZWEXfe8xCS0IBKJHMz_3RkR6zeQxdM7fVrfsLhtSM64Z0ul4nranCk97-7iR3rmoCOvl9MdVYAjQOAFsn_MC_SK1vkx9Sl5aqT9LZV0HkhpCYADHFKxW73JRo1Msgp6QKABDE2e8avnXecBIqcDLh3Spm0TJcKXsblPk2vcjShaGR1G4KTRDmiVgBrcBcQWxz9f59LHRtNPjibEEHUukF315Ia2kL9yoQ2u55_Kk0YaWmfIrPy_yjKMBDV7zqqpYWNAXdS1JkG-uX8SayzYyYDmJoYCNJpXsNJ4hDFi3pO-zfPFriCu0qoHKx4BJtAYyxCAJAqMRB6eA934OSYjrALYkRRZ1Yka4md0xAV71CtsR54ybLz2Q2oczsXhTdKfUjGfbFUZxW725SsPma4a1gz-KcP7Hr0-ntv3jrQIAuykULJfiMtunpVlzoFK9NYRgdeTDN1X44Tw1m4lVKDxap5PhO8e53eaekGKbKsnMZTL1Oq3s9gWwey8wS8dZHtHc860wd4Hz1hCw7j1ulaJhhOsE1JHMlbkrhJ5XXIEnvxJ9qObP0-cekZF0ic2pPtO0JvxBciof3Rgk-4USMFoynQbD5ibnb7QO8Y"

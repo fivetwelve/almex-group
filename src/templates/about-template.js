@@ -10,7 +10,7 @@ import '../styles/about.scss';
 import { createLink, makeid, renderLink } from '../utils/functions';
 
 const AboutTemplate = ({ data, pageContext }) => {
-  const { locale, region } = pageContext;
+  const { languages, locale, region } = pageContext;
   const {
     cms: {
       label,
@@ -33,6 +33,7 @@ const AboutTemplate = ({ data, pageContext }) => {
       childrenClass="about-page"
       headerFooter={headerFooter}
       label={label}
+      languages={languages}
       navigation={navigation}
       region={region}
       title={title}
@@ -112,34 +113,34 @@ AboutTemplate.propTypes = {
     }),
   }),
   pageContext: PropTypes.shape({
+    languages: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
   }),
 };
-
 export const query = graphql`
-  query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
+  query($id: ID!, $locale: [GraphCMS_Locale!]!, $region: GraphCMS_Region!) {
     cms {
       ...CommonQuery
-      aboutLabel: label(where: { availableIn: $region }) {
-        about(locale: $locale)
+      aboutLabel: label(locales: $locale, where: { availableIn: $region }) {
+        about
       }
-      page(where: { id: $id }) {
+      page(locales: $locale, where: { id: $id }) {
         about: aboutSource {
           bannerImage {
             handle
             width
             height
           }
-          title(locale: $locale)
-          description(locale: $locale)
+          title
+          description
           helpfulResources {
-            slug(locale: $locale)
+            slug
             pageType
             title
           }
           aboutUsLinks {
-            slug(locale: $locale)
+            slug
             pageType
             title
           }

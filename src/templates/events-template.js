@@ -183,7 +183,7 @@ class EventsTemplate extends Component {
           },
         },
       },
-      pageContext: { locale, region },
+      pageContext: { languages, locale, region },
     } = this.props;
     const { allEvents, calendarLocale, continent, events, selectedDay } = this.state;
 
@@ -221,6 +221,7 @@ class EventsTemplate extends Component {
         childrenClass="events-page"
         headerFooter={headerFooter}
         label={label}
+        languages={languages}
         navigation={navigation}
         region={region}
         title={title}
@@ -327,35 +328,41 @@ EventsTemplate.propTypes = {
   }),
   pageContext: PropTypes.shape({
     landingSections: PropTypes.array,
+    languages: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
   }),
 };
 
 export const query = graphql`
-  query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
+  query(
+    $id: ID!
+    $locale: [GraphCMS_Locale!]!
+    $locales: [GraphCMS_Locale!]!
+    $region: GraphCMS_Region!
+  ) {
     cms {
       ...CommonQuery
-      aboutLabel: label(where: { availableIn: $region }) {
-        about(locale: $locale)
+      aboutLabel: label(locales: $locale, where: { availableIn: $region }) {
+        about
       }
-      page(where: { id: $id }) {
+      page(locales: $locales, where: { id: $id }) {
         eventsSource {
           bannerImage {
             handle
             width
             height
           }
-          title(locale: $locale)
-          description(locale: $locale)
+          title
+          description
           events {
             startDate
             endDate
             continent
             almexAttending
-            title(locale: $locale)
-            description(locale: $locale)
-            location(locale: $locale)
+            title
+            description
+            location
             website
             thumbnail {
               url

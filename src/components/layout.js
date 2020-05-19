@@ -95,6 +95,7 @@ class Layout extends React.Component {
       childrenClass,
       headerFooter,
       label,
+      languages,
       navigation,
       region,
       title,
@@ -184,6 +185,7 @@ class Layout extends React.Component {
                       brandNavigation={brandNavigation}
                       headerFooter={headerFooter}
                       label={label}
+                      languages={languages}
                       navigation={navigation}
                       region={region}
                       location={location}
@@ -229,6 +231,7 @@ Layout.defaultProps = {
       META_TITLE: '',
     },
   },
+  languages: [],
   navigation: {},
   region: '',
   title: '',
@@ -248,6 +251,7 @@ Layout.propTypes = {
     footerLinks: PropTypes.object,
     socialMedia: PropTypes.object,
   }),
+  languages: PropTypes.arrayOf(PropTypes.string),
   label: PropTypes.shape({
     header: PropTypes.object,
     footer: PropTypes.object,

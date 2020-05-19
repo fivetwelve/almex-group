@@ -12,7 +12,7 @@ import '../styles/institute.scss';
 import logo from '../../static/img/logo-institute.svg';
 
 const InstituteTemplate = ({ data, pageContext }) => {
-  const { locale, region } = pageContext;
+  const { languages, locale, region } = pageContext;
   const {
     cms: {
       brandNavigation,
@@ -47,6 +47,7 @@ const InstituteTemplate = ({ data, pageContext }) => {
       childrenClass="institute-page"
       headerFooter={headerFooter}
       label={label}
+      languages={languages}
       navigation={navigation}
       region={region}
       title={title}
@@ -203,36 +204,42 @@ InstituteTemplate.propTypes = {
     }),
   }),
   pageContext: PropTypes.shape({
+    languages: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
   }),
 };
 
 export const query = graphql`
-  query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
+  query(
+    $id: ID!
+    $locale: [GraphCMS_Locale!]!
+    $locales: [GraphCMS_Locale!]!
+    $region: GraphCMS_Region!
+  ) {
     cms {
       ...CommonQuery
-      page(where: { id: $id }) {
+      page(locales: $locales, where: { id: $id }) {
         institute: instituteSource {
           bannerImage {
             handle
             width
             height
           }
-          contactAndForm(locale: $locale)
-          description(locale: $locale)
+          contactAndForm
+          description
           email
-          emailSubject(locale: $locale)
-          sideContent(locale: $locale)
-          pdfDownloads(locale: $locale) {
-            documentTitle(locale: $locale)
+          emailSubject
+          sideContent
+          pdfDownloads {
+            documentTitle
             fileName
             url
           }
-          title(locale: $locale)
-          topics(locale: $locale)
-          presentation(locale: $locale)
-          instructors(locale: $locale)
+          title
+          topics
+          presentation
+          instructors
           topicsImages {
             handle
             width

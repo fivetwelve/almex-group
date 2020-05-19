@@ -88,9 +88,9 @@ module.exports = {
     {
       resolve: `gatsby-source-graphql`,
       options: {
-        url: process.env.CMS_ENDPOINT,
+        url: process.env.CMS_NEW_ENDPOINT,
         headers: {
-          Authorization: `Bearer ${process.env.CMS_TOKEN}`,
+          Authorization: `Bearer ${process.env.CMS_NEW_TOKEN}`,
         },
         query: `{
           headerFooters {

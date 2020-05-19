@@ -1,4 +1,8 @@
 module.exports = {
+  ARTICLE_STATUS: {
+    ARCHIVED: 'ARCHIVED',
+    RECENT: 'RECENT',
+  },
   BRANDS: {
     ALMEX_IN_A_BOX: 'ALMEX_IN_A_BOX',
     ALMEX_INSTITUTE: 'ALMEX_INSTITUTE',
@@ -14,7 +18,7 @@ module.exports = {
     EXPERT: 'EXPERT',
     OFFICE: 'OFFICE',
   },
-  // used for Event location
+  // used for Event locations
   CONTINENTS: {
     GLOBAL: 'GLOBAL',
     AFRICA: 'AFRICA',
@@ -44,28 +48,17 @@ module.exports = {
     PRODUCT: 'PRODUCT',
   },
   LANGUAGE_SLUGS: {
+    DE: 'de',
     EN: 'en',
     ES: 'es',
-    DE: 'de',
+    ES_CL: 'es',
   },
   LANGUAGES: {
+    DE: 'DE',
     EN: 'EN',
     ES: 'ES',
-    ES_ES: 'ES_ES',
-    DE: 'DE',
+    ES_CL: 'ES_CL',
   },
-  // NAV_SECTION_TYPES: {
-  //   ABOUT: 'ABOUT',
-  //   BRANDS: 'BRANDS',
-  //   HOME: 'HOME',
-  //   INDUSTRIES: 'INDUSTRIES',
-  //   PRODUCTS: 'PRODUCTS',
-  //   REPAIRS: 'REPAIRS',
-  //   RESOURCES: 'RESOURCES',
-  //   SERVICES: 'SERVICES',
-  //   SUPPORT: 'SUPPORT',
-  //   TRAINING: 'TRAINING',
-  // },
   OFFICES: {
     API: 'INDONESIA',
     AUS: 'AUSTRALIA',
@@ -149,7 +142,6 @@ module.exports = {
     ABOUT: 'ABOUT',
     CAREERS: 'CAREERS',
     CONTACT: 'CONTACT',
-    DOWNLOADS: 'DOWNLOADS',
     EVENTS: 'EVENTS',
     HISTORY: 'HISTORY',
     HOMEPAGE: 'HOMEPAGE',
@@ -168,14 +160,18 @@ module.exports = {
     USED: 'USED',
   },
   REGION_SLUGS: {
-    NORTH_AMERICA: 'northamerica',
-    EUROPE: 'europe',
     CHILE: 'chile',
+    EUROPE: 'europe',
+    NORTH_AMERICA: 'northamerica',
+    PERU: 'peru',
+    SOUTH_AFRICA: 'southafrica',
   },
   REGIONS: {
-    NORTH_AMERICA: 'NORTH_AMERICA',
-    EUROPE: 'EUROPE',
     CHILE: 'CHILE',
+    EUROPE: 'EUROPE',
+    NORTH_AMERICA: 'NORTH_AMERICA',
+    PERU: 'peru',
+    SOUTH_AFRICA: 'SOUTH_AFRICA',
   },
   RESOURCE_TYPES: {
     BROCHURE: 'BROCHURE',
@@ -197,7 +193,6 @@ module.exports = {
     ABOUT: 'aboutSource',
     CAREERS: 'careersSource',
     CONTACT: 'contactSource',
-    DOWNLOADS: 'downloadsSource',
     EVENTS: 'eventsSource',
     HISTORY: 'historySource',
     HOMEPAGE: 'homepageSource',
@@ -214,11 +209,6 @@ module.exports = {
     SERVICES: 'servicesSource',
     SIMPLE: 'simpleContentSource',
     USED: 'usedSource',
-  },
-  STATUS: {
-    PUBLISHED: 'PUBLISHED',
-    DRAFT: 'DRAFT',
-    ARCHIVED: 'ARCHIVED',
   },
   THEMES: {
     HEAVYWEIGHT: 'HEAVYWEIGHT',

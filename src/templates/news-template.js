@@ -8,11 +8,11 @@ import moment from 'moment';
 import 'moment/locale/es';
 import Layout from '../components/layout';
 import { makeid, matchMomentLocale, renderLink } from '../utils/functions';
-import { STATUS } from '../constants';
+import { ARTICLE_STATUS } from '../constants';
 import '../styles/news.scss';
 
 const NewsTemplate = ({ data, pageContext }) => {
-  const { locale, region } = pageContext;
+  const { languages, locale, region } = pageContext;
   const {
     cms: {
       brandNavigation,
@@ -29,8 +29,8 @@ const NewsTemplate = ({ data, pageContext }) => {
   moment.locale(matchMomentLocale(locale));
 
   /* sort articles in descending date order */
-  const published = articles.filter(article => article.status === STATUS.PUBLISHED);
-  const archived = articles.filter(article => article.status === STATUS.ARCHIVED);
+  const published = articles.filter(article => article.articleStatus === ARTICLE_STATUS.RECENT);
+  const archived = articles.filter(article => article.articleStatus === ARTICLE_STATUS.ARCHIVED);
   published.sort((a, b) => new Date(b.date) - new Date(a.date));
   archived.sort((a, b) => new Date(b.date) - new Date(a.date));
 
@@ -41,6 +41,7 @@ const NewsTemplate = ({ data, pageContext }) => {
       childrenClass="news-page"
       headerFooter={headerFooter}
       label={label}
+      languages={languages}
       navigation={navigation}
       region={region}
       title={title}
@@ -166,38 +167,44 @@ NewsTemplate.propTypes = {
   }),
   pageContext: PropTypes.shape({
     landingSections: PropTypes.array,
+    languages: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
   }),
 };
 
 export const query = graphql`
-  query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
+  query(
+    $id: ID!
+    $locale: [GraphCMS_Locale!]!
+    $locales: [GraphCMS_Locale!]!
+    $region: GraphCMS_Region!
+  ) {
     cms {
       ...CommonQuery
-      page(where: { id: $id }) {
+      page(locales: $locales, where: { id: $id }) {
         news: newsSource {
           bannerImage {
             handle
             width
             height
           }
-          description(locale: $locale)
-          title(locale: $locale)
+          description
+          title
           articles {
             tile {
               url
             }
             date
-            title(locale: $locale)
-            excerpt(locale: $locale)
-            content(locale: $locale)
-            pdfDownloads(locale: $locale) {
-              documentTitle(locale: $locale)
+            title
+            excerpt
+            content
+            pdfDownloads {
+              documentTitle
               fileName
               url
             }
-            status
+            articleStatus
           }
         }
       }

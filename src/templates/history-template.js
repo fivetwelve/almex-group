@@ -10,7 +10,7 @@ import { renderLink } from '../utils/functions';
 import '../styles/history.scss';
 
 const HistoryTemplate = ({ data, pageContext }) => {
-  const { locale, region } = pageContext;
+  const { languages, locale, region } = pageContext;
   const {
     cms: {
       brandNavigation,
@@ -32,6 +32,7 @@ const HistoryTemplate = ({ data, pageContext }) => {
       childrenClass="history-page"
       headerFooter={headerFooter}
       label={label}
+      languages={languages}
       navigation={navigation}
       region={region}
       title={title}
@@ -87,34 +88,40 @@ HistoryTemplate.propTypes = {
     }),
   }),
   pageContext: PropTypes.shape({
+    languages: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
   }),
 };
 
 export const query = graphql`
-  query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
+  query(
+    $id: ID!
+    $locale: [GraphCMS_Locale!]!
+    $locales: [GraphCMS_Locale!]!
+    $region: GraphCMS_Region!
+  ) {
     cms {
       ...CommonQuery
-      aboutLabel: label(where: { availableIn: $region }) {
-        about(locale: $locale)
+      aboutLabel: label(locales: $locale, where: { availableIn: $region }) {
+        about
       }
-      page(where: { id: $id }) {
+      page(locales: $locales, where: { id: $id }) {
         history: historySource {
           bannerImage {
             handle
             width
             height
           }
-          title(locale: $locale)
-          description(locale: $locale)
-          events: historicalEvents(where: { status: PUBLISHED }) {
+          title
+          description
+          events: historicalEvents {
             almexEvent
-            captions(locale: $locale)
+            captions
             sortDate
-            displayDate(locale: $locale)
-            eventTitle: title(locale: $locale)
-            description(locale: $locale)
+            displayDate
+            eventTitle: title
+            description
             images {
               handle
               height

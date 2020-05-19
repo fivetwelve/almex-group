@@ -14,7 +14,7 @@ import '../styles/product.scss';
 
 /* location prop is received from LinkWithPrevious's composition with Location */
 const ProductTemplate = ({ data, location, pageContext }) => {
-  const { locale, region } = pageContext;
+  const { languages, locale, region } = pageContext;
   const {
     cms: {
       brandNavigation,
@@ -100,6 +100,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
       childrenClass="product-page"
       headerFooter={headerFooter}
       label={label}
+      languages={languages}
       locale={locale}
       navigation={navigation}
       region={region}
@@ -329,72 +330,77 @@ ProductTemplate.propTypes = {
     }),
   }),
   pageContext: PropTypes.shape({
+    languages: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
   }),
 };
 
 export const query = graphql`
-  query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
+  query(
+    $id: ID!
+    $locale: [GraphCMS_Locale!]!
+    $locales: [GraphCMS_Locale!]!
+    $region: GraphCMS_Region!
+  ) {
     cms {
       ...CommonQuery
-      label(where: { availableIn: $region }) {
-        products(locale: $locale)
+      label(locales: $locale, where: { availableIn: $region }) {
+        products
         resourcesLink {
-          slug(locale: $locale)
+          slug
         }
       }
-      page(where: { id: $id }) {
+      page(locales: $locales, where: { id: $id }) {
         pageType
         product: productSource {
           brand
           theme
-          title(locale: $locale)
+          title
           images {
             url
-            sortName
           }
           youTubeVideos {
             youTubeId
-            title(locale: $locale)
+            title
             videoType
           }
           visitResourcesForMore
-          marketing(locale: $locale)
-          advantages(locale: $locale)
+          marketing
+          advantages
           advantagesImage {
             url
           }
-          features(locale: $locale)
-          productInfo(locale: $locale)
-          specs(locale: $locale)
-          caseStudies(locale: $locale) {
+          features
+          productInfo
+          specs
+          caseStudies {
             documentTitle
             fileName
             url
           }
           configurations
           addOns
-          pdfDownloads(locale: $locale) {
+          pdfDownloads {
             fileName
-            documentTitle(locale: $locale)
+            documentTitle
             resourceType
             url
           }
-          attractText(locale: $locale)
-          accessories(where: { status: PUBLISHED }) {
-            slug(locale: $locale)
+          attractText
+          accessories(where: { OR: [{ archived: false }, { archived: null }] }) {
+            slug
             tile {
               url
             }
-            title(locale: $locale)
+            title
           }
-          relatedItems(where: { status: PUBLISHED }) {
-            slug(locale: $locale)
+          relatedItems(where: { OR: [{ archived: false }, { archived: null }] }) {
+            slug
             tile {
               url
             }
-            title(locale: $locale)
+            title
           }
         }
       }

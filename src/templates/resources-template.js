@@ -63,7 +63,7 @@ const excludeList = [RESOURCE_TYPES.OPERATING_MANUAL, RESOURCE_TYPES.SAFETY_DATA
 class ResourcesTemplate extends Component {
   constructor(props) {
     super(props);
-    const { categories, sortOrder } = props.data.cms.page.resources;
+    const { categories } = props.data.cms.page.resources;
     const { resourcesLabel } = props.data.cms;
     const allCategories = [];
     /* get resource types and remove any ones that are on the exclude list */
@@ -77,122 +77,107 @@ class ResourcesTemplate extends Component {
       const filteredResources = [];
       const unClassified = [];
       /* collect all documents for each category */
+      const { page } = category;
+      /* check if product category is archived */
+      if (!page.archived) {
+        if (page.pageType === PAGE_TYPES.LANDING) {
+          /* while searching for resources, we expect the structural limit of the hierarchy to be:
+  
+            landingSource
+            |
+            |-- landingSection(s)
+            |   |-- page(s)
+            |       |-- productSource
+            |       |
+            |       |-- landingSource(s)
+            |           |-- page(s)
+            |           |   |-- productSource
+            |           |
+            |           |-- landingSection(s)
+            |               |-- page(s)
+            |                   |-- productSource
+            |-- page(s)
+                |-- productSource
+          */
 
-      if (category.page.pageType === PAGE_TYPES.LANDING) {
-        /* while searching for resources, we expect the structural limit of the hierarchy to be:
+          page.landingSource.landingSections.forEach(section => {
+            resources = resources.concat(collateFromPages(section.pages));
+          });
 
-          landingSource
-          |
-          |-- landingSection(s)
-          |   |-- page(s)
-          |       |-- productSource
-          |       |
-          |       |-- landingSource(s)
-          |           |-- page(s)
-          |           |   |-- productSource
-          |           |
-          |           |-- landingSection(s)
-          |               |-- page(s)
-          |                   |-- productSource
-          |-- page(s)
-              |-- productSource
-        */
+          page.landingSource.pages.forEach(childPage => {
+            if (childPage.pageType === PAGE_TYPES.PRODUCT) {
+              childPage.productSource.pdfDownloads.forEach(pdf => {
+                resources.push(pdf);
+              });
+              childPage.productSource.caseStudies.forEach(pdf => {
+                resources.push(pdf);
+              });
+              childPage.productSource.youTubeVideos.forEach(video => {
+                resources.push(video);
+              });
+            }
+          });
+        }
 
-        category.page.landingSource.landingSections.forEach(section => {
-          resources = resources.concat(collateFromPages(section.pages));
-        });
-
-        category.page.landingSource.pages.forEach(childPage => {
-          if (childPage.pageType === PAGE_TYPES.PRODUCT) {
-            childPage.productSource.pdfDownloads.forEach(pdf => {
-              resources.push(pdf);
+        if (page.pageType === PAGE_TYPES.SERVICES || page.pageType === PAGE_TYPES.INSTITUTE) {
+          if (category.documents.length > 0) {
+            category.page.documents.forEach(document => {
+              resources.push(document);
             });
-            childPage.productSource.caseStudies.forEach(pdf => {
-              resources.push(pdf);
-            });
-            childPage.productSource.youTubeVideos.forEach(video => {
-              resources.push(video);
+          }
+        }
+        /*  filter documents */
+        resourceTypes.forEach(resourceType => {
+          const thisType = [];
+          resources.forEach(resource => {
+            if (
+              /* look for document resources first */
+              resource.resourceType &&
+              resource.resourceType === resourceType &&
+              !checkFor(thisType, 'url', resource.url)
+            ) {
+              thisType.push(resource);
+            } else if (
+              /* look for video resources next */
+              resource.videoType &&
+              resource.videoType === resourceType &&
+              !checkFor(thisType, 'youTubeId', resource.youTubeId)
+            ) {
+              thisType.push(resource);
+            } else if (
+              /* resource type cannot be identified so add it to unClassified array if not already there */
+              !resource.resourceType &&
+              !resource.videoType &&
+              !checkFor(unClassified, 'url', resource.url) &&
+              !checkFor(unClassified, 'youTubeId', resource.youTubeId)
+            ) {
+              unClassified.push(resource);
+            }
+          });
+          if (thisType.length > 0) {
+            filteredResources.push({
+              title: resourcesLabel.resources[resourceType],
+              resourceType,
+              documents: thisType,
             });
           }
         });
-      }
-
-      if (
-        category.page.pageType === PAGE_TYPES.SERVICES ||
-        category.page.pageType === PAGE_TYPES.INSTITUTE
-      ) {
-        if (category.documents.length > 0) {
-          category.page.documents.forEach(document => {
-            resources.push(document);
-          });
-        }
-      }
-      /*  filter documents */
-      resourceTypes.forEach(resourceType => {
-        const thisType = [];
-        resources.forEach(resource => {
-          if (
-            /* look for document resources first */
-            resource.resourceType &&
-            resource.resourceType === resourceType &&
-            !checkFor(thisType, 'url', resource.url)
-          ) {
-            thisType.push(resource);
-          } else if (
-            /* look for video resources next */
-            resource.videoType &&
-            resource.videoType === resourceType &&
-            !checkFor(thisType, 'youTubeId', resource.youTubeId)
-          ) {
-            thisType.push(resource);
-          } else if (
-            /* resource type cannot be identified so add it to unClassified array if not already there */
-            !resource.resourceType &&
-            !resource.videoType &&
-            !checkFor(unClassified, 'url', resource.url) &&
-            !checkFor(unClassified, 'youTubeId', resource.youTubeId)
-          ) {
-            unClassified.push(resource);
-          }
+        const key = makeid();
+        allCategories.push({
+          id: category.id,
+          title: category.name,
+          resources: filteredResources,
+          unClassified,
+          expert: category.expert,
+          key,
         });
-        if (thisType.length > 0) {
-          filteredResources.push({
-            title: resourcesLabel.resources[resourceType],
-            resourceType,
-            documents: thisType,
-          });
-        }
-      });
-      const key = makeid();
-      allCategories.push({
-        id: category.id,
-        title: category.name,
-        resources: filteredResources,
-        unClassified,
-        expert: category.expert,
-        key,
-      });
+      }
     });
-
-    let sortedCategories = [];
-    if (sortOrder && sortOrder.length > 0) {
-      /* sortOrder Array used to sort but when Sortable Relations feature becomes available in CMS,
-         sortOrder can be set to empty and fn will resolve to whatever order is returned from CMS */
-      sortOrder.forEach(elem => {
-        const found = allCategories.filter(category => category.id === elem.id)[0];
-        if (found) {
-          sortedCategories.push(found);
-        }
-      });
-    } else {
-      /*  making a shallow copy */
-      sortedCategories = Object.assign(allCategories);
-    }
 
     /* state.selectedCategory is set to first category by default with code below. If we want to set it to the placeholder text ("Select a Category") then set state.selectedCategory: null */
     this.state = {
-      allCategories: sortedCategories,
-      selectedCategory: sortedCategories[0] || null,
+      allCategories,
+      selectedCategory: allCategories[0] || null,
     };
   }
 
@@ -224,20 +209,12 @@ class ResourcesTemplate extends Component {
           label,
           navigation,
           page: {
-            resources: {
-              bannerImage,
-              contactAndForm,
-              description,
-              email,
-              emailSubject,
-              title,
-              sortOrder,
-            },
+            resources: { bannerImage, contactAndForm, description, email, emailSubject, title },
           },
           resourcesLabel,
         },
       },
-      pageContext: { locale, region },
+      pageContext: { languages, locale, region },
     } = this.props;
     const { allCategories, selectedCategory } = this.state;
 
@@ -248,6 +225,7 @@ class ResourcesTemplate extends Component {
         childrenClass="resources-page"
         headerFooter={headerFooter}
         label={label}
+        languages={languages}
         navigation={navigation}
         region={region}
         title={title}
@@ -279,7 +257,6 @@ class ResourcesTemplate extends Component {
                           categories={allCategories}
                           selectedCategory={selectedCategory}
                           setCategory={categoryKey => this.handleSetCategory(categoryKey)}
-                          sortOrder={sortOrder}
                           label={resourcesLabel.resources}
                         />
                         {selectedCategory && selectedCategory.expert && (
@@ -322,9 +299,9 @@ class ResourcesTemplate extends Component {
                       </div>
                       <hr />
                       {/* shown when there are no resources for this category */}
-                      {selectedCategory && selectedCategory.resources.length === 0 && (
+                      {/* {selectedCategory && selectedCategory.resources.length === 0 && (
                         <div className="no-resource">{resourcesLabel.resources.NO_RESOURCE}</div>
-                      )}
+                      )} */}
                       {selectedCategory &&
                         selectedCategory.resources.length > 0 &&
                         selectedCategory.resources.map(type => (
@@ -415,28 +392,34 @@ ResourcesTemplate.propTypes = {
     id: PropTypes.string,
   }),
   pageContext: PropTypes.shape({
+    languages: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
   }),
 };
 
 export const query = graphql`
-  query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
+  query(
+    $id: ID!
+    $locale: [GraphCMS_Locale!]!
+    $locales: [GraphCMS_Locale!]!
+    $region: GraphCMS_Region!
+  ) {
     cms {
       ...CommonQuery
-      resourcesLabel: label(where: { availableIn: $region }) {
-        resources(locale: $locale)
+      resourcesLabel: label(locales: $locale, where: { availableIn: $region }) {
+        resources
       }
-      page(where: { id: $id }) {
+      page(locales: $locales, where: { id: $id }) {
         resources: resourcesSource {
           bannerImage {
             handle
             width
             height
           }
-          description(locale: $locale)
-          title(locale: $locale)
-          categories(where: { AND: [{ status: PUBLISHED }, { page: { status: PUBLISHED } }] }) {
+          description
+          title
+          categories {
             id
             isProductCategory
             expert {
@@ -449,25 +432,27 @@ export const query = graphql`
               email
             }
             page {
+              archived
               pageType
               landingSource {
                 landingSections {
-                  pages(where: { status: PUBLISHED }) {
+                  pages(where: { OR: [{ archived: false }, { archived: null }] }) {
+                    id
                     pageType
                     productSource {
                       youTubeVideos {
-                        title(locale: $locale)
+                        title
                         videoType
                         youTubeId
                       }
-                      pdfDownloads(locale: $locale) {
-                        documentTitle(locale: $locale)
+                      pdfDownloads {
+                        documentTitle
                         fileName
                         resourceType
                         url
                       }
-                      caseStudies(locale: $locale) {
-                        documentTitle(locale: $locale)
+                      caseStudies {
+                        documentTitle
                         fileName
                         resourceType
                         url
@@ -475,90 +460,91 @@ export const query = graphql`
                     }
                     landingSource {
                       landingSections {
-                        pages(where: { status: PUBLISHED }) {
+                        pages(where: { OR: [{ archived: false }, { archived: null }] }) {
                           pageType
                           productSource {
                             youTubeVideos {
-                              title(locale: $locale)
+                              title
                               videoType
                               youTubeId
                             }
-                            pdfDownloads(locale: $locale) {
+                            pdfDownloads {
                               url
                               fileName
                               resourceType
-                              documentTitle(locale: $locale)
+                              documentTitle
                             }
-                            caseStudies(locale: $locale) {
+                            caseStudies {
                               url
                               fileName
                               resourceType
-                              documentTitle(locale: $locale)
+                              documentTitle
                             }
                           }
                         }
                       }
-                      pages(where: { status: PUBLISHED }) {
+                      pages(where: { OR: [{ archived: false }, { archived: null }] }) {
+                        id
                         pageType
                         productSource {
                           youTubeVideos {
-                            title(locale: $locale)
+                            title
                             videoType
                             youTubeId
                           }
-                          pdfDownloads(locale: $locale) {
+                          pdfDownloads {
                             url
                             fileName
                             resourceType
-                            documentTitle(locale: $locale)
+                            documentTitle
                           }
-                          caseStudies(locale: $locale) {
+                          caseStudies {
                             url
                             fileName
                             resourceType
-                            documentTitle(locale: $locale)
+                            documentTitle
                           }
                         }
                       }
                     }
                   }
                 }
-                pages(where: { status: PUBLISHED }) {
+                pages(where: { OR: [{ archived: false }, { archived: null }] }) {
+                  id
                   pageType
                   productSource {
                     youTubeVideos {
-                      title(locale: $locale)
+                      title
                       videoType
                       youTubeId
                     }
-                    pdfDownloads(locale: $locale) {
+                    pdfDownloads {
                       url
                       fileName
                       resourceType
-                      documentTitle(locale: $locale)
+                      documentTitle
                     }
-                    caseStudies(locale: $locale) {
+                    caseStudies {
                       url
                       fileName
                       resourceType
-                      documentTitle(locale: $locale)
+                      documentTitle
                     }
                   }
                 }
               }
             }
-            name(locale: $locale)
+            name
             documents {
               url
               fileName
               resourceType
-              documentTitle(locale: EN)
+              documentTitle
             }
           }
-          sortOrder(locale: $locale)
-          contactAndForm(locale: $locale)
+          contactAndForm
           email
-          emailSubject(locale: $locale)
+          emailSubject
         }
       }
     }

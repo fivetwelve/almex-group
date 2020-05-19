@@ -9,7 +9,7 @@ import '../styles/careers.scss';
 import { makeid, renderLink } from '../utils/functions';
 
 const CareersTemplate = ({ data, pageContext }) => {
-  const { locale, region } = pageContext;
+  const { languages, locale, region } = pageContext;
   const {
     cms: {
       aboutLabel,
@@ -37,6 +37,7 @@ const CareersTemplate = ({ data, pageContext }) => {
       childrenClass="careers-page"
       headerFooter={headerFooter}
       label={label}
+      languages={languages}
       navigation={navigation}
       region={region}
       title={title}
@@ -192,35 +193,36 @@ CareersTemplate.propTypes = {
   }),
   pageContext: PropTypes.shape({
     landingSections: PropTypes.array,
+    languages: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
   }),
 };
 
 export const query = graphql`
-  query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
+  query($id: ID!, $locale: [GraphCMS_Locale!]!, $region: GraphCMS_Region!) {
     cms {
       ...CommonQuery
-      aboutLabel: label(where: { availableIn: $region }) {
-        about(locale: $locale)
+      aboutLabel: label(locales: $locale, where: { availableIn: $region }) {
+        about
       }
-      page(where: { id: $id }) {
+      page(locales: $locale, where: { id: $id }) {
         careers: careersSource {
           bannerImage {
             handle
             width
             height
           }
-          description(locale: $locale)
-          instructions(locale: $locale)
-          noPostingsInstructions(locale: $locale)
-          title(locale: $locale)
+          description
+          instructions
+          noPostingsInstructions
+          title
           careerPostings {
             postingStatus
-            position(locale: $locale)
-            companyAndLocation(locale: $locale)
-            description(locale: $locale)
-            instructions(locale: $locale)
+            position
+            companyAndLocation
+            description
+            instructions
           }
         }
       }

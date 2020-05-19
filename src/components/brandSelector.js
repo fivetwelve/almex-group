@@ -94,7 +94,7 @@ const BrandSelector = props => {
           <span className="dd-text-icon text">
             {label.header.BRANDS}
             <span aria-hidden="true" className="dd-icon">
-              <IconContext.Provider value={{ className: 'brands-icon' }}>
+              <IconContext.Provider value={{ className: 'chevron' }}>
                 <FaAngleDown aria-hidden />
               </IconContext.Provider>
             </span>

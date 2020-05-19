@@ -302,8 +302,14 @@
       width: 100%;
       right: 0;
       margin-left: 0;
+      padding-left: 5px;
+      padding-right: 5px;
       position: static;
       transition: none;
+    }
+    @include media('>=desktop') {
+      padding-left: 0;
+      padding-right: 0;
     }
     .mobile-options {
       color: $white;

@@ -21,12 +21,6 @@ class ProductShowcase extends React.Component {
     const { images, youTubeVideos, pdfDownloads } = props;
     const slideArray = [];
     const pdfArray = [];
-    /* ascending sort of images */
-    images.sort((a, b) => {
-      if (a.sortName > b.sortName) return 1;
-      if (a.sortName < b.sortName) return -1;
-      return 0;
-    });
 
     /* populating carousel with images */
     for (let i = 0; i < images.length; i += 1) {
@@ -72,7 +66,7 @@ class ProductShowcase extends React.Component {
       enableKeyboardControls: true,
       slideIdx: 0,
       slideArray,
-      sortedImages: images,
+      images,
       pdfArray,
       wrapAround: true,
     };
@@ -121,7 +115,7 @@ class ProductShowcase extends React.Component {
       enableKeyboardControls,
       slideIdx,
       slideArray,
-      sortedImages,
+      images,
       pdfArray,
       wrapAround,
     } = this.state;
@@ -195,13 +189,13 @@ class ProductShowcase extends React.Component {
             )}
           </div>
         </div>
-        {((sortedImages.length > 1 && youTubeVideos.length === 0) ||
-          (sortedImages.length > 0 && youTubeVideos.length > 0)) && (
+        {((images.length > 1 && youTubeVideos.length === 0) ||
+          (images.length > 0 && youTubeVideos.length > 0)) && (
           <div className="carousel-controls">
-            {sortedImages.map((image, idx) => {
+            {images.map((image, idx) => {
               if (idx < $imageLimit) {
                 const thumbStyle = {
-                  backgroundImage: `url(${sortedImages[idx].url})`,
+                  backgroundImage: `url(${images[idx].url})`,
                 };
                 return (
                   <div
@@ -227,8 +221,7 @@ class ProductShowcase extends React.Component {
                 };
                 /* we may have more images than we can display so we have to impose a limit and we check 
                    whether to use given size of images, or the limit imposed */
-                const thisIdx =
-                  idx + (sortedImages.length >= $imageLimit ? $imageLimit : sortedImages.length);
+                const thisIdx = idx + (images.length >= $imageLimit ? $imageLimit : images.length);
                 return (
                   <div
                     className={`thumb-container${slideIdx === thisIdx ? ' active' : ''}`}

@@ -12,7 +12,7 @@ import ProductBrand from '../components/productBrand';
 import { makeid, renderLink } from '../utils/functions';
 
 const LandingTemplate = ({ data, pageContext }) => {
-  const { locale, region } = pageContext;
+  const { languages, locale, region } = pageContext;
   const {
     cms: {
       brandNavigation,
@@ -27,7 +27,6 @@ const LandingTemplate = ({ data, pageContext }) => {
           landingType,
           landingSections,
           singlePages,
-          sorting,
           theme,
           title,
         },
@@ -64,9 +63,8 @@ const LandingTemplate = ({ data, pageContext }) => {
     }
   }
 
-  const renderTiles = (pages, location, sort = true) => {
+  const renderTiles = (pages, location) => {
     const tileArray = [];
-    // let tileIdx = 0;
     pages.forEach(page => {
       // Use page titles by default. This allows some flexibility if there needs to be a shorter title than what is stored in source.
       const pageTitle = page.title;
@@ -81,41 +79,8 @@ const LandingTemplate = ({ data, pageContext }) => {
       tileArray.push(landingTile);
     });
 
-    if (sort) {
-      tileArray.sort((a, b) => {
-        // TODO: need to ensure activeLanguage param is valid value for localeCompare
-        const titleA = (a.props.data.title && a.props.data.title.toLowerCase()) || '';
-        const titleB = (b.props.data.title && b.props.data.title.toLowerCase()) || '';
-        // -1 sort string ascending
-        //  1 sort string descending;
-        //  0 no sorting
-        return titleA.localeCompare(titleB, locale);
-      });
-    }
     return tileArray;
   };
-
-  landingSections.sort((a, b) => {
-    // TODO: need to ensure activeLanguage param is valid value for localeCompare
-    const titleA = (a.title && a.title.toLowerCase()) || '';
-    const titleB = (b.title && b.title.toLowerCase()) || '';
-    // -1 sort string ascending
-    //  1 sort string descending;
-    //  0 no sorting
-    return titleA.localeCompare(titleB, locale);
-  });
-
-  const sortedSinglePages = [];
-  if (singlePages && sorting) {
-    sorting.forEach(elem => {
-      const foundPage = singlePages.filter(page => page.id === elem.id)[0];
-      /* conditional needed in case landingSource's sort field does not match up with children; 
-         prevents an undefined from being inserted into array */
-      if (foundPage) {
-        sortedSinglePages.push(foundPage);
-      }
-    });
-  }
 
   return (
     <Layout
@@ -124,6 +89,7 @@ const LandingTemplate = ({ data, pageContext }) => {
       childrenClass="landing-page"
       headerFooter={headerFooter}
       label={label}
+      languages={languages}
       navigation={navigation}
       region={region}
       title={title}
@@ -232,15 +198,8 @@ const LandingTemplate = ({ data, pageContext }) => {
                 }
                 return null;
               })}
-            {sortedSinglePages.length > 0 && (
-              <div className="tile-container">
-                {sortedSinglePages.length > 0 && renderTiles(sortedSinglePages, location, false)}
-              </div>
-            )}
-            {sortedSinglePages.length === 0 && (
-              <div className="tile-container">
-                {singlePages.length > 0 && renderTiles(singlePages, location)}
-              </div>
+            {singlePages.length > 0 && (
+              <div className="tile-container">{renderTiles(singlePages, location)}</div>
             )}
           </>
         )}
@@ -266,16 +225,22 @@ LandingTemplate.propTypes = {
   }),
   pageContext: PropTypes.shape({
     landingSections: PropTypes.array,
+    languages: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
   }),
 };
 
 export const query = graphql`
-  query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
+  query(
+    $id: ID!
+    $locale: [GraphCMS_Locale!]!
+    $locales: [GraphCMS_Locale!]!
+    $region: GraphCMS_Region!
+  ) {
     cms {
       ...CommonQuery
-      page(where: { id: $id }) {
+      page(locales: $locales, where: { id: $id }) {
         landing: landingSource {
           bannerImage {
             handle
@@ -283,49 +248,48 @@ export const query = graphql`
             height
           }
           brand
-          description(locale: $locale)
+          description
           theme
           landingType
           landingSections {
-            title(locale: $locale)
-            pages(where: { status: PUBLISHED }) {
+            title
+            pages(where: { OR: [{ archived: false }, { archived: null }] }) {
               landingSource {
-                title(locale: $locale)
+                title
               }
               productSource {
-                title(locale: $locale)
+                title
               }
               servicesSource {
-                title(locale: $locale)
+                title
               }
               pageType
-              slug(locale: $locale)
+              slug
               tile {
                 url
               }
-              title(locale: $locale)
+              title
             }
           }
-          singlePages: pages(where: { status: PUBLISHED }) {
+          singlePages: pages(where: { OR: [{ archived: false }, { archived: null }] }) {
             id
             landingSource {
-              title(locale: $locale)
+              title
             }
             productSource {
-              title(locale: $locale)
+              title
             }
             servicesSource {
-              title(locale: $locale)
+              title
             }
             pageType
-            slug(locale: $locale)
+            slug
             tile {
               url
             }
-            title(locale: $locale)
+            title
           }
-          sorting(locale: $locale)
-          title(locale: $locale)
+          title
         }
       }
     }

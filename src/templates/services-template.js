@@ -9,7 +9,7 @@ import { makeid, renderLink } from '../utils/functions';
 import '../styles/services.scss';
 
 const ServicesTemplate = ({ data, pageContext }) => {
-  const { locale, region } = pageContext;
+  const { languages, locale, region } = pageContext;
   const {
     cms: {
       brandNavigation,
@@ -29,6 +29,7 @@ const ServicesTemplate = ({ data, pageContext }) => {
       childrenClass="services-page"
       headerFooter={headerFooter}
       label={label}
+      languages={languages}
       navigation={navigation}
       region={region}
       title={title}
@@ -96,25 +97,26 @@ ServicesTemplate.propTypes = {
     }),
   }),
   pageContext: PropTypes.shape({
+    languages: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
   }),
 };
 
 export const query = graphql`
-  query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
+  query($id: ID!, $locale: [GraphCMS_Locale!]!, $region: GraphCMS_Region!) {
     cms {
       ...CommonQuery
-      page(where: { id: $id }) {
+      page(locales: $locale, where: { id: $id }) {
         services: servicesSource {
           bannerImage {
             handle
             width
             height
           }
-          description(locale: $locale)
-          sideContent(locale: $locale)
-          title(locale: $locale)
+          description
+          sideContent
+          title
         }
       }
     }

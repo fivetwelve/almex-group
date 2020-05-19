@@ -1,2 +1,14 @@
-/  /northamerica/es  301  Language=es,es-xl,es-419,es-CL,es-AR
+# Redirect users based on country
+/  /northamerica/  302  Country=ca,us
+#/  /europe/  302  Country=ca,us
+
+
+# After base country path, supplemental redirect based on language
+/northamerica/*  /northamerica/en/:splat  302  Language=en
+/northamerica/*  /northamerica/es/:splat  302  Language=es
+#/europe/*  /europe/en/:splat  302  Language=en
+#/europe/*  /europe/de/:splat  302  Language=de
+
+
+# Fallback redirect failing all of the above
 /  /northamerica/en  301

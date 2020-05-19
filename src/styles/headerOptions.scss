@@ -69,6 +69,46 @@
     }
   }
   .lang-selector {
+    button {
+      background-color: $white;
+      &:hover {
+        transition: $easeinout;
+        .dd-icon {
+          transition: $easeinout;
+        }
+        .dd-text-icon {
+          transition: $easeinout;
+        }
+      }
+      &.is-open {
+        .dd-icon {
+          transform: rotate(180deg);
+          transition: $easeinout;
+        }
+        .dd-text-icon {
+          transition: $easeinout;
+        }
+      }
+      .dd-icon {
+        color: $black;
+        transform: rotate(0);
+        transition: $easeinout;
+      }
+
+      .dd-text-icon {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        pointer-events: none;
+        white-space: nowrap;
+        &.text {
+          font-weight: bold;
+        }
+        .dd-icon {
+          height: 20px;
+        }
+      }
+    }
     .lang-dropdown {
       background-color: $white;
       min-width: 5rem;
@@ -76,14 +116,17 @@
       transition: all 0.5s ease;
       margin: 0;
       left: 0;
-      top: 40px;
+      top: 35px;
       display: none;
       box-shadow: 0px 7px 20px -9px rgba(0, 0, 0, 0.75);
+      &.visible {
+        display: block;
+      }
     }
 
-    .lang-dropdown--visible {
-      display: block;
-    }
+    // .lang-dropdown--visible {
+    //   display: block;
+    // }
 
     .nav__list {
       clear: both;
@@ -98,7 +141,7 @@
       padding-left: 30px;
       padding-right: 50px;
       &:hover {
-        color: $red-piper;
+        color: $black;
       }
       transition-duration: 0.5s;
     }
@@ -113,7 +156,7 @@
         transition: $easeinout;
         .dd-icon {
           transition: $easeinout;
-          .brands-icon {
+          .chevron {
             color: $black;
           }
         }
@@ -126,7 +169,7 @@
         .dd-icon {
           transform: rotate(180deg);
           transition: $easeinout;
-          .brands-icon {
+          .chevron {
             color: $black;
           }
         }

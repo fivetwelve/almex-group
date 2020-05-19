@@ -12,7 +12,7 @@ import { makeid, matchMomentLocale, renderLink } from '../utils/functions';
 import '../styles/usedEquipment.scss';
 
 const UsedEquipmentTemplate = ({ data, pageContext }) => {
-  const { locale, region } = pageContext;
+  const { languages, locale, region } = pageContext;
   const {
     cms: {
       brandNavigation,
@@ -34,6 +34,7 @@ const UsedEquipmentTemplate = ({ data, pageContext }) => {
       childrenClass="used-equipment-page"
       headerFooter={headerFooter}
       label={label}
+      languages={languages}
       navigation={navigation}
       region={region}
       title={title}
@@ -88,7 +89,6 @@ UsedEquipmentTemplate.propTypes = {
       headerFooter: PropTypes.object,
       label: PropTypes.object,
       navigation: PropTypes.object,
-      sparesRepairsLabel: PropTypes.object,
       page: PropTypes.object,
     }),
   }),
@@ -99,35 +99,41 @@ UsedEquipmentTemplate.propTypes = {
     }),
   }),
   pageContext: PropTypes.shape({
+    languages: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
   }),
 };
 
 export const query = graphql`
-  query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
+  query(
+    $id: ID!
+    $locale: [GraphCMS_Locale!]!
+    $locales: [GraphCMS_Locale!]!
+    $region: GraphCMS_Region!
+  ) {
     cms {
       ...CommonQuery
-      label(where: { availableIn: $region }) {
-        sparesRepairs(locale: $locale)
+      label(locales: $locale, where: { availableIn: $region }) {
+        sparesRepairs
       }
-      page(where: { id: $id }) {
+      page(locales: $locales, where: { id: $id }) {
         usedEquipment: usedEquipmentSource {
           bannerImage {
             handle
             width
             height
           }
-          description(locale: $locale)
-          disclaimer(locale: $locale)
-          title(locale: $locale)
+          description
+          disclaimer
+          title
           usedEquipmentListings {
             date
             equipmentStatus
-            title(locale: $locale)
+            title
             modelNumber
-            contactInformation(locale: $locale)
-            equipmentDescription(locale: $locale)
+            contactInformation
+            equipmentDescription
             images {
               url
             }

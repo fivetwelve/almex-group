@@ -47,7 +47,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
   }, []);
   /* end ad-hoc code */
 
-  const { locale, region } = pageContext;
+  const { languages, locale, region } = pageContext;
   const {
     cms: {
       brandNavigation,
@@ -57,7 +57,6 @@ const HomepageTemplate = ({ data, pageContext }) => {
       page: { homepage },
     },
   } = data;
-
   let slideNum = 0;
   const eventStyle1 = {
     backgroundImage: `url(${homepage.homepageEventTiles[0].image.url})`,
@@ -189,6 +188,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
       childrenClass="homepage"
       headerFooter={headerFooter}
       label={label}
+      languages={languages}
       navigation={navigation}
       region={region}
       title=""
@@ -332,55 +332,58 @@ HomepageTemplate.propTypes = {
   }),
   pageContext: PropTypes.shape({
     landingSections: PropTypes.array,
+    languages: PropTypes.array,
     locale: PropTypes.string,
     region: PropTypes.string,
   }),
 };
 
 export const query = graphql`
-  query($id: ID!, $locale: GraphCMS_Locale!, $region: GraphCMS_Region!) {
+  query(
+    $id: ID!
+    $locale: [GraphCMS_Locale!]!
+    $locales: [GraphCMS_Locale!]!
+    $region: GraphCMS_Region!
+  ) {
     cms {
       ...CommonQuery
-      page(where: { id: $id }) {
+      page(locales: $locales, where: { id: $id }) {
         homepage: homepageSource {
-          heading(locale: $locale)
-          homepageCarouselSlides(orderBy: sort_ASC) {
+          heading
+          homepageCarouselSlides {
             geoRestrict
-            sort
             asset {
               url
             }
             page {
-              slug(locale: $locale)
+              slug
             }
-            slideHeading(locale: $locale)
-            slideText(locale: $locale)
+            slideHeading
+            slideText
             slideType
           }
-          homepageEventTiles(orderBy: sort_ASC) {
-            sort
+          homepageEventTiles {
             title
-            description(locale: $locale)
+            description
             image {
               url
             }
             page {
-              slug(locale: $locale)
+              slug
             }
-            externalLink(locale: $locale)
+            externalLink
           }
-          homepageTiles(orderBy: sort_ASC) {
-            sort
-            description(locale: $locale)
+          homepageTiles {
+            description
             image {
               url
             }
-            title(locale: $locale)
+            title
             page {
               tile {
                 url
               }
-              slug(locale: $locale)
+              slug
             }
           }
         }

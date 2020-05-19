@@ -5,7 +5,7 @@ import { navigate as reload } from '@reach/router';
 import { IconContext } from 'react-icons';
 import { FaBars, FaSearch } from 'react-icons/fa';
 import BrandSelector from './brandSelector';
-// import LanguageSelector from './languageSelector';
+import LanguageSelector from './languageSelector';
 import Navigation from './navigation';
 import NavWrapper from './navWrapper';
 import { createLink } from '../utils/functions';
@@ -43,9 +43,6 @@ class Header extends React.Component {
     const { search } = this.state;
     const charCode = typeof evt.which === 'number' ? evt.which : evt.keyCode;
     if (charCode === 13 && search.trim() !== '') {
-      // navigate(
-      //   `${createLink(location, 'search')}?query=${encodeURIComponent(search.trim())}&page=1`,
-      // );
       reload(`${createLink(location, 'search')}?query=${encodeURIComponent(search.trim())}&page=1`);
     }
   };
@@ -68,6 +65,7 @@ class Header extends React.Component {
       brandNavigation,
       headerFooter,
       label,
+      languages,
       location,
       navigation,
       region,
@@ -94,8 +92,8 @@ class Header extends React.Component {
                   value={search}
                   placeholder="e.g. rubber tank lining, etc..."
                 />
-                {/* {label.header.SEARCH} */}
-                {/* <button type="button" className="mobile-menu"></button> */}
+                {/* {label.header.SEARCH}
+                <button type="button" className="mobile-menu"></button> */}
                 <button
                   type="button"
                   className="button"
@@ -106,27 +104,29 @@ class Header extends React.Component {
                   </IconContext.Provider>
                 </button>
               </div>
-              <div className="fusion-club">
-                <a href="https://fusionclubpoints.com">
-                  <div className="text-top">FUSION</div>
-                  <img
-                    src={plane}
-                    width="30"
-                    alt="Fusion Club"
-                    className="logo"
-                    aria-hidden="true"
-                  />
-                  <div className="text-bottom">CLUB</div>
-                </a>
-              </div>
+              {headerFooter.fusionClub && (
+                <div className="fusion-club">
+                  <a href="https://fusionclubpoints.com">
+                    <div className="text-top">FUSION</div>
+                    <img
+                      src={plane}
+                      width="30"
+                      alt="Fusion Club"
+                      className="logo"
+                      aria-hidden="true"
+                    />
+                    <div className="text-bottom">CLUB</div>
+                  </a>
+                </div>
+              )}
               <BrandSelector brandNavigation={brandNavigation} label={label} location={location} />
-              {/* TODO Re-activate when Spanish becomes available */}
-              {/* <LanguageSelector
-                activeLanguage={activeLanguage}
-                languages={headerFooter.language}
-                region={region}
-              /> */}
-              {/* <div className="login">{label.header.LOGIN}</div> */}
+              {languages.length > 1 && (
+                <LanguageSelector
+                  activeLanguage={activeLanguage}
+                  languages={languages}
+                  region={region}
+                />
+              )}
             </div>
             <div className="tagline-container">
               <span className="tagline">{headerFooter.simpleTagline}</span>
@@ -166,7 +166,7 @@ class Header extends React.Component {
             brandNavigation={brandNavigation}
             handleCloseMenuClick={this.handleMobileMenuClick}
             label={label}
-            languages={headerFooter.language}
+            languages={languages}
             location={location}
             navigation={navigation}
             region={region}
@@ -180,8 +180,10 @@ class Header extends React.Component {
 Header.defaultProps = {
   activeLanguage: '',
   brandNavigation: {},
+  // data: {},
   headerFooter: {},
   label: {},
+  languages: [],
   location: {},
   navigation: {},
   region: '',
@@ -193,14 +195,19 @@ Header.propTypes = {
   brandNavigation: PropTypes.shape({
     pages: PropTypes.array,
   }),
+  // data: PropTypes.shape({
+  //   cms: PropTypes.object,
+  // }),
   headerFooter: PropTypes.shape({
-    language: PropTypes.array,
+    fusionClub: PropTypes.bool,
+    // language: PropTypes.array,
     navigation: PropTypes.array,
     simpleTagline: PropTypes.string,
   }),
   label: PropTypes.shape({
     header: PropTypes.object,
   }),
+  languages: PropTypes.arrayOf(PropTypes.string),
   location: PropTypes.shape({
     pathname: PropTypes.string,
   }),
@@ -213,103 +220,99 @@ Header.propTypes = {
 
 export const commonFragment = graphql`
   fragment CommonQuery on GraphCMS {
-    brandNavigation(where: { availableIn: $region }) {
-      pages(where: { status: PUBLISHED }) {
+    brandNavigation(locales: $locale, where: { availableIn: $region }) {
+      pages(where: { OR: [{ archived: false }, { archived: null }] }) {
         landing: landingSource {
           brand
-          title(locale: $locale)
+          title
         }
         institute: instituteSource {
           brand
-          title(locale: $locale)
+          title
         }
         services: servicesSource {
           brand
-          title(locale: $locale)
+          title
         }
         pageType
-        slug(locale: $locale)
-        title(locale: $locale)
+        slug
+        title
       }
-      title(locale: $locale)
+      title
       type
     }
-    label(where: { availableIn: $region }) {
-      header(locale: $locale)
-      footer(locale: $locale)
-      common(locale: $locale)
+    label(locales: $locale, where: { availableIn: $region }) {
+      header
+      footer
+      common
     }
-    headerFooter(where: { availableIn: $region }) {
-      companyAddress(locale: $locale)
+    headerFooter(locales: $locale, where: { availableIn: $region }) {
+      companyAddress
       companyEmail
       companyPhone
-      footerLinks(locale: $locale)
-      formattedTagline(locale: $locale)
-      language
-      navigation(locale: $locale)
-      simpleTagline(locale: $locale)
-      socialMedia(locale: $locale)
+      footerLinks
+      formattedTagline
+      fusionClub
+      # language
+      navigation
+      simpleTagline
+      socialMedia
       privacyPage {
-        slug(locale: $locale)
+        slug
       }
     }
-    navigation(where: { availableIn: $region }) {
+    navigation(locales: $locale, where: { availableIn: $region }) {
       navigationSections {
-        pages(where: { status: PUBLISHED }) {
+        pages(where: { OR: [{ archived: false }, { archived: null }] }) {
           id
           pageType
-          slug: slug(locale: $locale)
+          slug: slug
           about: aboutSource {
-            title(locale: $locale)
+            title
           }
           careers: careersSource {
-            title(locale: $locale)
+            title
           }
           contact: contactSource {
-            title(locale: $locale)
-          }
-          downloads: downloadsSource {
-            title(locale: $locale)
+            title
           }
           events: eventsSource {
-            title(locale: $locale)
+            title
           }
           history: historySource {
-            title(locale: $locale)
+            title
           }
           institute: instituteSource {
-            title(locale: $locale)
+            title
           }
           landing: landingSource {
             brand
-            title(locale: $locale)
+            title
           }
           news: newsSource {
-            title(locale: $locale)
+            title
           }
           product: productSource {
-            title(locale: $locale)
+            title
           }
           promo: promoSource {
-            title(locale: $locale)
+            title
           }
           resources: resourcesSource {
-            title(locale: $locale)
+            title
           }
           services: servicesSource {
             brand
-            title(locale: $locale)
+            title
           }
           usedEquipment: usedEquipmentSource {
-            title(locale: $locale)
+            title
           }
         }
         isLandingPage
-        sortOrder(locale: $locale)
-        title(locale: $locale)
+        title
         type
       }
-      sortOrder
     }
   }
 `;
