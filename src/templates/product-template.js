@@ -15,7 +15,9 @@ import '../styles/product.scss';
 /* location prop is received from LinkWithPrevious's composition with Location */
 const ProductTemplate = ({ data, location, pageContext }) => {
   if (!data.cms.page.product) {
-    throw Error('productSource is either not connected or not published');
+    throw Error(
+      'Check the connection to productSource; missing localization or publish status may also cause errors.',
+    );
   }
   const { languages, locale, region } = pageContext;
   const {
@@ -335,6 +337,7 @@ ProductTemplate.propTypes = {
   pageContext: PropTypes.shape({
     languages: PropTypes.array,
     locale: PropTypes.string,
+    locales: PropTypes.array,
     region: PropTypes.string,
   }),
 };

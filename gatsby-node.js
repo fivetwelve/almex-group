@@ -13,7 +13,7 @@ exports.createPages = ({ graphql, actions }) => {
     graphql(`
       {
         cms {
-          pages(locales: [EN, ES], first: 1000) {
+          pages(first: 1000, where: { OR: [{ archived: null }, { archived: false }] }) {
             archived
             id
             availableIn
@@ -48,6 +48,7 @@ exports.createPages = ({ graphql, actions }) => {
             component: path.resolve(`./src/templates/search-template.js`),
             context: {
               locale: language,
+              locales: language === 'EN' ? [language] : [language, 'EN'],
               region,
             },
           });
@@ -76,6 +77,7 @@ exports.createPages = ({ graphql, actions }) => {
                           id,
                           languages,
                           locale,
+                          locales,
                           region,
                         },
                       });
@@ -88,6 +90,7 @@ exports.createPages = ({ graphql, actions }) => {
                           id,
                           languages,
                           locale,
+                          locales,
                           region,
                         },
                       });
@@ -100,6 +103,7 @@ exports.createPages = ({ graphql, actions }) => {
                           id,
                           languages,
                           locale,
+                          locales,
                           region,
                         },
                       });
@@ -231,6 +235,7 @@ exports.createPages = ({ graphql, actions }) => {
                           id,
                           languages,
                           locale,
+                          locales,
                           region,
                         },
                       });
@@ -243,6 +248,7 @@ exports.createPages = ({ graphql, actions }) => {
                           id,
                           languages,
                           locale,
+                          locales,
                           region,
                         },
                       });

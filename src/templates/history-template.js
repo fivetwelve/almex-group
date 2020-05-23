@@ -11,7 +11,9 @@ import '../styles/history.scss';
 
 const HistoryTemplate = ({ data, pageContext }) => {
   if (!data.cms.page.history) {
-    throw Error('historySource is either not connected or not published');
+    throw Error(
+      'Check the connection to historySource; missing localization or incorrect or publish status may also cause errors.',
+    );
   }
   const { languages, locale, region } = pageContext;
   const {
@@ -93,6 +95,7 @@ HistoryTemplate.propTypes = {
   pageContext: PropTypes.shape({
     languages: PropTypes.array,
     locale: PropTypes.string,
+    locales: PropTypes.array,
     region: PropTypes.string,
   }),
 };

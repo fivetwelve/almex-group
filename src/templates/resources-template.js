@@ -206,7 +206,9 @@ class ResourcesTemplate extends Component {
       pageContext: { languages, locale, region },
     } = this.props;
     if (!data.cms.page.resources) {
-      throw Error('resourcesSource is either not connected or not published');
+      throw Error(
+        'Check the connection to resourcesSource; missing localization or publish status may also cause errors.',
+      );
     }
     const {
       cms: {
@@ -398,6 +400,7 @@ ResourcesTemplate.propTypes = {
   pageContext: PropTypes.shape({
     languages: PropTypes.array,
     locale: PropTypes.string,
+    locales: PropTypes.array,
     region: PropTypes.string,
   }),
 };

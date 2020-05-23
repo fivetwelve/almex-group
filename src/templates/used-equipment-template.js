@@ -13,7 +13,9 @@ import '../styles/usedEquipment.scss';
 
 const UsedEquipmentTemplate = ({ data, pageContext }) => {
   if (!data.cms.page.usedEquipment) {
-    throw Error('usedEquipmentSource is either not connected or not published');
+    throw Error(
+      'Check the connection to usedEquipmentSource; missing localization or publish status may also cause errors.',
+    );
   }
   const { languages, locale, region } = pageContext;
   const {
@@ -104,6 +106,7 @@ UsedEquipmentTemplate.propTypes = {
   pageContext: PropTypes.shape({
     languages: PropTypes.array,
     locale: PropTypes.string,
+    locales: PropTypes.array,
     region: PropTypes.string,
   }),
 };

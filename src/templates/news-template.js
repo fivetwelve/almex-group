@@ -169,6 +169,7 @@ NewsTemplate.propTypes = {
     landingSections: PropTypes.array,
     languages: PropTypes.array,
     locale: PropTypes.string,
+    locales: PropTypes.array,
     region: PropTypes.string,
   }),
 };

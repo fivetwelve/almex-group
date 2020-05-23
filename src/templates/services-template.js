@@ -10,7 +10,9 @@ import '../styles/services.scss';
 
 const ServicesTemplate = ({ data, pageContext }) => {
   if (!data.cms.page.services) {
-    throw Error('servicesSource is either not connected or not published');
+    throw Error(
+      'Check the connection to servicesSource; missing localization or publish status may also cause errors.',
+    );
   }
   const { languages, locale, region } = pageContext;
   const {
@@ -102,12 +104,18 @@ ServicesTemplate.propTypes = {
   pageContext: PropTypes.shape({
     languages: PropTypes.array,
     locale: PropTypes.string,
+    locales: PropTypes.array,
     region: PropTypes.string,
   }),
 };
 
 export const query = graphql`
-  query($id: ID!, $locale: [GraphCMS_Locale!]!, $region: GraphCMS_Region!) {
+  query(
+    $id: ID!
+    $locale: [GraphCMS_Locale!]!
+    $locales: [GraphCMS_Locale!]!
+    $region: GraphCMS_Region!
+  ) {
     cms {
       ...CommonQuery
       page(locales: $locale, where: { id: $id }) {

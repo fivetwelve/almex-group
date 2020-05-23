@@ -32,7 +32,7 @@ const LanguageSelector = props => {
         }}
       >
         <span className="dd-text-icon">
-          {activeLanguage}
+          {LANGUAGE_SLUGS[activeLanguage].toUpperCase()}
           <span aria-hidden="true" className="dd-icon">
             <IconContext.Provider value={{ className: 'chevron' }}>
               <FaAngleDown aria-hidden />
@@ -44,7 +44,7 @@ const LanguageSelector = props => {
         {languages.map(language => (
           <li className="nav__list" key={language}>
             <Link to={`/${REGION_SLUGS[region]}/${LANGUAGE_SLUGS[language]}`}>
-              <span className="nav__link">{language}</span>
+              <span className="nav__link">{LANGUAGE_SLUGS[language].toUpperCase()}</span>
             </Link>
           </li>
         ))}

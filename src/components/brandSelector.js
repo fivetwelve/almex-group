@@ -12,7 +12,7 @@ const BrandSelector = props => {
   const [openMenu, handleMenuState] = useState(false);
   const { brandNavigation, label, location } = props;
   const brands = brandNavigation.pages;
-  brands.sort((a, b) => (a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1));
+  // brands.sort((a, b) => (a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1));
 
   const handleClickDropDown = evt => {
     evt.preventDefault();
