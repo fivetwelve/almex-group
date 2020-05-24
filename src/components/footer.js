@@ -207,7 +207,6 @@ class Footer extends React.Component {
     const { footerLinks, socialMedia } = headerFooter;
     const { footer } = label;
     const brands = brandNavigation.pages;
-    brands.sort((a, b) => (a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1));
     return (
       <>
         <CookieConsent
