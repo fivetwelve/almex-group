@@ -58,7 +58,9 @@ const HomepageTemplate = ({ data, pageContext }) => {
     },
   } = data;
   if (!data.cms.page.homepage) {
-    throw Error('homepageSource is either not connected or not published');
+    throw Error(
+      'Check the connection to homepageSource; missing localization or publish status may also cause errors.',
+    );
   }
   let slideNum = 0;
   const eventStyle1 = {
@@ -337,6 +339,7 @@ HomepageTemplate.propTypes = {
     landingSections: PropTypes.array,
     languages: PropTypes.array,
     locale: PropTypes.string,
+    locales: PropTypes.array,
     region: PropTypes.string,
   }),
 };

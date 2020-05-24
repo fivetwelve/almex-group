@@ -14,7 +14,9 @@ import logo from '../../static/img/logo-institute.svg';
 const InstituteTemplate = ({ data, pageContext }) => {
   const { languages, locale, region } = pageContext;
   if (!data.cms.page.institute) {
-    throw Error('instituteSource is either not connected or not published');
+    throw Error(
+      'Check the connection to instituteSource; missing localization or publish status may also cause errors.',
+    );
   }
   const {
     cms: {
@@ -209,6 +211,7 @@ InstituteTemplate.propTypes = {
   pageContext: PropTypes.shape({
     languages: PropTypes.array,
     locale: PropTypes.string,
+    locales: PropTypes.array,
     region: PropTypes.string,
   }),
 };

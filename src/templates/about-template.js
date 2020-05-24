@@ -11,7 +11,9 @@ import { createLink, makeid, renderLink } from '../utils/functions';
 
 const AboutTemplate = ({ data, pageContext }) => {
   if (!data.cms.page.about) {
-    throw Error('aboutSource is either not connected or not published');
+    throw Error(
+      'Check the connection to aboutSource; missing localization or publish status may also cause errors.',
+    );
   }
   const { languages, locale, region } = pageContext;
   const {
@@ -118,11 +120,17 @@ AboutTemplate.propTypes = {
   pageContext: PropTypes.shape({
     languages: PropTypes.array,
     locale: PropTypes.string,
+    locales: PropTypes.array,
     region: PropTypes.string,
   }),
 };
 export const query = graphql`
-  query($id: ID!, $locale: [GraphCMS_Locale!]!, $region: GraphCMS_Region!) {
+  query(
+    $id: ID!
+    $locale: [GraphCMS_Locale!]!
+    $locales: [GraphCMS_Locale!]!
+    $region: GraphCMS_Region!
+  ) {
     cms {
       ...CommonQuery
       aboutLabel: label(locales: $locale, where: { availableIn: $region }) {

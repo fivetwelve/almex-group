@@ -175,7 +175,9 @@ class EventsTemplate extends Component {
       pageContext: { languages, locale, region },
     } = this.props;
     if (!data.cms.page.eventsSource) {
-      throw Error('eventsSource is either not connected or not published');
+      throw Error(
+        'Check the connection to eventsSource; missing localization or publish status may also cause errors.',
+      );
     }
     const {
       cms: {
@@ -334,6 +336,7 @@ EventsTemplate.propTypes = {
     landingSections: PropTypes.array,
     languages: PropTypes.array,
     locale: PropTypes.string,
+    locales: PropTypes.array,
     region: PropTypes.string,
   }),
 };

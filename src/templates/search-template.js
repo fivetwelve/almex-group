@@ -172,12 +172,13 @@ SearchTemplate.propTypes = {
   pageContext: PropTypes.shape({
     languages: PropTypes.array,
     locale: PropTypes.string,
+    locales: PropTypes.array,
     region: PropTypes.string,
   }),
 };
 
 export const query = graphql`
-  query($locale: [GraphCMS_Locale!]!, $region: GraphCMS_Region!) {
+  query($locale: [GraphCMS_Locale!]!, $locales: [GraphCMS_Locale!]!, $region: GraphCMS_Region!) {
     cms {
       ...CommonQuery
       label(locales: $locale, where: { availableIn: $region }) {

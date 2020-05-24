@@ -10,7 +10,9 @@ import '../styles/promo.scss';
 
 const PromoTemplate = ({ data, pageContext }) => {
   if (!data.cms.page.promoContent) {
-    throw Error('promoSource is either not connected or not published');
+    throw Error(
+      'Check the connection to promoSource; missing localization or publish status may also cause errors.',
+    );
   }
   const { languages, locale, region } = pageContext;
   const {
@@ -83,6 +85,7 @@ PromoTemplate.propTypes = {
   pageContext: PropTypes.shape({
     languages: PropTypes.array,
     locale: PropTypes.string,
+    locales: PropTypes.array,
     region: PropTypes.string,
   }),
 };

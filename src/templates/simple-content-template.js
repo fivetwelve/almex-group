@@ -10,7 +10,9 @@ import '../styles/simpleContent.scss';
 
 const SimpleContentTemplate = ({ data, pageContext }) => {
   if (!data.cms.page.simpleContent) {
-    throw Error('simpleContentSource is either not connected or not published');
+    throw Error(
+      'Check the connection to simpleContentSource; missing localization or publish status may also cause errors.',
+    );
   }
   const { languages, locale, region } = pageContext;
   const {
@@ -83,12 +85,18 @@ SimpleContentTemplate.propTypes = {
   pageContext: PropTypes.shape({
     languages: PropTypes.array,
     locale: PropTypes.string,
+    locales: PropTypes.array,
     region: PropTypes.string,
   }),
 };
 
 export const query = graphql`
-  query($id: ID!, $locale: [GraphCMS_Locale!]!, $region: GraphCMS_Region!) {
+  query(
+    $id: ID!
+    $locale: [GraphCMS_Locale!]!
+    $locales: [GraphCMS_Locale!]!
+    $region: GraphCMS_Region!
+  ) {
     cms {
       ...CommonQuery
       page(locales: $locale, where: { id: $id }) {

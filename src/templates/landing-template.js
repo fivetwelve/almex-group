@@ -13,7 +13,9 @@ import { makeid, renderLink } from '../utils/functions';
 
 const LandingTemplate = ({ data, pageContext }) => {
   if (!data.cms.page.landing) {
-    throw Error('landingSource is either not connected or not published');
+    throw Error(
+      'Check the connection to landingSource; missing localization or publish status may also cause errors.',
+    );
   }
   const { languages, locale, region } = pageContext;
   const {
@@ -230,6 +232,7 @@ LandingTemplate.propTypes = {
     landingSections: PropTypes.array,
     languages: PropTypes.array,
     locale: PropTypes.string,
+    locales: PropTypes.array,
     region: PropTypes.string,
   }),
 };

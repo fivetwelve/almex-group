@@ -10,7 +10,9 @@ import { makeid, renderLink } from '../utils/functions';
 
 const CareersTemplate = ({ data, pageContext }) => {
   if (!data.cms.page.careers) {
-    throw Error('careersSource is either not connected or not published');
+    throw Error(
+      'Check the connection to careersSource; missing localization or publish status may also cause errors.',
+    );
   }
   const { languages, locale, region } = pageContext;
   const {
@@ -198,12 +200,18 @@ CareersTemplate.propTypes = {
     landingSections: PropTypes.array,
     languages: PropTypes.array,
     locale: PropTypes.string,
+    locales: PropTypes.array,
     region: PropTypes.string,
   }),
 };
 
 export const query = graphql`
-  query($id: ID!, $locale: [GraphCMS_Locale!]!, $region: GraphCMS_Region!) {
+  query(
+    $id: ID!
+    $locale: [GraphCMS_Locale!]!
+    $locales: [GraphCMS_Locale!]!
+    $region: GraphCMS_Region!
+  ) {
     cms {
       ...CommonQuery
       aboutLabel: label(locales: $locale, where: { availableIn: $region }) {

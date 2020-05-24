@@ -71,7 +71,6 @@ class Header extends React.Component {
       region,
     } = this.props;
     const { search } = this.state;
-
     return (
       <div className="header">
         <div className="contents">
@@ -261,7 +260,7 @@ export const commonFragment = graphql`
         slug
       }
     }
-    navigation(locales: $locale, where: { availableIn: $region }) {
+    navigation(locales: $locales, where: { availableIn: $region }) {
       navigationSections {
         pages(where: { OR: [{ archived: false }, { archived: null }] }) {
           id
