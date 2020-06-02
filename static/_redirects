@@ -1,5 +1,5 @@
 # Redirect users based on country
-/  /northamerica/  302  Country=ca,us
+/  /northamerica/en  302  Country=ca,us
 #/  /europe/  302  Country=ca,us
 
 
