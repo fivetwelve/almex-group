@@ -12,7 +12,7 @@ import { createLink, makeid, renderLink } from '../utils/functions';
 const AboutTemplate = ({ data, pageContext }) => {
   if (!data.cms.page.about) {
     throw Error(
-      'Check the connection to aboutSource; missing localization or publish status may also cause errors.',
+      `Check the connection to aboutSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
     );
   }
   const { languages, locale, region } = pageContext;
@@ -118,6 +118,7 @@ AboutTemplate.propTypes = {
     }),
   }),
   pageContext: PropTypes.shape({
+    id: PropTypes.string,
     languages: PropTypes.array,
     locale: PropTypes.string,
     locales: PropTypes.array,

@@ -95,7 +95,7 @@ class ContactTemplate extends React.Component {
     const { data, pageContext } = this.props;
     if (!data.cms.page.contact) {
       throw Error(
-        'Check the connection to contactSource; missing localization or publish status may also cause errors.',
+        `Check the connection to contactSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
       );
     }
     const { languages, locale, region } = pageContext;
@@ -257,6 +257,7 @@ ContactTemplate.propTypes = {
     }),
   }),
   pageContext: PropTypes.shape({
+    id: PropTypes.string,
     languages: PropTypes.array,
     locale: PropTypes.string,
     locales: PropTypes.array,

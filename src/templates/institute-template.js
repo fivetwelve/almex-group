@@ -15,7 +15,7 @@ const InstituteTemplate = ({ data, pageContext }) => {
   const { languages, locale, region } = pageContext;
   if (!data.cms.page.institute) {
     throw Error(
-      'Check the connection to instituteSource; missing localization or publish status may also cause errors.',
+      `Check the connection to instituteSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
     );
   }
   const {
@@ -209,6 +209,7 @@ InstituteTemplate.propTypes = {
     }),
   }),
   pageContext: PropTypes.shape({
+    id: PropTypes.string,
     languages: PropTypes.array,
     locale: PropTypes.string,
     locales: PropTypes.array,

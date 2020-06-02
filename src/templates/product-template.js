@@ -16,7 +16,7 @@ import '../styles/product.scss';
 const ProductTemplate = ({ data, location, pageContext }) => {
   if (!data.cms.page.product) {
     throw Error(
-      'Check the connection to productSource; missing localization or publish status may also cause errors.',
+      `Check the connection to productSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
     );
   }
   const { languages, locale, region } = pageContext;
@@ -335,6 +335,7 @@ ProductTemplate.propTypes = {
     }),
   }),
   pageContext: PropTypes.shape({
+    id: PropTypes.string,
     languages: PropTypes.array,
     locale: PropTypes.string,
     locales: PropTypes.array,

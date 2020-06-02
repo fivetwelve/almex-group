@@ -47,6 +47,11 @@ const HomepageTemplate = ({ data, pageContext }) => {
   }, []);
   /* end ad-hoc code */
 
+  if (!data.cms.page.homepage) {
+    throw Error(
+      `Check the connection to homepageSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
+    );
+  }
   const { languages, locale, region } = pageContext;
   const {
     cms: {
@@ -57,11 +62,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
       page: { homepage },
     },
   } = data;
-  if (!data.cms.page.homepage) {
-    throw Error(
-      'Check the connection to homepageSource; missing localization or publish status may also cause errors.',
-    );
-  }
+
   let slideNum = 0;
   const eventStyle1 = {
     backgroundImage: `url(${homepage.homepageEventTiles[0].image.url})`,
@@ -336,7 +337,7 @@ HomepageTemplate.propTypes = {
     }),
   }),
   pageContext: PropTypes.shape({
-    landingSections: PropTypes.array,
+    id: PropTypes.string,
     languages: PropTypes.array,
     locale: PropTypes.string,
     locales: PropTypes.array,

@@ -14,7 +14,7 @@ import { makeid, renderLink } from '../utils/functions';
 const LandingTemplate = ({ data, pageContext }) => {
   if (!data.cms.page.landing) {
     throw Error(
-      'Check the connection to landingSource; missing localization or publish status may also cause errors.',
+      `Check the connection to landingSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
     );
   }
   const { languages, locale, region } = pageContext;
@@ -229,7 +229,7 @@ LandingTemplate.propTypes = {
     }),
   }),
   pageContext: PropTypes.shape({
-    landingSections: PropTypes.array,
+    id: PropTypes.string,
     languages: PropTypes.array,
     locale: PropTypes.string,
     locales: PropTypes.array,

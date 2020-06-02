@@ -170,6 +170,7 @@ SearchTemplate.propTypes = {
     state: PropTypes.object,
   }),
   pageContext: PropTypes.shape({
+    id: PropTypes.string,
     languages: PropTypes.array,
     locale: PropTypes.string,
     locales: PropTypes.array,

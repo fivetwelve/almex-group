@@ -11,7 +11,7 @@ import { makeid, renderLink } from '../utils/functions';
 const CareersTemplate = ({ data, pageContext }) => {
   if (!data.cms.page.careers) {
     throw Error(
-      'Check the connection to careersSource; missing localization or publish status may also cause errors.',
+      `Check the connection to careersSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
     );
   }
   const { languages, locale, region } = pageContext;
@@ -197,7 +197,7 @@ CareersTemplate.propTypes = {
     }),
   }),
   pageContext: PropTypes.shape({
-    landingSections: PropTypes.array,
+    id: PropTypes.string,
     languages: PropTypes.array,
     locale: PropTypes.string,
     locales: PropTypes.array,
