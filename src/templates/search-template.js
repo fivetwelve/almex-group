@@ -103,7 +103,7 @@ const SearchTemplate = props => {
       region={region}
     >
       <div className="search-container">
-        <InstantSearch indexName="CMS" searchClient={searchClient} searchState={searchState}>
+        <InstantSearch indexName="CMS_DEV" searchClient={searchClient} searchState={searchState}>
           <VirtualRefinementList attribute="page.availableIn" defaultRefinement={[region]} />
           {/* <VirtualRefinementList attribute="page.status" defaultRefinement={[STATUS.PUBLISHED]} /> */}
           <Configure
