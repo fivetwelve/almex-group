@@ -1,7 +1,13 @@
 import fetch from 'node-fetch';
 import algoliasearch from 'algoliasearch';
+import loggly from 'node-loggly-bulk';
 import 'dotenv/config';
 import { PAGE_TYPES, SOURCE_TYPE_NAMES, SOURCE_TYPES } from '../constants';
+
+const LOGGER = loggly.createClient({
+  token: 'b81b81cb-9289-45c9-bd10-51b22f7b0912',
+  subdomain: 'almex',
+});
 
 const {
   ALGOLIA_API_KEY,
@@ -141,6 +147,9 @@ exports.handler = async (event, context) => {
   if (!event.body || event.body === '') {
     return statusAndMessage(400, 'No data provided.');
   }
+
+  LOGGER.log('event body--------');
+  LOGGER.log(event.body);
 
   const response = JSON.parse(event.body);
   const { operation, data } = response;
