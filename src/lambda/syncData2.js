@@ -11,7 +11,7 @@ const LOGGER = loggly.createClient({
 
 const {
   ALGOLIA_API_KEY,
-  ALGOLIA_INDEX2,
+  GATSBY_ALGOLIA_INDEX,
   GATSBY_ALGOLIA_APP_ID,
   CMS_NEW_ENDPOINT,
   CMS_NEW_TOKEN,
@@ -114,7 +114,7 @@ const getQueryData = async (isSource, id, sourceType = '', hasBrand) => {
 const syncToAlgolia = async incomingRecord => {
   // console.log('---sync to Algolia');
   try {
-    const index = algolia.initIndex(ALGOLIA_INDEX2);
+    const index = algolia.initIndex(GATSBY_ALGOLIA_INDEX);
     const record = await index.saveObject(incomingRecord);
     return statusAndMessage(200, record);
   } catch (err) {
