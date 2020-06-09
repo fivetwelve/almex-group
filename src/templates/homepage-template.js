@@ -92,8 +92,6 @@ const HomepageTemplate = ({ data, pageContext }) => {
       let element = null;
       slideNum += 1;
       if (!slides[i].geoRestrict || (slides[i].geoRestrict && countryPermitted)) {
-        console.log('slide-----');
-        console.log(slides[i]);
         if (slides[i].slideType === 'IMAGE') {
           const slideStyle = {
             backgroundImage: `url(${slides[i].asset.url})`,
