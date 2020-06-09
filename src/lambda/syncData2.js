@@ -78,7 +78,7 @@ const getQueryData = async (isSource, id, sourceType = '', hasBrand) => {
   let queryData;
   if (isSource) {
     queryData = {
-      query: `{ ${sourceType}(where: {id: \"${id}\"}) { id brand localizations(includeCurrent: true) { locale keywords title } page { id localizations(includeCurrent: true) { locale excerpt slug } } } }`,
+      query: `{ ${sourceType}(where: {id: \"${id}\"}) { id ${brand} localizations(includeCurrent: true) { locale keywords title } page { id availableIn localizations(includeCurrent: true) { locale excerpt slug } } } }`,
     };
   } else {
     queryData = {
@@ -189,6 +189,8 @@ exports.handler = async (event, context) => {
         const {
           data: { page },
         } = queryData;
+        console.log('page------');
+        console.log(page);
         page.localizations.forEach(localization => {
           excerpts[`excerpts${localization.locale}`] = localization.excerpt;
           slugs[`slug${localization.locale}`] = localization.slug;
@@ -229,6 +231,8 @@ exports.handler = async (event, context) => {
         /* associated page exists so create record to sync to Algolia */
         const { data } = queryData;
         const contentSource = data[contentSourceType];
+        console.log('contentSource------');
+        console.log(contentSource);
         contentSource.page.localizations.forEach(localization => {
           excerpts[`excerpts${localization.locale}`] = localization.excerpt;
           slugs[`slug${localization.locale}`] = localization.slug;
