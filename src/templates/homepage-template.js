@@ -129,7 +129,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
               <div className="slide-video" style={slideStyle}>
                 <div className="video-container">
                   <video width="100%" height="auto" autoPlay loop muted>
-                    <source src={slides[0].asset.url} type="video/mp4" />
+                    <source src={slides[i].asset.url} type="video/mp4" />
                   </video>
                 </div>
               </div>
