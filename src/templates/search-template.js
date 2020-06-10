@@ -8,6 +8,7 @@ import {
   connectRefinementList,
   InstantSearch,
   SearchBox,
+  // PoweredBy,
 } from 'react-instantsearch-dom';
 import qs from 'qs';
 import Layout from '../components/layout';
@@ -22,6 +23,7 @@ const algoliaClient = algoliasearch(
   process.env.GATSBY_ALGOLIA_APP_ID,
   process.env.GATSBY_ALGOLIA_SEARCH_KEY,
 );
+const algoliaIndex = process.env.GATSBY_ALGOLIA_INDEX;
 
 const searchClient = {
   search(requests) {
@@ -90,7 +92,6 @@ const SearchTemplate = props => {
   };
 
   const VirtualRefinementList = connectRefinementList(() => null);
-
   return (
     <Layout
       activeLanguage={locale}
@@ -103,7 +104,11 @@ const SearchTemplate = props => {
       region={region}
     >
       <div className="search-container">
-        <InstantSearch indexName="CMS" searchClient={searchClient} searchState={searchState}>
+        <InstantSearch
+          indexName={algoliaIndex}
+          searchClient={searchClient}
+          searchState={searchState}
+        >
           <VirtualRefinementList attribute="page.availableIn" defaultRefinement={[region]} />
           {/* <VirtualRefinementList attribute="page.status" defaultRefinement={[STATUS.PUBLISHED]} /> */}
           <Configure
@@ -112,7 +117,6 @@ const SearchTemplate = props => {
               `excerpt${locale}`,
               `keywords${locale}`,
               `title${locale}`,
-              // 'page.status',
               'page.availableIn',
               `page.excerpt${locale}`,
               `page.slug${locale}`,
