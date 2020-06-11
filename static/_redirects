@@ -1,13 +1,13 @@
 # Redirect users based on country
 /  /northamerica/  302  Country=ca,us
-/  /southafrica/  302  Country=ao,bw,cm,cg,cd,ke,mg,mw,mu,mz,na,za,tz,ug,zm,zw
+/  /southafrica  302  Country=ao,bw,cm,cg,cd,ke,mg,mw,mu,mz,na,za,tz,ug,zm,zw
 #/  /europe/  302  Country=ca,us
 
 
 # After base country path, supplemental redirect based on language
 /northamerica/  /northamerica/en/  302  Language=en
 /northamerica/*  /northamerica/en/:splat  302  Language=en
-/southafrica/  /southafrica/en  302  Language=en
+/southafrica  /southafrica/en  302  Language=en
 /southafrica/*  /southafrica/en/:splat  302  Language=en
 #/northamerica/*  /northamerica/es/:splat  302  Language=es
 #/europe/*  /europe/en/:splat  302  Language=en
