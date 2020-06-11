@@ -1,0 +1,29 @@
+# .env template file June 3, 2020
+# the properties below need to be populated and can be retrieved from
+# either the individual providers or Netlify's environment panel
+
+
+# ALGOLIA_API_KEY=
+# GATSBY_ALGOLIA_APP_ID=
+# GATSBY_ALGOLIA_INDEX=
+# GATSBY_ALGOLIA_SEARCH_KEY=
+
+# *** used only with the legacy version in GCMS *** 
+# CMS_ENDPOINT=
+# CMS_TOKEN=
+
+# *** be aware there are 2 tokens available, one is for prod/dev servers
+# and the other for content server ***
+# CMS_NEW_ENDPOINT=
+# CMS_NEW_TOKEN=
+
+# IPSTACK_ENDPOINT=
+# IPSTACK_TOKEN=
+# MJ_APIKEY_PRIVATE=
+# MJ_APIKEY_PUBLIC=
+# SITE_RECAPTCHA_KEY=
+# SITE_RECAPTCHA_SECRET=
+# GATSBY_SITE_RECAPTCHA_KEY=
+
+# *** any additional variables in Netlify's environment panel is likely
+# specific to CI and unnecessary for local builds ***

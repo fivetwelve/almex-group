@@ -4,27 +4,34 @@ $spacing: 20px;
 .homepage {
   .carousel {
     overflow: hidden;
-    height: calc(41.85vw + 100px) !important;
+    // height: calc(41.85vw + 100px) !important;
+    height: calc(41.85vw + 115px) !important;
     max-height: 626px;
     @include media('>=desktop') {
       max-height: 640px;
     }
     @include media('>=wide') {
-      max-height: 648px;
+      max-height: 658px;
     }
     .slider-control-centerleft,
     .slider-control-centerright {
       margin-top: -30px;
     }
     .slider-control-bottomcenter {
-      margin-bottom: -15px;
+      // margin-bottom: -15px;
+      margin-bottom: 0;
       @include media('>=tablet') {
         margin-bottom: 0px;
         display: block;
-        bottom: -15px !important;
+        // bottom: -20px !important;
       }
       @include media('>=wide') {
-        bottom: -20px !important;
+        // bottom: -10px !important;
+      }
+      ul {
+        top: 0 !important;
+        li {
+        }
       }
     }
     .slider-frame {
@@ -48,6 +55,7 @@ $spacing: 20px;
     .slide-video {
       @include media('>=wide') {
         max-height: 536px;
+        overflow-y: hidden;
       }
     }
     .left-controls,
@@ -109,6 +117,10 @@ $spacing: 20px;
           font-weight: 700;
           line-height: 24px;
           @include media('>=tablet') {
+            font-size: 36px;
+            line-height: 42px;
+          }
+          @include media('>=desktop') {
             font-size: 50px;
             line-height: 54px;
           }

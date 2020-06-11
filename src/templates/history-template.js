@@ -12,7 +12,7 @@ import '../styles/history.scss';
 const HistoryTemplate = ({ data, pageContext }) => {
   if (!data.cms.page.history) {
     throw Error(
-      'Check the connection to historySource; missing localization or incorrect or publish status may also cause errors.',
+      `Check the connection to historySource; missing localization or incorrect or publish status may also cause errors. Page ID ${pageContext.id}`,
     );
   }
   const { languages, locale, region } = pageContext;
@@ -93,6 +93,7 @@ HistoryTemplate.propTypes = {
     }),
   }),
   pageContext: PropTypes.shape({
+    id: PropTypes.string,
     languages: PropTypes.array,
     locale: PropTypes.string,
     locales: PropTypes.array,

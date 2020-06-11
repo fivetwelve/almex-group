@@ -11,7 +11,7 @@ import '../styles/simpleContent.scss';
 const SimpleContentTemplate = ({ data, pageContext }) => {
   if (!data.cms.page.simpleContent) {
     throw Error(
-      'Check the connection to simpleContentSource; missing localization or publish status may also cause errors.',
+      `Check the connection to simpleContentSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
     );
   }
   const { languages, locale, region } = pageContext;
@@ -83,6 +83,7 @@ SimpleContentTemplate.propTypes = {
     id: PropTypes.string,
   }),
   pageContext: PropTypes.shape({
+    id: PropTypes.string,
     languages: PropTypes.array,
     locale: PropTypes.string,
     locales: PropTypes.array,

@@ -14,7 +14,7 @@ import '../styles/usedEquipment.scss';
 const UsedEquipmentTemplate = ({ data, pageContext }) => {
   if (!data.cms.page.usedEquipment) {
     throw Error(
-      'Check the connection to usedEquipmentSource; missing localization or publish status may also cause errors.',
+      `Check the connection to usedEquipmentSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
     );
   }
   const { languages, locale, region } = pageContext;
@@ -104,6 +104,7 @@ UsedEquipmentTemplate.propTypes = {
     }),
   }),
   pageContext: PropTypes.shape({
+    id: PropTypes.string,
     languages: PropTypes.array,
     locale: PropTypes.string,
     locales: PropTypes.array,

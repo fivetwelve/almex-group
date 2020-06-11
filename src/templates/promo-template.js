@@ -11,7 +11,7 @@ import '../styles/promo.scss';
 const PromoTemplate = ({ data, pageContext }) => {
   if (!data.cms.page.promoContent) {
     throw Error(
-      'Check the connection to promoSource; missing localization or publish status may also cause errors.',
+      `Check the connection to promoSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
     );
   }
   const { languages, locale, region } = pageContext;
@@ -83,6 +83,7 @@ PromoTemplate.propTypes = {
     id: PropTypes.string,
   }),
   pageContext: PropTypes.shape({
+    id: PropTypes.string,
     languages: PropTypes.array,
     locale: PropTypes.string,
     locales: PropTypes.array,

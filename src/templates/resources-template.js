@@ -201,15 +201,13 @@ class ResourcesTemplate extends Component {
   };
 
   render() {
-    const {
-      data,
-      pageContext: { languages, locale, region },
-    } = this.props;
+    const { data, pageContext } = this.props;
     if (!data.cms.page.resources) {
       throw Error(
-        'Check the connection to resourcesSource; missing localization or publish status may also cause errors.',
+        `Check the connection to resourcesSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
       );
     }
+    const { languages, locale, region } = pageContext;
     const {
       cms: {
         brandNavigation,
@@ -398,6 +396,7 @@ ResourcesTemplate.propTypes = {
     id: PropTypes.string,
   }),
   pageContext: PropTypes.shape({
+    id: PropTypes.string,
     languages: PropTypes.array,
     locale: PropTypes.string,
     locales: PropTypes.array,
