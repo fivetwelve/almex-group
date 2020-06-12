@@ -249,7 +249,7 @@ Layout.propTypes = {
     companyEmail: PropTypes.string,
     companyPhone: PropTypes.string,
     footerLinks: PropTypes.object,
-    socialMedia: PropTypes.object,
+    socialMedia: PropTypes.array,
   }),
   languages: PropTypes.arrayOf(PropTypes.string),
   label: PropTypes.shape({
