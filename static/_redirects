@@ -1,10 +1,10 @@
 # Redirect users of North America & supplemental rule(s)
 /  /northamerica/  302  Country=ca,us Language=en
-/northamerica/*  /northamerica/en/:splat  302  Language=en
+/northamerica/*  /northamerica/en/:splat  302!  Language=en
 
 # Redirect users of South Africa & supplemental rule(s)
 /  /southafrica  302  Country=ao,bw,cm,cg,cd,ke,mg,mw,mu,mz,na,za,tz,ug,zm,zw 
-/southafrica/*  /southafrica/en/:splat  302  Language=en
+/southafrica/*  /southafrica/en/:splat  302!  Language=en
 
 #/  /europe/  302  Country=ca,us
 
