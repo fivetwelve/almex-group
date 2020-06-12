@@ -3,15 +3,7 @@ import PropTypes from 'prop-types';
 import { graphql, Link, StaticQuery } from 'gatsby';
 import { IconContext } from 'react-icons';
 import CookieConsent from 'react-cookie-consent';
-import {
-  FaPhone,
-  FaEnvelope,
-  FaLinkedinIn,
-  // FaInstagram,
-  FaYoutube,
-  FaTwitter,
-  FaFacebookF,
-} from 'react-icons/fa';
+import { FaPhone, FaEnvelope } from 'react-icons/fa';
 import ReactMarkdown from 'react-markdown/with-html';
 import { createLink, fetch, hoursPassed, makeid } from '../utils/functions';
 import { BRANDS, PAGE_TYPES } from '../constants';
@@ -199,9 +191,27 @@ class Footer extends React.Component {
     );
   };
 
+  renderSocial = network => {
+    const name = Object.keys(network)[0];
+    const url = Object.values(network)[0];
+    if (url !== '') {
+      return (
+        <a href={url} className="social-media-link" key={name}>
+          <img
+            className="social-media-icon"
+            src={`/img/social-${name.toLowerCase()}.svg`}
+            alt={name}
+          />
+        </a>
+      );
+    }
+    return null;
+  };
+
   render() {
     const { brandNavigation, headerFooter, label, location } = this.props;
-    /* static companyAddress, etc. will be used later once all regional sites have rolled out */
+    /* static companyAddress, etc. could  be used later once all regional sites have rolled out 
+       but currently using geo-lookup and using most relevant office details as default */
     // const { companyAddress, companyEmail, companyPhone, footerLinks, socialMedia } = headerFooter;
     const { regionOffices } = this.state;
     const { footerLinks, socialMedia } = headerFooter;
@@ -232,17 +242,18 @@ class Footer extends React.Component {
               <div className="top-center" />
               <div className="top-right">
                 <div className="social">
-                  <a href={socialMedia.LINKEDIN} className="social-media-link">
+                  {socialMedia.map(network => this.renderSocial(network))}
+                  {/* <a href={socialMedia.LINKEDIN} className="social-media-link">
                     <IconContext.Provider value={{ className: 'social-media-icon' }}>
                       <FaLinkedinIn aria-hidden />
                     </IconContext.Provider>
-                  </a>
+                  </a> */}
                   {/* <a href={socialMedia.INSTAGRAM} className="social-media-link">
                     <IconContext.Provider value={{ className: 'social-media-icon' }}>
                       <FaInstagram aria-hidden />
                     </IconContext.Provider>
                   </a> */}
-                  <a href={socialMedia.YOUTUBE} className="social-media-link">
+                  {/* <a href={socialMedia.YOUTUBE} className="social-media-link">
                     <IconContext.Provider value={{ className: 'social-media-icon' }}>
                       <FaYoutube aria-hidden />
                     </IconContext.Provider>
@@ -256,7 +267,7 @@ class Footer extends React.Component {
                     <IconContext.Provider value={{ className: '' }}>
                       <FaFacebookF aria-hidden />
                     </IconContext.Provider>
-                  </a>
+                  </a> */}
                 </div>
                 {regionOffices.map(office => this.renderTollFree(office))}
               </div>
@@ -314,7 +325,7 @@ Footer.propTypes = {
     companyPhone: PropTypes.string,
     footerLinks: PropTypes.object,
     privacyPage: PropTypes.object,
-    socialMedia: PropTypes.object,
+    socialMedia: PropTypes.array,
   }),
   label: PropTypes.shape({
     footer: PropTypes.object,

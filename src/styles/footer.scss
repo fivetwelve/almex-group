@@ -294,8 +294,18 @@
         margin-right: 25px;
       }
     }
-    .social-media-icon {
-      margin-right: 10px;
+    .social-media-link {
+      &:not(:first-of-type) {
+        margin-left: 20px;
+      }
+      img {
+        margin: 0;
+        height: 16px;
+        &:hover {
+          filter: invert(45%) sepia(82%) saturate(1000%) hue-rotate(9deg) brightness(104%)
+            contrast(105%);
+        }
+      }
     }
   }
 }
