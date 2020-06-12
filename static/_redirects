@@ -14,4 +14,4 @@
 #/europe/*  /europe/de/:splat  302  Language=de
 
 # Fallback redirect failing all of the above
-/  /northamerica/en  301
+# /  /northamerica/en  301
