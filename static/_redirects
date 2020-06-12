@@ -1,35 +1,28 @@
-# https://docs.netlify.com/routing/redirects/redirect-options#redirect-by-country-or-language
+# Redirect users of North America & supplemental rule(s)
+/  /northamerica/en  302  Country=ca,us
+/northamerica/*  /northamerica/en/:splat  302!  Language=en
 
+# Redirect users of South Africa & supplemental rule(s)
+/  /southafrica/en   302  Country=ao,bw,cm,cg,cd,ke,mg,mw,mu,mz,na,za,tz,ug,zm,zw 
+/southafrica/*  /southafrica/en/:splat  302!  Language=en
 
-# Redirect North American customers
-/  /northamerica/  302  Country=ca,us
-# After base country path, supplemental redirect based on language
-/northamerica/*  /northamerica/en/:splat  302  Language=en
-/northamerica/*  /northamerica/es/:splat  302  Language=es
+# Redirect users of Australia & supplemental rule(s)
+/  /australia/en  302  Country=au,kh,ck,fj,pf,jp,kp,kr,la,my,mn,mm,nr,nc,nz,pg,ph,sg,sb,tw,th,vn
+/australia/*  /australia/en/:splat  302!  Language=en
 
-
-# Redirect Europe customers
-/  /europe/  302  Country=af,dz,am,at,bh,be,ba,bg,bf,es,hr,cy,cz,dk,eg,gb,er,ee,et,fo,fi,fr,ga,ge,de,gh,gr,gl,gg,gn,hu,is,ir,iq,ie,im,il,it,ci,je,jo,kz,kw,kg,lv,lb,lr,ly,li,lt,lu,mk,ml,mt,mr,md,me,ma,np,nl,ng,gb,no,om,pk,pl,pt,qa,ro,ru,sa,gb,sn,rs,sl,sk,si,es,sd,se,ch,sy,tj,tn,tr,tm,ua,ae,gb,uz,gb,ye
-# After base country path, supplemental redirect based on language
+# Redirect users of Europe & supplemental rule(s)
+/  /europe/en  302  Country=af,dz,am,at,bh,be,ba,bg,bf,es,hr,cy,cz,dk,eg,gb,er,ee,et,fo,fi,fr,ga,ge,de,gh,gr,gl,gg,gn,hu,is,ir,iq,ie,im,il,it,ci,je,jo,kz,kw,kg,lv,lb,lr,ly,li,lt,lu,mk,ml,mt,mr,md,me,ma,np,nl,ng,gb,no,om,pk,pl,pt,qa,ro,ru,sa,gb,sn,rs,sl,sk,si,es,sd,se,ch,sy,tj,tn,tr,tm,ua,ae,gb,uz,gb,ye
 /europe/*  /europe/en/:splat  302  Language=en
 /europe/*  /europe/de/:splat  302  Language=de
 /europe/*  /europe/en/:splat  301
 
-
-# Redirect Chile customers
-/  /chile/  302  Country=ar,cl,py,uy
-# After base country path, supplemental redirect based on language
+# Redirect users of Chile & supplemental rule(s)
+/  /chile/es  302  Country=ar,cl,py,uy
 /chile/*  /chile/es/:splat  302  Language=es
 /chile/*  /chile/en/:splat  302  Language=en
 /chile/*  /chile/es/:splat  301
 
-
-# Redirect South Africa customers
-/  /southafrica/  302  Country=ao,bw,cm,cg,cd,ke,mg,mw,mu,mz,na,za,tz,ug,zm,zw
-# After base country path, supplemental redirect based on language
-/southafrica/*  /southafrica/en/:splat  302  Language=en
-/southafrica/*  /southafrica/en/:splat  301
-
-
 # Fallback redirect failing all of the above
 /  /northamerica/en  301
+
+# ref https://docs.netlify.com/routing/redirects/redirect-options#redirect-by-country-or-language
