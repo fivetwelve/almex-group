@@ -7,8 +7,8 @@ const {
   ALGOLIA_API_KEY,
   GATSBY_ALGOLIA_INDEX,
   GATSBY_ALGOLIA_APP_ID,
-  CMS_NEW_ENDPOINT,
-  CMS_NEW_TOKEN,
+  GATSBY_CMS_ENDPOINT,
+  GATSBY_CMS_TOKEN,
 } = process.env;
 const algolia = algoliasearch(GATSBY_ALGOLIA_APP_ID, ALGOLIA_API_KEY);
 
@@ -65,10 +65,10 @@ const getQueryData = async (isSource, id, sourceType = '', hasBrand) => {
   }
 
   try {
-    const response = await fetch(CMS_NEW_ENDPOINT, {
+    const response = await fetch(GATSBY_CMS_ENDPOINT, {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${CMS_NEW_TOKEN}`,
+        Authorization: `Bearer ${GATSBY_CMS_TOKEN}`,
       },
       method: 'POST',
       body: JSON.stringify(queryData),
