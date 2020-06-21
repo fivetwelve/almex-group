@@ -1,12 +1,12 @@
 # Redirect users of North America
-/* /northamerica/en/:splat 302! Country=ca,us
+/* /northamerica/en/:splat 302 Country=ca,us
 
 # use the following rules as guidelines when there are more languages available
-# /* /northamerica/en/:splat 302! Country=ca,us Language=en
-# /* /northamerica/es/:splat 302! Country=ca,us Language=es
+# /* /northamerica/en/:splat 302 Country=ca,us Language=en
+# /* /northamerica/es/:splat 302 Country=ca,us Language=es
 
 # Redirect users of South Africa
-/*  /southafrica/en/:splat 302! Country=ao,bw,cm,cg,cd,ke,mg,mw,mu,mz,na,za,tz,ug,zm,zw 
+/*  /southafrica/en/:splat 302 Country=ao,bw,cm,cg,cd,ke,mg,mw,mu,mz,na,za,tz,ug,zm,zw 
 
 # Redirect users of Australia & supplemental rule(s)
 # /*  /australia/en/:splat 302! Country=au,kh,ck,fj,pf,jp,kp,kr,la,my,mn,mm,nr,nc,nz,pg,ph,sg,sb,tw,th,vn
