@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import fetch from 'isomorphic-fetch';
 import Recaptcha from 'react-google-recaptcha';
-import { apiUrl, fetch } from '../utils/functions';
+import { apiUrl } from '../utils/functions';
 import { FORM_TYPES } from '../constants';
 
 class InstituteForm extends React.Component {

@@ -88,24 +88,28 @@ module.exports = {
     {
       resolve: `gatsby-source-graphql`,
       options: {
-        url: process.env.CMS_NEW_ENDPOINT,
+        url: process.env.GATSBY_CMS_ENDPOINT,
         headers: {
-          Authorization: `Bearer ${process.env.CMS_NEW_TOKEN}`,
+          Authorization: `Bearer ${process.env.GATSBY_CMS_TOKEN}`,
         },
-        query: `{
-          headerFooters {
-            navigation
-            language
-          }
-          labels {
-            region
-            header
-            footer
-            common
-          }
-        }`,
+        // query: `{
+        //   headerFooters {
+        //     navigation
+        //     language
+        //   }
+        //   labels {
+        //     region
+        //     header
+        //     footer
+        //     common
+        //   }
+        // }`,
         typeName: `GraphCMS`,
         fieldName: `cms`,
+        batch: true,
+        // dataLoaderOptions: {
+        //   maxBatchSize: 10,
+        // },
       },
     },
     {

@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, Link, StaticQuery } from 'gatsby';
+import fetch from 'isomorphic-fetch';
 import { IconContext } from 'react-icons';
 import CookieConsent from 'react-cookie-consent';
 import { FaPhone, FaEnvelope } from 'react-icons/fa';
 import ReactMarkdown from 'react-markdown/with-html';
-import { createLink, fetch, hoursPassed, makeid } from '../utils/functions';
+import { createLink, hoursPassed, makeid } from '../utils/functions';
 import { BRANDS, PAGE_TYPES } from '../constants';
 import '../styles/footer.scss';
 

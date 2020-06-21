@@ -215,17 +215,17 @@ exports.createPages = ({ graphql, actions }) => {
                       });
                       break;
                     case PAGE_TYPES.RESOURCES:
-                      //   createPage({
-                      //     path: pagePath,
-                      //     component: path.resolve(`./src/templates/resources-template.js`),
-                      //     context: {
-                      //       id,
-                      //       languages,
-                      //       locale,
-                      //       locales,
-                      //       region,
-                      //     },
-                      //   });
+                      createPage({
+                        path: pagePath,
+                        component: path.resolve(`./src/templates/resources-template.js`),
+                        context: {
+                          id,
+                          languages,
+                          locale,
+                          locales,
+                          region,
+                        },
+                      });
                       break;
                     case PAGE_TYPES.SERVICES:
                       createPage({

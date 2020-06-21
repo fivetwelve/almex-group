@@ -81,7 +81,7 @@ class ContactMap extends React.Component {
         </div>
         <div className="map" id="map" style={{ display: 'flex', height: '585px' }}>
           <LoadScript
-            googleMapsApiKey="AIzaSyCPjZIbrcLv2B8t92OoiMoPxhnLQ4_kNpY"
+            googleMapsApiKey={process.env.GATSBY_GOOGLE_MAPS_KEY}
             language={locale}
             onLoad={() => this.updateState()}
             // onError={onError}

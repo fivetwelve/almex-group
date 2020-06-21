@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import { Location } from '@reach/router';
+import fetch from 'isomorphic-fetch';
 import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import { IconContext } from 'react-icons';
@@ -11,7 +12,7 @@ import Layout from '../components/layout';
 import ContactExpert from '../components/contactExpert';
 import ContactMap from '../components/contactMap';
 import ContactFormModal from '../components/contactFormModal';
-import { fetch, makeid, mapToOffice, renderLink } from '../utils/functions';
+import { makeid, mapToOffice, renderLink } from '../utils/functions';
 import { CONTACT_TYPES } from '../constants';
 
 import '../styles/contact.scss';
