@@ -14,8 +14,8 @@
 
 # *** be aware there are 2 tokens available, one is for prod/dev servers
 # and the other for content server ***
-# CMS_NEW_ENDPOINT=
-# CMS_NEW_TOKEN=
+# GATSBY_CMS_ENDPOINT=
+# GATSBY_CMS_TOKEN=
 
 # IPSTACK_ENDPOINT=
 # IPSTACK_TOKEN=

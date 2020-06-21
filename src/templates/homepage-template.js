@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { graphql, Link } from 'gatsby';
 import { Location } from '@reach/router';
+import fetch from 'isomorphic-fetch';
 import ReactMarkdown from 'react-markdown/with-html';
 import Carousel from 'nuka-carousel';
 import { IconContext } from 'react-icons';
