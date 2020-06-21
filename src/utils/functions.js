@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import fetchPonyfill from 'fetch-ponyfill';
 import { PAGE_TYPES } from '../constants';
-
-const { fetch } = fetchPonyfill();
 
 const apiUrl = () => {
   if (typeof window !== 'undefined') {
@@ -401,7 +398,6 @@ export {
   countryFlag,
   createLink,
   createLinkFromPage,
-  fetch,
   getSlug,
   getTitle,
   makeid,

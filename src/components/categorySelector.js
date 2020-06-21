@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
-import { makeid } from '../utils/functions';
 
 class CategorySelector extends Component {
   constructor(props) {
@@ -51,7 +50,7 @@ class CategorySelector extends Component {
           ref={this.dropdownTrigger}
         >
           <span className="dd-text-icon">
-            {!selectedCategory ? label.SELECT : selectedCategory.title}
+            {!selectedCategory ? label.SELECT : selectedCategory.name}
             <span aria-hidden="true" className="dd-icon">
               <IconContext.Provider value={{ className: 'dd-color' }}>
                 {(clicked && <FaAngleUp aria-hidden />) || <FaAngleDown aria-hidden />}
@@ -61,18 +60,18 @@ class CategorySelector extends Component {
         </button>
         <ul role="menu" className="category-dropdown">
           {categories.map(category => {
-            if (!selectedCategory || category.key !== selectedCategory.key) {
+            if (!selectedCategory || category.id !== selectedCategory.id) {
               return (
-                <li className="category-list-item" key={makeid()}>
+                <li className="category-list-item" key={category.id}>
                   <button
                     type="button"
                     aria-expanded="false"
                     aria-haspopup="false"
                     onClick={evt => {
-                      this.handleClickCategory(evt, category.key);
+                      this.handleClickCategory(evt, category.id);
                     }}
                   >
-                    <span className="category-link">{category.title}</span>
+                    <span className="category-link">{category.name}</span>
                   </button>
                 </li>
               );
@@ -103,8 +102,8 @@ CategorySelector.propTypes = {
   ),
   label: PropTypes.objectOf(PropTypes.string),
   selectedCategory: PropTypes.shape({
-    key: PropTypes.string,
-    title: PropTypes.string,
+    id: PropTypes.string,
+    name: PropTypes.string,
   }),
   setCategory: PropTypes.func,
 };
