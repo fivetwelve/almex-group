@@ -109,13 +109,6 @@ $spacing: 20px;
             background-color: $yellow-sea;
             height: 5px;
             margin: 40px 0;
-            // margin-left: 10px;
-            // margin-right: 10px;
-            // @include media('>=desktop') {
-            //   margin-left: 40px;
-            //   margin-right: 40px;
-            //   margin-top: 40px;
-            // }
           }
           // ul {
           //   padding-left: 1rem;
@@ -277,9 +270,23 @@ $spacing: 20px;
               padding: 0;
             }
           }
+<<<<<<< HEAD
+=======
+          .error {
+            color: $crimson;
+          }
+          .error,
+>>>>>>> origin/dev
           .no-resource {
-            color: $grey70;
-            padding-left: 20px;
+            padding-left: 10px;
+            padding-right: 10px;
+            font-size: 18px;
+            font-style: italic;
+            @include media('>=tablet') {
+              padding-left: 40px;
+              padding-right: 40px;
+              font-size: 24px;
+            }
           }
           .resource-type {
             border: 0;

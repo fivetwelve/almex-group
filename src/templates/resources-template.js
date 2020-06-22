@@ -28,10 +28,7 @@ class ResourcesTemplate extends Component {
   constructor(props) {
     super(props);
     const { categories } = props.data.cms.page.resources;
-
     /* get resource types and remove any ones that are on the exclude list */
-    // let resourceTypes = Object.keys(RESOURCE_TYPES);
-    // resourceTypes = resourceTypes.filter(element => !excludeList.includes(element));
 
     /* state.selectedCategory is set to first category by default with code below.
        If we want to set it to the placeholder text ("Select a Category") then
@@ -171,7 +168,8 @@ class ResourcesTemplate extends Component {
                           id={selectedCategoryId}
                           locale={locale}
                           region={region}
-                          label={resourcesLabel}
+                          label={label}
+                          resourcesLabel={resourcesLabel}
                         />
                       </ApolloProvider>
 
@@ -236,6 +234,7 @@ export const query = graphql`
       resourcesLabel: label(locales: $locale, where: { availableIn: $region }) {
         resources
       }
+<<<<<<< HEAD
       # productPages: pages(
       #   first: 1000
       #   where: { AND: [{ availableIn_contains_some: NORTH_AMERICA }, { pageType: PRODUCT }] }
@@ -267,6 +266,8 @@ export const query = graphql`
       #   id
       #   title
       # }
+=======
+>>>>>>> origin/dev
       page(locales: $locale, where: { id: $id }) {
         resources: resourcesSource {
           bannerImage {
@@ -295,6 +296,7 @@ export const query = graphql`
               mobile
               email
             }
+<<<<<<< HEAD
             # page {
             #   archived
             #   pageType
@@ -398,6 +400,8 @@ export const query = graphql`
             #     }
             #   }
             # }
+=======
+>>>>>>> origin/dev
           }
           contactAndForm
           email
