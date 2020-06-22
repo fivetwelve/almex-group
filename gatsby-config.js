@@ -55,12 +55,6 @@ module.exports = {
     },
     `gatsby-plugin-react-helmet-async`,
     `gatsby-plugin-sass`,
-    // {
-    //   resolve: `gatsby-plugin-polyfill-io`,
-    //   options: {
-    //     features: [`Array.prototype.map`, `fetch`],
-    //   },
-    // },
     {
       resolve: `gatsby-plugin-prefetch-google-fonts`,
       options: {
@@ -92,24 +86,9 @@ module.exports = {
         headers: {
           Authorization: `Bearer ${process.env.GATSBY_CMS_TOKEN}`,
         },
-        // query: `{
-        //   headerFooters {
-        //     navigation
-        //     language
-        //   }
-        //   labels {
-        //     region
-        //     header
-        //     footer
-        //     common
-        //   }
-        // }`,
         typeName: `GraphCMS`,
         fieldName: `cms`,
         batch: true,
-        // dataLoaderOptions: {
-        //   maxBatchSize: 10,
-        // },
       },
     },
     {
