@@ -10,7 +10,9 @@
     "build": "echo SITE_RECAPTCHA_KEY=$SITE_RECAPTCHA_KEY >> .env.production && gatsby build",
     "serve": "gatsby serve",
     "start:lambda": "netlify-lambda serve src/lambda -c webpack.config.js",
-    "build:lambda": "netlify-lambda build src/lambda -c webpack.config.js"
+    "build:lambda": "netlify-lambda build src/lambda -c webpack.config.js",
+    "copy": "cp src/_redirects public/",
+    "copy:content": "cp src/_redirects--content public/"
   },
   "husky": {
     "hooks": {

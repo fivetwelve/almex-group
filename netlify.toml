@@ -1,10 +1,10 @@
 [build]
   Functions = "lambda"
-  Command = "cp _redirects static/_redirects; yarn build && yarn build:lambda"
+  Command = "yarn build && yarn build:lambda && yarn copy"
 
 # build as prod but copies content-branch-specific _redirects file to root
 [context.content]
-  Command = "cp _redirects--content static/_redirects; yarn build && yarn build:lambda"
+  Command = "yarn build && yarn build:lambda && yarn copy:content"
 
 #uses DRAFT stage from CMS
 [context.content.environment]
