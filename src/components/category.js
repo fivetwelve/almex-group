@@ -78,8 +78,8 @@ const Category = props => {
   };
 
   // const gatherFromServices = servicesSources => {
-  //   const productResources = [];
-  //   return productResources;
+  //   const servicesResources = [];
+  //   return servicesResources;
   // };
 
   const handleClickResourceType = evt => {
@@ -109,7 +109,6 @@ const Category = props => {
   let resources = [];
   resources = resources.concat(documents);
   resources = resources.concat(gatherFromProducts(data.productSources));
-  // resources = resources.concat(gatherFromServices(data.servicesSources));
 
   const filteredResources = [];
   const unClassified = [];
@@ -178,8 +177,7 @@ const Category = props => {
             <div className="category-resources">
               {/* {' '} */}
               <div className="resources-heading">
-                {/* <span>{resourcesLabel.resources.NAME}</span>
-                {' '} */}
+                {/* <span>{resourcesLabel.resources.NAME}</span>{' '} */}
               </div>
               {(type.resourceType === RESOURCE_TYPES.PROMO_VIDEO ||
                 type.resourceType === RESOURCE_TYPES.TRAINING_VIDEO) && (

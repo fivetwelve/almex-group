@@ -28,10 +28,7 @@ class ResourcesTemplate extends Component {
   constructor(props) {
     super(props);
     const { categories } = props.data.cms.page.resources;
-    console.log(categories);
     /* get resource types and remove any ones that are on the exclude list */
-    // let resourceTypes = Object.keys(RESOURCE_TYPES);
-    // resourceTypes = resourceTypes.filter(element => !excludeList.includes(element));
 
     /* state.selectedCategory is set to first category by default with code below.
        If we want to set it to the placeholder text ("Select a Category") then
