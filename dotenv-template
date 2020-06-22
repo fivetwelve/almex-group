@@ -8,10 +8,6 @@
 # GATSBY_ALGOLIA_INDEX=
 # GATSBY_ALGOLIA_SEARCH_KEY=
 
-# *** used only with the legacy version in GCMS *** 
-# CMS_ENDPOINT=
-# CMS_TOKEN=
-
 # *** be aware there are 2 tokens available, one is for prod/dev servers
 # and the other for content server ***
 # GATSBY_CMS_ENDPOINT=
