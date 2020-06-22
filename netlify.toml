@@ -1,6 +1,6 @@
 [build]
   Functions = "lambda"
-  Command = "yarn build && yarn build:lambda && yarn copy"
+  Command = "yarn copy && yarn build && yarn build:lambda"
 
 # build as prod but copies content-branch-specific _redirects file to root
 [context.content]
