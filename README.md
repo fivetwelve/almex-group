@@ -20,5 +20,5 @@ Notes:
 Contents of each .env will have, for example:
 
     #.env.development
-    CMS_ENDPOINT="https://cms-endpoint-here"
-    CMS_TOKEN="token_string_here"
+    GATSBY_CMS_ENDPOINT="https://cms-endpoint-here"
+    GATSBY_CMS_TOKEN="token_string_here"

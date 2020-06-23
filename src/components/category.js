@@ -52,7 +52,7 @@ let resourceTypes = Object.keys(RESOURCE_TYPES);
 resourceTypes = resourceTypes.filter(element => !exclusions.includes(element));
 
 const Category = props => {
-  const { id, locale, region, documents, label } = props;
+  const { id, locale, region, documents, label, resourcesLabel } = props;
   const queryParams = {
     id,
     locale: [locale],
@@ -78,8 +78,8 @@ const Category = props => {
   };
 
   // const gatherFromServices = servicesSources => {
-  //   const productResources = [];
-  //   return productResources;
+  //   const servicesResources = [];
+  //   return servicesResources;
   // };
 
   const handleClickResourceType = evt => {
@@ -91,19 +91,24 @@ const Category = props => {
     variables: queryParams,
   });
 
+  /* loading state */
   if (loading)
     return (
       <div className="loading">
         <img className="spinner-anim" src={spinner} alt="Loading..." />
       </div>
     );
-  if (error) return <div className="error">ERROR</div>;
-  if (!data) return <div>Not found</div>;
+  /* error state */
+  if (error) return <div className="error">{label.common.ERROR}</div>;
 
+  /* data empty or not found state */
+  if (!data || (data.productSources && data.productSources.length === 0))
+    return <div className="no-resource">{resourcesLabel.resources.NO_RESOURCE}</div>;
+
+  /* data state */
   let resources = [];
   resources = resources.concat(documents);
   resources = resources.concat(gatherFromProducts(data.productSources));
-  // resources = resources.concat(gatherFromServices(data.servicesSources));
 
   const filteredResources = [];
   const unClassified = [];
@@ -136,7 +141,7 @@ const Category = props => {
     });
     if (thisType.length > 0) {
       filteredResources.push({
-        title: label.resources[resourceType],
+        title: resourcesLabel.resources[resourceType],
         resourceType,
         documents: thisType,
       });
@@ -145,7 +150,7 @@ const Category = props => {
   /* add unClassified resources at tail-end */
   if (unClassified.length > 0) {
     filteredResources.push({
-      title: label.resources.MISC,
+      title: resourcesLabel.resources.MISC,
       resourceType: RESOURCE_TYPES.MISC,
       documents: unClassified,
     });
@@ -167,13 +172,12 @@ const Category = props => {
               onClick={evt => handleClickResourceType(evt)}
               type="button"
             >
-              {type.title || label.resources.MISC}
+              {type.title || resourcesLabel.resources.MISC}
             </button>
             <div className="category-resources">
               {/* {' '} */}
               <div className="resources-heading">
-                {/* <span>{label.resources.NAME}</span>
-                {' '} */}
+                {/* <span>{resourcesLabel.resources.NAME}</span>{' '} */}
               </div>
               {(type.resourceType === RESOURCE_TYPES.PROMO_VIDEO ||
                 type.resourceType === RESOURCE_TYPES.TRAINING_VIDEO) && (
@@ -215,6 +219,7 @@ Category.defaultProps = {
   region: '',
   documents: [],
   label: {},
+  resourcesLabel: {},
 };
 
 Category.propTypes = {
@@ -230,6 +235,9 @@ Category.propTypes = {
     }),
   ),
   label: PropTypes.shape({
+    common: PropTypes.object,
+  }),
+  resourcesLabel: PropTypes.shape({
     resources: PropTypes.object,
   }),
 };

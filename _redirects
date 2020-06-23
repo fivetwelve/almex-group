@@ -1,0 +1,19 @@
+# REDIRECT RULES FOR LIVE & DEV DEPLOYMENT
+# ref https://docs.netlify.com/routing/redirects/redirect-options#redirect-by-country-or-language
+# discussion https://community.netlify.com/t/redirect-not-fully-working-in-spite-of-following-redirects-documentation/16730
+
+# Redirect users of North America
+/* /northamerica/en/:splat 302 Country=ca,us
+
+# use the following rules as guidelines when there are more languages available
+# /* /northamerica/en/:splat 302 Country=ca,us Language=en
+# /* /northamerica/es/:splat 302 Country=ca,us Language=es
+
+# Redirect users of South Africa
+/*  /southafrica/en/:splat 302 Country=ao,bw,cm,cg,cd,ke,mg,mw,mu,mz,na,za,tz,ug,zm,zw 
+
+# Fallback redirect failing all of the above
+/*  /northamerica/en/:splat  301
+
+# ref https://docs.netlify.com/routing/redirects/redirect-options#redirect-by-country-or-language
+# discussion https://community.netlify.com/t/redirect-not-fully-working-in-spite-of-following-redirects-documentation/16730
