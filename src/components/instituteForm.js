@@ -21,6 +21,7 @@ class InstituteForm extends React.Component {
       contactSubject: '',
       contactMessage: '',
       contactFormType: FORM_TYPES.INSTITUTE,
+      gRecaptchaResponse: null,
       message: null,
       submitDisabled: true,
     };
@@ -44,15 +45,16 @@ class InstituteForm extends React.Component {
       this.setState({ message: null });
     }
     if (value) {
-      this.setState({ submitDisabled: false });
+      this.setState({ gRecaptchaResponse: value, submitDisabled: false });
     } else {
-      this.setState({ submitDisabled: true });
+      this.setState({ gRecaptchaResponse: null, submitDisabled: true });
     }
   };
 
   handleSubmit = async evt => {
     evt.preventDefault();
     const { email, emailSubject, label } = this.props;
+    const { gRecaptchaResponse } = this.state;
     const params = {};
     const keys = Object.keys(this.state);
     const values = Object.values(this.state);
@@ -61,6 +63,7 @@ class InstituteForm extends React.Component {
         params[elem] = values[index] || '';
       }
     });
+    params.gRecaptchaResponse = gRecaptchaResponse;
     params.destination = email;
     params.contactSubject = emailSubject || label.common.FORM_SUBJECTLINE_TRAINING;
 

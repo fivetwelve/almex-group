@@ -26,6 +26,7 @@ class ContactFormModal extends React.Component {
       contactSubject: '',
       contactMessage: '',
       contactFormType: FORM_TYPES.CONTACT,
+      gRecaptchaResponse: null,
       message: null,
       subjects: subjectArray,
       submitDisabled: true,
@@ -79,16 +80,16 @@ class ContactFormModal extends React.Component {
       this.setState({ message: null });
     }
     if (value) {
-      this.setState({ submitDisabled: false });
+      this.setState({ gRecaptchaResponse: value, submitDisabled: false });
     } else {
-      this.setState({ submitDisabled: true });
+      this.setState({ gRecaptchaResponse: null, submitDisabled: true });
     }
   };
 
   handleSubmit = async evt => {
     evt.preventDefault();
     const { contactType, label } = this.props;
-    const { contactExpert, contactOffice } = this.state;
+    const { contactExpert, contactOffice, gRecaptchaResponse } = this.state;
     const params = {};
     const keys = Object.keys(this.state);
     const values = Object.values(this.state);
@@ -102,6 +103,8 @@ class ContactFormModal extends React.Component {
     } else {
       params.destination = contactOffice.email;
     }
+    params.gRecaptchaResponse = gRecaptchaResponse;
+
     try {
       const response = await fetch(`${apiUrl()}/forwardEmail`, {
         method: 'POST',

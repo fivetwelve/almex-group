@@ -1,14 +1,17 @@
-import 'dotenv/config';
+import fetch from 'node-fetch';
 import Mailjet from 'node-mailjet';
+import 'dotenv/config';
 import { FORM_TYPES } from '../constants';
 
-const { MJ_APIKEY_PUBLIC, MJ_APIKEY_PRIVATE } = process.env;
+const {
+  MJ_APIKEY_PUBLIC,
+  MJ_APIKEY_PRIVATE,
+  SITE_RECAPTCHA_SECRET,
+  SITE_RECAPTCHA_URL,
+} = process.env;
 const mailjet = Mailjet.connect(MJ_APIKEY_PUBLIC, MJ_APIKEY_PRIVATE);
 
-exports.handler = (event, context, callback) => {
-  /* n.b. destination emails stored in CMS should be in the form of
-     an array even if it is a single one */
-  const params = JSON.parse(event.body);
+const sendEmail = (params, callback) => {
   const destinationEmails = [];
   for (let i = 0; i < params.destination.length; i += 1) {
     const email = { Email: params.destination[i] };
@@ -24,7 +27,7 @@ exports.handler = (event, context, callback) => {
           {
             From: {
               Email: 'noreply@almex.com',
-              /* use the following for testing errors on FE */
+              /* use the following  to test errors on FE */
               // Email: 'pilot@mailjet.com',
               Name: 'Almex website',
             },
@@ -53,7 +56,7 @@ exports.handler = (event, context, callback) => {
           {
             From: {
               Email: 'info@almex.com',
-              /* use the following for testing errors on FE */
+              /* use the following  to test errors on FE */
               // Email: 'pilot@mailjet.com',
               Name: 'Almex website',
             },
@@ -96,4 +99,27 @@ exports.handler = (event, context, callback) => {
   } else {
     callback('Form type not defined for submission.');
   }
+};
+
+exports.handler = (event, context, callback) => {
+  /* n.b. destination emails coming in from CMS should be in form of
+          array even if it is a single entry */
+  const params = JSON.parse(event.body);
+  const response = fetch(SITE_RECAPTCHA_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `secret=${SITE_RECAPTCHA_SECRET}&response=${params.gRecaptchaResponse}`,
+  })
+    .then(response => response.json())
+    .then(json => {
+      if (json.success) {
+        sendEmail(params, callback);
+      } else {
+        callback('Recaptcha expired. Please try again later.');
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      callback(err);
+    });
 };
