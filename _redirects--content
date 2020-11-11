@@ -21,7 +21,7 @@
 /*  /chile/en/:splat 302 Country=ar,cl,py,uy
 
 # Redirect customers for China
-/*  /china/en/:splat 302 Country=cn, hk
+/*  /china/en/:splat 302 Country=cn,hk
 
 # Redirect customers for Asia Pacific
 /*  /asiapacific/en/:splat 302 Country=id
