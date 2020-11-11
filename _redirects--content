@@ -24,7 +24,22 @@
 /*  /china/en/:splat 302 Country=cn,hk
 
 # Redirect customers for Asia Pacific
-/*  /asiapacific/en/:splat 302 Country=id
+/*  /asiapacific/en/:splat 302 Country=ap
+
+# Redirect customers for Peru
+/*  /peru/en/:splat 302 Country=pe
+
+# Redirect customers for Brazil
+/*  /brazil/en/:splat 302 Country=br
+
+# Redirect customers for India
+/*  /india/en/:splat 302 Country=in
+
+# Redirect customers for Indonesia
+/*  /indonesia/en/:splat 302 Country=id
+
+# Redirect customers for Mexico
+/*  /mexico/en/:splat 302 Country=mx
 
 
 # Fallback redirect failing all of the above
