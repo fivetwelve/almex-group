@@ -71,13 +71,17 @@ const LandingTemplate = ({ data, pageContext }) => {
   const renderTiles = (pages, location) => {
     const tileArray = [];
     pages.forEach(page => {
-      // Use page titles by default. This allows some flexibility if there needs to be a shorter title than what is stored in source.
+      /* Use page titles by default. This allows some flexibility if there needs to be a shorter title than what is stored in source. */
       const pageTitle = page.title;
+      // const pageAvailableIn = page.availableIn;
+      // const pageRegion = page.region;
       const tileData = {
         slug: page.slug,
         tile: page.tile,
         title: pageTitle,
       };
+      // console.log('avail:', pageAvailableIn);
+      // console.log('region:', region);
       const landingTile = (
         <LandingTile data={tileData} key={makeid()} location={location} themeColour={themeColour} />
       );
@@ -242,7 +246,8 @@ export const query = graphql`
     $id: ID!
     $locale: [GraphCMS_Locale!]!
     $locales: [GraphCMS_Locale!]!
-    $region: GraphCMS_Region!
+    $region: GraphCMS_Region
+    $availableIn: [GraphCMS_Region!]
   ) {
     cms {
       ...CommonQuery
@@ -259,7 +264,12 @@ export const query = graphql`
           landingType
           landingSections {
             title
-            pages(where: { OR: [{ archived: false }, { archived: null }] }) {
+            pages(
+              where: {
+                availableIn_contains_some: $availableIn
+                OR: [{ archived: false }, { archived: null }]
+              }
+            ) {
               landingSource {
                 title
               }
@@ -277,7 +287,14 @@ export const query = graphql`
               title
             }
           }
-          singlePages: pages(where: { OR: [{ archived: false }, { archived: null }] }) {
+          singlePages: pages(
+            # locales: $locales
+            where: {
+              availableIn_contains_some: $availableIn
+              OR: [{ archived: false }, { archived: null }]
+            }
+          ) {
+            availableIn
             id
             landingSource {
               title

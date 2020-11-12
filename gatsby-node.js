@@ -1,6 +1,14 @@
 const path = require('path');
 const { PAGE_TYPES, LANGUAGE_SLUGS, REGION_SLUGS } = require('./src/constants.js');
 
+// exports.createSchemaCustomization = ({ actions }) => {
+//   const { createTypes } = actions;
+//   const typeDefs = `
+//     type cms implements Node
+//   `;
+//   createTypes(typeDefs);
+// };
+
 exports.createPages = ({ graphql, actions }) => {
   /*
      1. Get regions; API endpoint will dictate whether or not regions are published or draft.
@@ -171,6 +179,7 @@ exports.createPages = ({ graphql, actions }) => {
                           locale,
                           locales,
                           region,
+                          availableIn: region,
                         },
                       });
                       break;
