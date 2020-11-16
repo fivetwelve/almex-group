@@ -207,6 +207,7 @@ exports.createPages = ({ graphql, actions }) => {
                           locale,
                           locales,
                           region,
+                          availableIn: region,
                         },
                       });
                       break;

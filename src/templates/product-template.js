@@ -348,7 +348,8 @@ export const query = graphql`
     $id: ID!
     $locale: [GraphCMS_Locale!]!
     $locales: [GraphCMS_Locale!]!
-    $region: GraphCMS_Region!
+    $region: GraphCMS_Region
+    $availableIn: [GraphCMS_Region!]
   ) {
     cms {
       ...CommonQuery
@@ -395,14 +396,24 @@ export const query = graphql`
             url
           }
           attractText
-          accessories(where: { OR: [{ archived: false }, { archived: null }] }) {
+          accessories(
+            where: {
+              availableIn_contains_some: $availableIn
+              OR: [{ archived: false }, { archived: null }]
+            }
+          ) {
             slug
             tile {
               url
             }
             title
           }
-          relatedItems(where: { OR: [{ archived: false }, { archived: null }] }) {
+          relatedItems(
+            where: {
+              availableIn_contains_some: $availableIn
+              OR: [{ archived: false }, { archived: null }]
+            }
+          ) {
             slug
             tile {
               url
