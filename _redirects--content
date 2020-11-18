@@ -9,7 +9,7 @@
 # Redirect customers for South Africa
 /*  /southafrica/en/:splat 302 Country=ao,bw,cm,cg,cd,ke,mg,mw,mu,mz,na,za,tz,ug,zm,zw 
 
-# Redirect customers for Australia & supplemental rule(s)
+# Redirect customers for Shaw Almex Pacific
 /*  /australia/en/:splat 302 Country=au,kh,ck,fj,pf,jp,kp,kr,la,my,mn,mm,nr,nc,nz,pg,ph,sg,sb,tw,th,vn
 
 # Redirect customers for Europe
@@ -24,7 +24,7 @@
 /*  /china/en/:splat 302 Country=cn,hk
 
 # Redirect customers for Asia Pacific
-/*  /asiapacific/en/:splat 302 Country=ap
+/*  /asiapacific/en/:splat 302 Country=kp,kr,kh,jp,la,my,mn,mm,nr,nz,pg,ph,sh,tw,th,vn,kh
 
 # Redirect customers for Peru
 /*  /peru/en/:splat 302 Country=pe
