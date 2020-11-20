@@ -6,6 +6,7 @@ import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import Layout from '../components/layout';
 import LandingTile from '../components/landingTile';
+import AlternativeBanner from '../components/alternativeBanner';
 import { LANDING_TYPES, THEMES } from '../constants';
 import '../styles/landing.scss';
 import ProductBrand from '../components/productBrand';
@@ -27,6 +28,7 @@ const LandingTemplate = ({ data, pageContext }) => {
       page: {
         landing: {
           bannerImage,
+          alternativeBanners,
           brand,
           description,
           landingType,
@@ -210,6 +212,16 @@ const LandingTemplate = ({ data, pageContext }) => {
             {singlePages.length > 0 && (
               <div className="tile-container">{renderTiles(singlePages, location)}</div>
             )}
+            {alternativeBanners.length > 0 &&
+              alternativeBanners.map(alternativeBanner => {
+                return (
+                  <AlternativeBanner
+                    location={location}
+                    alternativeBanner={alternativeBanner}
+                    key={makeid()}
+                  />
+                );
+              })}
           </>
         )}
       </Location>
@@ -257,6 +269,19 @@ export const query = graphql`
             handle
             width
             height
+          }
+          alternativeBanners(where: { availableIn_contains_some: $availableIn }) {
+            title
+            externalLink
+            page {
+              slug
+            }
+            image {
+              handle
+              width
+              height
+            }
+            availableIn
           }
           brand
           description
