@@ -126,6 +126,10 @@ exports.handler = async (event, context) => {
 
   const response = JSON.parse(event.body);
   const { operation, data } = response;
+  // console.log('----operation');
+  // console.log(operation);
+  // console.log('----data');
+  // console.log(data);
 
   if (operation === UNPUBLISH_EVENT) {
     /* determine whether it's page, otherwise it's content source */
@@ -135,19 +139,18 @@ exports.handler = async (event, context) => {
       return removeFromAlgolia(true, data.id);
     }
   } else if (operation === PUBLISH_EVENT) {
-    const { PUBLISHED } = data;
+    const { id, __typename, ...published } = data;
     /* sync only entries that don't have 'archived' property or 'archived' is set to false */
-    if (!PUBLISHED.archived) {
-      const { id, __typename, ...rest } = PUBLISHED;
+    if (!published.archived) {
       const keywords = {};
       const titles = {};
       const excerpts = {};
       const slugs = {};
       let hasBrand, queryData, recordData, contentSourceType;
 
-      if (__typename === PAGE && acceptedPageTypes.includes(rest.pageType)) {
+      if (__typename === PAGE && acceptedPageTypes.includes(published.pageType)) {
         /* scenario 1: Page is published */
-        contentSourceType = SOURCE_TYPES[rest.pageType];
+        contentSourceType = SOURCE_TYPES[published.pageType];
         hasBrand = sourcesWithBrand.includes(contentSourceType);
         queryData = await getQueryData(false, id, contentSourceType, hasBrand);
         if (queryData.errors) {
@@ -185,7 +188,7 @@ exports.handler = async (event, context) => {
           /* associated content source has not been published so reject */
           return statusAndMessage(424, 'Queried data not available.');
         }
-      } else if (acceptedSources.includes(PUBLISHED.__typename)) {
+      } else if (acceptedSources.includes(__typename)) {
         /* scenario 2: Content Source is published */
         contentSourceType = __typename.substring(0, 1).toLowerCase() + __typename.substring(1);
         hasBrand = sourcesWithBrand.includes(contentSourceType);
