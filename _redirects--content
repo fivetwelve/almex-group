@@ -30,7 +30,7 @@
 /*  /peru/en/:splat 302 Country=pe
 
 # Redirect customers for Brazil
-/*  /brazil/en/:splat 302 Country=br
+/*  /brasil/en/:splat 302 Country=br
 
 # Redirect customers for India
 /*  /india/en/:splat 302 Country=in
