@@ -163,7 +163,7 @@ exports.handler = async (event, context) => {
             data: { page },
           } = queryData;
           page.localizations.forEach(localization => {
-            excerpts[`excerpts${localization.locale}`] = localization.excerpt || null;
+            excerpts[`excerpt${localization.locale}`] = localization.excerpt || null;
             slugs[`slug${localization.locale}`] = localization.slug;
           });
           page[contentSourceType].localizations.forEach(localization => {
@@ -205,7 +205,7 @@ exports.handler = async (event, context) => {
           // console.log('contentSource------');
           // console.log(contentSource);
           contentSource.page.localizations.forEach(localization => {
-            excerpts[`excerpts${localization.locale}`] = localization.excerpt || null;
+            excerpts[`excerpt${localization.locale}`] = localization.excerpt || null;
             slugs[`slug${localization.locale}`] = localization.slug;
           });
           contentSource.localizations.forEach(localization => {
