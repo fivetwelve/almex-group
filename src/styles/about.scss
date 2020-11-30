@@ -67,8 +67,8 @@ $spacing: 20px;
           background-image: url('../../static/img/logo-almex-box.png');
           background-size: cover;
           width: calc(135px * 0.6);
-          height: calc(46px * 0.6);
-          background-position-y: calc(-46px * 0.6);
+          height: calc(47px * 0.6);
+          background-position-y: calc(-49px * 0.6);
           @include media('>=tablet') {
             width: 135px;
             height: 48px;
@@ -79,7 +79,7 @@ $spacing: 20px;
           background-image: url('../../static/img/logo-bat.png');
           background-size: cover;
           width: calc(110px * 0.6);
-          height: calc(70px * 0.6);
+          height: calc(65px * 0.6);
           background-position-y: calc(-70px * 0.6);
           @include media('>=tablet') {
             width: 110px;
@@ -91,8 +91,8 @@ $spacing: 20px;
           background-image: url('../../static/img/logo-lightweight.png');
           background-size: cover;
           width: calc(125px * 0.6);
-          height: calc(53px * 0.6);
-          background-position-y: calc(-53px * 0.59);
+          height: calc(55px * 0.6);
+          background-position-y: calc(-55px * 0.59);
           @include media('>=tablet') {
             width: 125px;
             height: 55px;
@@ -140,7 +140,7 @@ $spacing: 20px;
           background-size: cover;
           width: calc(100px * 0.6);
           height: calc(84px * 0.6);
-          background-position-y: calc(-84px * 0.6);
+          background-position-y: calc(-87px * 0.6);
           @include media('>=tablet') {
             width: 100px;
             height: 86px;
@@ -164,11 +164,11 @@ $spacing: 20px;
           background-size: cover;
           width: calc(179px * 0.6);
           height: calc(66px * 0.6);
-          background-position-y: calc(-66px * 0.59);
+          background-position-y: calc(-70px * 0.59);
           @include media('>=tablet') {
             width: 179px;
             height: 66px;
-            background-position-y: -66px;
+            background-position-y: -70px;
           }
         }
       }
