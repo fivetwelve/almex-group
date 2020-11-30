@@ -13,8 +13,8 @@
 /*  /australia/en/:splat 302 Country=au,kh,ck,fj,pf,jp,kp,kr,la,my,mn,mm,nr,nc,nz,pg,ph,sg,sb,tw,th,vn
 
 # Redirect customers for Europe
-/*  /europe/de/:splat 302 Country=af,dz,am,at,bh,be,ba,bg,bf,es,hr,cy,cz,dk,eg,gb,er,ee,et,fo,fi,fr,ga,ge,de,gh,gr,gl,gg,gn,hu,is,ir,iq,ie,im,il,it,ci,je,jo,kz,kw,kg,lv,lb,lr,ly,li,lt,lu,mk,ml,mt,mr,md,me,ma,np,nl,ng,gb,no,om,pk,pl,pt,qa,ro,ru,sa,gb,sn,rs,sl,sk,si,es,sd,se,ch,sy,tj,tn,tr,tm,ua,ae,gb,uz,gb,ye Language=de
-/*  /europe/en/:splat 302 Country=af,dz,am,at,bh,be,ba,bg,bf,es,hr,cy,cz,dk,eg,gb,er,ee,et,fo,fi,fr,ga,ge,de,gh,gr,gl,gg,gn,hu,is,ir,iq,ie,im,il,it,ci,je,jo,kz,kw,kg,lv,lb,lr,ly,li,lt,lu,mk,ml,mt,mr,md,me,ma,np,nl,ng,gb,no,om,pk,pl,pt,qa,ro,ru,sa,gb,sn,rs,sl,sk,si,es,sd,se,ch,sy,tj,tn,tr,tm,ua,ae,gb,uz,gb,ye
+/*  /europe/de/:splat 302 Country=af,dz,am,at,bh,be,ba,bg,bf,es,hr,cy,cz,dk,eg,gb,er,ee,et,fo,fi,fr,ga,ge,de,gh,gr,gl,gg,gn,hu,is,ir,iq,ie,im,il,it,ci,je,jo,kz,kw,kg,lv,lb,lr,ly,li,lt,lu,mk,ml,mt,mr,md,me,ma,np,nl,ng,gb,no,om,pk,pl,pt,qa,ro,ru,sa,gb,sn,rs,sl,sk,si,es,sd,se,ch,sy,tj,tn,tr,tm,ua,ae,gb,uz,gb,ye,mc Language=de
+/*  /europe/en/:splat 302 Country=af,dz,am,at,bh,be,ba,bg,bf,es,hr,cy,cz,dk,eg,gb,er,ee,et,fo,fi,fr,ga,ge,de,gh,gr,gl,gg,gn,hu,is,ir,iq,ie,im,il,it,ci,je,jo,kz,kw,kg,lv,lb,lr,ly,li,lt,lu,mk,ml,mt,mr,md,me,ma,np,nl,ng,gb,no,om,pk,pl,pt,qa,ro,ru,sa,gb,sn,rs,sl,sk,si,es,sd,se,ch,sy,tj,tn,tr,tm,ua,ae,gb,uz,gb,ye,mc
 
 # Redirect customers for Chile
 /*  /chile/es/:splat 302 Country=ar,cl,py,uy Language=es
@@ -36,7 +36,7 @@
 /*  /india/en/:splat 302 Country=in
 
 # Redirect customers for Indonesia
-/*  /indonesia/en/:splat 302 Country=id
+/*  /indonesia/en/:splat 302 Country=id,mo
 
 # Redirect customers for Mexico
 /*  /mexico/en/:splat 302 Country=mx
