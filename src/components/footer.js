@@ -39,6 +39,7 @@ class Footer extends React.Component {
           if (navigator.cookieEnabled) {
             localStorage.setItem('almexLastVisit', now.toString());
           }
+          console.log('Your Region: ' + thisRegion);
           this.getOffices(thisRegion);
         }
       }
@@ -54,6 +55,7 @@ class Footer extends React.Component {
       const theseCountries = office.countryCodes.countries;
       if (theseCountries.includes(region)) {
         regionOffices.push(office);
+        console.log('Your Offices: ' + office.name);
       }
       if (regionOffices.length > 1) {
         regionOffices.sort((a, b) => (a.name < b.name ? -1 : 1));
