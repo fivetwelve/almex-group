@@ -2,17 +2,45 @@
 # ref https://docs.netlify.com/routing/redirects/redirect-options#redirect-by-country-or-language
 # discussion https://community.netlify.com/t/redirect-not-fully-working-in-spite-of-following-redirects-documentation/16730
 
-# Redirect users of North America
-# uncomment the following rule when ES becomes available; similar examples are in _redirects--content
-# /* /northamerica/es/:splat 302 Country=ca,us Language=es
+# Redirect customers for North America
+/* /northamerica/es/:splat 302 Country=ca,us Language=es
 /* /northamerica/en/:splat 302 Country=ca,us
 
-
-# Redirect users of South Africa
+# Redirect customers for South Africa
 /*  /southafrica/en/:splat 302 Country=ao,bw,cm,cg,cd,ke,mg,mw,mu,mz,na,za,tz,ug,zm,zw 
+
+# Redirect customers for Shaw Almex Pacific
+/*  /australia/en/:splat 302 Country=au,kh,ck,fj,pf,jp,kp,kr,la,my,mn,mm,nr,nc,nz,pg,ph,sg,sb,tw,th,vn
+
+# Redirect customers for Europe
+/*  /europe/de/:splat 302 Country=af,dz,am,at,bh,be,ba,bg,bf,es,hr,cy,cz,dk,eg,gb,er,ee,et,fo,fi,fr,ga,ge,de,gh,gr,gl,gg,gn,hu,is,ir,iq,ie,im,il,it,ci,je,jo,kz,kw,kg,lv,lb,lr,ly,li,lt,lu,mk,ml,mt,mr,md,me,ma,np,nl,ng,gb,no,om,pk,pl,pt,qa,ro,ru,sa,gb,sn,rs,sl,sk,si,es,sd,se,ch,sy,tj,tn,tr,tm,ua,ae,gb,uz,gb,ye,mc Language=de
+/*  /europe/en/:splat 302 Country=af,dz,am,at,bh,be,ba,bg,bf,es,hr,cy,cz,dk,eg,gb,er,ee,et,fo,fi,fr,ga,ge,de,gh,gr,gl,gg,gn,hu,is,ir,iq,ie,im,il,it,ci,je,jo,kz,kw,kg,lv,lb,lr,ly,li,lt,lu,mk,ml,mt,mr,md,me,ma,np,nl,ng,gb,no,om,pk,pl,pt,qa,ro,ru,sa,gb,sn,rs,sl,sk,si,es,sd,se,ch,sy,tj,tn,tr,tm,ua,ae,gb,uz,gb,ye,mc
+
+# Redirect customers for Chile
+/*  /chile/es/:splat 302 Country=ar,cl,py,uy Language=es
+/*  /chile/en/:splat 302 Country=ar,cl,py,uy
+
+# Redirect customers for China
+/*  /china/en/:splat 302 Country=cn,hk
+
+# Redirect customers for Asia Pacific
+/*  /asiapacific/en/:splat 302 Country=kp,kr,kh,jp,la,my,mn,mm,nr,nz,pg,ph,sh,tw,th,vn,kh
+
+# Redirect customers for Peru
+/*  /peru/en/:splat 302 Country=pe
+
+# Redirect customers for Brazil
+/*  /brasil/en/:splat 302 Country=br
+
+# Redirect customers for India
+/*  /india/en/:splat 302 Country=in
+
+# Redirect customers for Indonesia
+/*  /indonesia/en/:splat 302 Country=id,mo
+
+# Redirect customers for Mexico
+/*  /mexico/en/:splat 302 Country=mx
+
 
 # Fallback redirect failing all of the above
 /*  /northamerica/en/:splat  301
-
-# ref https://docs.netlify.com/routing/redirects/redirect-options#redirect-by-country-or-language
-# discussion https://community.netlify.com/t/redirect-not-fully-working-in-spite-of-following-redirects-documentation/16730

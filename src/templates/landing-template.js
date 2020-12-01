@@ -6,6 +6,7 @@ import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown/with-html';
 import Layout from '../components/layout';
 import LandingTile from '../components/landingTile';
+import AlternativeBanner from '../components/alternativeBanner';
 import { LANDING_TYPES, THEMES } from '../constants';
 import '../styles/landing.scss';
 import ProductBrand from '../components/productBrand';
@@ -27,6 +28,7 @@ const LandingTemplate = ({ data, pageContext }) => {
       page: {
         landing: {
           bannerImage,
+          alternativeBanners,
           brand,
           description,
           landingType,
@@ -71,13 +73,17 @@ const LandingTemplate = ({ data, pageContext }) => {
   const renderTiles = (pages, location) => {
     const tileArray = [];
     pages.forEach(page => {
-      // Use page titles by default. This allows some flexibility if there needs to be a shorter title than what is stored in source.
+      /* Use page titles by default. This allows some flexibility if there needs to be a shorter title than what is stored in source. */
       const pageTitle = page.title;
+      // const pageAvailableIn = page.availableIn;
+      // const pageRegion = page.region;
       const tileData = {
         slug: page.slug,
         tile: page.tile,
         title: pageTitle,
       };
+      // console.log('avail:', pageAvailableIn);
+      // console.log('region:', region);
       const landingTile = (
         <LandingTile data={tileData} key={makeid()} location={location} themeColour={themeColour} />
       );
@@ -206,6 +212,16 @@ const LandingTemplate = ({ data, pageContext }) => {
             {singlePages.length > 0 && (
               <div className="tile-container">{renderTiles(singlePages, location)}</div>
             )}
+            {alternativeBanners.length > 0 &&
+              alternativeBanners.map(alternativeBanner => {
+                return (
+                  <AlternativeBanner
+                    location={location}
+                    alternativeBanner={alternativeBanner}
+                    key={makeid()}
+                  />
+                );
+              })}
           </>
         )}
       </Location>
@@ -242,7 +258,8 @@ export const query = graphql`
     $id: ID!
     $locale: [GraphCMS_Locale!]!
     $locales: [GraphCMS_Locale!]!
-    $region: GraphCMS_Region!
+    $region: GraphCMS_Region
+    $availableIn: [GraphCMS_Region!]
   ) {
     cms {
       ...CommonQuery
@@ -253,13 +270,31 @@ export const query = graphql`
             width
             height
           }
+          alternativeBanners(where: { availableIn_contains_some: $availableIn }) {
+            title
+            externalLink
+            page {
+              slug
+            }
+            image {
+              handle
+              width
+              height
+            }
+            availableIn
+          }
           brand
           description
           theme
           landingType
           landingSections {
             title
-            pages(where: { OR: [{ archived: false }, { archived: null }] }) {
+            pages(
+              where: {
+                availableIn_contains_some: $availableIn
+                OR: [{ archived: false }, { archived: null }]
+              }
+            ) {
               landingSource {
                 title
               }
@@ -277,7 +312,14 @@ export const query = graphql`
               title
             }
           }
-          singlePages: pages(where: { OR: [{ archived: false }, { archived: null }] }) {
+          singlePages: pages(
+            # locales: $locales
+            where: {
+              availableIn_contains_some: $availableIn
+              OR: [{ archived: false }, { archived: null }]
+            }
+          ) {
+            availableIn
             id
             landingSource {
               title

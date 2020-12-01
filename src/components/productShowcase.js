@@ -175,7 +175,12 @@ class ProductShowcase extends React.Component {
             <div className="product-title">{title}</div>
             {attractText.length > 0 && (
               <div className="attraction-container">
-                <Attraction attractText={attractText} locale={locale} products={products} />
+                <Attraction
+                  attractText={attractText}
+                  locale={locale}
+                  products={products}
+                  slideIndex={slideIdx}
+                />
               </div>
             )}
             {pdfDownloads && <div className="pdf-downloads">{pdfArray}</div>}
@@ -219,7 +224,7 @@ class ProductShowcase extends React.Component {
                 const thumbStyle = {
                   backgroundColor: '$black',
                 };
-                /* we may have more images than we can display so we have to impose a limit and we check 
+                /* we may have more images than we can display so we have to impose a limit and we check
                    whether to use given size of images, or the limit imposed */
                 const thisIdx = idx + (images.length >= $imageLimit ? $imageLimit : images.length);
                 return (

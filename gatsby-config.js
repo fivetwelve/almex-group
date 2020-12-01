@@ -56,14 +56,10 @@ module.exports = {
     `gatsby-plugin-react-helmet-async`,
     `gatsby-plugin-sass`,
     {
-      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      resolve: `gatsby-plugin-google-fonts`,
       options: {
-        fonts: [
-          {
-            family: `Nunito Sans`,
-            variants: [`400`, `400i`, `700`, `700i`],
-          },
-        ],
+        fonts: [`nunito sans:400,400i,700,700i`],
+        display: 'swap',
       },
     },
     {

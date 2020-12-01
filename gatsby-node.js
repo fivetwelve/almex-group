@@ -1,6 +1,24 @@
 const path = require('path');
 const { PAGE_TYPES, LANGUAGE_SLUGS, REGION_SLUGS } = require('./src/constants.js');
 
+// exports.createSchemaCustomization = ({ actions }) => {
+//   const { createTypes } = actions;
+//   const typeDefs = `
+//     type cms implements Node
+//   `;
+//   createTypes(typeDefs);
+// };
+
+// Switch off type inference for SitePage.context
+// https://www.gatsbyjs.com/docs/scaling-issues/
+exports.createSchemaCustomization = ({ actions }) => {
+  actions.createTypes(`
+    type SitePage implements Node @dontInfer {
+      path: String!
+    }
+  `);
+};
+
 exports.createPages = ({ graphql, actions }) => {
   /*
      1. Get regions; API endpoint will dictate whether or not regions are published or draft.
@@ -171,6 +189,7 @@ exports.createPages = ({ graphql, actions }) => {
                           locale,
                           locales,
                           region,
+                          availableIn: region,
                         },
                       });
                       break;
@@ -198,6 +217,7 @@ exports.createPages = ({ graphql, actions }) => {
                           locale,
                           locales,
                           region,
+                          availableIn: region,
                         },
                       });
                       break;
