@@ -18,7 +18,7 @@ const $videoLimit = 2; // max # of videos we're permitting in the gallery
 class ProductShowcase extends React.Component {
   constructor(props) {
     super(props);
-    const { images, youTubeVideos, pdfDownloads } = props;
+    const { images, youTubeVideos, pdfDownloads, region } = props;
     const slideArray = [];
     const pdfArray = [];
 
@@ -57,7 +57,10 @@ class ProductShowcase extends React.Component {
             </a>
           </div>
         );
-        pdfArray.push(pdf);
+
+        if (pdfDownloads[k].availableIn.includes(region)) {
+          pdfArray.push(pdf);
+        }
       }
     }
 
@@ -266,6 +269,7 @@ ProductShowcase.defaultProps = {
   youTubeVideos: [],
   pdfDownloads: [],
   showResourcesLink: false,
+  region: '',
 };
 
 ProductShowcase.propTypes = {
@@ -296,9 +300,11 @@ ProductShowcase.propTypes = {
       documentTitle: PropTypes.string,
       fileName: PropTypes.string,
       url: PropTypes.string,
+      availableIn: PropTypes.arrayOf(PropTypes.string),
     }),
   ),
   showResourcesLink: PropTypes.bool,
+  region: PropTypes.string,
 };
 
 export default ProductShowcase;
