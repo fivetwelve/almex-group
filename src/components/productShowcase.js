@@ -58,6 +58,8 @@ class ProductShowcase extends React.Component {
           </div>
         );
 
+        console.log("Region: "+region)
+        console.log(pdfDownloads)
         if (pdfDownloads[k].availableIn.includes(region)) {
           pdfArray.push(pdf);
         }
