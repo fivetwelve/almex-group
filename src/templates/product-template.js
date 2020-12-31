@@ -141,6 +141,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
             youTubeVideos={youTubeVideos}
             pdfDownloads={pdfDownloads}
             showResourcesLink={visitResourcesForMore}
+            region={region}
           />
           <div className={`product-marketing ${themeColour}`}>
             <ReactMarkdown
@@ -386,6 +387,7 @@ export const query = graphql`
             documentTitle
             fileName
             url
+            availableIn
           }
           configurations
           addOns
@@ -394,6 +396,7 @@ export const query = graphql`
             documentTitle
             resourceType
             url
+            availableIn
           }
           attractText
           accessories(

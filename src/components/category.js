@@ -25,12 +25,14 @@ const GET_CATEGORY = gql`
         fileName
         resourceType
         url
+        availableIn
       }
       caseStudies {
         documentTitle
         fileName
         resourceType
         url
+        availableIn
       }
       page {
         archived
@@ -64,10 +66,14 @@ const Category = props => {
       /* ensure product isn't archived and is available for this region */
       if (source.page && !source.page.archived && source.page.availableIn.includes(region)) {
         source.pdfDownloads.forEach(pdf => {
-          productResources.push(pdf);
+          if (pdf.availableIn.includes(region)) {
+            productResources.push(pdf);
+          }
         });
         source.caseStudies.forEach(pdf => {
-          productResources.push(pdf);
+          if (pdf.availableIn.includes(region)) {
+            productResources.push(pdf);
+          }
         });
         source.youTubeVideos.forEach(video => {
           productResources.push(video);
