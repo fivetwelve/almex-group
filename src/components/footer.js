@@ -64,7 +64,7 @@ class Footer extends React.Component {
 
   getRegion = () => {
     const nowString = new Date().toString();
-    fetch(`https://ipapi.co/json/?key=${process.env.REACT_APP_IPAPI_KEY}`, {
+    fetch(`https://ipapi.co/json/?key=${process.env.IPAPI_APIKEY_PRIVATE}`, {
       headers: {
         Accept: 'application/json',
       },
