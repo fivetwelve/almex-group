@@ -10,6 +10,8 @@ import { createLink, hoursPassed, makeid } from '../utils/functions';
 import { BRANDS, PAGE_TYPES } from '../constants';
 import '../styles/footer.scss';
 
+const ipapiKey = process.env.IPAPI_APIKEY_PRIVATE;
+
 class Footer extends React.Component {
   constructor(props) {
     super(props);
@@ -64,7 +66,7 @@ class Footer extends React.Component {
 
   getRegion = () => {
     const nowString = new Date().toString();
-    fetch(`https://ipapi.co/json/?key=${process.env.IPAPI_APIKEY_PRIVATE}`, {
+    fetch(`https://ipapi.co/json/?key=${ipapiKey}`, {
       headers: {
         Accept: 'application/json',
       },
@@ -211,7 +213,7 @@ class Footer extends React.Component {
 
   render() {
     const { brandNavigation, headerFooter, label, location } = this.props;
-    /* static companyAddress, etc. could  be used later once all regional sites have rolled out 
+    /* static companyAddress, etc. could  be used later once all regional sites have rolled out
        but currently using geo-lookup and using most relevant office details as default */
     // const { companyAddress, companyEmail, companyPhone, footerLinks, socialMedia } = headerFooter;
     const { regionOffices } = this.state;
