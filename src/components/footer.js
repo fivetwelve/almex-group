@@ -1,16 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, Link, StaticQuery } from 'gatsby';
-import fetch from 'isomorphic-fetch';
 import { IconContext } from 'react-icons';
 import CookieConsent from 'react-cookie-consent';
 import { FaPhone, FaEnvelope } from 'react-icons/fa';
 import ReactMarkdown from 'react-markdown/with-html';
-import { createLink, hoursPassed, makeid } from '../utils/functions';
+import { createLink, hoursPassed, makeid, getIPapiJson } from '../utils/functions';
 import { BRANDS, PAGE_TYPES } from '../constants';
 import '../styles/footer.scss';
-
-const ipapiKey = process.env.IPAPI_APIKEY_PRIVATE;
 
 class Footer extends React.Component {
   constructor(props) {
@@ -66,12 +63,7 @@ class Footer extends React.Component {
 
   getRegion = () => {
     const nowString = new Date().toString();
-    fetch(`https://ipapi.co/json/?key=${ipapiKey}`, {
-      headers: {
-        Accept: 'application/json',
-      },
-    })
-      .then(result => result.json())
+    getIPapiJson()
       .then(json => {
         if (navigator.cookieEnabled) {
           localStorage.setItem('almexVisitorRegion', json.country);

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { graphql, Link } from 'gatsby';
 import { Location } from '@reach/router';
-import fetch from 'isomorphic-fetch';
 import ReactMarkdown from 'react-markdown/with-html';
 import Carousel from 'nuka-carousel';
 import { IconContext } from 'react-icons';
@@ -11,7 +10,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import HomePageTile from '../components/homepageTile';
 import Layout from '../components/layout';
 import '../styles/homepage.scss';
-import { createLink, makeid, renderLink } from '../utils/functions';
+import { createLink, makeid, renderLink, getIPapiJson } from '../utils/functions';
 
 const HomepageTemplate = ({ data, pageContext }) => {
   /* Ad-hoc code for adding temporary geo-filtering on homagepage carousel */
@@ -24,13 +23,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
       const savedCountry =
         (navigator.cookieEnabled && localStorage.getItem('almexVisitorRegion')) || null;
       if (!savedCountry) {
-        fetch('https://ipapi.co/json/', {
-          method: 'GET',
-          headers: {
-            Accept: 'application/json',
-          },
-        })
-          .then(result => result.json())
+        getIPapiJson()
           .then(json => {
             setCountryPermission(allowedCountries.includes(json.country));
             setLoadingState(false);
