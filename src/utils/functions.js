@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import fetch from 'isomorphic-fetch';
 import { PAGE_TYPES } from '../constants';
 
 const apiUrl = () => {
@@ -19,7 +20,7 @@ const createLink = (location, slug) => {
     - Have established that URLs will always be formed as: /region/locale/slug/
     - No further hierarchy expected to pollute URLs or future link creation.
     - Slugs expected to be unique, coming from CMS.
-    - location passed in expected to be the prop coming from @reach/router Location 
+    - location passed in expected to be the prop coming from @reach/router Location
     - accounts for when there is no slug (homepage) so url may end in /region/locale
       and no trailing slash
   */
@@ -393,6 +394,24 @@ const scrollTo = (to, callback, duration) => {
   animateScroll();
 };
 
+const getIPapiJson = () => {
+  const params = {};
+  return new Promise((resolve, reject) => {
+    fetch(`${apiUrl()}/getRegion`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...params }),
+    })
+      .then(result => result.json())
+      .then(json => {
+        resolve(json);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
 export {
   apiUrl,
   countryFlag,
@@ -409,4 +428,5 @@ export {
   normalizeTimeZone,
   renderLink,
   scrollTo,
+  getIPapiJson,
 };
