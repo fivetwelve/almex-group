@@ -66,7 +66,7 @@ module.exports = {
       resolve: `gatsby-plugin-google-gtag`,
       options: {
         trackingIds: [
-          "UA-2722190-2",
+          "UA-136510250-2",
         ],
         gtagConfig: {
           optimize_id: "OPT_CONTAINER_ID",
