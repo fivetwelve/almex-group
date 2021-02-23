@@ -248,6 +248,7 @@ export const query = graphql`
             isProductCategory
             name
             documents {
+              id
               url
               fileName
               resourceType

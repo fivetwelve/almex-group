@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import YouTube from 'react-youtube';
 import { makeid } from '../utils/functions';
-import { RESOURCE_TYPES } from '../constants';
+import { RESOURCE_TYPES, DOWNLOAD_URL } from '../constants';
 import spinner from '../../static/img/spinner.gif';
 
 /* query */
@@ -21,6 +21,7 @@ const GET_CATEGORY = gql`
         youTubeId
       }
       pdfDownloads {
+        id
         documentTitle
         fileName
         resourceType
@@ -28,6 +29,7 @@ const GET_CATEGORY = gql`
         availableIn
       }
       caseStudies {
+        id
         documentTitle
         fileName
         resourceType
@@ -202,7 +204,7 @@ const Category = props => {
                     {type.documents.map(document => (
                       <div className="resource" key={makeid()}>
                         <a
-                          href={document.url}
+                          href={DOWNLOAD_URL + document.id}
                           target="_blank"
                           rel="noopener noreferrer nofollow noindex"
                         >

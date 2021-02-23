@@ -392,6 +392,7 @@ export const query = graphql`
           configurations
           addOns
           pdfDownloads {
+          	id
             fileName
             documentTitle
             resourceType
