@@ -2,67 +2,64 @@
 # ref https://docs.netlify.com/routing/redirects/redirect-options#redirect-by-country-or-language
 # discussion https://community.netlify.com/t/redirect-not-fully-working-in-spite-of-following-redirects-documentation/16730
 
+#Every file not within /region/langauge/ needs a redundant redirect to prevent sporadic 404 errors
+
+#files
+/*.json /*.json 200!
+/*.js /*.js 200!
+/*.png /*.png 200!
+/*.gif /*.gif 200!
+/*.jpg /*.jpg 200!
+/*.xml /*.xml 200!
+/*.map /*.map 200!
+/*.txt /*.txt 200!
+/*.css /*.css 200!
+/*.svg /*.svg 200!
+/*.ico /*.ico 200!
+
 #images
 /img/* /img/:splat 200!
 
 #static
 /static/* /static/:splat 200!
 
-#js
-/*.js /*.js 200!
-
 # Redirect customers for North America
-/page-data/northamerica/es/* /page-data/northamerica/es/:splat 200!
-/page-data/northamerica/en/* /page-data/northamerica/en/:splat 200!
 /* /northamerica/es/:splat 302 Country=ca,us Language=es
 /* /northamerica/en/:splat 302 Country=ca,us
 
 # Redirect customers for South Africa
-/page-data/southafrica/en/* /page-data/southafrica/en/:splat 200!
 /*  /southafrica/en/:splat 302 Country=ao,bw,cm,cg,cd,ke,mg,mw,mu,mz,na,za,tz,ug,zm,zw 
 
 # Redirect customers for Shaw Almex Pacific
-/page-data/australia/en/* /page-data/australia/en/:splat 200!
 /*  /australia/en/:splat 302 Country=au,kh,ck,fj,pf,jp,kp,kr,la,my,mn,mm,nr,nc,nz,pg,ph,sg,sb,tw,th,vn
 
 # Redirect customers for Europe
-/page-data/europe/de/* /page-data/europe/de/:splat 200!
-/page-data/europe/en/* /page-data/europe/en/:splat 200!
 /*  /europe/de/:splat 302 Country=af,dz,am,at,bh,be,ba,bg,bf,es,hr,cy,cz,dk,eg,gb,er,ee,et,fo,fi,fr,ga,ge,de,gh,gr,gl,gg,gn,hu,is,ir,iq,ie,im,il,it,ci,je,jo,kz,kw,kg,lv,lb,lr,ly,li,lt,lu,mk,ml,mt,mr,md,me,ma,np,nl,ng,gb,no,om,pk,pl,pt,qa,ro,ru,sa,gb,sn,rs,sl,sk,si,es,sd,se,ch,sy,tj,tn,tr,tm,ua,ae,gb,uz,gb,ye,mc Language=de
 /*  /europe/en/:splat 302 Country=af,dz,am,at,bh,be,ba,bg,bf,es,hr,cy,cz,dk,eg,gb,er,ee,et,fo,fi,fr,ga,ge,de,gh,gr,gl,gg,gn,hu,is,ir,iq,ie,im,il,it,ci,je,jo,kz,kw,kg,lv,lb,lr,ly,li,lt,lu,mk,ml,mt,mr,md,me,ma,np,nl,ng,gb,no,om,pk,pl,pt,qa,ro,ru,sa,gb,sn,rs,sl,sk,si,es,sd,se,ch,sy,tj,tn,tr,tm,ua,ae,gb,uz,gb,ye,mc
 
 # Redirect customers for Chile
-/page-data/chile/es/* /page-data/chile/es/:splat 200!
-/page-data/chile/en/* /page-data/chile/en/:splat 200!
 /*  /chile/es/:splat 302 Country=ar,cl,py,uy Language=es
 /*  /chile/en/:splat 302 Country=ar,cl,py,uy
 
 # Redirect customers for China
-/page-data/china/en/* /page-data/china/en/:splat 200!
 /*  /china/en/:splat 302 Country=cn,hk
 
 # Redirect customers for Asia Pacific
-/page-data/asiapacific/en/* /page-data/asiapacific/en/:splat 200!
 /*  /asiapacific/en/:splat 302 Country=kp,kr,kh,jp,la,my,mn,mm,nr,nz,pg,ph,sh,tw,th,vn,kh
 
 # Redirect customers for Peru
-/page-data/peru/en/* /page-data/peru/en/:splat 200!
 /*  /peru/en/:splat 302 Country=pe
 
 # Redirect customers for Brazil
-/page-data/brasil/en/* /page-data/brasil/en/:splat 200!
 /*  /brasil/en/:splat 302 Country=br
 
 # Redirect customers for India
-/page-data/india/en/* /page-data/india/en/:splat 200!
 /*  /india/en/:splat 302 Country=in
 
 # Redirect customers for Indonesia
-/page-data/indonesia/en/* /page-data/indonesia/en/:splat 200!
 /*  /indonesia/en/:splat 302 Country=id,mo
 
 # Redirect customers for Mexico
-/page-data/mexico/en/* /page-data/mexico/en/:splat 200!
 /*  /mexico/en/:splat 302 Country=mx
 
 
