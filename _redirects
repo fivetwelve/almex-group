@@ -9,7 +9,7 @@
 /static/* /static/:splat 200!
 
 #js
-*.js *.js 200!
+/*.js /*.js 200!
 
 # Redirect customers for North America
 /page-data/northamerica/es/* /page-data/northamerica/es/:splat 200!
