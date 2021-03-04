@@ -2,27 +2,6 @@
 # ref https://docs.netlify.com/routing/redirects/redirect-options#redirect-by-country-or-language
 # discussion https://community.netlify.com/t/redirect-not-fully-working-in-spite-of-following-redirects-documentation/16730
 
-#Every file not within /region/langauge/ needs a redundant redirect to prevent sporadic 404 errors
-
-#files
-/*.json /:splat 200!
-/*.js /:splat 200!
-/*.png /:splat 200!
-/*.gif /:splat 200!
-/*.jpg /:splat 200!
-/*.xml /:splat 200!
-/*.map /:splat 200!
-/*.txt /:splat 200!
-/*.css /:splat 200!
-/*.svg /:splat 200!
-/*.ico /:splat 200!
-
-#images
-/img/* /img/:splat 200!
-
-#static
-/static/* /static/:splat 200!
-
 # Redirect customers for North America
 /* /northamerica/es/:splat 302 Country=ca,us Language=es
 /* /northamerica/en/:splat 302 Country=ca,us
