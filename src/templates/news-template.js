@@ -162,14 +162,14 @@ NewsTemplate.defaultProps = {
 
 NewsTemplate.propTypes = {
   data: PropTypes.shape({
-    cms: PropTypes.object,
+    cms: PropTypes.instanceOf(Object),
     id: PropTypes.string,
   }),
   pageContext: PropTypes.shape({
-    landingSections: PropTypes.array,
-    languages: PropTypes.array,
+    landingSections: PropTypes.instanceOf(Array),
+    languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
-    locales: PropTypes.array,
+    locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
 };

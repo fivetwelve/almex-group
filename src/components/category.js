@@ -243,10 +243,10 @@ Category.propTypes = {
     }),
   ),
   label: PropTypes.shape({
-    common: PropTypes.object,
+    common: PropTypes.instanceOf(Object),
   }),
   resourcesLabel: PropTypes.shape({
-    resources: PropTypes.object,
+    resources: PropTypes.instanceOf(Object),
   }),
 };
 

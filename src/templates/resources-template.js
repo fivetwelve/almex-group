@@ -210,14 +210,14 @@ ResourcesTemplate.defaultProps = {
 
 ResourcesTemplate.propTypes = {
   data: PropTypes.shape({
-    cms: PropTypes.object,
+    cms: PropTypes.instanceOf(Object),
     id: PropTypes.string,
   }),
   pageContext: PropTypes.shape({
     id: PropTypes.string,
-    languages: PropTypes.array,
+    languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
-    locales: PropTypes.array,
+    locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
 };

@@ -218,8 +218,8 @@ UsedEquipmentListing.propTypes = {
     }),
   ),
   label: PropTypes.shape({
-    common: PropTypes.object,
-    sparesRepairs: PropTypes.object,
+    common: PropTypes.instanceOf(Object),
+    sparesRepairs: PropTypes.instanceOf(Object),
   }),
   modelNumber: PropTypes.string,
   title: PropTypes.string,

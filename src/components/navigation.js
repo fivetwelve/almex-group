@@ -127,21 +127,21 @@ Navigation.defaultProps = {
 Navigation.propTypes = {
   activeLanguage: PropTypes.string,
   brandNavigation: PropTypes.shape({
-    pages: PropTypes.array,
+    pages: PropTypes.instanceOf(Array),
     type: PropTypes.string,
   }),
   handleCloseMenuClick: PropTypes.func,
   label: PropTypes.shape({
-    header: PropTypes.object,
-    footer: PropTypes.object,
-    common: PropTypes.object,
+    header: PropTypes.instanceOf(Object),
+    footer: PropTypes.instanceOf(Object),
+    common: PropTypes.instanceOf(Object),
   }),
   languages: PropTypes.arrayOf(PropTypes.string),
   location: PropTypes.shape({
     pathname: PropTypes.string,
   }),
   navigation: PropTypes.shape({
-    navigationSections: PropTypes.array,
+    navigationSections: PropTypes.instanceOf(Array),
   }),
   region: PropTypes.string,
 };

@@ -62,24 +62,21 @@ module.exports = {
         display: 'swap',
       },
     },
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        trackingId: "UA-136510250-2",
-        head: true,
-        anonymize: true,
-        respectDNT: false,
-        pageTransitionDelay: 0,
-        defer: false,
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-google-analytics`,
+    //   options: {
+    //     trackingId: "UA-136510250-2",
+    //     head: true,
+    //     anonymize: true,
+    //     respectDNT: false,
+    //     pageTransitionDelay: 0,
+    //     defer: false,
+    //   },
+    // },
     {
       resolve: `gatsby-plugin-google-gtag`,
       options: {
-        trackingIds: [
-          "UA-136510250-2",
-          "UA-2722190-2"
-        ],
+        trackingIds: ['UA-136510250-2', 'UA-2722190-2'],
         gtagConfig: {
           anonymize_ip: true,
           cookie_expires: 0,

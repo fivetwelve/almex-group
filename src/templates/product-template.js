@@ -322,11 +322,11 @@ ProductTemplate.defaultProps = {
 ProductTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      brandNavigation: PropTypes.object,
-      headerFooter: PropTypes.object,
-      label: PropTypes.object,
-      navigation: PropTypes.object,
-      page: PropTypes.object,
+      brandNavigation: PropTypes.instanceOf(Object),
+      headerFooter: PropTypes.instanceOf(Object),
+      label: PropTypes.instanceOf(Object),
+      navigation: PropTypes.instanceOf(Object),
+      page: PropTypes.instanceOf(Object),
     }),
   }),
   location: PropTypes.shape({
@@ -337,9 +337,9 @@ ProductTemplate.propTypes = {
   }),
   pageContext: PropTypes.shape({
     id: PropTypes.string,
-    languages: PropTypes.array,
+    languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
-    locales: PropTypes.array,
+    locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
 };
@@ -392,7 +392,7 @@ export const query = graphql`
           configurations
           addOns
           pdfDownloads {
-          	id
+            id
             fileName
             documentTitle
             resourceType
@@ -403,7 +403,7 @@ export const query = graphql`
           accessories(
             where: {
               availableIn_contains_some: $availableIn
-              OR: [{ archived: false }, { archived: null }]
+              # OR: [{ archived: false }, { archived: null }]
             }
           ) {
             slug
@@ -415,7 +415,7 @@ export const query = graphql`
           relatedItems(
             where: {
               availableIn_contains_some: $availableIn
-              OR: [{ archived: false }, { archived: null }]
+              # OR: [{ archived: false }, { archived: null }]
             }
           ) {
             slug

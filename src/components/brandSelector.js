@@ -116,11 +116,11 @@ BrandSelector.defaultProps = {
 
 BrandSelector.propTypes = {
   brandNavigation: PropTypes.shape({
-    pages: PropTypes.array,
+    pages: PropTypes.instanceOf(Array),
   }),
   label: PropTypes.shape({
-    common: PropTypes.object,
-    header: PropTypes.object,
+    common: PropTypes.instanceOf(Object),
+    header: PropTypes.instanceOf(Object),
   }),
   location: PropTypes.shape({
     pathname: PropTypes.string,

@@ -85,12 +85,12 @@ TimelineModal.propTypes = {
   event: PropTypes.shape({
     displayDate: PropTypes.string,
     eventTitle: PropTypes.string,
-    captions: PropTypes.array,
-    description: PropTypes.array,
-    images: PropTypes.array,
+    captions: PropTypes.instanceOf(Array),
+    description: PropTypes.instanceOf(Array),
+    images: PropTypes.instanceOf(Array),
   }),
   label: PropTypes.shape({
-    common: PropTypes.object,
+    common: PropTypes.instanceOf(Object),
   }),
   showModal: PropTypes.bool,
 };

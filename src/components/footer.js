@@ -307,23 +307,23 @@ Footer.defaultProps = {
 
 Footer.propTypes = {
   brandNavigation: PropTypes.shape({
-    pages: PropTypes.array,
+    pages: PropTypes.instanceOf(Array),
   }),
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      offices: PropTypes.array,
+      offices: PropTypes.instanceOf(Array),
     }),
   }),
   headerFooter: PropTypes.shape({
     companyAddress: PropTypes.string,
     companyEmail: PropTypes.string,
     companyPhone: PropTypes.string,
-    footerLinks: PropTypes.object,
-    privacyPage: PropTypes.object,
-    socialMedia: PropTypes.array,
+    footerLinks: PropTypes.instanceOf(Object),
+    privacyPage: PropTypes.instanceOf(Object),
+    socialMedia: PropTypes.instanceOf(Array),
   }),
   label: PropTypes.shape({
-    footer: PropTypes.object,
+    footer: PropTypes.instanceOf(Object),
   }),
   location: PropTypes.shape({
     pathname: PropTypes.string,

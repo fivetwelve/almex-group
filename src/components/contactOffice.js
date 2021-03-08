@@ -129,7 +129,7 @@ ContactOffice.defaultProps = {
 
 ContactOffice.propTypes = {
   aboutLabel: PropTypes.shape({
-    about: PropTypes.object,
+    about: PropTypes.instanceOf(Object),
   }),
   goToOffice: PropTypes.func,
   handleContactUs: PropTypes.func,
@@ -141,13 +141,13 @@ ContactOffice.propTypes = {
     countries: PropTypes.string,
     countryCode: PropTypes.string,
     description: PropTypes.string,
-    fax: PropTypes.array,
+    fax: PropTypes.instanceOf(Array),
     latitude: PropTypes.number,
     longitude: PropTypes.number,
-    mobile: PropTypes.array,
+    mobile: PropTypes.instanceOf(Array),
     name: PropTypes.string,
-    telephone: PropTypes.array,
-    tollFree: PropTypes.array,
+    telephone: PropTypes.instanceOf(Array),
+    tollFree: PropTypes.instanceOf(Array),
   }),
   visitorRegion: PropTypes.string,
 };

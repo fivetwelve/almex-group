@@ -364,14 +364,14 @@ ContactFormModal.propTypes = {
   contactType: PropTypes.string,
   hideModal: PropTypes.func,
   label: PropTypes.shape({
-    common: PropTypes.object,
+    common: PropTypes.instanceOf(Object),
   }),
   selectedExpert: PropTypes.shape({
     // this will be moved into an array in handleSubmit() to be consistent with selectedOffice.email
     email: PropTypes.string,
   }),
   selectedOffice: PropTypes.shape({
-    email: PropTypes.array,
+    email: PropTypes.instanceOf(Array),
   }),
   showModal: PropTypes.bool,
   title: PropTypes.string,
