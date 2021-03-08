@@ -2,9 +2,13 @@
 # ref https://docs.netlify.com/routing/redirects/redirect-options#redirect-by-country-or-language
 # discussion https://community.netlify.com/t/redirect-not-fully-working-in-spite-of-following-redirects-documentation/16730
 
+# Resolve data lookup paths
+
 # Redirect customers for North America
 /* /northamerica/es/:splat 302 Country=ca,us Language=es
 /* /northamerica/en/:splat 302 Country=ca,us
+/northamerica/en/page-data/*  /page-data/northamerica/en/:splat 301
+
 
 # Redirect customers for South Africa
 /*  /southafrica/en/:splat 302 Country=ao,bw,cm,cg,cd,ke,mg,mw,mu,mz,na,za,tz,ug,zm,zw 
@@ -41,9 +45,6 @@
 # Redirect customers for Mexico
 /*  /mexico/en/:splat 302 Country=mx
 
-
-# Resolve data lookup paths
-/page-data/*  /page-data/:splat  301
 
 # Fallback redirect failing all of the above
 /*  /northamerica/en/:splat  301
