@@ -110,7 +110,7 @@ module.exports = {
       options: {
         mergeSecurityHeaders: true, // boolean to turn off the default security headers
         mergeLinkHeaders: false, // boolean to turn off the default gatsby js headers (disabled by default, until gzip is fixed for server push)
-        mergeCachingHeaders: false, // boolean to turn off the default caching headers
+        mergeCachingHeaders: true, // boolean to turn off the default caching headers
       },
     },
   ],
