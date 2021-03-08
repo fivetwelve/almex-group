@@ -42,5 +42,8 @@
 /*  /mexico/en/:splat 302 Country=mx
 
 
+# Resolve data lookup paths
+/page-data/*  /page-data/:splat  301
+
 # Fallback redirect failing all of the above
 /*  /northamerica/en/:splat  301
