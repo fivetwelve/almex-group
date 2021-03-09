@@ -59,12 +59,12 @@ HomepageTile.defaultProps = {
 HomepageTile.propTypes = {
   data: PropTypes.shape({
     description: PropTypes.string,
-    image: PropTypes.object,
-    page: PropTypes.object,
+    image: PropTypes.instanceOf(Object),
+    page: PropTypes.instanceOf(Object),
     title: PropTypes.string,
   }),
   labels: PropTypes.shape({
-    common: PropTypes.object,
+    common: PropTypes.instanceOf(Object),
   }),
   location: PropTypes.shape({
     pathname: PropTypes.string,

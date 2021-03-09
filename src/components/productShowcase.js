@@ -281,9 +281,9 @@ ProductShowcase.propTypes = {
     }),
   ),
   label: PropTypes.shape({
-    common: PropTypes.object,
-    products: PropTypes.object,
-    resourcesLink: PropTypes.object,
+    common: PropTypes.instanceOf(Object),
+    products: PropTypes.instanceOf(Object),
+    resourcesLink: PropTypes.instanceOf(Object),
   }),
   locale: PropTypes.string,
   location: PropTypes.shape({
@@ -296,6 +296,7 @@ ProductShowcase.propTypes = {
   youTubeVideos: PropTypes.arrayOf(PropTypes.object),
   pdfDownloads: PropTypes.arrayOf(
     PropTypes.shape({
+      id: PropTypes.string,
       resourceType: PropTypes.string,
       documentTitle: PropTypes.string,
       fileName: PropTypes.string,

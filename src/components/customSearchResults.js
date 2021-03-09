@@ -58,7 +58,7 @@ StateResults.propTypes = {
   }),
   searchResults: PropTypes.shape({
     query: PropTypes.string,
-    hits: PropTypes.array,
+    hits: PropTypes.instanceOf(Array),
   }),
 };
 

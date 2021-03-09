@@ -192,26 +192,26 @@ Header.defaultProps = {
 Header.propTypes = {
   activeLanguage: PropTypes.string,
   brandNavigation: PropTypes.shape({
-    pages: PropTypes.array,
+    pages: PropTypes.instanceOf(Array),
   }),
   // data: PropTypes.shape({
-  //   cms: PropTypes.object,
+  //   cms: PropTypes.instanceOf(Object),
   // }),
   headerFooter: PropTypes.shape({
     fusionClub: PropTypes.bool,
-    // language: PropTypes.array,
-    navigation: PropTypes.array,
+    // language: PropTypes.instanceOf(Array),
+    navigation: PropTypes.instanceOf(Array),
     simpleTagline: PropTypes.string,
   }),
   label: PropTypes.shape({
-    header: PropTypes.object,
+    header: PropTypes.instanceOf(Object),
   }),
   languages: PropTypes.arrayOf(PropTypes.string),
   location: PropTypes.shape({
     pathname: PropTypes.string,
   }),
   navigation: PropTypes.shape({
-    navigationSections: PropTypes.array,
+    navigationSections: PropTypes.instanceOf(Array),
   }),
   region: PropTypes.string,
   showMobileBG: PropTypes.func,

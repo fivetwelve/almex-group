@@ -54,7 +54,7 @@ TimelineManager.defaultProps = {
 TimelineManager.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object),
   label: PropTypes.shape({
-    common: PropTypes.object,
+    common: PropTypes.instanceOf(Object),
   }),
 };
 
