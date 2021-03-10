@@ -300,7 +300,7 @@ InstituteForm.propTypes = {
   email: PropTypes.arrayOf(PropTypes.string),
   emailSubject: PropTypes.string,
   label: PropTypes.shape({
-    common: PropTypes.object,
+    common: PropTypes.instanceOf(Object),
   }),
 };
 

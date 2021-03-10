@@ -242,20 +242,20 @@ ContactTemplate.defaultProps = {
 ContactTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      aboutLabel: PropTypes.object,
-      brandNavigation: PropTypes.object,
-      experts: PropTypes.array,
-      headerFooter: PropTypes.object,
-      label: PropTypes.object,
-      navigation: PropTypes.object,
-      page: PropTypes.object,
+      aboutLabel: PropTypes.instanceOf(Object),
+      brandNavigation: PropTypes.instanceOf(Object),
+      experts: PropTypes.instanceOf(Array),
+      headerFooter: PropTypes.instanceOf(Object),
+      label: PropTypes.instanceOf(Object),
+      navigation: PropTypes.instanceOf(Object),
+      page: PropTypes.instanceOf(Object),
     }),
   }),
   pageContext: PropTypes.shape({
     id: PropTypes.string,
-    languages: PropTypes.array,
+    languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
-    locales: PropTypes.array,
+    locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
 };

@@ -84,7 +84,7 @@ ContactExpert.defaultProps = {
 
 ContactExpert.propTypes = {
   aboutLabel: PropTypes.shape({
-    about: PropTypes.object,
+    about: PropTypes.instanceOf(Object),
   }),
   expert: PropTypes.shape({
     specialty: PropTypes.string,
@@ -105,11 +105,11 @@ ContactExpert.propTypes = {
     countries: PropTypes.string,
     countryCode: PropTypes.string,
     description: PropTypes.string,
-    fax: PropTypes.array,
-    mobile: PropTypes.array,
+    fax: PropTypes.instanceOf(Array),
+    mobile: PropTypes.instanceOf(Array),
     name: PropTypes.string,
-    telephone: PropTypes.array,
-    tollFree: PropTypes.array,
+    telephone: PropTypes.instanceOf(Array),
+    tollFree: PropTypes.instanceOf(Array),
   }),
 };
 

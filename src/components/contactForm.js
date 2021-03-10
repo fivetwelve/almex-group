@@ -263,7 +263,7 @@ ContactForm.propTypes = {
   emailSubject: PropTypes.string,
   formType: PropTypes.string,
   label: PropTypes.shape({
-    common: PropTypes.object,
+    common: PropTypes.instanceOf(Object),
   }),
 };
 

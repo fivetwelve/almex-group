@@ -207,7 +207,7 @@ ContactMap.defaultProps = {
 
 ContactMap.propTypes = {
   aboutLabel: PropTypes.shape({
-    about: PropTypes.object,
+    about: PropTypes.instanceOf(Object),
   }),
   handleContactUs: PropTypes.func,
   locale: PropTypes.string,

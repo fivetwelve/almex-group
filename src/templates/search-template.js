@@ -161,23 +161,23 @@ SearchTemplate.defaultProps = {
 SearchTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      brandNavigation: PropTypes.object,
-      headerFooter: PropTypes.object,
-      label: PropTypes.object,
-      navigation: PropTypes.object,
-      page: PropTypes.object,
+      brandNavigation: PropTypes.instanceOf(Object),
+      headerFooter: PropTypes.instanceOf(Object),
+      label: PropTypes.instanceOf(Object),
+      navigation: PropTypes.instanceOf(Object),
+      page: PropTypes.instanceOf(Object),
     }),
   }),
   location: PropTypes.shape({
     pathname: PropTypes.string,
     search: PropTypes.string,
-    state: PropTypes.object,
+    state: PropTypes.instanceOf(Object),
   }),
   pageContext: PropTypes.shape({
     id: PropTypes.string,
-    languages: PropTypes.array,
+    languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
-    locales: PropTypes.array,
+    locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
 };

@@ -96,8 +96,8 @@ CategorySelector.propTypes = {
     PropTypes.shape({
       id: PropTypes.string,
       isProductCategory: PropTypes.bool,
-      page: PropTypes.object,
-      documents: PropTypes.array,
+      page: PropTypes.instanceOf(Object),
+      documents: PropTypes.instanceOf(Array),
     }),
   ),
   label: PropTypes.objectOf(PropTypes.string),

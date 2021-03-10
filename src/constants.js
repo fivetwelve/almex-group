@@ -1,4 +1,5 @@
 module.exports = {
+  DOWNLOAD_URL: 'https://almexdownload.com/?id=',
   ARTICLE_STATUS: {
     ARCHIVED: 'ARCHIVED',
     RECENT: 'RECENT',

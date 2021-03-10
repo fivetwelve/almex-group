@@ -404,7 +404,7 @@ AddOn.defaultProps = {
 AddOn.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string),
   label: PropTypes.shape({
-    common: PropTypes.object,
+    common: PropTypes.instanceOf(Object),
   }),
   themeColour: PropTypes.string,
 };

@@ -6,7 +6,7 @@ import YouTube from 'react-youtube';
 import { IconContext } from 'react-icons';
 import { FaChevronLeft, FaChevronRight, FaYoutube } from 'react-icons/fa';
 import { createLink, makeid } from '../utils/functions';
-import { RESOURCE_TYPES } from '../constants';
+import { RESOURCE_TYPES, DOWNLOAD_URL } from '../constants';
 import ProductBrand from './productBrand';
 import Attraction from './attraction';
 
@@ -51,7 +51,7 @@ class ProductShowcase extends React.Component {
       if (!excludeList.includes(pdfDownloads[k].resourceType)) {
         const pdf = (
           <div className="pdf" key={makeid()}>
-            <a href={pdfDownloads[k].url} target="_new" rel="nofollow noindex">
+            <a href={DOWNLOAD_URL + pdfDownloads[k].id} target="_new" rel="nofollow noindex">
               <div className="pdf-icon" />
               {pdfDownloads[k].documentTitle || pdfDownloads[k].fileName.split('.pdf')[0]}
             </a>
@@ -281,9 +281,9 @@ ProductShowcase.propTypes = {
     }),
   ),
   label: PropTypes.shape({
-    common: PropTypes.object,
-    products: PropTypes.object,
-    resourcesLink: PropTypes.object,
+    common: PropTypes.instanceOf(Object),
+    products: PropTypes.instanceOf(Object),
+    resourcesLink: PropTypes.instanceOf(Object),
   }),
   locale: PropTypes.string,
   location: PropTypes.shape({
@@ -296,6 +296,7 @@ ProductShowcase.propTypes = {
   youTubeVideos: PropTypes.arrayOf(PropTypes.object),
   pdfDownloads: PropTypes.arrayOf(
     PropTypes.shape({
+      id: PropTypes.string,
       resourceType: PropTypes.string,
       documentTitle: PropTypes.string,
       fileName: PropTypes.string,
