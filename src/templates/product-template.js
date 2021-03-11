@@ -403,7 +403,7 @@ export const query = graphql`
           accessories(
             where: {
               availableIn_contains_some: $availableIn
-              OR: [{ archived: false }, { archived: null }]
+              # OR: [{ archived: false }, { archived: null }]
             }
           ) {
             slug
@@ -415,7 +415,7 @@ export const query = graphql`
           relatedItems(
             where: {
               availableIn_contains_some: $availableIn
-              OR: [{ archived: false }, { archived: null }]
+              # OR: [{ archived: false }, { archived: null }]
             }
           ) {
             slug

@@ -292,7 +292,7 @@ export const query = graphql`
             pages(
               where: {
                 availableIn_contains_some: $availableIn
-                OR: [{ archived: false }, { archived: null }]
+                # OR: [{ archived: false }, { archived: null }]
               }
             ) {
               landingSource {
@@ -316,7 +316,7 @@ export const query = graphql`
             # locales: $locales
             where: {
               availableIn_contains_some: $availableIn
-              OR: [{ archived: false }, { archived: null }]
+              # OR: [{ archived: false }, { archived: null }]
             }
           ) {
             availableIn

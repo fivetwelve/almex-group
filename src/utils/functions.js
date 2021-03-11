@@ -23,11 +23,15 @@ const createLink = (location, slug) => {
     - location passed in expected to be the prop coming from @reach/router Location
     - accounts for when there is no slug (homepage) so url may end in /region/locale
       and no trailing slash
+    - updated redirect rules may result in double-trailing slash, added extra step
+      to clean it
   */
   const reg = /\/(.*?)\/\w+\//;
   const match = reg.exec(location.pathname);
   const linkPrefix = (match && match[0]) || `${location.pathname}/`;
-  return `${linkPrefix}${slug}/`;
+  const newLink = `${linkPrefix}${slug}/`;
+  /* strip extra trailing slash resulting from empty slug, indicating homepage link */
+  return newLink.replace('//', '/');
 };
 
 const createLinkFromPage = (location, page, language) => {
