@@ -31,7 +31,7 @@ exports.createPages = ({ graphql, actions }) => {
     graphql(`
       {
         cms {
-          pages(first: 1000, where: { OR: [{ archived: null }, { archived: false }] }) {
+          pages(first: 1000) {
             archived
             id
             availableIn

@@ -243,7 +243,8 @@ export const query = graphql`
           }
           description
           title
-          categories(where: { OR: [{ archived: false }, { archived: null }] }) {
+          # categories(where: { OR: [{ archived: false }, { archived: null }] }) {
+          categories {
             id
             isProductCategory
             name
