@@ -289,12 +289,7 @@ export const query = graphql`
           landingType
           landingSections {
             title
-            pages(
-              where: {
-                availableIn_contains_some: $availableIn
-                # OR: [{ archived: false }, { archived: null }]
-              }
-            ) {
+            pages(where: { availableIn_contains_some: $availableIn }) {
               landingSource {
                 title
               }
@@ -314,10 +309,7 @@ export const query = graphql`
           }
           singlePages: pages(
             # locales: $locales
-            where: {
-              availableIn_contains_some: $availableIn
-              # OR: [{ archived: false }, { archived: null }]
-            }
+            where: { availableIn_contains_some: $availableIn }
           ) {
             availableIn
             id

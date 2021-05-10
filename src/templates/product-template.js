@@ -400,24 +400,14 @@ export const query = graphql`
             availableIn
           }
           attractText
-          accessories(
-            where: {
-              availableIn_contains_some: $availableIn
-              # OR: [{ archived: false }, { archived: null }]
-            }
-          ) {
+          accessories(where: { availableIn_contains_some: $availableIn }) {
             slug
             tile {
               url
             }
             title
           }
-          relatedItems(
-            where: {
-              availableIn_contains_some: $availableIn
-              # OR: [{ archived: false }, { archived: null }]
-            }
-          ) {
+          relatedItems(where: { availableIn_contains_some: $availableIn }) {
             slug
             tile {
               url
