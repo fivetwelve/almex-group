@@ -31,6 +31,9 @@ module.exports = {
       }),
     );
   },
+  flags: {
+    FAST_DEV: true,
+  },
   plugins: [
     {
       resolve: 'gatsby-plugin-robots-txt',
