@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
-import ReactMarkdown from 'react-markdown/with-html';
+import ReactMarkdown from 'react-markdown';
 import Layout from '../components/layout';
 import '../styles/careers.scss';
 import { makeid, renderLink } from '../utils/functions';

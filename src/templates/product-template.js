@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
-import ReactMarkdown from 'react-markdown/with-html';
+import ReactMarkdown from 'react-markdown';
 import Layout from '../components/layout';
 import LinkWithPrevious from '../components/linkWithPrevious';
 import ProductShowcase from '../components/productShowcase';

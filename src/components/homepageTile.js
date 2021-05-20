@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
-import ReactMarkdown from 'react-markdown/with-html';
+import ReactMarkdown from 'react-markdown';
 import { createLink, renderLink } from '../utils/functions';
 import '../styles/homepageTile.scss';
 import fallbackTile from '../../static/img/fallback_500x235.jpg';

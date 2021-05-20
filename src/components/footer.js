@@ -4,7 +4,7 @@ import { graphql, Link, StaticQuery } from 'gatsby';
 import { IconContext } from 'react-icons';
 import CookieConsent from 'react-cookie-consent';
 import { FaPhone, FaEnvelope } from 'react-icons/fa';
-import ReactMarkdown from 'react-markdown/with-html';
+import ReactMarkdown from 'react-markdown';
 import { createLink, hoursPassed, makeid, getIPapiJson } from '../utils/functions';
 import { BRANDS, PAGE_TYPES } from '../constants';
 import '../styles/footer.scss';

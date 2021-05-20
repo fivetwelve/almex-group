@@ -7,7 +7,7 @@ import DayPicker, { DateUtils } from 'react-day-picker';
 import MomentLocaleUtils, { formatDate } from 'react-day-picker/moment';
 import { IconContext } from 'react-icons';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
-import ReactMarkdown from 'react-markdown/with-html';
+import ReactMarkdown from 'react-markdown';
 import 'moment/locale/de';
 import 'moment/locale/es';
 import Layout from '../components/layout';

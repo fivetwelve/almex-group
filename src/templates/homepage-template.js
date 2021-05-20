@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { graphql, Link } from 'gatsby';
 import { Location } from '@reach/router';
-import ReactMarkdown from 'react-markdown/with-html';
+import ReactMarkdown from 'react-markdown';
 import Carousel from 'nuka-carousel';
 import { IconContext } from 'react-icons';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
@@ -46,7 +46,9 @@ const HomepageTemplate = ({ data, pageContext }) => {
       `Check the connection to homepageSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
     );
   }
-  const { languages, locale, region } = pageContext;
+  const { languages, locale, region, localeData } = pageContext;
+  console.log('localeData');
+  console.log(localeData);
   const {
     cms: {
       brandNavigation,
@@ -334,6 +336,14 @@ HomepageTemplate.propTypes = {
     id: PropTypes.string,
     languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
+    localeData: PropTypes.shape({
+      brandNav: PropTypes.instanceOf(Object),
+      headerFooter: PropTypes.instanceOf(Object),
+      labels: PropTypes.instanceOf(Object),
+      language: PropTypes.string,
+      navigation: PropTypes.instanceOf(Object),
+      region: PropTypes.string,
+    }),
     locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
