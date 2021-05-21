@@ -201,7 +201,7 @@ exports.createPages = async ({ graphql, actions }) => {
             return {
               brand,
               slug: l10n[0].slug,
-              sourceType: sourceType.includes('GraphC2MS_') ? sourceType.substring(9) : sourceType,
+              sourceType: sourceType.includes('GraphCMS_') ? sourceType.substring(9) : sourceType,
               title: l10n[0].title,
             };
           });
