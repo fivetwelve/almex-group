@@ -246,7 +246,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
           return {
             id: page.id,
-            sourceId: page.contentSource.sourceId,
+            sourceId: page.contentSource && page.contentSource.sourceId,
             slug: l10n[0].slug,
             title: l10n[0].title,
           };
