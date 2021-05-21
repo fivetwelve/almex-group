@@ -192,8 +192,8 @@ exports.createPages = async ({ graphql, actions }) => {
           const { title } = removeKey('locale', l10nTitles[0]);
           const brandPages = thisBrandNav.pages.map(page => {
             const l10n = page.localizations.filter(thisL10n => thisL10n.locale === language);
-            let brand;
-            let sourceType;
+            let brand = '';
+            let sourceType = '';
             if (page.contentSource) {
               brand = page.contentSource.brand;
               sourceType = page.contentSource.sourceType;
