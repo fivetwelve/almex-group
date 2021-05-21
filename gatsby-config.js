@@ -45,12 +45,12 @@ module.exports = {
           },
           'branch-deploy': {
             policy: [{ userAgent: '*', disallow: ['/'] }],
-            // sitemap: null,
+            sitemap: 'sitemap-index.xml',
             host: null,
           },
           'deploy-preview': {
             policy: [{ userAgent: '*', disallow: ['/'] }],
-            // sitemap: null,
+            sitemap: 'sitemap-index.xml',
             host: null,
           },
         },
