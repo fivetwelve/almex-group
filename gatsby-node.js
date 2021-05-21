@@ -178,9 +178,9 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `);
 
-  const [globalData, pageData] = [await globalQuery, await pageQuery];
-  const { brandNavigations, headerFooters, labels, navigations } = globalData.data.cms;
-  const { pages, siteRegions } = pageData.data.cms;
+  const queryData = [await globalQuery, await pageQuery];
+  const { brandNavigations, headerFooters, labels, navigations } = queryData[0].data.cms;
+  const { pages, siteRegions } = queryData[1].data.cms;
   const allRegionData = [];
 
   siteRegions.forEach(thisRegion => {
@@ -521,11 +521,11 @@ exports.createPages = async ({ graphql, actions }) => {
     });
   });
 
-  if (globalData.errors) {
-    throw globalData.errors;
+  if (queryData[0].errors) {
+    throw queryData[0].errors;
   }
-  if (pageData.errors) {
-    throw pageData.errors;
+  if (queryData[1].errors) {
+    throw queryData[1].errors;
   }
 };
 
