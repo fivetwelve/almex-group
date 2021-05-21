@@ -93,15 +93,13 @@ class ContactTemplate extends React.Component {
         `Check the connection to contactSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
       );
     }
-    const { languages, locale, region } = pageContext;
+    const { languages, locale, localeData, region } = pageContext;
+    const { brandNavigation, headerFooter, navigation } = localeData;
     const {
       cms: {
         aboutLabel,
-        brandNavigation,
         experts,
-        headerFooter,
         label,
-        navigation,
         page: {
           contact: { bannerImage, title, description, offices },
         },
@@ -137,12 +135,12 @@ class ContactTemplate extends React.Component {
                     <h1 className="title">{title}</h1>
                     <div className="description">
                       <ReactMarkdown
-                        source={description}
-                        escapeHtml={false}
-                        renderers={{
+                        components={{
                           link: props => renderLink(props, location),
                         }}
-                      />
+                      >
+                        {description}
+                      </ReactMarkdown>
                     </div>
                   </div>
                 </div>
@@ -243,11 +241,8 @@ ContactTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
       aboutLabel: PropTypes.instanceOf(Object),
-      brandNavigation: PropTypes.instanceOf(Object),
       experts: PropTypes.instanceOf(Array),
-      headerFooter: PropTypes.instanceOf(Object),
       label: PropTypes.instanceOf(Object),
-      navigation: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),
@@ -255,6 +250,7 @@ ContactTemplate.propTypes = {
     id: PropTypes.string,
     languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
+    localeData: PropTypes.instanceOf(Object),
     locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
@@ -268,7 +264,6 @@ export const query = graphql`
     $region: GraphCMS_Region!
   ) {
     cms {
-      ...CommonQuery
       aboutLabel: label(locales: $locale, where: { availableIn: $region }) {
         about
       }
@@ -283,7 +278,7 @@ export const query = graphql`
         mobile
         email
       }
-      page(locales: $locale, where: { id: $id }) {
+      page(locales: $locales, where: { id: $id }) {
         contact: contactSource {
           bannerImage {
             handle

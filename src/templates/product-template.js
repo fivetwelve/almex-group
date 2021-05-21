@@ -19,13 +19,11 @@ const ProductTemplate = ({ data, location, pageContext }) => {
       `Check the connection to productSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
     );
   }
-  const { languages, locale, region } = pageContext;
+  const { languages, locale, localeData, region } = pageContext;
+  const { brandNavigation, headerFooter, navigation } = localeData;
   const {
     cms: {
-      brandNavigation,
-      headerFooter,
       label,
-      navigation,
       page: {
         product: {
           brand,
@@ -145,12 +143,12 @@ const ProductTemplate = ({ data, location, pageContext }) => {
           />
           <div className={`product-marketing ${themeColour}`}>
             <ReactMarkdown
-              source={marketing}
-              escapeHtml={false}
-              renderers={{
+              components={{
                 link: props => renderLink(props, location),
               }}
-            />
+            >
+              {marketing}
+            </ReactMarkdown>
           </div>
           {advantages && (
             <>
@@ -160,12 +158,12 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               <div className={`product-advantages ${themeColour}`}>
                 <div className="advantages-text">
                   <ReactMarkdown
-                    source={advantages}
-                    escapeHtml={false}
-                    renderers={{
+                    components={{
                       link: props => renderLink(props, location),
                     }}
-                  />
+                  >
+                    {advantages}
+                  </ReactMarkdown>
                 </div>
                 {advantagesImage && (
                   <div className="advantages-image" style={advantagesImageStyle} />
@@ -183,24 +181,24 @@ const ProductTemplate = ({ data, location, pageContext }) => {
                   <div className={`product-features ${themeColour}`}>
                     <h4>{products.FEATURES}</h4>
                     <ReactMarkdown
-                      source={features}
-                      escapeHtml={false}
-                      renderers={{
+                      components={{
                         link: props => renderLink(props, location),
                       }}
-                    />
+                    >
+                      {features}
+                    </ReactMarkdown>
                   </div>
                 )}
                 {productInfo && (
                   <div className={`product-info ${themeColour}`}>
                     <h4>{products.PROD_INFO}</h4>
                     <ReactMarkdown
-                      source={productInfo}
-                      escapeHtml={false}
-                      renderers={{
+                      components={{
                         link: props => renderLink(props, location),
                       }}
-                    />
+                    >
+                      {productInfo}
+                    </ReactMarkdown>
                   </div>
                 )}
               </div>
@@ -213,12 +211,12 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               </div>
               <div className={`product-specs ${themeColour}`}>
                 <ReactMarkdown
-                  source={specs}
-                  escapeHtml={false}
-                  renderers={{
+                  components={{
                     link: props => renderLink(props, location),
                   }}
-                />
+                >
+                  {specs}
+                </ReactMarkdown>
               </div>
             </>
           )}
@@ -322,10 +320,7 @@ ProductTemplate.defaultProps = {
 ProductTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      brandNavigation: PropTypes.instanceOf(Object),
-      headerFooter: PropTypes.instanceOf(Object),
       label: PropTypes.instanceOf(Object),
-      navigation: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),
@@ -339,6 +334,7 @@ ProductTemplate.propTypes = {
     id: PropTypes.string,
     languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
+    localeData: PropTypes.instanceOf(Object),
     locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
@@ -353,7 +349,6 @@ export const query = graphql`
     $availableIn: [GraphCMS_Region!]
   ) {
     cms {
-      ...CommonQuery
       label(locales: $locale, where: { availableIn: $region }) {
         products
         resourcesLink {

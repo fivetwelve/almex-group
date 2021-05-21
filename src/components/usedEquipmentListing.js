@@ -147,12 +147,12 @@ class UsedEquipmentListing extends React.Component {
             <div className="model-number">{modelNumber}</div>
             <div className="contact-info">
               <ReactMarkdown
-                source={contactInformation}
-                escapeHtml={false}
-                renderers={{
+                components={{
                   link: props => renderLink(props),
                 }}
-              />
+              >
+                {contactInformation}
+              </ReactMarkdown>
             </div>
             {slideArray.length > 1 && (
               <div className="carousel-controls">
@@ -183,12 +183,12 @@ class UsedEquipmentListing extends React.Component {
         <div className="listing-specs">
           <div className="listing-description">
             <ReactMarkdown
-              source={equipmentDescription}
-              escapeHtml={false}
-              renderers={{
+              components={{
                 link: props => renderLink(props),
               }}
-            />
+            >
+              {equipmentDescription}
+            </ReactMarkdown>
           </div>
         </div>
       </>

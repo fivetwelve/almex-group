@@ -17,13 +17,11 @@ const UsedEquipmentTemplate = ({ data, pageContext }) => {
       `Check the connection to usedEquipmentSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
     );
   }
-  const { languages, locale, region } = pageContext;
+  const { languages, locale, localeData, region } = pageContext;
+  const { brandNavigation, headerFooter, navigation } = localeData;
   const {
     cms: {
-      brandNavigation,
-      headerFooter,
       label,
-      navigation,
       page: {
         usedEquipment: { bannerImage, description, disclaimer, title, usedEquipmentListings },
       },
@@ -60,12 +58,12 @@ const UsedEquipmentTemplate = ({ data, pageContext }) => {
               </div>
               <div className="description">
                 <ReactMarkdown
-                  source={description}
-                  escapeHtml={false}
-                  renderers={{
+                  components={{
                     link: props => renderLink(props, location),
                   }}
-                />
+                >
+                  {description}
+                </ReactMarkdown>
               </div>
             </div>
             {usedEquipmentListings.map(listing => (
@@ -90,10 +88,7 @@ UsedEquipmentTemplate.defaultProps = {
 UsedEquipmentTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      brandNavigation: PropTypes.instanceOf(Object),
-      headerFooter: PropTypes.instanceOf(Object),
       label: PropTypes.instanceOf(Object),
-      navigation: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),
@@ -107,6 +102,7 @@ UsedEquipmentTemplate.propTypes = {
     id: PropTypes.string,
     languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
+    localeData: PropTypes.instanceOf(Object),
     locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
@@ -120,7 +116,6 @@ export const query = graphql`
     $region: GraphCMS_Region!
   ) {
     cms {
-      ...CommonQuery
       label(locales: $locale, where: { availableIn: $region }) {
         sparesRepairs
       }

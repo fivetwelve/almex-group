@@ -90,16 +90,18 @@ class Layout extends React.Component {
   render() {
     const {
       activeLanguage,
-      brandNavigation,
+      // brandNavigation,
       children,
       childrenClass,
-      headerFooter,
-      label,
+      // headerFooter,
+      // label,
       languages,
-      navigation,
+      localeData,
+      // navigation,
       region,
       title,
     } = this.props;
+    const { brandNavigation, headerFooter, label, navigation } = localeData;
     const { scrollToTopEnabled } = this.state;
     const lang = activeLanguage.toLowerCase();
 
@@ -223,8 +225,8 @@ Layout.defaultProps = {
   activeLanguage: '',
   children: {},
   childrenClass: '',
-  brandNavigation: {},
-  headerFooter: {},
+  // brandNavigation: {},
+  // headerFooter: {},
   label: {
     common: {
       META_DESCRIPTION: '',
@@ -232,7 +234,11 @@ Layout.defaultProps = {
     },
   },
   languages: [],
+  // navigation: {},
+  brandNavigation: {},
+  headerFooter: {},
   navigation: {},
+  localeData: {},
   region: '',
   title: '',
 };
@@ -256,6 +262,14 @@ Layout.propTypes = {
     header: PropTypes.instanceOf(Object),
     footer: PropTypes.instanceOf(Object),
     common: PropTypes.instanceOf(Object),
+  }),
+  localeData: PropTypes.shape({
+    brandNavigation: PropTypes.instanceOf(Object),
+    headerFooter: PropTypes.instanceOf(Object),
+    label: PropTypes.instanceOf(Object),
+    language: PropTypes.string,
+    navigation: PropTypes.instanceOf(Object),
+    region: PropTypes.string,
   }),
   navigation: PropTypes.shape({
     navigationSections: PropTypes.instanceOf(Array),

@@ -6,7 +6,7 @@ import { FaAngleDown } from 'react-icons/fa';
 import CloseButton from './closeButton';
 import { createLink } from '../utils/functions';
 import checkKeyPress from '../utils/checkKeyPress';
-import { BRANDS, PAGE_TYPES } from '../constants';
+import { BRANDS } from '../constants';
 
 const BrandSelector = props => {
   const [openMenu, handleMenuState] = useState(false);
@@ -23,22 +23,8 @@ const BrandSelector = props => {
   });
 
   const renderBrands = (brand, loc) => {
-    let brandType = '';
     let productBrand = '';
-    switch (brand.pageType) {
-      case PAGE_TYPES.INSTITUTE:
-        brandType = brand.institute;
-        break;
-      case PAGE_TYPES.LANDING:
-        brandType = brand.landing;
-        break;
-      case PAGE_TYPES.SERVICES:
-        brandType = brand.services;
-        break;
-      default:
-        break;
-    }
-    switch (brandType.brand) {
+    switch (brand.brand) {
       case BRANDS.ALMEX_IN_A_BOX:
         productBrand = 'almex-box';
         break;
@@ -72,7 +58,7 @@ const BrandSelector = props => {
     return (
       <div className={`brand ${productBrand}`} key={brand.slug}>
         <Link to={createLink(loc, brand.slug)}>
-          <span className="sr-only">{brandType.title}</span>
+          <span className="sr-only">{brand.title}</span>
         </Link>
       </div>
     );

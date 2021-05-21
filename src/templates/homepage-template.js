@@ -47,14 +47,9 @@ const HomepageTemplate = ({ data, pageContext }) => {
     );
   }
   const { languages, locale, region, localeData } = pageContext;
-  console.log('localeData');
-  console.log(localeData);
+  const { label } = localeData;
   const {
     cms: {
-      brandNavigation,
-      headerFooter,
-      label,
-      navigation,
       page: { homepage },
     },
   } = data;
@@ -98,7 +93,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
               <div className="heading-container">
                 <div className="heading">
                   <Link to={createLink(location, slides[i].page.slug)}>
-                    <ReactMarkdown source={slides[i].slideHeading} escapeHtml={false} />
+                    <ReactMarkdown>{slides[i].slideHeading}</ReactMarkdown>
                   </Link>
                 </div>
               </div>
@@ -106,12 +101,12 @@ const HomepageTemplate = ({ data, pageContext }) => {
                 <div className="description">
                   <Link to={createLink(location, slides[i].page.slug)}>
                     <ReactMarkdown
-                      source={slides[i].slideText}
-                      escapeHtml={false}
-                      renderers={{
+                      components={{
                         link: props => renderLink(props, location),
                       }}
-                    />
+                    >
+                      {slides[i].slideText}
+                    </ReactMarkdown>
                   </Link>
                 </div>
               </div>
@@ -132,7 +127,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
               <div className="heading-container">
                 <div className="heading">
                   <Link to={createLink(location, slides[i].page.slug)}>
-                    <ReactMarkdown source={slides[i].slideHeading} escapeHtml={false} />
+                    <ReactMarkdown>{slides[i].slideHeading}</ReactMarkdown>
                   </Link>
                 </div>
               </div>
@@ -140,12 +135,12 @@ const HomepageTemplate = ({ data, pageContext }) => {
                 <div className="description">
                   <Link to={`${location.pathname}/${slides[i].page.slug}`}>
                     <ReactMarkdown
-                      source={slides[i].slideText}
-                      escapeHtml={false}
-                      renderers={{
+                      components={{
                         link: props => renderLink(props, location),
                       }}
-                    />
+                    >
+                      {slides[i].slideText}
+                    </ReactMarkdown>
                   </Link>
                 </div>
               </div>
@@ -186,12 +181,13 @@ const HomepageTemplate = ({ data, pageContext }) => {
   return (
     <Layout
       activeLanguage={locale}
-      brandNavigation={brandNavigation}
+      // brandNavigation={brandNavigation}
       childrenClass="homepage"
-      headerFooter={headerFooter}
-      label={label}
+      // headerFooter={headerFooter}
+      // label={label}
       languages={languages}
-      navigation={navigation}
+      // navigation={navigation}
+      localeData={localeData}
       region={region}
       title=""
     >
@@ -234,12 +230,12 @@ const HomepageTemplate = ({ data, pageContext }) => {
               <div className="tile-container">
                 {homepage.homepageTiles.length > 0 &&
                   homepage.homepageTiles.map(tile => (
-                    <HomePageTile data={tile} labels={label} location={location} key={makeid()} />
+                    <HomePageTile data={tile} label={label} location={location} key={makeid()} />
                   ))}
               </div>
               <div className="heading2-container">
                 <div className="heading2">
-                  <ReactMarkdown source={homepage.heading[1]} escapeHtml={false} />
+                  <ReactMarkdown>{homepage.heading[1]}</ReactMarkdown>
                 </div>
               </div>
               <div className="event-container">
@@ -247,19 +243,16 @@ const HomepageTemplate = ({ data, pageContext }) => {
                   <div className="content-container">
                     <div className="event-background" style={eventStyle1} />
                     <div className="title">
-                      <ReactMarkdown
-                        source={homepage.homepageEventTiles[0].title}
-                        escapeHtml={false}
-                      />
+                      <ReactMarkdown>{homepage.homepageEventTiles[0].title}</ReactMarkdown>
                     </div>
                     <div className="description">
                       <ReactMarkdown
-                        source={homepage.homepageEventTiles[0].description}
-                        escapeHtml={false}
-                        renderers={{
+                        components={{
                           link: props => renderLink(props, location),
                         }}
-                      />
+                      >
+                        {homepage.homepageEventTiles[0].description}
+                      </ReactMarkdown>
                     </div>
                     {eventLink(homepage.homepageEventTiles[0], location)}
                     <div className="event-overlay-blue" />
@@ -270,19 +263,16 @@ const HomepageTemplate = ({ data, pageContext }) => {
                     <div className="event-background" style={eventStyle2} />
                     <div className="event-overlay-gold" />
                     <div className="title">
-                      <ReactMarkdown
-                        source={homepage.homepageEventTiles[1].title}
-                        escapeHtml={false}
-                      />
+                      <ReactMarkdown>{homepage.homepageEventTiles[1].title}</ReactMarkdown>
                     </div>
                     <div className="description">
                       <ReactMarkdown
-                        source={homepage.homepageEventTiles[1].description}
-                        escapeHtml={false}
-                        renderers={{
+                        components={{
                           link: props => renderLink(props, location),
                         }}
-                      />
+                      >
+                        {homepage.homepageEventTiles[1].description}
+                      </ReactMarkdown>
                     </div>
                     {eventLink(homepage.homepageEventTiles[1], location)}
                   </div>
@@ -291,19 +281,16 @@ const HomepageTemplate = ({ data, pageContext }) => {
                   <div className="content-container">
                     <div className="event-overlay-blue" />
                     <div className="title">
-                      <ReactMarkdown
-                        source={homepage.homepageEventTiles[2].title}
-                        escapeHtml={false}
-                      />
+                      <ReactMarkdown>{homepage.homepageEventTiles[2].title}</ReactMarkdown>
                     </div>
                     <div className="description">
                       <ReactMarkdown
-                        source={homepage.homepageEventTiles[2].description}
-                        escapeHtml={false}
-                        renderers={{
+                        components={{
                           link: props => renderLink(props, location),
                         }}
-                      />
+                      >
+                        {homepage.homepageEventTiles[2].description}
+                      </ReactMarkdown>
                     </div>
                     {eventLink(homepage.homepageEventTiles[2], location)}
                   </div>
@@ -325,10 +312,6 @@ HomepageTemplate.defaultProps = {
 HomepageTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      brandNavigation: PropTypes.instanceOf(Object),
-      headerFooter: PropTypes.instanceOf(Object),
-      label: PropTypes.instanceOf(Object),
-      navigation: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),
@@ -336,14 +319,7 @@ HomepageTemplate.propTypes = {
     id: PropTypes.string,
     languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
-    localeData: PropTypes.shape({
-      brandNav: PropTypes.instanceOf(Object),
-      headerFooter: PropTypes.instanceOf(Object),
-      labels: PropTypes.instanceOf(Object),
-      language: PropTypes.string,
-      navigation: PropTypes.instanceOf(Object),
-      region: PropTypes.string,
-    }),
+    localeData: PropTypes.instanceOf(Object),
     locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
@@ -352,12 +328,10 @@ HomepageTemplate.propTypes = {
 export const query = graphql`
   query(
     $id: ID!
-    $locale: [GraphCMS_Locale!]!
+    # $locale: [GraphCMS_Locale!]!
     $locales: [GraphCMS_Locale!]!
-    $region: GraphCMS_Region!
   ) {
     cms {
-      ...CommonQuery
       page(locales: $locales, where: { id: $id }) {
         homepage: homepageSource {
           heading

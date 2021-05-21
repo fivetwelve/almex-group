@@ -63,10 +63,11 @@ const SearchTemplate = props => {
   const {
     data,
     location,
-    pageContext: { languages, locale, region },
+    pageContext: { languages, locale, localeData, region },
   } = props;
+  const { brandNavigation, headerFooter, navigation } = localeData;
   const {
-    cms: { brandNavigation, headerFooter, label, navigation },
+    cms: { label },
   } = data;
   const [searchState, setSearchState] = useState(urlToSearchState(location));
 
@@ -161,10 +162,7 @@ SearchTemplate.defaultProps = {
 SearchTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      brandNavigation: PropTypes.instanceOf(Object),
-      headerFooter: PropTypes.instanceOf(Object),
       label: PropTypes.instanceOf(Object),
-      navigation: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),
@@ -177,15 +175,15 @@ SearchTemplate.propTypes = {
     id: PropTypes.string,
     languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
+    localeData: PropTypes.instanceOf(Object),
     locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
 };
 
 export const query = graphql`
-  query($locale: [GraphCMS_Locale!]!, $locales: [GraphCMS_Locale!]!, $region: GraphCMS_Region!) {
+  query($locale: [GraphCMS_Locale!]!, $region: GraphCMS_Region!) {
     cms {
-      ...CommonQuery
       label(locales: $locale, where: { availableIn: $region }) {
         search
       }

@@ -18,13 +18,11 @@ const LandingTemplate = ({ data, pageContext }) => {
       `Check the connection to landingSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
     );
   }
-  const { languages, locale, region } = pageContext;
+  const { languages, locale, localeData, region } = pageContext;
+  const { brandNavigation, headerFooter, navigation } = localeData;
   const {
     cms: {
-      brandNavigation,
-      headerFooter,
       label,
-      navigation,
       page: {
         landing: {
           bannerImage,
@@ -123,12 +121,12 @@ const LandingTemplate = ({ data, pageContext }) => {
                   {description && (
                     <div className="description">
                       <ReactMarkdown
-                        source={description}
-                        escapeHtml={false}
-                        renderers={{
+                        components={{
                           link: props => renderLink(props, location),
                         }}
-                      />
+                      >
+                        {description}
+                      </ReactMarkdown>
                     </div>
                   )}
                 </div>
@@ -154,12 +152,12 @@ const LandingTemplate = ({ data, pageContext }) => {
                   {description && (
                     <div className="description">
                       <ReactMarkdown
-                        source={description}
-                        escapeHtml={false}
-                        renderers={{
+                        components={{
                           link: props => renderLink(props, location),
                         }}
-                      />
+                      >
+                        {description}
+                      </ReactMarkdown>
                     </div>
                   )}
                 </div>
@@ -177,12 +175,12 @@ const LandingTemplate = ({ data, pageContext }) => {
                   {description && (
                     <div className="description">
                       <ReactMarkdown
-                        source={description}
-                        escapeHtml={false}
-                        renderers={{
+                        components={{
                           link: props => renderLink(props, location),
                         }}
-                      />
+                      >
+                        {description}
+                      </ReactMarkdown>
                     </div>
                   )}
                 </div>
@@ -237,10 +235,7 @@ LandingTemplate.defaultProps = {
 LandingTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      brandNavigation: PropTypes.instanceOf(Object),
-      headerFooter: PropTypes.instanceOf(Object),
       label: PropTypes.instanceOf(Object),
-      navigation: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),
@@ -248,6 +243,7 @@ LandingTemplate.propTypes = {
     id: PropTypes.string,
     languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
+    localeData: PropTypes.instanceOf(Object),
     locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
@@ -256,13 +252,12 @@ LandingTemplate.propTypes = {
 export const query = graphql`
   query(
     $id: ID!
-    $locale: [GraphCMS_Locale!]!
+    # $locale: [GraphCMS_Locale!]!
     $locales: [GraphCMS_Locale!]!
-    $region: GraphCMS_Region
+    # $region: GraphCMS_Region
     $availableIn: [GraphCMS_Region!]
   ) {
     cms {
-      ...CommonQuery
       page(locales: $locales, where: { id: $id }) {
         landing: landingSource {
           bannerImage {

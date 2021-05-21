@@ -14,13 +14,11 @@ const PromoTemplate = ({ data, pageContext }) => {
       `Check the connection to promoSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
     );
   }
-  const { languages, locale, region } = pageContext;
+  const { languages, locale, localeData, region } = pageContext;
+  const { brandNavigation, headerFooter, navigation } = localeData;
   const {
     cms: {
-      brandNavigation,
-      headerFooter,
       label,
-      navigation,
       page: {
         promoContent: { bannerImage, marketing, title },
       },
@@ -55,12 +53,12 @@ const PromoTemplate = ({ data, pageContext }) => {
                   <h1 className="title">{title}</h1>
                   <div className="marketing">
                     <ReactMarkdown
-                      source={marketing}
-                      escapeHtml={false}
-                      renderers={{
+                      components={{
                         link: props => renderLink(props, location),
                       }}
-                    />
+                    >
+                      {marketing}
+                    </ReactMarkdown>
                   </div>
                 </div>
               </div>
@@ -86,6 +84,7 @@ PromoTemplate.propTypes = {
     id: PropTypes.string,
     languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
+    localeData: PropTypes.instanceOf(Object),
     locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
@@ -94,12 +93,10 @@ PromoTemplate.propTypes = {
 export const query = graphql`
   query(
     $id: ID!
-    $locale: [GraphCMS_Locale!]!
+    # $locale: [GraphCMS_Locale!]!
     $locales: [GraphCMS_Locale!]!
-    $region: GraphCMS_Region!
   ) {
     cms {
-      ...CommonQuery
       page(locales: $locales, where: { id: $id }) {
         promoContent: promoSource {
           bannerImage {

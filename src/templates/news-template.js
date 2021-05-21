@@ -12,13 +12,11 @@ import { ARTICLE_STATUS } from '../constants';
 import '../styles/news.scss';
 
 const NewsTemplate = ({ data, pageContext }) => {
-  const { languages, locale, region } = pageContext;
+  const { languages, locale, localeData, region } = pageContext;
+  const { brandNavigation, headerFooter, navigation } = localeData;
   const {
     cms: {
-      brandNavigation,
-      headerFooter,
       label,
-      navigation,
       page: {
         news: { articles, bannerImage, description, title },
       },
@@ -63,12 +61,12 @@ const NewsTemplate = ({ data, pageContext }) => {
                   {description && (
                     <div className="description">
                       <ReactMarkdown
-                        source={description}
-                        escapeHtml={false}
-                        renderers={{
+                        components={{
                           link: props => renderLink(props, location),
                         }}
-                      />
+                      >
+                        {description}
+                      </ReactMarkdown>
                     </div>
                   )}
                 </div>
@@ -79,12 +77,12 @@ const NewsTemplate = ({ data, pageContext }) => {
                   <div className="article-container">
                     <p>{moment(published[articleNum].date).format('LL')}</p>
                     <ReactMarkdown
-                      source={published[articleNum].content}
-                      escapeHtml={false}
-                      renderers={{
+                      components={{
                         link: props => renderLink(props, location),
                       }}
-                    />
+                    >
+                      {published[articleNum].content}
+                    </ReactMarkdown>
                   </div>
                   {published[articleNum].pdfDownloads.length > 0 && (
                     <div className="downloads-container">
@@ -169,6 +167,7 @@ NewsTemplate.propTypes = {
     landingSections: PropTypes.instanceOf(Array),
     languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
+    localeData: PropTypes.instanceOf(Object),
     locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
@@ -177,12 +176,10 @@ NewsTemplate.propTypes = {
 export const query = graphql`
   query(
     $id: ID!
-    $locale: [GraphCMS_Locale!]!
+    # $locale: [GraphCMS_Locale!]!
     $locales: [GraphCMS_Locale!]!
-    $region: GraphCMS_Region!
   ) {
     cms {
-      ...CommonQuery
       page(locales: $locales, where: { id: $id }) {
         news: newsSource {
           bannerImage {

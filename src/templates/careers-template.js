@@ -14,14 +14,12 @@ const CareersTemplate = ({ data, pageContext }) => {
       `Check the connection to careersSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
     );
   }
-  const { languages, locale, region } = pageContext;
+  const { languages, locale, localeData, region } = pageContext;
+  const { brandNavigation, headerFooter, navigation } = localeData;
   const {
     cms: {
       aboutLabel,
-      brandNavigation,
-      headerFooter,
       label,
-      navigation,
       page: {
         careers: {
           bannerImage,
@@ -63,12 +61,12 @@ const CareersTemplate = ({ data, pageContext }) => {
                   <h1 className="title">{title}</h1>
                   <div className="description">
                     <ReactMarkdown
-                      source={description}
-                      escapeHtml={false}
-                      renderers={{
+                      components={{
                         link: props => renderLink(props, location),
                       }}
-                    />
+                    >
+                      {description}
+                    </ReactMarkdown>
                     {careerPostings.length > 0 &&
                       `${aboutLabel.about.POSTING_AVAILABLE} ${careerPostings.length}`}
                   </div>
@@ -79,24 +77,24 @@ const CareersTemplate = ({ data, pageContext }) => {
                 {careerPostings.length <= 0 && (
                   <div className="heading">
                     <ReactMarkdown
-                      source={noPostingsInstructions}
-                      escapeHtml={false}
-                      renderers={{
+                      components={{
                         link: props => renderLink(props, location),
                       }}
-                    />
+                    >
+                      {noPostingsInstructions}
+                    </ReactMarkdown>
                   </div>
                 )}
                 {careerPostings.length > 0 && (
                   <>
                     <div className="heading">
                       <ReactMarkdown
-                        source={instructions}
-                        escapeHtml={false}
-                        renderers={{
+                        components={{
                           link: props => renderLink(props, location),
                         }}
-                      />
+                      >
+                        {instructions}
+                      </ReactMarkdown>
                     </div>
                     <div className="postings">
                       <table>
@@ -120,48 +118,48 @@ const CareersTemplate = ({ data, pageContext }) => {
                                 <div className="position">{posting.position}</div>
                                 <div className="companyAndLocation">
                                   <ReactMarkdown
-                                    source={posting.companyAndLocation}
-                                    escapeHtml={false}
-                                    renderers={{
+                                    components={{
                                       link: props => renderLink(props, location),
                                     }}
-                                  />
+                                  >
+                                    {posting.companyAndLocation}
+                                  </ReactMarkdown>
                                 </div>
                                 <div className="description">
                                   {aboutLabel.about.POSTING_DESCRIPTION}
                                 </div>
                                 <div>
                                   <ReactMarkdown
-                                    source={posting.description}
-                                    escapeHtml={false}
-                                    renderers={{
+                                    components={{
                                       link: props => renderLink(props, location),
                                     }}
-                                  />
+                                  >
+                                    {posting.description}
+                                  </ReactMarkdown>
                                   <div className="mobile">
                                     <p>
                                       <b>{aboutLabel.about.POSTING_STATUS}</b>:{' '}
                                       {aboutLabel.about[posting.postingStatus]}
                                     </p>
                                     <ReactMarkdown
-                                      source={posting.instructions}
-                                      escapeHtml={false}
-                                      renderers={{
+                                      components={{
                                         link: props => renderLink(props, location),
                                       }}
-                                    />
+                                    >
+                                      {posting.instructions}
+                                    </ReactMarkdown>
                                   </div>
                                 </div>
                               </td>
                               <td>{aboutLabel.about[posting.postingStatus]}</td>
                               <td>
                                 <ReactMarkdown
-                                  source={posting.instructions}
-                                  escapeHtml={false}
-                                  renderers={{
+                                  components={{
                                     link: props => renderLink(props, location),
                                   }}
-                                />
+                                >
+                                  {posting.instructions}
+                                </ReactMarkdown>
                               </td>
                             </tr>
                           ))}
@@ -189,10 +187,7 @@ CareersTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
       aboutLabel: PropTypes.instanceOf(Object),
-      brandNavigation: PropTypes.instanceOf(Object),
-      headerFooter: PropTypes.instanceOf(Object),
       label: PropTypes.instanceOf(Object),
-      navigation: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),
@@ -200,6 +195,7 @@ CareersTemplate.propTypes = {
     id: PropTypes.string,
     languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
+    localeData: PropTypes.instanceOf(Object),
     locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
@@ -213,11 +209,10 @@ export const query = graphql`
     $region: GraphCMS_Region!
   ) {
     cms {
-      ...CommonQuery
       aboutLabel: label(locales: $locale, where: { availableIn: $region }) {
         about
       }
-      page(locales: $locale, where: { id: $id }) {
+      page(locales: $locales, where: { id: $id }) {
         careers: careersSource {
           bannerImage {
             handle

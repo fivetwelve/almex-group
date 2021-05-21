@@ -42,7 +42,7 @@ const ContactOffice = props => {
           <br />
           <em>{name}</em>
           <br />
-          <ReactMarkdown source={address} />
+          <ReactMarkdown>{address}</ReactMarkdown>
           {telephone.length > 0 &&
             telephone.map(num => (
               <div key={`tel-${makeid()}`}>

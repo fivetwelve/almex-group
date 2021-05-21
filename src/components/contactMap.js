@@ -115,7 +115,7 @@ class ContactMap extends React.Component {
                   <div className="infoWindow-content">
                     <div className="infoWindow-name">{activeOffice.name}</div>
                     <div className="infoWindow-details">
-                      <ReactMarkdown source={activeOffice.address} />
+                      <ReactMarkdown>{activeOffice.address}</ReactMarkdown>
                       {activeOffice.telephone.length > 0 &&
                         activeOffice.telephone.map(num => (
                           <div key={`tel-${makeid()}`}>

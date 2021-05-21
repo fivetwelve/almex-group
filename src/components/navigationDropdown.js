@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
-import { createLinkFromPage, getTitle, makeid } from '../utils/functions';
+import { createLinkFromPage, makeid } from '../utils/functions';
+// import { createLinkFromPage, getTitle, makeid } from '../utils/functions';
 import CloseButton from './closeButton';
 
 const NavigationDropdown = props => {
@@ -22,14 +23,14 @@ const NavigationDropdown = props => {
   /* Use getTitle here because we want the menu to use the source
      title and not page title which could vary for mktg purposes. */
 
-  section.pages.forEach(page => {
-    Object.defineProperty(page, 'title', {
-      value: getTitle(page),
-      writable: true,
-      enumerable: true,
-      configurable: true,
-    });
-  });
+  // section.pages.forEach(page => {
+  //   Object.defineProperty(page, 'title', {
+  //     value: getTitle(page),
+  //     writable: true,
+  //     enumerable: true,
+  //     configurable: true,
+  //   });
+  // });
 
   /* determine vertical height and column designations */
   const rows = Math.ceil(section.pages.length / 3);

@@ -6,7 +6,7 @@ import CookieConsent from 'react-cookie-consent';
 import { FaPhone, FaEnvelope } from 'react-icons/fa';
 import ReactMarkdown from 'react-markdown';
 import { createLink, hoursPassed, makeid, getIPapiJson } from '../utils/functions';
-import { BRANDS, PAGE_TYPES } from '../constants';
+import { BRANDS } from '../constants';
 import '../styles/footer.scss';
 
 class Footer extends React.Component {
@@ -83,10 +83,10 @@ class Footer extends React.Component {
   renderOffice = office => (
     <div className="office" key={makeid()}>
       <div className="name">
-        <ReactMarkdown source={office.name} escapeHtml={false} />
+        <ReactMarkdown>{office.name}</ReactMarkdown>
       </div>
       <div className="address">
-        <ReactMarkdown source={office.address} escapeHtml={false} />
+        <ReactMarkdown>{office.address}</ReactMarkdown>
       </div>
       <div className="phone">
         <IconContext.Provider value={{ className: 'contact-icon' }}>
@@ -131,22 +131,9 @@ class Footer extends React.Component {
   };
 
   renderBrands = (brand, location) => {
-    let brandType = '';
+    // let brandType = '';
     let productBrand = '';
-    switch (brand.pageType) {
-      case PAGE_TYPES.INSTITUTE:
-        brandType = brand.institute;
-        break;
-      case PAGE_TYPES.LANDING:
-        brandType = brand.landing;
-        break;
-      case PAGE_TYPES.SERVICES:
-        brandType = brand.services;
-        break;
-      default:
-        break;
-    }
-    switch (brandType.brand) {
+    switch (brand.brand) {
       case BRANDS.ALMEX_IN_A_BOX:
         productBrand = 'almex-box';
         break;
@@ -180,7 +167,7 @@ class Footer extends React.Component {
     return (
       <div className={`brand ${productBrand}`} key={brand.slug}>
         <Link to={createLink(location, brand.slug)}>
-          <span className="sr-only">{brandType.title}</span>
+          <span className="sr-only">{brand.title}</span>
         </Link>
       </div>
     );

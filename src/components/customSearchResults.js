@@ -29,7 +29,7 @@ const StateResults = ({ label, locale, location, searchResults }) => {
                 </Link>
               </div>
               <div className="body">
-                <ReactMarkdown source={hit.page[`excerpt${locale}`]} />
+                <ReactMarkdown>{hit.page[`excerpt${locale}`]}</ReactMarkdown>
               </div>
             </>
           </div>

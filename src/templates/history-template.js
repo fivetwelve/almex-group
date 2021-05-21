@@ -15,13 +15,11 @@ const HistoryTemplate = ({ data, pageContext }) => {
       `Check the connection to historySource; missing localization or incorrect or publish status may also cause errors. Page ID ${pageContext.id}`,
     );
   }
-  const { languages, locale, region } = pageContext;
+  const { languages, locale, localeData, region } = pageContext;
+  const { brandNavigation, headerFooter, navigation } = localeData;
   const {
     cms: {
-      brandNavigation,
-      headerFooter,
       label,
-      navigation,
       page: {
         history: { bannerImage, title, description, events },
       },
@@ -58,12 +56,12 @@ const HistoryTemplate = ({ data, pageContext }) => {
                   <h1 className="title">{title}</h1>
                   <div className="description">
                     <ReactMarkdown
-                      source={description}
-                      escapeHtml={false}
-                      renderers={{
+                      components={{
                         link: props => renderLink(props, location),
                       }}
-                    />
+                    >
+                      {description}
+                    </ReactMarkdown>
                   </div>
                 </div>
               </div>
@@ -85,10 +83,7 @@ HistoryTemplate.defaultProps = {
 HistoryTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      brandNavigation: PropTypes.instanceOf(Object),
-      headerFooter: PropTypes.instanceOf(Object),
       label: PropTypes.instanceOf(Object),
-      navigation: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),
@@ -96,6 +91,7 @@ HistoryTemplate.propTypes = {
     id: PropTypes.string,
     languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
+    localeData: PropTypes.instanceOf(Object),
     locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
@@ -109,7 +105,6 @@ export const query = graphql`
     $region: GraphCMS_Region!
   ) {
     cms {
-      ...CommonQuery
       aboutLabel: label(locales: $locale, where: { availableIn: $region }) {
         about
       }

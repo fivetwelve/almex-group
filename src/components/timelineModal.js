@@ -41,12 +41,13 @@ const TimelineModal = props => {
                   <React.Fragment key={makeid()}>
                     <div className="description">
                       <ReactMarkdown
-                        source={desc}
                         options={{ html: true }}
-                        renderers={{
+                        components={{
                           link: theseProps => renderLink(theseProps),
                         }}
-                      />
+                      >
+                        {desc}
+                      </ReactMarkdown>
                     </div>
                     {event.images[idx] ? (
                       <figure>

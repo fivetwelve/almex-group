@@ -31,11 +31,12 @@ const EventsResults = ({ events, labels }) => (
                   <td className="label">{labels.LOCATION}</td>
                   <td className="location">
                     <ReactMarkdown
-                      source={event.location}
-                      renderers={{
+                      components={{
                         link: props => renderLink(props),
                       }}
-                    />
+                    >
+                      {event.location}
+                    </ReactMarkdown>
                   </td>
                 </tr>
                 <tr>

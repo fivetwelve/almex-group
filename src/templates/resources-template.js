@@ -62,13 +62,11 @@ class ResourcesTemplate extends Component {
         `Check the connection to resourcesSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
       );
     }
-    const { languages, locale, region } = pageContext;
+    const { languages, locale, localeData, region } = pageContext;
+    const { brandNavigation, headerFooter, navigation } = localeData;
     const {
       cms: {
-        brandNavigation,
-        headerFooter,
         label,
-        navigation,
         page: {
           resources: { bannerImage, contactAndForm, description, email, emailSubject, title },
         },
@@ -105,12 +103,12 @@ class ResourcesTemplate extends Component {
                     <h1 className="title">{title}</h1>
                     <div className="content">
                       <ReactMarkdown
-                        source={description}
-                        escapeHtml={false}
-                        renderers={{
+                        components={{
                           link: props => renderLink(props, location),
                         }}
-                      />
+                      >
+                        {description}
+                      </ReactMarkdown>
                       <div className="selector-container">
                         <CategorySelector
                           categories={categories}
@@ -125,10 +123,7 @@ class ResourcesTemplate extends Component {
                               countryFlag(selectedCategory.expert.countryCode)}
                             {selectedCategory.expert.name}
                             <br />
-                            <ReactMarkdown
-                              source={selectedCategory.expert.location}
-                              escapeHtml={false}
-                            />
+                            <ReactMarkdown>{selectedCategory.expert.location}</ReactMarkdown>
                             {selectedCategory.expert.telephone && (
                               <a
                                 href={`tel:${selectedCategory.expert.telephone}`}
@@ -177,12 +172,12 @@ class ResourcesTemplate extends Component {
                       {email && (
                         <div className="form-container">
                           <ReactMarkdown
-                            source={contactAndForm}
-                            escapeHtml={false}
-                            renderers={{
+                            components={{
                               link: props => renderLink(props, location),
                             }}
-                          />
+                          >
+                            {contactAndForm}
+                          </ReactMarkdown>
                           <ContactForm
                             label={label}
                             email={email}
@@ -217,6 +212,7 @@ ResourcesTemplate.propTypes = {
     id: PropTypes.string,
     languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
+    localeData: PropTypes.instanceOf(Object),
     locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
@@ -230,11 +226,10 @@ export const query = graphql`
     $region: GraphCMS_Region!
   ) {
     cms {
-      ...CommonQuery
       resourcesLabel: label(locales: $locale, where: { availableIn: $region }) {
         resources
       }
-      page(locales: $locale, where: { id: $id }) {
+      page(locales: $locales, where: { id: $id }) {
         resources: resourcesSource {
           bannerImage {
             handle

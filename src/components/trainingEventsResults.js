@@ -23,7 +23,7 @@ const TrainingEventsResults = ({ events, labels }) => (
                 <tr>
                   <td className="label">{labels.LOCATION}</td>
                   <td className="location">
-                    <ReactMarkdown source={event.location} escapeHtml={false} />
+                    <ReactMarkdown>{event.location}</ReactMarkdown>
                   </td>
                 </tr>
                 <tr>

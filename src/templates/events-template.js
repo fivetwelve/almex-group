@@ -176,14 +176,12 @@ class EventsTemplate extends Component {
         `Check the connection to eventsSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
       );
     }
-    const { languages, locale, region } = pageContext;
+    const { languages, locale, localeData, region } = pageContext;
+    const { brandNavigation, headerFooter, navigation } = localeData;
     const {
       cms: {
         aboutLabel,
-        brandNavigation,
-        headerFooter,
         label,
-        navigation,
         page: {
           eventsSource: { bannerImage, title, description },
         },
@@ -245,12 +243,12 @@ class EventsTemplate extends Component {
                   <h1 className="title">{title}</h1>
                   <div className="description">
                     <ReactMarkdown
-                      source={description}
-                      escapeHtml={false}
-                      renderers={{
+                      components={{
                         link: props => renderLink(props),
                       }}
-                    />
+                    >
+                      {description}
+                    </ReactMarkdown>
                   </div>
                 </div>
                 <div className="daypicker-dropdown">
@@ -334,6 +332,7 @@ EventsTemplate.propTypes = {
     id: PropTypes.string,
     languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
+    localeData: PropTypes.instanceOf(Object),
     locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
@@ -347,7 +346,6 @@ export const query = graphql`
     $region: GraphCMS_Region!
   ) {
     cms {
-      ...CommonQuery
       aboutLabel: label(locales: $locale, where: { availableIn: $region }) {
         about
       }

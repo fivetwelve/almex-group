@@ -14,13 +14,11 @@ const ServicesTemplate = ({ data, pageContext }) => {
       `Check the connection to servicesSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
     );
   }
-  const { languages, locale, region } = pageContext;
+  const { languages, locale, localeData, region } = pageContext;
+  const { brandNavigation, headerFooter, navigation } = localeData;
   const {
     cms: {
-      brandNavigation,
-      headerFooter,
       label,
-      navigation,
       page: {
         services: { bannerImage, description, sideContent, title },
       },
@@ -55,12 +53,12 @@ const ServicesTemplate = ({ data, pageContext }) => {
                   <h1 className="title">{title}</h1>
                   <div className="description">
                     <ReactMarkdown
-                      source={description}
-                      escapeHtml={false}
-                      renderers={{
+                      components={{
                         link: props => renderLink(props, location),
                       }}
-                    />
+                    >
+                      {description}
+                    </ReactMarkdown>
                   </div>
                 </div>
                 <aside className="aside-container">
@@ -68,12 +66,12 @@ const ServicesTemplate = ({ data, pageContext }) => {
                     <div className="aside-block" key={makeid()}>
                       <ReactMarkdown
                         key={makeid()}
-                        source={content}
-                        escapeHtml={false}
-                        renderers={{
+                        components={{
                           link: props => renderLink(props, location),
                         }}
-                      />
+                      >
+                        {content}
+                      </ReactMarkdown>
                     </div>
                   ))}
                 </aside>
@@ -94,10 +92,7 @@ ServicesTemplate.defaultProps = {
 ServicesTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      brandNavigation: PropTypes.instanceOf(Object),
-      headerFooter: PropTypes.instanceOf(Object),
       label: PropTypes.instanceOf(Object),
-      navigation: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),
@@ -105,6 +100,7 @@ ServicesTemplate.propTypes = {
     id: PropTypes.string,
     languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
+    localeData: PropTypes.instanceOf(Object),
     locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
@@ -113,13 +109,11 @@ ServicesTemplate.propTypes = {
 export const query = graphql`
   query(
     $id: ID!
-    $locale: [GraphCMS_Locale!]!
+    # $locale: [GraphCMS_Locale!]!
     $locales: [GraphCMS_Locale!]!
-    $region: GraphCMS_Region!
   ) {
     cms {
-      ...CommonQuery
-      page(locales: $locale, where: { id: $id }) {
+      page(locales: $locales, where: { id: $id }) {
         services: servicesSource {
           bannerImage {
             handle

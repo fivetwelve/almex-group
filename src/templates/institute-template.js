@@ -12,18 +12,16 @@ import '../styles/institute.scss';
 import logo from '../../static/img/logo-institute.svg';
 
 const InstituteTemplate = ({ data, pageContext }) => {
-  const { languages, locale, region } = pageContext;
   if (!data.cms.page.institute) {
     throw Error(
       `Check the connection to instituteSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
     );
   }
+  const { languages, locale, localeData, region } = pageContext;
+  const { brandNavigation, headerFooter, navigation } = localeData;
   const {
     cms: {
-      brandNavigation,
-      headerFooter,
       label,
-      navigation,
       page: {
         institute: {
           bannerImage,
@@ -76,22 +74,22 @@ const InstituteTemplate = ({ data, pageContext }) => {
                       <img src={logo} alt="Almex Institute logo" />
                     </div>
                     <ReactMarkdown
-                      source={description}
-                      escapeHtml={false}
-                      renderers={{
+                      components={{
                         link: props => renderLink(props, location),
                       }}
-                    />
+                    >
+                      {description}
+                    </ReactMarkdown>
                   </div>
                   <div className="topics-container">
                     <div className="topics">
                       <ReactMarkdown
-                        source={topics}
-                        escapeHtml={false}
-                        renderers={{
+                        components={{
                           link: props => renderLink(props, location),
                         }}
-                      />
+                      >
+                        {topics}
+                      </ReactMarkdown>
                     </div>
                     {topicsImages.length > 0 && (
                       <div className="images">
@@ -111,23 +109,23 @@ const InstituteTemplate = ({ data, pageContext }) => {
                     )}
                     <div className="presentation">
                       <ReactMarkdown
-                        source={presentation}
-                        escapeHtml={false}
-                        renderers={{
+                        components={{
                           link: props => renderLink(props, location),
                         }}
-                      />
+                      >
+                        {presentation}
+                      </ReactMarkdown>
                     </div>
                   </div>
                   <div className="instructors-container">
                     <div className="instructors">
                       <ReactMarkdown
-                        source={instructors}
-                        escapeHtml={false}
-                        renderers={{
+                        components={{
                           link: props => renderLink(props, location),
                         }}
-                      />
+                      >
+                        {instructors}
+                      </ReactMarkdown>
                     </div>
                     {instructorsImages.length > 0 && (
                       <div className="images">
@@ -162,12 +160,12 @@ const InstituteTemplate = ({ data, pageContext }) => {
                     <div className="aside-block" key={makeid()}>
                       <ReactMarkdown
                         key={makeid()}
-                        source={content}
-                        escapeHtml={false}
-                        renderers={{
+                        components={{
                           link: props => renderLink(props, location),
                         }}
-                      />
+                      >
+                        {content}
+                      </ReactMarkdown>
                     </div>
                   ))}
                 </aside>
@@ -176,12 +174,12 @@ const InstituteTemplate = ({ data, pageContext }) => {
               {email && (
                 <div className="form-container">
                   <ReactMarkdown
-                    source={contactAndForm}
-                    escapeHtml={false}
-                    renderers={{
+                    components={{
                       link: props => renderLink(props, location),
                     }}
-                  />
+                  >
+                    {contactAndForm}
+                  </ReactMarkdown>
                   <InstituteForm label={label} email={email} emailSubject={emailSubject} />
                 </div>
               )}
@@ -201,10 +199,7 @@ InstituteTemplate.defaultProps = {
 InstituteTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      brandNavigation: PropTypes.instanceOf(Object),
-      headerFooter: PropTypes.instanceOf(Object),
       label: PropTypes.instanceOf(Object),
-      navigation: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),
@@ -212,6 +207,7 @@ InstituteTemplate.propTypes = {
     id: PropTypes.string,
     languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
+    localeData: PropTypes.instanceOf(Object),
     locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
@@ -220,12 +216,10 @@ InstituteTemplate.propTypes = {
 export const query = graphql`
   query(
     $id: ID!
-    $locale: [GraphCMS_Locale!]!
+    # $locale: [GraphCMS_Locale!]!
     $locales: [GraphCMS_Locale!]!
-    $region: GraphCMS_Region!
   ) {
     cms {
-      ...CommonQuery
       page(locales: $locales, where: { id: $id }) {
         institute: instituteSource {
           bannerImage {

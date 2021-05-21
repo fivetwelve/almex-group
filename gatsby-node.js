@@ -186,10 +186,11 @@ exports.createPages = async ({ graphql, actions }) => {
           const { title } = removeKey('locale', l10nTitles[0]);
           const brandPages = thisBrandNav.pages.map(page => {
             const l10n = page.localizations.filter(thisL10n => thisL10n.locale === language);
+            const { brand, sourceType } = page.contentSource;
             return {
-              brand: page.contentSource && page.contentSource.brand,
+              brand,
               slug: l10n[0].slug,
-              sourceType: page.contentSource.sourceType,
+              sourceType: sourceType.includes('GraphCMS_') ? sourceType.substring(9) : sourceType,
               title: l10n[0].title,
             };
           });
@@ -222,7 +223,7 @@ exports.createPages = async ({ graphql, actions }) => {
       const thisNav = navigations.filter(
         navigation => navigation.availableIn === thisRegion.region,
       );
-      const navigation = thisNav[0].navigationSections.map(navSection => {
+      const navigationSections = thisNav[0].navigationSections.map(navSection => {
         const l10nTitles = navSection.localizations.filter(l10n => l10n.locale === language);
         const title = l10nTitles[0] && removeKey('locale', l10nTitles[0]).title;
         const navPages = navSection.pages.map(page => {
@@ -231,6 +232,7 @@ exports.createPages = async ({ graphql, actions }) => {
             return false;
           }
           const l10n = page.localizations.filter(thisL10n => thisL10n.locale === language);
+
           return {
             id: page.id,
             sourceId: page.contentSource.sourceId,
@@ -239,8 +241,10 @@ exports.createPages = async ({ graphql, actions }) => {
           };
         });
         return {
-          title: title || null,
+          title,
           pages: navPages,
+          isLandingPage: navSection.isLandingPage,
+          type: navSection.type,
         };
       });
 
@@ -248,10 +252,12 @@ exports.createPages = async ({ graphql, actions }) => {
       allRegionData.push({
         region: thisRegion.region,
         language,
-        labels: removeKey('locale', label[0][0]),
+        label: removeKey('locale', label[0][0]),
         headerFooter: removeKey('locale', headerFooter[0][0]),
-        brandNav: brandNav[0],
-        navigation,
+        brandNavigation: brandNav[0],
+        navigation: {
+          navigationSections,
+        },
       });
     });
   });
@@ -264,7 +270,7 @@ exports.createPages = async ({ graphql, actions }) => {
         component: path.resolve(`./src/templates/search-template.js`),
         context: {
           locale: language,
-          locales: language === 'EN' ? [language] : [language, 'EN'],
+          // locales: language === 'EN' ? [language] : [language, 'EN'],
           region,
         },
       });
@@ -282,7 +288,7 @@ exports.createPages = async ({ graphql, actions }) => {
           localizations.forEach(localization => {
             const { locale } = localization;
             const locales = locale === 'EN' ? [locale] : [locale, 'EN'];
-            if (localization.locale === language) {
+            if (locale === language) {
               const pagePath =
                 pageType !== PAGE_TYPES.HOMEPAGE
                   ? `${REGION_SLUGS[region]}/${LANGUAGE_SLUGS[language]}/${localization.slug}`
