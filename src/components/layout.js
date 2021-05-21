@@ -128,8 +128,8 @@ class Layout extends React.Component {
           <meta property="og:url" content="https://www.almex.com" />
           <meta property="og:type" content="website" />
           <meta property="og:locale" content={activeLanguage} />
-          <meta property="og:title" content={label.common.META_TITLE} />
-          <meta property="og:description" content={label.common.META_DESCRIPTION} />
+          <meta property="og:title" content={label && label.common.META_TITLE} />
+          <meta property="og:description" content={label && label.common.META_DESCRIPTION} />
           {/* <meta property="og:image" content={`${siteUrl}${gatsbyIcon}`} />
           <meta property="og:image:width" content="512" />
           <meta property="og:image:height" content="512" /> */}
@@ -227,17 +227,17 @@ Layout.defaultProps = {
   childrenClass: '',
   // brandNavigation: {},
   // headerFooter: {},
-  label: {
-    common: {
-      META_DESCRIPTION: '',
-      META_TITLE: '',
-    },
-  },
+  // label: {
+  //   common: {
+  //     META_DESCRIPTION: '',
+  //     META_TITLE: '',
+  //   },
+  // },
   languages: [],
   // navigation: {},
-  brandNavigation: {},
-  headerFooter: {},
-  navigation: {},
+  // brandNavigation: {},
+  // headerFooter: {},
+  // navigation: {},
   localeData: {},
   region: '',
   title: '',
@@ -247,22 +247,22 @@ Layout.propTypes = {
   activeLanguage: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   childrenClass: PropTypes.string,
-  brandNavigation: PropTypes.shape({
-    pages: PropTypes.instanceOf(Array),
-  }),
-  headerFooter: PropTypes.shape({
-    companyAddress: PropTypes.string,
-    companyEmail: PropTypes.string,
-    companyPhone: PropTypes.string,
-    footerLinks: PropTypes.instanceOf(Object),
-    socialMedia: PropTypes.instanceOf(Array),
-  }),
+  // brandNavigation: PropTypes.shape({
+  //   pages: PropTypes.instanceOf(Array),
+  // }),
+  // headerFooter: PropTypes.shape({
+  //   companyAddress: PropTypes.string,
+  //   companyEmail: PropTypes.string,
+  //   companyPhone: PropTypes.string,
+  //   footerLinks: PropTypes.instanceOf(Object),
+  //   socialMedia: PropTypes.instanceOf(Array),
+  // }),
   languages: PropTypes.arrayOf(PropTypes.string),
-  label: PropTypes.shape({
-    header: PropTypes.instanceOf(Object),
-    footer: PropTypes.instanceOf(Object),
-    common: PropTypes.instanceOf(Object),
-  }),
+  // label: PropTypes.shape({
+  //   header: PropTypes.instanceOf(Object),
+  //   footer: PropTypes.instanceOf(Object),
+  //   common: PropTypes.instanceOf(Object),
+  // }),
   localeData: PropTypes.shape({
     brandNavigation: PropTypes.instanceOf(Object),
     headerFooter: PropTypes.instanceOf(Object),
@@ -271,9 +271,9 @@ Layout.propTypes = {
     navigation: PropTypes.instanceOf(Object),
     region: PropTypes.string,
   }),
-  navigation: PropTypes.shape({
-    navigationSections: PropTypes.instanceOf(Array),
-  }),
+  // navigation: PropTypes.shape({
+  //   navigationSections: PropTypes.instanceOf(Array),
+  // }),
   region: PropTypes.string,
   title: PropTypes.string,
 };

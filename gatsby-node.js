@@ -75,6 +75,12 @@ exports.createPages = async ({ graphql, actions }) => {
             header
             footer
             common
+            about
+            products
+            resources
+            search
+            services
+            sparesRepairs
           }
         }
         navigations {
@@ -186,11 +192,16 @@ exports.createPages = async ({ graphql, actions }) => {
           const { title } = removeKey('locale', l10nTitles[0]);
           const brandPages = thisBrandNav.pages.map(page => {
             const l10n = page.localizations.filter(thisL10n => thisL10n.locale === language);
-            const { brand, sourceType } = page.contentSource;
+            let brand;
+            let sourceType;
+            if (page.contentSource) {
+              brand = page.contentSource.brand;
+              sourceType = page.contentSource.sourceType;
+            }
             return {
               brand,
               slug: l10n[0].slug,
-              sourceType: sourceType.includes('GraphCMS_') ? sourceType.substring(9) : sourceType,
+              sourceType: sourceType.includes('GraphC2MS_') ? sourceType.substring(9) : sourceType,
               title: l10n[0].title,
             };
           });
@@ -265,11 +276,15 @@ exports.createPages = async ({ graphql, actions }) => {
   siteRegions.forEach(({ region, languages }) => {
     /* Search page */
     languages.forEach(language => {
+      const localeData = allRegionData.filter(
+        data => data.region === region && data.language === language,
+      )[0];
       createPage({
         path: `${REGION_SLUGS[region]}/${LANGUAGE_SLUGS[language]}/search`,
         component: path.resolve(`./src/templates/search-template.js`),
         context: {
           locale: language,
+          localeData,
           // locales: language === 'EN' ? [language] : [language, 'EN'],
           region,
         },
@@ -368,10 +383,10 @@ exports.createPages = async ({ graphql, actions }) => {
                       id,
                       languages,
                       locale,
+                      localeData,
                       locales,
                       page: 'index',
                       region,
-                      localeData,
                     },
                   });
                   break;
