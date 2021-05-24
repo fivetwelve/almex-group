@@ -168,53 +168,7 @@ exports.createPages = async ({ graphql, actions }) => {
           id
           availableIn
           pageType
-          contentSource {
-            ... on GraphCMS_AboutSource {
-              sourceId: id
-            }
-            ... on GraphCMS_CareersSource {
-              sourceId: id
-            }
-            ... on GraphCMS_ContactSource {
-              sourceId: id
-            }
-            ... on GraphCMS_EventsSource {
-              sourceId: id
-            }
-            ... on GraphCMS_HistorySource {
-              sourceId: id
-            }
-            ... on GraphCMS_HomepageSource {
-              sourceId: id
-            }
-            ... on GraphCMS_InstituteSource {
-              sourceId: id
-            }
-            ... on GraphCMS_LandingSource {
-              sourceId: id
-            }
-            ... on GraphCMS_NewsSource {
-              sourceId: id
-            }
-            ... on GraphCMS_ProductSource {
-              sourceId: id
-            }
-            ... on GraphCMS_PromoSource {
-              sourceId: id
-            }
-            ... on GraphCMS_ResourcesSource {
-              sourceId: id
-            }
-            ... on GraphCMS_ServicesSource {
-              sourceId: id
-            }
-            ... on GraphCMS_SimpleContentSource {
-              sourceId: id
-            }
-            ... on GraphCMS_UsedEquipmentSource {
-              sourceId: id
-            }
-          }
+
           localizations(includeCurrent: true) {
             locale
             slug
@@ -350,9 +304,8 @@ exports.createPages = async ({ graphql, actions }) => {
         },
       });
     });
-    /* Pages with PUBLISHED status in CMS */
     pages.forEach(page => {
-      const { id, availableIn, pageType, contentSource, localizations } = page;
+      const { id, availableIn, pageType, localizations } = page;
       /* ensure Page is available for this region */
       if (availableIn.includes(region)) {
         languages.forEach(language => {
@@ -505,7 +458,7 @@ exports.createPages = async ({ graphql, actions }) => {
                     path: pagePath,
                     component: path.resolve(`./src/templates/product-template.js`),
                     context: {
-                      contentId: contentSource.sourceId,
+                      // contentId: contentSource.sourceId,
                       id,
                       languages,
                       locale,
