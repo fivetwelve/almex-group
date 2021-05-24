@@ -15,14 +15,12 @@ import { makeid, renderLink } from '../utils/functions';
 const LandingTemplate = ({ data, pageContext }) => {
   if (!data.cms.page.landing) {
     throw Error(
-      `Check the connection to landingSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
+      `Check the connection to landing source; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
     );
   }
   const { languages, locale, localeData, region } = pageContext;
-  const { brandNavigation, headerFooter, navigation } = localeData;
   const {
     cms: {
-      label,
       page: {
         landing: {
           bannerImage,
@@ -94,12 +92,13 @@ const LandingTemplate = ({ data, pageContext }) => {
   return (
     <Layout
       activeLanguage={locale}
-      brandNavigation={brandNavigation}
+      // brandNavigation={brandNavigation}
       childrenClass="landing-page"
-      headerFooter={headerFooter}
-      label={label}
+      // headerFooter={headerFooter}
+      // label={label}
       languages={languages}
-      navigation={navigation}
+      localeData={localeData}
+      // navigation={navigation}
       region={region}
       title={title}
     >
@@ -259,32 +258,56 @@ export const query = graphql`
   ) {
     cms {
       page(locales: $locales, where: { id: $id }) {
-        landing: landingSource {
-          bannerImage {
-            handle
-            width
-            height
-          }
-          alternativeBanners(where: { availableIn_contains_some: $availableIn }) {
-            title
-            externalLink
-            page {
-              slug
-            }
-            image {
+        landing: contentSource {
+          ... on GraphCMS_LandingSource {
+            bannerImage {
               handle
               width
               height
             }
-            availableIn
-          }
-          brand
-          description
-          theme
-          landingType
-          landingSections {
-            title
-            pages(where: { availableIn_contains_some: $availableIn }) {
+            alternativeBanners(where: { availableIn_contains_some: $availableIn }) {
+              title
+              externalLink
+              page {
+                slug
+              }
+              image {
+                handle
+                width
+                height
+              }
+              availableIn
+            }
+            brand
+            description
+            theme
+            landingType
+            landingSections {
+              title
+              pages(where: { availableIn_contains_some: $availableIn }) {
+                landingSource {
+                  title
+                }
+                productSource {
+                  title
+                }
+                servicesSource {
+                  title
+                }
+                pageType
+                slug
+                tile {
+                  url
+                }
+                title
+              }
+            }
+            singlePages: pages(
+              # locales: $locales
+              where: { availableIn_contains_some: $availableIn }
+            ) {
+              availableIn
+              id
               landingSource {
                 title
               }
@@ -301,30 +324,8 @@ export const query = graphql`
               }
               title
             }
-          }
-          singlePages: pages(
-            # locales: $locales
-            where: { availableIn_contains_some: $availableIn }
-          ) {
-            availableIn
-            id
-            landingSource {
-              title
-            }
-            productSource {
-              title
-            }
-            servicesSource {
-              title
-            }
-            pageType
-            slug
-            tile {
-              url
-            }
             title
           }
-          title
         }
       }
     }

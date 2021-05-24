@@ -43,11 +43,12 @@ const HomepageTemplate = ({ data, pageContext }) => {
 
   if (!data.cms.page.homepage) {
     throw Error(
-      `Check the connection to homepageSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
+      `Check the connection to homepageSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
     );
   }
   const { languages, locale, region, localeData } = pageContext;
   const { label } = localeData;
+  // console.log(localeData);
   const {
     cms: {
       page: { homepage },

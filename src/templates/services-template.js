@@ -4,6 +4,7 @@ import { graphql } from 'gatsby';
 import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 import Layout from '../components/layout';
 import { makeid, renderLink } from '../utils/functions';
 import '../styles/services.scss';
@@ -11,14 +12,14 @@ import '../styles/services.scss';
 const ServicesTemplate = ({ data, pageContext }) => {
   if (!data.cms.page.services) {
     throw Error(
-      `Check the connection to servicesSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
+      `Check the connection to servicesSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
     );
   }
   const { languages, locale, localeData, region } = pageContext;
-  const { brandNavigation, headerFooter, navigation } = localeData;
+  // const { brandNavigation, headerFooter, navigation } = localeData;
   const {
     cms: {
-      label,
+      // label,
       page: {
         services: { bannerImage, description, sideContent, title },
       },
@@ -28,12 +29,9 @@ const ServicesTemplate = ({ data, pageContext }) => {
   return (
     <Layout
       activeLanguage={locale}
-      brandNavigation={brandNavigation}
       childrenClass="services-page"
-      headerFooter={headerFooter}
-      label={label}
       languages={languages}
-      navigation={navigation}
+      localeData={localeData}
       region={region}
       title={title}
     >
@@ -53,6 +51,7 @@ const ServicesTemplate = ({ data, pageContext }) => {
                   <h1 className="title">{title}</h1>
                   <div className="description">
                     <ReactMarkdown
+                      rehypePlugins={[rehypeRaw]}
                       components={{
                         link: props => renderLink(props, location),
                       }}
@@ -92,7 +91,6 @@ ServicesTemplate.defaultProps = {
 ServicesTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      label: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),

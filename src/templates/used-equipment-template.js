@@ -14,14 +14,15 @@ import '../styles/usedEquipment.scss';
 const UsedEquipmentTemplate = ({ data, pageContext }) => {
   if (!data.cms.page.usedEquipment) {
     throw Error(
-      `Check the connection to usedEquipmentSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
+      `Check the connection to usedEquipmentSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
     );
   }
   const { languages, locale, localeData, region } = pageContext;
-  const { brandNavigation, headerFooter, navigation } = localeData;
+  // const { brandNavigation, headerFooter, navigation } = localeData;
+  const { label } = localeData;
   const {
     cms: {
-      label,
+      // label,
       page: {
         usedEquipment: { bannerImage, description, disclaimer, title, usedEquipmentListings },
       },
@@ -33,12 +34,9 @@ const UsedEquipmentTemplate = ({ data, pageContext }) => {
   return (
     <Layout
       activeLanguage={locale}
-      brandNavigation={brandNavigation}
       childrenClass="used-equipment-page"
-      headerFooter={headerFooter}
-      label={label}
       languages={languages}
-      navigation={navigation}
+      localeData={localeData}
       region={region}
       title={title}
     >
@@ -88,7 +86,7 @@ UsedEquipmentTemplate.defaultProps = {
 UsedEquipmentTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      label: PropTypes.instanceOf(Object),
+      // label: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),
@@ -111,14 +109,14 @@ UsedEquipmentTemplate.propTypes = {
 export const query = graphql`
   query(
     $id: ID!
-    $locale: [GraphCMS_Locale!]!
+    # $locale: [GraphCMS_Locale!]!
+    # $region: GraphCMS_Region!
     $locales: [GraphCMS_Locale!]!
-    $region: GraphCMS_Region!
   ) {
     cms {
-      label(locales: $locale, where: { availableIn: $region }) {
-        sparesRepairs
-      }
+      # label(locales: $locale, where: { availableIn: $region }) {
+      #   sparesRepairs
+      # }
       page(locales: $locales, where: { id: $id }) {
         usedEquipment: usedEquipmentSource {
           bannerImage {

@@ -59,18 +59,16 @@ class ResourcesTemplate extends Component {
     const { data, pageContext } = this.props;
     if (!data.cms.page.resources) {
       throw Error(
-        `Check the connection to resourcesSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
+        `Check the connection to resourcesSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
       );
     }
     const { languages, locale, localeData, region } = pageContext;
-    const { brandNavigation, headerFooter, navigation } = localeData;
+    const { label } = localeData;
     const {
       cms: {
-        label,
         page: {
           resources: { bannerImage, contactAndForm, description, email, emailSubject, title },
         },
-        resourcesLabel,
       },
     } = data;
     const { categories, selectedCategory, selectedCategoryId } = this.state;
@@ -78,12 +76,13 @@ class ResourcesTemplate extends Component {
     return (
       <Layout
         activeLanguage={locale}
-        brandNavigation={brandNavigation}
+        // brandNavigation={brandNavigation}
         childrenClass="resources-page"
-        headerFooter={headerFooter}
-        label={label}
+        // headerFooter={headerFooter}
+        // label={label}
         languages={languages}
-        navigation={navigation}
+        localeData={localeData}
+        // navigation={navigation}
         region={region}
         title={title}
       >
@@ -114,11 +113,11 @@ class ResourcesTemplate extends Component {
                           categories={categories}
                           selectedCategory={selectedCategory}
                           setCategory={id => this.handleSetCategory(id)}
-                          label={resourcesLabel.resources}
+                          label={label.resources}
                         />
                         {selectedCategory && selectedCategory.expert && (
                           <div className="expert">
-                            <p>{resourcesLabel.resources.CONTACT_EXPERT}</p>
+                            <p>{label.resources.CONTACT_EXPERT}</p>
                             {selectedCategory.expert.countryCode &&
                               countryFlag(selectedCategory.expert.countryCode)}
                             {selectedCategory.expert.name}
@@ -156,7 +155,7 @@ class ResourcesTemplate extends Component {
                       {selectedCategory &&
                         selectedCategory.resources &&
                         selectedCategory.resources.length === 0 && (
-                          <div className="no-resource">{resourcesLabel.resources.NO_RESOURCE}</div>
+                          <div className="no-resource">{label.resources.NO_RESOURCE}</div>
                         )}
                       <ApolloProvider client={client}>
                         <Category
@@ -164,7 +163,6 @@ class ResourcesTemplate extends Component {
                           locale={locale}
                           region={region}
                           label={label}
-                          resourcesLabel={resourcesLabel}
                         />
                       </ApolloProvider>
 
@@ -221,14 +219,14 @@ ResourcesTemplate.propTypes = {
 export const query = graphql`
   query(
     $id: ID!
-    $locale: [GraphCMS_Locale!]!
+    # $locale: [GraphCMS_Locale!]!
+    # $region: GraphCMS_Region!
     $locales: [GraphCMS_Locale!]!
-    $region: GraphCMS_Region!
   ) {
     cms {
-      resourcesLabel: label(locales: $locale, where: { availableIn: $region }) {
-        resources
-      }
+      # resourcesLabel: label(locales: $locale, where: { availableIn: $region }) {
+      #   resources
+      # }
       page(locales: $locales, where: { id: $id }) {
         resources: resourcesSource {
           bannerImage {

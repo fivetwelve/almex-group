@@ -70,6 +70,12 @@ exports.createPages = async ({ graphql, actions }) => {
         }
         labels {
           availableIn
+          resourcesLink {
+            localizations(includeCurrent: true) {
+              locale
+              slug
+            }
+          }
           localizations(includeCurrent: true) {
             locale
             header
@@ -162,8 +168,52 @@ exports.createPages = async ({ graphql, actions }) => {
           id
           availableIn
           pageType
-          productSource {
-            id
+          contentSource {
+            ... on GraphCMS_AboutSource {
+              sourceId: id
+            }
+            ... on GraphCMS_CareersSource {
+              sourceId: id
+            }
+            ... on GraphCMS_ContactSource {
+              sourceId: id
+            }
+            ... on GraphCMS_EventsSource {
+              sourceId: id
+            }
+            ... on GraphCMS_HistorySource {
+              sourceId: id
+            }
+            ... on GraphCMS_HomepageSource {
+              sourceId: id
+            }
+            ... on GraphCMS_InstituteSource {
+              sourceId: id
+            }
+            ... on GraphCMS_LandingSource {
+              sourceId: id
+            }
+            ... on GraphCMS_NewsSource {
+              sourceId: id
+            }
+            ... on GraphCMS_ProductSource {
+              sourceId: id
+            }
+            ... on GraphCMS_PromoSource {
+              sourceId: id
+            }
+            ... on GraphCMS_ResourcesSource {
+              sourceId: id
+            }
+            ... on GraphCMS_ServicesSource {
+              sourceId: id
+            }
+            ... on GraphCMS_SimpleContentSource {
+              sourceId: id
+            }
+            ... on GraphCMS_UsedEquipmentSource {
+              sourceId: id
+            }
           }
           localizations(includeCurrent: true) {
             locale
@@ -229,7 +279,17 @@ exports.createPages = async ({ graphql, actions }) => {
 
       const label = labels
         .filter(locLabels => locLabels.availableIn === thisRegion.region)
-        .map(locLabels => locLabels.localizations.filter(l10n => l10n.locale === language));
+        .map(locLabels => {
+          const resourcesLink = locLabels.resourcesLink.localizations.filter(
+            l10n => l10n.locale === language,
+          );
+          let locLabel = locLabels.localizations.filter(l10n => l10n.locale === language);
+          locLabel = removeKey('locale', locLabel[0]);
+          locLabel.resourcesLink = { slug: resourcesLink[0].slug };
+          return {
+            ...locLabel,
+          };
+        });
 
       const thisNav = navigations.filter(
         navigation => navigation.availableIn === thisRegion.region,
@@ -263,7 +323,7 @@ exports.createPages = async ({ graphql, actions }) => {
       allRegionData.push({
         region: thisRegion.region,
         language,
-        label: removeKey('locale', label[0][0]),
+        label: label[0],
         headerFooter: removeKey('locale', headerFooter[0][0]),
         brandNavigation: brandNav[0],
         navigation: {
@@ -292,7 +352,7 @@ exports.createPages = async ({ graphql, actions }) => {
     });
     /* Pages with PUBLISHED status in CMS */
     pages.forEach(page => {
-      const { id, availableIn, pageType, localizations } = page;
+      const { id, availableIn, pageType, contentSource, localizations } = page;
       /* ensure Page is available for this region */
       if (availableIn.includes(region)) {
         languages.forEach(language => {
@@ -310,71 +370,76 @@ exports.createPages = async ({ graphql, actions }) => {
                   : `${REGION_SLUGS[region]}/${LANGUAGE_SLUGS[language]}`;
 
               switch (pageType) {
-                // case PAGE_TYPES.ABOUT:
-                //   createPage({
-                //     path: pagePath,
-                //     component: path.resolve(`./src/templates/about-template.js`),
-                //     context: {
-                //       id,
-                //       languages,
-                //       locale,
-                //       locales,
-                //       region,
-                //     },
-                //   });
-                //   break;
-                // case PAGE_TYPES.CAREERS:
-                //   createPage({
-                //     path: pagePath,
-                //     component: path.resolve(`./src/templates/careers-template.js`),
-                //     context: {
-                //       id,
-                //       languages,
-                //       locale,
-                //       locales,
-                //       region,
-                //     },
-                //   });
-                //   break;
-                // case PAGE_TYPES.CONTACT:
-                //   createPage({
-                //     path: pagePath,
-                //     component: path.resolve(`./src/templates/contact-template.js`),
-                //     context: {
-                //       id,
-                //       languages,
-                //       locale,
-                //       locales,
-                //       region,
-                //     },
-                //   });
-                //   break;
-                // case PAGE_TYPES.EVENTS:
-                //   createPage({
-                //     path: pagePath,
-                //     component: path.resolve(`./src/templates/events-template.js`),
-                //     context: {
-                //       id,
-                //       languages,
-                //       locale,
-                //       locales,
-                //       region,
-                //     },
-                //   });
-                //   break;
-                // case PAGE_TYPES.HISTORY:
-                //   createPage({
-                //     path: pagePath,
-                //     component: path.resolve(`./src/templates/history-template.js`),
-                //     context: {
-                //       id,
-                //       languages,
-                //       locale,
-                //       locales,
-                //       region,
-                //     },
-                //   });
-                //   break;
+                case PAGE_TYPES.ABOUT:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/about-template.js`),
+                    context: {
+                      id,
+                      languages,
+                      locale,
+                      localeData,
+                      locales,
+                      region,
+                    },
+                  });
+                  break;
+                case PAGE_TYPES.CAREERS:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/careers-template.js`),
+                    context: {
+                      id,
+                      languages,
+                      locale,
+                      localeData,
+                      locales,
+                      region,
+                    },
+                  });
+                  break;
+                case PAGE_TYPES.CONTACT:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/contact-template.js`),
+                    context: {
+                      id,
+                      languages,
+                      locale,
+                      localeData,
+                      locales,
+                      region,
+                    },
+                  });
+                  break;
+                case PAGE_TYPES.EVENTS:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/events-template.js`),
+                    context: {
+                      id,
+                      languages,
+                      locale,
+                      localeData,
+                      locales,
+                      region,
+                    },
+                  });
+                  break;
+                case PAGE_TYPES.HISTORY:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/history-template.js`),
+                    context: {
+                      id,
+                      languages,
+                      locale,
+                      localeData,
+                      locales,
+                      region,
+                    },
+                  });
+                  break;
                 case PAGE_TYPES.HOMEPAGE:
                   createPage({
                     path: pagePath,
@@ -390,127 +455,138 @@ exports.createPages = async ({ graphql, actions }) => {
                     },
                   });
                   break;
-                // case PAGE_TYPES.INSTITUTE:
-                //   createPage({
-                //     path: pagePath,
-                //     component: path.resolve(`./src/templates/institute-template.js`),
-                //     context: {
-                //       id,
-                //       languages,
-                //       locale,
-                //       locales,
-                //       region,
-                //     },
-                //   });
-                //   break;
-                // case PAGE_TYPES.LANDING:
-                //   createPage({
-                //     path: pagePath,
-                //     component: path.resolve(`./src/templates/landing-template.js`),
-                //     context: {
-                //       id,
-                //       languages,
-                //       locale,
-                //       locales,
-                //       region,
-                //       availableIn: region,
-                //     },
-                //   });
-                //   break;
-                // case PAGE_TYPES.NEWS:
-                //   /* also used by Safety Alerts & Certifications */
-                //   createPage({
-                //     path: pagePath,
-                //     component: path.resolve(`./src/templates/news-template.js`),
-                //     context: {
-                //       id,
-                //       languages,
-                //       locale,
-                //       locales,
-                //       region,
-                //     },
-                //   });
-                //   break;
-                // case PAGE_TYPES.PRODUCT:
-                //   createPage({
-                //     path: pagePath,
-                //     component: path.resolve(`./src/templates/product-template.js`),
-                //     context: {
-                //       contentId: productSource.id,
-                //       id,
-                //       languages,
-                //       locale,
-                //       locales,
-                //       region,
-                //       availableIn: region,
-                //     },
-                //   });
-                //   break;
-                // case PAGE_TYPES.PROMO:
-                //   createPage({
-                //     path: pagePath,
-                //     component: path.resolve(`./src/templates/promo-template.js`),
-                //     context: {
-                //       id,
-                //       languages,
-                //       locale,
-                //       locales,
-                //       region,
-                //     },
-                //   });
-                //   break;
-                // case PAGE_TYPES.RESOURCES:
-                //   createPage({
-                //     path: pagePath,
-                //     component: path.resolve(`./src/templates/resources-template.js`),
-                //     context: {
-                //       id,
-                //       languages,
-                //       locale,
-                //       locales,
-                //       region,
-                //     },
-                //   });
-                //   break;
-                // case PAGE_TYPES.SERVICES:
-                //   createPage({
-                //     path: pagePath,
-                //     component: path.resolve(`./src/templates/services-template.js`),
-                //     context: {
-                //       id,
-                //       languages,
-                //       locale,
-                //       locales,
-                //       region,
-                //     },
-                //   });
-                //   break;
-                // case PAGE_TYPES.SIMPLE:
-                //   createPage({
-                //     path: pagePath,
-                //     component: path.resolve(`./src/templates/simple-content-template.js`),
-                //     context: {
-                //       id,
-                //       languages,
-                //       locale,
-                //       locales,
-                //       region,
-                //     },
-                //   });
-                //   break;
-                // case PAGE_TYPES.USED:
-                //   createPage({
-                //     path: pagePath,
-                //     component: path.resolve(`./src/templates/used-equipment-template.js`),
-                //     context: {
-                //       id,
-                //       languages,
-                //       locale,
-                //       locales,
-                //       region,
-                //     },
-                //   });
-                //   break;
+                case PAGE_TYPES.INSTITUTE:
+                  /* also used by training pages */
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/institute-template.js`),
+                    context: {
+                      id,
+                      languages,
+                      locale,
+                      localeData,
+                      locales,
+                      region,
+                    },
+                  });
+                  break;
+                case PAGE_TYPES.LANDING:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/landing-template.js`),
+                    context: {
+                      id,
+                      languages,
+                      locale,
+                      localeData,
+                      locales,
+                      region,
+                      availableIn: region,
+                    },
+                  });
+                  break;
+                case PAGE_TYPES.NEWS:
+                  /* also used by Safety Alerts & Certifications */
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/news-template.js`),
+                    context: {
+                      id,
+                      languages,
+                      locale,
+                      localeData,
+                      locales,
+                      region,
+                    },
+                  });
+                  break;
+                case PAGE_TYPES.PRODUCT:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/product-template.js`),
+                    context: {
+                      contentId: contentSource.sourceId,
+                      id,
+                      languages,
+                      locale,
+                      localeData,
+                      locales,
+                      region,
+                      availableIn: region,
+                    },
+                  });
+                  break;
+                case PAGE_TYPES.PROMO:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/promo-template.js`),
+                    context: {
+                      id,
+                      languages,
+                      locale,
+                      localeData,
+                      locales,
+                      region,
+                    },
+                  });
+                  break;
+                case PAGE_TYPES.RESOURCES:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/resources-template.js`),
+                    context: {
+                      id,
+                      languages,
+                      locale,
+                      localeData,
+                      locales,
+                      region,
+                    },
+                  });
+                  break;
+                case PAGE_TYPES.SERVICES:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/services-template.js`),
+                    context: {
+                      id,
+                      languages,
+                      locale,
+                      localeData,
+                      locales,
+                      region,
+                    },
+                  });
+                  break;
+                case PAGE_TYPES.SIMPLE:
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/simple-content-template.js`),
+                    context: {
+                      id,
+                      languages,
+                      locale,
+                      localeData,
+                      locales,
+                      region,
+                    },
+                  });
+                  break;
+                case PAGE_TYPES.USED:
+                  /* pass `locale` to be used with moment function */
+                  createPage({
+                    path: pagePath,
+                    component: path.resolve(`./src/templates/used-equipment-template.js`),
+                    context: {
+                      id,
+                      languages,
+                      locale,
+                      localeData,
+                      locales,
+                      region,
+                    },
+                  });
+                  break;
                 default:
                   break;
               }
@@ -539,6 +615,9 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
             use: loaders.null(),
           },
         ],
+      },
+      node: {
+        fs: 'empty',
       },
     });
   }

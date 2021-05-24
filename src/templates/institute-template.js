@@ -14,14 +14,13 @@ import logo from '../../static/img/logo-institute.svg';
 const InstituteTemplate = ({ data, pageContext }) => {
   if (!data.cms.page.institute) {
     throw Error(
-      `Check the connection to instituteSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
+      `Check the connection to instituteSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
     );
   }
   const { languages, locale, localeData, region } = pageContext;
-  const { brandNavigation, headerFooter, navigation } = localeData;
+  const { label } = localeData;
   const {
     cms: {
-      label,
       page: {
         institute: {
           bannerImage,
@@ -46,12 +45,9 @@ const InstituteTemplate = ({ data, pageContext }) => {
   return (
     <Layout
       activeLanguage={locale}
-      brandNavigation={brandNavigation}
       childrenClass="institute-page"
-      headerFooter={headerFooter}
-      label={label}
       languages={languages}
-      navigation={navigation}
+      localeData={localeData}
       region={region}
       title={title}
     >
@@ -221,40 +217,42 @@ export const query = graphql`
   ) {
     cms {
       page(locales: $locales, where: { id: $id }) {
-        institute: instituteSource {
-          bannerImage {
-            handle
-            width
-            height
-          }
-          contactAndForm
-          description
-          email
-          emailSubject
-          sideContent
-          pdfDownloads {
-            documentTitle
-            fileName
-            url
-          }
-          title
-          topics
-          presentation
-          instructors
-          topicsImages {
-            handle
-            width
-            height
-          }
-          presentationImages {
-            handle
-            width
-            height
-          }
-          instructorsImages {
-            handle
-            width
-            height
+        institute: contentSource {
+          ... on GraphCMS_InstituteSource {
+            bannerImage {
+              handle
+              width
+              height
+            }
+            contactAndForm
+            description
+            email
+            emailSubject
+            sideContent
+            pdfDownloads {
+              documentTitle
+              fileName
+              url
+            }
+            title
+            topics
+            presentation
+            instructors
+            topicsImages {
+              handle
+              width
+              height
+            }
+            presentationImages {
+              handle
+              width
+              height
+            }
+            instructorsImages {
+              handle
+              width
+              height
+            }
           }
         }
       }

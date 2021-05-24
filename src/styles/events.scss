@@ -52,11 +52,23 @@ $spacing: 20px;
         .description {
           font-size: 24px;
         }
+        padding-left: 40px;
+        padding-left: 40px;
+      }
+    }
+    .daypicker-dropdown {
+      @include media('>=tablet') {
+        padding-left: 40px;
+        padding-right: 40px;
       }
     }
     .events-main {
       display: flex;
       flex-direction: column;
+      @include media('>=tablet') {
+        padding-left: 40px;
+        padding-right: 40px;
+      }
       @include media('>=desktop') {
         flex-direction: row;
       }

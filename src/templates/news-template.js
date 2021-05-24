@@ -13,10 +13,9 @@ import '../styles/news.scss';
 
 const NewsTemplate = ({ data, pageContext }) => {
   const { languages, locale, localeData, region } = pageContext;
-  const { brandNavigation, headerFooter, navigation } = localeData;
+  const { label } = localeData;
   const {
     cms: {
-      label,
       page: {
         news: { articles, bannerImage, description, title },
       },
@@ -35,12 +34,9 @@ const NewsTemplate = ({ data, pageContext }) => {
   return (
     <Layout
       activeLanguage={locale}
-      brandNavigation={brandNavigation}
       childrenClass="news-page"
-      headerFooter={headerFooter}
-      label={label}
       languages={languages}
-      navigation={navigation}
+      localeData={localeData}
       region={region}
       title={title}
     >
@@ -181,28 +177,30 @@ export const query = graphql`
   ) {
     cms {
       page(locales: $locales, where: { id: $id }) {
-        news: newsSource {
-          bannerImage {
-            handle
-            width
-            height
-          }
-          description
-          title
-          articles {
-            tile {
-              url
+        news: contentSource {
+          ... on GraphCMS_NewsSource {
+            bannerImage {
+              handle
+              width
+              height
             }
-            date
+            description
             title
-            excerpt
-            content
-            pdfDownloads {
-              documentTitle
-              fileName
-              url
+            articles {
+              tile {
+                url
+              }
+              date
+              title
+              excerpt
+              content
+              pdfDownloads {
+                documentTitle
+                fileName
+                url
+              }
+              articleStatus
             }
-            articleStatus
           }
         }
       }

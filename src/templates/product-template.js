@@ -16,14 +16,14 @@ import '../styles/product.scss';
 const ProductTemplate = ({ data, location, pageContext }) => {
   if (!data.cms.page.product) {
     throw Error(
-      `Check the connection to productSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
+      `Check the connection to productSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
     );
   }
   const { languages, locale, localeData, region } = pageContext;
-  const { brandNavigation, headerFooter, navigation } = localeData;
+  const { label } = localeData;
+  const { common, products } = label;
   const {
     cms: {
-      label,
       page: {
         product: {
           brand,
@@ -49,7 +49,6 @@ const ProductTemplate = ({ data, location, pageContext }) => {
       },
     },
   } = data;
-  const { common, products } = label;
   const advantagesImageStyle = advantagesImage
     ? {
         backgroundImage: `url(${advantagesImage.url})`,
@@ -99,13 +98,14 @@ const ProductTemplate = ({ data, location, pageContext }) => {
   return (
     <Layout
       activeLanguage={locale}
-      brandNavigation={brandNavigation}
+      // brandNavigation={brandNavigation}
       childrenClass="product-page"
-      headerFooter={headerFooter}
-      label={label}
+      // headerFooter={headerFooter}
+      // label={label}
       languages={languages}
       locale={locale}
-      navigation={navigation}
+      localeData={localeData}
+      // navigation={navigation}
       region={region}
       title={title}
     >
@@ -320,7 +320,7 @@ ProductTemplate.defaultProps = {
 ProductTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      label: PropTypes.instanceOf(Object),
+      // label: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),
@@ -343,71 +343,73 @@ ProductTemplate.propTypes = {
 export const query = graphql`
   query(
     $id: ID!
-    $locale: [GraphCMS_Locale!]!
+    # $locale: [GraphCMS_Locale!]!
     $locales: [GraphCMS_Locale!]!
-    $region: GraphCMS_Region
+    # $region: GraphCMS_Region
     $availableIn: [GraphCMS_Region!]
   ) {
     cms {
-      label(locales: $locale, where: { availableIn: $region }) {
-        products
-        resourcesLink {
-          slug
-        }
-      }
+      # label(locales: $locale, where: { availableIn: $region }) {
+      #   products
+      #   resourcesLink {
+      #     slug
+      #   }
+      # }
       page(locales: $locales, where: { id: $id }) {
         pageType
-        product: productSource {
-          brand
-          theme
-          title
-          images {
-            url
-          }
-          youTubeVideos {
-            youTubeId
+        product: contentSource {
+          ... on GraphCMS_ProductSource {
+            brand
+            theme
             title
-            videoType
-          }
-          visitResourcesForMore
-          marketing
-          advantages
-          advantagesImage {
-            url
-          }
-          features
-          productInfo
-          specs
-          caseStudies {
-            documentTitle
-            fileName
-            url
-            availableIn
-          }
-          configurations
-          addOns
-          pdfDownloads {
-            id
-            fileName
-            documentTitle
-            resourceType
-            url
-            availableIn
-          }
-          attractText
-          accessories(where: { availableIn_contains_some: $availableIn }) {
-            slug
-            tile {
+            images {
               url
             }
-            title
-          }
-          relatedItems(where: { availableIn_contains_some: $availableIn }) {
-            slug
-            tile {
+            youTubeVideos {
+              youTubeId
+              title
+              videoType
+            }
+            visitResourcesForMore
+            marketing
+            advantages
+            advantagesImage {
               url
             }
-            title
+            features
+            productInfo
+            specs
+            caseStudies {
+              documentTitle
+              fileName
+              url
+              availableIn
+            }
+            configurations
+            addOns
+            pdfDownloads {
+              id
+              fileName
+              documentTitle
+              resourceType
+              url
+              availableIn
+            }
+            attractText
+            accessories(where: { availableIn_contains_some: $availableIn }) {
+              slug
+              tile {
+                url
+              }
+              title
+            }
+            relatedItems(where: { availableIn_contains_some: $availableIn }) {
+              slug
+              tile {
+                url
+              }
+              title
+            }
           }
         }
       }

@@ -16,10 +16,11 @@ const HistoryTemplate = ({ data, pageContext }) => {
     );
   }
   const { languages, locale, localeData, region } = pageContext;
-  const { brandNavigation, headerFooter, navigation } = localeData;
+  // const { brandNavigation, headerFooter, navigation } = localeData;
+  const { label } = localeData;
   const {
     cms: {
-      label,
+      // label,
       page: {
         history: { bannerImage, title, description, events },
       },
@@ -31,12 +32,9 @@ const HistoryTemplate = ({ data, pageContext }) => {
   return (
     <Layout
       activeLanguage={locale}
-      brandNavigation={brandNavigation}
       childrenClass="history-page"
-      headerFooter={headerFooter}
-      label={label}
       languages={languages}
-      navigation={navigation}
+      localeData={localeData}
       region={region}
       title={title}
     >
@@ -83,7 +81,7 @@ HistoryTemplate.defaultProps = {
 HistoryTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      label: PropTypes.instanceOf(Object),
+      // label: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),
@@ -100,14 +98,13 @@ HistoryTemplate.propTypes = {
 export const query = graphql`
   query(
     $id: ID!
-    $locale: [GraphCMS_Locale!]!
-    $locales: [GraphCMS_Locale!]!
-    $region: GraphCMS_Region!
+    # $locale: [GraphCMS_Locale!]!
+    $locales: [GraphCMS_Locale!]! # $region: GraphCMS_Region!
   ) {
     cms {
-      aboutLabel: label(locales: $locale, where: { availableIn: $region }) {
-        about
-      }
+      # aboutLabel: label(locales: $locale, where: { availableIn: $region }) {
+      #   about
+      # }
       page(locales: $locales, where: { id: $id }) {
         history: historySource {
           bannerImage {

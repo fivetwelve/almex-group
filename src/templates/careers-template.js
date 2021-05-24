@@ -11,15 +11,13 @@ import { makeid, renderLink } from '../utils/functions';
 const CareersTemplate = ({ data, pageContext }) => {
   if (!data.cms.page.careers) {
     throw Error(
-      `Check the connection to careersSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
+      `Check the connection to careersSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
     );
   }
   const { languages, locale, localeData, region } = pageContext;
-  const { brandNavigation, headerFooter, navigation } = localeData;
+  const { label } = localeData;
   const {
     cms: {
-      aboutLabel,
-      label,
       page: {
         careers: {
           bannerImage,
@@ -36,12 +34,9 @@ const CareersTemplate = ({ data, pageContext }) => {
   return (
     <Layout
       activeLanguage={locale}
-      brandNavigation={brandNavigation}
       childrenClass="careers-page"
-      headerFooter={headerFooter}
-      label={label}
       languages={languages}
-      navigation={navigation}
+      localeData={localeData}
       region={region}
       title={title}
     >
@@ -68,7 +63,7 @@ const CareersTemplate = ({ data, pageContext }) => {
                       {description}
                     </ReactMarkdown>
                     {careerPostings.length > 0 &&
-                      `${aboutLabel.about.POSTING_AVAILABLE} ${careerPostings.length}`}
+                      `${label.about.POSTING_AVAILABLE} ${careerPostings.length}`}
                   </div>
                 </div>
               </div>
@@ -101,13 +96,13 @@ const CareersTemplate = ({ data, pageContext }) => {
                         <thead>
                           <tr>
                             <th>
-                              <span>{aboutLabel.about.POSTING_TITLE}</span>
+                              <span>{label.about.POSTING_TITLE}</span>
                             </th>
                             <th>
-                              <span>{aboutLabel.about.POSTING_STATUS}</span>
+                              <span>{label.about.POSTING_STATUS}</span>
                             </th>
                             <th>
-                              <span>{aboutLabel.about.POSTING_SEND}</span>
+                              <span>{label.about.POSTING_SEND}</span>
                             </th>
                           </tr>
                         </thead>
@@ -125,9 +120,7 @@ const CareersTemplate = ({ data, pageContext }) => {
                                     {posting.companyAndLocation}
                                   </ReactMarkdown>
                                 </div>
-                                <div className="description">
-                                  {aboutLabel.about.POSTING_DESCRIPTION}
-                                </div>
+                                <div className="description">{label.about.POSTING_DESCRIPTION}</div>
                                 <div>
                                   <ReactMarkdown
                                     components={{
@@ -138,8 +131,8 @@ const CareersTemplate = ({ data, pageContext }) => {
                                   </ReactMarkdown>
                                   <div className="mobile">
                                     <p>
-                                      <b>{aboutLabel.about.POSTING_STATUS}</b>:{' '}
-                                      {aboutLabel.about[posting.postingStatus]}
+                                      <b>{label.about.POSTING_STATUS}</b>:{' '}
+                                      {label.about[posting.postingStatus]}
                                     </p>
                                     <ReactMarkdown
                                       components={{
@@ -151,7 +144,7 @@ const CareersTemplate = ({ data, pageContext }) => {
                                   </div>
                                 </div>
                               </td>
-                              <td>{aboutLabel.about[posting.postingStatus]}</td>
+                              <td>{label.about[posting.postingStatus]}</td>
                               <td>
                                 <ReactMarkdown
                                   components={{
@@ -186,8 +179,8 @@ CareersTemplate.defaultProps = {
 CareersTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      aboutLabel: PropTypes.instanceOf(Object),
-      label: PropTypes.instanceOf(Object),
+      // aboutLabel: PropTypes.instanceOf(Object),
+      // label: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),
@@ -204,14 +197,14 @@ CareersTemplate.propTypes = {
 export const query = graphql`
   query(
     $id: ID!
-    $locale: [GraphCMS_Locale!]!
+    # $locale: [GraphCMS_Locale!]!
+    # $region: GraphCMS_Region!
     $locales: [GraphCMS_Locale!]!
-    $region: GraphCMS_Region!
   ) {
     cms {
-      aboutLabel: label(locales: $locale, where: { availableIn: $region }) {
-        about
-      }
+      # aboutLabel: label(locales: $locale, where: { availableIn: $region }) {
+      #   about
+      # }
       page(locales: $locales, where: { id: $id }) {
         careers: careersSource {
           bannerImage {

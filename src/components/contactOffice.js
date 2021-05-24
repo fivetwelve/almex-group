@@ -7,7 +7,7 @@ import { countryFlag, makeid } from '../utils/functions';
 import pin from '../../static/img/map-pin.svg';
 
 const ContactOffice = props => {
-  const { aboutLabel, goToOffice, handleContactUs, office, visitorRegion } = props;
+  const { goToOffice, handleContactUs, label, office, visitorRegion } = props;
   const {
     backupOffice,
     address,
@@ -79,13 +79,13 @@ const ContactOffice = props => {
           {tollFree.length > 0 &&
             tollFree.map(num => (
               <div key={`toll-free-${makeid()}`}>
-                <span className="toll-free">{aboutLabel.about.TOLLFREE}: </span>
+                <span className="toll-free">{label.about.TOLLFREE}: </span>
                 {num}
               </div>
             ))}
           {contactPerson && (
             <div className="contact-person-container">
-              <span className="contact-person">{aboutLabel.about.CONTACT_PERSON}: </span>
+              <span className="contact-person">{label.about.CONTACT_PERSON}: </span>
               <em>{contactPerson}</em>
             </div>
           )}
@@ -95,7 +95,7 @@ const ContactOffice = props => {
           {(visitorRegion === countryCode || backupOffice) && (
             <p>
               <button type="button" onClick={() => handleContactUs(null, office)}>
-                {aboutLabel.about.CONTACT_US}
+                {label.about.CONTACT_US}
               </button>
             </p>
           )}
@@ -107,7 +107,7 @@ const ContactOffice = props => {
 };
 
 ContactOffice.defaultProps = {
-  aboutLabel: {},
+  label: {},
   goToOffice: () => {},
   handleContactUs: () => {},
   office: {
@@ -128,7 +128,7 @@ ContactOffice.defaultProps = {
 };
 
 ContactOffice.propTypes = {
-  aboutLabel: PropTypes.shape({
+  label: PropTypes.shape({
     about: PropTypes.instanceOf(Object),
   }),
   goToOffice: PropTypes.func,

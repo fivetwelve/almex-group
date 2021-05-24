@@ -33,6 +33,7 @@ module.exports = {
   },
   flags: {
     FAST_DEV: true,
+    DEV_SSR: false,
   },
   plugins: [
     {
@@ -45,12 +46,12 @@ module.exports = {
           },
           'branch-deploy': {
             policy: [{ userAgent: '*', disallow: ['/'] }],
-            sitemap: 'sitemap-index.xml',
+            sitemap: null,
             host: null,
           },
           'deploy-preview': {
             policy: [{ userAgent: '*', disallow: ['/'] }],
-            sitemap: 'sitemap-index.xml',
+            sitemap: null,
             host: null,
           },
         },

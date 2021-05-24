@@ -11,14 +11,14 @@ import '../styles/simpleContent.scss';
 const SimpleContentTemplate = ({ data, pageContext }) => {
   if (!data.cms.page.simpleContent) {
     throw Error(
-      `Check the connection to simpleContentSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
+      `Check the connection to simpleContentSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
     );
   }
   const { languages, locale, localeData, region } = pageContext;
-  const { brandNavigation, headerFooter, navigation } = localeData;
+  // const { brandNavigation, headerFooter, navigation } = localeData;
   const {
     cms: {
-      label,
+      // label,
       page: {
         simpleContent: { bannerImage, content, title },
       },
@@ -28,12 +28,9 @@ const SimpleContentTemplate = ({ data, pageContext }) => {
   return (
     <Layout
       activeLanguage={locale}
-      brandNavigation={brandNavigation}
       childrenClass="simple-content-page"
-      headerFooter={headerFooter}
-      label={label}
       languages={languages}
-      navigation={navigation}
+      localeData={localeData}
       region={region}
       title={title}
     >
@@ -78,7 +75,7 @@ SimpleContentTemplate.defaultProps = {
 SimpleContentTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.instanceOf(Object),
-    id: PropTypes.string,
+    // id: PropTypes.string,
   }),
   pageContext: PropTypes.shape({
     id: PropTypes.string,

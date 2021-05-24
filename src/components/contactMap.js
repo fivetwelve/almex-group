@@ -69,13 +69,13 @@ class ContactMap extends React.Component {
 
   render() {
     const { activeOffice, infoWindowVisible, offset, viewport } = this.state;
-    const { aboutLabel, handleContactUs, locale, offices, visitorRegion } = this.props;
+    const { handleContactUs, label, locale, offices, visitorRegion } = this.props;
 
     return (
       <>
         <div className="almex-locations">
           <a href="#offices">
-            <span className="more">{aboutLabel.about.ALMEX_LOCATIONS}</span>
+            <span className="more">{label.about.ALMEX_LOCATIONS}</span>
             <span className="more-arrow">&nbsp;&raquo;</span>
           </a>
         </div>
@@ -152,13 +152,13 @@ class ContactMap extends React.Component {
                       {activeOffice.tollFree.length > 0 &&
                         activeOffice.tollFree.map(num => (
                           <div key={`free-${makeid()}`}>
-                            <span className="contact-person">{aboutLabel.about.TOLLFREE}: </span>
+                            <span className="contact-person">{label.about.TOLLFREE}: </span>
                             {num}
                           </div>
                         ))}
                       {activeOffice.contactPerson && (
                         <div>
-                          <span className="contact-person">{aboutLabel.about.CONTACT}: </span>
+                          <span className="contact-person">{label.about.CONTACT}: </span>
                           <em>{activeOffice.contactPerson}</em>
                         </div>
                       )}
@@ -176,16 +176,16 @@ class ContactMap extends React.Component {
           <div className="table-entry">
             <div className="table-pin" />
             <div className="table-details">
-              <div className="table-office heading">{aboutLabel.about.HEADING_OFFICE}</div>
-              <div className="table-desc heading">{aboutLabel.about.HEADING_DESC}</div>
-              <div className="table-countries heading">{aboutLabel.about.HEADING_COUNTRIES}</div>
+              <div className="table-office heading">{label.about.HEADING_OFFICE}</div>
+              <div className="table-desc heading">{label.about.HEADING_DESC}</div>
+              <div className="table-countries heading">{label.about.HEADING_COUNTRIES}</div>
             </div>
           </div>
           {offices.map(office => (
             <ContactOffice
               goToOffice={this.goToOffice}
               key={makeid()}
-              aboutLabel={aboutLabel}
+              label={label}
               handleContactUs={handleContactUs}
               office={office}
               visitorRegion={visitorRegion}
@@ -198,7 +198,7 @@ class ContactMap extends React.Component {
 }
 
 ContactMap.defaultProps = {
-  aboutLabel: {},
+  label: {},
   handleContactUs: () => {},
   locale: 'EN',
   offices: null,
@@ -206,7 +206,7 @@ ContactMap.defaultProps = {
 };
 
 ContactMap.propTypes = {
-  aboutLabel: PropTypes.shape({
+  label: PropTypes.shape({
     about: PropTypes.instanceOf(Object),
   }),
   handleContactUs: PropTypes.func,

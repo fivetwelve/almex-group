@@ -12,15 +12,15 @@ import { createLink, makeid, renderLink } from '../utils/functions';
 const AboutTemplate = ({ data, pageContext }) => {
   if (!data.cms.page.about) {
     throw Error(
-      `Check the connection to aboutSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
+      `Check the connection to aboutSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
     );
   }
   const { languages, locale, localeData, region } = pageContext;
-  const { brandNavigation, headerFooter, navigation } = localeData;
+  const { brandNavigation, label } = localeData;
   const {
     cms: {
-      label,
-      aboutLabel,
+      // label,
+      // label,
       page: {
         about: { aboutUsLinks, bannerImage, title, description, helpfulResources },
       },
@@ -32,12 +32,9 @@ const AboutTemplate = ({ data, pageContext }) => {
   return (
     <Layout
       activeLanguage={locale}
-      brandNavigation={brandNavigation}
       childrenClass="about-page"
-      headerFooter={headerFooter}
-      label={label}
       languages={languages}
-      navigation={navigation}
+      localeData={localeData}
       region={region}
       title={title}
     >
@@ -68,7 +65,7 @@ const AboutTemplate = ({ data, pageContext }) => {
                 </div>
                 <div className="links">
                   <div className="resources">
-                    <div className="label">{aboutLabel.about.RESOURCES}</div>
+                    <div className="label">{label.about.RESOURCES}</div>
                     <ul>
                       {helpfulResources.map(resource => (
                         <li key={makeid()}>
@@ -107,8 +104,8 @@ AboutTemplate.defaultProps = {
 AboutTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      aboutLabel: PropTypes.instanceOf(Object),
-      label: PropTypes.instanceOf(Object),
+      // label: PropTypes.instanceOf(Object),
+      // label: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),
@@ -124,32 +121,33 @@ AboutTemplate.propTypes = {
 export const query = graphql`
   query(
     $id: ID!
-    $locale: [GraphCMS_Locale!]!
-    $locales: [GraphCMS_Locale!]!
-    $region: GraphCMS_Region!
+    # $locale: [GraphCMS_Locale!]!
+    $locales: [GraphCMS_Locale!]! # $region: GraphCMS_Region!
   ) {
     cms {
-      aboutLabel: label(locales: $locale, where: { availableIn: $region }) {
-        about
-      }
+      # label: label(locales: $locale, where: { availableIn: $region }) {
+      #   about
+      # }
       page(locales: $locales, where: { id: $id }) {
-        about: aboutSource {
-          bannerImage {
-            handle
-            width
-            height
-          }
-          title
-          description
-          helpfulResources {
-            slug
-            pageType
+        about: contentSource {
+          ... on GraphCMS_AboutSource {
+            bannerImage {
+              handle
+              width
+              height
+            }
             title
-          }
-          aboutUsLinks {
-            slug
-            pageType
-            title
+            description
+            helpfulResources {
+              slug
+              pageType
+              title
+            }
+            aboutUsLinks {
+              slug
+              pageType
+              title
+            }
           }
         }
       }

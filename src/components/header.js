@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql, Link, navigate } from 'gatsby';
+import { Link, navigate } from 'gatsby';
 import { navigate as reload } from '@reach/router';
 import { IconContext } from 'react-icons';
 import { FaBars, FaSearch } from 'react-icons/fa';
@@ -217,13 +217,13 @@ Header.propTypes = {
   showMobileBG: PropTypes.func,
 };
 
-export const commonFragment = graphql`
-  fragment CommonQuery on GraphCMS {
-    siteRegions {
-      region
-      languages
-    }
-  }
-`;
+// export const commonFragment = graphql`
+//   fragment CommonQuery on GraphCMS {
+//     siteRegions {
+//       region
+//       languages
+//     }
+//   }
+// `;
 
 export default Header;

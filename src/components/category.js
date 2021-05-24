@@ -56,7 +56,7 @@ let resourceTypes = Object.keys(RESOURCE_TYPES);
 resourceTypes = resourceTypes.filter(element => !exclusions.includes(element));
 
 const Category = props => {
-  const { id, locale, region, documents, label, resourcesLabel } = props;
+  const { id, locale, region, documents, label } = props;
   const queryParams = {
     id,
     locale: [locale],
@@ -111,7 +111,7 @@ const Category = props => {
 
   /* data empty or not found state */
   if (!data || (data.productSources && data.productSources.length === 0))
-    return <div className="no-resource">{resourcesLabel.resources.NO_RESOURCE}</div>;
+    return <div className="no-resource">{label.resources.NO_RESOURCE}</div>;
 
   /* data state */
   let resources = [];
@@ -149,7 +149,7 @@ const Category = props => {
     });
     if (thisType.length > 0) {
       filteredResources.push({
-        title: resourcesLabel.resources[resourceType],
+        title: label.resources[resourceType],
         resourceType,
         documents: thisType,
       });
@@ -158,7 +158,7 @@ const Category = props => {
   /* add unClassified resources at tail-end */
   if (unClassified.length > 0) {
     filteredResources.push({
-      title: resourcesLabel.resources.MISC,
+      title: label.resources.MISC,
       resourceType: RESOURCE_TYPES.MISC,
       documents: unClassified,
     });
@@ -180,12 +180,12 @@ const Category = props => {
               onClick={evt => handleClickResourceType(evt)}
               type="button"
             >
-              {type.title || resourcesLabel.resources.MISC}
+              {type.title || label.resources.MISC}
             </button>
             <div className="category-resources">
               {/* {' '} */}
               <div className="resources-heading">
-                {/* <span>{resourcesLabel.resources.NAME}</span>{' '} */}
+                {/* <span>{label.resources.NAME}</span>{' '} */}
               </div>
               {(type.resourceType === RESOURCE_TYPES.PROMO_VIDEO ||
                 type.resourceType === RESOURCE_TYPES.TRAINING_VIDEO) && (
@@ -226,8 +226,15 @@ Category.defaultProps = {
   locale: '',
   region: '',
   documents: [],
-  label: {},
-  resourcesLabel: {},
+  label: {
+    common: {
+      ERROR: '',
+    },
+    resources: {
+      MISC: '',
+      NO_RESOURCE: '',
+    },
+  },
 };
 
 Category.propTypes = {
@@ -244,8 +251,6 @@ Category.propTypes = {
   ),
   label: PropTypes.shape({
     common: PropTypes.instanceOf(Object),
-  }),
-  resourcesLabel: PropTypes.shape({
     resources: PropTypes.instanceOf(Object),
   }),
 };

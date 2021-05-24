@@ -90,16 +90,16 @@ class ContactTemplate extends React.Component {
     const { data, pageContext } = this.props;
     if (!data.cms.page.contact) {
       throw Error(
-        `Check the connection to contactSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
+        `Check the connection to contactSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
       );
     }
     const { languages, locale, localeData, region } = pageContext;
-    const { brandNavigation, headerFooter, navigation } = localeData;
+    const { label } = localeData;
     const {
       cms: {
-        aboutLabel,
+        // aboutLabel,
         experts,
-        label,
+        // label,
         page: {
           contact: { bannerImage, title, description, offices },
         },
@@ -110,12 +110,13 @@ class ContactTemplate extends React.Component {
     return (
       <Layout
         activeLanguage={locale}
-        brandNavigation={brandNavigation}
+        // brandNavigation={brandNavigation}
         childrenClass="contact-page"
-        headerFooter={headerFooter}
-        label={label}
+        // headerFooter={headerFooter}
+        // label={label}
         languages={languages}
-        navigation={navigation}
+        localeData={localeData}
+        // navigation={navigation}
         region={region}
         title={title}
       >
@@ -161,7 +162,7 @@ class ContactTemplate extends React.Component {
                       </IconContext.Provider>
                     </span>
                     <span className={view === CONTACT_TYPES.OFFICE ? 'highlight' : ''}>
-                      {aboutLabel.about.SEE_OFFICES}
+                      {label.about.SEE_OFFICES}
                     </span>
                   </button>
                   <button
@@ -179,15 +180,15 @@ class ContactTemplate extends React.Component {
                       </IconContext.Provider>
                     </span>
                     <span className={view !== CONTACT_TYPES.OFFICE ? 'highlight' : ''}>
-                      {aboutLabel.about.SEE_EXPERTS}
+                      {label.about.SEE_EXPERTS}
                     </span>
                   </button>
                 </div>
 
                 <div className={`offices-view ${view === CONTACT_TYPES.OFFICE ? 'active' : ''}`}>
                   <ContactMap
-                    aboutLabel={aboutLabel}
                     experts={experts}
+                    label={label}
                     locale={locale}
                     offices={offices}
                     handleContactUs={this.handleContactUs}
@@ -198,12 +199,12 @@ class ContactTemplate extends React.Component {
                   <div className="table-data">
                     <div className="table-entry">
                       <div className="table-pin" />
-                      <div className="table-details heading">{aboutLabel.about.EXPERTS}</div>
+                      <div className="table-details heading">{label.about.EXPERTS}</div>
                     </div>
                     {experts.map(eachExpert => (
                       <ContactExpert
                         key={makeid()}
-                        aboutLabel={aboutLabel}
+                        label={label}
                         expert={eachExpert}
                         handleContactUs={this.handleContactUs}
                       />
@@ -240,9 +241,7 @@ ContactTemplate.defaultProps = {
 ContactTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      aboutLabel: PropTypes.instanceOf(Object),
       experts: PropTypes.instanceOf(Array),
-      label: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),
@@ -260,13 +259,12 @@ export const query = graphql`
   query(
     $id: ID!
     $locale: [GraphCMS_Locale!]!
-    $locales: [GraphCMS_Locale!]!
-    $region: GraphCMS_Region!
+    $locales: [GraphCMS_Locale!]! # $region: GraphCMS_Region!
   ) {
     cms {
-      aboutLabel: label(locales: $locale, where: { availableIn: $region }) {
-        about
-      }
+      # aboutLabel: label(locales: $locale, where: { availableIn: $region }) {
+      #   about
+      # }
       experts(locales: $locale) {
         specialty
         name
