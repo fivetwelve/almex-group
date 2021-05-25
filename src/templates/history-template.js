@@ -10,11 +10,11 @@ import { renderLink } from '../utils/functions';
 import '../styles/history.scss';
 
 const HistoryTemplate = ({ data, pageContext }) => {
-  if (!data.cms.page.history) {
-    throw Error(
-      `Check the connection to historySource; missing localization or incorrect or publish status may also cause errors. Page ID ${pageContext.id}`,
-    );
-  }
+  // if (!data.cms.page.history) {
+  //   throw Error(
+  //     `Check the connection to historySource; missing localization or incorrect or publish status may also cause errors. Page ID ${pageContext.id}`,
+  //   );
+  // }
   const { languages, locale, localeData, region } = pageContext;
   // const { brandNavigation, headerFooter, navigation } = localeData;
   const { label } = localeData;

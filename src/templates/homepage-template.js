@@ -41,11 +41,11 @@ const HomepageTemplate = ({ data, pageContext }) => {
   }, []);
   /* end ad-hoc code */
 
-  if (!data.cms.page.homepage) {
-    throw Error(
-      `Check the connection to homepageSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
-    );
-  }
+  // if (!data.cms.page.homepage) {
+  //   throw Error(
+  //     `Check the connection to homepageSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
+  //   );
+  // }
   const { languages, locale, region, localeData } = pageContext;
   const { label } = localeData;
   // console.log(localeData);

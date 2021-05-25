@@ -9,11 +9,11 @@ import { renderLink } from '../utils/functions';
 import '../styles/promo.scss';
 
 const PromoTemplate = ({ data, pageContext }) => {
-  if (!data.cms.page.promoContent) {
-    throw Error(
-      `Check the connection to promoSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
-    );
-  }
+  // if (!data.cms.page.promoContent) {
+  //   throw Error(
+  //     `Check the connection to promoSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
+  //   );
+  // }
   const { languages, locale, localeData, region } = pageContext;
   // const { brandNavigation, headerFooter, navigation } = localeData;
   const {

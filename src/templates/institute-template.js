@@ -13,11 +13,11 @@ import '../styles/institute.scss';
 import logo from '../../static/img/logo-institute.svg';
 
 const InstituteTemplate = ({ data, pageContext }) => {
-  if (!data.cms.page.institute) {
-    throw Error(
-      `Check the connection to instituteSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
-    );
-  }
+  // if (!data.cms.page.institute) {
+  //   throw Error(
+  //     `Check the connection to instituteSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
+  //   );
+  // }
   const { languages, locale, localeData, region } = pageContext;
   const { label } = localeData;
   const {

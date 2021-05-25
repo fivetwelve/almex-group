@@ -10,11 +10,11 @@ import '../styles/careers.scss';
 import { makeid, renderLink } from '../utils/functions';
 
 const CareersTemplate = ({ data, pageContext }) => {
-  if (!data.cms.page.careers) {
-    throw Error(
-      `Check the connection to careersSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
-    );
-  }
+  // if (!data.cms.page.careers) {
+  //   throw Error(
+  //     `Check the connection to careersSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
+  //   );
+  // }
   const { languages, locale, localeData, region } = pageContext;
   const { label } = localeData;
   const {

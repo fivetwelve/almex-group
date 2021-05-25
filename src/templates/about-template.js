@@ -11,11 +11,11 @@ import '../styles/about.scss';
 import { createLink, makeid, renderLink } from '../utils/functions';
 
 const AboutTemplate = ({ data, pageContext }) => {
-  if (!data.cms.page.about) {
-    throw Error(
-      `Check the connection to aboutSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
-    );
-  }
+  // if (!data.cms.page.about) {
+  //   throw Error(
+  //     `Check the connection to aboutSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
+  //   );
+  // }
   const { languages, locale, localeData, region } = pageContext;
   const { brandNavigation, label } = localeData;
   const {

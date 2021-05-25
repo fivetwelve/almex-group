@@ -11,11 +11,11 @@ import { makeid, renderLink } from '../utils/functions';
 import '../styles/services.scss';
 
 const ServicesTemplate = ({ data, pageContext }) => {
-  if (!data.cms.page.services) {
-    throw Error(
-      `Check the connection to servicesSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
-    );
-  }
+  // if (!data.cms.page.services) {
+  //   throw Error(
+  //     `Check the connection to servicesSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
+  //   );
+  // }
   const { languages, locale, localeData, region } = pageContext;
   // const { brandNavigation, headerFooter, navigation } = localeData;
   const {

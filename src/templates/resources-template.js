@@ -57,11 +57,11 @@ class ResourcesTemplate extends Component {
 
   render() {
     const { data, pageContext } = this.props;
-    if (!data.cms.page.resources) {
-      throw Error(
-        `Check the connection to resourcesSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
-      );
-    }
+    // if (!data.cms.page.resources) {
+    //   throw Error(
+    //     `Check the connection to resourcesSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
+    //   );
+    // }
     const { languages, locale, localeData, region } = pageContext;
     const { label } = localeData;
     const {

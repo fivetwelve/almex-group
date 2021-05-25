@@ -9,11 +9,11 @@ import { renderLink } from '../utils/functions';
 import '../styles/simpleContent.scss';
 
 const SimpleContentTemplate = ({ data, pageContext }) => {
-  if (!data.cms.page.simpleContent) {
-    throw Error(
-      `Check the connection to simpleContentSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
-    );
-  }
+  // if (!data.cms.page.simpleContent) {
+  //   throw Error(
+  //     `Check the connection to simpleContentSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
+  //   );
+  // }
   const { languages, locale, localeData, region } = pageContext;
   // const { brandNavigation, headerFooter, navigation } = localeData;
   const {

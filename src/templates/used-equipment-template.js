@@ -13,11 +13,11 @@ import { makeid, matchMomentLocale, renderLink } from '../utils/functions';
 import '../styles/usedEquipment.scss';
 
 const UsedEquipmentTemplate = ({ data, pageContext }) => {
-  if (!data.cms.page.usedEquipment) {
-    throw Error(
-      `Check the connection to usedEquipmentSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
-    );
-  }
+  // if (!data.cms.page.usedEquipment) {
+  //   throw Error(
+  //     `Check the connection to usedEquipmentSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
+  //   );
+  // }
   const { languages, locale, localeData, region } = pageContext;
   // const { brandNavigation, headerFooter, navigation } = localeData;
   const { label } = localeData;

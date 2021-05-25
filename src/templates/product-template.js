@@ -15,11 +15,11 @@ import '../styles/product.scss';
 
 /* location prop is received from LinkWithPrevious's composition with Location */
 const ProductTemplate = ({ data, location, pageContext }) => {
-  if (!data.cms.page.product) {
-    throw Error(
-      `Check the connection to productSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
-    );
-  }
+  // if (!data.cms.page.product) {
+  //   throw Error(
+  //     `Check the connection to productSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
+  //   );
+  // }
   const { languages, locale, localeData, region } = pageContext;
   const { label } = localeData;
   const { common, products } = label;
