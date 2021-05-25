@@ -13,12 +13,12 @@ import ProductBrand from '../components/productBrand';
 import { makeid, renderLink } from '../utils/functions';
 
 const LandingTemplate = ({ data, pageContext }) => {
-  if (!data.cms.page.landing) {
-    console.log('data.cms', data.cms);
-    throw Error(
-      `Check the connection to landing source; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
-    );
-  }
+  // if (!data.cms.page.landing) {
+  //   console.log('data.cms', data.cms);
+  //   throw Error(
+  //     `Check the connection to landing source; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
+  //   );
+  // }
   const { languages, locale, localeData, region } = pageContext;
   const {
     cms: {
