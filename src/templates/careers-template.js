@@ -4,6 +4,7 @@ import { graphql } from 'gatsby';
 import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown';
+import gfm from 'remark-gfm';
 import Layout from '../components/layout';
 import '../styles/careers.scss';
 import { makeid, renderLink } from '../utils/functions';
@@ -56,6 +57,7 @@ const CareersTemplate = ({ data, pageContext }) => {
                   <h1 className="title">{title}</h1>
                   <div className="description">
                     <ReactMarkdown
+                      remarkPlugins={[gfm]}
                       components={{
                         link: props => renderLink(props, location),
                       }}

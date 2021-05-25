@@ -4,6 +4,7 @@ import { graphql, Link } from 'gatsby';
 import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown';
+import gfm from 'remark-gfm';
 import BrandBanner from '../components/brandBanner';
 import Layout from '../components/layout';
 import '../styles/about.scss';
@@ -55,6 +56,7 @@ const AboutTemplate = ({ data, pageContext }) => {
                   <h1 className="title">{title}</h1>
                   <div className="description">
                     <ReactMarkdown
+                      remarkPlugins={[gfm]}
                       components={{
                         link: props => renderLink(props, location),
                       }}

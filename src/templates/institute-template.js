@@ -4,6 +4,7 @@ import { graphql } from 'gatsby';
 import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown';
+import gfm from 'remark-gfm';
 import Layout from '../components/layout';
 import InstituteForm from '../components/instituteForm';
 import { makeid, renderLink } from '../utils/functions';
@@ -70,6 +71,7 @@ const InstituteTemplate = ({ data, pageContext }) => {
                       <img src={logo} alt="Almex Institute logo" />
                     </div>
                     <ReactMarkdown
+                      remarkPlugins={[gfm]}
                       components={{
                         link: props => renderLink(props, location),
                       }}
@@ -80,6 +82,7 @@ const InstituteTemplate = ({ data, pageContext }) => {
                   <div className="topics-container">
                     <div className="topics">
                       <ReactMarkdown
+                        remarkPlugins={[gfm]}
                         components={{
                           link: props => renderLink(props, location),
                         }}
@@ -105,6 +108,7 @@ const InstituteTemplate = ({ data, pageContext }) => {
                     )}
                     <div className="presentation">
                       <ReactMarkdown
+                        remarkPlugins={[gfm]}
                         components={{
                           link: props => renderLink(props, location),
                         }}
@@ -116,6 +120,7 @@ const InstituteTemplate = ({ data, pageContext }) => {
                   <div className="instructors-container">
                     <div className="instructors">
                       <ReactMarkdown
+                        remarkPlugins={[gfm]}
                         components={{
                           link: props => renderLink(props, location),
                         }}

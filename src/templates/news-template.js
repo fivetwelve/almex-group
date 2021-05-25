@@ -4,6 +4,8 @@ import { graphql } from 'gatsby';
 import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
+import gfm from 'remark-gfm';
 import moment from 'moment';
 import 'moment/locale/es';
 import Layout from '../components/layout';
@@ -73,6 +75,8 @@ const NewsTemplate = ({ data, pageContext }) => {
                   <div className="article-container">
                     <p>{moment(published[articleNum].date).format('LL')}</p>
                     <ReactMarkdown
+                      rehypePlugins={[rehypeRaw]}
+                      remarkPlugins={[gfm]}
                       components={{
                         link: props => renderLink(props, location),
                       }}

@@ -36,6 +36,17 @@ const LandingTemplate = ({ data, pageContext }) => {
       },
     },
   } = data;
+  /* availableIn_contains_some filter taken out of query so filtering here instead may help with build time */
+  const regionalLandingSections = landingSections.map(landingSection => {
+    const regionalPages = landingSection.pages.filter(page => page.availableIn.includes(region));
+    return {
+      title: landingSection.title,
+      pages: regionalPages,
+    };
+  });
+  const regionalSinglePages = singlePages.filter(singlePage =>
+    singlePage.availableIn.includes(region),
+  );
   let themeColour = '';
   let sectionIdx = 0;
 
@@ -185,8 +196,8 @@ const LandingTemplate = ({ data, pageContext }) => {
                 </div>
               </>
             )}
-            {landingSections.length > 0 &&
-              landingSections.map(landingSection => {
+            {regionalLandingSections.length > 0 &&
+              regionalLandingSections.map(landingSection => {
                 const { pages } = landingSection;
                 const sectionTitle = landingSection.title || null;
                 sectionIdx += 1;
@@ -206,8 +217,8 @@ const LandingTemplate = ({ data, pageContext }) => {
                 }
                 return null;
               })}
-            {singlePages.length > 0 && (
-              <div className="tile-container">{renderTiles(singlePages, location)}</div>
+            {regionalSinglePages.length > 0 && (
+              <div className="tile-container">{renderTiles(regionalSinglePages, location)}</div>
             )}
             {alternativeBanners.length > 0 &&
               alternativeBanners.map(alternativeBanner => {
@@ -284,16 +295,29 @@ export const query = graphql`
             landingType
             landingSections {
               title
-              pages(where: { availableIn_contains_some: $availableIn }) {
-                landingSource {
-                  title
-                }
-                productSource {
-                  title
-                }
-                servicesSource {
-                  title
-                }
+              # pages(where: { availableIn_contains_some: $availableIn }) {
+              pages {
+                availableIn
+                # contentSource {
+                #   ... on GraphCMS_LandingSource {
+                #     title
+                #   }
+                #   ... on GraphCMS_ProductSource {
+                #     title
+                #   }
+                #   ... on GraphCMS_ServicesSource {
+                #     title
+                #   }
+                # }
+                # landingSource {
+                #   title
+                # }
+                # productSource {
+                #   title
+                # }
+                # servicesSource {
+                #   title
+                # }
                 pageType
                 slug
                 tile {
@@ -302,21 +326,30 @@ export const query = graphql`
                 title
               }
             }
-            singlePages: pages(
-              # locales: $locales
-              where: { availableIn_contains_some: $availableIn }
-            ) {
+            singlePages: pages {
+              # where: { availableIn_contains_some: $availableIn } # locales: $locales
               availableIn
               id
-              landingSource {
-                title
-              }
-              productSource {
-                title
-              }
-              servicesSource {
-                title
-              }
+              # contentSource {
+              #   ... on GraphCMS_LandingSource {
+              #     title
+              #   }
+              #   ... on GraphCMS_ProductSource {
+              #     title
+              #   }
+              #   ... on GraphCMS_ServicesSource {
+              #     title
+              #   }
+              # }
+              # landingSource {
+              #   title
+              # }
+              # productSource {
+              #   title
+              # }
+              # servicesSource {
+              #   title
+              # }
               pageType
               slug
               tile {

@@ -5,6 +5,7 @@ import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
+import gfm from 'remark-gfm';
 import Layout from '../components/layout';
 import { makeid, renderLink } from '../utils/functions';
 import '../styles/services.scss';
@@ -52,6 +53,7 @@ const ServicesTemplate = ({ data, pageContext }) => {
                   <div className="description">
                     <ReactMarkdown
                       rehypePlugins={[rehypeRaw]}
+                      remarkPlugins={[gfm]}
                       components={{
                         link: props => renderLink(props, location),
                       }}

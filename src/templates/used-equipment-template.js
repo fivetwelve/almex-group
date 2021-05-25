@@ -4,6 +4,7 @@ import { graphql } from 'gatsby';
 import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown';
+import gfm from 'remark-gfm';
 import moment from 'moment';
 import 'moment/locale/es';
 import Layout from '../components/layout';
@@ -56,6 +57,7 @@ const UsedEquipmentTemplate = ({ data, pageContext }) => {
               </div>
               <div className="description">
                 <ReactMarkdown
+                  remarkPlugins={[gfm]}
                   components={{
                     link: props => renderLink(props, location),
                   }}

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import ReactMarkdown from 'react-markdown';
+import gfm from 'remark-gfm';
 import Layout from '../components/layout';
 import LinkWithPrevious from '../components/linkWithPrevious';
 import ProductShowcase from '../components/productShowcase';
@@ -49,6 +50,13 @@ const ProductTemplate = ({ data, location, pageContext }) => {
       },
     },
   } = data;
+  /* availableIn_contains_some filter taken out of query so filtering here instead may help with build time */
+  const regionalAccessories = accessories.filter(
+    accessory => accessory.availableIn && accessory.availableIn.includes(region),
+  );
+  const regionalRelatedItems = relatedItems.filter(
+    item => item.availableIn && item.availableIn.includes(region),
+  );
   const advantagesImageStyle = advantagesImage
     ? {
         backgroundImage: `url(${advantagesImage.url})`,
@@ -158,6 +166,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               <div className={`product-advantages ${themeColour}`}>
                 <div className="advantages-text">
                   <ReactMarkdown
+                    remarkPlugins={[gfm]}
                     components={{
                       link: props => renderLink(props, location),
                     }}
@@ -181,6 +190,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
                   <div className={`product-features ${themeColour}`}>
                     <h4>{products.FEATURES}</h4>
                     <ReactMarkdown
+                      remarkPlugins={[gfm]}
                       components={{
                         link: props => renderLink(props, location),
                       }}
@@ -193,6 +203,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
                   <div className={`product-info ${themeColour}`}>
                     <h4>{products.PROD_INFO}</h4>
                     <ReactMarkdown
+                      remarkPlugins={[gfm]}
                       components={{
                         link: props => renderLink(props, location),
                       }}
@@ -211,6 +222,7 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               </div>
               <div className={`product-specs ${themeColour}`}>
                 <ReactMarkdown
+                  remarkPlugins={[gfm]}
                   components={{
                     link: props => renderLink(props, location),
                   }}
@@ -257,13 +269,13 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               <AddOn options={addOns} label={products} themeColour={themeColour} />
             </>
           )}
-          {accessories.length > 0 && (
+          {regionalAccessories.length > 0 && (
             <>
               <div className={`title-container ${themeColour}`}>
                 <div className="section-title">{products.ACCESSORIES}</div>
               </div>
               <div className="product-accessories">
-                {accessories.map((accessory, idx) => {
+                {regionalAccessories.map((accessory, idx) => {
                   if (idx < 5) {
                     return (
                       <AccessoryAndRelatedTile
@@ -280,13 +292,13 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               </div>
             </>
           )}
-          {relatedItems.length > 0 && (
+          {regionalRelatedItems.length > 0 && (
             <>
               <div className={`title-container ${themeColour}`}>
                 <div className="section-title">{products.RELATED_ITEMS}</div>
               </div>
               <div className="product-related-items">
-                {relatedItems.map((relatedItem, idx) => {
+                {regionalRelatedItems.map((relatedItem, idx) => {
                   if (idx < 5) {
                     return (
                       <AccessoryAndRelatedTile
@@ -344,9 +356,7 @@ export const query = graphql`
   query(
     $id: ID!
     # $locale: [GraphCMS_Locale!]!
-    $locales: [GraphCMS_Locale!]!
-    # $region: GraphCMS_Region
-    $availableIn: [GraphCMS_Region!]
+    $locales: [GraphCMS_Locale!]! # $region: GraphCMS_Region # $availableIn: [GraphCMS_Region!]
   ) {
     cms {
       # label(locales: $locale, where: { availableIn: $region }) {
@@ -396,14 +406,18 @@ export const query = graphql`
               availableIn
             }
             attractText
-            accessories(where: { availableIn_contains_some: $availableIn }) {
+            # accessories(where: { availableIn_contains_some: $availableIn }) {
+            accessories {
+              availableIn
               slug
               tile {
                 url
               }
               title
             }
-            relatedItems(where: { availableIn_contains_some: $availableIn }) {
+            # relatedItems(where: { availableIn_contains_some: $availableIn }) {
+            relatedItems {
+              availableIn
               slug
               tile {
                 url
