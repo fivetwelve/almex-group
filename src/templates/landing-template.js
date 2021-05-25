@@ -14,6 +14,7 @@ import { makeid, renderLink } from '../utils/functions';
 
 const LandingTemplate = ({ data, pageContext }) => {
   if (!data.cms.page.landing) {
+    console.log('data.cms', data.cms);
     throw Error(
       `Check the connection to landing source; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
     );
@@ -245,7 +246,7 @@ LandingTemplate.defaultProps = {
 LandingTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      label: PropTypes.instanceOf(Object),
+      // label: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),
