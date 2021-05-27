@@ -95,14 +95,16 @@ export const query = graphql`
   ) {
     cms {
       page(locales: $locales, where: { id: $id }) {
-        simpleContent: simpleContentSource {
-          bannerImage {
-            handle
-            width
-            height
+        simpleContent: contentSource {
+          ... on simpleContentSource {
+            bannerImage {
+              handle
+              width
+              height
+            }
+            content
+            title
           }
-          content
-          title
         }
       }
     }
