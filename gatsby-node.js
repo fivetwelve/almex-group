@@ -183,8 +183,10 @@ exports.createPages = async ({ graphql, actions }) => {
   `);
 
   const queryData = [await globalQuery, await pageQuery];
-  const { brandNavigations, headerFooters, labels, navigations } = queryData[0].data.cms;
-  const { pages, siteRegions } = queryData[1].data.cms;
+  const queryGlobalData = queryData.filter(res => res.data.cms.pages === undefined);
+  const queryPageData = queryData.filter(res => res.data.cms.pages !== undefined);
+  const { brandNavigations, headerFooters, labels, navigations } = queryGlobalData[0].data.cms;
+  const { pages, siteRegions } = queryPageData[0].data.cms;
   const allRegionData = [];
 
   siteRegions.forEach(thisRegion => {
