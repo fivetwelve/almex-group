@@ -96,7 +96,7 @@ export const query = graphql`
     cms {
       page(locales: $locales, where: { id: $id }) {
         simpleContent: contentSource {
-          ... on simpleContentSource {
+          ... on GraphCMS_SimpleContentSource {
             bannerImage {
               handle
               width
