@@ -1,4 +1,5 @@
-import fetch from 'node-fetch';
+// import fetch from 'node-fetch';
+import fetch from 'isomorphic-fetch';
 import 'dotenv/config';
 
 const ipapiKey = process.env.IPAPI_APIKEY_PRIVATE;

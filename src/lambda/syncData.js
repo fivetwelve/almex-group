@@ -1,4 +1,5 @@
-import fetch from 'node-fetch';
+// import fetch from 'node-fetch';
+import fetch from 'isomorphic-fetch';
 import algoliasearch from 'algoliasearch';
 import 'dotenv/config';
 import { PAGE_TYPES, SOURCE_TYPE_NAMES, SOURCE_TYPES } from '../constants';
