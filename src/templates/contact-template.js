@@ -256,15 +256,8 @@ ContactTemplate.propTypes = {
 };
 
 export const query = graphql`
-  query(
-    $id: ID!
-    $locale: [GraphCMS_Locale!]!
-    $locales: [GraphCMS_Locale!]! # $region: GraphCMS_Region!
-  ) {
+  query($id: ID!, $locale: [GraphCMS_Locale!]!, $locales: [GraphCMS_Locale!]!) {
     cms {
-      # aboutLabel: label(locales: $locale, where: { availableIn: $region }) {
-      #   about
-      # }
       experts(locales: $locale) {
         specialty
         name
@@ -293,8 +286,7 @@ export const query = graphql`
             countries
             # 2-letter format of this office's country
             countryCode
-            # Not a typo, same list of supported countries in 2-letter format
-            countryCodes
+            supportedCountryCodes: countryCodes
             description
             email
             fax

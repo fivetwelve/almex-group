@@ -23,7 +23,7 @@ const LandingTemplate = ({ data, pageContext }) => {
   const {
     cms: {
       page: {
-        landing: {
+        contentSource: {
           bannerImage,
           alternativeBanners,
           brand,
@@ -83,15 +83,11 @@ const LandingTemplate = ({ data, pageContext }) => {
     pages.forEach(page => {
       /* Use page titles by default. This allows some flexibility if there needs to be a shorter title than what is stored in source. */
       const pageTitle = page.title;
-      // const pageAvailableIn = page.availableIn;
-      // const pageRegion = page.region;
       const tileData = {
         slug: page.slug,
         tile: page.tile,
         title: pageTitle,
       };
-      // console.log('avail:', pageAvailableIn);
-      // console.log('region:', region);
       const landingTile = (
         <LandingTile data={tileData} key={makeid()} location={location} themeColour={themeColour} />
       );
@@ -104,13 +100,9 @@ const LandingTemplate = ({ data, pageContext }) => {
   return (
     <Layout
       activeLanguage={locale}
-      // brandNavigation={brandNavigation}
       childrenClass="landing-page"
-      // headerFooter={headerFooter}
-      // label={label}
       languages={languages}
       localeData={localeData}
-      // navigation={navigation}
       region={region}
       title={title}
     >
@@ -246,7 +238,6 @@ LandingTemplate.defaultProps = {
 LandingTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      // label: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),
@@ -261,16 +252,11 @@ LandingTemplate.propTypes = {
 };
 
 export const query = graphql`
-  query(
-    $id: ID!
-    # $locale: [GraphCMS_Locale!]!
-    $locales: [GraphCMS_Locale!]!
-    # $region: GraphCMS_Region
-    $availableIn: [GraphCMS_Region!]
-  ) {
+  query($id: ID!, $locales: [GraphCMS_Locale!]!, $availableIn: [GraphCMS_Region!]) {
     cms {
       page(locales: $locales, where: { id: $id }) {
-        landing: contentSource {
+        contentSource {
+          sourceType: __typename
           ... on GraphCMS_LandingSource {
             bannerImage {
               handle
@@ -299,6 +285,7 @@ export const query = graphql`
               # pages(where: { availableIn_contains_some: $availableIn }) {
               pages {
                 availableIn
+
                 # contentSource {
                 #   ... on GraphCMS_LandingSource {
                 #     title
@@ -319,7 +306,9 @@ export const query = graphql`
                 # servicesSource {
                 #   title
                 # }
-                pageType
+                contentSource {
+                  sourceType: __typename
+                }
                 slug
                 tile {
                   url
@@ -351,7 +340,9 @@ export const query = graphql`
               # servicesSource {
               #   title
               # }
-              pageType
+              contentSource {
+                sourceType: __typename
+              }
               slug
               tile {
                 url

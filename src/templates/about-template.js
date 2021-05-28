@@ -20,10 +20,8 @@ const AboutTemplate = ({ data, pageContext }) => {
   const { brandNavigation, label } = localeData;
   const {
     cms: {
-      // label,
-      // label,
       page: {
-        about: { aboutUsLinks, bannerImage, title, description, helpfulResources },
+        contentSource: { aboutUsLinks, bannerImage, title, description, helpfulResources },
       },
     },
   } = data;
@@ -106,8 +104,6 @@ AboutTemplate.defaultProps = {
 AboutTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      // label: PropTypes.instanceOf(Object),
-      // label: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),
@@ -121,17 +117,11 @@ AboutTemplate.propTypes = {
   }),
 };
 export const query = graphql`
-  query(
-    $id: ID!
-    # $locale: [GraphCMS_Locale!]!
-    $locales: [GraphCMS_Locale!]! # $region: GraphCMS_Region!
-  ) {
+  query($id: ID!, $locales: [GraphCMS_Locale!]!) {
     cms {
-      # label: label(locales: $locale, where: { availableIn: $region }) {
-      #   about
-      # }
       page(locales: $locales, where: { id: $id }) {
-        about: contentSource {
+        contentSource {
+          sourceType: __typename
           ... on GraphCMS_AboutSource {
             bannerImage {
               handle
@@ -142,12 +132,16 @@ export const query = graphql`
             description
             helpfulResources {
               slug
-              pageType
+              contentSource {
+                sourceType: __typename
+              }
               title
             }
             aboutUsLinks {
               slug
-              pageType
+              contentSource {
+                sourceType: __typename
+              }
               title
             }
           }

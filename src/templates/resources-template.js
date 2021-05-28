@@ -76,13 +76,9 @@ class ResourcesTemplate extends Component {
     return (
       <Layout
         activeLanguage={locale}
-        // brandNavigation={brandNavigation}
         childrenClass="resources-page"
-        // headerFooter={headerFooter}
-        // label={label}
         languages={languages}
         localeData={localeData}
-        // navigation={navigation}
         region={region}
         title={title}
       >
@@ -217,16 +213,8 @@ ResourcesTemplate.propTypes = {
 };
 
 export const query = graphql`
-  query(
-    $id: ID!
-    # $locale: [GraphCMS_Locale!]!
-    # $region: GraphCMS_Region!
-    $locales: [GraphCMS_Locale!]!
-  ) {
+  query($id: ID!, $locales: [GraphCMS_Locale!]!) {
     cms {
-      # resourcesLabel: label(locales: $locale, where: { availableIn: $region }) {
-      #   resources
-      # }
       page(locales: $locales, where: { id: $id }) {
         resources: resourcesSource {
           bannerImage {

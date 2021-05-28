@@ -2,7 +2,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import { Link } from 'gatsby';
 import { createLink } from '../utils/functions';
-import { BRANDS, PAGE_TYPES } from '../constants';
+import { BRANDS, SOURCE_TYPE_NAMES } from '../constants';
 
 const BrandBanner = ({ brands, location }) => (
   <div className="brands-container">
@@ -10,14 +10,14 @@ const BrandBanner = ({ brands, location }) => (
       {brands.map(brand => {
         let brandType = '';
         let productBrand = '';
-        switch (brand.pageType) {
-          case PAGE_TYPES.INSTITUTE:
+        switch (brand.contentSource.sourceType) {
+          case SOURCE_TYPE_NAMES.INSTITUTE:
             brandType = brand.institute;
             break;
-          case PAGE_TYPES.LANDING:
+          case SOURCE_TYPE_NAMES.LANDING:
             brandType = brand.landing;
             break;
-          case PAGE_TYPES.SERVICES:
+          case SOURCE_TYPE_NAMES.SERVICES:
             brandType = brand.services;
             break;
           default:

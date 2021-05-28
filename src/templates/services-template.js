@@ -17,10 +17,8 @@ const ServicesTemplate = ({ data, pageContext }) => {
   //   );
   // }
   const { languages, locale, localeData, region } = pageContext;
-  // const { brandNavigation, headerFooter, navigation } = localeData;
   const {
     cms: {
-      // label,
       page: {
         services: { bannerImage, description, sideContent, title },
       },
@@ -107,11 +105,7 @@ ServicesTemplate.propTypes = {
 };
 
 export const query = graphql`
-  query(
-    $id: ID!
-    # $locale: [GraphCMS_Locale!]!
-    $locales: [GraphCMS_Locale!]!
-  ) {
+  query($id: ID!, $locales: [GraphCMS_Locale!]!) {
     cms {
       page(locales: $locales, where: { id: $id }) {
         services: servicesSource {

@@ -50,7 +50,7 @@ class Footer extends React.Component {
       data: { cms },
     } = this.props;
     cms.offices.forEach(office => {
-      const theseCountries = office.countryCodes.countries;
+      const theseCountries = office.supportedCountryCodes.countries;
       if (theseCountries.includes(region)) {
         regionOffices.push(office);
       }
@@ -329,7 +329,7 @@ export default props => (
             tollFree
             email
             contactPerson
-            countryCodes
+            supportedCountryCodes: countryCodes
           }
         }
       }

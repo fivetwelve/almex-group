@@ -1,5 +1,5 @@
 const path = require('path');
-const { PAGE_TYPES, LANGUAGE_SLUGS, REGION_SLUGS } = require('./src/constants');
+const { LANGUAGE_SLUGS, REGION_SLUGS, SOURCE_TYPE_NAMES } = require('./src/constants');
 
 /* Switch off type inference for SitePage.context
    https://www.gatsbyjs.com/docs/scaling-issues/ */
@@ -98,7 +98,6 @@ exports.createPages = async ({ graphql, actions }) => {
             }
             pages {
               id
-              pageType
               availableIn
               localizations(includeCurrent: true) {
                 locale
@@ -106,6 +105,7 @@ exports.createPages = async ({ graphql, actions }) => {
                 title
               }
               contentSource {
+                sourceType: __typename
                 ... on GraphCMS_AboutSource {
                   sourceId: id
                 }
@@ -167,7 +167,9 @@ exports.createPages = async ({ graphql, actions }) => {
         pages(first: 1000) {
           id
           availableIn
-          pageType
+          contentSource {
+            sourceType: __typename
+          }
 
           localizations(includeCurrent: true) {
             locale
@@ -290,268 +292,271 @@ exports.createPages = async ({ graphql, actions }) => {
   });
 
   siteRegions.forEach(({ region, languages }) => {
-    // if (region === 'NORTH_AMERICA') {
-    /* Search page */
-    languages.forEach(language => {
-      const localeData = allRegionData.filter(
-        data => data.region === region && data.language === language,
-      )[0];
-      createPage({
-        path: `${REGION_SLUGS[region]}/${LANGUAGE_SLUGS[language]}/search`,
-        component: path.resolve(`./src/templates/search-template.js`),
-        context: {
-          locale: language,
-          localeData,
-          // locales: language === 'EN' ? [language] : [language, 'EN'],
-          region,
-        },
-      });
-    });
-    pages.forEach(page => {
-      const { id, availableIn, pageType, localizations } = page;
-      /* ensure Page is available for this region */
-      if (availableIn.includes(region)) {
-        languages.forEach(language => {
-          const localeData = allRegionData.filter(
-            data => data.region === region && data.language === language,
-          )[0];
-
-          localizations.forEach(localization => {
-            const { locale } = localization;
-            const locales = locale === 'EN' ? [locale] : [locale, 'EN'];
-            if (locale === language) {
-              const pagePath =
-                pageType !== PAGE_TYPES.HOMEPAGE
-                  ? `${REGION_SLUGS[region]}/${LANGUAGE_SLUGS[language]}/${localization.slug}`
-                  : `${REGION_SLUGS[region]}/${LANGUAGE_SLUGS[language]}`;
-
-              switch (pageType) {
-                case PAGE_TYPES.ABOUT:
-                  createPage({
-                    path: pagePath,
-                    component: path.resolve(`./src/templates/about-template.js`),
-                    context: {
-                      id,
-                      languages,
-                      locale,
-                      localeData,
-                      locales,
-                      region,
-                    },
-                  });
-                  break;
-                case PAGE_TYPES.CAREERS:
-                  createPage({
-                    path: pagePath,
-                    component: path.resolve(`./src/templates/careers-template.js`),
-                    context: {
-                      id,
-                      languages,
-                      locale,
-                      localeData,
-                      locales,
-                      region,
-                    },
-                  });
-                  break;
-                case PAGE_TYPES.CONTACT:
-                  createPage({
-                    path: pagePath,
-                    component: path.resolve(`./src/templates/contact-template.js`),
-                    context: {
-                      id,
-                      languages,
-                      locale,
-                      localeData,
-                      locales,
-                      region,
-                    },
-                  });
-                  break;
-                case PAGE_TYPES.EVENTS:
-                  createPage({
-                    path: pagePath,
-                    component: path.resolve(`./src/templates/events-template.js`),
-                    context: {
-                      id,
-                      languages,
-                      locale,
-                      localeData,
-                      locales,
-                      region,
-                    },
-                  });
-                  break;
-                case PAGE_TYPES.HISTORY:
-                  createPage({
-                    path: pagePath,
-                    component: path.resolve(`./src/templates/history-template.js`),
-                    context: {
-                      id,
-                      languages,
-                      locale,
-                      localeData,
-                      locales,
-                      region,
-                    },
-                  });
-                  break;
-                case PAGE_TYPES.HOMEPAGE:
-                  createPage({
-                    path: pagePath,
-                    component: path.resolve(`./src/templates/homepage-template.js`),
-                    context: {
-                      id,
-                      languages,
-                      locale,
-                      localeData,
-                      locales,
-                      page: 'index',
-                      region,
-                    },
-                  });
-                  break;
-                case PAGE_TYPES.INSTITUTE:
-                  /* also used by training pages */
-                  createPage({
-                    path: pagePath,
-                    component: path.resolve(`./src/templates/institute-template.js`),
-                    context: {
-                      id,
-                      languages,
-                      locale,
-                      localeData,
-                      locales,
-                      region,
-                    },
-                  });
-                  break;
-                case PAGE_TYPES.LANDING:
-                  createPage({
-                    path: pagePath,
-                    component: path.resolve(`./src/templates/landing-template.js`),
-                    context: {
-                      id,
-                      languages,
-                      locale,
-                      localeData,
-                      locales,
-                      region,
-                      availableIn: region,
-                    },
-                  });
-                  break;
-                case PAGE_TYPES.NEWS:
-                  /* also used by Safety Alerts & Certifications */
-                  createPage({
-                    path: pagePath,
-                    component: path.resolve(`./src/templates/news-template.js`),
-                    context: {
-                      id,
-                      languages,
-                      locale,
-                      localeData,
-                      locales,
-                      region,
-                    },
-                  });
-                  break;
-                case PAGE_TYPES.PRODUCT:
-                  createPage({
-                    path: pagePath,
-                    component: path.resolve(`./src/templates/product-template.js`),
-                    context: {
-                      // contentId: contentSource.sourceId,
-                      id,
-                      languages,
-                      locale,
-                      localeData,
-                      locales,
-                      region,
-                      availableIn: region,
-                    },
-                  });
-                  break;
-                case PAGE_TYPES.PROMO:
-                  createPage({
-                    path: pagePath,
-                    component: path.resolve(`./src/templates/promo-template.js`),
-                    context: {
-                      id,
-                      languages,
-                      locale,
-                      localeData,
-                      locales,
-                      region,
-                    },
-                  });
-                  break;
-                case PAGE_TYPES.RESOURCES:
-                  createPage({
-                    path: pagePath,
-                    component: path.resolve(`./src/templates/resources-template.js`),
-                    context: {
-                      id,
-                      languages,
-                      locale,
-                      localeData,
-                      locales,
-                      region,
-                    },
-                  });
-                  break;
-                case PAGE_TYPES.SERVICES:
-                  createPage({
-                    path: pagePath,
-                    component: path.resolve(`./src/templates/services-template.js`),
-                    context: {
-                      id,
-                      languages,
-                      locale,
-                      localeData,
-                      locales,
-                      region,
-                    },
-                  });
-                  break;
-                case PAGE_TYPES.SIMPLE:
-                  createPage({
-                    path: pagePath,
-                    component: path.resolve(`./src/templates/simple-content-template.js`),
-                    context: {
-                      id,
-                      languages,
-                      locale,
-                      localeData,
-                      locales,
-                      region,
-                    },
-                  });
-                  break;
-                case PAGE_TYPES.USED:
-                  /* pass `locale` to be used with moment function */
-                  createPage({
-                    path: pagePath,
-                    component: path.resolve(`./src/templates/used-equipment-template.js`),
-                    context: {
-                      id,
-                      languages,
-                      locale,
-                      localeData,
-                      locales,
-                      region,
-                    },
-                  });
-                  break;
-                default:
-                  break;
-              }
-            }
-          });
+    /* comment-in the next line to test a smaller dataset */
+    if (region === 'NORTH_AMERICA') {
+      /* Search page */
+      languages.forEach(language => {
+        const localeData = allRegionData.filter(
+          data => data.region === region && data.language === language,
+        )[0];
+        createPage({
+          path: `${REGION_SLUGS[region]}/${LANGUAGE_SLUGS[language]}/search`,
+          component: path.resolve(`./src/templates/search-template.js`),
+          context: {
+            locale: language,
+            localeData,
+            // locales: language === 'EN' ? [language] : [language, 'EN'],
+            region,
+          },
         });
-      }
-    });
-    // }
+      });
+      pages.forEach(page => {
+        const { id, availableIn, contentSource, localizations } = page;
+        const { sourceType } = contentSource;
+        /* ensure Page is available for this region */
+        if (availableIn.includes(region)) {
+          languages.forEach(language => {
+            const localeData = allRegionData.filter(
+              data => data.region === region && data.language === language,
+            )[0];
+
+            localizations.forEach(localization => {
+              const { locale } = localization;
+              const locales = locale === 'EN' ? [locale] : [locale, 'EN'];
+              if (locale === language) {
+                const pagePath =
+                  sourceType !== SOURCE_TYPE_NAMES.HOMEPAGE
+                    ? `${REGION_SLUGS[region]}/${LANGUAGE_SLUGS[language]}/${localization.slug}`
+                    : `${REGION_SLUGS[region]}/${LANGUAGE_SLUGS[language]}`;
+
+                switch (sourceType) {
+                  case SOURCE_TYPE_NAMES.ABOUT:
+                    createPage({
+                      path: pagePath,
+                      component: path.resolve(`./src/templates/about-template.js`),
+                      context: {
+                        id,
+                        languages,
+                        locale,
+                        localeData,
+                        locales,
+                        region,
+                      },
+                    });
+                    break;
+                  case SOURCE_TYPE_NAMES.CAREERS:
+                    createPage({
+                      path: pagePath,
+                      component: path.resolve(`./src/templates/careers-template.js`),
+                      context: {
+                        id,
+                        languages,
+                        locale,
+                        localeData,
+                        locales,
+                        region,
+                      },
+                    });
+                    break;
+                  case SOURCE_TYPE_NAMES.CONTACT:
+                    createPage({
+                      path: pagePath,
+                      component: path.resolve(`./src/templates/contact-template.js`),
+                      context: {
+                        id,
+                        languages,
+                        locale,
+                        localeData,
+                        locales,
+                        region,
+                      },
+                    });
+                    break;
+                  case SOURCE_TYPE_NAMES.EVENTS:
+                    createPage({
+                      path: pagePath,
+                      component: path.resolve(`./src/templates/events-template.js`),
+                      context: {
+                        id,
+                        languages,
+                        locale,
+                        localeData,
+                        locales,
+                        region,
+                      },
+                    });
+                    break;
+                  case SOURCE_TYPE_NAMES.HISTORY:
+                    createPage({
+                      path: pagePath,
+                      component: path.resolve(`./src/templates/history-template.js`),
+                      context: {
+                        id,
+                        languages,
+                        locale,
+                        localeData,
+                        locales,
+                        region,
+                      },
+                    });
+                    break;
+                  case SOURCE_TYPE_NAMES.HOMEPAGE:
+                    createPage({
+                      path: pagePath,
+                      component: path.resolve(`./src/templates/homepage-template.js`),
+                      context: {
+                        id,
+                        languages,
+                        locale,
+                        localeData,
+                        locales,
+                        page: 'index',
+                        region,
+                      },
+                    });
+                    break;
+                  case SOURCE_TYPE_NAMES.INSTITUTE:
+                    /* also used by training pages */
+                    createPage({
+                      path: pagePath,
+                      component: path.resolve(`./src/templates/institute-template.js`),
+                      context: {
+                        id,
+                        languages,
+                        locale,
+                        localeData,
+                        locales,
+                        region,
+                      },
+                    });
+                    break;
+                  case SOURCE_TYPE_NAMES.LANDING:
+                    createPage({
+                      path: pagePath,
+                      component: path.resolve(`./src/templates/landing-template.js`),
+                      context: {
+                        id,
+                        languages,
+                        locale,
+                        localeData,
+                        locales,
+                        region,
+                        availableIn: region,
+                      },
+                    });
+                    break;
+                  case SOURCE_TYPE_NAMES.NEWS:
+                    /* also used by Safety Alerts & Certifications */
+                    createPage({
+                      path: pagePath,
+                      component: path.resolve(`./src/templates/news-template.js`),
+                      context: {
+                        id,
+                        languages,
+                        locale,
+                        localeData,
+                        locales,
+                        region,
+                      },
+                    });
+                    break;
+                  case SOURCE_TYPE_NAMES.PRODUCT:
+                    createPage({
+                      path: pagePath,
+                      component: path.resolve(`./src/templates/product-template.js`),
+                      context: {
+                        // contentId: contentSource.sourceId,
+                        id,
+                        languages,
+                        locale,
+                        localeData,
+                        locales,
+                        region,
+                        availableIn: region,
+                      },
+                    });
+                    break;
+                  case SOURCE_TYPE_NAMES.PROMO:
+                    createPage({
+                      path: pagePath,
+                      component: path.resolve(`./src/templates/promo-template.js`),
+                      context: {
+                        id,
+                        languages,
+                        locale,
+                        localeData,
+                        locales,
+                        region,
+                      },
+                    });
+                    break;
+                  case SOURCE_TYPE_NAMES.RESOURCES:
+                    createPage({
+                      path: pagePath,
+                      component: path.resolve(`./src/templates/resources-template.js`),
+                      context: {
+                        id,
+                        languages,
+                        locale,
+                        localeData,
+                        locales,
+                        region,
+                      },
+                    });
+                    break;
+                  case SOURCE_TYPE_NAMES.SERVICES:
+                    createPage({
+                      path: pagePath,
+                      component: path.resolve(`./src/templates/services-template.js`),
+                      context: {
+                        id,
+                        languages,
+                        locale,
+                        localeData,
+                        locales,
+                        region,
+                      },
+                    });
+                    break;
+                  case SOURCE_TYPE_NAMES.SIMPLE:
+                    createPage({
+                      path: pagePath,
+                      component: path.resolve(`./src/templates/simple-content-template.js`),
+                      context: {
+                        id,
+                        languages,
+                        locale,
+                        localeData,
+                        locales,
+                        region,
+                      },
+                    });
+                    break;
+                  case SOURCE_TYPE_NAMES.USED:
+                    /* pass `locale` to be used with moment function */
+                    createPage({
+                      path: pagePath,
+                      component: path.resolve(`./src/templates/used-equipment-template.js`),
+                      context: {
+                        id,
+                        languages,
+                        locale,
+                        localeData,
+                        locales,
+                        region,
+                      },
+                    });
+                    break;
+                  default:
+                    break;
+                }
+              }
+            });
+          });
+        }
+      });
+      /* comment-in the next line to test a smaller dataset */
+    }
   });
 
   if (queryData[0].errors) {

@@ -41,31 +41,31 @@ const HomepageTemplate = ({ data, pageContext }) => {
   }, []);
   /* end ad-hoc code */
 
-  // if (!data.cms.page.homepage) {
+  // if (!data.cms.page.contentSource) {
   //   throw Error(
   //     `Check the connection to homepageSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
   //   );
   // }
   const { languages, locale, region, localeData } = pageContext;
   const { label } = localeData;
-  // console.log(localeData);
-  const {
-    cms: {
-      page: { homepage },
-    },
-  } = data;
+  // const {
+  //   cms: {
+  //     page: { contentSource },
+  //   },
+  // } = data;
+  const { contentSource } = data.cms.page;
 
   let slideNum = 0;
   const eventStyle1 = {
-    backgroundImage: `url(${homepage.homepageEventTiles[0].image.url})`,
+    backgroundImage: `url(${contentSource.homepageEventTiles[0].image.url})`,
   };
   const eventStyle2 = {
-    backgroundImage: `url(${homepage.homepageEventTiles[1].image.url})`,
+    backgroundImage: `url(${contentSource.homepageEventTiles[1].image.url})`,
   };
   const eventStyle3 = {
-    backgroundImage: `url(${homepage.homepageEventTiles[2].image.url})`,
+    backgroundImage: `url(${contentSource.homepageEventTiles[2].image.url})`,
   };
-  const slides = homepage.homepageCarouselSlides;
+  const slides = contentSource.homepageCarouselSlides;
   const options = {
     autoplay: true,
     autoplayInterval: 20000,
@@ -182,12 +182,8 @@ const HomepageTemplate = ({ data, pageContext }) => {
   return (
     <Layout
       activeLanguage={locale}
-      // brandNavigation={brandNavigation}
       childrenClass="homepage"
-      // headerFooter={headerFooter}
-      // label={label}
       languages={languages}
-      // navigation={navigation}
       localeData={localeData}
       region={region}
       title=""
@@ -229,14 +225,14 @@ const HomepageTemplate = ({ data, pageContext }) => {
             </div>
             <div className="no-bleed-container">
               <div className="tile-container">
-                {homepage.homepageTiles.length > 0 &&
-                  homepage.homepageTiles.map(tile => (
+                {contentSource.homepageTiles.length > 0 &&
+                  contentSource.homepageTiles.map(tile => (
                     <HomePageTile data={tile} label={label} location={location} key={makeid()} />
                   ))}
               </div>
               <div className="heading2-container">
                 <div className="heading2">
-                  <ReactMarkdown>{homepage.heading[1]}</ReactMarkdown>
+                  <ReactMarkdown>{contentSource.heading[1]}</ReactMarkdown>
                 </div>
               </div>
               <div className="event-container">
@@ -244,7 +240,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
                   <div className="content-container">
                     <div className="event-background" style={eventStyle1} />
                     <div className="title">
-                      <ReactMarkdown>{homepage.homepageEventTiles[0].title}</ReactMarkdown>
+                      <ReactMarkdown>{contentSource.homepageEventTiles[0].title}</ReactMarkdown>
                     </div>
                     <div className="description">
                       <ReactMarkdown
@@ -252,10 +248,10 @@ const HomepageTemplate = ({ data, pageContext }) => {
                           link: props => renderLink(props, location),
                         }}
                       >
-                        {homepage.homepageEventTiles[0].description}
+                        {contentSource.homepageEventTiles[0].description}
                       </ReactMarkdown>
                     </div>
-                    {eventLink(homepage.homepageEventTiles[0], location)}
+                    {eventLink(contentSource.homepageEventTiles[0], location)}
                     <div className="event-overlay-blue" />
                   </div>
                 </div>
@@ -264,7 +260,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
                     <div className="event-background" style={eventStyle2} />
                     <div className="event-overlay-gold" />
                     <div className="title">
-                      <ReactMarkdown>{homepage.homepageEventTiles[1].title}</ReactMarkdown>
+                      <ReactMarkdown>{contentSource.homepageEventTiles[1].title}</ReactMarkdown>
                     </div>
                     <div className="description">
                       <ReactMarkdown
@@ -272,17 +268,17 @@ const HomepageTemplate = ({ data, pageContext }) => {
                           link: props => renderLink(props, location),
                         }}
                       >
-                        {homepage.homepageEventTiles[1].description}
+                        {contentSource.homepageEventTiles[1].description}
                       </ReactMarkdown>
                     </div>
-                    {eventLink(homepage.homepageEventTiles[1], location)}
+                    {eventLink(contentSource.homepageEventTiles[1], location)}
                   </div>
                 </div>
                 <div className="event3" style={eventStyle3}>
                   <div className="content-container">
                     <div className="event-overlay-blue" />
                     <div className="title">
-                      <ReactMarkdown>{homepage.homepageEventTiles[2].title}</ReactMarkdown>
+                      <ReactMarkdown>{contentSource.homepageEventTiles[2].title}</ReactMarkdown>
                     </div>
                     <div className="description">
                       <ReactMarkdown
@@ -290,10 +286,10 @@ const HomepageTemplate = ({ data, pageContext }) => {
                           link: props => renderLink(props, location),
                         }}
                       >
-                        {homepage.homepageEventTiles[2].description}
+                        {contentSource.homepageEventTiles[2].description}
                       </ReactMarkdown>
                     </div>
-                    {eventLink(homepage.homepageEventTiles[2], location)}
+                    {eventLink(contentSource.homepageEventTiles[2], location)}
                   </div>
                 </div>
               </div>
@@ -334,42 +330,45 @@ export const query = graphql`
   ) {
     cms {
       page(locales: $locales, where: { id: $id }) {
-        homepage: homepageSource {
-          heading
-          homepageCarouselSlides {
-            geoRestrict
-            asset {
-              url
-            }
-            page {
-              slug
-            }
-            slideHeading
-            slideText
-            slideType
-          }
-          homepageEventTiles {
-            title
-            description
-            image {
-              url
-            }
-            page {
-              slug
-            }
-            externalLink
-          }
-          homepageTiles {
-            description
-            image {
-              url
-            }
-            title
-            page {
-              tile {
+        contentSource {
+          sourceType: __typename
+          ... on GraphCMS_HomepageSource {
+            heading
+            homepageCarouselSlides {
+              geoRestrict
+              asset {
                 url
               }
-              slug
+              page {
+                slug
+              }
+              slideHeading
+              slideText
+              slideType
+            }
+            homepageEventTiles {
+              title
+              description
+              image {
+                url
+              }
+              page {
+                slug
+              }
+              externalLink
+            }
+            homepageTiles {
+              description
+              image {
+                url
+              }
+              title
+              page {
+                tile {
+                  url
+                }
+                slug
+              }
             }
           }
         }

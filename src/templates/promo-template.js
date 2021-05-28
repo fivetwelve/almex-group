@@ -9,18 +9,16 @@ import { renderLink } from '../utils/functions';
 import '../styles/promo.scss';
 
 const PromoTemplate = ({ data, pageContext }) => {
-  // if (!data.cms.page.promoContent) {
+  // if (!data.cms.page.contentSource) {
   //   throw Error(
   //     `Check the connection to promoSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
   //   );
   // }
   const { languages, locale, localeData, region } = pageContext;
-  // const { brandNavigation, headerFooter, navigation } = localeData;
   const {
     cms: {
-      // label,
       page: {
-        promoContent: { bannerImage, marketing, title },
+        contentSource: { bannerImage, marketing, title },
       },
     },
   } = data;
@@ -75,7 +73,6 @@ PromoTemplate.defaultProps = {
 PromoTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.instanceOf(Object),
-    // id: PropTypes.string,
   }),
   pageContext: PropTypes.shape({
     id: PropTypes.string,
@@ -88,21 +85,20 @@ PromoTemplate.propTypes = {
 };
 
 export const query = graphql`
-  query(
-    $id: ID!
-    # $locale: [GraphCMS_Locale!]!
-    $locales: [GraphCMS_Locale!]!
-  ) {
+  query($id: ID!, $locales: [GraphCMS_Locale!]!) {
     cms {
       page(locales: $locales, where: { id: $id }) {
-        promoContent: promoSource {
-          bannerImage {
-            handle
-            width
-            height
+        contentSource {
+          sourceType: __typename
+          ... on GraphCMS_PromoSource {
+            bannerImage {
+              handle
+              width
+              height
+            }
+            marketing
+            title
           }
-          marketing
-          title
         }
       }
     }

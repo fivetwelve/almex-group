@@ -23,33 +23,56 @@ const ProductTemplate = ({ data, location, pageContext }) => {
   const { languages, locale, localeData, region } = pageContext;
   const { label } = localeData;
   const { common, products } = label;
+  // console.log('data');
+  // console.log(data);
   const {
-    cms: {
-      page: {
-        product: {
-          brand,
-          theme,
-          title,
-          images,
-          youTubeVideos,
-          attractText,
-          pdfDownloads,
-          marketing,
-          advantages,
-          advantagesImage,
-          features,
-          productInfo,
-          specs,
-          caseStudies,
-          configurations,
-          addOns,
-          accessories,
-          relatedItems,
-          visitResourcesForMore,
-        },
-      },
-    },
-  } = data;
+    brand,
+    theme,
+    title,
+    images,
+    youTubeVideos,
+    attractText,
+    pdfDownloads,
+    marketing,
+    advantages,
+    advantagesImage,
+    features,
+    productInfo,
+    specs,
+    caseStudies,
+    configurations,
+    addOns,
+    accessories,
+    relatedItems,
+    visitResourcesForMore,
+  } = data.cms.page.contentSource;
+  // const {
+  //   cms: {
+  //     page: {
+  //       contentSource: {
+  //         brand,
+  //         theme,
+  //         title,
+  //         images,
+  //         youTubeVideos,
+  //         attractText,
+  //         pdfDownloads,
+  //         marketing,
+  //         advantages,
+  //         advantagesImage,
+  //         features,
+  //         productInfo,
+  //         specs,
+  //         caseStudies,
+  //         configurations,
+  //         addOns,
+  //         accessories,
+  //         relatedItems,
+  //         visitResourcesForMore,
+  //       },
+  //     },
+  //   },
+  // } = data;
   /* availableIn_contains_some filter taken out of query so filtering here instead may help with build time */
   const regionalAccessories = accessories.filter(
     accessory => accessory.availableIn && accessory.availableIn.includes(region),
@@ -106,14 +129,10 @@ const ProductTemplate = ({ data, location, pageContext }) => {
   return (
     <Layout
       activeLanguage={locale}
-      // brandNavigation={brandNavigation}
       childrenClass="product-page"
-      // headerFooter={headerFooter}
-      // label={label}
       languages={languages}
       locale={locale}
       localeData={localeData}
-      // navigation={navigation}
       region={region}
       title={title}
     >
@@ -332,7 +351,6 @@ ProductTemplate.defaultProps = {
 ProductTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      // label: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),
@@ -353,21 +371,11 @@ ProductTemplate.propTypes = {
 };
 
 export const query = graphql`
-  query(
-    $id: ID!
-    # $locale: [GraphCMS_Locale!]!
-    $locales: [GraphCMS_Locale!]! # $region: GraphCMS_Region # $availableIn: [GraphCMS_Region!]
-  ) {
+  query($id: ID!, $locales: [GraphCMS_Locale!]!) {
     cms {
-      # label(locales: $locale, where: { availableIn: $region }) {
-      #   products
-      #   resourcesLink {
-      #     slug
-      #   }
-      # }
       page(locales: $locales, where: { id: $id }) {
-        pageType
-        product: contentSource {
+        contentSource {
+          sourceType: __typename
           ... on GraphCMS_ProductSource {
             brand
             theme
@@ -406,7 +414,6 @@ export const query = graphql`
               availableIn
             }
             attractText
-            # accessories(where: { availableIn_contains_some: $availableIn }) {
             accessories {
               availableIn
               slug
@@ -415,7 +422,6 @@ export const query = graphql`
               }
               title
             }
-            # relatedItems(where: { availableIn_contains_some: $availableIn }) {
             relatedItems {
               availableIn
               slug

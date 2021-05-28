@@ -181,8 +181,6 @@ CareersTemplate.defaultProps = {
 CareersTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      // aboutLabel: PropTypes.instanceOf(Object),
-      // label: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),
@@ -197,16 +195,8 @@ CareersTemplate.propTypes = {
 };
 
 export const query = graphql`
-  query(
-    $id: ID!
-    # $locale: [GraphCMS_Locale!]!
-    # $region: GraphCMS_Region!
-    $locales: [GraphCMS_Locale!]!
-  ) {
+  query($id: ID!, $locales: [GraphCMS_Locale!]!) {
     cms {
-      # aboutLabel: label(locales: $locale, where: { availableIn: $region }) {
-      #   about
-      # }
       page(locales: $locales, where: { id: $id }) {
         careers: careersSource {
           bannerImage {

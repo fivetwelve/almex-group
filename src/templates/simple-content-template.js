@@ -9,18 +9,16 @@ import { renderLink } from '../utils/functions';
 import '../styles/simpleContent.scss';
 
 const SimpleContentTemplate = ({ data, pageContext }) => {
-  // if (!data.cms.page.simpleContent) {
+  // if (!data.cms.page.contentSource) {
   //   throw Error(
   //     `Check the connection to simpleContentSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
   //   );
   // }
   const { languages, locale, localeData, region } = pageContext;
-  // const { brandNavigation, headerFooter, navigation } = localeData;
   const {
     cms: {
-      // label,
       page: {
-        simpleContent: { bannerImage, content, title },
+        contentSource: { bannerImage, content, title },
       },
     },
   } = data;
@@ -75,7 +73,6 @@ SimpleContentTemplate.defaultProps = {
 SimpleContentTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.instanceOf(Object),
-    // id: PropTypes.string,
   }),
   pageContext: PropTypes.shape({
     id: PropTypes.string,
@@ -88,14 +85,11 @@ SimpleContentTemplate.propTypes = {
 };
 
 export const query = graphql`
-  query(
-    $id: ID!
-    # $locale: [GraphCMS_Locale!]!
-    $locales: [GraphCMS_Locale!]!
-  ) {
+  query($id: ID!, $locales: [GraphCMS_Locale!]!) {
     cms {
       page(locales: $locales, where: { id: $id }) {
-        simpleContent: contentSource {
+        contentSource {
+          sourceType: __typename
           ... on GraphCMS_SimpleContentSource {
             bannerImage {
               handle

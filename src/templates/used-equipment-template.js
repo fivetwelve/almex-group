@@ -13,19 +13,17 @@ import { makeid, matchMomentLocale, renderLink } from '../utils/functions';
 import '../styles/usedEquipment.scss';
 
 const UsedEquipmentTemplate = ({ data, pageContext }) => {
-  // if (!data.cms.page.usedEquipment) {
+  // if (!data.cms.page.contentSource) {
   //   throw Error(
   //     `Check the connection to usedEquipmentSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
   //   );
   // }
   const { languages, locale, localeData, region } = pageContext;
-  // const { brandNavigation, headerFooter, navigation } = localeData;
   const { label } = localeData;
   const {
     cms: {
-      // label,
       page: {
-        usedEquipment: { bannerImage, description, disclaimer, title, usedEquipmentListings },
+        contentSource: { bannerImage, description, disclaimer, title, usedEquipmentListings },
       },
     },
   } = data;
@@ -88,7 +86,6 @@ UsedEquipmentTemplate.defaultProps = {
 UsedEquipmentTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      // label: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),
@@ -109,35 +106,30 @@ UsedEquipmentTemplate.propTypes = {
 };
 
 export const query = graphql`
-  query(
-    $id: ID!
-    # $locale: [GraphCMS_Locale!]!
-    # $region: GraphCMS_Region!
-    $locales: [GraphCMS_Locale!]!
-  ) {
+  query($id: ID!, $locales: [GraphCMS_Locale!]!) {
     cms {
-      # label(locales: $locale, where: { availableIn: $region }) {
-      #   sparesRepairs
-      # }
       page(locales: $locales, where: { id: $id }) {
-        usedEquipment: usedEquipmentSource {
-          bannerImage {
-            handle
-            width
-            height
-          }
-          description
-          disclaimer
-          title
-          usedEquipmentListings {
-            date
-            equipmentStatus
+        contentSource {
+          ... on GraphCMS_UsedEquipmentSource {
+            sourceType: __typename
+            bannerImage {
+              handle
+              width
+              height
+            }
+            description
+            disclaimer
             title
-            modelNumber
-            contactInformation
-            equipmentDescription
-            images {
-              url
+            usedEquipmentListings {
+              date
+              equipmentStatus
+              title
+              modelNumber
+              contactInformation
+              equipmentDescription
+              images {
+                url
+              }
             }
           }
         }

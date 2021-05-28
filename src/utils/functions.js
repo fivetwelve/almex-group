@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import fetch from 'isomorphic-fetch';
-import { PAGE_TYPES } from '../constants';
+import { SOURCE_TYPE_NAMES } from '../constants';
 
 const apiUrl = () => {
   if (typeof window !== 'undefined') {
@@ -59,47 +59,47 @@ const getTitle = page => {
     simply from page object when query is already language-filtered.
   */
   let title = '';
-  switch (page.pageType) {
-    case PAGE_TYPES.ABOUT:
+  switch (page.contentSource.sourceType) {
+    case SOURCE_TYPE_NAMES.ABOUT:
       title = (page.about && page.about.title) || '';
       break;
-    case PAGE_TYPES.CAREERS:
+    case SOURCE_TYPE_NAMES.CAREERS:
       title = (page.careers && page.careers.title) || '';
       break;
-    case PAGE_TYPES.CONTACT:
+    case SOURCE_TYPE_NAMES.CONTACT:
       title = (page.contact && page.contact.title) || '';
       break;
-    case PAGE_TYPES.EVENTS:
+    case SOURCE_TYPE_NAMES.EVENTS:
       title = (page.events && page.events.title) || '';
       break;
-    case PAGE_TYPES.HISTORY:
+    case SOURCE_TYPE_NAMES.HISTORY:
       title = (page.history && page.history.title) || '';
       break;
-    case PAGE_TYPES.INSTITUTE:
+    case SOURCE_TYPE_NAMES.INSTITUTE:
       title = (page.institute && page.institute.title) || '';
       break;
-    case PAGE_TYPES.LANDING:
+    case SOURCE_TYPE_NAMES.LANDING:
       title = (page.landing && page.landing.title) || '';
       break;
-    case PAGE_TYPES.NEWS:
+    case SOURCE_TYPE_NAMES.NEWS:
       title = (page.news && page.news.title) || '';
       break;
-    case PAGE_TYPES.PRODUCT:
+    case SOURCE_TYPE_NAMES.PRODUCT:
       title = (page.product && page.product.title) || '';
       break;
-    case PAGE_TYPES.PROMO:
+    case SOURCE_TYPE_NAMES.PROMO:
       title = (page.promo && page.promo.title) || '';
       break;
-    case PAGE_TYPES.RESOURCES:
+    case SOURCE_TYPE_NAMES.RESOURCES:
       title = (page.resources && page.resources.title) || '';
       break;
-    case PAGE_TYPES.SERVICES:
+    case SOURCE_TYPE_NAMES.SERVICES:
       title = (page.services && page.services.title) || '';
       break;
-    case PAGE_TYPES.SIMPLE:
+    case SOURCE_TYPE_NAMES.SIMPLE:
       title = (page.simpleContent && page.simpleContent.title) || '';
       break;
-    case PAGE_TYPES.USED:
+    case SOURCE_TYPE_NAMES.USED:
       title = (page.usedEquipment && page.usedEquipment.title) || '';
       break;
     default:
@@ -258,7 +258,7 @@ const hoursPassed = (dt1, dt2, gap) => {
 const mapToOffice = (countryCode, offices) => {
   let supportOffice = null;
   for (let i = 0; i < offices.length; i += 1) {
-    if (offices[i].countryCodes.countries.includes(countryCode)) {
+    if (offices[i].supportedCountryCodes.countries.includes(countryCode)) {
       supportOffice = countryCode;
       break;
     }

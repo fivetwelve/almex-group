@@ -19,7 +19,7 @@ const NewsTemplate = ({ data, pageContext }) => {
   const {
     cms: {
       page: {
-        news: { articles, bannerImage, description, title },
+        contentSource: { articles, bannerImage, description, title },
       },
     },
   } = data;
@@ -174,14 +174,11 @@ NewsTemplate.propTypes = {
 };
 
 export const query = graphql`
-  query(
-    $id: ID!
-    # $locale: [GraphCMS_Locale!]!
-    $locales: [GraphCMS_Locale!]!
-  ) {
+  query($id: ID!, $locales: [GraphCMS_Locale!]!) {
     cms {
       page(locales: $locales, where: { id: $id }) {
-        news: contentSource {
+        contentSource {
+          sourceType: __typename
           ... on GraphCMS_NewsSource {
             bannerImage {
               handle

@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
 import { createLinkFromPage, makeid } from '../utils/functions';
-// import { createLinkFromPage, getTitle, makeid } from '../utils/functions';
 import CloseButton from './closeButton';
 
 const NavigationDropdown = props => {
@@ -22,6 +21,8 @@ const NavigationDropdown = props => {
      also avoids future redundant getTitle calls. */
   /* Use getTitle here because we want the menu to use the source
      title and not page title which could vary for mktg purposes. */
+  /* May 2021 update: Switching this to page.title for purpose of
+     improving query performance */
 
   // section.pages.forEach(page => {
   //   Object.defineProperty(page, 'title', {

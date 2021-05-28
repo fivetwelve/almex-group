@@ -11,8 +11,6 @@ import spinner from '../../static/img/spinner.gif';
 const GET_CATEGORY = gql`
   query($id: ID, $locale: [Locale!]!) {
     productSources(first: 1000, locales: $locale, where: { category: { id: $id } }) {
-      # query($id: ID) {
-      #   productSources(first: 1000, locales: [ES], where: { category: { id: $id } }) {
       id
       title
       youTubeVideos {

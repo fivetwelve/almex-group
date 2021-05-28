@@ -40,7 +40,7 @@ class EventsTemplate extends Component {
   constructor(props) {
     super(props);
     /* need to simplify date from GraphCMS by ignoring its timezone */
-    const { events } = props.data.cms.page.eventsSource;
+    const { events } = props.data.cms.page.contentSource;
     const { locale } = props.pageContext;
     const parsedEvents = [];
     // console.log('events', events);
@@ -171,9 +171,9 @@ class EventsTemplate extends Component {
 
   render() {
     const { data, pageContext } = this.props;
-    // if (!data.cms.page.eventsSource) {
+    // if (!data.cms.page.contentSource) {
     //   throw Error(
-    //     `Check the connection to eventsSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
+    //     `Check the connection to contentSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
     //   );
     // }
     const { languages, locale, localeData, region } = pageContext;
@@ -181,7 +181,7 @@ class EventsTemplate extends Component {
     const {
       cms: {
         page: {
-          eventsSource: { bannerImage, title, description },
+          contentSource: { bannerImage, title, description },
         },
       },
     } = data;
@@ -334,14 +334,11 @@ EventsTemplate.propTypes = {
 };
 
 export const query = graphql`
-  query(
-    $id: ID!
-    # $locale: [GraphCMS_Locale!]!
-    $locales: [GraphCMS_Locale!]! # $region: GraphCMS_Region!
-  ) {
+  query($id: ID!, $locales: [GraphCMS_Locale!]!) {
     cms {
       page(locales: $locales, where: { id: $id }) {
-        eventsSource: contentSource {
+        contentSource {
+          sourceType: __typename
           ... on GraphCMS_EventsSource {
             bannerImage {
               handle

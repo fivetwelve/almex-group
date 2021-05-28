@@ -16,11 +16,9 @@ const HistoryTemplate = ({ data, pageContext }) => {
   //   );
   // }
   const { languages, locale, localeData, region } = pageContext;
-  // const { brandNavigation, headerFooter, navigation } = localeData;
   const { label } = localeData;
   const {
     cms: {
-      // label,
       page: {
         history: { bannerImage, title, description, events },
       },
@@ -81,7 +79,6 @@ HistoryTemplate.defaultProps = {
 HistoryTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      // label: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),
@@ -96,36 +93,32 @@ HistoryTemplate.propTypes = {
 };
 
 export const query = graphql`
-  query(
-    $id: ID!
-    # $locale: [GraphCMS_Locale!]!
-    $locales: [GraphCMS_Locale!]! # $region: GraphCMS_Region!
-  ) {
+  query($id: ID!, $locales: [GraphCMS_Locale!]!) {
     cms {
-      # aboutLabel: label(locales: $locale, where: { availableIn: $region }) {
-      #   about
-      # }
       page(locales: $locales, where: { id: $id }) {
-        history: historySource {
-          bannerImage {
-            handle
-            width
-            height
-          }
-          title
-          description
-          events: historicalEvents {
-            almexEvent
-            captions
-            sortDate
-            displayDate
-            eventTitle: title
-            description
-            images {
+        history: contentSource {
+          sourceType: __typename
+          ... on GraphCMS_HistorySource {
+            bannerImage {
               handle
-              height
               width
-              url
+              height
+            }
+            title
+            description
+            events: historicalEvents {
+              almexEvent
+              captions
+              sortDate
+              displayDate
+              eventTitle: title
+              description
+              images {
+                handle
+                height
+                width
+                url
+              }
             }
           }
         }

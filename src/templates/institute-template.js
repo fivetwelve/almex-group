@@ -9,6 +9,7 @@ import Layout from '../components/layout';
 import InstituteForm from '../components/instituteForm';
 import { makeid, renderLink } from '../utils/functions';
 import '../styles/institute.scss';
+// import dump from '../utils/dump';
 
 import logo from '../../static/img/logo-institute.svg';
 
@@ -18,6 +19,8 @@ const InstituteTemplate = ({ data, pageContext }) => {
   //     `Check the connection to instituteSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
   //   );
   // }
+  // console.log('data');
+  // console.log(data);
   const { languages, locale, localeData, region } = pageContext;
   const { label } = localeData;
   const {
@@ -153,6 +156,7 @@ const InstituteTemplate = ({ data, pageContext }) => {
                     </div>
                   )}
                 </div>
+
                 <aside className="aside-container">
                   <div className="institute-logo">
                     <img src={logo} alt="Almex Institute logo" />
@@ -215,14 +219,11 @@ InstituteTemplate.propTypes = {
 };
 
 export const query = graphql`
-  query(
-    $id: ID!
-    # $locale: [GraphCMS_Locale!]!
-    $locales: [GraphCMS_Locale!]!
-  ) {
+  query($id: ID!, $locales: [GraphCMS_Locale!]!) {
     cms {
       page(locales: $locales, where: { id: $id }) {
         institute: contentSource {
+          sourceType: __typename
           ... on GraphCMS_InstituteSource {
             bannerImage {
               handle
