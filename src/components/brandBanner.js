@@ -2,28 +2,29 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import { Link } from 'gatsby';
 import { createLink } from '../utils/functions';
-import { BRANDS, SOURCE_TYPE_NAMES } from '../constants';
+import { BRANDS } from '../constants';
 
 const BrandBanner = ({ brands, location }) => (
   <div className="brands-container">
     <div className="brands">
       {brands.map(brand => {
-        let brandType = '';
+        // let brandType = '';
         let productBrand = '';
-        switch (brand.contentSource.sourceType) {
-          case SOURCE_TYPE_NAMES.INSTITUTE:
-            brandType = brand.institute;
-            break;
-          case SOURCE_TYPE_NAMES.LANDING:
-            brandType = brand.landing;
-            break;
-          case SOURCE_TYPE_NAMES.SERVICES:
-            brandType = brand.services;
-            break;
-          default:
-            break;
-        }
-        switch (brandType.brand) {
+        // console.log(brand);
+        // switch (brand.sourceType) {
+        //   case SOURCE_TYPE_SIMPLE_NAMES.INSTITUTE:
+        //     brandType = brand.institute;
+        //     break;
+        //   case SOURCE_TYPE_SIMPLE_NAMES.LANDING:
+        //     brandType = brand.landing;
+        //     break;
+        //   case SOURCE_TYPE_SIMPLE_NAMES.SERVICES:
+        //     brandType = brand.services;
+        //     break;
+        //   default:
+        //     break;
+        // }
+        switch (brand.brand) {
           case BRANDS.ALMEX_IN_A_BOX:
             productBrand = 'almex-box';
             break;
@@ -57,7 +58,7 @@ const BrandBanner = ({ brands, location }) => (
         return (
           <div className={`brand ${productBrand}`} key={brand.slug}>
             <Link to={createLink(location, brand.slug)}>
-              <span className="sr-only">{brandType.title}</span>
+              <span className="sr-only">{brand.title}</span>
             </Link>
           </div>
         );
