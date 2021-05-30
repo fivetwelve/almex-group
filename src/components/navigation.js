@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
 import { IconContext } from 'react-icons';
@@ -55,9 +55,6 @@ const Navigation = props => {
 
   checkKeyPress('Escape', () => {
     handleMenuItem('');
-    useEffect(() => {
-      handleMenuItem('');
-    }, [openSection]);
   });
 
   /* Brand menu below is for mobile. Desktop brand menu is BrandSelector in Header */

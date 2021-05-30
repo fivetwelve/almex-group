@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet-async';
 import { Waypoint } from 'react-waypoint';
 import { Location } from '@reach/router';
+import { SkipNavLink, SkipNavContent } from '@reach/skip-nav';
 import { IconContext } from 'react-icons';
 import { FaAngleUp } from 'react-icons/fa';
 import Header from './header';
 import Footer from './footer';
 // import { LocationProvider } from '../utils/locationContext';
 import { scrollTo } from '../utils/functions';
+import '@reach/skip-nav/styles.css';
 import '../styles/layout.scss';
 
 class Layout extends React.Component {
@@ -26,17 +28,7 @@ class Layout extends React.Component {
     };
   }
 
-  // componentDidMount() {
-  //   document.body.addEventListener('keyup', function(e) {
-  //     if (e.which === 9) /* tab */ {
-  //       document.documentElement.classList.remove('no-focus-outline');
-  //     }
-  //   });
-  // }
-
   componentDidMount() {
-    // document.body.classList.add('no-focus-outline');
-    // root.addEventListener('click', this.handleKeyUp);
     let posY = 0;
     if (window.innerHeight) {
       const windowHeight = window.innerHeight;
@@ -52,17 +44,6 @@ class Layout extends React.Component {
       this.waypoint.current.style.top = `${posY}px`;
     }
   }
-
-  handleKeyUp = () => {
-    // evt.preventDefault();
-    /* check for Tab */
-    // log.info(`target: ${evt.which}`);
-    // log.info('clicked!');
-    // if (evt.which === 9) {
-    //   this.bodyRef.current.classList.remove('no-focus-outline');
-    // }
-    // console.log(`target: ${evt.target}`);
-  };
 
   showMobileBG = () => {
     this.mobileMenuBg.current.classList.toggle('is-open');
@@ -90,21 +71,16 @@ class Layout extends React.Component {
   render() {
     const {
       activeLanguage,
-      // brandNavigation,
       children,
       childrenClass,
-      // headerFooter,
-      // label,
       languages,
       localeData,
-      // navigation,
       region,
       title,
     } = this.props;
     const { brandNavigation, headerFooter, label, navigation } = localeData;
     const { scrollToTopEnabled } = this.state;
     const lang = activeLanguage.toLowerCase();
-
     return (
       <>
         <Helmet defaultTitle="Almex Group" titleTemplate="Almex Group | %s">
@@ -141,21 +117,9 @@ class Layout extends React.Component {
           <script src="https://cdn.polyfill.io/v3/polyfill.min.js?flags=gated" />
           <script src="https://www.youtube.com/iframe_api" />
 
-          <body
-            className="no-focus-outline"
-            ref={this.bodyRef}
-            // onKeyUp={evt => {
-            //   this.checkForTabbing(evt);
-            // }}
-            role="presentation"
-          />
+          <body className="no-focus-outline" ref={this.bodyRef} role="presentation" />
         </Helmet>
-        <div
-          className="siteContainer"
-          ref={this.siteContainer}
-          // onKeyUp={evt => log.info(evt.target)}
-          role="presentation"
-        >
+        <div className="siteContainer" ref={this.siteContainer} role="presentation">
           <div className="pageContainer" ref={this.pageRef} id="top">
             <div className="waypoint-container" ref={this.waypoint}>
               {scrollToTopEnabled && (
@@ -185,6 +149,7 @@ class Layout extends React.Component {
                   <>
                     <div className="mobile-menu-bg" ref={this.mobileMenuBg} />
                     <div className="mobile-shroud" ref={this.mobileShroud} />
+                    <SkipNavLink>{label.common.SKIP_MAIN}</SkipNavLink>
                     <Header
                       activeLanguage={activeLanguage}
                       brandNavigation={brandNavigation}
@@ -196,6 +161,7 @@ class Layout extends React.Component {
                       location={location}
                       showMobileBG={this.showMobileBG}
                     />
+                    <SkipNavContent />
                     <main>
                       <div className="bodyClass">
                         {/* TODO address visitorRegion or remove if not needed */}
@@ -228,24 +194,13 @@ Layout.defaultProps = {
   activeLanguage: '',
   children: {},
   childrenClass: '',
-  // brandNavigation: {},
-  // headerFooter: {},
-  // label: {
-  //   common: {
-  //     META_DESCRIPTION: '',
-  //     META_TITLE: '',
-  //   },
-  // },
   languages: [],
-  // navigation: {},
-  // brandNavigation: {},
-  // headerFooter: {},
-  // navigation: {},
   localeData: {
     label: {
       common: {
         META_DESCRIPTION: '',
         META_TITLE: '',
+        SKIP_MAIN: '',
       },
     },
   },
@@ -257,22 +212,7 @@ Layout.propTypes = {
   activeLanguage: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   childrenClass: PropTypes.string,
-  // brandNavigation: PropTypes.shape({
-  //   pages: PropTypes.instanceOf(Array),
-  // }),
-  // headerFooter: PropTypes.shape({
-  //   companyAddress: PropTypes.string,
-  //   companyEmail: PropTypes.string,
-  //   companyPhone: PropTypes.string,
-  //   footerLinks: PropTypes.instanceOf(Object),
-  //   socialMedia: PropTypes.instanceOf(Array),
-  // }),
   languages: PropTypes.arrayOf(PropTypes.string),
-  // label: PropTypes.shape({
-  //   header: PropTypes.instanceOf(Object),
-  //   footer: PropTypes.instanceOf(Object),
-  //   common: PropTypes.instanceOf(Object),
-  // }),
   localeData: PropTypes.shape({
     brandNavigation: PropTypes.instanceOf(Object),
     headerFooter: PropTypes.instanceOf(Object),
@@ -281,9 +221,6 @@ Layout.propTypes = {
     navigation: PropTypes.instanceOf(Object),
     region: PropTypes.string,
   }),
-  // navigation: PropTypes.shape({
-  //   navigationSections: PropTypes.instanceOf(Array),
-  // }),
   region: PropTypes.string,
   title: PropTypes.string,
 };

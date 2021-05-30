@@ -7,24 +7,9 @@ import { BRANDS } from '../constants';
 const BrandBanner = ({ brands, location }) => (
   <div className="brands-container">
     <div className="brands">
-      {brands.map(brand => {
-        // let brandType = '';
+      {brands.map(eachBrand => {
         let productBrand = '';
-        // console.log(brand);
-        // switch (brand.sourceType) {
-        //   case SOURCE_TYPE_SIMPLE_NAMES.INSTITUTE:
-        //     brandType = brand.institute;
-        //     break;
-        //   case SOURCE_TYPE_SIMPLE_NAMES.LANDING:
-        //     brandType = brand.landing;
-        //     break;
-        //   case SOURCE_TYPE_SIMPLE_NAMES.SERVICES:
-        //     brandType = brand.services;
-        //     break;
-        //   default:
-        //     break;
-        // }
-        switch (brand.brand) {
+        switch (eachBrand.brand) {
           case BRANDS.ALMEX_IN_A_BOX:
             productBrand = 'almex-box';
             break;
@@ -56,9 +41,9 @@ const BrandBanner = ({ brands, location }) => (
             break;
         }
         return (
-          <div className={`brand ${productBrand}`} key={brand.slug}>
-            <Link to={createLink(location, brand.slug)}>
-              <span className="sr-only">{brand.title}</span>
+          <div className={`brand ${productBrand}`} key={eachBrand.slug}>
+            <Link to={createLink(location, eachBrand.slug)}>
+              <span className="sr-only">{eachBrand.title}</span>
             </Link>
           </div>
         );

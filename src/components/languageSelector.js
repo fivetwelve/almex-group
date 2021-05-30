@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'gatsby';
 import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
@@ -13,17 +13,11 @@ const LanguageSelector = props => {
 
   const handleClickDropDown = evt => {
     evt.preventDefault();
-    // handleMenuState(!openMenu);
-    useEffect(() => {
-      handleMenuState(!openMenu);
-    }, [openMenu]);
+    handleMenuState(!openMenu);
   };
 
   checkKeyPress('Escape', () => {
-    // handleMenuState(false);
-    useEffect(() => {
-      handleMenuState(false);
-    }, [openMenu]);
+    handleMenuState(false);
   });
 
   return (
