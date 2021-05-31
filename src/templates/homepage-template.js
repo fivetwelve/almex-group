@@ -48,11 +48,6 @@ const HomepageTemplate = ({ data, pageContext }) => {
   // }
   const { languages, locale, region, localeData } = pageContext;
   const { label } = localeData;
-  // const {
-  //   cms: {
-  //     page: { contentSource },
-  //   },
-  // } = data;
   const { contentSource } = data.cms.page;
 
   let slideNum = 0;

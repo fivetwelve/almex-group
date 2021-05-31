@@ -67,8 +67,6 @@ class Footer extends React.Component {
     try {
       getIPapiJson()
         .then(json => {
-          // console.log('json');
-          // console.log(json);
           if (navigator.cookieEnabled) {
             localStorage.setItem('almexVisitorRegion', json.message.country_code);
             localStorage.setItem('almexLastVisit', nowString);
@@ -76,7 +74,6 @@ class Footer extends React.Component {
           this.getOffices(json.message.country_code);
         })
         .catch(() => {
-          // console.log(error);
           if (navigator.cookieEnabled) {
             localStorage.setItem('almexVisitorRegion', 'ALL');
             localStorage.setItem('almexLastVisit', nowString);
@@ -84,7 +81,6 @@ class Footer extends React.Component {
           this.getOffices('ALL');
         });
     } catch (error) {
-      // console.log('last catch');
       console.log(error);
     }
   };
@@ -140,7 +136,6 @@ class Footer extends React.Component {
   };
 
   renderBrands = (brand, location) => {
-    // let brandType = '';
     let productBrand = '';
     switch (brand.brand) {
       case BRANDS.ALMEX_IN_A_BOX:
