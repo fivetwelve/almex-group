@@ -32,7 +32,7 @@ module.exports = {
     );
   },
   flags: {
-    /* v--- addresses https://stackoverflow.com/questions/66083723/prop-aria-current-did-not-match-server-null-client-page */
+    /* DEV_SSR addresses https://stackoverflow.com/questions/66083723/prop-aria-current-did-not-match-server-null-client-page */
     DEV_SSR: false,
     FAST_DEV: true,
     // PRESERVE_WEBPACK_CACHE: true,

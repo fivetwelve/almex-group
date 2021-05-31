@@ -44,12 +44,16 @@ class ContactTemplate extends React.Component {
     // 3rd party api to get country code from visitor's IP address
     getIPapiJson()
       .then(json => {
+        console.log('json');
+        console.log(json);
         const visitorRegion = mapToOffice(json.message.country_code, offices);
         this.setState({
           visitorRegion,
         });
       })
-      .catch(() => {
+      .catch(error => {
+        console.log('error');
+        console.log(error);
         this.setState({
           visitorRegion: null,
         });

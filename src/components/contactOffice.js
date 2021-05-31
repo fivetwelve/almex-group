@@ -23,7 +23,7 @@ const ContactOffice = props => {
     telephone,
     tollFree,
   } = office;
-
+  console.log(visitorRegion);
   return (
     <div className="table-entry">
       <div className="table-pin">

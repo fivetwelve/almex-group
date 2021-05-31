@@ -81,7 +81,7 @@ class Footer extends React.Component {
           this.getOffices('ALL');
         });
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 

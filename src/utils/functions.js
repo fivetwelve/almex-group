@@ -256,14 +256,15 @@ const hoursPassed = (dt1, dt2, gap) => {
  * @return {String}
  */
 const mapToOffice = (countryCode, offices) => {
-  let supportOffice = null;
-  for (let i = 0; i < offices.length; i += 1) {
-    if (offices[i].supportedCountryCodes.countries.includes(countryCode)) {
-      supportOffice = countryCode;
-      break;
-    }
-  }
-  return supportOffice;
+  // let supportOffice = null;
+  // for (let i = 0; i < offices.length; i += 1) {
+  //   if (offices[i].supportedCountryCodes.countries.includes(countryCode)) {
+  //     supportOffice = countryCode;
+  //     break;
+  //   }
+  // }
+  // return supportOffice;
+  return offices.filter(office => office.supportedCountryCodes.countries.includes(countryCode));
 };
 
 const matchMomentLocale = locale => {
