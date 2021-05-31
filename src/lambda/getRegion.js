@@ -59,8 +59,11 @@ exports.handler = async (event, context) => {
   //   'https://ipapi.co/100.95.205.137/json?key=BLRECfgA94TXYoSTuB0iz7mdRHkIBYqwJQ8UKC7BpKKZoldhST';
 
   try {
+    /* Typically the header used ought to be `client-id` but Netlify uses
+       `x-nf-client-connection-ip`; other providers may use their own variant as well */
+
     const response = await fetch(
-      `https://ipapi.co/${event.headers['client-ip']}/json/?key=${ipapiKey}`,
+      `https://ipapi.co/${event.headers['x-nf-client-connection-ip']}/json/?key=${ipapiKey}`,
       // ipUrl,
       {
         headers: {
