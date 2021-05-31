@@ -20,7 +20,8 @@ class Footer extends React.Component {
   componentDidMount() {
     if (typeof window !== 'undefined') {
       const thisRegion =
-        (navigator.cookieEnabled && localStorage.getItem('almexVisitorRegion')) || null;
+        // (navigator.cookieEnabled && localStorage.getItem('almexVisitorRegion')) || null;
+        null;
       if (!thisRegion) {
         this.getRegion();
       } else {
@@ -63,21 +64,30 @@ class Footer extends React.Component {
 
   getRegion = () => {
     const nowString = new Date().toString();
-    getIPapiJson()
-      .then(json => {
-        if (navigator.cookieEnabled) {
-          localStorage.setItem('almexVisitorRegion', json.country);
-          localStorage.setItem('almexLastVisit', nowString);
-        }
-        this.getOffices(json.country);
-      })
-      .catch(() => {
-        if (navigator.cookieEnabled) {
-          localStorage.setItem('almexVisitorRegion', 'ALL');
-          localStorage.setItem('almexLastVisit', nowString);
-        }
-        this.getOffices('ALL');
-      });
+    try {
+      getIPapiJson()
+        .then(json => {
+          console.log('json');
+          console.log(json);
+          if (navigator.cookieEnabled) {
+            localStorage.setItem('almexVisitorRegion', json.country);
+            localStorage.setItem('almexLastVisit', nowString);
+          }
+          this.getOffices(json.country);
+        })
+        .catch(error => {
+          console.log('error');
+          console.log(error);
+          if (navigator.cookieEnabled) {
+            localStorage.setItem('almexVisitorRegion', 'ALL');
+            localStorage.setItem('almexLastVisit', nowString);
+          }
+          this.getOffices('ALL');
+        });
+    } catch (error) {
+      console.log('last catch');
+      console.log(error);
+    }
   };
 
   renderOffice = office => (

@@ -398,22 +398,45 @@ const scrollTo = (to, callback, duration) => {
   animateScroll();
 };
 
-const getIPapiJson = () => {
-  const params = {};
-  return new Promise((resolve, reject) => {
-    fetch(`${apiUrl()}/getRegion`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...params }),
-    })
-      .then(result => result.json())
-      .then(json => {
-        resolve(json);
-      })
-      .catch(err => {
-        reject(err);
-      });
+const getIPapiJson = async () => {
+  // const params = {};
+  // return new Promise((resolve, reject) => {
+  //   fetch(`${apiUrl()}/getRegion`, {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify({ ...params }),
+  //   })
+  //     .then(result => {
+  //       console.log('result');
+  //       console.log(result);
+  //       return result.json();
+  //     })
+  //     .then(json => {
+  //       console.log('resolving...');
+  //       console.log(json);
+  //       resolve(json);
+  //     })
+  //     .catch(err => {
+  //       reject(err);
+  //     });
+  // });
+
+  const response = await fetch(`${apiUrl()}/getRegion`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    // body: JSON.stringify({ ...params }),
   });
+  const result = await response.json();
+  console.log('result!');
+  if (!response.ok) {
+    console.log('error!');
+    if (result.message) {
+      throw result;
+    } else {
+      throw response;
+    }
+  }
+  return result;
 };
 
 export {
