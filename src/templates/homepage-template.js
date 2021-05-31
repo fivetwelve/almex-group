@@ -25,7 +25,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
       if (!savedCountry) {
         getIPapiJson()
           .then(json => {
-            setCountryPermission(allowedCountries.includes(json.country));
+            setCountryPermission(allowedCountries.includes(json.message.country_code));
             setLoadingState(false);
           })
           // eslint-disable-next-line no-unused-vars

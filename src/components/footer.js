@@ -67,17 +67,16 @@ class Footer extends React.Component {
     try {
       getIPapiJson()
         .then(json => {
-          console.log('json');
-          console.log(json);
+          // console.log('json');
+          // console.log(json);
           if (navigator.cookieEnabled) {
-            localStorage.setItem('almexVisitorRegion', json.country);
+            localStorage.setItem('almexVisitorRegion', json.message.country_code);
             localStorage.setItem('almexLastVisit', nowString);
           }
-          this.getOffices(json.country);
+          this.getOffices(json.message.country_code);
         })
-        .catch(error => {
-          console.log('error');
-          console.log(error);
+        .catch(() => {
+          // console.log(error);
           if (navigator.cookieEnabled) {
             localStorage.setItem('almexVisitorRegion', 'ALL');
             localStorage.setItem('almexLastVisit', nowString);
@@ -85,7 +84,7 @@ class Footer extends React.Component {
           this.getOffices('ALL');
         });
     } catch (error) {
-      console.log('last catch');
+      // console.log('last catch');
       console.log(error);
     }
   };
