@@ -9061,7 +9061,7 @@ node-gyp@^3.8.0:
     tar "^2.0.0"
     which "1"
 
-node-mailjet@^3.3.1:
+node-mailjet@^3.3.4:
   version "3.3.4"
   resolved "https://registry.yarnpkg.com/node-mailjet/-/node-mailjet-3.3.4.tgz#83cf2d6f69d7efd0cdc4946e6b54bbaa69dab41b"
   integrity sha512-+IW2swcjiL2Sq1VHpeaqOzU5m++aYSA/ES2IdHvUD6Gchfwb6znioVDfKirPtust+zKw0zKsdivLI1M2QBqcDg==

@@ -31,12 +31,6 @@ class ContactTemplate extends React.Component {
   }
 
   componentDidMount() {
-    // const {
-    //   data: {
-    //     cms: { page },
-    //   },
-    // } = this.props;
-
     // 3rd party api to get country code from visitor's IP address
     const thisRegion =
       (navigator.cookieEnabled && localStorage.getItem('almexVisitorRegion')) || null;

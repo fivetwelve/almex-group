@@ -34,25 +34,6 @@ class ContactFormModal extends React.Component {
     this.recaptchaRef = React.createRef();
   }
 
-  static getDerivedStateFromProps(props, state) {
-    // When there is a selectedOffice, set contactOffice to that value
-    // this should only happen once when user clicks on Contact Us in parent component
-    const { selectedExpert, selectedOffice } = props;
-    if (state.selectedOffice !== selectedOffice) {
-      return {
-        contactOffice: selectedOffice,
-        contactExpert: null,
-      };
-    }
-    if (state.selectedExpert !== selectedExpert) {
-      return {
-        contactExpert: selectedExpert,
-        contactOffice: null,
-      };
-    }
-    return null;
-  }
-
   handleChange = evt => {
     const { target } = evt;
     const { message } = this.state;
@@ -88,8 +69,8 @@ class ContactFormModal extends React.Component {
 
   handleSubmit = async evt => {
     evt.preventDefault();
-    const { contactType, label } = this.props;
-    const { contactExpert, contactOffice, gRecaptchaResponse } = this.state;
+    const { contactType, label, selectedExpert, selectedOffice } = this.props;
+    const { gRecaptchaResponse } = this.state;
     const params = {};
     const keys = Object.keys(this.state);
     const values = Object.values(this.state);
@@ -99,9 +80,11 @@ class ContactFormModal extends React.Component {
       }
     });
     if (contactType === CONTACT_TYPES.EXPERT) {
-      params.destination = [contactExpert.email];
+      /* email formatted as single-element array because lambda function expects array */
+      params.destination = [selectedExpert.email];
     } else {
-      params.destination = contactOffice.email;
+      /* office emails already in array form from cms */
+      params.destination = selectedOffice.email;
     }
     params.gRecaptchaResponse = gRecaptchaResponse;
 
@@ -141,7 +124,6 @@ class ContactFormModal extends React.Component {
       contactPosition: '',
       contactCompany: '',
       contactCountry: '',
-      contactOffice: '',
       contactSubject: '',
       contactMessage: '',
       submitDisabled: true,
@@ -367,7 +349,7 @@ ContactFormModal.propTypes = {
     common: PropTypes.instanceOf(Object),
   }),
   selectedExpert: PropTypes.shape({
-    // this will be moved into an array in handleSubmit() to be consistent with selectedOffice.email
+    /* email is inserted into an array in handleSubmit; expected by lambda function  */
     email: PropTypes.string,
   }),
   selectedOffice: PropTypes.shape({

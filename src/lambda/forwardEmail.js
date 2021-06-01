@@ -1,5 +1,4 @@
-// import fetch from 'node-fetch';
-import fetch from 'isomorphic-fetch';
+import fetch from 'cross-fetch';
 import Mailjet from 'node-mailjet';
 import 'dotenv/config';
 import { FORM_TYPES } from '../constants';
