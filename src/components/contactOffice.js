@@ -20,10 +20,11 @@ const ContactOffice = props => {
     longitude,
     mobile,
     name,
+    supportedCountryCodes,
     telephone,
     tollFree,
   } = office;
-  console.log(visitorRegion);
+
   return (
     <div className="table-entry">
       <div className="table-pin">
@@ -92,7 +93,7 @@ const ContactOffice = props => {
         </div>
         <div className="table-desc">
           <p>{description}</p>
-          {(visitorRegion === countryCode || backupOffice) && (
+          {(supportedCountryCodes.countries.includes(visitorRegion) || backupOffice) && (
             <p>
               <button type="button" onClick={() => handleContactUs(null, office)}>
                 {label.about.CONTACT_US}
@@ -121,6 +122,9 @@ ContactOffice.defaultProps = {
     fax: [],
     mobile: [],
     name: '',
+    supportedCountryCodes: {
+      countries: [],
+    },
     telephone: [],
     tollFree: [],
   },
@@ -146,6 +150,9 @@ ContactOffice.propTypes = {
     longitude: PropTypes.number,
     mobile: PropTypes.instanceOf(Array),
     name: PropTypes.string,
+    supportedCountryCodes: PropTypes.shape({
+      countries: PropTypes.instanceOf(Array),
+    }),
     telephone: PropTypes.instanceOf(Array),
     tollFree: PropTypes.instanceOf(Array),
   }),

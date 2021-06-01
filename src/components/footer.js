@@ -20,8 +20,8 @@ class Footer extends React.Component {
   componentDidMount() {
     if (typeof window !== 'undefined') {
       const thisRegion =
-        // (navigator.cookieEnabled && localStorage.getItem('almexVisitorRegion')) || null;
-        null;
+        (navigator.cookieEnabled && localStorage.getItem('almexVisitorRegion')) || null;
+      // null;
       if (!thisRegion) {
         this.getRegion();
       } else {

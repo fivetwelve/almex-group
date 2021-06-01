@@ -42,22 +42,26 @@ class ContactTemplate extends React.Component {
     } = this.props;
 
     // 3rd party api to get country code from visitor's IP address
-    getIPapiJson()
-      .then(json => {
-        console.log('json');
-        console.log(json);
-        const visitorRegion = mapToOffice(json.message.country_code, offices);
-        this.setState({
-          visitorRegion,
+    const thisRegion =
+      (navigator.cookieEnabled && localStorage.getItem('almexVisitorRegion')) || null;
+    if (!thisRegion) {
+      getIPapiJson()
+        .then(json => {
+          const visitorRegion = mapToOffice(json.message.country_code, offices);
+          this.setState({
+            visitorRegion,
+          });
+        })
+        .catch(() => {
+          this.setState({
+            visitorRegion: null,
+          });
         });
-      })
-      .catch(error => {
-        console.log('error');
-        console.log(error);
-        this.setState({
-          visitorRegion: null,
-        });
+    } else {
+      this.setState({
+        visitorRegion: thisRegion,
       });
+    }
   }
 
   handleViewToggle = evt => {
@@ -101,9 +105,7 @@ class ContactTemplate extends React.Component {
     const { label } = localeData;
     const {
       cms: {
-        // aboutLabel,
         experts,
-        // label,
         page: {
           contact: { bannerImage, title, description, offices },
         },
@@ -114,13 +116,9 @@ class ContactTemplate extends React.Component {
     return (
       <Layout
         activeLanguage={locale}
-        // brandNavigation={brandNavigation}
         childrenClass="contact-page"
-        // headerFooter={headerFooter}
-        // label={label}
         languages={languages}
         localeData={localeData}
-        // navigation={navigation}
         region={region}
         title={title}
       >
