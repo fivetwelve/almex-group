@@ -11,7 +11,7 @@ import Layout from '../components/layout';
 import ContactExpert from '../components/contactExpert';
 import ContactMap from '../components/contactMap';
 import ContactFormModal from '../components/contactFormModal';
-import { makeid, mapToOffice, renderLink, getIPapiJson } from '../utils/functions';
+import { makeid, renderLink, getIPapiJson } from '../utils/functions';
 import { CONTACT_TYPES } from '../constants';
 
 import '../styles/contact.scss';
@@ -31,15 +31,11 @@ class ContactTemplate extends React.Component {
   }
 
   componentDidMount() {
-    const {
-      data: {
-        cms: {
-          page: {
-            contact: { offices },
-          },
-        },
-      },
-    } = this.props;
+    // const {
+    //   data: {
+    //     cms: { page },
+    //   },
+    // } = this.props;
 
     // 3rd party api to get country code from visitor's IP address
     const thisRegion =
@@ -47,9 +43,9 @@ class ContactTemplate extends React.Component {
     if (!thisRegion) {
       getIPapiJson()
         .then(json => {
-          const visitorRegion = mapToOffice(json.message.country_code, offices);
+          // const visitorRegion = mapToOffice(json.message.country_code, offices);
           this.setState({
-            visitorRegion,
+            visitorRegion: json.message.country_code,
           });
         })
         .catch(() => {
@@ -104,13 +100,11 @@ class ContactTemplate extends React.Component {
     const { languages, locale, localeData, region } = pageContext;
     const { label } = localeData;
     const {
-      cms: {
-        experts,
-        page: {
-          contact: { bannerImage, title, description, offices },
-        },
+      experts,
+      page: {
+        contact: { bannerImage, title, description, offices },
       },
-    } = data;
+    } = data.cms;
     const { contactType, expert, office, visitorRegion, showModal, view } = this.state;
 
     return (
