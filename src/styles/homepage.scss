@@ -96,6 +96,7 @@ $spacing: 20px;
       margin: 0 auto;
       position: relative;
       .heading {
+        pointer-events: none;
         position: absolute;
         bottom: 0;
         padding: 55px 20px 20px 20px;
@@ -108,7 +109,7 @@ $spacing: 20px;
         @include media('>=tablet') {
           padding: 55px 20px 40px 20px;
         }
-        a {
+        p {
           color: $white;
           text-decoration: none;
           position: relative;
@@ -116,6 +117,9 @@ $spacing: 20px;
           font-size: 24px;
           font-weight: 700;
           line-height: 24px;
+          text-align: center;
+          padding-left: 15px;
+          padding-right: 15px;
           @include media('>=tablet') {
             font-size: 36px;
             line-height: 42px;
@@ -123,32 +127,6 @@ $spacing: 20px;
           @include media('>=desktop') {
             font-size: 50px;
             line-height: 54px;
-          }
-          p {
-            text-align: center;
-            padding-left: 15px;
-            padding-right: 15px;
-          }
-          &:hover {
-            p {
-              display: inline-block;
-              background-color: rgba(255, 255, 255, 0.3);
-              // &:before {
-              //   content: '\00a0';
-              //   width: 15px;
-              //   left: -15px;
-              //   display: inline-block;
-              //   background-color: rgba(255, 255, 255, 0.3);
-              //   position: absolute;
-              // }
-              // &:after {
-              //   content: '\00a0';
-              //   width: 15px;
-              //   display: inline-block;
-              //   background-color: rgba(255, 255, 255, 0.3);
-              //   position: absolute;
-              // }
-            }
           }
         }
       }

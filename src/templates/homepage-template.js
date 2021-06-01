@@ -1,46 +1,16 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, Link } from 'gatsby';
 import { Location } from '@reach/router';
 import ReactMarkdown from 'react-markdown';
-import Carousel from 'nuka-carousel';
-import { IconContext } from 'react-icons';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import HomepageCarousel from '../components/homepageCarousel';
 import HomePageTile from '../components/homepageTile';
 import Layout from '../components/layout';
 import '../styles/homepage.scss';
-import { createLink, makeid, renderLink, getIPapiJson } from '../utils/functions';
+import { createLink, makeid, renderLink } from '../utils/functions';
 
 const HomepageTemplate = ({ data, pageContext }) => {
-  /* Ad-hoc code for adding temporary geo-filtering on homagepage carousel */
-  const [isLoading, setLoadingState] = useState(true);
-  const [countryPermitted, setCountryPermission] = useState(false);
-  const allowedCountries = ['CA', 'US'];
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const savedCountry =
-        (navigator.cookieEnabled && localStorage.getItem('almexVisitorRegion')) || null;
-      if (!savedCountry) {
-        getIPapiJson()
-          .then(json => {
-            setCountryPermission(allowedCountries.includes(json.message.country_code));
-            setLoadingState(false);
-          })
-          // eslint-disable-next-line no-unused-vars
-          .catch(err => {
-            setCountryPermission(false);
-            setLoadingState(false);
-          });
-      } else {
-        setCountryPermission(allowedCountries.includes(savedCountry));
-        setLoadingState(false);
-      }
-    }
-  }, []);
-  /* end ad-hoc code */
-
   // if (!data.cms.page.contentSource) {
   //   throw Error(
   //     `Check the connection to homepageSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
@@ -50,7 +20,6 @@ const HomepageTemplate = ({ data, pageContext }) => {
   const { label } = localeData;
   const { contentSource } = data.cms.page;
 
-  let slideNum = 0;
   const eventStyle1 = {
     backgroundImage: `url(${contentSource.homepageEventTiles[0].image.url})`,
   };
@@ -59,96 +28,6 @@ const HomepageTemplate = ({ data, pageContext }) => {
   };
   const eventStyle3 = {
     backgroundImage: `url(${contentSource.homepageEventTiles[2].image.url})`,
-  };
-  const slides = contentSource.homepageCarouselSlides;
-  const options = {
-    autoplay: true,
-    autoplayInterval: 20000,
-    autoGenerateStyleTag: false,
-    enableKeyboardControls: true,
-    frameOverflow: 'hidden',
-    framePadding: '0px 0px 42% 0px',
-    heightMode: 'first',
-    initialSlideHeight: 536,
-    wrapAround: true,
-  };
-
-  const renderSlides = location => {
-    const slideArray = [];
-    for (let i = 0; i < slides.length; i += 1) {
-      let element = null;
-      slideNum += 1;
-      if (!slides[i].geoRestrict || (slides[i].geoRestrict && countryPermitted)) {
-        if (slides[i].slideType === 'IMAGE') {
-          const slideStyle = {
-            backgroundImage: `url(${slides[i].asset.url})`,
-          };
-          element = (
-            <React.Fragment key={slideNum}>
-              <div className="slide-image" style={slideStyle} />
-              <div className="heading-container">
-                <div className="heading">
-                  <Link to={createLink(location, slides[i].page.slug)}>
-                    <ReactMarkdown>{slides[i].slideHeading}</ReactMarkdown>
-                  </Link>
-                </div>
-              </div>
-              <div className="description-container">
-                <div className="description">
-                  <Link to={createLink(location, slides[i].page.slug)}>
-                    <ReactMarkdown
-                      components={{
-                        link: props => renderLink(props, location),
-                      }}
-                    >
-                      {slides[i].slideText}
-                    </ReactMarkdown>
-                  </Link>
-                </div>
-              </div>
-            </React.Fragment>
-          );
-        }
-        if (slides[i].slideType === 'VIDEO') {
-          const slideStyle = {};
-          element = (
-            <React.Fragment key={slideNum}>
-              <div className="slide-video" style={slideStyle}>
-                <div className="video-container">
-                  <video width="100%" height="auto" autoPlay loop muted>
-                    <source src={slides[i].asset.url} type="video/mp4" />
-                  </video>
-                </div>
-              </div>
-              <div className="heading-container">
-                <div className="heading">
-                  <Link to={createLink(location, slides[i].page.slug)}>
-                    <ReactMarkdown>{slides[i].slideHeading}</ReactMarkdown>
-                  </Link>
-                </div>
-              </div>
-              <div className="description-container">
-                <div className="description">
-                  <Link to={`${location.pathname}/${slides[i].page.slug}`}>
-                    <ReactMarkdown
-                      components={{
-                        link: props => renderLink(props, location),
-                      }}
-                    >
-                      {slides[i].slideText}
-                    </ReactMarkdown>
-                  </Link>
-                </div>
-              </div>
-            </React.Fragment>
-          );
-        }
-      }
-      if (element) {
-        slideArray.push(element);
-      }
-    }
-    return slideArray;
   };
 
   const eventLink = (eventTile, location) => {
@@ -187,36 +66,7 @@ const HomepageTemplate = ({ data, pageContext }) => {
         {({ location }) => (
           <>
             <div className="carousel-container">
-              <Carousel
-                className="carousel"
-                autoplay={options.autoplay}
-                autoplayInterval={options.autoplayInterval}
-                autoGenerateStyleTag={options.autoGenerateStyleTag}
-                enableKeyboardControls={options.enableKeyboardControls}
-                renderCenterLeftControls={({ previousSlide }) => (
-                  <button onClick={previousSlide} type="button" className="left-controls">
-                    <span className="sr-only">Previous</span>
-                    <span aria-hidden="true" className="left-controls-icon">
-                      <IconContext.Provider value={{ className: 'left-controls-icon' }}>
-                        <FaChevronLeft aria-hidden />
-                      </IconContext.Provider>
-                    </span>
-                  </button>
-                )}
-                renderCenterRightControls={({ nextSlide }) => (
-                  <button onClick={nextSlide} type="button" className="right-controls">
-                    <span className="sr-only">Next</span>
-                    <span aria-hidden="true" className="right-controls-icon">
-                      <IconContext.Provider value={{ className: 'right-controls-icon' }}>
-                        <FaChevronRight aria-hidden />
-                      </IconContext.Provider>
-                    </span>
-                  </button>
-                )}
-                wrapAround={options.wrapAround}
-              >
-                {!isLoading && renderSlides(location)}
-              </Carousel>
+              <HomepageCarousel contentSource={contentSource} location={location} />
             </div>
             <div className="no-bleed-container">
               <div className="tile-container">
@@ -325,45 +175,43 @@ export const query = graphql`
   ) {
     cms {
       page(locales: $locales, where: { id: $id }) {
-        contentSource {
-          sourceType: __typename
-          ... on GraphCMS_HomepageSource {
-            heading
-            homepageCarouselSlides {
-              geoRestrict
-              asset {
-                url
-              }
-              page {
-                slug
-              }
-              slideHeading
-              slideText
-              slideType
+        contentSource: homepageSource {
+          heading
+          homepageCarouselSlides {
+            geoRestrict
+            asset {
+              url
             }
-            homepageEventTiles {
-              title
-              description
-              image {
-                url
-              }
-              page {
-                slug
-              }
-              externalLink
+            page {
+              slug
             }
-            homepageTiles {
-              description
-              image {
+            slideHeading
+            slideText
+            slideType
+            url
+          }
+          homepageEventTiles {
+            title
+            description
+            image {
+              url
+            }
+            page {
+              slug
+            }
+            externalLink
+          }
+          homepageTiles {
+            description
+            image {
+              url
+            }
+            title
+            page {
+              tile {
                 url
               }
-              title
-              page {
-                tile {
-                  url
-                }
-                slug
-              }
+              slug
             }
           }
         }

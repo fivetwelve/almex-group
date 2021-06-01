@@ -9214,7 +9214,7 @@ nth-check@^2.0.0:
   dependencies:
     boolbase "^1.0.0"
 
-nuka-carousel@^4.5.13:
+nuka-carousel@^4.7.8:
   version "4.7.8"
   resolved "https://registry.yarnpkg.com/nuka-carousel/-/nuka-carousel-4.7.8.tgz#58d3dd98e4a9816c3f5778ce51f83f075b7657f4"
   integrity sha512-+eaG7V2sxjQCIFG6mWoinCQgPbILFGzT/pMSOlkCpYsC/kptIh6yJVke3LwBDyVhPGxAuPxhH4q9qM7WhLir0Q==
