@@ -582,18 +582,16 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
       node: {
         fs: 'empty',
       },
-      // resolve: {
-      //   fallback: {
-      //     // path: require.resolve('path-browserify'),
-      //     fs: false,
-      //   },
-      // },
+      resolve: {
+        fallback: {
+          fs: false,
+        },
+      },
     });
   }
   actions.setWebpackConfig({
     resolve: {
       fallback: {
-        //       path: require.resolve('path-browserify'),
         fs: false,
       },
     },

@@ -89,7 +89,7 @@ const formatRequest = params => {
   return request;
 };
 
-exports.handler = async (event, context) => {
+exports.handler = async event => {
   const params = JSON.parse(event.body);
 
   const recaptchaResponse = await fetch(SITE_RECAPTCHA_URL, {

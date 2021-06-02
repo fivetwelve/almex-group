@@ -5,7 +5,7 @@ import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown';
 import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
-import fetch from 'cross-fetch';
+import fetch from 'isomorphic-fetch';
 import { countryFlag, renderLink } from '../utils/functions';
 import Layout from '../components/layout';
 import Category from '../components/category';

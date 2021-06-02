@@ -5817,7 +5817,7 @@ gatsby-recipes@^0.17.0:
     xstate "^4.9.1"
     yoga-layout-prebuilt "^1.9.6"
 
-gatsby-source-filesystem@^3.4.0, gatsby-source-filesystem@^3.5.0:
+gatsby-source-filesystem@^3.4.0, gatsby-source-filesystem@^3.6.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/gatsby-source-filesystem/-/gatsby-source-filesystem-3.6.0.tgz#369eaef6fe8ae07739594176aedc36606a328849"
   integrity sha512-kTWcW9LwCLOF3TMC9lBR6KbMi6A0SHNQeGNLBw8THRpDVVe5nXZG33oI1Ns23ocNDVrajIMKXPPzsrl2zjG6BQ==
@@ -5900,10 +5900,10 @@ gatsby-transformer-remark@^4.2.0:
     unist-util-select "^3.0.4"
     unist-util-visit "^2.0.3"
 
-gatsby@^3.5.1:
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/gatsby/-/gatsby-3.6.0.tgz#73cfc316c715bf0a63c32a258a97a99dc5fff834"
-  integrity sha512-gRyIyXHUNUx4YOU9HSN0rT7fM3whKO1BhPtghrG66eqgrK3gk95UofAJYZWb9xwer7cK93y3QMhkS8pfKKvl7g==
+gatsby@^3.6.2:
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/gatsby/-/gatsby-3.6.2.tgz#73e2e0e185974c39bf2fe1ccf269fdd977b0094a"
+  integrity sha512-gzwnyk37sGTrT/oqAWKbfwJCPeLWOlX5wgq2pumCJDOGBo0yjL95pRiBeH1GG3jQGadcx2lG/6MoM46M6v3w9A==
   dependencies:
     "@babel/code-frame" "^7.10.4"
     "@babel/core" "^7.12.3"
@@ -9764,11 +9764,6 @@ password-prompt@^1.0.4:
   dependencies:
     ansi-escapes "^3.1.0"
     cross-spawn "^6.0.5"
-
-path-browserify@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/path-browserify/-/path-browserify-1.0.1.tgz#d98454a9c3753d5790860f16f68867b9e46be1fd"
-  integrity sha512-b7uo2UCUOYZcnF/3ID0lulOJi/bafxa1xPe7ZPsammBSpjSWQkjNxlt635YGS2MiR9GjvuXCtz2emr3jbsz98g==
 
 path-dirname@^1.0.0:
   version "1.0.2"
