@@ -10,6 +10,7 @@ const {
   SITE_RECAPTCHA_URL,
 } = process.env;
 const mailjet = Mailjet.connect(MJ_APIKEY_PUBLIC, MJ_APIKEY_PRIVATE);
+console.log('SITE_RECAPTCHA_URL', SITE_RECAPTCHA_URL);
 
 const formatRequest = params => {
   /* n.b. destination emails coming in from CMS should be in form of
