@@ -11,18 +11,20 @@ const {
 } = process.env;
 const mailjet = Mailjet.connect(MJ_APIKEY_PUBLIC, MJ_APIKEY_PRIVATE);
 
-const sendEmail = (params, callback) => {
+const formatRequest = params => {
+  /* n.b. destination emails coming in from CMS should be in form of
+     array even if it is a single entry */
   const destinationEmails = [];
   for (let i = 0; i < params.destination.length; i += 1) {
     const email = { Email: params.destination[i] };
     destinationEmails.push(email);
   }
-  let request = null;
-  // console.log(params.contactFormType);
-  // console.log(destinationEmails);
+
+  let request;
+
   switch (params.contactFormType) {
     case FORM_TYPES.CONTACT:
-      request = mailjet.post('send', { version: 'v3.1' }).request({
+      request = {
         Messages: [
           {
             From: {
@@ -48,10 +50,10 @@ const sendEmail = (params, callback) => {
               <p>${params.contactMessage}</p>`,
           },
         ],
-      });
+      };
       break;
     case FORM_TYPES.INSTITUTE:
-      request = mailjet.post('send', { version: 'v3.1' }).request({
+      request = {
         Messages: [
           {
             From: {
@@ -79,47 +81,48 @@ const sendEmail = (params, callback) => {
               <p>${params.contactMessage}</p>`,
           },
         ],
-      });
+      };
       break;
     default:
       break;
   }
-  if (request) {
-    request
-      .then(res => {
-        callback(null, {
-          statusCode: 200,
-          body: JSON.stringify(res.body),
-        });
-      })
-      .catch(err => {
-        console.log(err);
-        callback(err);
-      });
-  } else {
-    callback('Form type not defined for submission.');
-  }
+  return request;
 };
 
-exports.handler = (event, context, callback) => {
-  /* n.b. destination emails coming in from CMS should be in form of
-          array even if it is a single entry */
+exports.handler = async (event, context) => {
   const params = JSON.parse(event.body);
-  const response = fetch(SITE_RECAPTCHA_URL, {
+
+  const recaptchaResponse = await fetch(SITE_RECAPTCHA_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: `secret=${SITE_RECAPTCHA_SECRET}&response=${params.gRecaptchaResponse}`,
-  })
-    .then(response => response.json())
-    .then(json => {
-      if (json.success) {
-        sendEmail(params, callback);
-      } else {
-        callback('Recaptcha expired. Please try again later.');
-      }
-    })
-    .catch(err => {
-      console.log(err);
-      callback(err);
-    });
+  });
+
+  const recaptchaData = await recaptchaResponse.json();
+  if (recaptchaData.success) {
+    const message = formatRequest(params);
+    const emailResponse = mailjet.post('send', { version: 'v3.1' }).request(message);
+    emailResponse
+      .then(result => {
+        console.log(result.body);
+      })
+      .catch(err => {
+        return {
+          statusCode: err.statusCode || 500,
+          body: JSON.stringify({
+            error: err.message,
+          }),
+        };
+      });
+  } else {
+    return {
+      statusCode: 500,
+      body: JSON.stringify(recaptchaData),
+    };
+  }
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ message: 'ok' }),
+  };
 };
