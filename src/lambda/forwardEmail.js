@@ -102,7 +102,7 @@ exports.handler = async (event, context) => {
   const recaptchaData = await recaptchaResponse.json();
   if (recaptchaData.success) {
     const message = formatRequest(params);
-    const emailResponse = mailjet.post('send', { version: 'v3.1' }).request(message);
+    const emailResponse = await mailjet.post('send', { version: 'v3.1' }).request(message);
     emailResponse
       .then(result => {
         console.log(result.body);
