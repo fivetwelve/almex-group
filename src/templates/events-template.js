@@ -8,6 +8,7 @@ import MomentLocaleUtils, { formatDate } from 'react-day-picker/moment';
 import { IconContext } from 'react-icons';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 import 'moment/locale/de';
 import 'moment/locale/es';
 import Layout from '../components/layout';
@@ -238,6 +239,7 @@ class EventsTemplate extends Component {
                   <h1 className="title">{title}</h1>
                   <div className="description">
                     <ReactMarkdown
+                      rehypePlugins={[rehypeRaw]}
                       components={{
                         link: props => renderLink(props),
                       }}

@@ -4,6 +4,7 @@ import { graphql } from 'gatsby';
 import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 import Layout from '../components/layout';
 import { renderLink } from '../utils/functions';
 import '../styles/promo.scss';
@@ -48,6 +49,7 @@ const PromoTemplate = ({ data, pageContext }) => {
                   <h1 className="title">{title}</h1>
                   <div className="marketing">
                     <ReactMarkdown
+                      rehypePlugins={[rehypeRaw]}
                       components={{
                         link: props => renderLink(props, location),
                       }}

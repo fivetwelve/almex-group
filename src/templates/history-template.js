@@ -4,6 +4,7 @@ import { graphql } from 'gatsby';
 import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 import Layout from '../components/layout';
 import TimelineManager from '../components/timelineManager';
 import { renderLink } from '../utils/functions';
@@ -52,6 +53,7 @@ const HistoryTemplate = ({ data, pageContext }) => {
                   <h1 className="title">{title}</h1>
                   <div className="description">
                     <ReactMarkdown
+                      rehypePlugins={[rehypeRaw]}
                       components={{
                         link: props => renderLink(props, location),
                       }}

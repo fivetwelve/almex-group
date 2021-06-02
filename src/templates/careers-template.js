@@ -4,6 +4,7 @@ import { graphql } from 'gatsby';
 import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
 import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 import gfm from 'remark-gfm';
 import Layout from '../components/layout';
 import '../styles/careers.scss';
@@ -57,6 +58,7 @@ const CareersTemplate = ({ data, pageContext }) => {
                   <h1 className="title">{title}</h1>
                   <div className="description">
                     <ReactMarkdown
+                      rehypePlugins={[rehypeRaw]}
                       remarkPlugins={[gfm]}
                       components={{
                         link: props => renderLink(props, location),
@@ -74,6 +76,7 @@ const CareersTemplate = ({ data, pageContext }) => {
                 {careerPostings.length <= 0 && (
                   <div className="heading">
                     <ReactMarkdown
+                      rehypePlugins={[rehypeRaw]}
                       components={{
                         link: props => renderLink(props, location),
                       }}
@@ -86,6 +89,8 @@ const CareersTemplate = ({ data, pageContext }) => {
                   <>
                     <div className="heading">
                       <ReactMarkdown
+                        rehypePlugins={[rehypeRaw]}
+                        remarkPlugins={[gfm]}
                         components={{
                           link: props => renderLink(props, location),
                         }}
@@ -125,6 +130,8 @@ const CareersTemplate = ({ data, pageContext }) => {
                                 <div className="description">{label.about.POSTING_DESCRIPTION}</div>
                                 <div>
                                   <ReactMarkdown
+                                    rehypePlugins={[rehypeRaw]}
+                                    remarkPlugins={[gfm]}
                                     components={{
                                       link: props => renderLink(props, location),
                                     }}
@@ -137,6 +144,8 @@ const CareersTemplate = ({ data, pageContext }) => {
                                       {label.about[posting.postingStatus]}
                                     </p>
                                     <ReactMarkdown
+                                      rehypePlugins={[rehypeRaw]}
+                                      remarkPlugins={[gfm]}
                                       components={{
                                         link: props => renderLink(props, location),
                                       }}
@@ -149,6 +158,8 @@ const CareersTemplate = ({ data, pageContext }) => {
                               <td>{label.about[posting.postingStatus]}</td>
                               <td>
                                 <ReactMarkdown
+                                  rehypePlugins={[rehypeRaw]}
+                                  remarkPlugins={[gfm]}
                                   components={{
                                     link: props => renderLink(props, location),
                                   }}
