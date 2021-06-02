@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import fetch from 'isomorphic-fetch';
+import fetch from 'cross-fetch';
 import { SOURCE_TYPE_NAMES } from '../constants';
 
 const apiUrl = () => {
