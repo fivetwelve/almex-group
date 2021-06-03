@@ -19,9 +19,7 @@ const formatRequest = params => {
     const email = { Email: params.destination[i] };
     destinationEmails.push(email);
   }
-
   let request;
-
   switch (params.contactFormType) {
     case FORM_TYPES.CONTACT:
       request = {
@@ -101,28 +99,71 @@ exports.handler = async event => {
   const recaptchaData = await recaptchaResponse.json();
   if (recaptchaData.success) {
     const message = formatRequest(params);
-    const emailResponse = mailjet.post('send', { version: 'v3.1' }).request(message);
-    emailResponse
+    //   const emailResponse = mailjet.post('send', { version: 'v3.1' }).request(message);
+    //   emailResponse
+    //     .then(result => {
+    //       console.log(result.body);
+    //       return {
+    //         statusCode: 200,
+    //         body: JSON.stringify({ message: 'email sent' }),
+    //       };
+    //     })
+    //     .catch(err => {
+    //       // return {
+    //       //   statusCode: err.statusCode || 500,
+    //       //   body: JSON.stringify({
+    //       //     error: err.message,
+    //       //   }),
+    //       // };
+    //       console.log(err.message);
+    //     });
+
+    //   //   return new Promise((resolve, reject) => {
+    //   //     emailResponse
+    //   //       .then(result => {
+    //   //         console.log(result);
+    //   //         return resolve({
+    //   //           statuCode: 200,
+    //   //           body: 'Email sent!',
+    //   //         });
+    //   //       })
+    //   //       .catch(err => {
+    //   //         console.log('error');
+    //   //         console.log(err);
+    //   //         return reject(err);
+    //   //       });
+    //   //   });
+    // } else {
+    //   return {
+    //     statusCode: 500,
+    //     body: JSON.stringify(recaptchaData),
+    //   };
+    // }
+
+    return mailjet
+      .post('send', { version: 'v3.1' })
+      .request(message)
       .then(result => {
+        console.log('result');
         console.log(result.body);
+        return {
+          statusCode: 200,
+          body: JSON.stringify({ message: 'ok' }),
+        };
       })
       .catch(err => {
-        return {
-          statusCode: err.statusCode || 500,
-          body: JSON.stringify({
-            error: err.message,
-          }),
-        };
+        console.log('err');
+        console.log(err);
       });
+
+    // return {
+    //   statusCode: 200,
+    //   body: JSON.stringify({ message: 'ok' }),
+    // };
   } else {
     return {
       statusCode: 500,
       body: JSON.stringify(recaptchaData),
     };
   }
-
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ message: 'ok' }),
-  };
 };
