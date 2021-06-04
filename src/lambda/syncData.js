@@ -1,8 +1,7 @@
-// import fetch from 'node-fetch';
-import fetch from 'isomorphic-fetch';
+import fetch from 'cross-fetch';
 import algoliasearch from 'algoliasearch';
 import 'dotenv/config';
-import { PAGE_TYPES, SOURCE_TYPE_NAMES, SOURCE_TYPES } from '../constants';
+import { SOURCE_TYPE_SIMPLE_NAMES } from '../constants';
 
 const {
   ALGOLIA_API_KEY,
@@ -17,31 +16,25 @@ const PUBLISH_EVENT = 'publish';
 const UNPUBLISH_EVENT = 'unpublish';
 const PAGE = 'Page';
 
-/* update acceptedPageTypes and acceptedSources when additional
-  types of content sources are to be added to the Algolia index */
-const acceptedPageTypes = [
-  PAGE_TYPES.ABOUT,
-  PAGE_TYPES.INSTITUTE,
-  PAGE_TYPES.PRODUCT,
-  PAGE_TYPES.PROMO,
-  PAGE_TYPES.SERVICES,
-  PAGE_TYPES.SIMPLE,
-];
+/* update acceptedSources when additional types of content sources
+   are to be added to the Algolia index */
+/* before accepting a new source, ensure that its Model in the CMS
+   has a Keywords property */
 const acceptedSources = [
-  SOURCE_TYPE_NAMES.ABOUT,
-  SOURCE_TYPE_NAMES.PRODUCT,
-  SOURCE_TYPE_NAMES.PROMO,
-  SOURCE_TYPE_NAMES.SERVICES,
-  SOURCE_TYPE_NAMES.SIMPLE,
-  SOURCE_TYPE_NAMES.INSTITUTE,
+  SOURCE_TYPE_SIMPLE_NAMES.ABOUT,
+  SOURCE_TYPE_SIMPLE_NAMES.PRODUCT,
+  SOURCE_TYPE_SIMPLE_NAMES.PROMO,
+  SOURCE_TYPE_SIMPLE_NAMES.SERVICES,
+  SOURCE_TYPE_SIMPLE_NAMES.SIMPLE,
+  SOURCE_TYPE_SIMPLE_NAMES.INSTITUTE,
 ];
 const sourcesWithBrand = [
-  SOURCE_TYPES.INSTITUTE,
-  SOURCE_TYPES.LANDING,
-  SOURCE_TYPES.PRODUCT,
-  SOURCE_TYPES.PROMO,
-  SOURCE_TYPES.SERVICES,
-  SOURCE_TYPES.SIMPLE,
+  SOURCE_TYPE_SIMPLE_NAMES.INSTITUTE,
+  SOURCE_TYPE_SIMPLE_NAMES.LANDING,
+  SOURCE_TYPE_SIMPLE_NAMES.PRODUCT,
+  SOURCE_TYPE_SIMPLE_NAMES.PROMO,
+  SOURCE_TYPE_SIMPLE_NAMES.SERVICES,
+  SOURCE_TYPE_SIMPLE_NAMES.SIMPLE,
 ];
 
 const statusAndMessage = (statusCode, message) => ({
@@ -51,17 +44,23 @@ const statusAndMessage = (statusCode, message) => ({
   }),
 });
 
-/* retrieve supplemental data from GraphCMS */
-const getQueryData = async (isSource, id, sourceType = '', hasBrand) => {
+const getSourceType = contentSource => {
+  return contentSource.charAt(0).toLowerCase() + contentSource.slice(1);
+};
+
+/* retrieve related data from GraphCMS */
+const getQueryData = async (isSource, id, hasBrand, sourceType = '') => {
   const brand = hasBrand ? 'brand' : '';
   let queryData;
   if (isSource) {
+    /* retrieving associated contentSource data */
     queryData = {
-      query: `{ ${sourceType}(where: {id: \"${id}\"}) { id ${brand} localizations(includeCurrent: true) { locale keywords title } page { id availableIn localizations(includeCurrent: true) { locale excerpt slug } } } }`,
+      query: `{ contentSource:${sourceType}(where: {id: \"${id}\"}) { id ${brand} localizations(includeCurrent: true) { locale keywords title }}}`,
     };
   } else {
+    /* retrieving associated page data */
     queryData = {
-      query: `query { page(where: {id: \"${id}\"}) { id availableIn pageType localizations(includeCurrent: true) { locale excerpt slug } ${sourceType} { id ${brand} localizations(includeCurrent: true) { locale keywords title }}}}`,
+      query: `query { page(where: {id: \"${id}\"}) { id availableIn localizations(includeCurrent: true) { locale excerpt slug }}}`,
     };
   }
 
@@ -75,8 +74,6 @@ const getQueryData = async (isSource, id, sourceType = '', hasBrand) => {
       body: JSON.stringify(queryData),
     });
     const data = await response.json();
-    // console.log('data-----');
-    // console.log(data);
     if (data.errors) {
       throw data.errors[0];
     }
@@ -89,7 +86,6 @@ const getQueryData = async (isSource, id, sourceType = '', hasBrand) => {
 
 /* sync supplemental data from GraphCMS */
 const syncToAlgolia = async incomingRecord => {
-  // console.log('---sync to Algolia');
   try {
     const index = algolia.initIndex(GATSBY_ALGOLIA_INDEX);
     const record = await index.saveObject(incomingRecord);
@@ -99,19 +95,12 @@ const syncToAlgolia = async incomingRecord => {
   }
 };
 
-const removeFromAlgolia = async (isSource, id) => {
-  // console.log('---remove from Algolia');
-  /* n.b. in Algolia page.id must be a facetFilter, otherwise deletion using it would not work */
-  let resp;
+const removeFromAlgolia = async id => {
+  /* n.b. in Algolia to delete by page.id we must use a facetFilter, otherwise it would not work */
+  /* update: now using contentSource so we have access to the object ID without the previous hassle */
   const index = algolia.initIndex(GATSBY_ALGOLIA_INDEX);
   try {
-    if (isSource) {
-      resp = await index.deleteObject(id);
-    } else {
-      resp = await index.deleteBy({
-        facetFilters: [`page.id:${id}`],
-      });
-    }
+    const resp = await index.deleteObject(id);
     return statusAndMessage(200, resp);
   } catch (err) {
     return statusAndMessage(500, err.message);
@@ -127,85 +116,81 @@ exports.handler = async (event, context) => {
 
   const response = JSON.parse(event.body);
   const { operation, data } = response;
-  // console.log('----operation');
-  // console.log(operation);
-  // console.log('----data');
-  // console.log(data);
 
   if (operation === UNPUBLISH_EVENT) {
     /* determine whether it's page, otherwise it's content source */
     if (data.__typename === PAGE) {
-      return removeFromAlgolia(false, data.id);
+      return removeFromAlgolia(data.contentSource.id);
+    } else if (acceptedSources.includes(__typename)) {
+      return removeFromAlgolia(data.id);
     } else {
-      return removeFromAlgolia(true, data.id);
+      return statusAndMessage(422, 'Not eligible for sync.');
     }
   } else if (operation === PUBLISH_EVENT) {
-    const { id, __typename, ...published } = data;
-    /* sync only entries that don't have 'archived' property or 'archived' is set to false */
-    if (!published.archived) {
-      const keywords = {};
-      const titles = {};
-      const excerpts = {};
-      const slugs = {};
-      let hasBrand, queryData, recordData, contentSourceType;
+    const keywords = {};
+    const titles = {};
+    const excerpts = {};
+    const slugs = {};
+    let hasBrand, queryData, recordData;
 
-      if (__typename === PAGE && acceptedPageTypes.includes(published.pageType)) {
-        /* scenario 1: Page is published */
-        contentSourceType = SOURCE_TYPES[published.pageType];
-        hasBrand = sourcesWithBrand.includes(contentSourceType);
-        queryData = await getQueryData(false, id, contentSourceType, hasBrand);
+    if (data.__typename === PAGE) {
+      /* page was published */
+      const { id, __typename, contentSource, ...page } = data;
+      if (contentSource && acceptedSources.includes(contentSource.__typename)) {
+        /* page is published and its associated content source is linked so let's
+            retrieve content source data */
+        hasBrand = sourcesWithBrand.includes(contentSource);
+        /* get associated contentSource data */
+        queryData = await getQueryData(
+          true,
+          contentSource.id,
+          hasBrand,
+          getSourceType(contentSource.__typename),
+        );
         if (queryData.errors) {
+          // console.log(queryData.errors[0]);
           return statusAndMessage(424, queryData.errors[0].message.toString());
-        }
-        // console.log(queryData.data);
-        if (queryData.data.page[contentSourceType]) {
-          /* associated content source exists so create record to sync to Algolia */
-          const {
-            data: { page },
-          } = queryData;
+        } else {
+          /* sync all the data back to Algolia */
+          const contentSourceData = queryData.data.contentSource;
           page.localizations.forEach(localization => {
             excerpts[`excerpt${localization.locale}`] = localization.excerpt || null;
             slugs[`slug${localization.locale}`] = localization.slug;
           });
-          page[contentSourceType].localizations.forEach(localization => {
+          contentSourceData.localizations.forEach(localization => {
             keywords[`keywords${localization.locale}`] = localization.keywords || null;
             titles[`title${localization.locale}`] = localization.title;
           });
           recordData = {
-            ...titles,
-            brand: page[contentSourceType].brand || null,
+            brand: contentSourceData.brand || null,
+            objectID: contentSource.id,
             ...keywords,
+            ...titles,
             page: {
-              id: page.id,
               availableIn: page.availableIn,
-              pageType: page.pageType,
-              ...slugs,
+              id,
               ...excerpts,
+              ...slugs,
             },
-            objectID: page[contentSourceType].id,
           };
           return syncToAlgolia(recordData);
-        } else {
-          /* associated content source has not been published so reject */
-          return statusAndMessage(424, 'Queried data not available.');
         }
-      } else if (acceptedSources.includes(__typename)) {
-        /* scenario 2: Content Source is published */
-        contentSourceType = __typename.substring(0, 1).toLowerCase() + __typename.substring(1);
-        hasBrand = sourcesWithBrand.includes(contentSourceType);
-
-        queryData = await getQueryData(true, id, contentSourceType, hasBrand);
+      }
+    } else if (acceptedSources.includes(data.__typename)) {
+      /* contentSource was published */
+      const { id, __typename, refPage, ...contentSource } = data;
+      if (refPage) {
+        /* suitable content source is published and has a refPage so let's retrieve
+           the associated page data */
+        hasBrand = sourcesWithBrand.includes(__typename);
+        /* get associated page data */
+        queryData = await getQueryData(false, refPage.id, hasBrand);
         if (queryData.errors) {
+          // console.log(queryData.errors[0]);
           return statusAndMessage(424, queryData.errors[0].message.toString());
-        }
-        // console.log(queryData.data);
-        if (queryData.data[contentSourceType].page) {
-          /* associated page exists so create record to sync to Algolia */
-          const { data } = queryData;
-          const contentSource = data[contentSourceType];
-          // console.log('contentSource------');
-          // console.log(contentSource);
-          contentSource.page.localizations.forEach(localization => {
+        } else {
+          const { page } = queryData.data;
+          page.localizations.forEach(localization => {
             excerpts[`excerpt${localization.locale}`] = localization.excerpt || null;
             slugs[`slug${localization.locale}`] = localization.slug;
           });
@@ -218,24 +203,22 @@ exports.handler = async (event, context) => {
             brand: contentSource.brand || null,
             ...keywords,
             page: {
-              id: contentSource.page.id,
-              availableIn: contentSource.page.availableIn,
-              pageType: contentSource.page.pageType,
+              id: refPage.id,
+              availableIn: page.availableIn,
               ...slugs,
               ...excerpts,
             },
-            objectID: contentSource.id,
+            objectID: id,
           };
           return syncToAlgolia(recordData);
-        } else {
-          /* associated page has not been published */
-          return statusAndMessage(424, 'Queried data not available.');
         }
-      } else {
-        return statusAndMessage(422, 'Not eligible for sync.');
       }
     }
+    /* published object is not a page linked to accepted content source (or vice-versa)
+       so we'll reject */
+    return statusAndMessage(422, 'Not eligible for sync.');
   } else {
+    /* not a publish/unpublish event so reject */
     return statusAndMessage(500, 'Unknown operation type.');
   }
 };
