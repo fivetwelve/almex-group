@@ -37,7 +37,6 @@ class ContactTemplate extends React.Component {
     if (!thisRegion) {
       getIPapiJson()
         .then(json => {
-          // const visitorRegion = mapToOffice(json.message.country_code, offices);
           this.setState({
             visitorRegion: json.message.country_code,
           });

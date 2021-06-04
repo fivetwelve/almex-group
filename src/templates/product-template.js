@@ -23,8 +23,6 @@ const ProductTemplate = ({ data, location, pageContext }) => {
   const { languages, locale, localeData, region } = pageContext;
   const { label } = localeData;
   const { common, products } = label;
-  // console.log('data');
-  // console.log(data);
   const {
     brand,
     theme,
@@ -46,33 +44,6 @@ const ProductTemplate = ({ data, location, pageContext }) => {
     relatedItems,
     visitResourcesForMore,
   } = data.cms.page.contentSource;
-  // const {
-  //   cms: {
-  //     page: {
-  //       contentSource: {
-  //         brand,
-  //         theme,
-  //         title,
-  //         images,
-  //         youTubeVideos,
-  //         attractText,
-  //         pdfDownloads,
-  //         marketing,
-  //         advantages,
-  //         advantagesImage,
-  //         features,
-  //         productInfo,
-  //         specs,
-  //         caseStudies,
-  //         configurations,
-  //         addOns,
-  //         accessories,
-  //         relatedItems,
-  //         visitResourcesForMore,
-  //       },
-  //     },
-  //   },
-  // } = data;
   /* availableIn_contains_some filter taken out of query so filtering here instead may help with build time */
   const regionalAccessories = accessories.filter(
     accessory => accessory.availableIn && accessory.availableIn.includes(region),

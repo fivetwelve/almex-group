@@ -8,6 +8,7 @@ import { createLink } from '../utils/functions';
 const StateResults = ({ label, locale, location, searchResults }) => {
   const hits = searchResults && searchResults.hits;
   const query = searchResults && searchResults.query;
+  console.log(hits);
 
   return (
     <div className="results">

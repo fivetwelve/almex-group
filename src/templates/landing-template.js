@@ -37,7 +37,7 @@ const LandingTemplate = ({ data, pageContext }) => {
       },
     },
   } = data;
-  /* availableIn_contains_some filter taken out of query so filtering here instead may help with build time */
+  /* availableIn_contains_some filter taken out of query so filtering here instead to improve with build time */
   const regionalLandingSections = landingSections.map(landingSection => {
     const regionalPages = landingSection.pages.filter(page => page.availableIn.includes(region));
     return {
@@ -282,10 +282,8 @@ export const query = graphql`
             landingType
             landingSections {
               title
-              # pages(where: { availableIn_contains_some: $availableIn }) {
               pages {
                 availableIn
-
                 # contentSource {
                 #   ... on GraphCMS_LandingSource {
                 #     title

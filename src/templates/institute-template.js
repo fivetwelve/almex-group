@@ -19,8 +19,6 @@ const InstituteTemplate = ({ data, pageContext }) => {
   //     `Check the connection to instituteSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
   //   );
   // }
-  // console.log('data');
-  // console.log(data);
   const { languages, locale, localeData, region } = pageContext;
   const { label } = localeData;
   const {
