@@ -31,6 +31,12 @@ module.exports = {
       }),
     );
   },
+  flags: {
+    /* DEV_SSR addresses https://stackoverflow.com/questions/66083723/prop-aria-current-did-not-match-server-null-client-page */
+    DEV_SSR: false,
+    FAST_DEV: true,
+    // PRESERVE_WEBPACK_CACHE: true,
+  },
   plugins: [
     {
       resolve: 'gatsby-plugin-robots-txt',
@@ -63,10 +69,17 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: `gatsby-plugin-google-gtag`,
       options: {
-        anonymize: true,
-        trackingId: 'UA-136510250-2',
+        trackingIds: ['UA-136510250-2', 'UA-2722190-2'],
+        gtagConfig: {
+          anonymize_ip: true,
+          cookie_expires: 0,
+        },
+        pluginConfig: {
+          head: true,
+          respectDNT: false,
+        },
       },
     },
     {

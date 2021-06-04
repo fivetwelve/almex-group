@@ -28,10 +28,7 @@ class CategorySelector extends Component {
     evt.preventDefault();
     setCategory(key);
     this.dropdownTrigger.current.nextElementSibling.classList.toggle('category-dropdown--visible');
-    this.setState(prevState => {
-      const clickBool = prevState.clicked;
-      return { clicked: !clickBool };
-    });
+    this.setState({ clicked: false });
   };
 
   render() {
@@ -96,8 +93,8 @@ CategorySelector.propTypes = {
     PropTypes.shape({
       id: PropTypes.string,
       isProductCategory: PropTypes.bool,
-      page: PropTypes.object,
-      documents: PropTypes.array,
+      page: PropTypes.instanceOf(Object),
+      documents: PropTypes.instanceOf(Array),
     }),
   ),
   label: PropTypes.objectOf(PropTypes.string),

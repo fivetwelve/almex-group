@@ -7,7 +7,8 @@ import DayPicker, { DateUtils } from 'react-day-picker';
 import MomentLocaleUtils, { formatDate } from 'react-day-picker/moment';
 import { IconContext } from 'react-icons';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
-import ReactMarkdown from 'react-markdown/with-html';
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 import 'moment/locale/de';
 import 'moment/locale/es';
 import Layout from '../components/layout';
@@ -40,7 +41,7 @@ class EventsTemplate extends Component {
   constructor(props) {
     super(props);
     /* need to simplify date from GraphCMS by ignoring its timezone */
-    const { events } = props.data.cms.page.eventsSource;
+    const { events } = props.data.cms.page.contentSource;
     const { locale } = props.pageContext;
     const parsedEvents = [];
     // console.log('events', events);
@@ -171,21 +172,17 @@ class EventsTemplate extends Component {
 
   render() {
     const { data, pageContext } = this.props;
-    if (!data.cms.page.eventsSource) {
-      throw Error(
-        `Check the connection to eventsSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
-      );
-    }
-    const { languages, locale, region } = pageContext;
+    // if (!data.cms.page.contentSource) {
+    //   throw Error(
+    //     `Check the connection to contentSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
+    //   );
+    // }
+    const { languages, locale, localeData, region } = pageContext;
+    const { label } = localeData;
     const {
       cms: {
-        aboutLabel,
-        brandNavigation,
-        headerFooter,
-        label,
-        navigation,
         page: {
-          eventsSource: { bannerImage, title, description },
+          contentSource: { bannerImage, title, description },
         },
       },
     } = data;
@@ -221,12 +218,9 @@ class EventsTemplate extends Component {
     return (
       <Layout
         activeLanguage={locale}
-        brandNavigation={brandNavigation}
         childrenClass="events-page"
-        headerFooter={headerFooter}
-        label={label}
         languages={languages}
-        navigation={navigation}
+        localeData={localeData}
         region={region}
         title={title}
       >
@@ -245,17 +239,18 @@ class EventsTemplate extends Component {
                   <h1 className="title">{title}</h1>
                   <div className="description">
                     <ReactMarkdown
-                      source={description}
-                      escapeHtml={false}
-                      renderers={{
+                      rehypePlugins={[rehypeRaw]}
+                      components={{
                         link: props => renderLink(props),
                       }}
-                    />
+                    >
+                      {description}
+                    </ReactMarkdown>
                   </div>
                 </div>
                 <div className="daypicker-dropdown">
                   <ContinentSelector
-                    labels={aboutLabel.about}
+                    labels={label.about}
                     setContinent={this.setContinent}
                     continent={continent}
                   />
@@ -279,21 +274,21 @@ class EventsTemplate extends Component {
                       <div className="events-results">
                         <div className="heading">
                           {formatDate(new Date(selectedDay), 'LL', calendarLocale)}{' '}
-                          {aboutLabel.about.EVENTS}
+                          {label.about.EVENTS}
                         </div>
-                        <p>{aboutLabel.about.NO_EVENTS}</p>
+                        <p>{label.about.NO_EVENTS}</p>
                       </div>
                     )}
                     {events && events.length > 0 && (
                       <div className="events-results">
                         <div className="heading">
                           {formatDate(new Date(selectedDay), 'LL', calendarLocale)}{' '}
-                          {aboutLabel.about.EVENTS}
+                          {label.about.EVENTS}
                         </div>
                         <EventsResults
                           calendarLocale={calendarLocale}
                           events={[events[0]]}
-                          labels={aboutLabel.about}
+                          labels={label.about}
                           location={location}
                           selectedDay={formatDate(selectedDay)}
                         />
@@ -306,7 +301,7 @@ class EventsTemplate extends Component {
                     <EventsResults
                       calendarLocale={calendarLocale}
                       events={[...events.slice(1)]}
-                      labels={aboutLabel.about}
+                      labels={label.about}
                       location={location}
                       selectedDay={formatDate(selectedDay)}
                     />
@@ -328,49 +323,44 @@ EventsTemplate.defaultProps = {
 
 EventsTemplate.propTypes = {
   data: PropTypes.shape({
-    cms: PropTypes.object,
+    cms: PropTypes.instanceOf(Object),
   }),
   pageContext: PropTypes.shape({
     id: PropTypes.string,
-    languages: PropTypes.array,
+    languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
-    locales: PropTypes.array,
+    localeData: PropTypes.instanceOf(Object),
+    locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
 };
 
 export const query = graphql`
-  query(
-    $id: ID!
-    $locale: [GraphCMS_Locale!]!
-    $locales: [GraphCMS_Locale!]!
-    $region: GraphCMS_Region!
-  ) {
+  query($id: ID!, $locales: [GraphCMS_Locale!]!) {
     cms {
-      ...CommonQuery
-      aboutLabel: label(locales: $locale, where: { availableIn: $region }) {
-        about
-      }
       page(locales: $locales, where: { id: $id }) {
-        eventsSource {
-          bannerImage {
-            handle
-            width
-            height
-          }
-          title
-          description
-          events {
-            startDate
-            endDate
-            continent
-            almexAttending
+        contentSource {
+          sourceType: __typename
+          ... on GraphCMS_EventsSource {
+            bannerImage {
+              handle
+              width
+              height
+            }
             title
             description
-            location
-            website
-            thumbnail {
-              url
+            events {
+              startDate
+              endDate
+              continent
+              almexAttending
+              title
+              description
+              location
+              website
+              thumbnail {
+                url
+              }
             }
           }
         }

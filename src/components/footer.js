@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, Link, StaticQuery } from 'gatsby';
-import fetch from 'isomorphic-fetch';
 import { IconContext } from 'react-icons';
 import CookieConsent from 'react-cookie-consent';
 import { FaPhone, FaEnvelope } from 'react-icons/fa';
-import ReactMarkdown from 'react-markdown/with-html';
-import { createLink, hoursPassed, makeid } from '../utils/functions';
-import { BRANDS, PAGE_TYPES } from '../constants';
+import ReactMarkdown from 'react-markdown';
+import { createLink, hoursPassed, makeid, getIPapiJson } from '../utils/functions';
+import { BRANDS } from '../constants';
 import '../styles/footer.scss';
 
 class Footer extends React.Component {
@@ -22,6 +21,7 @@ class Footer extends React.Component {
     if (typeof window !== 'undefined') {
       const thisRegion =
         (navigator.cookieEnabled && localStorage.getItem('almexVisitorRegion')) || null;
+      // null;
       if (!thisRegion) {
         this.getRegion();
       } else {
@@ -51,7 +51,7 @@ class Footer extends React.Component {
       data: { cms },
     } = this.props;
     cms.offices.forEach(office => {
-      const theseCountries = office.countryCodes.countries;
+      const theseCountries = office.supportedCountryCodes.countries;
       if (theseCountries.includes(region)) {
         regionOffices.push(office);
       }
@@ -64,35 +64,34 @@ class Footer extends React.Component {
 
   getRegion = () => {
     const nowString = new Date().toString();
-    fetch('https://ipapi.co/json/', {
-      headers: {
-        Accept: 'application/json',
-      },
-    })
-      .then(result => result.json())
-      .then(json => {
-        if (navigator.cookieEnabled) {
-          localStorage.setItem('almexVisitorRegion', json.country);
-          localStorage.setItem('almexLastVisit', nowString);
-        }
-        this.getOffices(json.country);
-      })
-      .catch(() => {
-        if (navigator.cookieEnabled) {
-          localStorage.setItem('almexVisitorRegion', 'ALL');
-          localStorage.setItem('almexLastVisit', nowString);
-        }
-        this.getOffices('ALL');
-      });
+    try {
+      getIPapiJson()
+        .then(json => {
+          if (navigator.cookieEnabled) {
+            localStorage.setItem('almexVisitorRegion', json.message.country_code);
+            localStorage.setItem('almexLastVisit', nowString);
+          }
+          this.getOffices(json.message.country_code);
+        })
+        .catch(() => {
+          if (navigator.cookieEnabled) {
+            localStorage.setItem('almexVisitorRegion', 'ALL');
+            localStorage.setItem('almexLastVisit', nowString);
+          }
+          this.getOffices('ALL');
+        });
+    } catch (error) {
+      // console.log(error);
+    }
   };
 
   renderOffice = office => (
     <div className="office" key={makeid()}>
       <div className="name">
-        <ReactMarkdown source={office.name} escapeHtml={false} />
+        <ReactMarkdown>{office.name}</ReactMarkdown>
       </div>
       <div className="address">
-        <ReactMarkdown source={office.address} escapeHtml={false} />
+        <ReactMarkdown>{office.address}</ReactMarkdown>
       </div>
       <div className="phone">
         <IconContext.Provider value={{ className: 'contact-icon' }}>
@@ -137,22 +136,8 @@ class Footer extends React.Component {
   };
 
   renderBrands = (brand, location) => {
-    let brandType = '';
     let productBrand = '';
-    switch (brand.pageType) {
-      case PAGE_TYPES.INSTITUTE:
-        brandType = brand.institute;
-        break;
-      case PAGE_TYPES.LANDING:
-        brandType = brand.landing;
-        break;
-      case PAGE_TYPES.SERVICES:
-        brandType = brand.services;
-        break;
-      default:
-        break;
-    }
-    switch (brandType.brand) {
+    switch (brand.brand) {
       case BRANDS.ALMEX_IN_A_BOX:
         productBrand = 'almex-box';
         break;
@@ -186,7 +171,7 @@ class Footer extends React.Component {
     return (
       <div className={`brand ${productBrand}`} key={brand.slug}>
         <Link to={createLink(location, brand.slug)}>
-          <span className="sr-only">{brandType.title}</span>
+          <span className="sr-only">{brand.title}</span>
         </Link>
       </div>
     );
@@ -211,7 +196,7 @@ class Footer extends React.Component {
 
   render() {
     const { brandNavigation, headerFooter, label, location } = this.props;
-    /* static companyAddress, etc. could  be used later once all regional sites have rolled out 
+    /* static companyAddress, etc. could  be used later once all regional sites have rolled out
        but currently using geo-lookup and using most relevant office details as default */
     // const { companyAddress, companyEmail, companyPhone, footerLinks, socialMedia } = headerFooter;
     const { regionOffices } = this.state;
@@ -313,23 +298,23 @@ Footer.defaultProps = {
 
 Footer.propTypes = {
   brandNavigation: PropTypes.shape({
-    pages: PropTypes.array,
+    pages: PropTypes.instanceOf(Array),
   }),
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      offices: PropTypes.array,
+      offices: PropTypes.instanceOf(Array),
     }),
   }),
   headerFooter: PropTypes.shape({
     companyAddress: PropTypes.string,
     companyEmail: PropTypes.string,
     companyPhone: PropTypes.string,
-    footerLinks: PropTypes.object,
-    privacyPage: PropTypes.object,
-    socialMedia: PropTypes.array,
+    footerLinks: PropTypes.instanceOf(Object),
+    privacyPage: PropTypes.instanceOf(Object),
+    socialMedia: PropTypes.instanceOf(Array),
   }),
   label: PropTypes.shape({
-    footer: PropTypes.object,
+    footer: PropTypes.instanceOf(Object),
   }),
   location: PropTypes.shape({
     pathname: PropTypes.string,
@@ -348,7 +333,7 @@ export default props => (
             tollFree
             email
             contactPerson
-            countryCodes
+            supportedCountryCodes: countryCodes
           }
         }
       }

@@ -3,25 +3,23 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
-import ReactMarkdown from 'react-markdown/with-html';
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 import Layout from '../components/layout';
 import TimelineManager from '../components/timelineManager';
 import { renderLink } from '../utils/functions';
 import '../styles/history.scss';
 
 const HistoryTemplate = ({ data, pageContext }) => {
-  if (!data.cms.page.history) {
-    throw Error(
-      `Check the connection to historySource; missing localization or incorrect or publish status may also cause errors. Page ID ${pageContext.id}`,
-    );
-  }
-  const { languages, locale, region } = pageContext;
+  // if (!data.cms.page.history) {
+  //   throw Error(
+  //     `Check the connection to historySource; missing localization or incorrect or publish status may also cause errors. Page ID ${pageContext.id}`,
+  //   );
+  // }
+  const { languages, locale, localeData, region } = pageContext;
+  const { label } = localeData;
   const {
     cms: {
-      brandNavigation,
-      headerFooter,
-      label,
-      navigation,
       page: {
         history: { bannerImage, title, description, events },
       },
@@ -33,12 +31,9 @@ const HistoryTemplate = ({ data, pageContext }) => {
   return (
     <Layout
       activeLanguage={locale}
-      brandNavigation={brandNavigation}
       childrenClass="history-page"
-      headerFooter={headerFooter}
-      label={label}
       languages={languages}
-      navigation={navigation}
+      localeData={localeData}
       region={region}
       title={title}
     >
@@ -58,12 +53,13 @@ const HistoryTemplate = ({ data, pageContext }) => {
                   <h1 className="title">{title}</h1>
                   <div className="description">
                     <ReactMarkdown
-                      source={description}
-                      escapeHtml={false}
-                      renderers={{
+                      rehypePlugins={[rehypeRaw]}
+                      components={{
                         link: props => renderLink(props, location),
                       }}
-                    />
+                    >
+                      {description}
+                    </ReactMarkdown>
                   </div>
                 </div>
               </div>
@@ -85,55 +81,46 @@ HistoryTemplate.defaultProps = {
 HistoryTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      brandNavigation: PropTypes.object,
-      headerFooter: PropTypes.object,
-      label: PropTypes.object,
-      navigation: PropTypes.object,
-      page: PropTypes.object,
+      page: PropTypes.instanceOf(Object),
     }),
   }),
   pageContext: PropTypes.shape({
     id: PropTypes.string,
-    languages: PropTypes.array,
+    languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
-    locales: PropTypes.array,
+    localeData: PropTypes.instanceOf(Object),
+    locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
 };
 
 export const query = graphql`
-  query(
-    $id: ID!
-    $locale: [GraphCMS_Locale!]!
-    $locales: [GraphCMS_Locale!]!
-    $region: GraphCMS_Region!
-  ) {
+  query($id: ID!, $locales: [GraphCMS_Locale!]!) {
     cms {
-      ...CommonQuery
-      aboutLabel: label(locales: $locale, where: { availableIn: $region }) {
-        about
-      }
       page(locales: $locales, where: { id: $id }) {
-        history: historySource {
-          bannerImage {
-            handle
-            width
-            height
-          }
-          title
-          description
-          events: historicalEvents {
-            almexEvent
-            captions
-            sortDate
-            displayDate
-            eventTitle: title
-            description
-            images {
+        history: contentSource {
+          sourceType: __typename
+          ... on GraphCMS_HistorySource {
+            bannerImage {
               handle
-              height
               width
-              url
+              height
+            }
+            title
+            description
+            events: historicalEvents {
+              almexEvent
+              captions
+              sortDate
+              displayDate
+              eventTitle: title
+              description
+              images {
+                handle
+                height
+                width
+                url
+              }
             }
           }
         }

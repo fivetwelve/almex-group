@@ -47,7 +47,7 @@ LandingTile.propTypes = {
   data: PropTypes.shape({
     slug: PropTypes.string,
     // subtitle: PropTypes.string,
-    tile: PropTypes.object,
+    tile: PropTypes.instanceOf(Object),
     title: PropTypes.string,
   }),
   location: PropTypes.shape({

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { PAGE_TYPES } from '../constants';
+import fetch from 'cross-fetch';
+import { SOURCE_TYPE_NAMES } from '../constants';
 
 const apiUrl = () => {
   if (typeof window !== 'undefined') {
@@ -19,14 +20,18 @@ const createLink = (location, slug) => {
     - Have established that URLs will always be formed as: /region/locale/slug/
     - No further hierarchy expected to pollute URLs or future link creation.
     - Slugs expected to be unique, coming from CMS.
-    - location passed in expected to be the prop coming from @reach/router Location 
+    - location passed in expected to be the prop coming from @reach/router Location
     - accounts for when there is no slug (homepage) so url may end in /region/locale
       and no trailing slash
+    - updated redirect rules may result in double-trailing slash, added extra step
+      to clean it
   */
   const reg = /\/(.*?)\/\w+\//;
   const match = reg.exec(location.pathname);
   const linkPrefix = (match && match[0]) || `${location.pathname}/`;
-  return `${linkPrefix}${slug}/`;
+  const newLink = `${linkPrefix}${slug}/`;
+  /* strip extra trailing slash resulting from empty slug, indicating homepage link */
+  return newLink.replace('//', '/');
 };
 
 const createLinkFromPage = (location, page, language) => {
@@ -54,47 +59,47 @@ const getTitle = page => {
     simply from page object when query is already language-filtered.
   */
   let title = '';
-  switch (page.pageType) {
-    case PAGE_TYPES.ABOUT:
+  switch (page.contentSource.sourceType) {
+    case SOURCE_TYPE_NAMES.ABOUT:
       title = (page.about && page.about.title) || '';
       break;
-    case PAGE_TYPES.CAREERS:
+    case SOURCE_TYPE_NAMES.CAREERS:
       title = (page.careers && page.careers.title) || '';
       break;
-    case PAGE_TYPES.CONTACT:
+    case SOURCE_TYPE_NAMES.CONTACT:
       title = (page.contact && page.contact.title) || '';
       break;
-    case PAGE_TYPES.EVENTS:
+    case SOURCE_TYPE_NAMES.EVENTS:
       title = (page.events && page.events.title) || '';
       break;
-    case PAGE_TYPES.HISTORY:
+    case SOURCE_TYPE_NAMES.HISTORY:
       title = (page.history && page.history.title) || '';
       break;
-    case PAGE_TYPES.INSTITUTE:
+    case SOURCE_TYPE_NAMES.INSTITUTE:
       title = (page.institute && page.institute.title) || '';
       break;
-    case PAGE_TYPES.LANDING:
+    case SOURCE_TYPE_NAMES.LANDING:
       title = (page.landing && page.landing.title) || '';
       break;
-    case PAGE_TYPES.NEWS:
+    case SOURCE_TYPE_NAMES.NEWS:
       title = (page.news && page.news.title) || '';
       break;
-    case PAGE_TYPES.PRODUCT:
+    case SOURCE_TYPE_NAMES.PRODUCT:
       title = (page.product && page.product.title) || '';
       break;
-    case PAGE_TYPES.PROMO:
+    case SOURCE_TYPE_NAMES.PROMO:
       title = (page.promo && page.promo.title) || '';
       break;
-    case PAGE_TYPES.RESOURCES:
+    case SOURCE_TYPE_NAMES.RESOURCES:
       title = (page.resources && page.resources.title) || '';
       break;
-    case PAGE_TYPES.SERVICES:
+    case SOURCE_TYPE_NAMES.SERVICES:
       title = (page.services && page.services.title) || '';
       break;
-    case PAGE_TYPES.SIMPLE:
+    case SOURCE_TYPE_NAMES.SIMPLE:
       title = (page.simpleContent && page.simpleContent.title) || '';
       break;
-    case PAGE_TYPES.USED:
+    case SOURCE_TYPE_NAMES.USED:
       title = (page.usedEquipment && page.usedEquipment.title) || '';
       break;
     default:
@@ -251,14 +256,15 @@ const hoursPassed = (dt1, dt2, gap) => {
  * @return {String}
  */
 const mapToOffice = (countryCode, offices) => {
-  let supportOffice = null;
-  for (let i = 0; i < offices.length; i += 1) {
-    if (offices[i].countryCodes.countries.includes(countryCode)) {
-      supportOffice = countryCode;
-      break;
-    }
-  }
-  return supportOffice;
+  // let supportOffice = null;
+  // for (let i = 0; i < offices.length; i += 1) {
+  //   if (offices[i].supportedCountryCodes.countries.includes(countryCode)) {
+  //     supportOffice = countryCode;
+  //     break;
+  //   }
+  // }
+  // return supportOffice;
+  return offices.filter(office => office.supportedCountryCodes.countries.includes(countryCode));
 };
 
 const matchMomentLocale = locale => {
@@ -393,6 +399,22 @@ const scrollTo = (to, callback, duration) => {
   animateScroll();
 };
 
+const getIPapiJson = async () => {
+  const response = await fetch(`${apiUrl()}/getRegion`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+  });
+  const result = await response.json();
+  if (!response.ok) {
+    if (result.message) {
+      throw result;
+    } else {
+      throw response;
+    }
+  }
+  return result;
+};
+
 export {
   apiUrl,
   countryFlag,
@@ -409,4 +431,5 @@ export {
   normalizeTimeZone,
   renderLink,
   scrollTo,
+  getIPapiJson,
 };

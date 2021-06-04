@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
 import { FaFax, FaMobileAlt, FaPhone } from 'react-icons/fa';
-import ReactMarkdown from 'react-markdown/with-html';
+import ReactMarkdown from 'react-markdown';
 import { countryFlag, makeid } from '../utils/functions';
 import pin from '../../static/img/map-pin.svg';
 
 const ContactOffice = props => {
-  const { aboutLabel, goToOffice, handleContactUs, office, visitorRegion } = props;
+  const { goToOffice, handleContactUs, label, office, visitorRegion } = props;
   const {
     backupOffice,
     address,
@@ -20,6 +20,7 @@ const ContactOffice = props => {
     longitude,
     mobile,
     name,
+    supportedCountryCodes,
     telephone,
     tollFree,
   } = office;
@@ -42,7 +43,7 @@ const ContactOffice = props => {
           <br />
           <em>{name}</em>
           <br />
-          <ReactMarkdown source={address} />
+          <ReactMarkdown>{address}</ReactMarkdown>
           {telephone.length > 0 &&
             telephone.map(num => (
               <div key={`tel-${makeid()}`}>
@@ -79,23 +80,23 @@ const ContactOffice = props => {
           {tollFree.length > 0 &&
             tollFree.map(num => (
               <div key={`toll-free-${makeid()}`}>
-                <span className="toll-free">{aboutLabel.about.TOLLFREE}: </span>
+                <span className="toll-free">{label.about.TOLLFREE}: </span>
                 {num}
               </div>
             ))}
           {contactPerson && (
             <div className="contact-person-container">
-              <span className="contact-person">{aboutLabel.about.CONTACT_PERSON}: </span>
+              <span className="contact-person">{label.about.CONTACT_PERSON}: </span>
               <em>{contactPerson}</em>
             </div>
           )}
         </div>
         <div className="table-desc">
           <p>{description}</p>
-          {(visitorRegion === countryCode || backupOffice) && (
+          {(supportedCountryCodes.countries.includes(visitorRegion) || backupOffice) && (
             <p>
               <button type="button" onClick={() => handleContactUs(null, office)}>
-                {aboutLabel.about.CONTACT_US}
+                {label.about.CONTACT_US}
               </button>
             </p>
           )}
@@ -107,7 +108,7 @@ const ContactOffice = props => {
 };
 
 ContactOffice.defaultProps = {
-  aboutLabel: {},
+  label: {},
   goToOffice: () => {},
   handleContactUs: () => {},
   office: {
@@ -121,6 +122,9 @@ ContactOffice.defaultProps = {
     fax: [],
     mobile: [],
     name: '',
+    supportedCountryCodes: {
+      countries: [],
+    },
     telephone: [],
     tollFree: [],
   },
@@ -128,8 +132,8 @@ ContactOffice.defaultProps = {
 };
 
 ContactOffice.propTypes = {
-  aboutLabel: PropTypes.shape({
-    about: PropTypes.object,
+  label: PropTypes.shape({
+    about: PropTypes.instanceOf(Object),
   }),
   goToOffice: PropTypes.func,
   handleContactUs: PropTypes.func,
@@ -141,13 +145,16 @@ ContactOffice.propTypes = {
     countries: PropTypes.string,
     countryCode: PropTypes.string,
     description: PropTypes.string,
-    fax: PropTypes.array,
+    fax: PropTypes.instanceOf(Array),
     latitude: PropTypes.number,
     longitude: PropTypes.number,
-    mobile: PropTypes.array,
+    mobile: PropTypes.instanceOf(Array),
     name: PropTypes.string,
-    telephone: PropTypes.array,
-    tollFree: PropTypes.array,
+    supportedCountryCodes: PropTypes.shape({
+      countries: PropTypes.instanceOf(Array),
+    }),
+    telephone: PropTypes.instanceOf(Array),
+    tollFree: PropTypes.instanceOf(Array),
   }),
   visitorRegion: PropTypes.string,
 };

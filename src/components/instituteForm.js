@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import fetch from 'isomorphic-fetch';
+import fetch from 'cross-fetch';
 import Recaptcha from 'react-google-recaptcha';
 import { apiUrl } from '../utils/functions';
 import { FORM_TYPES } from '../constants';
@@ -300,7 +300,7 @@ InstituteForm.propTypes = {
   email: PropTypes.arrayOf(PropTypes.string),
   emailSubject: PropTypes.string,
   label: PropTypes.shape({
-    common: PropTypes.object,
+    common: PropTypes.instanceOf(Object),
   }),
 };
 

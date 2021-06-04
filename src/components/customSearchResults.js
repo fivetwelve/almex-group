@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
 import { connectStateResults } from 'react-instantsearch-dom';
-import ReactMarkdown from 'react-markdown/with-html';
+import ReactMarkdown from 'react-markdown';
 import { createLink } from '../utils/functions';
 
 const StateResults = ({ label, locale, location, searchResults }) => {
@@ -29,7 +29,7 @@ const StateResults = ({ label, locale, location, searchResults }) => {
                 </Link>
               </div>
               <div className="body">
-                <ReactMarkdown source={hit.page[`excerpt${locale}`]} />
+                <ReactMarkdown>{hit.page[`excerpt${locale}`]}</ReactMarkdown>
               </div>
             </>
           </div>
@@ -58,7 +58,7 @@ StateResults.propTypes = {
   }),
   searchResults: PropTypes.shape({
     query: PropTypes.string,
-    hits: PropTypes.array,
+    hits: PropTypes.instanceOf(Array),
   }),
 };
 

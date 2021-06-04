@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactMarkdown from 'react-markdown/with-html';
+import ReactMarkdown from 'react-markdown';
 import { makeid } from '../utils/functions';
 
 const TrainingEventsResults = ({ events, labels }) => (
@@ -23,7 +23,7 @@ const TrainingEventsResults = ({ events, labels }) => (
                 <tr>
                   <td className="label">{labels.LOCATION}</td>
                   <td className="location">
-                    <ReactMarkdown source={event.location} escapeHtml={false} />
+                    <ReactMarkdown>{event.location}</ReactMarkdown>
                   </td>
                 </tr>
                 <tr>

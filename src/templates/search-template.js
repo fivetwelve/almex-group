@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { graphql } from 'gatsby';
 import { globalHistory } from '@reach/router';
 import algoliasearch from 'algoliasearch/lite';
 import {
@@ -61,13 +60,12 @@ const updateURL = (query, page) => {
 
 const SearchTemplate = props => {
   const {
-    data,
+    // data,
     location,
-    pageContext: { languages, locale, region },
+    pageContext: { languages, locale, localeData, region },
   } = props;
-  const {
-    cms: { brandNavigation, headerFooter, label, navigation },
-  } = data;
+  // const { brandNavigation, headerFooter, label, navigation } = localeData;
+  const { label } = localeData;
   const [searchState, setSearchState] = useState(urlToSearchState(location));
 
   /* use this to 'reload' page query from header */
@@ -95,12 +93,9 @@ const SearchTemplate = props => {
   return (
     <Layout
       activeLanguage={locale}
-      brandNavigation={brandNavigation}
       childrenClass="search-page"
-      headerFooter={headerFooter}
-      label={label}
       languages={languages}
-      navigation={navigation}
+      localeData={localeData}
       region={region}
     >
       <div className="search-container">
@@ -131,15 +126,15 @@ const SearchTemplate = props => {
           <div className="heading">
             {searchState.query && (
               <h1>
-                {label.search.RESULTS}: {`"${searchState.query}"`}
+                {label && label.search.RESULTS}: {`"${searchState.query}"`}
               </h1>
             )}
-            {!searchState.query && <h1>{label.search.PLEASE_ENTER}</h1>}
+            {!searchState.query && <h1>{label && label.search.PLEASE_ENTER}</h1>}
           </div>
           <CustomPagination defaultRefinement={0} goToPage={goToPage} query={searchState.query} />
           <hr />
 
-          <CustomSearchResults label={label.search} locale={locale} location={location} />
+          <CustomSearchResults label={label && label.search} locale={locale} location={location} />
           <hr />
           <CustomPagination defaultRefinement={0} goToPage={goToPage} query={searchState.query} />
         </InstantSearch>
@@ -161,36 +156,22 @@ SearchTemplate.defaultProps = {
 SearchTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      brandNavigation: PropTypes.object,
-      headerFooter: PropTypes.object,
-      label: PropTypes.object,
-      navigation: PropTypes.object,
-      page: PropTypes.object,
+      page: PropTypes.instanceOf(Object),
     }),
   }),
   location: PropTypes.shape({
     pathname: PropTypes.string,
     search: PropTypes.string,
-    state: PropTypes.object,
+    state: PropTypes.instanceOf(Object),
   }),
   pageContext: PropTypes.shape({
     id: PropTypes.string,
-    languages: PropTypes.array,
+    languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
-    locales: PropTypes.array,
+    localeData: PropTypes.instanceOf(Object),
+    locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
 };
-
-export const query = graphql`
-  query($locale: [GraphCMS_Locale!]!, $locales: [GraphCMS_Locale!]!, $region: GraphCMS_Region!) {
-    cms {
-      ...CommonQuery
-      label(locales: $locale, where: { availableIn: $region }) {
-        search
-      }
-    }
-  }
-`;
 
 export default SearchTemplate;

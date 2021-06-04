@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
-import { createLinkFromPage, getTitle, makeid } from '../utils/functions';
+import { createLinkFromPage, makeid } from '../utils/functions';
 import CloseButton from './closeButton';
 
 const NavigationDropdown = props => {
@@ -21,15 +21,17 @@ const NavigationDropdown = props => {
      also avoids future redundant getTitle calls. */
   /* Use getTitle here because we want the menu to use the source
      title and not page title which could vary for mktg purposes. */
+  /* May 2021 update: Switching this to page.title for purpose of
+     improving query performance */
 
-  section.pages.forEach(page => {
-    Object.defineProperty(page, 'title', {
-      value: getTitle(page),
-      writable: true,
-      enumerable: true,
-      configurable: true,
-    });
-  });
+  // section.pages.forEach(page => {
+  //   Object.defineProperty(page, 'title', {
+  //     value: getTitle(page),
+  //     writable: true,
+  //     enumerable: true,
+  //     configurable: true,
+  //   });
+  // });
 
   /* determine vertical height and column designations */
   const rows = Math.ceil(section.pages.length / 3);
@@ -122,7 +124,7 @@ NavigationDropdown.propTypes = {
     pathname: PropTypes.string,
   }),
   section: PropTypes.shape({
-    pages: PropTypes.array,
+    pages: PropTypes.instanceOf(Array),
     title: PropTypes.string,
     type: PropTypes.string,
   }),

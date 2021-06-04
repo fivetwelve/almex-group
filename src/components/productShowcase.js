@@ -6,7 +6,7 @@ import YouTube from 'react-youtube';
 import { IconContext } from 'react-icons';
 import { FaChevronLeft, FaChevronRight, FaYoutube } from 'react-icons/fa';
 import { createLink, makeid } from '../utils/functions';
-import { RESOURCE_TYPES } from '../constants';
+import { RESOURCE_TYPES, DOWNLOAD_URL } from '../constants';
 import ProductBrand from './productBrand';
 import Attraction from './attraction';
 
@@ -18,7 +18,7 @@ const $videoLimit = 2; // max # of videos we're permitting in the gallery
 class ProductShowcase extends React.Component {
   constructor(props) {
     super(props);
-    const { images, youTubeVideos, pdfDownloads } = props;
+    const { images, youTubeVideos, pdfDownloads, region } = props;
     const slideArray = [];
     const pdfArray = [];
 
@@ -51,13 +51,16 @@ class ProductShowcase extends React.Component {
       if (!excludeList.includes(pdfDownloads[k].resourceType)) {
         const pdf = (
           <div className="pdf" key={makeid()}>
-            <a href={pdfDownloads[k].url} target="_new" rel="nofollow noindex">
+            <a href={DOWNLOAD_URL + pdfDownloads[k].id} target="_new" rel="nofollow noindex">
               <div className="pdf-icon" />
               {pdfDownloads[k].documentTitle || pdfDownloads[k].fileName.split('.pdf')[0]}
             </a>
           </div>
         );
-        pdfArray.push(pdf);
+
+        if (pdfDownloads[k].availableIn.includes(region)) {
+          pdfArray.push(pdf);
+        }
       }
     }
 
@@ -175,7 +178,12 @@ class ProductShowcase extends React.Component {
             <div className="product-title">{title}</div>
             {attractText.length > 0 && (
               <div className="attraction-container">
-                <Attraction attractText={attractText} locale={locale} products={products} />
+                <Attraction
+                  attractText={attractText}
+                  locale={locale}
+                  products={products}
+                  slideIndex={slideIdx}
+                />
               </div>
             )}
             {pdfDownloads && <div className="pdf-downloads">{pdfArray}</div>}
@@ -219,7 +227,7 @@ class ProductShowcase extends React.Component {
                 const thumbStyle = {
                   backgroundColor: '$black',
                 };
-                /* we may have more images than we can display so we have to impose a limit and we check 
+                /* we may have more images than we can display so we have to impose a limit and we check
                    whether to use given size of images, or the limit imposed */
                 const thisIdx = idx + (images.length >= $imageLimit ? $imageLimit : images.length);
                 return (
@@ -261,6 +269,7 @@ ProductShowcase.defaultProps = {
   youTubeVideos: [],
   pdfDownloads: [],
   showResourcesLink: false,
+  region: '',
 };
 
 ProductShowcase.propTypes = {
@@ -272,9 +281,9 @@ ProductShowcase.propTypes = {
     }),
   ),
   label: PropTypes.shape({
-    common: PropTypes.object,
-    products: PropTypes.object,
-    resourcesLink: PropTypes.object,
+    common: PropTypes.instanceOf(Object),
+    products: PropTypes.instanceOf(Object),
+    resourcesLink: PropTypes.instanceOf(Object),
   }),
   locale: PropTypes.string,
   location: PropTypes.shape({
@@ -287,13 +296,16 @@ ProductShowcase.propTypes = {
   youTubeVideos: PropTypes.arrayOf(PropTypes.object),
   pdfDownloads: PropTypes.arrayOf(
     PropTypes.shape({
+      id: PropTypes.string,
       resourceType: PropTypes.string,
       documentTitle: PropTypes.string,
       fileName: PropTypes.string,
       url: PropTypes.string,
+      availableIn: PropTypes.arrayOf(PropTypes.string),
     }),
   ),
   showResourcesLink: PropTypes.bool,
+  region: PropTypes.string,
 };
 
 export default ProductShowcase;

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Carousel from 'nuka-carousel';
-import ReactMarkdown from 'react-markdown/with-html';
+import ReactMarkdown from 'react-markdown';
 import { IconContext } from 'react-icons';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import moment from 'moment';
@@ -147,12 +147,12 @@ class UsedEquipmentListing extends React.Component {
             <div className="model-number">{modelNumber}</div>
             <div className="contact-info">
               <ReactMarkdown
-                source={contactInformation}
-                escapeHtml={false}
-                renderers={{
+                components={{
                   link: props => renderLink(props),
                 }}
-              />
+              >
+                {contactInformation}
+              </ReactMarkdown>
             </div>
             {slideArray.length > 1 && (
               <div className="carousel-controls">
@@ -183,12 +183,12 @@ class UsedEquipmentListing extends React.Component {
         <div className="listing-specs">
           <div className="listing-description">
             <ReactMarkdown
-              source={equipmentDescription}
-              escapeHtml={false}
-              renderers={{
+              components={{
                 link: props => renderLink(props),
               }}
-            />
+            >
+              {equipmentDescription}
+            </ReactMarkdown>
           </div>
         </div>
       </>
@@ -218,8 +218,8 @@ UsedEquipmentListing.propTypes = {
     }),
   ),
   label: PropTypes.shape({
-    common: PropTypes.object,
-    sparesRepairs: PropTypes.object,
+    common: PropTypes.instanceOf(Object),
+    sparesRepairs: PropTypes.instanceOf(Object),
   }),
   modelNumber: PropTypes.string,
   title: PropTypes.string,

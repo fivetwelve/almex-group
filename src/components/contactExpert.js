@@ -5,7 +5,7 @@ import { FaFax, FaMobileAlt, FaPhone } from 'react-icons/fa';
 import { countryFlag, makeid } from '../utils/functions';
 
 const ContactExpert = props => {
-  const { aboutLabel, expert, handleContactUs } = props;
+  const { expert, handleContactUs, label } = props;
   const { countryCode, specialty, name, location, telephone, fax, mobile, title } = expert;
 
   return (
@@ -53,7 +53,7 @@ const ContactExpert = props => {
             </div>
           )}
           <button type="button" onClick={() => handleContactUs(expert, null)}>
-            {aboutLabel.about.CONTACT}
+            {label.about.CONTACT}
           </button>
           {/* )} */}
         </div>
@@ -63,7 +63,7 @@ const ContactExpert = props => {
 };
 
 ContactExpert.defaultProps = {
-  aboutLabel: {},
+  label: {},
   expert: {},
   handleContactUs: () => {},
   office: {
@@ -83,8 +83,8 @@ ContactExpert.defaultProps = {
 };
 
 ContactExpert.propTypes = {
-  aboutLabel: PropTypes.shape({
-    about: PropTypes.object,
+  label: PropTypes.shape({
+    about: PropTypes.instanceOf(Object),
   }),
   expert: PropTypes.shape({
     specialty: PropTypes.string,
@@ -105,11 +105,11 @@ ContactExpert.propTypes = {
     countries: PropTypes.string,
     countryCode: PropTypes.string,
     description: PropTypes.string,
-    fax: PropTypes.array,
-    mobile: PropTypes.array,
+    fax: PropTypes.instanceOf(Array),
+    mobile: PropTypes.instanceOf(Array),
     name: PropTypes.string,
-    telephone: PropTypes.array,
-    tollFree: PropTypes.array,
+    telephone: PropTypes.instanceOf(Array),
+    tollFree: PropTypes.instanceOf(Array),
   }),
 };
 

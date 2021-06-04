@@ -74,7 +74,7 @@ class Attraction extends React.Component {
         this.textTweens,
         0.3,
         { x: 200, autoAlpha: 0 },
-        { x: 10, autoAlpha: 1, ease: Circ.easeOut },
+        { x: 0, autoAlpha: 1, ease: Circ.easeOut },
         1.2,
       )
       .play();
@@ -90,11 +90,11 @@ class Attraction extends React.Component {
       transformOrigin: 'center',
     };
 
-    const { attractText, locale, products } = this.props;
+    const { attractText, locale, products, slideIndex } = this.props;
 
     return (
       <>
-        <div className="svg-container">
+        <div className="svg-container" style={{ display: slideIndex !== 0 ? 'none' : 'block' }}>
           <svg
             width="144px"
             height="144px"
@@ -137,7 +137,7 @@ class Attraction extends React.Component {
             />
           </svg>
         </div>
-        <div className="circular-text">
+        <div className="circular-text" style={{ display: slideIndex !== 0 ? 'none' : 'block' }}>
           <img
             src={`/img/circular-text-${locale}.svg`}
             alt={products.SHOULD_KNOW}
@@ -171,6 +171,7 @@ Attraction.defaultProps = {
   attractText: [],
   locale: '',
   products: {},
+  slideIndex: '0',
 };
 
 Attraction.propTypes = {
@@ -179,6 +180,7 @@ Attraction.propTypes = {
   products: PropTypes.shape({
     SHOULD_KNOW: PropTypes.string,
   }),
+  slideIndex: PropTypes.number,
 };
 
 export default Attraction;

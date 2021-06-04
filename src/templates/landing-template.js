@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
-import ReactMarkdown from 'react-markdown/with-html';
+import ReactMarkdown from 'react-markdown';
 import Layout from '../components/layout';
 import LandingTile from '../components/landingTile';
 import AlternativeBanner from '../components/alternativeBanner';
@@ -13,20 +13,17 @@ import ProductBrand from '../components/productBrand';
 import { makeid, renderLink } from '../utils/functions';
 
 const LandingTemplate = ({ data, pageContext }) => {
-  if (!data.cms.page.landing) {
-    throw Error(
-      `Check the connection to landingSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
-    );
-  }
-  const { languages, locale, region } = pageContext;
+  // if (!data.cms.page.landing) {
+  //   console.log('data.cms', data.cms);
+  //   throw Error(
+  //     `Check the connection to landing source; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
+  //   );
+  // }
+  const { languages, locale, localeData, region } = pageContext;
   const {
     cms: {
-      brandNavigation,
-      headerFooter,
-      label,
-      navigation,
       page: {
-        landing: {
+        contentSource: {
           bannerImage,
           alternativeBanners,
           brand,
@@ -40,6 +37,17 @@ const LandingTemplate = ({ data, pageContext }) => {
       },
     },
   } = data;
+  /* availableIn_contains_some filter taken out of query so filtering here instead to improve with build time */
+  const regionalLandingSections = landingSections.map(landingSection => {
+    const regionalPages = landingSection.pages.filter(page => page.availableIn.includes(region));
+    return {
+      title: landingSection.title,
+      pages: regionalPages,
+    };
+  });
+  const regionalSinglePages = singlePages.filter(singlePage =>
+    singlePage.availableIn.includes(region),
+  );
   let themeColour = '';
   let sectionIdx = 0;
 
@@ -75,15 +83,11 @@ const LandingTemplate = ({ data, pageContext }) => {
     pages.forEach(page => {
       /* Use page titles by default. This allows some flexibility if there needs to be a shorter title than what is stored in source. */
       const pageTitle = page.title;
-      // const pageAvailableIn = page.availableIn;
-      // const pageRegion = page.region;
       const tileData = {
         slug: page.slug,
         tile: page.tile,
         title: pageTitle,
       };
-      // console.log('avail:', pageAvailableIn);
-      // console.log('region:', region);
       const landingTile = (
         <LandingTile data={tileData} key={makeid()} location={location} themeColour={themeColour} />
       );
@@ -96,12 +100,9 @@ const LandingTemplate = ({ data, pageContext }) => {
   return (
     <Layout
       activeLanguage={locale}
-      brandNavigation={brandNavigation}
       childrenClass="landing-page"
-      headerFooter={headerFooter}
-      label={label}
       languages={languages}
-      navigation={navigation}
+      localeData={localeData}
       region={region}
       title={title}
     >
@@ -123,12 +124,12 @@ const LandingTemplate = ({ data, pageContext }) => {
                   {description && (
                     <div className="description">
                       <ReactMarkdown
-                        source={description}
-                        escapeHtml={false}
-                        renderers={{
+                        components={{
                           link: props => renderLink(props, location),
                         }}
-                      />
+                      >
+                        {description}
+                      </ReactMarkdown>
                     </div>
                   )}
                 </div>
@@ -154,12 +155,12 @@ const LandingTemplate = ({ data, pageContext }) => {
                   {description && (
                     <div className="description">
                       <ReactMarkdown
-                        source={description}
-                        escapeHtml={false}
-                        renderers={{
+                        components={{
                           link: props => renderLink(props, location),
                         }}
-                      />
+                      >
+                        {description}
+                      </ReactMarkdown>
                     </div>
                   )}
                 </div>
@@ -177,19 +178,19 @@ const LandingTemplate = ({ data, pageContext }) => {
                   {description && (
                     <div className="description">
                       <ReactMarkdown
-                        source={description}
-                        escapeHtml={false}
-                        renderers={{
+                        components={{
                           link: props => renderLink(props, location),
                         }}
-                      />
+                      >
+                        {description}
+                      </ReactMarkdown>
                     </div>
                   )}
                 </div>
               </>
             )}
-            {landingSections.length > 0 &&
-              landingSections.map(landingSection => {
+            {regionalLandingSections.length > 0 &&
+              regionalLandingSections.map(landingSection => {
                 const { pages } = landingSection;
                 const sectionTitle = landingSection.title || null;
                 sectionIdx += 1;
@@ -209,8 +210,8 @@ const LandingTemplate = ({ data, pageContext }) => {
                 }
                 return null;
               })}
-            {singlePages.length > 0 && (
-              <div className="tile-container">{renderTiles(singlePages, location)}</div>
+            {regionalSinglePages.length > 0 && (
+              <div className="tile-container">{renderTiles(regionalSinglePages, location)}</div>
             )}
             {alternativeBanners.length > 0 &&
               alternativeBanners.map(alternativeBanner => {
@@ -237,107 +238,117 @@ LandingTemplate.defaultProps = {
 LandingTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      brandNavigation: PropTypes.object,
-      headerFooter: PropTypes.object,
-      label: PropTypes.object,
-      navigation: PropTypes.object,
-      page: PropTypes.object,
+      page: PropTypes.instanceOf(Object),
     }),
   }),
   pageContext: PropTypes.shape({
     id: PropTypes.string,
-    languages: PropTypes.array,
+    languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
-    locales: PropTypes.array,
+    localeData: PropTypes.instanceOf(Object),
+    locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
 };
 
 export const query = graphql`
-  query(
-    $id: ID!
-    $locale: [GraphCMS_Locale!]!
-    $locales: [GraphCMS_Locale!]!
-    $region: GraphCMS_Region
-    $availableIn: [GraphCMS_Region!]
-  ) {
+  query($id: ID!, $locales: [GraphCMS_Locale!]!, $availableIn: [GraphCMS_Region!]) {
     cms {
-      ...CommonQuery
       page(locales: $locales, where: { id: $id }) {
-        landing: landingSource {
-          bannerImage {
-            handle
-            width
-            height
-          }
-          alternativeBanners(where: { availableIn_contains_some: $availableIn }) {
-            title
-            externalLink
-            page {
-              slug
-            }
-            image {
+        contentSource {
+          sourceType: __typename
+          ... on GraphCMS_LandingSource {
+            bannerImage {
               handle
               width
               height
             }
-            availableIn
-          }
-          brand
-          description
-          theme
-          landingType
-          landingSections {
-            title
-            pages(
-              where: {
-                availableIn_contains_some: $availableIn
-                OR: [{ archived: false }, { archived: null }]
+            alternativeBanners(where: { availableIn_contains_some: $availableIn }) {
+              title
+              externalLink
+              page {
+                slug
               }
-            ) {
-              landingSource {
+              image {
+                handle
+                width
+                height
+              }
+              availableIn
+            }
+            brand
+            description
+            theme
+            landingType
+            landingSections {
+              title
+              pages {
+                availableIn
+                # contentSource {
+                #   ... on GraphCMS_LandingSource {
+                #     title
+                #   }
+                #   ... on GraphCMS_ProductSource {
+                #     title
+                #   }
+                #   ... on GraphCMS_ServicesSource {
+                #     title
+                #   }
+                # }
+                # landingSource {
+                #   title
+                # }
+                # productSource {
+                #   title
+                # }
+                # servicesSource {
+                #   title
+                # }
+                contentSource {
+                  sourceType: __typename
+                }
+                slug
+                tile {
+                  url
+                }
                 title
               }
-              productSource {
-                title
+            }
+            singlePages: pages {
+              # where: { availableIn_contains_some: $availableIn } # locales: $locales
+              availableIn
+              id
+              # contentSource {
+              #   ... on GraphCMS_LandingSource {
+              #     title
+              #   }
+              #   ... on GraphCMS_ProductSource {
+              #     title
+              #   }
+              #   ... on GraphCMS_ServicesSource {
+              #     title
+              #   }
+              # }
+              # landingSource {
+              #   title
+              # }
+              # productSource {
+              #   title
+              # }
+              # servicesSource {
+              #   title
+              # }
+              contentSource {
+                sourceType: __typename
               }
-              servicesSource {
-                title
-              }
-              pageType
               slug
               tile {
                 url
               }
               title
             }
-          }
-          singlePages: pages(
-            # locales: $locales
-            where: {
-              availableIn_contains_some: $availableIn
-              OR: [{ archived: false }, { archived: null }]
-            }
-          ) {
-            availableIn
-            id
-            landingSource {
-              title
-            }
-            productSource {
-              title
-            }
-            servicesSource {
-              title
-            }
-            pageType
-            slug
-            tile {
-              url
-            }
             title
           }
-          title
         }
       }
     }

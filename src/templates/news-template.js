@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
-import ReactMarkdown from 'react-markdown/with-html';
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
+import gfm from 'remark-gfm';
 import moment from 'moment';
 import 'moment/locale/es';
 import Layout from '../components/layout';
@@ -12,15 +14,12 @@ import { ARTICLE_STATUS } from '../constants';
 import '../styles/news.scss';
 
 const NewsTemplate = ({ data, pageContext }) => {
-  const { languages, locale, region } = pageContext;
+  const { languages, locale, localeData, region } = pageContext;
+  const { label } = localeData;
   const {
     cms: {
-      brandNavigation,
-      headerFooter,
-      label,
-      navigation,
       page: {
-        news: { articles, bannerImage, description, title },
+        contentSource: { articles, bannerImage, description, title },
       },
     },
   } = data;
@@ -37,12 +36,9 @@ const NewsTemplate = ({ data, pageContext }) => {
   return (
     <Layout
       activeLanguage={locale}
-      brandNavigation={brandNavigation}
       childrenClass="news-page"
-      headerFooter={headerFooter}
-      label={label}
       languages={languages}
-      navigation={navigation}
+      localeData={localeData}
       region={region}
       title={title}
     >
@@ -63,12 +59,12 @@ const NewsTemplate = ({ data, pageContext }) => {
                   {description && (
                     <div className="description">
                       <ReactMarkdown
-                        source={description}
-                        escapeHtml={false}
-                        renderers={{
+                        components={{
                           link: props => renderLink(props, location),
                         }}
-                      />
+                      >
+                        {description}
+                      </ReactMarkdown>
                     </div>
                   )}
                 </div>
@@ -79,12 +75,14 @@ const NewsTemplate = ({ data, pageContext }) => {
                   <div className="article-container">
                     <p>{moment(published[articleNum].date).format('LL')}</p>
                     <ReactMarkdown
-                      source={published[articleNum].content}
-                      escapeHtml={false}
-                      renderers={{
+                      rehypePlugins={[rehypeRaw]}
+                      remarkPlugins={[gfm]}
+                      components={{
                         link: props => renderLink(props, location),
                       }}
-                    />
+                    >
+                      {published[articleNum].content}
+                    </ReactMarkdown>
                   </div>
                   {published[articleNum].pdfDownloads.length > 0 && (
                     <div className="downloads-container">
@@ -162,50 +160,48 @@ NewsTemplate.defaultProps = {
 
 NewsTemplate.propTypes = {
   data: PropTypes.shape({
-    cms: PropTypes.object,
+    cms: PropTypes.instanceOf(Object),
     id: PropTypes.string,
   }),
   pageContext: PropTypes.shape({
-    landingSections: PropTypes.array,
-    languages: PropTypes.array,
+    landingSections: PropTypes.instanceOf(Array),
+    languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
-    locales: PropTypes.array,
+    localeData: PropTypes.instanceOf(Object),
+    locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
 };
 
 export const query = graphql`
-  query(
-    $id: ID!
-    $locale: [GraphCMS_Locale!]!
-    $locales: [GraphCMS_Locale!]!
-    $region: GraphCMS_Region!
-  ) {
+  query($id: ID!, $locales: [GraphCMS_Locale!]!) {
     cms {
-      ...CommonQuery
       page(locales: $locales, where: { id: $id }) {
-        news: newsSource {
-          bannerImage {
-            handle
-            width
-            height
-          }
-          description
-          title
-          articles {
-            tile {
-              url
+        contentSource {
+          sourceType: __typename
+          ... on GraphCMS_NewsSource {
+            bannerImage {
+              handle
+              width
+              height
             }
-            date
+            description
             title
-            excerpt
-            content
-            pdfDownloads {
-              documentTitle
-              fileName
-              url
+            articles {
+              tile {
+                url
+              }
+              date
+              title
+              excerpt
+              content
+              pdfDownloads {
+                documentTitle
+                fileName
+                url
+              }
+              articleStatus
             }
-            articleStatus
           }
         }
       }
