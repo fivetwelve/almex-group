@@ -3,28 +3,25 @@ import PropTypes from 'prop-types';
 import { graphql, Link } from 'gatsby';
 import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
-import ReactMarkdown from 'react-markdown/with-html';
+import ReactMarkdown from 'react-markdown';
+import gfm from 'remark-gfm';
 import BrandBanner from '../components/brandBanner';
 import Layout from '../components/layout';
 import '../styles/about.scss';
 import { createLink, makeid, renderLink } from '../utils/functions';
 
 const AboutTemplate = ({ data, pageContext }) => {
-  if (!data.cms.page.about) {
-    throw Error(
-      `Check the connection to aboutSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
-    );
-  }
-  const { languages, locale, region } = pageContext;
+  // if (!data.cms.page.about) {
+  //   throw Error(
+  //     `Check the connection to aboutSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
+  //   );
+  // }
+  const { languages, locale, localeData, region } = pageContext;
+  const { brandNavigation, label } = localeData;
   const {
     cms: {
-      label,
-      aboutLabel,
-      brandNavigation,
-      headerFooter,
-      navigation,
       page: {
-        about: { aboutUsLinks, bannerImage, title, description, helpfulResources },
+        contentSource: { aboutUsLinks, bannerImage, title, description, helpfulResources },
       },
     },
   } = data;
@@ -34,12 +31,9 @@ const AboutTemplate = ({ data, pageContext }) => {
   return (
     <Layout
       activeLanguage={locale}
-      brandNavigation={brandNavigation}
       childrenClass="about-page"
-      headerFooter={headerFooter}
-      label={label}
       languages={languages}
-      navigation={navigation}
+      localeData={localeData}
       region={region}
       title={title}
     >
@@ -60,17 +54,18 @@ const AboutTemplate = ({ data, pageContext }) => {
                   <h1 className="title">{title}</h1>
                   <div className="description">
                     <ReactMarkdown
-                      source={description}
-                      escapeHtml={false}
-                      renderers={{
+                      remarkPlugins={[gfm]}
+                      components={{
                         link: props => renderLink(props, location),
                       }}
-                    />
+                    >
+                      {description}
+                    </ReactMarkdown>
                   </div>
                 </div>
                 <div className="links">
                   <div className="resources">
-                    <div className="label">{aboutLabel.about.RESOURCES}</div>
+                    <div className="label">{label.about.RESOURCES}</div>
                     <ul>
                       {helpfulResources.map(resource => (
                         <li key={makeid()}>
@@ -109,11 +104,6 @@ AboutTemplate.defaultProps = {
 AboutTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      aboutLabel: PropTypes.instanceOf(Object),
-      brandNavigation: PropTypes.instanceOf(Object),
-      headerFooter: PropTypes.instanceOf(Object),
-      label: PropTypes.instanceOf(Object),
-      navigation: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),
@@ -121,40 +111,39 @@ AboutTemplate.propTypes = {
     id: PropTypes.string,
     languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
+    localeData: PropTypes.instanceOf(Object),
     locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
 };
 export const query = graphql`
-  query(
-    $id: ID!
-    $locale: [GraphCMS_Locale!]!
-    $locales: [GraphCMS_Locale!]!
-    $region: GraphCMS_Region!
-  ) {
+  query($id: ID!, $locales: [GraphCMS_Locale!]!) {
     cms {
-      ...CommonQuery
-      aboutLabel: label(locales: $locale, where: { availableIn: $region }) {
-        about
-      }
-      page(locales: $locale, where: { id: $id }) {
-        about: aboutSource {
-          bannerImage {
-            handle
-            width
-            height
-          }
-          title
-          description
-          helpfulResources {
-            slug
-            pageType
+      page(locales: $locales, where: { id: $id }) {
+        contentSource {
+          sourceType: __typename
+          ... on GraphCMS_AboutSource {
+            bannerImage {
+              handle
+              width
+              height
+            }
             title
-          }
-          aboutUsLinks {
-            slug
-            pageType
-            title
+            description
+            helpfulResources {
+              slug
+              contentSource {
+                sourceType: __typename
+              }
+              title
+            }
+            aboutUsLinks {
+              slug
+              contentSource {
+                sourceType: __typename
+              }
+              title
+            }
           }
         }
       }

@@ -2,28 +2,14 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import { Link } from 'gatsby';
 import { createLink } from '../utils/functions';
-import { BRANDS, PAGE_TYPES } from '../constants';
+import { BRANDS } from '../constants';
 
 const BrandBanner = ({ brands, location }) => (
   <div className="brands-container">
     <div className="brands">
-      {brands.map(brand => {
-        let brandType = '';
+      {brands.map(eachBrand => {
         let productBrand = '';
-        switch (brand.pageType) {
-          case PAGE_TYPES.INSTITUTE:
-            brandType = brand.institute;
-            break;
-          case PAGE_TYPES.LANDING:
-            brandType = brand.landing;
-            break;
-          case PAGE_TYPES.SERVICES:
-            brandType = brand.services;
-            break;
-          default:
-            break;
-        }
-        switch (brandType.brand) {
+        switch (eachBrand.brand) {
           case BRANDS.ALMEX_IN_A_BOX:
             productBrand = 'almex-box';
             break;
@@ -55,9 +41,9 @@ const BrandBanner = ({ brands, location }) => (
             break;
         }
         return (
-          <div className={`brand ${productBrand}`} key={brand.slug}>
-            <Link to={createLink(location, brand.slug)}>
-              <span className="sr-only">{brandType.title}</span>
+          <div className={`brand ${productBrand}`} key={eachBrand.slug}>
+            <Link to={createLink(location, eachBrand.slug)}>
+              <span className="sr-only">{eachBrand.title}</span>
             </Link>
           </div>
         );

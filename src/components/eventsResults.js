@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactMarkdown from 'react-markdown/with-html';
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 import { makeid, renderLink } from '../utils/functions';
 
 const EventsResults = ({ events, labels }) => (
@@ -31,11 +32,13 @@ const EventsResults = ({ events, labels }) => (
                   <td className="label">{labels.LOCATION}</td>
                   <td className="location">
                     <ReactMarkdown
-                      source={event.location}
-                      renderers={{
+                      rehypePlugins={[rehypeRaw]}
+                      components={{
                         link: props => renderLink(props),
                       }}
-                    />
+                    >
+                      {event.location}
+                    </ReactMarkdown>
                   </td>
                 </tr>
                 <tr>

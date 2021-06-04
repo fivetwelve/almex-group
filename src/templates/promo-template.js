@@ -3,26 +3,23 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
-import ReactMarkdown from 'react-markdown/with-html';
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 import Layout from '../components/layout';
 import { renderLink } from '../utils/functions';
 import '../styles/promo.scss';
 
 const PromoTemplate = ({ data, pageContext }) => {
-  if (!data.cms.page.promoContent) {
-    throw Error(
-      `Check the connection to promoSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
-    );
-  }
-  const { languages, locale, region } = pageContext;
+  // if (!data.cms.page.contentSource) {
+  //   throw Error(
+  //     `Check the connection to promoSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
+  //   );
+  // }
+  const { languages, locale, localeData, region } = pageContext;
   const {
     cms: {
-      brandNavigation,
-      headerFooter,
-      label,
-      navigation,
       page: {
-        promoContent: { bannerImage, marketing, title },
+        contentSource: { bannerImage, marketing, title },
       },
     },
   } = data;
@@ -30,12 +27,9 @@ const PromoTemplate = ({ data, pageContext }) => {
   return (
     <Layout
       activeLanguage={locale}
-      brandNavigation={brandNavigation}
       childrenClass="promo-page"
-      headerFooter={headerFooter}
-      label={label}
       languages={languages}
-      navigation={navigation}
+      localeData={localeData}
       region={region}
       title={title}
     >
@@ -55,12 +49,13 @@ const PromoTemplate = ({ data, pageContext }) => {
                   <h1 className="title">{title}</h1>
                   <div className="marketing">
                     <ReactMarkdown
-                      source={marketing}
-                      escapeHtml={false}
-                      renderers={{
+                      rehypePlugins={[rehypeRaw]}
+                      components={{
                         link: props => renderLink(props, location),
                       }}
-                    />
+                    >
+                      {marketing}
+                    </ReactMarkdown>
                   </div>
                 </div>
               </div>
@@ -80,35 +75,32 @@ PromoTemplate.defaultProps = {
 PromoTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.instanceOf(Object),
-    id: PropTypes.string,
   }),
   pageContext: PropTypes.shape({
     id: PropTypes.string,
     languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
+    localeData: PropTypes.instanceOf(Object),
     locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
 };
 
 export const query = graphql`
-  query(
-    $id: ID!
-    $locale: [GraphCMS_Locale!]!
-    $locales: [GraphCMS_Locale!]!
-    $region: GraphCMS_Region!
-  ) {
+  query($id: ID!, $locales: [GraphCMS_Locale!]!) {
     cms {
-      ...CommonQuery
       page(locales: $locales, where: { id: $id }) {
-        promoContent: promoSource {
-          bannerImage {
-            handle
-            width
-            height
+        contentSource {
+          sourceType: __typename
+          ... on GraphCMS_PromoSource {
+            bannerImage {
+              handle
+              width
+              height
+            }
+            marketing
+            title
           }
-          marketing
-          title
         }
       }
     }

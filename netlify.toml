@@ -1,6 +1,10 @@
 [build]
   functions = "lambda"
   command = "yarn build && yarn build:lambda"
+  publish = "public"
+
+[[plugins]]
+  package = "netlify-plugin-gatsby-cache"
 
 # same build process but copies over different _redirects file
 [context.content]

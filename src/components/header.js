@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql, Link, navigate } from 'gatsby';
+import { Link, navigate } from 'gatsby';
 import { navigate as reload } from '@reach/router';
 import { IconContext } from 'react-icons';
 import { FaBars, FaSearch } from 'react-icons/fa';
@@ -217,105 +217,13 @@ Header.propTypes = {
   showMobileBG: PropTypes.func,
 };
 
-export const commonFragment = graphql`
-  fragment CommonQuery on GraphCMS {
-    brandNavigation(locales: $locale, where: { availableIn: $region }) {
-      # pages(where: { OR: [{ archived: false }, { archived: null }] }) {
-      pages {
-        landing: landingSource {
-          brand
-          title
-        }
-        institute: instituteSource {
-          brand
-          title
-        }
-        services: servicesSource {
-          brand
-          title
-        }
-        pageType
-        slug
-        title
-      }
-      title
-      type
-    }
-    label(locales: $locale, where: { availableIn: $region }) {
-      header
-      footer
-      common
-    }
-    headerFooter(locales: $locale, where: { availableIn: $region }) {
-      companyAddress
-      companyEmail
-      companyPhone
-      footerLinks
-      formattedTagline
-      fusionClub
-      # language
-      navigation
-      simpleTagline
-      socialMedia
-      privacyPage {
-        slug
-      }
-    }
-    navigation(locales: $locales, where: { availableIn: $region }) {
-      navigationSections {
-        # pages(where: { OR: [{ archived: false }, { archived: null }] }) {
-        pages {
-          id
-          pageType
-          slug: slug
-          about: aboutSource {
-            title
-          }
-          careers: careersSource {
-            title
-          }
-          contact: contactSource {
-            title
-          }
-          events: eventsSource {
-            title
-          }
-          history: historySource {
-            title
-          }
-          institute: instituteSource {
-            title
-          }
-          landing: landingSource {
-            brand
-            title
-          }
-          news: newsSource {
-            title
-          }
-          product: productSource {
-            title
-          }
-          promo: promoSource {
-            title
-          }
-          resources: resourcesSource {
-            title
-          }
-          services: servicesSource {
-            brand
-            title
-          }
-          usedEquipment: usedEquipmentSource {
-            title
-          }
-        }
-        isLandingPage
-        title
-        type
-      }
-    }
-  }
-`;
+// export const commonFragment = graphql`
+//   fragment CommonQuery on GraphCMS {
+//     siteRegions {
+//       region
+//       languages
+//     }
+//   }
+// `;
 
 export default Header;

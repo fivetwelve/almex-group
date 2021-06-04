@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
-import ReactMarkdown from 'react-markdown/with-html';
+import ReactMarkdown from 'react-markdown';
+import gfm from 'remark-gfm';
 import Layout from '../components/layout';
 import LinkWithPrevious from '../components/linkWithPrevious';
 import ProductShowcase from '../components/productShowcase';
@@ -14,44 +15,42 @@ import '../styles/product.scss';
 
 /* location prop is received from LinkWithPrevious's composition with Location */
 const ProductTemplate = ({ data, location, pageContext }) => {
-  if (!data.cms.page.product) {
-    throw Error(
-      `Check the connection to productSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
-    );
-  }
-  const { languages, locale, region } = pageContext;
-  const {
-    cms: {
-      brandNavigation,
-      headerFooter,
-      label,
-      navigation,
-      page: {
-        product: {
-          brand,
-          theme,
-          title,
-          images,
-          youTubeVideos,
-          attractText,
-          pdfDownloads,
-          marketing,
-          advantages,
-          advantagesImage,
-          features,
-          productInfo,
-          specs,
-          caseStudies,
-          configurations,
-          addOns,
-          accessories,
-          relatedItems,
-          visitResourcesForMore,
-        },
-      },
-    },
-  } = data;
+  // if (!data.cms.page.product) {
+  //   throw Error(
+  //     `Check the connection to productSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
+  //   );
+  // }
+  const { languages, locale, localeData, region } = pageContext;
+  const { label } = localeData;
   const { common, products } = label;
+  const {
+    brand,
+    theme,
+    title,
+    images,
+    youTubeVideos,
+    attractText,
+    pdfDownloads,
+    marketing,
+    advantages,
+    advantagesImage,
+    features,
+    productInfo,
+    specs,
+    caseStudies,
+    configurations,
+    addOns,
+    accessories,
+    relatedItems,
+    visitResourcesForMore,
+  } = data.cms.page.contentSource;
+  /* availableIn_contains_some filter taken out of query so filtering here instead may help with build time */
+  const regionalAccessories = accessories.filter(
+    accessory => accessory.availableIn && accessory.availableIn.includes(region),
+  );
+  const regionalRelatedItems = relatedItems.filter(
+    item => item.availableIn && item.availableIn.includes(region),
+  );
   const advantagesImageStyle = advantagesImage
     ? {
         backgroundImage: `url(${advantagesImage.url})`,
@@ -101,13 +100,10 @@ const ProductTemplate = ({ data, location, pageContext }) => {
   return (
     <Layout
       activeLanguage={locale}
-      brandNavigation={brandNavigation}
       childrenClass="product-page"
-      headerFooter={headerFooter}
-      label={label}
       languages={languages}
       locale={locale}
-      navigation={navigation}
+      localeData={localeData}
       region={region}
       title={title}
     >
@@ -145,12 +141,12 @@ const ProductTemplate = ({ data, location, pageContext }) => {
           />
           <div className={`product-marketing ${themeColour}`}>
             <ReactMarkdown
-              source={marketing}
-              escapeHtml={false}
-              renderers={{
+              components={{
                 link: props => renderLink(props, location),
               }}
-            />
+            >
+              {marketing}
+            </ReactMarkdown>
           </div>
           {advantages && (
             <>
@@ -160,12 +156,13 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               <div className={`product-advantages ${themeColour}`}>
                 <div className="advantages-text">
                   <ReactMarkdown
-                    source={advantages}
-                    escapeHtml={false}
-                    renderers={{
+                    remarkPlugins={[gfm]}
+                    components={{
                       link: props => renderLink(props, location),
                     }}
-                  />
+                  >
+                    {advantages}
+                  </ReactMarkdown>
                 </div>
                 {advantagesImage && (
                   <div className="advantages-image" style={advantagesImageStyle} />
@@ -183,24 +180,26 @@ const ProductTemplate = ({ data, location, pageContext }) => {
                   <div className={`product-features ${themeColour}`}>
                     <h4>{products.FEATURES}</h4>
                     <ReactMarkdown
-                      source={features}
-                      escapeHtml={false}
-                      renderers={{
+                      remarkPlugins={[gfm]}
+                      components={{
                         link: props => renderLink(props, location),
                       }}
-                    />
+                    >
+                      {features}
+                    </ReactMarkdown>
                   </div>
                 )}
                 {productInfo && (
                   <div className={`product-info ${themeColour}`}>
                     <h4>{products.PROD_INFO}</h4>
                     <ReactMarkdown
-                      source={productInfo}
-                      escapeHtml={false}
-                      renderers={{
+                      remarkPlugins={[gfm]}
+                      components={{
                         link: props => renderLink(props, location),
                       }}
-                    />
+                    >
+                      {productInfo}
+                    </ReactMarkdown>
                   </div>
                 )}
               </div>
@@ -213,12 +212,13 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               </div>
               <div className={`product-specs ${themeColour}`}>
                 <ReactMarkdown
-                  source={specs}
-                  escapeHtml={false}
-                  renderers={{
+                  remarkPlugins={[gfm]}
+                  components={{
                     link: props => renderLink(props, location),
                   }}
-                />
+                >
+                  {specs}
+                </ReactMarkdown>
               </div>
             </>
           )}
@@ -259,13 +259,13 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               <AddOn options={addOns} label={products} themeColour={themeColour} />
             </>
           )}
-          {accessories.length > 0 && (
+          {regionalAccessories.length > 0 && (
             <>
               <div className={`title-container ${themeColour}`}>
                 <div className="section-title">{products.ACCESSORIES}</div>
               </div>
               <div className="product-accessories">
-                {accessories.map((accessory, idx) => {
+                {regionalAccessories.map((accessory, idx) => {
                   if (idx < 5) {
                     return (
                       <AccessoryAndRelatedTile
@@ -282,13 +282,13 @@ const ProductTemplate = ({ data, location, pageContext }) => {
               </div>
             </>
           )}
-          {relatedItems.length > 0 && (
+          {regionalRelatedItems.length > 0 && (
             <>
               <div className={`title-container ${themeColour}`}>
                 <div className="section-title">{products.RELATED_ITEMS}</div>
               </div>
               <div className="product-related-items">
-                {relatedItems.map((relatedItem, idx) => {
+                {regionalRelatedItems.map((relatedItem, idx) => {
                   if (idx < 5) {
                     return (
                       <AccessoryAndRelatedTile
@@ -322,10 +322,6 @@ ProductTemplate.defaultProps = {
 ProductTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      brandNavigation: PropTypes.instanceOf(Object),
-      headerFooter: PropTypes.instanceOf(Object),
-      label: PropTypes.instanceOf(Object),
-      navigation: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),
@@ -339,90 +335,72 @@ ProductTemplate.propTypes = {
     id: PropTypes.string,
     languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
+    localeData: PropTypes.instanceOf(Object),
     locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
 };
 
 export const query = graphql`
-  query(
-    $id: ID!
-    $locale: [GraphCMS_Locale!]!
-    $locales: [GraphCMS_Locale!]!
-    $region: GraphCMS_Region
-    $availableIn: [GraphCMS_Region!]
-  ) {
+  query($id: ID!, $locales: [GraphCMS_Locale!]!) {
     cms {
-      ...CommonQuery
-      label(locales: $locale, where: { availableIn: $region }) {
-        products
-        resourcesLink {
-          slug
-        }
-      }
       page(locales: $locales, where: { id: $id }) {
-        pageType
-        product: productSource {
-          brand
-          theme
-          title
-          images {
-            url
-          }
-          youTubeVideos {
-            youTubeId
+        contentSource {
+          sourceType: __typename
+          ... on GraphCMS_ProductSource {
+            brand
+            theme
             title
-            videoType
-          }
-          visitResourcesForMore
-          marketing
-          advantages
-          advantagesImage {
-            url
-          }
-          features
-          productInfo
-          specs
-          caseStudies {
-            documentTitle
-            fileName
-            url
-            availableIn
-          }
-          configurations
-          addOns
-          pdfDownloads {
-            id
-            fileName
-            documentTitle
-            resourceType
-            url
-            availableIn
-          }
-          attractText
-          accessories(
-            where: {
-              availableIn_contains_some: $availableIn
-              # OR: [{ archived: false }, { archived: null }]
-            }
-          ) {
-            slug
-            tile {
+            images {
               url
             }
-            title
-          }
-          relatedItems(
-            where: {
-              availableIn_contains_some: $availableIn
-              # OR: [{ archived: false }, { archived: null }]
+            youTubeVideos {
+              youTubeId
+              title
+              videoType
             }
-          ) {
-            slug
-            tile {
+            visitResourcesForMore
+            marketing
+            advantages
+            advantagesImage {
               url
             }
-            title
+            features
+            productInfo
+            specs
+            caseStudies {
+              documentTitle
+              fileName
+              url
+              availableIn
+            }
+            configurations
+            addOns
+            pdfDownloads {
+              id
+              fileName
+              documentTitle
+              resourceType
+              url
+              availableIn
+            }
+            attractText
+            accessories {
+              availableIn
+              slug
+              tile {
+                url
+              }
+              title
+            }
+            relatedItems {
+              availableIn
+              slug
+              tile {
+                url
+              }
+              title
+            }
           }
         }
       }

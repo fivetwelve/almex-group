@@ -6,4 +6,9 @@ const webpack = require('webpack');
 
 module.exports = {
   plugins: [new webpack.DefinePlugin({ 'global.GENTLY': false })],
+  /* uncomment below for lambda debugging */
+  // mode: 'development',
+  // optimization: { minimize: false },
+  // devtool: 'source-map',
+  // target: 'node',
 };

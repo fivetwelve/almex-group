@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
-import ReactMarkdown from 'react-markdown/with-html';
+import ReactMarkdown from 'react-markdown';
+import gfm from 'remark-gfm';
 import moment from 'moment';
 import 'moment/locale/es';
 import Layout from '../components/layout';
@@ -12,20 +13,17 @@ import { makeid, matchMomentLocale, renderLink } from '../utils/functions';
 import '../styles/usedEquipment.scss';
 
 const UsedEquipmentTemplate = ({ data, pageContext }) => {
-  if (!data.cms.page.usedEquipment) {
-    throw Error(
-      `Check the connection to usedEquipmentSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
-    );
-  }
-  const { languages, locale, region } = pageContext;
+  // if (!data.cms.page.contentSource) {
+  //   throw Error(
+  //     `Check the connection to usedEquipmentSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
+  //   );
+  // }
+  const { languages, locale, localeData, region } = pageContext;
+  const { label } = localeData;
   const {
     cms: {
-      brandNavigation,
-      headerFooter,
-      label,
-      navigation,
       page: {
-        usedEquipment: { bannerImage, description, disclaimer, title, usedEquipmentListings },
+        contentSource: { bannerImage, description, disclaimer, title, usedEquipmentListings },
       },
     },
   } = data;
@@ -35,12 +33,9 @@ const UsedEquipmentTemplate = ({ data, pageContext }) => {
   return (
     <Layout
       activeLanguage={locale}
-      brandNavigation={brandNavigation}
       childrenClass="used-equipment-page"
-      headerFooter={headerFooter}
-      label={label}
       languages={languages}
-      navigation={navigation}
+      localeData={localeData}
       region={region}
       title={title}
     >
@@ -60,12 +55,13 @@ const UsedEquipmentTemplate = ({ data, pageContext }) => {
               </div>
               <div className="description">
                 <ReactMarkdown
-                  source={description}
-                  escapeHtml={false}
-                  renderers={{
+                  remarkPlugins={[gfm]}
+                  components={{
                     link: props => renderLink(props, location),
                   }}
-                />
+                >
+                  {description}
+                </ReactMarkdown>
               </div>
             </div>
             {usedEquipmentListings.map(listing => (
@@ -90,10 +86,6 @@ UsedEquipmentTemplate.defaultProps = {
 UsedEquipmentTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      brandNavigation: PropTypes.instanceOf(Object),
-      headerFooter: PropTypes.instanceOf(Object),
-      label: PropTypes.instanceOf(Object),
-      navigation: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),
@@ -107,42 +99,37 @@ UsedEquipmentTemplate.propTypes = {
     id: PropTypes.string,
     languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
+    localeData: PropTypes.instanceOf(Object),
     locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
 };
 
 export const query = graphql`
-  query(
-    $id: ID!
-    $locale: [GraphCMS_Locale!]!
-    $locales: [GraphCMS_Locale!]!
-    $region: GraphCMS_Region!
-  ) {
+  query($id: ID!, $locales: [GraphCMS_Locale!]!) {
     cms {
-      ...CommonQuery
-      label(locales: $locale, where: { availableIn: $region }) {
-        sparesRepairs
-      }
       page(locales: $locales, where: { id: $id }) {
-        usedEquipment: usedEquipmentSource {
-          bannerImage {
-            handle
-            width
-            height
-          }
-          description
-          disclaimer
-          title
-          usedEquipmentListings {
-            date
-            equipmentStatus
+        contentSource {
+          ... on GraphCMS_UsedEquipmentSource {
+            sourceType: __typename
+            bannerImage {
+              handle
+              width
+              height
+            }
+            description
+            disclaimer
             title
-            modelNumber
-            contactInformation
-            equipmentDescription
-            images {
-              url
+            usedEquipmentListings {
+              date
+              equipmentStatus
+              title
+              modelNumber
+              contactInformation
+              equipmentDescription
+              images {
+                url
+              }
             }
           }
         }

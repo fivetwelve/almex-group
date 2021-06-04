@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
-import ReactMarkdown from 'react-markdown/with-html';
+import ReactMarkdown from 'react-markdown';
 import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
 import fetch from 'isomorphic-fetch';
 import { countryFlag, renderLink } from '../utils/functions';
@@ -57,22 +57,18 @@ class ResourcesTemplate extends Component {
 
   render() {
     const { data, pageContext } = this.props;
-    if (!data.cms.page.resources) {
-      throw Error(
-        `Check the connection to resourcesSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
-      );
-    }
-    const { languages, locale, region } = pageContext;
+    // if (!data.cms.page.resources) {
+    //   throw Error(
+    //     `Check the connection to resourcesSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
+    //   );
+    // }
+    const { languages, locale, localeData, region } = pageContext;
+    const { label } = localeData;
     const {
       cms: {
-        brandNavigation,
-        headerFooter,
-        label,
-        navigation,
         page: {
           resources: { bannerImage, contactAndForm, description, email, emailSubject, title },
         },
-        resourcesLabel,
       },
     } = data;
     const { categories, selectedCategory, selectedCategoryId } = this.state;
@@ -80,12 +76,9 @@ class ResourcesTemplate extends Component {
     return (
       <Layout
         activeLanguage={locale}
-        brandNavigation={brandNavigation}
         childrenClass="resources-page"
-        headerFooter={headerFooter}
-        label={label}
         languages={languages}
-        navigation={navigation}
+        localeData={localeData}
         region={region}
         title={title}
       >
@@ -105,30 +98,27 @@ class ResourcesTemplate extends Component {
                     <h1 className="title">{title}</h1>
                     <div className="content">
                       <ReactMarkdown
-                        source={description}
-                        escapeHtml={false}
-                        renderers={{
+                        components={{
                           link: props => renderLink(props, location),
                         }}
-                      />
+                      >
+                        {description}
+                      </ReactMarkdown>
                       <div className="selector-container">
                         <CategorySelector
                           categories={categories}
                           selectedCategory={selectedCategory}
                           setCategory={id => this.handleSetCategory(id)}
-                          label={resourcesLabel.resources}
+                          label={label.resources}
                         />
                         {selectedCategory && selectedCategory.expert && (
                           <div className="expert">
-                            <p>{resourcesLabel.resources.CONTACT_EXPERT}</p>
+                            <p>{label.resources.CONTACT_EXPERT}</p>
                             {selectedCategory.expert.countryCode &&
                               countryFlag(selectedCategory.expert.countryCode)}
                             {selectedCategory.expert.name}
                             <br />
-                            <ReactMarkdown
-                              source={selectedCategory.expert.location}
-                              escapeHtml={false}
-                            />
+                            <ReactMarkdown>{selectedCategory.expert.location}</ReactMarkdown>
                             {selectedCategory.expert.telephone && (
                               <a
                                 href={`tel:${selectedCategory.expert.telephone}`}
@@ -161,7 +151,7 @@ class ResourcesTemplate extends Component {
                       {selectedCategory &&
                         selectedCategory.resources &&
                         selectedCategory.resources.length === 0 && (
-                          <div className="no-resource">{resourcesLabel.resources.NO_RESOURCE}</div>
+                          <div className="no-resource">{label.resources.NO_RESOURCE}</div>
                         )}
                       <ApolloProvider client={client}>
                         <Category
@@ -169,7 +159,6 @@ class ResourcesTemplate extends Component {
                           locale={locale}
                           region={region}
                           label={label}
-                          resourcesLabel={resourcesLabel}
                         />
                       </ApolloProvider>
 
@@ -177,12 +166,12 @@ class ResourcesTemplate extends Component {
                       {email && (
                         <div className="form-container">
                           <ReactMarkdown
-                            source={contactAndForm}
-                            escapeHtml={false}
-                            renderers={{
+                            components={{
                               link: props => renderLink(props, location),
                             }}
-                          />
+                          >
+                            {contactAndForm}
+                          </ReactMarkdown>
                           <ContactForm
                             label={label}
                             email={email}
@@ -217,24 +206,16 @@ ResourcesTemplate.propTypes = {
     id: PropTypes.string,
     languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
+    localeData: PropTypes.instanceOf(Object),
     locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
 };
 
 export const query = graphql`
-  query(
-    $id: ID!
-    $locale: [GraphCMS_Locale!]!
-    $locales: [GraphCMS_Locale!]!
-    $region: GraphCMS_Region!
-  ) {
+  query($id: ID!, $locales: [GraphCMS_Locale!]!) {
     cms {
-      ...CommonQuery
-      resourcesLabel: label(locales: $locale, where: { availableIn: $region }) {
-        resources
-      }
-      page(locales: $locale, where: { id: $id }) {
+      page(locales: $locales, where: { id: $id }) {
         resources: resourcesSource {
           bannerImage {
             handle
@@ -243,7 +224,6 @@ export const query = graphql`
           }
           description
           title
-          # categories(where: { OR: [{ archived: false }, { archived: null }] }) {
           categories {
             id
             isProductCategory

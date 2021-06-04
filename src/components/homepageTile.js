@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
-import ReactMarkdown from 'react-markdown/with-html';
+import ReactMarkdown from 'react-markdown';
 import { createLink, renderLink } from '../utils/functions';
 import '../styles/homepageTile.scss';
 import fallbackTile from '../../static/img/fallback_500x235.jpg';
 
-const HomepageTile = ({ data, labels, location }) => {
+const HomepageTile = ({ data, label, location }) => {
   const { image, title, description, page } = data;
   const imageStyle = {
     backgroundImage: `url(${(image && image.url) || page.tile.url || fallbackTile})`,
@@ -33,15 +33,15 @@ const HomepageTile = ({ data, labels, location }) => {
       </Link>
       <div className="description">
         <ReactMarkdown
-          source={description}
-          escapeHtml={false}
-          renderers={{
+          components={{
             link: props => renderLink(props, location),
           }}
-        />
+        >
+          {description}
+        </ReactMarkdown>
         <div className="more-container">
           <Link to={(page && createLink(location, page.slug)) || createLink(location, '')}>
-            <span className="more">{labels.common.MORE}</span>
+            <span className="more">{label.common.MORE}</span>
             <span className="more-arrow">&nbsp;&raquo;</span>
           </Link>
         </div>
@@ -52,7 +52,7 @@ const HomepageTile = ({ data, labels, location }) => {
 
 HomepageTile.defaultProps = {
   data: {},
-  labels: {},
+  label: {},
   location: {},
 };
 
@@ -63,7 +63,7 @@ HomepageTile.propTypes = {
     page: PropTypes.instanceOf(Object),
     title: PropTypes.string,
   }),
-  labels: PropTypes.shape({
+  label: PropTypes.shape({
     common: PropTypes.instanceOf(Object),
   }),
   location: PropTypes.shape({

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import { Location } from '@reach/router';
 import GraphImg from 'graphcms-image';
-import ReactMarkdown from 'react-markdown/with-html';
+import ReactMarkdown from 'react-markdown';
 import { IconContext } from 'react-icons';
 import { FaBuilding, FaUser } from 'react-icons/fa';
 
@@ -11,7 +11,7 @@ import Layout from '../components/layout';
 import ContactExpert from '../components/contactExpert';
 import ContactMap from '../components/contactMap';
 import ContactFormModal from '../components/contactFormModal';
-import { makeid, mapToOffice, renderLink, getIPapiJson } from '../utils/functions';
+import { makeid, renderLink, getIPapiJson } from '../utils/functions';
 import { CONTACT_TYPES } from '../constants';
 
 import '../styles/contact.scss';
@@ -31,29 +31,26 @@ class ContactTemplate extends React.Component {
   }
 
   componentDidMount() {
-    const {
-      data: {
-        cms: {
-          page: {
-            contact: { offices },
-          },
-        },
-      },
-    } = this.props;
-
     // 3rd party api to get country code from visitor's IP address
-    getIPapiJson()
-      .then(json => {
-        const visitorRegion = mapToOffice(json.country, offices);
-        this.setState({
-          visitorRegion,
+    const thisRegion =
+      (navigator.cookieEnabled && localStorage.getItem('almexVisitorRegion')) || null;
+    if (!thisRegion) {
+      getIPapiJson()
+        .then(json => {
+          this.setState({
+            visitorRegion: json.message.country_code,
+          });
+        })
+        .catch(() => {
+          this.setState({
+            visitorRegion: null,
+          });
         });
-      })
-      .catch(() => {
-        this.setState({
-          visitorRegion: null,
-        });
+    } else {
+      this.setState({
+        visitorRegion: thisRegion,
       });
+    }
   }
 
   handleViewToggle = evt => {
@@ -88,36 +85,27 @@ class ContactTemplate extends React.Component {
 
   render() {
     const { data, pageContext } = this.props;
-    if (!data.cms.page.contact) {
-      throw Error(
-        `Check the connection to contactSource; missing localization or publish status may also cause errors. Page ID ${pageContext.id}`,
-      );
-    }
-    const { languages, locale, region } = pageContext;
+    // if (!data.cms.page.contact) {
+    //   throw Error(
+    //     `Check the connection to contactSource; missing localizations or query timeouts may also cause errors. Page ID ${pageContext.id}`,
+    //   );
+    // }
+    const { languages, locale, localeData, region } = pageContext;
+    const { label } = localeData;
     const {
-      cms: {
-        aboutLabel,
-        brandNavigation,
-        experts,
-        headerFooter,
-        label,
-        navigation,
-        page: {
-          contact: { bannerImage, title, description, offices },
-        },
+      experts,
+      page: {
+        contact: { bannerImage, title, description, offices },
       },
-    } = data;
+    } = data.cms;
     const { contactType, expert, office, visitorRegion, showModal, view } = this.state;
 
     return (
       <Layout
         activeLanguage={locale}
-        brandNavigation={brandNavigation}
         childrenClass="contact-page"
-        headerFooter={headerFooter}
-        label={label}
         languages={languages}
-        navigation={navigation}
+        localeData={localeData}
         region={region}
         title={title}
       >
@@ -137,12 +125,12 @@ class ContactTemplate extends React.Component {
                     <h1 className="title">{title}</h1>
                     <div className="description">
                       <ReactMarkdown
-                        source={description}
-                        escapeHtml={false}
-                        renderers={{
+                        components={{
                           link: props => renderLink(props, location),
                         }}
-                      />
+                      >
+                        {description}
+                      </ReactMarkdown>
                     </div>
                   </div>
                 </div>
@@ -163,7 +151,7 @@ class ContactTemplate extends React.Component {
                       </IconContext.Provider>
                     </span>
                     <span className={view === CONTACT_TYPES.OFFICE ? 'highlight' : ''}>
-                      {aboutLabel.about.SEE_OFFICES}
+                      {label.about.SEE_OFFICES}
                     </span>
                   </button>
                   <button
@@ -181,15 +169,15 @@ class ContactTemplate extends React.Component {
                       </IconContext.Provider>
                     </span>
                     <span className={view !== CONTACT_TYPES.OFFICE ? 'highlight' : ''}>
-                      {aboutLabel.about.SEE_EXPERTS}
+                      {label.about.SEE_EXPERTS}
                     </span>
                   </button>
                 </div>
 
                 <div className={`offices-view ${view === CONTACT_TYPES.OFFICE ? 'active' : ''}`}>
                   <ContactMap
-                    aboutLabel={aboutLabel}
                     experts={experts}
+                    label={label}
                     locale={locale}
                     offices={offices}
                     handleContactUs={this.handleContactUs}
@@ -200,12 +188,12 @@ class ContactTemplate extends React.Component {
                   <div className="table-data">
                     <div className="table-entry">
                       <div className="table-pin" />
-                      <div className="table-details heading">{aboutLabel.about.EXPERTS}</div>
+                      <div className="table-details heading">{label.about.EXPERTS}</div>
                     </div>
                     {experts.map(eachExpert => (
                       <ContactExpert
                         key={makeid()}
-                        aboutLabel={aboutLabel}
+                        label={label}
                         expert={eachExpert}
                         handleContactUs={this.handleContactUs}
                       />
@@ -242,12 +230,7 @@ ContactTemplate.defaultProps = {
 ContactTemplate.propTypes = {
   data: PropTypes.shape({
     cms: PropTypes.shape({
-      aboutLabel: PropTypes.instanceOf(Object),
-      brandNavigation: PropTypes.instanceOf(Object),
       experts: PropTypes.instanceOf(Array),
-      headerFooter: PropTypes.instanceOf(Object),
-      label: PropTypes.instanceOf(Object),
-      navigation: PropTypes.instanceOf(Object),
       page: PropTypes.instanceOf(Object),
     }),
   }),
@@ -255,23 +238,15 @@ ContactTemplate.propTypes = {
     id: PropTypes.string,
     languages: PropTypes.instanceOf(Array),
     locale: PropTypes.string,
+    localeData: PropTypes.instanceOf(Object),
     locales: PropTypes.instanceOf(Array),
     region: PropTypes.string,
   }),
 };
 
 export const query = graphql`
-  query(
-    $id: ID!
-    $locale: [GraphCMS_Locale!]!
-    $locales: [GraphCMS_Locale!]!
-    $region: GraphCMS_Region!
-  ) {
+  query($id: ID!, $locale: [GraphCMS_Locale!]!, $locales: [GraphCMS_Locale!]!) {
     cms {
-      ...CommonQuery
-      aboutLabel: label(locales: $locale, where: { availableIn: $region }) {
-        about
-      }
       experts(locales: $locale) {
         specialty
         name
@@ -283,7 +258,7 @@ export const query = graphql`
         mobile
         email
       }
-      page(locales: $locale, where: { id: $id }) {
+      page(locales: $locales, where: { id: $id }) {
         contact: contactSource {
           bannerImage {
             handle
@@ -300,8 +275,7 @@ export const query = graphql`
             countries
             # 2-letter format of this office's country
             countryCode
-            # Not a typo, same list of supported countries in 2-letter format
-            countryCodes
+            supportedCountryCodes: countryCodes
             description
             email
             fax

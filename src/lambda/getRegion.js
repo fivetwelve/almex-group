@@ -1,34 +1,35 @@
-import fetch from 'node-fetch';
+import fetch from 'cross-fetch';
 import 'dotenv/config';
 
 const ipapiKey = process.env.IPAPI_APIKEY_PRIVATE;
 
-function checkStatus(response) {
-  if (response.ok) {
-    return response;
-  } else {
-    console.log('ipapi invalid http status');
-    callback('ipapi invalid http status');
-  }
-}
+const statusAndMessage = (statusCode, message) => ({
+  statusCode,
+  body: JSON.stringify({
+    message,
+  }),
+});
 
-exports.handler = (event, context, callback) => {
-  const params = JSON.parse(event.body);
-  const response = fetch(`https://ipapi.co/${event.headers['client-ip']}/json/?key=${ipapiKey}`, {
-    headers: {
-      Accept: 'application/json',
-    },
-  })
-    .then(checkStatus)
-    .then(response => response.json())
-    .then(json => {
-      callback(null, {
-        statusCode: 200,
-        body: JSON.stringify(json),
-      });
-    })
-    .catch(err => {
-      console.log(err);
-      callback(err);
-    });
+exports.handler = async event => {
+  try {
+    /* Typically the header used ought to be `client-id` but Netlify uses
+       `x-nf-client-connection-ip`; other providers may use their own variant as well */
+
+    const response = await fetch(
+      `https://ipapi.co/${event.headers['x-nf-client-connection-ip']}/json/?key=${ipapiKey}`,
+      {
+        headers: {
+          Accept: 'application/json',
+        },
+        method: 'GET',
+      },
+    );
+    const data = await response.json();
+    if (data.error) {
+      return statusAndMessage(500, data);
+    }
+    return statusAndMessage(200, data);
+  } catch (err) {
+    return statusAndMessage(500, err);
+  }
 };
