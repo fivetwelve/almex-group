@@ -175,43 +175,46 @@ export const query = graphql`
   ) {
     cms {
       page(locales: $locales, where: { id: $id }) {
-        contentSource: homepageSource {
-          heading
-          homepageCarouselSlides {
-            geoRestrict
-            asset {
-              url
-            }
-            page {
-              slug
-            }
-            slideHeading
-            slideText
-            slideType
-            url
-          }
-          homepageEventTiles {
-            title
-            description
-            image {
-              url
-            }
-            page {
-              slug
-            }
-            externalLink
-          }
-          homepageTiles {
-            description
-            image {
-              url
-            }
-            title
-            page {
-              tile {
+        contentSource {
+          sourceType: __typename
+          ... on GraphCMS_HomepageSource {
+            heading
+            homepageCarouselSlides {
+              geoRestrict
+              asset {
                 url
               }
-              slug
+              page {
+                slug
+              }
+              slideHeading
+              slideText
+              slideType
+              url
+            }
+            homepageEventTiles {
+              title
+              description
+              image {
+                url
+              }
+              page {
+                slug
+              }
+              externalLink
+            }
+            homepageTiles {
+              description
+              image {
+                url
+              }
+              title
+              page {
+                tile {
+                  url
+                }
+                slug
+              }
             }
           }
         }

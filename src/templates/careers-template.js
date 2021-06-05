@@ -209,22 +209,25 @@ export const query = graphql`
   query($id: ID!, $locales: [GraphCMS_Locale!]!) {
     cms {
       page(locales: $locales, where: { id: $id }) {
-        careers: careersSource {
-          bannerImage {
-            handle
-            width
-            height
-          }
-          description
-          instructions
-          noPostingsInstructions
-          title
-          careerPostings {
-            postingStatus
-            position
-            companyAndLocation
+        careers: contentSource {
+          sourceType: __typename
+          ... on GraphCMS_CareersSource {
+            bannerImage {
+              handle
+              width
+              height
+            }
             description
             instructions
+            noPostingsInstructions
+            title
+            careerPostings {
+              postingStatus
+              position
+              companyAndLocation
+              description
+              instructions
+            }
           }
         }
       }
