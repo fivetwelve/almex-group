@@ -216,38 +216,41 @@ export const query = graphql`
   query($id: ID!, $locales: [GraphCMS_Locale!]!) {
     cms {
       page(locales: $locales, where: { id: $id }) {
-        resources: resourcesSource {
-          bannerImage {
-            handle
-            width
-            height
-          }
-          description
-          title
-          categories {
-            id
-            isProductCategory
-            name
-            documents {
+        resources: contentSource {
+          # sourceType: __typename
+          ... on GraphCMS_ResourcesSource {
+            bannerImage {
+              handle
+              width
+              height
+            }
+            description
+            title
+            categories {
               id
-              url
-              fileName
-              resourceType
-              documentTitle
-            }
-            expert {
+              isProductCategory
               name
-              location
-              countryCode
-              telephone
-              fax
-              mobile
-              email
+              documents {
+                id
+                url
+                fileName
+                resourceType
+                documentTitle
+              }
+              expert {
+                name
+                location
+                countryCode
+                telephone
+                fax
+                mobile
+                email
+              }
             }
+            contactAndForm
+            email
+            emailSubject
           }
-          contactAndForm
-          email
-          emailSubject
         }
       }
     }

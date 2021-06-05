@@ -259,32 +259,35 @@ export const query = graphql`
         email
       }
       page(locales: $locales, where: { id: $id }) {
-        contact: contactSource {
-          bannerImage {
-            handle
-            width
-            height
-          }
-          description
-          title
-          offices {
-            address
-            backupOffice
-            belongsTo
-            contactPerson
-            countries
-            # 2-letter format of this office's country
-            countryCode
-            supportedCountryCodes: countryCodes
+        contact: contentSource {
+          sourceType: __typename
+          ... on GraphCMS_ContactSource {
+            bannerImage {
+              handle
+              width
+              height
+            }
             description
-            email
-            fax
-            latitude
-            longitude
-            mobile
-            name
-            telephone
-            tollFree
+            title
+            offices {
+              address
+              backupOffice
+              belongsTo
+              contactPerson
+              countries
+              # 2-letter format of this office's country
+              countryCode
+              supportedCountryCodes: countryCodes
+              description
+              email
+              fax
+              latitude
+              longitude
+              mobile
+              name
+              telephone
+              tollFree
+            }
           }
         }
       }
