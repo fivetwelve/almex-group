@@ -110,8 +110,8 @@ export const query = graphql`
     cms {
       page(locales: $locales, where: { id: $id }) {
         contentSource {
+          sourceType: __typename
           ... on GraphCMS_UsedEquipmentSource {
-            sourceType: __typename
             bannerImage {
               handle
               width
