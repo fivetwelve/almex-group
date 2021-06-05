@@ -9,6 +9,7 @@
     "lint": "./node_modules/.bin/eslint --cache --ext .js,.jsx --ignore-pattern public .",
     "build": "echo SITE_RECAPTCHA_KEY=$SITE_RECAPTCHA_KEY >> .env.production && GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build --log-pages && cp _redirects public/",
     "build:content": "echo SITE_RECAPTCHA_KEY=$SITE_RECAPTCHA_KEY >> .env.production && GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build --log-pages && cp _redirects--content public/_redirects",
+    "build:dev": "echo SITE_RECAPTCHA_KEY=$SITE_RECAPTCHA_KEY >> .env.production && GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build --log-pages && cp _redirects--dev public/_redirects",
     "serve": "gatsby serve",
     "start:lambda": "netlify-lambda serve src/lambda -c webpack.config.js",
     "build:lambda": "netlify-lambda build src/lambda -c webpack.config.js"
