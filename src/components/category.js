@@ -34,7 +34,7 @@ const GET_CATEGORY = gql`
         url
         availableIn
       }
-      page {
+      page: refPage {
         archived
         availableIn
       }
