@@ -305,7 +305,7 @@ $spacing: 20px;
             }
             &.resource-type--visible {
               color: $yellow-sea;
-              background-color: $grey05;
+              background-color: $light-grey20;
               transition: $easeinout;
               &:before {
                 content: '﹣';
@@ -321,7 +321,7 @@ $spacing: 20px;
             &.resources--visible {
               display: block;
               border-bottom: 1px dotted $grey60;
-              padding-bottom: 20px;
+              // padding-bottom: 20px;
             }
             .resources-heading {
               font-size: inherit;
@@ -337,7 +337,9 @@ $spacing: 20px;
               }
             }
             .resource-documents {
-              padding-top: 10px;
+              padding-top: 30px;
+              padding-bottom: 20px;
+              background-color: $grey05;
             }
             .resource-videos {
               padding-top: 20px;

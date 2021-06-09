@@ -182,9 +182,9 @@ const Category = props => {
             </button>
             <div className="category-resources">
               {/* {' '} */}
-              <div className="resources-heading">
-                {/* <span>{label.resources.NAME}</span>{' '} */}
-              </div>
+              {/* <div className="resources-heading"> */}
+              {/* <span>{label.resources.NAME}</span>{' '} */}
+              {/* </div> */}
               {(type.resourceType === RESOURCE_TYPES.PROMO_VIDEO ||
                 type.resourceType === RESOURCE_TYPES.TRAINING_VIDEO) && (
                 <div className="resource-videos">
