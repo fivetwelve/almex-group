@@ -1,4 +1,8 @@
 require('dotenv').config();
+// const fetch = require('cross-fetch');
+// const { createHttpLink } = require('apollo-link-http');
+// const { RetryLink } = require('apollo-link-retry');
+// const { ApolloLink } = require('apollo-link');
 
 const {
   NODE_ENV,
@@ -9,6 +13,18 @@ const {
 const isNetlifyProduction = NETLIFY_ENV === 'production';
 const siteUrl = isNetlifyProduction ? NETLIFY_SITE_URL : NETLIFY_DEPLOY_URL;
 const proxy = require('http-proxy-middleware');
+
+// const retryLink = new RetryLink({
+//   delay: {
+//     initial: 100,
+//     max: 2000,
+//     jitter: true,
+//   },
+//   attempts: {
+//     max: 5,
+//     retryIf: error => Boolean(error) && ![500, 503, 400].includes(error.statusCode),
+//   },
+// });
 
 module.exports = {
   siteMetadata: {
@@ -98,6 +114,13 @@ module.exports = {
         typeName: `GraphCMS`,
         fieldName: `cms`,
         batch: true,
+        dataLoaderOptions: {
+          maxBatchSize: 10,
+        },
+        // `pluginOptions`: all plugin options
+        // (i.e. in this example object with keys `typeName`, `fieldName`, `url`, `createLink`)
+        // createLink: pluginOptions =>
+        //   ApolloLink.from([retryLink, createHttpLink({ uri: pluginOptions.url, fetch })]),
       },
     },
     {
