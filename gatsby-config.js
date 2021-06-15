@@ -115,7 +115,7 @@ module.exports = {
         fieldName: `cms`,
         batch: true,
         dataLoaderOptions: {
-          maxBatchSize: 10,
+          maxBatchSize: 2,
         },
         // `pluginOptions`: all plugin options
         // (i.e. in this example object with keys `typeName`, `fieldName`, `url`, `createLink`)
