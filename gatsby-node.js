@@ -291,7 +291,7 @@ exports.createPages = async ({ graphql, actions }) => {
     });
   });
 
-  siteRegions.forEach(({ region, languages }) => {
+  siteRegions.map(async ({ region, languages }) => {
     /* comment-in if-statement below to test the NA dataset
        and remember to adjust the closing bracket accordingly */
     // if (region === 'NORTH_AMERICA') {
@@ -311,7 +311,7 @@ exports.createPages = async ({ graphql, actions }) => {
         },
       });
     });
-    pages.forEach(page => {
+    pages.map(async page => {
       const { id, availableIn, contentSource, localizations } = page;
       const { sourceType } = contentSource;
       /* ensure Page is available for this region */
@@ -321,7 +321,7 @@ exports.createPages = async ({ graphql, actions }) => {
             data => data.region === region && data.language === language,
           )[0];
 
-          localizations.forEach(localization => {
+          localizations.map(async localization => {
             const { locale } = localization;
             const locales = locale === 'EN' ? [locale] : [locale, 'EN'];
             if (locale === language) {
@@ -332,7 +332,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
               switch (sourceType) {
                 case SOURCE_TYPE_NAMES.ABOUT:
-                  createPage({
+                  await createPage({
                     path: pagePath,
                     component: path.resolve(`./src/templates/about-template.js`),
                     context: {
@@ -346,7 +346,7 @@ exports.createPages = async ({ graphql, actions }) => {
                   });
                   break;
                 case SOURCE_TYPE_NAMES.CAREERS:
-                  createPage({
+                  await createPage({
                     path: pagePath,
                     component: path.resolve(`./src/templates/careers-template.js`),
                     context: {
@@ -360,7 +360,7 @@ exports.createPages = async ({ graphql, actions }) => {
                   });
                   break;
                 case SOURCE_TYPE_NAMES.CONTACT:
-                  createPage({
+                  await createPage({
                     path: pagePath,
                     component: path.resolve(`./src/templates/contact-template.js`),
                     context: {
@@ -374,7 +374,7 @@ exports.createPages = async ({ graphql, actions }) => {
                   });
                   break;
                 case SOURCE_TYPE_NAMES.EVENTS:
-                  createPage({
+                  await createPage({
                     path: pagePath,
                     component: path.resolve(`./src/templates/events-template.js`),
                     context: {
@@ -388,7 +388,7 @@ exports.createPages = async ({ graphql, actions }) => {
                   });
                   break;
                 case SOURCE_TYPE_NAMES.HISTORY:
-                  createPage({
+                  await createPage({
                     path: pagePath,
                     component: path.resolve(`./src/templates/history-template.js`),
                     context: {
@@ -402,7 +402,7 @@ exports.createPages = async ({ graphql, actions }) => {
                   });
                   break;
                 case SOURCE_TYPE_NAMES.HOMEPAGE:
-                  createPage({
+                  await createPage({
                     path: pagePath,
                     component: path.resolve(`./src/templates/homepage-template.js`),
                     context: {
@@ -418,7 +418,7 @@ exports.createPages = async ({ graphql, actions }) => {
                   break;
                 case SOURCE_TYPE_NAMES.INSTITUTE:
                   /* also used by training pages */
-                  createPage({
+                  await createPage({
                     path: pagePath,
                     component: path.resolve(`./src/templates/institute-template.js`),
                     context: {
@@ -432,7 +432,7 @@ exports.createPages = async ({ graphql, actions }) => {
                   });
                   break;
                 case SOURCE_TYPE_NAMES.LANDING:
-                  createPage({
+                  await createPage({
                     path: pagePath,
                     component: path.resolve(`./src/templates/landing-template.js`),
                     context: {
@@ -448,7 +448,7 @@ exports.createPages = async ({ graphql, actions }) => {
                   break;
                 case SOURCE_TYPE_NAMES.NEWS:
                   /* also used by Safety Alerts & Certifications */
-                  createPage({
+                  await createPage({
                     path: pagePath,
                     component: path.resolve(`./src/templates/news-template.js`),
                     context: {
@@ -462,7 +462,7 @@ exports.createPages = async ({ graphql, actions }) => {
                   });
                   break;
                 case SOURCE_TYPE_NAMES.PRODUCT:
-                  createPage({
+                  await createPage({
                     path: pagePath,
                     component: path.resolve(`./src/templates/product-template.js`),
                     context: {
@@ -478,7 +478,7 @@ exports.createPages = async ({ graphql, actions }) => {
                   });
                   break;
                 case SOURCE_TYPE_NAMES.PROMO:
-                  createPage({
+                  await createPage({
                     path: pagePath,
                     component: path.resolve(`./src/templates/promo-template.js`),
                     context: {
@@ -492,7 +492,7 @@ exports.createPages = async ({ graphql, actions }) => {
                   });
                   break;
                 case SOURCE_TYPE_NAMES.RESOURCES:
-                  createPage({
+                  await createPage({
                     path: pagePath,
                     component: path.resolve(`./src/templates/resources-template.js`),
                     context: {
@@ -506,7 +506,7 @@ exports.createPages = async ({ graphql, actions }) => {
                   });
                   break;
                 case SOURCE_TYPE_NAMES.SERVICES:
-                  createPage({
+                  await createPage({
                     path: pagePath,
                     component: path.resolve(`./src/templates/services-template.js`),
                     context: {
@@ -520,7 +520,7 @@ exports.createPages = async ({ graphql, actions }) => {
                   });
                   break;
                 case SOURCE_TYPE_NAMES.SIMPLE:
-                  createPage({
+                  await createPage({
                     path: pagePath,
                     component: path.resolve(`./src/templates/simple-content-template.js`),
                     context: {
@@ -535,7 +535,7 @@ exports.createPages = async ({ graphql, actions }) => {
                   break;
                 case SOURCE_TYPE_NAMES.USED:
                   /* pass `locale` to be used with moment function */
-                  createPage({
+                  await createPage({
                     path: pagePath,
                     component: path.resolve(`./src/templates/used-equipment-template.js`),
                     context: {
