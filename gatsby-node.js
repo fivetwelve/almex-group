@@ -291,7 +291,7 @@ exports.createPages = async ({ graphql, actions }) => {
     });
   });
 
-  siteRegions.forEach(({ region, languages }) => {
+  siteRegions.map(async ({ region, languages }) => {
     /* comment-in if-statement below to test the NA dataset
        and remember to adjust the closing bracket accordingly */
     // if (region === 'NORTH_AMERICA') {
@@ -321,7 +321,7 @@ exports.createPages = async ({ graphql, actions }) => {
             data => data.region === region && data.language === language,
           )[0];
 
-          localizations.forEach(async localization => {
+          localizations.map(async localization => {
             const { locale } = localization;
             const locales = locale === 'EN' ? [locale] : [locale, 'EN'];
             if (locale === language) {

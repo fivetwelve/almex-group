@@ -38,6 +38,9 @@ const LandingTemplate = ({ data, pageContext }) => {
     },
   } = data;
   /* availableIn_contains_some filter taken out of query so filtering here instead to improve with build time */
+  const regionalAlternativeBanners = alternativeBanners.filter(banner =>
+    banner.availableIn.includes(region),
+  );
   const regionalLandingSections = landingSections.map(landingSection => {
     const regionalPages = landingSection.pages.filter(page => page.availableIn.includes(region));
     return {
@@ -213,12 +216,12 @@ const LandingTemplate = ({ data, pageContext }) => {
             {regionalSinglePages.length > 0 && (
               <div className="tile-container">{renderTiles(regionalSinglePages, location)}</div>
             )}
-            {alternativeBanners.length > 0 &&
-              alternativeBanners.map(alternativeBanner => {
+            {regionalAlternativeBanners.length > 0 &&
+              regionalAlternativeBanners.map(banner => {
                 return (
                   <AlternativeBanner
                     location={location}
-                    alternativeBanner={alternativeBanner}
+                    alternativeBanner={banner}
                     key={makeid()}
                   />
                 );
@@ -252,7 +255,7 @@ LandingTemplate.propTypes = {
 };
 
 export const query = graphql`
-  query($id: ID!, $locales: [GraphCMS_Locale!]!, $availableIn: [GraphCMS_Region!]) {
+  query($id: ID!, $locales: [GraphCMS_Locale!]!) {
     cms {
       page(locales: $locales, where: { id: $id }) {
         contentSource {
@@ -263,7 +266,8 @@ export const query = graphql`
               width
               height
             }
-            alternativeBanners(where: { availableIn_contains_some: $availableIn }) {
+            # alternativeBanners(where: { availableIn_contains_some: $availableIn }) {
+            alternativeBanners {
               title
               externalLink
               page {

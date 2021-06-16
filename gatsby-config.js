@@ -1,8 +1,8 @@
 require('dotenv').config();
-// const fetch = require('cross-fetch');
-// const { createHttpLink } = require('apollo-link-http');
-// const { RetryLink } = require('apollo-link-retry');
-// const { ApolloLink } = require('apollo-link');
+const fetch = require('cross-fetch');
+const { createHttpLink } = require('apollo-link-http');
+const { RetryLink } = require('apollo-link-retry');
+const { ApolloLink } = require('apollo-link');
 
 const {
   NODE_ENV,
@@ -14,17 +14,21 @@ const isNetlifyProduction = NETLIFY_ENV === 'production';
 const siteUrl = isNetlifyProduction ? NETLIFY_SITE_URL : NETLIFY_DEPLOY_URL;
 const proxy = require('http-proxy-middleware');
 
-// const retryLink = new RetryLink({
-//   delay: {
-//     initial: 100,
-//     max: 2000,
-//     jitter: true,
-//   },
-//   attempts: {
-//     max: 5,
-//     retryIf: error => Boolean(error) && ![500, 503, 400].includes(error.statusCode),
-//   },
-// });
+const retryLink = new RetryLink({
+  delay: {
+    initial: 300,
+    max: Infinity,
+    jitter: true,
+  },
+  attempts: {
+    max: 5,
+    // eslint-disable-next-line no-unused-vars
+    retryIf: (error, _operation) => {
+      console.log('error:', error);
+      return Boolean(error) && ![503, 500, 400].includes(error.statusCode);
+    },
+  },
+});
 
 module.exports = {
   siteMetadata: {
@@ -107,10 +111,10 @@ module.exports = {
     {
       resolve: `gatsby-source-graphql`,
       options: {
-        url: process.env.GATSBY_CMS_ENDPOINT,
-        headers: {
-          Authorization: `Bearer ${process.env.GATSBY_CMS_TOKEN}`,
-        },
+        // url: process.env.GATSBY_CMS_ENDPOINT,
+        // headers: {
+        //   Authorization: `Bearer ${process.env.GATSBY_CMS_TOKEN}`,
+        // },
         typeName: `GraphCMS`,
         fieldName: `cms`,
         batch: true,
@@ -119,8 +123,19 @@ module.exports = {
         },
         // `pluginOptions`: all plugin options
         // (i.e. in this example object with keys `typeName`, `fieldName`, `url`, `createLink`)
-        // createLink: pluginOptions =>
-        //   ApolloLink.from([retryLink, createHttpLink({ uri: pluginOptions.url, fetch })]),
+        // eslint-disable-next-line no-unused-vars
+        createLink: pluginOptions =>
+          ApolloLink.from([
+            retryLink,
+            createHttpLink({
+              // uri: pluginOptions.url,
+              uri: process.env.GATSBY_CMS_ENDPOINT,
+              headers: {
+                Authorization: `Bearer ${process.env.GATSBY_CMS_TOKEN}`,
+              },
+              fetch,
+            }),
+          ]),
       },
     },
     {
