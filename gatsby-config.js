@@ -23,10 +23,7 @@ const retryLink = new RetryLink({
   attempts: {
     max: 5,
     // eslint-disable-next-line no-unused-vars
-    retryIf: (error, _operation) => {
-      console.log('error:', error);
-      return Boolean(error) && ![503, 500, 400].includes(error.statusCode);
-    },
+    retryIf: (error, _operation) => Boolean(error) && ![503, 500, 400].includes(error.statusCode),
   },
 });
 
