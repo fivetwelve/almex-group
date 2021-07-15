@@ -16,12 +16,12 @@ const proxy = require('http-proxy-middleware');
 
 const retryLink = new RetryLink({
   delay: {
-    initial: 2000,
+    initial: 2500,
     max: Infinity,
     jitter: true,
   },
   attempts: {
-    max: 5,
+    max: 8,
     // eslint-disable-next-line no-unused-vars
     retryIf: (error, _operation) => Boolean(error) && ![503, 500, 400].includes(error.statusCode),
   },
