@@ -16,7 +16,7 @@ const proxy = require('http-proxy-middleware');
 
 const retryLink = new RetryLink({
   delay: {
-    initial: 300,
+    initial: 2000,
     max: Infinity,
     jitter: true,
   },
@@ -114,10 +114,10 @@ module.exports = {
         // },
         typeName: `GraphCMS`,
         fieldName: `cms`,
-        batch: true,
-        dataLoaderOptions: {
-          maxBatchSize: 2,
-        },
+        batch: false,
+        // dataLoaderOptions: {
+        //   maxBatchSize: 2,
+        // },
         // `pluginOptions`: all plugin options
         // (i.e. in this example object with keys `typeName`, `fieldName`, `url`, `createLink`)
         // eslint-disable-next-line no-unused-vars
