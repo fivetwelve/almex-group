@@ -7,9 +7,9 @@
     "start": "gatsby develop -p 8000",
     "start:host": "gatsby develop  -H $(hostname) -p 8000",
     "lint": "./node_modules/.bin/eslint --cache --ext .js,.jsx --ignore-pattern public .",
-    "build": "echo SITE_RECAPTCHA_KEY=$SITE_RECAPTCHA_KEY >> .env.production && GATSBY_EXPERIMENTAL_QUERY_CONCURRENCY=10 gatsby build --log-pages && cp _redirects public/",
-    "build:content": "echo SITE_RECAPTCHA_KEY=$SITE_RECAPTCHA_KEY >> .env.production && GATSBY_EXPERIMENTAL_QUERY_CONCURRENCY=10 gatsby build --log-pages && cp _redirects--content public/_redirects",
-    "build:dev": "echo SITE_RECAPTCHA_KEY=$SITE_RECAPTCHA_KEY >> .env.production && GATSBY_EXPERIMENTAL_QUERY_CONCURRENCY=10 gatsby build --log-pages && cp _redirects--dev public/_redirects",
+    "build": "echo SITE_RECAPTCHA_KEY=$SITE_RECAPTCHA_KEY >> .env.production && GATSBY_EXPERIMENTAL_QUERY_CONCURRENCY=3 gatsby build --log-pages && cp _redirects public/",
+    "build:content": "echo SITE_RECAPTCHA_KEY=$SITE_RECAPTCHA_KEY >> .env.production && GATSBY_EXPERIMENTAL_QUERY_CONCURRENCY=3 gatsby build --log-pages && cp _redirects--content public/_redirects",
+    "build:dev": "echo SITE_RECAPTCHA_KEY=$SITE_RECAPTCHA_KEY >> .env.production && GATSBY_EXPERIMENTAL_QUERY_CONCURRENCY=3 gatsby build --log-pages && cp _redirects--dev public/_redirects",
     "serve": "gatsby serve",
     "start:lambda": "netlify-lambda serve src/lambda -c webpack.config.js",
     "build:lambda": "netlify-lambda build src/lambda -c webpack.config.js"
